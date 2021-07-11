@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>43 Dashboards with Shiny | The Epidemiologist R Handbook</title>
 <meta name="author" content="the handbook team">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
@@ -349,19 +349,19 @@ For an alternative method of making dashboards that is faster, easier, but perha
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 3,038 x 10
-##    location_name data_date  submitted_date Province District `malaria_rdt_0-4` `malaria_rdt_5-14` malaria_rdt_15 malaria_tot newid
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt;              &lt;int&gt;          &lt;int&gt;       &lt;int&gt; &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                  11                 12             23          46     1
-##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                    11                 10              5          26     2
-##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                    8                  5              5          18     3
-##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                    16                 16             17          49     4
-##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                     9                  2              6          17     5
-##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                    3                  1              4           8     6
-##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                    4                  0              3           7     6
-##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                    15                 14             13          42     5
-##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                    11                 11             13          35     5
-## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                    19                 15             15          49     5
-## # ... with 3,028 more rows</code></pre>
+##    location_name data_date  submitted_date Province District `malaria_rdt_0-4` `malaria_rdt_5-14` malaria_rdt_15
+##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt;              &lt;int&gt;          &lt;int&gt;
+##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                  11                 12             23
+##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                    11                 10              5
+##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                    8                  5              5
+##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                    16                 16             17
+##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                     9                  2              6
+##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                    3                  1              4
+##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                    4                  0              3
+##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                    15                 14             13
+##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                    11                 11             13
+## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                    19                 15             15
+## # ... with 3,028 more rows, and 2 more variables: malaria_tot &lt;int&gt;, newid &lt;int&gt;</code></pre>
 <p>It will be easier to work with this data if we use tidy data standards, so we should also transform into a longer data format, where age group is a column, and cases is another column. We can do this easily using what we’ve learned in the <a href="pivoting-data.html#pivoting-data">Pivoting data</a> page.</p>
 <div class="sourceCode" id="cb1850"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op">%&gt;%</span>
@@ -1400,7 +1400,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-06-29.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-07-11.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

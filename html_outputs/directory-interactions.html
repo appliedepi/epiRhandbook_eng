@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>45 Directory interactions | The Epidemiologist R Handbook</title>
 <meta name="author" content="the handbook team">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
@@ -140,7 +140,8 @@
 <p>Provide the folder filepath to <code>path =</code> and decide whether you want to show only one level (<code>recurse = FALSE</code>) or all files in all sub-levels (<code>recurse = TRUE</code>). Below we use <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> as shorthand for the R project and specify its sub-folder “data”, which contains all the data used for this R handbook. We set it to display all files within “data” and its sub-folders (e.g. “cache”, “epidemic models”, “population”, “shp”, and “weather”).</p>
 <div class="sourceCode" id="cb1927"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span>, recurse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data
+<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data
+## +-- africa_countries.geo.json
 ## +-- cache
 ## |   \-- epidemic_models
 ## |       +-- 2015-04-30
@@ -161,6 +162,10 @@
 ## |   +-- linelist_cleaned.rds
 ## |   +-- linelist_cleaned.xlsx
 ## |   \-- linelist_raw.xlsx
+## +-- country_demographics.csv
+## +-- covid_incidence.csv
+## +-- covid_incidence_map.R
+## +-- district_count_data.xlsx
 ## +-- example
 ## |   +-- Central Hospital.csv
 ## |   +-- district_weekly_count_data.xlsx
@@ -179,12 +184,14 @@
 ## |   +-- Other.csv
 ## |   +-- Port Hospital.csv
 ## |   \-- St. Mark's Maternity Hospital (SMMH).csv
+## +-- facility_count_data.rds
 ## +-- flexdashboard
 ## |   +-- outbreak_dashboard.html
 ## |   +-- outbreak_dashboard.Rmd
 ## |   +-- outbreak_dashboard_shiny.Rmd
 ## |   +-- outbreak_dashboard_test.html
 ## |   \-- outbreak_dashboard_test.Rmd
+## +-- fluH7N9_China_2013.csv
 ## +-- gis
 ## |   +-- africa_countries.geo.json
 ## |   +-- covid_incidence.csv
@@ -216,7 +223,10 @@
 ## |   +-- followups_clean.rds
 ## |   \-- relationships_clean.rds
 ## +-- likert_data.csv
+## +-- linelist_cleaned.rds
 ## +-- linelist_cleaned.xlsx
+## +-- linelist_raw.xlsx
+## +-- make_evd_dataset-DESKTOP-JIEUMMI.R
 ## +-- make_evd_dataset.R
 ## +-- malaria_app
 ## |   +-- app.R
@@ -280,16 +290,16 @@
 <div class="sourceCode" id="cb1931"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># file paths</span>
 <span class="fu">dir_ls</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"gis"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/gis/population/sle_admpop_adm3_2020.csv
-## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx</code></pre>
+<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/gis/population/sle_admpop_adm3_2020.csv
+## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx</code></pre>
 <p>To get all the metadata information about each file in a directory, (e.g. path, modification date, etc.) you can use <code>dir_info()</code> from <strong>fs</strong>.</p>
 <p>This can be particularly useful if you want to extract the last modification time of the file, for example if you want to import the most recent version of a file. For an example of this, see the <a href="import-and-export.html#import-and-export">Import and export</a> page.</p>
 <div class="sourceCode" id="cb1933"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># file info</span>
 <span class="fu">dir_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"gis"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Here is the data frame returned. Scroll to the right to see all the columns.</p>
-<div id="htmlwidget-111e5bcac3e419cf6103" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-111e5bcac3e419cf6103">{"x":{"filter":"none","data":[["C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/gis/population/sle_admpop_adm3_2020.csv","C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx"],["file","file"],[26939,57850],[33206,33206],["2021-04-29T11:34:52Z","2021-04-29T11:34:52Z"],[null,null],[null,null],[3197944114,3197944114],[1,1],[0,0],[8.44424930155256e+15,7.5998243714206e+15],[4096,4096],[56,120],[0,0],[0,0],["2021-06-30T03:14:58Z","2021-04-29T11:34:52Z"],["2021-04-29T11:34:52Z","2021-04-29T11:34:52Z"],["2021-04-29T11:34:52Z","2021-04-29T11:34:52Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-57ae2020648eca6734a5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-57ae2020648eca6734a5">{"x":{"filter":"none","data":[["C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/gis/population/sle_admpop_adm3_2020.csv","C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx"],["file","file"],[26939,57850],[33206,33206],["2021-04-29T11:34:52Z","2021-04-29T11:34:52Z"],[null,null],[null,null],[3197944114,3197944114],[1,1],[0,0],[2.47697979506687e+16,1.12589990685572e+16],[4096,4096],[56,120],[0,0],[0,0],["2021-07-11T20:40:13Z","2021-07-11T19:47:12Z"],["2021-04-29T11:34:52Z","2021-04-29T11:34:52Z"],["2021-07-11T19:42:12Z","2021-07-11T19:42:12Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="file-information" class="section level2" number="45.3">
 <h2>
@@ -298,11 +308,11 @@
 <p>To extract metadata information about a specific file, you can use <code>file_info()</code> from <strong>fs</strong> (or <code><a href="https://rdrr.io/r/base/file.info.html">file.info()</a></code> from <strong>base</strong> R).</p>
 <div class="sourceCode" id="cb1934"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">file_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-dee8ccec541b44d6e011" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dee8ccec541b44d6e011">{"x":{"filter":"none","data":[["C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/case_linelists/linelist_cleaned.rds"],["file"],[290215],[33206],["2021-06-30T03:02:54Z"],[null],[null],[3197944114],[1],[0],[4.22212465089259e+15],[4096],[568],[0],[0],["2021-06-30T03:23:10Z"],["2021-06-30T03:02:54Z"],["2021-04-29T11:34:51Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Here we use the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> to index the result and return only the <code>modification_time</code> value.</p>
+<div id="htmlwidget-62c3589da59467674736" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62c3589da59467674736">{"x":{"filter":"none","data":[["C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/case_linelists/linelist_cleaned.rds"],["file"],[290215],[33206],["2021-07-11T20:30:50Z"],[null],[null],[3197944114],[1],[0],[1.15404740452678e+16],[4096],[568],[0],[0],["2021-07-11T20:47:39Z"],["2021-07-11T20:30:50Z"],["2021-07-11T19:42:10Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Here we use the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> to index the result and return only the <code>modification_time</code> value.</p>
 <div class="sourceCode" id="cb1935"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">file_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">modification_time</span></code></pre></div>
-<pre><code>## [1] "2021-06-29 23:02:54 EDT"</code></pre>
+<pre><code>## [1] "2021-07-11 16:30:50 EDT"</code></pre>
 </div>
 <div id="check-if-exists" class="section level2" number="45.4">
 <h2>
@@ -330,8 +340,8 @@
 <p>To check whether a directory exists, provide the file path (and file name) to <code>is_dir()</code> from <strong>fs</strong>. Scroll to the right to see that <code>TRUE</code> is printed.</p>
 <div class="sourceCode" id="cb1943"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">is_dir</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data 
-##                                                                                                        TRUE</code></pre>
+<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data 
+##                                                                                                           TRUE</code></pre>
 <p>An alternative is <code><a href="https://rdrr.io/r/base/files.html">file.exists()</a></code> from <strong>base</strong> R.</p>
 </div>
 <div id="files" class="section level3 unnumbered">
@@ -340,8 +350,8 @@
 <p>To check if a specific file exists, use <code>is_file()</code> from <strong>fs</strong>. Scroll to the right to see that <code>TRUE</code> is printed.</p>
 <div class="sourceCode" id="cb1945"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">is_file</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/Epi_R_handbook/data/case_linelists/linelist_cleaned.rds 
-##                                                                                                                                            TRUE</code></pre>
+<pre><code>## C:/Users/Neale/OneDrive - Neale Batra/Documents/Analytic Software/R/Projects/R handbook/epirhandbook_test/data/case_linelists/linelist_cleaned.rds 
+##                                                                                                                                               TRUE</code></pre>
 <p>A <strong>base</strong> R alternative is <code><a href="https://rdrr.io/r/base/files.html">file.exists()</a></code>.</p>
 </div>
 </div>
@@ -535,7 +545,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-06-29.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-07-11.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
