@@ -13,6 +13,8 @@ bookdown::render_book(
 
 
 # PREVIEW ONLY ONE OR SOME PAGES
+# !!! NOTE - sometimes running this command renders the entire book!
+# !!! In this case, just stop the rendering and re-run the command. It should work the second time.
 # Edit which pages to include in "_small_bookdown.yml"
 # To view, navigate to the "preview" folder and open "index.html"
 bookdown::render_book(
