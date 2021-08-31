@@ -158,7 +158,7 @@
 <li>Pandoc, which should come installed with RStudio. If you are not using RStudio, you can download Pandoc here: <a href="http://pandoc.org" class="uri">http://pandoc.org</a>.</li>
 <li>If you want to generate PDF output (a bit trickier), you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, we recommend that you install TinyTeX (<a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>). You can use the following commands:</li>
 </ul>
-<div class="sourceCode" id="cb1803"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">tinytex</span><span class="op">)</span>     <span class="co"># install tinytex package</span>
 <span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># R command to install TinyTeX software</span></code></pre></div>
 <!-- ======================================================= -->
@@ -171,7 +171,7 @@
 <h3>Install rmarkdown R package<a class="anchor" aria-label="anchor" href="#install-rmarkdown-r-package"><i class="fas fa-link"></i></a>
 </h3>
 <p>Install the <strong>rmarkdown</strong> R package. In this handbook we emphasize <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> from <strong>base</strong> R. See the page on <a href="r-basics.html#r-basics">R basics</a> for more information on R packages.</p>
-<div class="sourceCode" id="cb1804"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1807"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rmarkdown</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="starting-a-new-rmd-file" class="section level3 unnumbered">
@@ -211,9 +211,9 @@
 <p>Referred to as the ‘YAML metadata’ or just ‘YAML’, this is at the top of the R Markdown document. This section of the script will tell your Rmd file what type of output to produce, formatting preferences, and other metadata such as document title, author, and date. There are other uses not mentioned here (but referred to in ‘Producing an output’). Note that indentation matters; tabs are not accepted but spaces are.</p>
 <p>This section must begin with a line containing just three dashes <code>---</code> and must close with a line containing just three dashes <code>---</code>. YAML parameters comes in <code>key:value</code> pairs. The placement of colons in YAML is important - the <code>key:value</code> pairs are separated by colons (not equals signs!).</p>
 <p>The YAML should begin with metadata for the document. The order of these primary YAML parameters (not indented) does not matter. For example:</p>
-<div class="sourceCode" id="cb1805"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1805-1"><a href="reports-with-r-markdown.html#cb1805-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
-<span id="cb1805-2"><a href="reports-with-r-markdown.html#cb1805-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
-<span id="cb1805-3"><a href="reports-with-r-markdown.html#cb1805-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2021-07-11"</span></span></code></pre></div>
+<div class="sourceCode" id="cb1808"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1808-1"><a href="reports-with-r-markdown.html#cb1808-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
+<span id="cb1808-2"><a href="reports-with-r-markdown.html#cb1808-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
+<span id="cb1808-3"><a href="reports-with-r-markdown.html#cb1808-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2021-08-31"</span></span></code></pre></div>
 <p>You can use R code in YAML values by writing it as in-line code (preceded by <code>r</code> within back-ticks) but also within quotes (see above example for <code>date:</code>).</p>
 <p>In the image above, because we clicked that our default output would be an html file, we can see that the YAML says <code>output: html_document</code>. However we can also change this to say <code>powerpoint_presentation</code> or <code>word_document</code> or even <code>pdf_document</code>.</p>
 </div>
@@ -244,7 +244,7 @@
 <h4>Color<a class="anchor" aria-label="anchor" href="#color"><i class="fas fa-link"></i></a>
 </h4>
 <p>There is no simple mechanism to change the color of text in R Markdown. One work-around, <em>IF your output is an HTML file</em>, is to add an HTML line into the markdown text. The below HTML code will print a line of text in bold red.</p>
-<div class="sourceCode" id="cb1806"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1806-1"><a href="reports-with-r-markdown.html#cb1806-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;span</span><span class="ot"> style=</span><span class="st">"color: red;"</span><span class="kw">&gt;</span>**_DANGER:_** This is a warning.<span class="kw">&lt;/span&gt;</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb1809"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1809-1"><a href="reports-with-r-markdown.html#cb1809-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;span</span><span class="ot"> style=</span><span class="st">"color: red;"</span><span class="kw">&gt;</span>**_DANGER:_** This is a warning.<span class="kw">&lt;/span&gt;</span>  </span></code></pre></div>
 <p><span style="color: red;"><strong><em>DANGER:</em></strong> This is a warning.</span></p>
 </div>
 <div id="titles-and-headings" class="section level4 unnumbered">
@@ -252,23 +252,23 @@
 </h4>
 <p>A hash symbol in a text portion of a R Markdown script creates a heading. This is different than in a chunk of R code in the script, in which a hash symbol is a mechanism to comment/annotate/de-activate, as in a normal R script.</p>
 <p>Different heading levels are established with different numbers of hash symbols at the start of a new line. One hash symbol is a title or primary heading. Two hash symbols are a second-level heading. Third- and fourth-level headings can be made with successively more hash symbols.</p>
-<div class="sourceCode" id="cb1807"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1807-1"><a href="reports-with-r-markdown.html#cb1807-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># First-level heading / title</span></span>
-<span id="cb1807-2"><a href="reports-with-r-markdown.html#cb1807-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1807-3"><a href="reports-with-r-markdown.html#cb1807-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Second level heading  </span></span>
-<span id="cb1807-4"><a href="reports-with-r-markdown.html#cb1807-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1807-5"><a href="reports-with-r-markdown.html#cb1807-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Third-level heading</span></span></code></pre></div>
+<div class="sourceCode" id="cb1810"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1810-1"><a href="reports-with-r-markdown.html#cb1810-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># First-level heading / title</span></span>
+<span id="cb1810-2"><a href="reports-with-r-markdown.html#cb1810-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1810-3"><a href="reports-with-r-markdown.html#cb1810-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Second level heading  </span></span>
+<span id="cb1810-4"><a href="reports-with-r-markdown.html#cb1810-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1810-5"><a href="reports-with-r-markdown.html#cb1810-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Third-level heading</span></span></code></pre></div>
 </div>
 <div id="bullets-and-numbering" class="section level4 unnumbered">
 <h4>Bullets and numbering<a class="anchor" aria-label="anchor" href="#bullets-and-numbering"><i class="fas fa-link"></i></a>
 </h4>
 <p>Use asterisks (<code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>) to created a bullets list. Finish the previous sentence, enter two spaces, Enter/Return <em>twice</em>, and then start your bullets. Include a space between the asterisk and your bullet text. After each bullet enter two spaces and then Enter/Return. Sub-bullets work the same way but are indented. Numbers work the same way but instead of an asterisk, write 1), 2), etc. Below is how your R Markdown script text might look.</p>
-<div class="sourceCode" id="cb1808"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1808-1"><a href="reports-with-r-markdown.html#cb1808-1" aria-hidden="true" tabindex="-1"></a>Here are my bullets (there are two spaces after this colon):  </span>
-<span id="cb1808-2"><a href="reports-with-r-markdown.html#cb1808-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1808-3"><a href="reports-with-r-markdown.html#cb1808-3" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Bullet 1 (followed by two spaces and Enter/Return)  </span>
-<span id="cb1808-4"><a href="reports-with-r-markdown.html#cb1808-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Bullet 2 (followed by two spaces and Enter/Return)  </span>
-<span id="cb1808-5"><a href="reports-with-r-markdown.html#cb1808-5" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span>Sub-bullet 1 (followed by two spaces and Enter/Return)  </span>
-<span id="cb1808-6"><a href="reports-with-r-markdown.html#cb1808-6" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span>Sub-bullet 2 (followed by two spaces and Enter/Return)  </span>
-<span id="cb1808-7"><a href="reports-with-r-markdown.html#cb1808-7" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+<div class="sourceCode" id="cb1811"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1811-1"><a href="reports-with-r-markdown.html#cb1811-1" aria-hidden="true" tabindex="-1"></a>Here are my bullets (there are two spaces after this colon):  </span>
+<span id="cb1811-2"><a href="reports-with-r-markdown.html#cb1811-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1811-3"><a href="reports-with-r-markdown.html#cb1811-3" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Bullet 1 (followed by two spaces and Enter/Return)  </span>
+<span id="cb1811-4"><a href="reports-with-r-markdown.html#cb1811-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Bullet 2 (followed by two spaces and Enter/Return)  </span>
+<span id="cb1811-5"><a href="reports-with-r-markdown.html#cb1811-5" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span>Sub-bullet 1 (followed by two spaces and Enter/Return)  </span>
+<span id="cb1811-6"><a href="reports-with-r-markdown.html#cb1811-6" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span>Sub-bullet 2 (followed by two spaces and Enter/Return)  </span>
+<span id="cb1811-7"><a href="reports-with-r-markdown.html#cb1811-7" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
 </div>
 <div id="comment-out-text" class="section level4 unnumbered">
 <h4>Comment out text<a class="anchor" aria-label="anchor" href="#comment-out-text"><i class="fas fa-link"></i></a>
@@ -323,7 +323,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <div class="inline-figure"><img src="images/markdown/3_chunk.png" width="80%" style="display: block; margin: auto;"></div>
 <p>There are also two arrows at the top right of each chunk, which are useful to run code within a chunk, or all code in prior chunks. Hover over them to see what they do.</p>
 <p>For global options to be applied to all chunks in the script, you can set this up within your very first R code chunk in the script. For instance, so that only the outputs are shown for each code chunk and not the code itself, you can include this command in the R code chunk:</p>
-<div class="sourceCode" id="cb1809"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1812"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
 <div id="in-text-r-code" class="section level4 unnumbered">
 <h4>In-text R code<a class="anchor" aria-label="anchor" href="#in-text-r-code"><i class="fas fa-link"></i></a>
@@ -340,22 +340,22 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <h3>Images<a class="anchor" aria-label="anchor" href="#images"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can include images in your R Markdown one of two ways:</p>
-<div class="sourceCode" id="cb1810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1810-1"><a href="reports-with-r-markdown.html#cb1810-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](<span class="st">"path/to/image.png"</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb1813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1813-1"><a href="reports-with-r-markdown.html#cb1813-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](<span class="st">"path/to/image.png"</span>)  </span></code></pre></div>
 <p>If the above does not work, try using <code><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">knitr::include_graphics()</a></code></p>
-<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"path/to/image.png"</span><span class="op">)</span></code></pre></div>
 <p>(remember, your file path could be written using the <strong>here</strong> package)</p>
-<div class="sourceCode" id="cb1812"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1815"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"image.png"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="tables" class="section level3 unnumbered">
 <h3>Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
 </h3>
 <p>Create a table using hyphens ( - ) and bars ( | ). The number of hyphens before/between bars allow the number of spaces in the cell before the text begins to wrap.</p>
-<div class="sourceCode" id="cb1813"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1813-1"><a href="reports-with-r-markdown.html#cb1813-1" aria-hidden="true" tabindex="-1"></a>Column 1 |Column  2 |Column 3</span>
-<span id="cb1813-2"><a href="reports-with-r-markdown.html#cb1813-2" aria-hidden="true" tabindex="-1"></a>---------|----------|--------</span>
-<span id="cb1813-3"><a href="reports-with-r-markdown.html#cb1813-3" aria-hidden="true" tabindex="-1"></a>Cell A   |Cell B    |Cell C</span>
-<span id="cb1813-4"><a href="reports-with-r-markdown.html#cb1813-4" aria-hidden="true" tabindex="-1"></a>Cell D   |Cell E    |Cell F</span></code></pre></div>
+<div class="sourceCode" id="cb1816"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1816-1"><a href="reports-with-r-markdown.html#cb1816-1" aria-hidden="true" tabindex="-1"></a>Column 1 |Column  2 |Column 3</span>
+<span id="cb1816-2"><a href="reports-with-r-markdown.html#cb1816-2" aria-hidden="true" tabindex="-1"></a>---------|----------|--------</span>
+<span id="cb1816-3"><a href="reports-with-r-markdown.html#cb1816-3" aria-hidden="true" tabindex="-1"></a>Cell A   |Cell B    |Cell C</span>
+<span id="cb1816-4"><a href="reports-with-r-markdown.html#cb1816-4" aria-hidden="true" tabindex="-1"></a>Cell D   |Cell E    |Cell F</span></code></pre></div>
 <p>The above code produces the table below:</p>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -426,7 +426,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </h4>
 <p>One variation of the “self-contained” approach is to have R Markdown code chunks “source” (run) other R scripts. This can make your R Markdown script less cluttered, more simple, and easier to organize. It can also help if you want to display final figures at the beginning of the report. In this approach, the final R Markdown script simply combines pre-processed outputs into a document.</p>
 <p>One way to do this is by providing the R scripts (file path and name with extension) to the <strong>base</strong> R command <code><a href="https://rdrr.io/r/base/source.html">source()</a></code>.</p>
-<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1817"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"your-script.R"</span>, local <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit_global.html">knit_global</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># or sys.source("your-script.R", envir = knitr::knit_global())</span></code></pre></div>
 <p>Note that when using <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> <em>within</em> the R Markdown, the external files will still be run <em>during the course of rendering your Rmd file</em>. Therefore, each script is run every time you render the report. Thus, having these <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> commands <em>within</em> the R Markdown does not speed up your run time, nor does it greatly assist with de-bugging, as error produced will still be printed when producing the R Markdown.</p>
@@ -446,7 +446,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <li>If applicable, you can run long processing steps in advance of the <code>render()</code> command - they will run only once.</li>
 </ul>
 <p>In the example below, we have a separate R script in which we pre-process a <code>data</code> object into the R Environment and then render the “create_output.Rmd” using <code>render()</code>.</p>
-<div class="sourceCode" id="cb1815"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"datafile.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>       <span class="co"># Load data and save to environment</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">hospital</span>, <span class="va">weight</span><span class="op">)</span>          <span class="co"># Select limited columns</span>
 
@@ -481,7 +481,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <h3>Option 2: <code>render()</code> command<a class="anchor" aria-label="anchor" href="#option-2-render-command"><i class="fas fa-link"></i></a>
 </h3>
 <p>Another way to produce your R Markdown output is to run the <code>render()</code> function (from the <strong>rmarkdown</strong> package). You must execute this command <em>outside</em> the R Markdown script - so either in a separate R script (often called a “run file”), or as a stand-alone command in the R Console.</p>
-<div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"my_report.Rmd"</span><span class="op">)</span></code></pre></div>
 <p>As with “knit”, the default settings will save the Rmd output to the same folder as the Rmd script, with the same file name (aside from the file extension). For instance “my_report.Rmd” when knitted will create “my_report.docx” if you are knitting to a word document. However, by using <code>render()</code> you have the option to use different settings. <code>render()</code> can accept arguments including:</p>
 <ul>
@@ -506,7 +506,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </li>
 </ul>
 <p>As one example, to improve version control, the following command will save the output file within an ‘outputs’ sub-folder, with the current date in the file name. To create the file name, the function <code>str_glue()</code> from the <strong>stringr</strong> package is use to ‘glue’ together static strings (written plainly) with dynamic R code (written in curly brackets). For instance if it is April 10th 2021, the file name from below will be “Report_2021-04-10.docx”. See the page on <a href="characters-and-strings.html#characters-and-strings">Characters and strings</a> for more details on <code>str_glue()</code>.</p>
-<div class="sourceCode" id="cb1817"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
   input <span class="op">=</span> <span class="st">"create_output.Rmd"</span>,
   output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
@@ -535,13 +535,13 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <h4>Option 1: Set parameters within YAML<a class="anchor" aria-label="anchor" href="#option-1-set-parameters-within-yaml"><i class="fas fa-link"></i></a>
 </h4>
 <p>Edit the YAML to include a <code>params:</code> option, with indented statements for each parameter you want to define. In this example we create parameters <code>date</code> and <code>hospital</code>, for which we specify values. These values are subject to change each time the report is run. If you use the “Knit” button to produce the output, the parameters will have these default values. Likewise, if you use <code>render()</code> the parameters will have these default values unless otherwise specified in the <code>render()</code> command.</p>
-<div class="sourceCode" id="cb1818"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1818-1"><a href="reports-with-r-markdown.html#cb1818-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1818-2"><a href="reports-with-r-markdown.html#cb1818-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1818-3"><a href="reports-with-r-markdown.html#cb1818-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb1818-4"><a href="reports-with-r-markdown.html#cb1818-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1818-5"><a href="reports-with-r-markdown.html#cb1818-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1818-6"><a href="reports-with-r-markdown.html#cb1818-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1818-7"><a href="reports-with-r-markdown.html#cb1818-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1821"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1821-1"><a href="reports-with-r-markdown.html#cb1821-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1821-2"><a href="reports-with-r-markdown.html#cb1821-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1821-3"><a href="reports-with-r-markdown.html#cb1821-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1821-4"><a href="reports-with-r-markdown.html#cb1821-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1821-5"><a href="reports-with-r-markdown.html#cb1821-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1821-6"><a href="reports-with-r-markdown.html#cb1821-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1821-7"><a href="reports-with-r-markdown.html#cb1821-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>In the background, these parameter values are contained within a read-only list called <code>params</code>. Thus, you can insert the parameter values in R code as you would another R object/value in your environment. Simply type <code>params$</code> followed by the parameter name. For example <code>params$hospital</code> to represent the hospital name (“Central Hospital” by default).</p>
 <p>Note that parameters can also hold values <code>true</code> or <code>false</code>, and so these can be included in your <strong>knitr</strong> options for a R chunk. For example, you can set <code>{r, eval=params$run}</code> instead of <code>{r, eval=FALSE}</code>, and now whether the chunk runs or not depends on the value of a parameter <code>run:</code>.</p>
 <p>Note that for parameters that are dates, they will be input as a string. So for <code>params$date</code> to be interpreted in R code it will likely need to be wrapped with <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code> or a similar function to convert to class Date.</p>
@@ -552,7 +552,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <p>As mentioned above, as alternative to pressing the “Knit” button to produce the output is to execute the <code>render()</code> function from a separate script. In this later case, you can specify the parameters to be used in that rendering to the <code>params =</code> argument of <code>render()</code>.</p>
 <p>Note than any parameter values provided here will <em>overwrite</em> their default values if written within the YAML. We write the values in quotation marks as in this case they should be defined as character/string values.</p>
 <p>The below command renders “surveillance_report.Rmd”, specifies a dynamic output file name and folder, and provides a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> of two parameters and their values to the argument <code>params =</code>.</p>
-<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1822"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
   input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,  
   output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span>,
@@ -565,10 +565,10 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <p>A pop-up will appear allowing you to type in values for the parameters that are established in the document’s YAML.</p>
 <div class="inline-figure"><img src="images/markdown/5_parametersGUI.png" width="50%" style="display: block; margin: auto;"></div>
 <p>You can achieve the same through a <code>render()</code> command by specifying <code>params = "ask"</code>, as demonstrated below.</p>
-<div class="sourceCode" id="cb1820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1820-1"><a href="reports-with-r-markdown.html#cb1820-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb1820-2"><a href="reports-with-r-markdown.html#cb1820-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
-<span id="cb1820-3"><a href="reports-with-r-markdown.html#cb1820-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
-<span id="cb1820-4"><a href="reports-with-r-markdown.html#cb1820-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code></pre></div>
+<div class="sourceCode" id="cb1823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1823-1"><a href="reports-with-r-markdown.html#cb1823-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb1823-2"><a href="reports-with-r-markdown.html#cb1823-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span id="cb1823-3"><a href="reports-with-r-markdown.html#cb1823-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
+<span id="cb1823-4"><a href="reports-with-r-markdown.html#cb1823-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code></pre></div>
 <p>However, typing values into this pop-up window is subject to error and spelling mistakes. You may prefer to add restrictions to the values that can be entered through drop-down menus. You can do this by adding in the YAML several specifications for each <code>params:</code> entry.</p>
 <ul>
 <li>
@@ -584,17 +584,17 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <code>choices:</code> Give the eligible values in the drop-down menu</li>
 </ul>
 <p>Below, these specifications are written for the <code>hospital</code> parameter.</p>
-<div class="sourceCode" id="cb1821"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1821-1"><a href="reports-with-r-markdown.html#cb1821-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1821-2"><a href="reports-with-r-markdown.html#cb1821-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1821-3"><a href="reports-with-r-markdown.html#cb1821-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb1821-4"><a href="reports-with-r-markdown.html#cb1821-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1821-5"><a href="reports-with-r-markdown.html#cb1821-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1821-6"><a href="reports-with-r-markdown.html#cb1821-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1821-7"><a href="reports-with-r-markdown.html#cb1821-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
-<span id="cb1821-8"><a href="reports-with-r-markdown.html#cb1821-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1821-9"><a href="reports-with-r-markdown.html#cb1821-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
-<span id="cb1821-10"><a href="reports-with-r-markdown.html#cb1821-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
-<span id="cb1821-11"><a href="reports-with-r-markdown.html#cb1821-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1824"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1824-1"><a href="reports-with-r-markdown.html#cb1824-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1824-2"><a href="reports-with-r-markdown.html#cb1824-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1824-3"><a href="reports-with-r-markdown.html#cb1824-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1824-4"><a href="reports-with-r-markdown.html#cb1824-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1824-5"><a href="reports-with-r-markdown.html#cb1824-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1824-6"><a href="reports-with-r-markdown.html#cb1824-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1824-7"><a href="reports-with-r-markdown.html#cb1824-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
+<span id="cb1824-8"><a href="reports-with-r-markdown.html#cb1824-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1824-9"><a href="reports-with-r-markdown.html#cb1824-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
+<span id="cb1824-10"><a href="reports-with-r-markdown.html#cb1824-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
+<span id="cb1824-11"><a href="reports-with-r-markdown.html#cb1824-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code></pre></div>
 <p>When knitting (either via the ‘knit with parameters’ button or by <code>render()</code>), the pop-up window will have drop-down options to select from.</p>
 <div class="inline-figure"><img src="images/markdown/5_parametersGUIB.png" width="50%" style="display: block; margin: auto;"></div>
 </div>
@@ -613,7 +613,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </h3>
 <p>If you are rendering a R Markdown file with <code>render()</code> from a separate script, you can actually create the impact of parameterization without using the <code>params:</code> functionality.</p>
 <p>For instance, in the <em>R script</em> that contains the <code>render()</code> command, you can simply define <code>hospital</code> and <code>date</code> as two R objects (values) before the <code>render()</code> command. In the R Markdown, you would not need to have a <code>params:</code> section in the YAML, and we would refer to the <code>date</code> object rather than <code>params$date</code> and <code>hospital</code> rather than <code>params$hospital</code>.</p>
-<div class="sourceCode" id="cb1822"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1825"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># This is a R script that is separate from the R Markdown</span>
 
 <span class="co"># define R objects</span>
@@ -632,7 +632,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </h2>
 <p>We may want to run a report multiple times, varying the input parameters, to produce a report for each jurisdictions/unit. This can be done using tools for <em>iteration</em>, which are explained in detail in the page on <a href="iteration-loops-and-lists.html#iteration-loops-and-lists">Iteration, loops, and lists</a>. Options include the <strong>purrr</strong> package, or use of a <em>for loop</em> as explained below.</p>
 <p>Below, we use a simple <em>for loop</em> to generate a surveillance report for all hospitals of interest. This is done with one command (instead of manually changing the hospital parameter one-at-a-time). The command to render the reports must exist in a separate script <em>outside</em> the report Rmd. This script will also contain defined objects to “loop through” - today’s date, and a vector of hospital names to loop through.</p>
-<div class="sourceCode" id="cb1823"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1826"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hospitals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Central Hospital"</span>,
                 <span class="st">"Military Hospital"</span>, 
                 <span class="st">"Port Hospital"</span>,
@@ -643,7 +643,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </li>
 <li>To <code>params =</code> such that the Rmd uses the hospital name internally whenever the <code>params$hospital</code> value is called (e.g. to filter the dataset to the particular hospital only). In this example, four files would be created - one for each hospital.</li>
 </ol>
-<div class="sourceCode" id="cb1824"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1827"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">hospitals</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
   <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
     input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,
@@ -689,17 +689,17 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 </h3>
 <p>Once a template is prepared, the detail of this can be added in the YAML of the Rmd underneath the ‘output’ line and underneath where the document type is specified (which goes to a separate line itself). Note <code>reference_doc</code> can be used for powerpoint slide templates.</p>
 <p>It is easiest to save the template in the same folder as where the Rmd file is (as in the example below), or in a subfolder within.</p>
-<div class="sourceCode" id="cb1825"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1825-1"><a href="reports-with-r-markdown.html#cb1825-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1825-2"><a href="reports-with-r-markdown.html#cb1825-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1825-3"><a href="reports-with-r-markdown.html#cb1825-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1825-4"><a href="reports-with-r-markdown.html#cb1825-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
-<span id="cb1825-5"><a href="reports-with-r-markdown.html#cb1825-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
-<span id="cb1825-6"><a href="reports-with-r-markdown.html#cb1825-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1825-7"><a href="reports-with-r-markdown.html#cb1825-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1825-8"><a href="reports-with-r-markdown.html#cb1825-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1825-9"><a href="reports-with-r-markdown.html#cb1825-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1825-10"><a href="reports-with-r-markdown.html#cb1825-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
-<span id="cb1825-11"><a href="reports-with-r-markdown.html#cb1825-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1828"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1828-1"><a href="reports-with-r-markdown.html#cb1828-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1828-2"><a href="reports-with-r-markdown.html#cb1828-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1828-3"><a href="reports-with-r-markdown.html#cb1828-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1828-4"><a href="reports-with-r-markdown.html#cb1828-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
+<span id="cb1828-5"><a href="reports-with-r-markdown.html#cb1828-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
+<span id="cb1828-6"><a href="reports-with-r-markdown.html#cb1828-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1828-7"><a href="reports-with-r-markdown.html#cb1828-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1828-8"><a href="reports-with-r-markdown.html#cb1828-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1828-9"><a href="reports-with-r-markdown.html#cb1828-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1828-10"><a href="reports-with-r-markdown.html#cb1828-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
+<span id="cb1828-11"><a href="reports-with-r-markdown.html#cb1828-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 </div>
 <div id="formatting-html-files" class="section level3 unnumbered">
 <h3>Formatting HTML files<a class="anchor" aria-label="anchor" href="#formatting-html-files"><i class="fas fa-link"></i></a>
@@ -711,16 +711,16 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <li><p>Highlight: Configuring this changes the look of highlighted text (e.g. code within chunks that are shown). Supported styles include default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark, and textmate.</p></li>
 </ul>
 <p>Here is an example of how to integrate the above options into the YAML.</p>
-<div class="sourceCode" id="cb1826"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1826-1"><a href="reports-with-r-markdown.html#cb1826-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1826-2"><a href="reports-with-r-markdown.html#cb1826-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
-<span id="cb1826-3"><a href="reports-with-r-markdown.html#cb1826-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
-<span id="cb1826-4"><a href="reports-with-r-markdown.html#cb1826-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb1826-5"><a href="reports-with-r-markdown.html#cb1826-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1826-6"><a href="reports-with-r-markdown.html#cb1826-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1826-7"><a href="reports-with-r-markdown.html#cb1826-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
-<span id="cb1826-8"><a href="reports-with-r-markdown.html#cb1826-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
-<span id="cb1826-9"><a href="reports-with-r-markdown.html#cb1826-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb1826-10"><a href="reports-with-r-markdown.html#cb1826-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1829"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1829-1"><a href="reports-with-r-markdown.html#cb1829-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1829-2"><a href="reports-with-r-markdown.html#cb1829-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
+<span id="cb1829-3"><a href="reports-with-r-markdown.html#cb1829-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb1829-4"><a href="reports-with-r-markdown.html#cb1829-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb1829-5"><a href="reports-with-r-markdown.html#cb1829-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1829-6"><a href="reports-with-r-markdown.html#cb1829-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1829-7"><a href="reports-with-r-markdown.html#cb1829-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
+<span id="cb1829-8"><a href="reports-with-r-markdown.html#cb1829-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
+<span id="cb1829-9"><a href="reports-with-r-markdown.html#cb1829-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1829-10"><a href="reports-with-r-markdown.html#cb1829-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Below are two examples of HTML outputs which both have floating tables of contents, but different theme and highlight styles selected:</p>
 <div class="inline-figure"><img src="images/markdown/9_html.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
@@ -848,7 +848,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-07-11.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-08-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
