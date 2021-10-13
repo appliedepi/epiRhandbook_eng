@@ -82,7 +82,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 ::: {}
 ```{r, out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "epiRhandbook_HexSticker_500x500.png"))
+knitr::include_graphics(here::here("images", "Applied_Epi_logo.png"))
 ```
 :::
 
@@ -96,7 +96,7 @@ a column separator -->
 ::: {}
 <span style="color: black;">**Written by epidemiologists, for epidemiologists**</span>
 
-We are applied epis from around the world, writing in our spare time to offer this resource to the community. Your encouragement and feedback is most welcome:  
+Applied Epi is a non-profit organisation and grassroots movement of epis from around the world. We write in our spare time to offer this resource to the community. Your encouragement and feedback is most welcome:  
 
 * Structured **[feedback form](https://forms.gle/A5SnRVws7tPD15Js9)**  
 * Email **epiRhandbook@gmail.com** or tweet **[\@epiRhandbook](https://twitter.com/epirhandbook)**  
@@ -130,6 +130,7 @@ See instructions in the [Download handbook and data] page.
 **Languages**  
 
 We want to translate this into languages other than English. If you can help, please contact us.  
+See our [Vietnamese translation](www.epirhandbook.com/vn)!  
 
 
 
@@ -946,7 +947,7 @@ knitr::include_graphics(here::here("images", "basics_header_close.png"))
 
 Welcome!
 
-Esta página analisa o essencial do R. Não pretende ser um tutorial abrangente, mas fornece o básico e pode ser útil para refrescar a sua memória. A secção sobre Recursos para a aprendizagem contém links para tutoriais mais abrangentes.
+This page reviews the essentials of R. It is not intended to be a comprehensive tutorial, but it provides the basics and can be useful for refreshing your memory. The section on [Resources for learning](#learning) links to more comprehensive tutorials.
 
 Parts of this page have been adapted with permission from the [R4Epis project](https://r4epis.netlify.app/).
 
@@ -6191,7 +6192,7 @@ linelist <- linelist %>%
   select(case_id:gender, age, age_unit, age_years, age_cat, age_cat5, everything())
 ```
 
-```{r echo=F}
+```{r echo=F, eval=F}
 # EXPORT CLEANED LINELIST FILE TO "DATA" FOLDER
 rio::export(linelist, here::here("data", "case_linelists", "linelist_cleaned.xlsx"))
 rio::export(linelist, here::here("data", "case_linelists", "linelist_cleaned.rds"))
@@ -22464,6 +22465,7 @@ case_adm3_sf <- case_adm3 %>%                 # begin with cases & rate by admin
          admin2name, admin1name,
          cases, total, case_10kpop,
          geometry) %>%                        # keep geometry so polygons can be plotted
+  drop_na(objectid) %>%                       # drop any empty rows
   st_as_sf()                                  # convert to shapefile
 
 ```
@@ -22580,7 +22582,7 @@ Then, we create the object `map`, which we define using the function `openmap()`
 pacman::p_load(OpenStreetMap)
 
 # Fit basemap by range of lat/long coordinates. Choose tile type
-map <- openmap(
+map <- OpenStreetMap::openmap(
   upperLeft = c(max(linelist$lat, na.rm=T), max(linelist$lon, na.rm=T)),   # limits of basemap tile
   lowerRight = c(min(linelist$lat, na.rm=T), min(linelist$lon, na.rm=T)),
   zoom = NULL,
@@ -26777,21 +26779,24 @@ Note however, that if using weeks, the `date_breaks` and `date_minor_breaks` arg
 
 ### Cumulative incidence {.unnumbered}  
 
-You can easily produce a plot of cumulative incidence by passing the incidence object to the **incidence2** command `cumulate()` and then to `plot()`. This also works with `facet_plot()`.  
+In previous versions of **incidence2** you could use the `cumulate()` function. This has been removed in the most recent version of the package. 
 
-```{r}
-# make weekly incidence object
-wkly_inci <- incidence(
-  linelist,
-  date_index = date_onset,
-  interval = "week"
-)
+<!-- You can easily produce a plot of cumulative incidence by passing the incidence object to the **incidence2** command `cumulate()` and then to `plot()`. This also works with `facet_plot()`. -->
 
-# plot cumulative incidence
-wkly_inci %>% 
-  cumulate() %>% 
-  plot()
-```
+<!-- The code below is provided  -->
+<!-- ```{r, eval=F} -->
+<!-- # make weekly incidence object -->
+<!-- wkly_inci <- incidence( -->
+<!--   linelist, -->
+<!--   date_index = date_onset, -->
+<!--   interval = "week" -->
+<!-- ) -->
+
+<!-- # plot cumulative incidence -->
+<!-- wkly_inci %>% -->
+<!--   cumulate() %>% -->
+<!--   plot() -->
+<!-- ``` -->
 
 
 See the section farther down on this page for alternative method to plot cumulative incidence with **ggplot2** - for example to overlay a cumulative incidence line over an epicurve.  
@@ -30867,10 +30872,10 @@ information, dragging them to move them and clicking on them to highlight downst
 ```{r out.width=c('25%', '25%'), fig.show='hold', echo=F}
 
 ## install development version of epicontacts
-if(
-  !"epicontacts" %in% rownames(installed.packages()) |
-  packageVersion("epicontacts") != "1.2.0"
-) remotes::install_github("reconhub/epicontacts@timeline")
+# if(
+#   !"epicontacts" %in% rownames(installed.packages()) |
+#   packageVersion("epicontacts") != "1.2.0"
+# ) remotes::install_github("reconhub/epicontacts@timeline")
 
 ## install and load packages
 pacman::p_load(tidyverse, epicontacts, magrittr, here, webshot, visNetwork)
