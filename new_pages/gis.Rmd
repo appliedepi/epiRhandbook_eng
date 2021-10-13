@@ -610,6 +610,7 @@ case_adm3_sf <- case_adm3 %>%                 # begin with cases & rate by admin
          admin2name, admin1name,
          cases, total, case_10kpop,
          geometry) %>%                        # keep geometry so polygons can be plotted
+  drop_na(objectid) %>%                       # drop any empty rows
   st_as_sf()                                  # convert to shapefile
 
 ```
@@ -726,7 +727,7 @@ Then, we create the object `map`, which we define using the function `openmap()`
 pacman::p_load(OpenStreetMap)
 
 # Fit basemap by range of lat/long coordinates. Choose tile type
-map <- openmap(
+map <- OpenStreetMap::openmap(
   upperLeft = c(max(linelist$lat, na.rm=T), max(linelist$lon, na.rm=T)),   # limits of basemap tile
   lowerRight = c(min(linelist$lat, na.rm=T), min(linelist$lon, na.rm=T)),
   zoom = NULL,
