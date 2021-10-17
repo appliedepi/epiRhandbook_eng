@@ -227,7 +227,7 @@
 <p>The YAML should begin with metadata for the document. The order of these primary YAML parameters (not indented) does not matter. For example:</p>
 <div class="sourceCode" id="cb1804"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1804-1"><a href="reports-with-r-markdown.html#cb1804-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
 <span id="cb1804-2"><a href="reports-with-r-markdown.html#cb1804-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
-<span id="cb1804-3"><a href="reports-with-r-markdown.html#cb1804-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2021-10-14"</span></span></code></pre></div>
+<span id="cb1804-3"><a href="reports-with-r-markdown.html#cb1804-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2021-10-17"</span></span></code></pre></div>
 <p>You can use R code in YAML values by writing it as in-line code (preceded by <code>r</code> within back-ticks) but also within quotes (see above example for <code>date:</code>).</p>
 <p>In the image above, because we clicked that our default output would be an html file, we can see that the YAML says <code>output: html_document</code>. However we can also change this to say <code>powerpoint_presentation</code> or <code>word_document</code> or even <code>pdf_document</code>.</p>
 </div>
@@ -360,7 +360,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"path/to/image.png"</span><span class="op">)</span></code></pre></div>
 <p>(remember, your file path could be written using the <strong>here</strong> package)</p>
 <div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span><span class="op">(</span><span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"image.png"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"image.png"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="tables" class="section level3 unnumbered">
 <h3>Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
@@ -462,7 +462,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <p>In the example below, we have a separate R script in which we pre-process a <code>data</code> object into the R Environment and then render the “create_output.Rmd” using <code>render()</code>.</p>
 <div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"datafile.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>       <span class="co"># Load data and save to environment</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">hospital</span>, <span class="va">weight</span><span class="op">)</span>          <span class="co"># Select limited columns</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">hospital</span>, <span class="va">weight</span><span class="op">)</span>          <span class="co"># Select limited columns</span>
 
 <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"create_output.Rmd"</span><span class="op">)</span>   <span class="co"># Create Rmd file</span></code></pre></div>
 </div>
@@ -503,7 +503,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <code>output_format =</code> This is the output format to convert to (e.g. <code>"html_document"</code>, <code>"pdf_document"</code>, <code>"word_document"</code>, or <code>"all"</code>). You can also specify this in the YAML inside the R Markdown script.<br>
 </li>
 <li>
-<code>output_file =</code> This is the name of the output file (and file path). This can be created via R functions like <code><a href="https://rdrr.io/pkg/here/man/here.html">here()</a></code> or <code>str_glue()</code> as demonstrated below.<br>
+<code>output_file =</code> This is the name of the output file (and file path). This can be created via R functions like <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> or <code>str_glue()</code> as demonstrated below.<br>
 </li>
 <li>
 <code>output_dir =</code> This is an output directory (folder) to save the file. This allows you to chose an alternative other than the directory the Rmd file is saved to.<br>
@@ -523,7 +523,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
   input <span class="op">=</span> <span class="st">"create_output.Rmd"</span>,
-  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <p>As the file renders, the RStudio Console will show you the rendering progress up to 100%, and a final message to indicate that the rendering is complete.</p>
 </div>
 <div id="options-3-reportfactory-package" class="section level3 unnumbered">
@@ -569,7 +569,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <div class="sourceCode" id="cb1818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
   input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,  
-  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span>,
+  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span>,
   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>date <span class="op">=</span> <span class="st">"2021-04-10"</span>, hospital  <span class="op">=</span> <span class="st">"Central Hospital"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="option-3-set-parameters-using-a-graphical-user-interface" class="section level4 unnumbered">
@@ -862,7 +862,7 @@ These ‘chunks’ will appear to have a slightly different background colour fr
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-10-14.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-10-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
