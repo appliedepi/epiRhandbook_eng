@@ -358,7 +358,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span><span class="op">)</span>
 
 <span class="co"># read data</span>
-<span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"malaria_facility_count_data.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"malaria_facility_count_data.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></code></pre></div>
@@ -379,7 +379,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <p>It will be easier to work with this data if we use tidy data standards, so we should also transform into a longer data format, where age group is a column, and cases is another column. We can do this easily using what we’ve learned in the <a href="pivoting-data.html#pivoting-data">Pivoting data</a> page.</p>
 <div class="sourceCode" id="cb1849"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"malaria_"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"age_group"</span>, values_to <span class="op">=</span> <span class="st">"cases_reported"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></code></pre></div>
@@ -409,9 +409,9 @@ For an alternative method of making dashboards that is faster, easier, but perha
   
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
     
-    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
+    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
     
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
     
@@ -426,7 +426,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="op">}</span>
   
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
   
   
   <span class="co"># if no remaining data, return NULL</span>
@@ -438,7 +438,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="kw">if</span> <span class="op">(</span><span class="va">agegroup</span> <span class="op">==</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span>
       <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="st">"All ages"</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
+    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
   <span class="op">}</span>
   
   
@@ -448,7 +448,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
     <span class="fu">labs</span><span class="op">(</span>
       x <span class="op">=</span> <span class="st">"date"</span>,
       y <span class="op">=</span> <span class="st">"number of cases"</span>,
-      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}"</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}"</span><span class="op">)</span>,
       subtitle <span class="op">=</span> <span class="va">agegroup_title</span>
     <span class="op">)</span>
   
@@ -474,12 +474,12 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"shiny"</span><span class="op">)</span>
 
 <span class="co"># read data</span>
-<span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"malaria_facility_count_data.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"malaria_facility_count_data.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># clean data and pivot longer</span>
 <span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"malaria_"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"age_group"</span>, values_to <span class="op">=</span> <span class="st">"cases_reported"</span><span class="op">)</span>
 
 
@@ -489,9 +489,9 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="co"># create plot title</span>
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>            
     <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
     
-    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
+    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
     
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
     
@@ -507,7 +507,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   
   <span class="co"># filter to age group</span>
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
   
   
   <span class="co"># if no remaining data, return NULL</span>
@@ -519,7 +519,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="kw">if</span> <span class="op">(</span><span class="va">agegroup</span> <span class="op">==</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span>
       <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="st">"All ages"</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
+    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
   <span class="op">}</span>
   
   
@@ -529,7 +529,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
     <span class="fu">labs</span><span class="op">(</span>
       x <span class="op">=</span> <span class="st">"date"</span>,
       y <span class="op">=</span> <span class="st">"number of cases"</span>,
-      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}"</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}"</span><span class="op">)</span>,
       subtitle <span class="op">=</span> <span class="va">agegroup_title</span>
     <span class="op">)</span>
   
@@ -539,7 +539,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <p>Easy! One great feature of shiny is that it will understand what files named <em>app.R</em>, <em>server.R</em>, <em>ui.R</em>, and <em>global.R</em> are for, so there is no need to connect them to each other via any code. So just by having this code in <em>global.R</em> in the directory it will run before we start our app!.</p>
 <p>We should also note that it would improve our app’s organisation if we moved the plotting function to its own file - this will be especially helpful as apps become larger. To do this, we could make another directory called <em>funcs</em>, and put this function in as a file called <em>plot_epicurve.R</em>. We could then read this function in via the following command in <em>global.R</em></p>
 <div class="sourceCode" id="cb1854"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span><span class="op">(</span><span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span><span class="op">)</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span><span class="op">)</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Note that you should <em>always</em> specify <code>local = TRUE</code> in shiny apps, since it will affect sourcing when/if the app is published on a server.</p>
 </div>
 <div id="developing-an-app-server" class="section level2" number="43.5">
@@ -832,7 +832,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   
   <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span>
     filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
+      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
     <span class="op">}</span>,
     
     content <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span>
@@ -881,7 +881,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span>
     
     filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
+      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
     <span class="op">}</span>,
     
     content <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span>
@@ -905,9 +905,9 @@ For an alternative method of making dashboards that is faster, easier, but perha
   
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">%in%</span> <span class="va">district</span><span class="op">)</span>
     
-    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
+    <span class="va">plot_title_district</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{paste0(district, collapse = ', ')} districts"</span><span class="op">)</span>
     
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
     
@@ -922,7 +922,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="op">}</span>
   
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">age_group</span> <span class="op">==</span> <span class="va">agegroup</span><span class="op">)</span>
   
   
   <span class="co"># if no remaining data, return NULL</span>
@@ -934,12 +934,12 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="kw">if</span> <span class="op">(</span><span class="va">agegroup</span> <span class="op">==</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span>
       <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="st">"All ages"</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
+    <span class="va">agegroup_title</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{str_remove(agegroup, 'malaria_rdt')} years"</span><span class="op">)</span>
   <span class="op">}</span>
   
     <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op">%in%</span> <span class="va">facility</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">location_name</span> <span class="op">==</span> <span class="va">facility</span><span class="op">)</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_name</span> <span class="op">==</span> <span class="va">facility</span><span class="op">)</span>
     
     <span class="va">plot_title_facility</span> <span class="op">&lt;-</span> <span class="va">facility</span>
     
@@ -963,7 +963,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
     <span class="fu">labs</span><span class="op">(</span>
       x <span class="op">=</span> <span class="st">"date"</span>,
       y <span class="op">=</span> <span class="st">"number of cases"</span>,
-      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}; {plot_title_facility}"</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Malaria cases - {plot_title_district}; {plot_title_facility}"</span><span class="op">)</span>,
       subtitle <span class="op">=</span> <span class="va">agegroup_title</span>
     <span class="op">)</span>
   
@@ -980,9 +980,9 @@ For an alternative method of making dashboards that is faster, easier, but perha
 
 <span class="co"># data frame of location names by district</span>
 <span class="va">facility_list</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span><span class="op">(</span><span class="va">location_name</span>, <span class="va">District</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">location_name</span>, <span class="va">District</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Let’s look at them:</p>
 <div class="sourceCode" id="cb1867"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">all_districts</span></code></pre></div>
@@ -1092,7 +1092,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
     <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
     <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
       <span class="fu">pull</span><span class="op">(</span><span class="va">location_name</span><span class="op">)</span>
   <span class="op">}</span>
   
@@ -1118,7 +1118,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
       <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span>
     <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
       <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
         <span class="fu">pull</span><span class="op">(</span><span class="va">location_name</span><span class="op">)</span>
     <span class="op">}</span>
     
@@ -1137,7 +1137,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span>
     
     filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
+      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
     <span class="op">}</span>,
     
     content <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span>
@@ -1266,7 +1266,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
       <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span>
     <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
       <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">District</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span><span class="op">)</span> <span class="op">%&gt;%</span>
         <span class="fu">pull</span><span class="op">(</span><span class="va">location_name</span><span class="op">)</span>
     <span class="op">}</span>
     
@@ -1285,7 +1285,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
   <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span>
     
     filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
+      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span>
     <span class="op">}</span>,
     
     content <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span>
@@ -1414,7 +1414,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-10-14.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-10-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
