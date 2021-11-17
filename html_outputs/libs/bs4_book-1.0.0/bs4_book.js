@@ -107,25 +107,20 @@ function changeTooltipMessage(element, msg) {
 $(document).ready(function() {
   if(ClipboardJS.isSupported()) {
     // Insert copy buttons
-    var copyButton = "<button type='button' class='btn btn-copy' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='popover' data-placement='top' data-trigger='hover'><i class='bi'></i></button>";
-    $(copyButton).appendTo("div.sourceCode");
+    var copyButton = "<div class='copy'><button type='button' class='btn btn-outline-primary btn-copy' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='popover' data-placement='top' data-trigger='hover'>Copy</button></div>";
+    $(copyButton).appendTo("pre");
     // Initialize tooltips:
     $('.btn-copy').tooltip({container: 'body', boundary: 'window'});
 
     // Initialize clipboard:
     var clipboard = new ClipboardJS('.btn-copy', {
       text: function(trigger) {
-        return trigger.parentNode.textContent;
+        return trigger.parentNode.previousSibling.textContent;
       }
     });
 
     clipboard.on('success', function(e) {
-      const btn = e.trigger;
-      changeTooltipMessage(btn, 'Copied!');
-      btn.classList.add('btn-copy-checked');
-      setTimeout(function() {
-        btn.classList.remove('btn-copy-checked');
-      }, 2000);
+      changeTooltipMessage(e.trigger, 'Copied!');
       e.clearSelection();
     });
 
