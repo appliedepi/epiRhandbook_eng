@@ -72,10 +72,10 @@ count_data <- linelist %>%
 
 **Case linelist**
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
+We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instruction in the [Download handbook and data] page. We assume the file is in the working directory so no sub-folders are specified in this file path.  
 
 ```{r, eval=F}
-linelist <- import("linelist_cleaned.rds")
+linelist <- import("linelist_cleaned.xlsx")
 ```
 
 The first 50 rows are displayed below.
@@ -744,24 +744,21 @@ Note however, that if using weeks, the `date_breaks` and `date_minor_breaks` arg
 
 ### Cumulative incidence {.unnumbered}  
 
-In previous versions of **incidence2** you could use the `cumulate()` function. This has been removed in the most recent version of the package. 
+You can easily produce a plot of cumulative incidence by passing the incidence object to the **incidence2** command `cumulate()` and then to `plot()`. This also works with `facet_plot()`.  
 
-<!-- You can easily produce a plot of cumulative incidence by passing the incidence object to the **incidence2** command `cumulate()` and then to `plot()`. This also works with `facet_plot()`. -->
+```{r}
+# make weekly incidence object
+wkly_inci <- incidence(
+  linelist,
+  date_index = date_onset,
+  interval = "week"
+)
 
-<!-- The code below is provided  -->
-<!-- ```{r, eval=F} -->
-<!-- # make weekly incidence object -->
-<!-- wkly_inci <- incidence( -->
-<!--   linelist, -->
-<!--   date_index = date_onset, -->
-<!--   interval = "week" -->
-<!-- ) -->
-
-<!-- # plot cumulative incidence -->
-<!-- wkly_inci %>% -->
-<!--   cumulate() %>% -->
-<!--   plot() -->
-<!-- ``` -->
+# plot cumulative incidence
+wkly_inci %>% 
+  cumulate() %>% 
+  plot()
+```
 
 
 See the section farther down on this page for alternative method to plot cumulative incidence with **ggplot2** - for example to overlay a cumulative incidence line over an epicurve.  
@@ -780,7 +777,7 @@ rolling_avg <- incidence(                    # make incidence object
   i2extras::add_rolling_average(before = 6)  # add rolling averages (in this case, by gender)
 
 # plot
-plot(rolling_avg, n.breaks = 3) # faceted automatically because rolling average on groups
+plot(rolling_avg) # faceted automatically because rolling average on groups
 ```
 
 To learn how to apply rolling averages more generally on data, see the Handbook page on [Moving averages].  
@@ -918,9 +915,6 @@ These `seq.Date()` outputs can be used to create histogram bin breaks, but also 
 
 
 
-
-
-
 ### Weekly epicurve example {.unnumbered}  
 
 **Below is detailed example code to produce weekly epicurves for Monday weeks, with aligned bars, date labels, and vertical gridlines.** This section is for the user who needs code quickly. To understand each aspect (themes, date labels, etc.) in-depth, continue to the subsequent sections. Of note:  
@@ -928,6 +922,7 @@ These `seq.Date()` outputs can be used to create histogram bin breaks, but also 
 * The *histogram bin breaks* are defined with `seq.Date()` as explained above to begin the Monday before the earliest case and to end the Monday after the last case  
 * The interval of *date labels* is specified by `date_breaks =` within `scale_x_date()`  
 * The interval of minor vertical gridlines between date labels is specified to `date_minor_breaks = `  
+* We use `closed = "left"` in the `geom_histogram()` to ensure the date are counted in the correct bins  
 * `expand = c(0,0)` in the x and y scales removes excess space on each side of the axes, which also ensures the date labels begin from the first bar.  
 
 ```{r, warning=F, message=F}
@@ -950,6 +945,8 @@ ggplot(data = central_data) +
     
     # histogram bin breaks
     breaks = weekly_breaks_central, # histogram bin breaks defined previously
+      
+    closed = "left",  # count cases from start of breakpoint
     
     # bars
     color = "darkblue",     # color of lines around bars
@@ -1046,6 +1043,8 @@ ggplot(data = linelist) +     # begin with linelist (many hospitals)
     # bin breaks are Monday weeks
     breaks = weekly_breaks_all,   # sequence of weekly Monday bin breaks for whole outbreak, defined in previous code       
     
+    closed = "left",          # count cases from start of breakpoint
+
     # Color around bars
     color = "black")
 ```
@@ -1070,8 +1069,10 @@ ggplot(data = linelist)+           # begin with linelist (many hospitals)
         fill = hospital),          # bar fill by hospital
     
     # bin breaks
-    breaks = weekly_breaks_all,        # sequence of weekly Monday bin breaks, defined in previous code
+    breaks = weekly_breaks_all,    # sequence of weekly Monday bin breaks, defined in previous code
     
+    closed = "left",               # count cases from start of breakpoint
+
     # Color around bars
     color = "black")+              # border color of each bar
   
@@ -1115,6 +1116,8 @@ ggplot(plot_data) +                     # Use NEW dataset with hospital as re-or
     
     breaks = weekly_breaks_all,         # sequence of weekly Monday bin breaks for whole outbreak, defined at top of ggplot section
     
+    closed = "left",                    # count cases from start of breakpoint
+
     color = "black")+                   # border color around each bar
     
   # x-axis labels
@@ -1188,6 +1191,8 @@ ggplot(central_data %>% drop_na(gender))+   # begin with Central Hospital cases 
         
         # histogram bin breaks
         breaks = weekly_breaks_central,   # sequence of weekly dates for Central outbreak - defined at top of ggplot section
+        
+        closed = "left",          # count cases from start of breakpoint
         
         color = "black",          # bar edge color
         
@@ -1310,10 +1315,10 @@ ggplot(central_data) +
     expand = c(0,0),                  # remove excess x-axis space below and after case bars
     date_breaks = "months",           # 1st of month
     date_minor_breaks = "week",       # Monday weeks
-    date_labels = "%a\n%d %b\n%Y")+    # label format
+    date_labels = "%a\n%d %b\n%Y")+   # label format
   
   scale_y_continuous(
-    expand = c(0,0))+                # remove excess space under x-axis, make flush 
+    expand = c(0,0))+                 # remove excess space under x-axis, make flush 
   
   labs(
     title = "MISALIGNED",
@@ -1329,6 +1334,8 @@ ggplot(central_data) +
     # histogram breaks set to 7 days beginning Monday before first case
     breaks = weekly_breaks_central,    # defined earlier in this page
     
+    closed = "left",                   # count cases from start of breakpoint
+    
     color = "darkblue",
     
     fill = "lightblue") + 
@@ -1337,10 +1344,10 @@ ggplot(central_data) +
     expand = c(0,0),                   # remove excess x-axis space below and after case bars
     date_breaks = "4 weeks",           # Monday every 4 weeks
     date_minor_breaks = "week",        # Monday weeks 
-    date_labels = "%a\n%d %b\n%Y")+      # label format
+    date_labels = "%a\n%d %b\n%Y")+    # label format
   
   scale_y_continuous(
-    expand = c(0,0))+                # remove excess space under x-axis, make flush 
+    expand = c(0,0))+                  # remove excess space under x-axis, make flush 
   
   labs(
     title = "ALIGNED Mondays",
@@ -1354,7 +1361,9 @@ ggplot(central_data) +
     mapping = aes(x = date_onset),
     
     # histogram breaks set to 7 days beginning Monday before first case
-    breaks = weekly_breaks_central,            # defined earlier in this page
+    breaks = weekly_breaks_central,    # defined earlier in this page
+    
+    closed = "left",                   # count cases from start of breakpoint
     
     color = "darkblue",
     
@@ -1364,10 +1373,10 @@ ggplot(central_data) +
     expand = c(0,0),                   # remove excess x-axis space below and after case bars
     date_breaks = "months",            # Monday every 4 weeks
     date_minor_breaks = "week",        # Monday weeks 
-    date_labels = "%b\n%Y")+          # label format
+    date_labels = "%b\n%Y")+           # label format
   
   scale_y_continuous(
-    expand = c(0,0))+                # remove excess space under x-axis, make flush 
+    expand = c(0,0))+                  # remove excess space under x-axis, make flush 
   
   theme(panel.grid.major = element_blank())+  # Remove major gridlines (fall on 1st of month)
           
@@ -1387,6 +1396,8 @@ ggplot(central_data) +
                       to   = ceiling_date(max(central_data$date_onset, na.rm=T), "week", week_start = 7),
                       by   = "7 days"),
     
+    closed = "left",                    # count cases from start of breakpoint
+
     color = "darkblue",
     
     fill = "lightblue") + 
@@ -1632,7 +1643,9 @@ ggplot(central_data) +
     color = "black",      # arguments outside aes() apply to all data
         
     # histogram breaks
-    breaks = weekly_breaks_central)+  # pre-defined date vector (see earlier in this page)
+    breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
+    closed = "left" # count cases from start of breakpoint
+    )+  
                       
   # The labels on the x-axis
   scale_x_date(
@@ -1692,7 +1705,10 @@ ggplot(central_data) +
     color = "black",    # arguments outside aes() apply to all data
     
     # histogram breaks
-    breaks = weekly_breaks_central)+     # pre-defined date vector (see top of ggplot section)                
+    breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
+    
+    closed = "left", # count cases from start of breakpoint
+    )+     # pre-defined date vector (see top of ggplot section)                
   
   # add grey epidemic in background to each facet
   gghighlight::gghighlight()+
@@ -1788,7 +1804,10 @@ ggplot(central_data2) +
         color = "black",    # arguments outside aes() apply to all data
         
         # histogram breaks
-        breaks = weekly_breaks_central)+    # pre-defined date vector (see top of ggplot section)
+        breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
+        
+        closed = "left", # count cases from start of breakpoint
+        )+    # pre-defined date vector (see top of ggplot section)
                      
   # Labels on x-axis
   scale_x_date(
@@ -1854,6 +1873,8 @@ ggplot(central_data) +
     mapping = aes(x = date_onset),
     
     breaks = weekly_breaks_central,   # pre-defined date vector - see top of ggplot section
+    
+    closed = "left", # count cases from start of breakpoint
     
     color = "darkblue",
     
@@ -1934,6 +1955,7 @@ ggplot(plot_data, aes(x = date_onset, fill = tentative)) +
   # histogram
   geom_histogram(
     breaks = weekly_breaks_central,   # pre-defined data vector, see top of ggplot page
+    closed = "left", # count cases from start of breakpoint
     color = "black") +
 
   # scales
@@ -1958,7 +1980,39 @@ ggplot(plot_data, aes(x = date_onset, fill = tentative)) +
 
 If you want multi-level date labels (e.g. month and year) *without duplicating the lower label levels*, consider one of the approaches below:  
 
-Remember - you can can use tools like `\n` *within* the `date_labels` or `labels` arguments to put parts of each label on a new line below. However, the code below helps you take years or months (for example) on a lower line *and only once*. A few notes on the code below:  
+Remember - you can can use tools like `\n` *within* the `date_labels` or `labels` arguments to put parts of each label on a new line below. However, the codes below help you take years or months (for example) on a lower line *and only once*.   
+
+The easiest method is to assign the `labels = ` argument in `scale_x_date()` to the function `label_date_short()` from the package **scales** (note: don't forget to include empty parentheses (), as shown below). This function will automatically construct efficient date labels (read more [here](https://scales.r-lib.org/reference/label_date.html)). An additional benefit of this function is that the labels will automatically adjust as your data expands over time: from days, to weeks, to months and years.  
+
+```{r, warning=F}
+ggplot(central_data) + 
+  
+  # histogram
+  geom_histogram(
+    mapping = aes(x = date_onset),
+    breaks = weekly_breaks_central,   # pre-defined date vector - see top of ggplot section
+    closed = "left",                  # count cases from start of breakpoint
+    color = "darkblue",
+    fill = "lightblue") +
+
+  # y-axis scale as before 
+  scale_y_continuous(expand = c(0,0))+
+  
+  # x-axis scale sets efficient date labels
+  scale_x_date(
+    expand = c(0,0),                      # remove excess x-axis space below and after case bars
+    labels = scales::label_date_short())+ # auto efficient date labels
+  
+  # labels and theme
+  labs(
+    title = "Using label_date_short()\nTo make automatic and efficient date labels",
+    x = "Week of symptom onset",
+    y = "Weekly case indicence")+ 
+  theme_minimal()
+```
+
+
+A second option is to use faceting. Below:  
 
 * Case counts are aggregated into weeks for aesthetic reasons. See Epicurves page (aggregated data tab) for details.  
 * A `geom_area()` line is used instead of a histogram, as the faceting approach below does not work well with histograms.  
@@ -1986,29 +2040,7 @@ central_weekly <- linelist %>%
 **Make plots**  
 
 ```{r, warning=F, message=F}
-# plot with box border on year
-##############################
-ggplot(central_weekly) +
-  geom_area(aes(x = week, y = n),    # make line, specify x and y
-            stat = "identity") +             # because line height is count number
-  scale_x_date(date_labels="%b",             # date label format show month 
-               date_breaks="month",          # date labels on 1st of each month
-               expand=c(0,0)) +              # remove excess space on each end
-  scale_y_continuous(
-    expand  = c(0,0))+                       # remove excess space below x-axis
-  facet_grid(~lubridate::year(week), # facet on year (of Date class column)
-             space="free_x",                
-             scales="free_x",                # x-axes adapt to data range (not "fixed")
-             switch="x") +                   # facet labels (year) on bottom
-  theme_bw() +
-  theme(strip.placement = "outside",         # facet labels placement
-        strip.background = element_rect(fill = NA, # facet labels no fill grey border
-                                        colour = "grey50"),
-        panel.spacing = unit(0, "cm"))+      # no space between facet panels
-  labs(title = "Nested year labels, grey label border")
-
-
-# plot with no box border on year
+# plot with no facet box border
 #################################
 ggplot(central_weekly,
        aes(x = week, y = n)) +              # establish x and y for entire plot
@@ -2027,15 +2059,15 @@ ggplot(central_weekly,
              scales="free_x",               # x-axes adapt to data range (not "fixed")
              switch="x") +                  # facet labels (year) on bottom
   theme_bw() +
-  theme(strip.placement = "outside",                     # facet label placement
-          strip.background = element_blank(),            # no facet lable background
+  theme(strip.placement = "outside",                  # facet label placement
+          strip.background = element_blank(),         # no facet lable background
           panel.grid.minor.x = element_blank(),          
-          panel.border = element_rect(colour="grey40"),  # grey border to facet PANEL
-          panel.spacing=unit(0,"cm"))+                   # No space between facet panels
+          panel.border = element_blank(),             # no border for facet panel
+          panel.spacing=unit(0,"cm"))+                # No space between facet panels
   labs(title = "Nested year labels - points, shaded, no label border")
 ```
 
-The above techniques were adapted from [this](https://stackoverflow.com/questions/44616530/axis-labels-on-two-lines-with-nested-x-variables-year-below-months) and [this](https://stackoverflow.com/questions/20571306/multi-row-x-axis-labels-in-ggplot-line-chart) post on stackoverflow.com.  
+The above technique for faceting was adapted from [this](https://stackoverflow.com/questions/44616530/axis-labels-on-two-lines-with-nested-x-variables-year-below-months) and [this](https://stackoverflow.com/questions/20571306/multi-row-x-axis-labels-in-ggplot-line-chart) post on stackoverflow.com.  
 
 
 

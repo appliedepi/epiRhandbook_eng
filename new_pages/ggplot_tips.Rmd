@@ -648,6 +648,19 @@ ggplot(linelist, aes(x = date_onset)) +
 ```
 
 
+One easy solution to efficient date labels on the x-axis is to to assign the `labels = ` argument in `scale_x_date()` to the function `label_date_short()` from the package **scales**. This function will automatically construct efficient date labels (read more [here](https://scales.r-lib.org/reference/label_date.html)). An additional benefit of this function is that the labels will automatically adjust as your data expands over time, from days, to weeks, to months and years.
+
+See a complete example in the Epicurves page section on [multi-level date labels](https://epirhandbook.com/en/epidemic-curves.html#multi-level-date-labels), but a quick example is shown below for reference:  
+
+```{r, eval=T, warning=F}
+ggplot(linelist, aes(x = date_onset)) +
+  geom_histogram(binwidth = 7) +
+  scale_x_date(
+    labels = scales::label_date_short()  # automatically efficient date labels
+  )+
+  theme_classic()
+
+```
 
 <!-- ======================================================= -->
 ## Highlighting {}
