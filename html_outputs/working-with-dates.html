@@ -169,11 +169,11 @@
 <div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the system date - this is a DATE class</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2021-11-17"</code></pre>
+<pre><code>## [1] "2021-12-15"</code></pre>
 <div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the system time - this is a DATETIME class</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2021-11-17 16:04:01 EST"</code></pre>
+<pre><code>## [1] "2021-12-15 13:01:15 EST"</code></pre>
 <p>With the <strong>lubridate</strong> package these can also be returned with <code>today()</code> and <code>now()</code>, respectively. <code><a href="https://rdrr.io/r/base/date.html">date()</a></code> returns the current date and time with weekday and month names.</p>
 <!-- ======================================================= -->
 </div>
@@ -203,7 +203,7 @@
 <div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert to class date</span>
 <span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_of_onset</span>, format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_of_onset</span>, format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Most of the strptime abbreviations are listed below. You can see the complete list by running <code><a href="https://rdrr.io/r/base/strptime.html">?strptime</a></code>.</p>
 <p>%d = Day number of month (5, 17, 28, etc.)<br>
 %j = Day number of the year (Julian day 001-366)<br>
@@ -267,7 +267,7 @@
 <p>If using piping, the conversion of a character column to dates with <strong>lubridate</strong> might look like this:</p>
 <div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Once complete, you can run <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> to verify the class of the column</p>
 <div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Check the class of the column</span>
@@ -289,7 +289,7 @@
 <p>You can use the <strong>lubridate</strong> functions <code>make_date()</code> and <code>make_datetime()</code> to combine multiple numeric columns into one date column. For example if you have numeric columns <code>onset_day</code>, <code>onset_month</code>, and <code>onset_year</code> in the data frame <code>linelist</code>:</p>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>onset_date <span class="op">=</span> <span class="fu">make_date</span><span class="op">(</span>year <span class="op">=</span> <span class="va">onset_year</span>, month <span class="op">=</span> <span class="va">onset_month</span>, day <span class="op">=</span> <span class="va">onset_day</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>onset_date <span class="op">=</span> <span class="fu">make_date</span><span class="op">(</span>year <span class="op">=</span> <span class="va">onset_year</span>, month <span class="op">=</span> <span class="va">onset_month</span>, day <span class="op">=</span> <span class="va">onset_day</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <!-- ======================================================= -->
 </div>
 </div>
@@ -305,8 +305,8 @@
 <div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># An example of providing the Excel 'origin date' when converting Excel number dates</span>
 <span class="va">data_cleaned</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>   <span class="co"># ensure class is numeric</span>
-  <span class="fu">mutate</span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_onset</span>, origin <span class="op">=</span> <span class="st">"1899-12-30"</span><span class="op">)</span><span class="op">)</span> <span class="co"># convert to date using Excel origin</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>   <span class="co"># ensure class is numeric</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_onset</span>, origin <span class="op">=</span> <span class="st">"1899-12-30"</span><span class="op">)</span><span class="op">)</span> <span class="co"># convert to date using Excel origin</span></code></pre></div>
 <!-- ======================================================= -->
 </div>
 <div id="messy-dates" class="section level2" number="9.5">
@@ -421,8 +421,8 @@
 <p>Here is an example of extracting the hour, and then classifing by part of the day. We begin with the column <code>time_admission</code>, which is class Character in format “HH:MM”. First, the <code><a href="https://rdrr.io/r/base/strptime.html">strptime()</a></code> is used as described above to convert the characters to datetime class. Then, the hour is extracted with <code>hour()</code>, returning a number from 0-24. Finally, a column <code>time_period</code> is created using logic with <code>case_when()</code> to classify rows into Morning/Afternoon/Evening/Night based on their hour of admission.</p>
 <div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>hour_admit <span class="op">=</span> <span class="fu">hour</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">time_admission</span>, format <span class="op">=</span> <span class="st">"%H:%M"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>time_period <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hour_admit <span class="op">=</span> <span class="fu">hour</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">time_admission</span>, format <span class="op">=</span> <span class="st">"%H:%M"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>time_period <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
     <span class="va">hour_admit</span> <span class="op">&gt;</span> <span class="fl">06</span> <span class="op">&amp;</span> <span class="va">hour_admit</span> <span class="op">&lt;</span> <span class="fl">12</span> <span class="op">~</span> <span class="st">"Morning"</span>,
     <span class="va">hour_admit</span> <span class="op">&gt;=</span> <span class="fl">12</span> <span class="op">&amp;</span> <span class="va">hour_admit</span> <span class="op">&lt;</span> <span class="fl">17</span> <span class="op">~</span> <span class="st">"Afternoon"</span>,
     <span class="va">hour_admit</span> <span class="op">&gt;=</span> <span class="fl">17</span> <span class="op">&amp;</span> <span class="va">hour_admit</span> <span class="op">&lt;</span> <span class="fl">21</span> <span class="op">~</span> <span class="st">"Evening"</span>,
@@ -504,14 +504,14 @@
 <span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>
   
   <span class="co"># convert date of onset from character to date objects by specifying dmy format</span>
-  <span class="fu">mutate</span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu">dmy</span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span>,
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu">dmy</span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span>,
          date_hospitalisation <span class="op">=</span> <span class="fu">dmy</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   
   <span class="co"># filter out all cases without onset in march</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">month</span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">month</span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
     
   <span class="co"># find the difference in days between onset and hospitalisation</span>
-  <span class="fu">mutate</span><span class="op">(</span>days_onset_to_hosp <span class="op">=</span> <span class="va">date_hospitalisation</span> <span class="op">-</span> <span class="va">date_of_onset</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>days_onset_to_hosp <span class="op">=</span> <span class="va">date_hospitalisation</span> <span class="op">-</span> <span class="va">date_of_onset</span><span class="op">)</span></code></pre></div>
 <p>In a data frame context, if either of the above dates is missing, the operation will fail for that row. This will result in an <code>NA</code> instead of a numeric value. When using this column for calculations, be sure to set the <code>na.rm =</code> argument to <code>TRUE</code>. For example:</p>
 <div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate the median number of days to hospitalisation for all cases where data are available</span>
@@ -552,19 +552,19 @@
 <div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># today's date, with formatting</span>
 <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%d %B %Y"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "17 November 2021"</code></pre>
+<pre><code>## [1] "15 December 2021"</code></pre>
 <div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># easy way to get full date and time (default formatting)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/date.html">date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "Wed Nov 17 16:04:02 2021"</code></pre>
+<pre><code>## [1] "Wed Dec 15 13:01:16 2021"</code></pre>
 <div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># formatted combined date, time, and time zone using str_glue() function</span>
 <span class="fu">str_glue</span><span class="op">(</span><span class="st">"{format(Sys.Date(), format = '%A, %B %d %Y, %z  %Z, ')}{format(Sys.time(), format = '%H:%M:%S')}"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Wednesday, November 17 2021, +0000  UTC, 16:04:02</code></pre>
+<pre><code>## Wednesday, December 15 2021, +0000  UTC, 13:01:16</code></pre>
 <div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using format to display weeks</span>
 <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y Week %W"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2021 Week 46"</code></pre>
+<pre><code>## [1] "2021 Week 50"</code></pre>
 <p>Note that if using <code>str_glue()</code>, be aware of that within the expected double quotes " you should only use single quotes (as above).</p>
 </div>
 <div id="month-year" class="section level3 unnumbered">
@@ -575,7 +575,7 @@
 <div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create new column </span>
 <span class="va">test_zoo</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-     <span class="fu">mutate</span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.yearmon</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span>
+     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.yearmon</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># print table</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">test_zoo</span><span class="op">$</span><span class="va">yearmon</span><span class="op">)</span></code></pre></div>
@@ -586,7 +586,7 @@
 <div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create new column</span>
 <span class="va">test_format</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-     <span class="fu">mutate</span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"%b %Y"</span><span class="op">)</span><span class="op">)</span>
+     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"%b %Y"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># print table</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">test_format</span><span class="op">$</span><span class="va">yearmon</span><span class="op">)</span></code></pre></div>
@@ -614,9 +614,9 @@
 <div id="weekly-counts" class="section level3 unnumbered">
 <h3>Weekly counts<a class="anchor" aria-label="anchor" href="#weekly-counts"><i class="fas fa-link"></i></a>
 </h3>
-<p>See the page on <a href="grouping-data.html#grouping-data">Grouping data</a> for a thorough explanation of grouping data with <code>count()</code>, <code>group_by()</code>, and <code>summarise()</code>. A brief example is below.</p>
+<p>See the page on <a href="grouping-data.html#grouping-data">Grouping data</a> for a thorough explanation of grouping data with <code>count()</code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. A brief example is below.</p>
 <ol style="list-style-type: decimal">
-<li>Create a new ‘week’ column with <code>mutate()</code>, using <code>floor_date()</code> with <code>unit = "week"</code><br>
+<li>Create a new ‘week’ column with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, using <code>floor_date()</code> with <code>unit = "week"</code><br>
 </li>
 <li>Get counts of rows (cases) per week with <code>count()</code>; filter out any cases with missing date<br>
 </li>
@@ -626,7 +626,7 @@
 <code class="sourceCode R"><span class="co"># Make aggregated dataset of weekly case counts</span>
 <span class="va">weekly_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
   <span class="fu">drop_na</span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op">%&gt;%</span>             <span class="co"># remove cases missing onset date</span>
-  <span class="fu">mutate</span><span class="op">(</span>weekly_cases <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span>   <span class="co"># make new column, week of onset</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>weekly_cases <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span>   <span class="co"># make new column, week of onset</span>
     <span class="va">date_onset</span>,
     unit <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>            
   <span class="fu">count</span><span class="op">(</span><span class="va">weekly_cases</span><span class="op">)</span> <span class="op">%&gt;%</span>           <span class="co"># group data by week and count rows per group (creates column 'n')</span>
@@ -637,8 +637,8 @@
       by <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>,                   <span class="co"># by weeks</span>
     fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>             <span class="co"># fill-in NAs in the n counts column with 0</span></code></pre></div>
 <p>Here are the first rows of the resulting data frame:</p>
-<div id="htmlwidget-23fa4c17e96adf4d665f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-23fa4c17e96adf4d665f">{"x":{"filter":"none","data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-377bdc004037eb5da944" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-377bdc004037eb5da944">{"x":{"filter":"none","data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="epiweek-alternatives" class="section level3 unnumbered">
 <h3>Epiweek alternatives<a class="anchor" aria-label="anchor" href="#epiweek-alternatives"><i class="fas fa-link"></i></a>
@@ -661,7 +661,7 @@
 <code class="sourceCode R"><span class="co"># assign the current time to a column</span>
 <span class="va">time_now</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">time_now</span></code></pre></div>
-<pre><code>## [1] "2021-11-17 16:04:02 EST"</code></pre>
+<pre><code>## [1] "2021-12-15 13:01:16 EST"</code></pre>
 <div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use with_tz() to assign a new timezone to the column, while CHANGING the clock time</span>
 <span class="va">time_london_real</span> <span class="op">&lt;-</span> <span class="fu">with_tz</span><span class="op">(</span><span class="va">time_now</span>, <span class="st">"Europe/London"</span><span class="op">)</span>
@@ -684,8 +684,8 @@
 </h2>
 <p><code>lead()</code> and <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> are functions from the <strong>dplyr</strong> package which help find previous (lagged) or subsequent (leading) values in a vector - typically a numeric or date vector. This is useful when doing calculations of change/difference between time units.</p>
 <p>Let’s say you want to calculate the difference in cases between a current week and the previous one. The data are initially provided in weekly counts as shown below.</p>
-<div id="htmlwidget-c4018e6fc717ff5ebe0b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c4018e6fc717ff5ebe0b">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><strong>When using <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> or <code>lead()</code> the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending</strong></p>
+<div id="htmlwidget-247026cbd7924e1a0966" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-247026cbd7924e1a0966">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><strong>When using <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> or <code>lead()</code> the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending</strong></p>
 <p>First, create a new column containing the value of the previous (lagged) week.</p>
 <ul>
 <li>Control the number of units back/forward with <code>n =</code> (must be a non-negative integer)<br>
@@ -696,15 +696,15 @@
 </ul>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-a17dc1abef72f7a02c4c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a17dc1abef72f7a02c4c">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Next, create a new column which is the difference between the two cases columns:</p>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-6c8cd26f7271dd131c39" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6c8cd26f7271dd131c39">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Next, create a new column which is the difference between the two cases columns:</p>
 <div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
          case_diff <span class="op">=</span> <span class="va">cases_wk</span> <span class="op">-</span> <span class="va">cases_prev_wk</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-e8ec1365c93b1c3cc3e8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8ec1365c93b1c3cc3e8">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>You can read more about <code>lead()</code> and <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> in the documentation <a href="https://dplyr.tidyverse.org/reference/lead-lag.html">here</a> or by entering <code><a href="https://rdrr.io/r/stats/lag.html">?lag</a></code> in your console.</p>
+<div id="htmlwidget-a2a97c10729967cc4081" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2a97c10729967cc4081">{"x":{"filter":"none","data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>You can read more about <code>lead()</code> and <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> in the documentation <a href="https://dplyr.tidyverse.org/reference/lead-lag.html">here</a> or by entering <code><a href="https://rdrr.io/r/stats/lag.html">?lag</a></code> in your console.</p>
 <!-- ======================================================= -->
 </div>
 <div id="resources-2" class="section level2" number="9.12">
@@ -786,7 +786,7 @@ R for Data Science page on <a href="https://r4ds.had.co.nz/dates-and-times.html"
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-11-17.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-12-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

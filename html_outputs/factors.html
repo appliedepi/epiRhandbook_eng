@@ -166,7 +166,7 @@
 <p>We use the existing column <code>days_onset_hosp</code> (days from symptom onset to hospital admission) and create a new column <code>delay_cat</code> by classifying each row into one of several categories. We do this with the <strong>dplyr</strong> function <code>case_when()</code>, which sequentially applies logical criteria (right-side) to each row and returns the corresponding left-side value for the new column <code>delay_cat</code>. Read more about <code>case_when()</code> in <a href="cleaning-data-and-core-functions.html#cleaning-data-and-core-functions">Cleaning data and core functions</a>.</p>
 <div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
     <span class="co"># criteria                                   # new value if TRUE</span>
     <span class="va">days_onset_hosp</span> <span class="op">&lt;</span> <span class="fl">2</span>                        <span class="op">~</span> <span class="st">"&lt;2 days"</span>,
     <span class="va">days_onset_hosp</span> <span class="op">&gt;=</span> <span class="fl">2</span> <span class="op">&amp;</span> <span class="va">days_onset_hosp</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">~</span> <span class="st">"2-5 days"</span>,
@@ -186,7 +186,7 @@
 <p>Likewise, if we make a bar plot, the values also appear in this order on the x-axis (see the <a href="ggplot-basics.html#ggplot-basics">ggplot basics</a> page for more on <strong>ggplot2</strong> - the most common visualization package in R).</p>
 <div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-376-1.png" width="672"></div>
 </div>
 </div>
@@ -197,10 +197,10 @@
 </h2>
 <p>To convert a character or numeric column to class <em>factor</em>, you can use any function from the <strong>forcats</strong> package (many are detailed <a href="factors.html#fct_adjust">below</a>). They will convert to class factor and then also perform or allow certain ordering of the levels - for example using <code>fct_relevel()</code> lets you manually specify the level order. The function <code>as_factor()</code> simply converts the class without any further capabilities.</p>
 <p>The <strong>base</strong> R function <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> converts a column to factor and allows you to manually specify the order of the levels, as a character vector to its <code>levels =</code> argument.</p>
-<p>Below we use <code>mutate()</code> and <code>fct_relevel()</code> to convert the column <code>delay_cat</code> from class character to class factor. The column <code>delay_cat</code> is created in the <a href="factors.html#fct_newcat">Preparation</a> section above.</p>
+<p>Below we use <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> and <code>fct_relevel()</code> to convert the column <code>delay_cat</code> from class character to class factor. The column <code>delay_cat</code> is created in the <a href="factors.html#fct_newcat">Preparation</a> section above.</p>
 <div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><em>The unique “values” in this column are now considered “levels” of the factor.</em> The levels have an <em>order</em>, which can be printed with the <strong>base</strong> R function <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>, or alternatively viewed in a count table via <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> from <strong>base</strong> R or <code>tabyl()</code> from <strong>janitor</strong>. By default, the order of the levels will be alpha-numeric, as before. Note that <code>NA</code> is not a factor level.</p>
 <div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span><span class="op">)</span></code></pre></div>
@@ -208,7 +208,7 @@
 <p>The function <code>fct_relevel()</code> has the additional utility of allowing you to manually specify the level order. Simply write the level values in order, in quotation marks, separated by commas, as shown below. Note that the spelling must exactly match the values. If you want to create levels that do not exist in the data, use <a href="factors.html#fct_add"><code>fct_expand()</code> instead</a>).</p>
 <div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>We can now see that the levels are ordered, as specified in the previous command, in a sensible order.</p>
 <div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span><span class="op">)</span></code></pre></div>
@@ -216,7 +216,7 @@
 <p>Now the plot order makes more intuitive sense as well.</p>
 <div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-381-1.png" width="672"></div>
 </div>
 <div id="add-or-drop-levels" class="section level2" number="11.3">
@@ -229,7 +229,7 @@
 <p>If you need to add levels to a factor, you can do this with <code>fct_expand()</code>. Just write the column name followed by the new levels (separated by commas). By tabulating the values, we can see the new levels and the zero counts. You can use <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> from <strong>base</strong> R, or <code>tabyl()</code> from <strong>janitor</strong>:</p>
 <div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_expand</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"Not admitted to hospital"</span>, <span class="st">"Transfer to other jurisdiction"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_expand</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"Not admitted to hospital"</span>, <span class="st">"Transfer to other jurisdiction"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span>   <span class="co"># print table</span></code></pre></div>
 <pre><code>##                       delay_cat    n    percent valid_percent
 ##                         &lt;2 days 2990 0.50781250     0.5308949
@@ -246,7 +246,7 @@
 <p>If you use <code>fct_drop()</code>, the “unused” levels with zero counts will be dropped from the set of levels. The levels we added above (“Not admitted to a hospital”) exists as a level but no rows actually have those values. So they will be dropped by applying <code>fct_drop()</code> to our factor column:</p>
 <div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_drop</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_drop</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></code></pre></div>
 <pre><code>##  delay_cat    n    percent valid_percent
 ##    &lt;2 days 2990 0.50781250     0.5308949
@@ -281,12 +281,12 @@
 <div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># re-define level order</span>
 <span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you only want to move one level, you can specify it to <code>fct_relevel()</code> alone and give a number to the <code>after =</code> argument to indicate where in the order it should be. For example, the command below shifts “&lt;2 days” to the second position:</p>
 <div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># re-define level order</span>
 <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, after <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, after <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="within-a-plot" class="section level3 unnumbered">
@@ -297,11 +297,11 @@
 <div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Alpha-numeric default order - no adjustment within ggplot</span>
 <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
-    <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Factor level order adjusted within ggplot</span>
 <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-387-1.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-387-2.png" width="50%"></p>
 <p>Note that default x-axis title is now quite complicated - you can overwrite this title with the <strong>ggplot2</strong> <code>labs()</code> argument.</p>
 </div>
@@ -318,13 +318,13 @@
 <p>This function can be used within a <code>ggplot()</code>, as shown below.</p>
 <div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># ordered by frequency</span>
-<span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_infreq</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+<span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_infreq</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,
        title <span class="op">=</span> <span class="st">"Ordered by frequency"</span><span class="op">)</span>
 
 <span class="co"># reversed frequency</span>
-<span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_rev</span><span class="op">(</span><span class="fu">fct_infreq</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+<span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_rev</span><span class="op">(</span><span class="fu">fct_infreq</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,
        title <span class="op">=</span> <span class="st">"Reverse of order by frequency"</span><span class="op">)</span></code></pre></div>
@@ -333,7 +333,7 @@
 <div id="by-appearance" class="section level3 unnumbered">
 <h3>By appearance<a class="anchor" aria-label="anchor" href="#by-appearance"><i class="fas fa-link"></i></a>
 </h3>
-<p>Use <code>fct_inorder()</code> to set the level order to match the order of appearance in the data, starting from the first row. This can be useful if you first carefully <code>arrange()</code> the data in the data frame, and then use this to set the factor order.</p>
+<p>Use <code>fct_inorder()</code> to set the level order to match the order of appearance in the data, starting from the first row. This can be useful if you first carefully <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> the data in the data frame, and then use this to set the factor order.</p>
 </div>
 <div id="by-summary-statistic-of-another-column" class="section level3 unnumbered">
 <h3>By summary statistic of another column<a class="anchor" aria-label="anchor" href="#by-summary-statistic-of-another-column"><i class="fas fa-link"></i></a>
@@ -345,7 +345,7 @@
 <code class="sourceCode R"><span class="co"># boxplots ordered by original factor levels</span>
 <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>
-    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span>,
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span>,
         y <span class="op">=</span> <span class="va">ct_blood</span>, 
         fill <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,
@@ -357,7 +357,7 @@
 <span class="co"># boxplots ordered by median CT value</span>
 <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>
-    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="va">ct_blood</span>, <span class="st">"median"</span><span class="op">)</span>,
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">delay_cat</span>, <span class="va">ct_blood</span>, <span class="st">"median"</span><span class="op">)</span>,
         y <span class="op">=</span> <span class="va">ct_blood</span>,
         fill <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,
@@ -371,10 +371,10 @@
 <h3>By “end” value<a class="anchor" aria-label="anchor" href="#by-end-value"><i class="fas fa-link"></i></a>
 </h3>
 <p>Use <code>fct_reorder2()</code> for grouped line plots. It orders the levels (and therefore the <em>legend</em>) to align with the vertical ordering of the lines at the “end” of the plot. Technically speaking, it “orders by the y-values associated with the largest x values.”</p>
-<p>For example, if you have lines showing case counts by hospital over time, you can apply <code>fct_reorder2()</code> to the <code>color =</code> argument within <code>aes()</code>, such that the vertical order of hospitals appearing in the legend aligns with the order of lines at the terminal end of the plot. Read more in the <a href="https://forcats.tidyverse.org/reference/fct_reorder.html">online documentation</a>.</p>
+<p>For example, if you have lines showing case counts by hospital over time, you can apply <code>fct_reorder2()</code> to the <code>color =</code> argument within <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, such that the vertical order of hospitals appearing in the legend aligns with the order of lines at the terminal end of the plot. Read more in the <a href="https://forcats.tidyverse.org/reference/fct_reorder.html">online documentation</a>.</p>
 <div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">epidemic_data</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span>         <span class="co"># begin with the linelist   </span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">date_onset</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2014-09-21"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>    <span class="co"># cut-off date, for visual clarity</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date_onset</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2014-09-21"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>    <span class="co"># cut-off date, for visual clarity</span>
     <span class="fu">count</span><span class="op">(</span>                                            <span class="co"># get case counts per week and by hospital</span>
       epiweek <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span>,  
       <span class="va">hospital</span>                                            
@@ -382,7 +382,7 @@
   
 <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">epidemic_data</span><span class="op">)</span><span class="op">+</span>                       <span class="co"># start plot</span>
   <span class="fu">geom_line</span><span class="op">(</span>                                        <span class="co"># make lines</span>
-    <span class="fu">aes</span><span class="op">(</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>
       x <span class="op">=</span> <span class="va">epiweek</span>,                                  <span class="co"># x-axis epiweek</span>
       y <span class="op">=</span> <span class="va">n</span>,                                        <span class="co"># height is number of cases per week</span>
       color <span class="op">=</span> <span class="fu">fct_reorder2</span><span class="op">(</span><span class="va">hospital</span>, <span class="va">epiweek</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> <span class="co"># data grouped and colored by hospital, with factor order by height at end of plot</span>
@@ -399,7 +399,7 @@
 <p>Below, this opertation is performed on the column <code>delay_cat</code> and a table is printed with <code>tabyl()</code> with <code>NA</code> converted to “Missing delay”.</p>
 <div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_explicit_na</span><span class="op">(</span><span class="va">delay_cat</span>, na_level <span class="op">=</span> <span class="st">"Missing delay"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_explicit_na</span><span class="op">(</span><span class="va">delay_cat</span>, na_level <span class="op">=</span> <span class="st">"Missing delay"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></code></pre></div>
 <pre><code>##      delay_cat    n    percent
 ##       2-5 days 2040 0.34646739
@@ -424,7 +424,7 @@
 <p>The new levels are created using syntax <code>fct_recode(column, "new" = "old", "new" = "old", "new" = "old")</code> and printed:</p>
 <div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_recode</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_recode</span><span class="op">(</span>
     <span class="va">delay_cat</span>,
     <span class="st">"Less than 2 days"</span> <span class="op">=</span> <span class="st">"&lt;2 days"</span>,
     <span class="st">"2 to 5 days"</span>      <span class="op">=</span> <span class="st">"2-5 days"</span>,
@@ -438,7 +438,7 @@
 <p>Here they are manually combined with <code>fct_recode()</code>. Note there is no error raised at the creation of a new level “Less than 5 days”.</p>
 <div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_recode</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu">fct_recode</span><span class="op">(</span>
     <span class="va">delay_cat</span>,
     <span class="st">"Less than 5 days"</span> <span class="op">=</span> <span class="st">"&lt;2 days"</span>,
     <span class="st">"Less than 5 days"</span> <span class="op">=</span> <span class="st">"2-5 days"</span>,
@@ -455,7 +455,7 @@
 <p>You can use <code>fct_other()</code> to manually assign factor levels to an “Other” level. Below, all levels in the column <code>hospital</code>, aside from “Port Hospital” and “Central Hospital”, are combined into “Other”. You can provide a vector to either <code>keep =</code>, or <code>drop =</code>. You can change the display of the “Other” level with <code>other_level =</code>.</p>
 <div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span>    
-  <span class="fu">mutate</span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu">fct_other</span><span class="op">(</span>                      <span class="co"># adjust levels</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu">fct_other</span><span class="op">(</span>                      <span class="co"># adjust levels</span>
     <span class="va">hospital</span>,
     keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Port Hospital"</span>, <span class="st">"Central Hospital"</span><span class="op">)</span>,  <span class="co"># keep these separate</span>
     other_level <span class="op">=</span> <span class="st">"Other Hospital"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>            <span class="co"># All others as "Other Hospital"</span>
@@ -478,7 +478,7 @@
 <p>You can change the display of the “Other” level with <code>other_level =</code>. Below, all but the two most-frequent hospitals are combined into “Other Hospital”.</p>
 <div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span>    
-  <span class="fu">mutate</span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu">fct_lump</span><span class="op">(</span>                      <span class="co"># adjust levels</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu">fct_lump</span><span class="op">(</span>                      <span class="co"># adjust levels</span>
     <span class="va">hospital</span>,
     n <span class="op">=</span> <span class="fl">2</span>,                                          <span class="co"># keep top 2 levels</span>
     other_level <span class="op">=</span> <span class="st">"Other Hospital"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>            <span class="co"># all others as "Other Hospital"</span>
@@ -499,7 +499,7 @@
 <p>This example is a stacked bar plot of age category, by hospital. Adding <code>scale_fill_discrete(drop = FALSE)</code> ensures that all age groups appear in the legend, even if not present in the data.</p>
 <div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">age_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">age_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_fill_discrete</span><span class="op">(</span>drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span>                        <span class="co"># show all age groups in the legend, even those not present</span>
   <span class="fu">labs</span><span class="op">(</span>
     title <span class="op">=</span> <span class="st">"All age groups will appear in legend, even if not present in data"</span><span class="op">)</span></code></pre></div>
@@ -509,7 +509,7 @@
 <h3>In tables<a class="anchor" aria-label="anchor" href="#in-tables"><i class="fas fa-link"></i></a>
 </h3>
 <p>Both the <strong>base</strong> R <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> and <code>tabyl()</code> from <strong>janitor</strong> will show all factor levels (even unused levels).</p>
-<p>If you use <code>count()</code> or <code>summarise()</code> from <strong>dplyr</strong> to make a table, add the argument <code>.drop = FALSE</code> to include counts for all factor levels even those unused.</p>
+<p>If you use <code>count()</code> or <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> from <strong>dplyr</strong> to make a table, add the argument <code>.drop = FALSE</code> to include counts for all factor levels even those unused.</p>
 <p>Read more in the <a href="descriptive-tables.html#descriptive-tables">Descriptive tables</a> page, or at the <a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_discrete documentation</a>, or the <a href="https://dplyr.tidyverse.org/reference/count.html">count() documentation</a>. You can see another example in the <a href="contact-tracing-1.html#contact-tracing-1">Contact tracing</a> page.</p>
 </div>
 </div>
@@ -526,9 +526,9 @@ Please also see the <a href="working-with-dates.html#working-with-dates-1">Worki
 <p>In this approach, you can adjust the <em>display</em> of the dates on an axis with <code>scale_x_date()</code>. See the page on <a href="epidemic-curves.html#epidemic-curves">Epidemic curves</a> for more information. You can specify a “strptime” display format to the <code>date_labels =</code> argument of <code>scale_x_date()</code>. These formats use “%” placeholders and are covered in the <a href="working-with-dates.html#working-with-dates-1">Working with dates</a> page. Use “%Y” to represent a 4-digit year, and either “%W” or “%U” to represent the week number (Monday or Sunday weeks respectively).</p>
 <div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># create week column</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># create week column</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>                                                  <span class="co"># begin ggplot</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek_date</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>           <span class="co"># histogram of date of onset</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek_date</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>           <span class="co"># histogram of date of onset</span>
   <span class="fu">scale_x_date</span><span class="op">(</span>date_labels <span class="op">=</span> <span class="st">"%Y-W%W"</span><span class="op">)</span>                       <span class="co"># adjust disply of dates to be YYYY-WWw</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-399-1.png" width="672"></div>
 </div>
@@ -543,16 +543,16 @@ Please also see the <a href="working-with-dates.html#working-with-dates-1">Worki
 <p>First, use <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> from <strong>base</strong> R to convert the date display from YYYY-MM-DD to YYYY-Www display (see the <a href="working-with-dates.html#working-with-dates-1">Working with dates</a> page). In this process the class will be converted to character. Then, convert from character to class Factor with <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>.</p>
 <div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span>,       <span class="co"># create epiweeks (YYYY-MM-DD)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span>,       <span class="co"># create epiweeks (YYYY-MM-DD)</span>
          epiweek_formatted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">epiweek_date</span>, <span class="st">"%Y-W%W"</span><span class="op">)</span>,  <span class="co"># Convert to display (YYYY-WWw)</span>
          epiweek_formatted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">epiweek_formatted</span><span class="op">)</span><span class="op">)</span>       <span class="co"># Convert to factor</span>
 
 <span class="co"># Display levels</span>
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">epiweek_formatted</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1] "2014-W13" "2014-W14" "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20" "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26" "2014-W27" "2014-W28"
-## [17] "2014-W29" "2014-W30" "2014-W31" "2014-W32" "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38" "2014-W39" "2014-W40" "2014-W41" "2014-W42" "2014-W43" "2014-W44"
-## [33] "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50" "2014-W51" "2015-W00" "2015-W01" "2015-W02" "2015-W03" "2015-W04" "2015-W05" "2015-W06" "2015-W07" "2015-W08"
-## [49] "2015-W09" "2015-W10" "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</code></pre>
+<pre><code>##  [1] "2014-W13" "2014-W14" "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20" "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26"
+## [15] "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32" "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38" "2014-W39" "2014-W40"
+## [29] "2014-W41" "2014-W42" "2014-W43" "2014-W44" "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50" "2014-W51" "2015-W00" "2015-W01" "2015-W02"
+## [43] "2015-W03" "2015-W04" "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09" "2015-W10" "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</code></pre>
 <p><span style="color: red;"><strong><em>DANGER:</em></strong> If you place the weeks ahead of the years (“Www-YYYY”) (“%W-%Y”), the default alpha-numeric level ordering will be incorrect (e.g. 01-2015 will be before 35-2014). You could need to manually adjust the order, which would be a long painful process.</span></p>
 <ol start="2" style="list-style-type: decimal">
 <li>
@@ -560,7 +560,7 @@ Please also see the <a href="working-with-dates.html#working-with-dates-1">Worki
 </ol>
 <div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>epiweek <span class="op">=</span> <span class="fu">date2week</span><span class="op">(</span><span class="va">date_onset</span>, week_start <span class="op">=</span> <span class="st">"Monday"</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek <span class="op">=</span> <span class="fu">date2week</span><span class="op">(</span><span class="va">date_onset</span>, week_start <span class="op">=</span> <span class="st">"Monday"</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span></code></pre></div>
 <p>See the <a href="working-with-dates.html#working-with-dates-1">Working with dates</a> page for more information about <strong>aweek</strong>. It also offers the reverse function <code>week2date()</code>.</p>
@@ -643,7 +643,7 @@ Please also see the <a href="working-with-dates.html#working-with-dates-1">Worki
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-11-17.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-12-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
