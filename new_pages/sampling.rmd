@@ -10,20 +10,23 @@ Sampling strategies to draw a representative sample differ for descriptive studi
 
 Some crucial elements should be defined:
 
-- Define a target population
-- Define a sampling scheme
+- Target population
+- Sampling scheme
 	+ Choose the number of stages
 	+ Identify the primary, secondary, tertiary (or more) sampling units and their number
-- Calculate sample size
-- Draw the sample using the identified sampling frame(s)
+- Sample size
+
+The last step would be to Draw the sample using the identified sampling frame(s).
 
 ```{r "package setup"}
 ## load packages from CRAN
 pacman::p_load(here,         # File locator
 			   dplyr,		 # Data management
+			   tidyr,		 # Switching from wide to long
 			   ggplot2,      # Ggplot2 graphics
 			   metR,         # Filled contours used with ggplot2
-			   gridExtra	 # Plotting ggplot2 graphs side by side
+			   gridExtra,	 # Plotting ggplot2 graphs side by side
+			   viridis		 # Viridis color palettes
                ) 
 ``` 
 
@@ -156,22 +159,23 @@ grid.arrange(
 	widths=c(4, 3))
 ```
 
-You can see that precision has a pretty strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, let us consider a 5% precision and assume a prevalence of at least 60% to restrict a more reasonable range of sample size. 
+You can see that precision has a strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, let us consider a 5% precision and assume a prevalence of at least 60% to look for a more reasonable range of sample sizes.
 
 ### Stratification
 
 ### Cluster 
 
-Some info on why a 1 stage SRS is not always the easy way!!!
+Cluster sampling is very common sampling strategy, but it is rarely used as is in a 1 stage sampling scheme. It is most frequently associated to other sampling methods such as SSR.
 
-A common 2 stage sampling scheme uses cluster sampling at the first stage, with probability proportional to size (PPS), and the second stage using SRS. The association of the two leads to an equal selection probability of all the individuals. This is convenient for two main reasons:
+A common 2 stage sampling scheme uses cluster sampling at the first stage, with probability proportional to size (PPS), and SRS as the second stage. The association of the two leads to an equal selection probability of all the individuals. This is convenient for two main reasons:
 
 - The cluster sampling adds logistical flexibility despite the increased sample size, eg: we first select villages with a probability proportional to population size.
 
-- The selected participants have equal selection probability. This means that they do not need particular analysis methods with weighting because their weights are similar: a "self-weighted" sample.  
+- The selected participants have equal selection probability. This means that they do not need particular analysis methods becauseit is a self-weighted sample.  
 
 ```{r "self weighting demonstration", echo=TRUE}
-
+# PPS
+# SSR
 ```
 
 $$
@@ -181,18 +185,49 @@ $$
 $V_{SRS}$ is the variance in a sample using SRS
 $V_{design}$ is the variance in a sample drawn using our design 
 
-An alternative way to see it:
+The design effect, $deff$, reflects the correction necessary to apply to take into account that individuals from the same cluster are not independent. The correlation between people from the same cluster leads to underestimating the variance of our statistics of interest. We need to inflate the sample size and [take the design in consideration during the analysis](link to the survey analyis chapter) to compensate for this. $deff$ is usually above 1 because of this. The closer it is to 1, the closer it is SRS in terms of sample size.
 
-- If we have equal sampling probabilities
+This formula also means that if you can get some estimate of $deff$, based on the literature, things become quite simple. You can simply make your sample size calculation assuming SSR and multiply it by $deff$. However, what you find in the litterature is relevant only if you defined clusters in a similar way, eg: if your clusters are villages but some article used households it is not useful. Besides, the settings should reasonably similar as well.
+
+If you have experience in surveys using cluster sampling in similar settings you could also make a conservative assumption based on your previous surveys regarding the value of $deff$. 
+
+#### Equal selection probabilities
+
+An alternative way to see $deff$ is:
 
 $$
 deff=1+(n-1)\delta
 $$
 
-$n$ is the average cluster size
-$\delta$ is the intra-class correlation
+$n$ is the average cluster size. Ideally the size of all the clusters is identical or very similar.
+$\delta$ is the intra-class correlation. It reflects how similar individuals tend be in a cluster, eg: if 1 child had 2 doses of MCV, his/her siblings are more likely to have had 2 doses as well. 
 
-- If we have unequal sampling probabilities
+As previously mentioned, the litterature can provide reasonable values for $\delta$. But again, it is necessary to ensure that you are referring to comparable clusters.
+
+One additional thing it reveals is thay $deff$ tends to decrease with with a higher number of smaller clusters. This happens because as we we define smaller sampling units as clusters $\delta$ tends to increase, eg: individuals living together in a household tend to be more similar than individuals living in the same village.
+
+```{r "deff and n", echo=TRUE, fig.width=5, fig.height=4, fig.align="center"}
+deff_var <- expand.grid(
+				n=1:100,
+				delta=seq(0.1, 0.8, by=0.1)) %>%
+				mutate(deff=1+(n-1)*delta)
+
+ggplot(
+	data=deff_var,
+	aes(x=n, y=delta, z=deff)) +
+	geom_contour_filled(
+		breaks=c(1, 1.1, 5, seq(10, 90, by=10))) +
+	labs(fill="deff") +
+	theme_bw()
+```
+
+This highlights that the smaller the number of individuals selected from the same cluster the lower the $deff$. **Then if we have reasonable data/experience to pick a value for the $deff$ without information on $\delta$ it is safer to select a greater number of clusters of small sizes than the opposite.** You would be more likely to end up with a lower $deff$ than in your assumption than the opposite. Like a lot of things regarding sampling it comes down to the trade-offs you can do with how many interviewers, how much time, and how long you have to collect data.
+
+Another way to look at it: SRS can be viewed as an extreme case of cluster sampling with clusters of size 1.
+
+#### Unequal selection probabilities
+
+An alternative way to see $deff$ is:
 
 $$
 deff=\frac{N\sum_{k=1}^K(n_kw^2_k)}{\sum_{k=1}^K(n_kw_k)^2}(1+(n-1)\delta)
@@ -209,7 +244,18 @@ $\delta$ is the intra-class correlation
 
 Choosing the sampling scheme will depend on the situation and the available logistics.
 
-Additional aspect of probability sampling include the sampling units and the number of stages. The number of stages is the number of phases involved in the sample selection. If you randomly select individuals from a register: there is only one stage. An example Selecing a subset of healthcare centers The sampling methods previously mentioned are not exclusive
+The number of stages is the number of phases involved in the sample selection. If you randomly select individuals from a register: there is only one stage. There is no limit to the number of stages. However, adding a stage tends to increase the sample size, so it should simplify the logistical complexity in return to be worth it and/or allow you to answer some questions, eg: stratifying the sampling to be able to provide reasonable estimate in urban vs rural areas.
+
+All the the sampling calculations we saw so far should be applied for each stage.
+
+
+
+
+Figure with 1, 2, 3 stages and the impact of each stage on the sample size.
+
+
+
+
 
 ### Identifying sampling units
 
