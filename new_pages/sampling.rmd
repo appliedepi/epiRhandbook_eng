@@ -1,0 +1,224 @@
+# Sampling
+
+Assessing accurately if an intervention (vaccination campaign, distribution of bednets, etc) reached enough individuals could idealy be done by collecting data from ALL those individuals.For obvious logistical constraints it quickly become impossible in a reasonable amount of time. Drawing a representative sample of the population targeted by the intervention, the target population, is robust strategy to gather information and make reliable inferences.
+
+```{r "concept behind drawing sampling", out.width=c('100%', '100%'), echo=FALSE}
+# knitr::include_graphics(here::here("images", "gis_head_image.png"))
+```
+
+Sampling strategies to draw a representative sample differ for descriptive studies, typically field surveys assessing the proportion of a population reached by an intervention (vaccination campaign, bednet distribution, etc), or analtyical studies, case control or cohort studies.
+
+Some crucial elements should be defined:
+
+- Define a target population
+- Define a sampling scheme
+	+ Choose the number of stages
+	+ Identify the primary, secondary, tertiary (or more) sampling units and their number
+- Calculate sample size
+- Draw the sample using the identified sampling frame(s)
+
+```{r "package setup"}
+## load packages from CRAN
+pacman::p_load(here,         # File locator
+			   dplyr,		 # Data management
+			   ggplot2,      # Ggplot2 graphics
+			   metR,         # Filled contours used with ggplot2
+			   gridExtra	 # Plotting ggplot2 graphs side by side
+               ) 
+``` 
+
+
+## Target population
+
+Whether it is for descriptive studies or anlaytical studies a clear understanding of the population targeted by the intervention of interest is necessary.
+
+You should be able to answer the following (familiar) questions regarding the target population:
+
+- Who: what were the age group and sex?
+- Where: which regions, cities, villages, areas were targeted?
+- When: when did the intervention start/end?
+
+The group of people identified by the answer to those questions is also the same one you should draw your sample from. Any selection bias in your sampling strategy would make your sample less representative of your target population and decrease the robustness of your inferences.
+
+This step might seem straightforward and simple, but it can become conmplex in a setting with high population mobility or with a very short or a very targeted intervention. Besides, any mistake at this stage will introduce selection biases.
+
+## Sampling scheme
+
+There are two groups of sampling methods:
+
+- Probability sampling: every individual has a non-zero probability to be selected and we can estimate its selection probability. Traditionnaly individuals have equal selection probabilities, but it is not always the case. The ability to quantify the selection probability of every participant is necessary to weight the data appropriately (see Survey analysis). This group includes:
+	+ Simple random sampling (SRS): it involves randomly selecting a smaller group of participants/sampling units out of a population/finite number of sampling units with a probability $p=\frac{n}{N}$.
+	+ Stratified random sampling: it involves selecting a smaller group of participants/sampling units out of a population divided into smaller homgeneous groups (mutually exclusive): strata. The sampling occurs within each strata. The identified strata should be meaningful regarding what we try to measure, eg: vaccine coverge in rural area vs in urban area. 
+	+ Cluster sampling: it involves selecting homogeneous groups, clusters, out of a population composed of those groups. The clusters tend to be natural groups, eg: selecting villages to assess the vaccine coverage in a rural area. Unlike strata, the clusters are the sampling units, whereas sampling is done within each strata.
+	+ Systematic sampling: it involves selecting a smaller group of participants/sampling units out of a population/finite number of sampling units using an ordered sapling frame. Unlike with SRS, a constant sampling interval $k=\frac{n}{N}$ is used with the $1^{st}$ sampling unit randomly chosen between 1 and $k$ and every following $k^{th}$ sampling unit selected. 
+- Non-probability sampling: as opposed to probability sampling some individuals have no chance to be selected and we cannot necessarily estimate their selection probability. This group includes:
+	+ Convenience sampling
+	+ Snowball sampling
+	+ Purposeful sampling (quota samples, typical cases samples, etc)
+
+The probability sampling methods are not exclusive and can be used together in more complex sampling schemes, eg: 2 stage sampling with cluster sampling for the first stage and SRS for the second stage.
+
+Typically, equal selection probabilities in the sample, a self-weighted sample, is desirable because it keeps the analysis simple, without the need to use weights. However, unequal selection probabilities can be useful in situations where a subgroup of the target population is of interest, but its proportion is low enough that its selection would be rare with equal selection probabilities. An option could be to stratify the sampling, but it could be quite an effort if we simply want to ensure that it is sampled enough to produce reasonable estimates for this subgroup. Another solution could be to oversample it although it implies analyzing the data with some adjustments to take that into account (link to the survey analysis chapter).
+
+We will not cover non-probability sampling. This type of methods are more often used in qualitative research and do not allow us to make inferences on the distribution of the statistics of interest in the target population.
+
+```{r "sampling_methods", echo=TRUE, warning=FALSE, message=FALSE}
+# code chunks to illustrate the probablity sampling methods
+```
+
+## Sample size calculation
+
+We will focus on the sample size calculation for descriptive studies.
+
+Several R packages XXXXXXXXX can help you make such calculations easily. However you still meed to make choices and assumptions. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter.
+
+For any sample size calculation it is necessary to decide on:
+
+- The primary variable of interest
+	+ Categorical (eg: vaccinated/unvaccinated) or continuous data (eg: score measuring well being on a 1 to 10 scale)
+- The error estimation, it requires two elements
+	+ The $\alpha$ level (type I error), typically 0.05
+	+ The acceptable margin of error/precision.
+- An estimation of the variance of the primary variable of interest:
+	+ For continuous data
+	+ For categorical data: it can be summarized as the proportion you expect to find in your sample. The most conservative assumption maximizing the variance would be 0.5. 
+- The desired statistical power ($1-\beta$)
+
+The sampling scheme influences the sample size calculation. However, it is common to start by assuming SRS and then adjust the sample size to the specificities of our sampling scheme (stratification or cluster sampling). In practive cluster sampling and stratified sampling are used in combination with SRS and/or systematic sampling in a multi stage sampling. Below we will then assume it is also the case.
+
+### SRS
+
+It is the simplest approach in many ways. The sampling itself is straightforward, as is the anlysis. However, depending on the scale of your survey it often needs to be associated to other sampling methods to avoid logistical hassles.
+
+Building a sampling frame listing all the students of a school to randomly choose some of them is easy enough (1 stage SRS survey). Building such a sampling frame including the students of all the schools of all the cities in an area is less convenient than maybe selecting some cities, then seleting some schools in those cities and then select students in those schools (3 stage surveys with cluster sampling at the first and second stages with SRS at the third stage). Even if the second solution can lead to a higher sample size (see below), it is way easier to plan, to get the necessary data, and sampling frames, and eventually to realize.
+
+#### Primary variable: continuous data
+
+#### Primary variable: Categorical data
+
+$$
+n=\frac{p(1-p)Z^2}{\Delta}
+$$
+
+$p(1-p)$ is the estimate of the variance, and $Z=0.196$ for $\alpha=0.05$
+
+We would typically consider a range of values to assess a range of acceptable sample sizes given some assumptions.
+
+```{r "SRS categorical 1", echo=TRUE, fig.align="center", fig.height=4, fig.width=9}
+ssize <- expand.grid(
+			p=seq(0.5, 0.95, by=0.05),
+			delta=seq(0.01, 0.1, by=0.01)) %>%
+			mutate(n=(p*(1-p)*qnorm(0.975)^2)/(delta^2))
+
+# Let us see what the different combinations of precision or prevalence lead to in terms of sample size
+ssize_explo <- ggplot(
+					data=ssize,
+					aes(x=delta, y=p, z=log10(n))) +
+					geom_contour_filled(
+						breaks=seq(0, 4, by=0.5)) +
+					labs(fill="Log10 sample size") +
+					geom_contour(
+						size=1,
+						breaks=1:3,
+						color="black") +
+					geom_text_contour(
+						breaks=1:3,
+						color="black",
+						rotate=FALSE,
+						stroke=0.05) +
+					geom_vline(
+						xintercept=0.05,
+						linetype="dashed",
+						color="red",
+						size=1) +
+					ggtitle("Variation of the sample size (log10)\nfor various combinations of p and delta") +
+					theme_bw()
+
+ssize <- expand.grid(
+			p=seq(0.6, 0.95, by=0.025),
+			delta=0.05) %>%
+			mutate(n=(p*(1-p)*qnorm(0.975)^2)/(delta^2))
+
+ssize_zoom <- ggplot(
+				data=ssize,
+				aes(x=p, y=n)) +
+				geom_line(
+					linetype="dashed",
+					color="red",
+					size=1) +
+				ggtitle("Variation of the sample size (log10)\nfor with p and assuming delta=0.05") +
+				theme_bw()
+
+grid.arrange(
+	ssize_explo,
+	ssize_zoom,
+	ncol=2,
+	widths=c(4, 3))
+```
+
+You can see that precision has a pretty strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, let us consider a 5% precision and assume a prevalence of at least 60% to restrict a more reasonable range of sample size. 
+
+### Stratification
+
+### Cluster 
+
+Some info on why a 1 stage SRS is not always the easy way!!!
+
+A common 2 stage sampling scheme uses cluster sampling at the first stage, with probability proportional to size (PPS), and the second stage using SRS. The association of the two leads to an equal selection probability of all the individuals. This is convenient for two main reasons:
+
+- The cluster sampling adds logistical flexibility despite the increased sample size, eg: we first select villages with a probability proportional to population size.
+
+- The selected participants have equal selection probability. This means that they do not need particular analysis methods with weighting because their weights are similar: a "self-weighted" sample.  
+
+```{r "self weighting demonstration", echo=TRUE}
+
+```
+
+$$
+deff=\frac{V_{design}}{V_{SRS}}
+$$
+
+$V_{SRS}$ is the variance in a sample using SRS
+$V_{design}$ is the variance in a sample drawn using our design 
+
+An alternative way to see it:
+
+- If we have equal sampling probabilities
+
+$$
+deff=1+(n-1)\delta
+$$
+
+$n$ is the average cluster size
+$\delta$ is the intra-class correlation
+
+- If we have unequal sampling probabilities
+
+$$
+deff=\frac{N\sum_{k=1}^K(n_kw^2_k)}{\sum_{k=1}^K(n_kw_k)^2}(1+(n-1)\delta)
+$$
+
+$n_k$ is the size of the cluster $k$
+$w_k$ is the weight of the individuals of the cluster $k$ and it is the inverse of the selection probability in this cluster
+$N=\frac{1}{K}\sum^K_{k=1}{n_k}$ is the total sample size
+$n=\overline{n_k}$ is average the cluster size
+$\delta$ is the intra-class correlation
+
+
+## Number of stages
+
+Choosing the sampling scheme will depend on the situation and the available logistics.
+
+Additional aspect of probability sampling include the sampling units and the number of stages. The number of stages is the number of phases involved in the sample selection. If you randomly select individuals from a register: there is only one stage. An example Selecing a subset of healthcare centers The sampling methods previously mentioned are not exclusive
+
+### Identifying sampling units
+
+## Drawing a sample using "sampling frame(s)"
+
+Obtaining the information to build a sampling frame can be time consuming in resource limited settings. Demographic informations at the necessary scale can often be gathered from recent census surveys from the local statistics institute, other population based surveys such as [DHS](https://dhsprogram.com/) or [MICS](https://mics.unicef.org/), or even the EPI. Ensuring the data you use to build your sampling frame are up-tp-date and at the necessary geographical scale can be challenging, and can require some trade-offs.
+
+Sampling frames do not need to be a simple list (paper or otherwise). Other recent data could be really powerful to create a sampling frame in a setting where there are a lot of IDPs, or a natural disaster has substantially modified population distribution, or simply because you cannot find traditional data sources reliable enough. GIS sampling has been used more frequently in recent years to draw samples in complex settings. Although it can look more complex, in many ways it is often a straigthforward application of SRS but using satelite images, or a map, or another GIS product as a sampling frame.
+
+```{r "spatial sampling", echo=TRUE}
+
+```
