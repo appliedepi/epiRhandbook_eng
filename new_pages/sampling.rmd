@@ -12,8 +12,8 @@ Some crucial elements should be defined:
 
 - Target population
 - Sampling scheme
-	+ Choose the number of stages
-	+ Identify the primary, secondary, tertiary (or more) sampling units and their number
+	- Choose the number of stages
+	- Identify the primary, secondary, tertiary (or more) sampling units and their number
 - Sample size
 
 The last step would be to Draw the sample using the identified sampling frame(s).
@@ -27,7 +27,8 @@ pacman::p_load(here,         # File locator
 			   metR,         # Filled contours used with ggplot2
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
 			   viridis		 # Viridis color palettes
-               ) 
+			   knitr		 # kable to make tables
+			)
 ``` 
 
 
@@ -43,25 +44,25 @@ You should be able to answer the following (familiar) questions regarding the ta
 
 The group of people identified by the answer to those questions is also the same one you should draw your sample from. Any selection bias in your sampling strategy would make your sample less representative of your target population and decrease the robustness of your inferences.
 
-This step might seem straightforward and simple, but it can become conmplex in a setting with high population mobility or with a very short or a very targeted intervention. Besides, any mistake at this stage will introduce selection biases.
+This step might seem straightforward and simple, but it can become complex in a setting with high population mobility or with a very short or a very targeted intervention. Besides, any mistake at this stage will introduce selection biases.
 
 ## Sampling scheme
 
 There are two groups of sampling methods:
 
-- Probability sampling: every individual has a non-zero probability to be selected and we can estimate its selection probability. Traditionnaly individuals have equal selection probabilities, but it is not always the case. The ability to quantify the selection probability of every participant is necessary to weight the data appropriately (see Survey analysis). This group includes:
-	+ Simple random sampling (SRS): it involves randomly selecting a smaller group of participants/sampling units out of a population/finite number of sampling units with a probability $p=\frac{n}{N}$.
-	+ Stratified random sampling: it involves selecting a smaller group of participants/sampling units out of a population divided into smaller homgeneous groups (mutually exclusive): strata. The sampling occurs within each strata. The identified strata should be meaningful regarding what we try to measure, eg: vaccine coverge in rural area vs in urban area. 
-	+ Cluster sampling: it involves selecting homogeneous groups, clusters, out of a population composed of those groups. The clusters tend to be natural groups, eg: selecting villages to assess the vaccine coverage in a rural area. Unlike strata, the clusters are the sampling units, whereas sampling is done within each strata.
-	+ Systematic sampling: it involves selecting a smaller group of participants/sampling units out of a population/finite number of sampling units using an ordered sapling frame. Unlike with SRS, a constant sampling interval $k=\frac{n}{N}$ is used with the $1^{st}$ sampling unit randomly chosen between 1 and $k$ and every following $k^{th}$ sampling unit selected. 
-- Non-probability sampling: as opposed to probability sampling some individuals have no chance to be selected and we cannot necessarily estimate their selection probability. This group includes:
-	+ Convenience sampling
-	+ Snowball sampling
-	+ Purposeful sampling (quota samples, typical cases samples, etc)
+- **Probability sampling**: every individual has a non-zero probability to be selected and we can estimate its selection probability. Traditionnaly, we want the selected individuals to have equal selection probabilities, but it is not always the case. The ability to quantify the selection probability of every participant is necessary to weight the data appropriately (see Survey analysis). This group includes:
+	- **Simple random sampling** (SRS): it involves randomly selecting a smaller group of participants/sampling units out of a population/finite number of sampling units with a probability $p=\frac{n}{N}$.
+	- **Systematic sampling**: it involves selecting a smaller group of participants/sampling units using a sampling frame. Unlike with the SRS, a constant sampling interval $k=\frac{n}{N}$ is used with the $1^{st}$ sampling unit randomly chosen between 1 and $k$ and every following $k^{th}$ sampling unit selected. 
+	- **Cluster sampling**: it involves selecting homogeneous groups, clusters, out of a population composed of those groups. The clusters tend to be natural groups, eg: selecting villages to assess the vaccine coverage in a rural area. Unlike strata, the clusters are the sampling units, whereas sampling is done within each strata.
+	- **Stratified random sampling**: it involves selecting a smaller group of participants/sampling units out of a population divided into smaller homgeneous groups (mutually exclusive): strata. The sampling occurs within each strata. The identified strata should be meaningful regarding what we try to measure, eg: vaccine coverge in rural area vs in urban area. 
+- **Non-probability sampling**: as opposed to probability sampling some individuals have no chance to be selected and we cannot necessarily estimate their selection probability. This group includes:
+	- **Convenience sampling**
+	- **Snowball sampling**
+	- **Purposeful sampling** (quota samples, typical cases samples, etc)
 
-The probability sampling methods are not exclusive and can be used together in more complex sampling schemes, eg: 2 stage sampling with cluster sampling for the first stage and SRS for the second stage.
+The different probability sampling methods are not exclusive and can be used together in more complex sampling schemes, eg: 2 stage sampling with cluster sampling for the first stage and SRS for the second stage.
 
-Typically, equal selection probabilities in the sample, a self-weighted sample, is desirable because it keeps the analysis simple, without the need to use weights. However, unequal selection probabilities can be useful in situations where a subgroup of the target population is of interest, but its proportion is low enough that its selection would be rare with equal selection probabilities. An option could be to stratify the sampling, but it could be quite an effort if we simply want to ensure that it is sampled enough to produce reasonable estimates for this subgroup. Another solution could be to oversample it although it implies analyzing the data with some adjustments to take that into account (link to the survey analysis chapter).
+Typically, equal selection probabilities in the sample, a self-weighted sample, is desirable because it keeps the analysis simple, without the need to use weights. However, unequal selection probabilities can be useful in situations where a subgroup of the target population is of interest, but its proportion is low enough that its selection would be rare with equal selection probabilities. An option could be to stratify the sampling, but it could be quite an effort if we simply want to ensure that it is sampled enough to produce reasonable estimates for this subgroup. Another solution could be to oversample it, leading to unequal selection probabilities. The downside is that it implies [analyzing the data with some additional adjustments](link to the survey analysis chapter) to take that into account.
 
 We will not cover non-probability sampling. This type of methods are more often used in qualitative research and do not allow us to make inferences on the distribution of the statistics of interest in the target population.
 
@@ -75,25 +76,26 @@ We will focus on the sample size calculation for descriptive studies.
 
 Several R packages XXXXXXXXX can help you make such calculations easily. However you still meed to make choices and assumptions. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter.
 
-For any sample size calculation it is necessary to decide on:
+For any sample size calculation it is necessary to decide/identify:
 
 - The primary variable of interest
-	+ Categorical (eg: vaccinated/unvaccinated) or continuous data (eg: score measuring well being on a 1 to 10 scale)
+	- Categorical (eg: vaccinated/unvaccinated) or continuous data (eg: score measuring well being on a 1 to 10 scale)
 - The error estimation, it requires two elements
-	+ The $\alpha$ level (type I error), typically 0.05
-	+ The acceptable margin of error/precision.
+	- The $\alpha$ level (type I error), typically 0.05
+	- The acceptable margin of error/precision.
 - An estimation of the variance of the primary variable of interest:
-	+ For continuous data
-	+ For categorical data: it can be summarized as the proportion you expect to find in your sample. The most conservative assumption maximizing the variance would be 0.5. 
-- The desired statistical power ($1-\beta$)
+	- For continuous data
+	- For categorical data: it can be summarized as the proportion you expect to find in your sample. The most conservative assumption maximizing the variance would be 0.5.
 
-The sampling scheme influences the sample size calculation. However, it is common to start by assuming SRS and then adjust the sample size to the specificities of our sampling scheme (stratification or cluster sampling). In practive cluster sampling and stratified sampling are used in combination with SRS and/or systematic sampling in a multi stage sampling. Below we will then assume it is also the case.
+The sampling scheme influences the sample size calculation. However, it is common to start by assuming SRS and then adjust the sample size to the specificities of our sampling scheme (stratification or cluster sampling). In practive cluster sampling and stratified sampling are mostly used in combination with SRS and/or systematic sampling in a multistage sampling. Below we will then assume it is also the case.
 
 ### SRS
 
 It is the simplest approach in many ways. The sampling itself is straightforward, as is the anlysis. However, depending on the scale of your survey it often needs to be associated to other sampling methods to avoid logistical hassles.
 
-Building a sampling frame listing all the students of a school to randomly choose some of them is easy enough (1 stage SRS survey). Building such a sampling frame including the students of all the schools of all the cities in an area is less convenient than maybe selecting some cities, then seleting some schools in those cities and then select students in those schools (3 stage surveys with cluster sampling at the first and second stages with SRS at the third stage). Even if the second solution can lead to a higher sample size (see below), it is way easier to plan, to get the necessary data, and sampling frames, and eventually to realize.
+Building a sampling frame listing all the students of a school to randomly choose some of them is easy enough (1 stage SRS survey). Building such a sampling frame including the students of all the schools of all the cities in an area is less convenient than maybe selecting some cities, then seleting some schools in those cities, and then randomly selecting students in those schools (3 stage surveys with cluster sampling at the first and second stages with SRS at the third stage). Even if the second solution will lead to a higher sample size (see below), it is way easier to plan, to get the necessary data, and eventually to realize.
+
+When it comes to sample size calculation, a first step is often to assume that your use 1 stage sampling with SRS. Then you will take into account the specificities of your chosen design (see below).
 
 #### Primary variable: continuous data
 
@@ -159,13 +161,52 @@ grid.arrange(
 	widths=c(4, 3))
 ```
 
-You can see that precision has a strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, let us consider a 5% precision and assume a prevalence of at least 60% to look for a more reasonable range of sample sizes.
+You can see that precision has a strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, we could consider a 5% precision and assume a prevalence of at least 60% to look for a more reasonable range of sample sizes.
 
-### Stratification
+### Systematic sampling
 
-### Cluster 
+Systematic sampling is functionally equivalent to SRS: every individual in the sampling frame has the same selection probability. Sample size calculation is then commonly done assuming SRS.
 
-Cluster sampling is very common sampling strategy, but it is rarely used as is in a 1 stage sampling scheme. It is most frequently associated to other sampling methods such as SSR.
+There is a risk of adding a bias without noticing with this strategy though. Using a regular sampling interval $k$ could oversample some in participants if the sampling frame you use is ordered in a specific way.
+
+```{r "systematic and bias", echo=TRUE, fig.width=5, fig.height=4, fig.align="center"}
+# Here we generate a population with 10 000 individuals with their age and some infection that is more frequent in older people
+population <- data.frame(
+				id=1:10000,
+				age=as.integer(10*rlnorm(10000, meanlog=0, sdlog=0.5))) %>%
+				mutate(infection=rbinom(10000, size=1, prob=0.2+0.1*(age/max(age))))
+
+# Let us assume we made a sampling frame with the list of all individuals and we order it by inc
+
+```
+
+### Other sampling methods and more complex designs
+ 
+As soon as you associate various sampling methods by using a multistage sampling design, calculating the sample size will require some information based on the litterature (idealy) or some additional assumptions.
+
+Adding several stages means that you use other methods (maybe in association) than SRS/systematic sampling. Cluster sampling typically will lead to sampling participants that are to some extent correlated to the participants of the same cluster. Analysing sample (assuming that their characteristics  are independent) as is then underestimate the variance of your primary variable of interest. This means that you need to inflate the sample size to compensate for this. By how much you need to inflate your sample size? This is the difficult part. **The constant by which you should multiply your sample size assuming SRS is called the design effect ($deff$).**
+
+$$
+deff=\frac{V_{design}}{V_{SRS}}
+$$
+
+$V_{SRS}$ is the variance in a sample using SRS.
+
+$V_{design}$ is the variance in a sample drawn using our design.
+
+$deff$ is usually above 1 with multistage sampling, but the closer it is to 1 the closer the sample size is to the one you would get only with SRS.
+
+This formula also means that if you can get some estimate of $deff$, based on the literature, things become quite simple. You can simply make your sample size calculation assuming SRS and multiply it by $deff$.
+
+$$
+n_{design}=deff \times V_{SRS}
+$$
+
+An important point though: what you find in the litterature is relevant only if you defined your design in a similar way, eg: if your clusters are villages but some article used households it is not useful. Besides, the settings should be reasonably similar as well.
+
+#### Cluster sampling
+
+Cluster sampling is very common sampling strategy. It can be used as a 1 stage sampling scheme, but it is more frequently associated to other sampling methods such as SRS/systematic sampling in multistage sampling schemes.
 
 A common 2 stage sampling scheme uses cluster sampling at the first stage, with probability proportional to size (PPS), and SRS as the second stage. The association of the two leads to an equal selection probability of all the individuals. This is convenient for two main reasons:
 
@@ -174,37 +215,44 @@ A common 2 stage sampling scheme uses cluster sampling at the first stage, with 
 - The selected participants have equal selection probability. This means that they do not need particular analysis methods becauseit is a self-weighted sample.  
 
 ```{r "self weighting demonstration", echo=TRUE}
-# PPS
-# SSR
+# Let us generate a list of villages with their sample sizes
+villages <- data.frame(
+			name=LETTERS[1:20],
+			pop=as.integer(100*rlnorm(20, meanlog=3, sdlog=1.5)))
+
+# Now let us select 10 cluster (1 cluster is 5 households) by PPS
+villages$p1 <- villages$pop/sum(villages$pop) # Probability that a cluster is selected in the villages
+clusters <- sample(villages$name, 10, replace=TRUE, prob=villages$p1)
+
+# In each household we randomly select 1 person using SRS
+sample <- data.frame(cluster=clusters) %>%
+			left_join(.,
+				villages,
+				by=c("cluster"="name")) %>%
+			mutate(
+				p2=1/pop, # The probability of an individual to be sampled once a cluster was selected
+				p=p1*p2) # The selection probability id the product of p1 and p2
+
+kable(sample)
 ```
-
-$$
-deff=\frac{V_{design}}{V_{SRS}}
-$$
-
-$V_{SRS}$ is the variance in a sample using SRS
-$V_{design}$ is the variance in a sample drawn using our design 
-
-The design effect, $deff$, reflects the correction necessary to apply to take into account that individuals from the same cluster are not independent. The correlation between people from the same cluster leads to underestimating the variance of our statistics of interest. We need to inflate the sample size and [take the design in consideration during the analysis](link to the survey analyis chapter) to compensate for this. $deff$ is usually above 1 because of this. The closer it is to 1, the closer it is SRS in terms of sample size.
-
-This formula also means that if you can get some estimate of $deff$, based on the literature, things become quite simple. You can simply make your sample size calculation assuming SSR and multiply it by $deff$. However, what you find in the litterature is relevant only if you defined clusters in a similar way, eg: if your clusters are villages but some article used households it is not useful. Besides, the settings should reasonably similar as well.
-
-If you have experience in surveys using cluster sampling in similar settings you could also make a conservative assumption based on your previous surveys regarding the value of $deff$. 
 
 #### Equal selection probabilities
 
-An alternative way to see $deff$ is:
+Let us assume we use this common design for now.
+
+With this sampling scheme, an alternative way to see $deff$ is:
 
 $$
 deff=1+(n-1)\delta
 $$
 
 $n$ is the average cluster size. Ideally the size of all the clusters is identical or very similar.
-$\delta$ is the intra-class correlation. It reflects how similar individuals tend be in a cluster, eg: if 1 child had 2 doses of MCV, his/her siblings are more likely to have had 2 doses as well. 
 
-As previously mentioned, the litterature can provide reasonable values for $\delta$. But again, it is necessary to ensure that you are referring to comparable clusters.
+$\delta$ is the intra-class correlation (ICC). It reflects how similar individuals tend be in a cluster, eg: if 1 child had 2 doses of MCV, his/her siblings are more likely to have had 2 doses as well. 
 
-One additional thing it reveals is thay $deff$ tends to decrease with with a higher number of smaller clusters. This happens because as we we define smaller sampling units as clusters $\delta$ tends to increase, eg: individuals living together in a household tend to be more similar than individuals living in the same village.
+As previously mentioned, the litterature can provide reasonable values for $\delta$. But again, it is necessary to ensure that you are referring to comparable designs and settings.
+
+Let us have a look at how the $deff$ behaves for various values of cluster size and ICC.
 
 ```{r "deff and n", echo=TRUE, fig.width=5, fig.height=4, fig.align="center"}
 deff_var <- expand.grid(
@@ -221,24 +269,44 @@ ggplot(
 	theme_bw()
 ```
 
-This highlights that the smaller the number of individuals selected from the same cluster the lower the $deff$. **Then if we have reasonable data/experience to pick a value for the $deff$ without information on $\delta$ it is safer to select a greater number of clusters of small sizes than the opposite.** You would be more likely to end up with a lower $deff$ than in your assumption than the opposite. Like a lot of things regarding sampling it comes down to the trade-offs you can do with how many interviewers, how much time, and how long you have to collect data.
+This highlights two things:
+
+- The smaller the number of individuals selected from the same cluster the lower the $deff$. **Then if we have reasonable data/experience to pick a value for the $deff$ without information on $\delta$ it is safer to select a greater number of clusters of small sizes than the opposite.** You would be more likely to end up with a lower $deff$ than compared to your assumption than the opposite. Like a lot of things regarding sampling it comes down to the trade-offs you can do with how many interviewers, how much time, and how much time you have to collect data.
+- For a given cluster size, the more heterogenous it is (the lower the value of $\delta$) the more precise the estimates will be because it leads to a lower $deff$.
 
 Another way to look at it: SRS can be viewed as an extreme case of cluster sampling with clusters of size 1.
 
 #### Unequal selection probabilities
 
-An alternative way to see $deff$ is:
+If we use cluster sampling but with unequal selection probabilities, then an alternative way to see $deff$ is:
 
 $$
 deff=\frac{N\sum_{k=1}^K(n_kw^2_k)}{\sum_{k=1}^K(n_kw_k)^2}(1+(n-1)\delta)
 $$
 
-$n_k$ is the size of the cluster $k$
-$w_k$ is the weight of the individuals of the cluster $k$ and it is the inverse of the selection probability in this cluster
-$N=\frac{1}{K}\sum^K_{k=1}{n_k}$ is the total sample size
-$n=\overline{n_k}$ is average the cluster size
-$\delta$ is the intra-class correlation
+$n_k$ is the size of the cluster $k$.
 
+$w_k$ is the weight of the individuals of the cluster $k$ and it is the inverse of the selection probability in this cluster.
+
+$N=\frac{1}{K}\sum^K_{k=1}{n_k}$ is the total sample size.
+
+$n=\overline{n_k}$ is average the cluster size.
+
+$\delta$ is the ICC.
+
+### Stratified sampling
+
+Stratification becomes realy relevant when the target population is a mixture of reasonably homogeneous subgroups. It could be anything as long as it makes sense in regard to what your survey primarily measures, eg: rural vs urban, the various age groups, men vs women, etc. The identified strata are exclusive and their sum should cover the whole population. They identify more homogeneous partitions, reducing the variance of the statistics of interest within them leading to more precise estimates. Unlike for cluster sampling the more homogeneous the strata are, the more precise the estimates will be.
+
+When it comes to sample size calculation stratification is the same as applying your sampling strategy independently in the defined strata. You could vary the ratio between the necessary sample size in each strata any way you want as long as you have the minimum precision you look for in each strata.
+
+$$
+N=\sum_{s=1}^{S}n_s
+$$
+
+$N$ is the total sample size including all the $S$ strata.
+
+$n_s$ is the sample size for the strata $s$. It could be the sample for every strata if the assumption used are conservative enough and you get the required miminam precision you want. If every strata has the same sample size then it is a 1 to 1 ratio.
 
 ## Number of stages
 
@@ -250,8 +318,9 @@ All the the sampling calculations we saw so far should be applied for each stage
 
 
 
-
-Figure with 1, 2, 3 stages and the impact of each stage on the sample size.
+----------------------------
+We need to inflate the sample size and [take the design in consideration during the analysis](link to the survey analyis chapter) to compensate for this.
+----------------------------
 
 
 
