@@ -1,14 +1,14 @@
 # Sampling
 
-Assessing accurately if an intervention (vaccination campaign, distribution of bednets, etc) reached enough individuals could idealy be done by collecting data from ALL those individuals.For obvious logistical constraints it quickly become impossible in a reasonable amount of time. Drawing a representative sample of the population targeted by the intervention, the target population, is robust strategy to gather information and make reliable inferences.
+Assessing accurately if an intervention (vaccination campaign, distribution of bednets, etc) reached enough individuals could idealy be done by collecting data from ALL those individuals. For obvious logistical constraints it is impossible in a reasonable amount of time and with limited resources. Drawing a representative sample of the population targeted by the intervention, the target population, is a robust strategy to gather information. It allows us to make reliable inferences on the target population by gathering information on a portion of it.
 
 ```{r "concept behind drawing sampling", out.width=c('100%', '100%'), echo=FALSE}
 # knitr::include_graphics(here::here("images", "gis_head_image.png"))
 ```
 
-Sampling strategies to draw a representative sample differ for descriptive studies, typically field surveys assessing the proportion of a population reached by an intervention (vaccination campaign, bednet distribution, etc), or analtyical studies, case control or cohort studies.
+Sampling strategies to draw a representative sample differ for descriptive studies, typically field surveys assessing the proportion of a population reached by various interventions (vaccination campaign, bednet distribution, etc), or analtyical studies (case control or cohort studies).
 
-Some crucial elements should be defined:
+Some crucial elements should be defined to reach that goal:
 
 - Target population
 - Sampling scheme
@@ -16,29 +16,29 @@ Some crucial elements should be defined:
 	- Identify the primary, secondary, tertiary (or more) sampling units and their number
 - Sample size
 
-The last step would be to Draw the sample using the identified sampling frame(s).
+The last steps would be to draw the sample using the identified sampling frame(s) and collect information.
 
 ```{r "package setup"}
 ## load packages from CRAN
 pacman::p_load(here,         # File locator
+			   randomNames,  # Generate random names
 			   dplyr,		 # Data management
 			   tidyr,		 # Switching from wide to long
 			   ggplot2,      # Ggplot2 graphics
 			   metR,         # Filled contours used with ggplot2
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
-			   viridis		 # Viridis color palettes
-			   knitr		 # kable to make tables
+			   knitr,		 # kable to make tables
+			   DT 			 # Interactive tables
 			)
 ``` 
 
-
 ## Target population
 
-Whether it is for descriptive studies or anlaytical studies a clear understanding of the population targeted by the intervention of interest is necessary.
+Whether it is for descriptive studies or analytical studies a clear understanding of the population targeted by the intervention of interest is necessary.
 
 You should be able to answer the following (familiar) questions regarding the target population:
 
-- Who: what were the age group and sex?
+- Who: what were the age group, sex, or any other relevant characteristics of the population?
 - Where: which regions, cities, villages, areas were targeted?
 - When: when did the intervention start/end?
 
@@ -48,23 +48,25 @@ This step might seem straightforward and simple, but it can become complex in a 
 
 ## Sampling scheme
 
-There are two groups of sampling methods:
+Deciding how many stages and wich sampling method you use at each stage is crucial. It directly impacts your final sapling size and the practical logistic of your data collection step.
 
-- **Probability sampling**: every individual has a non-zero probability to be selected and we can estimate its selection probability. Traditionnaly, we want the selected individuals to have equal selection probabilities, but it is not always the case. The ability to quantify the selection probability of every participant is necessary to weight the data appropriately (see Survey analysis). This group includes:
+There are two main groups of sampling methods:
+
+- **Probability sampling**: every individual has a non-zero probability to be selected and we can estimate its selection probability. Traditionnaly, we want the selected individuals to have equal selection probabilities: a "self-weighted" sample. However, it is not always the case. If it is not a self-weighted sample we must be able to quantify the selection probability of every participant to weight the data appropriately (see Survey analysis). This broad group of methods includes:
 	- **Simple random sampling** (SRS): it involves randomly selecting a smaller group of participants/sampling units out of a population/finite number of sampling units with a probability $p=\frac{n}{N}$.
-	- **Systematic sampling**: it involves selecting a smaller group of participants/sampling units using a sampling frame. Unlike with the SRS, a constant sampling interval $k=\frac{n}{N}$ is used with the $1^{st}$ sampling unit randomly chosen between 1 and $k$ and every following $k^{th}$ sampling unit selected. 
-	- **Cluster sampling**: it involves selecting homogeneous groups, clusters, out of a population composed of those groups. The clusters tend to be natural groups, eg: selecting villages to assess the vaccine coverage in a rural area. Unlike strata, the clusters are the sampling units, whereas sampling is done within each strata.
-	- **Stratified random sampling**: it involves selecting a smaller group of participants/sampling units out of a population divided into smaller homgeneous groups (mutually exclusive): strata. The sampling occurs within each strata. The identified strata should be meaningful regarding what we try to measure, eg: vaccine coverge in rural area vs in urban area. 
+	- **Systematic sampling**: it involves selecting a smaller group of participants/sampling units using a sampling frame. Unlike with the SRS, a constant sampling interval $k=\frac{n}{N}$ is used with the $1^{st}$ sampling unit randomly chosen between 1 and $k$ and every following $k^{th}$ sampling unit selected. It is a reasonable approximation of SRS.
+	- **Cluster sampling**: it involves selecting homogeneous groups, clusters, out of a heterogeneous population composed of those groups. The clusters tend to be natural groups, eg: selecting villages to assess the vaccine coverage in a rural area.
+	- **Stratified random sampling**: it involves selecting a smaller group of sampling units out of a population divided into smaller mutually exclusive homgeneous groups: strata. The sampling occurs within each strata. The identified strata should be meaningful regarding what we try to measure, eg: vaccine coverge in rural area vs in urban area. 
 - **Non-probability sampling**: as opposed to probability sampling some individuals have no chance to be selected and we cannot necessarily estimate their selection probability. This group includes:
 	- **Convenience sampling**
 	- **Snowball sampling**
 	- **Purposeful sampling** (quota samples, typical cases samples, etc)
 
-The different probability sampling methods are not exclusive and can be used together in more complex sampling schemes, eg: 2 stage sampling with cluster sampling for the first stage and SRS for the second stage.
+The different probability sampling methods are not exclusive and can be used together in complex sampling schemes. You can multiply the number of stages of your sampling combining sampling methods at each stage, eg: 2 stage sampling with cluster sampling for the first stage and SRS for the second stage (see Other sampling methods and more complex designs).
 
-Typically, equal selection probabilities in the sample, a self-weighted sample, is desirable because it keeps the analysis simple, without the need to use weights. However, unequal selection probabilities can be useful in situations where a subgroup of the target population is of interest, but its proportion is low enough that its selection would be rare with equal selection probabilities. An option could be to stratify the sampling, but it could be quite an effort if we simply want to ensure that it is sampled enough to produce reasonable estimates for this subgroup. Another solution could be to oversample it, leading to unequal selection probabilities. The downside is that it implies [analyzing the data with some additional adjustments](link to the survey analysis chapter) to take that into account.
+Typically, equal selection probabilities in the sample, a self-weighted sample, is desirable because it keeps the analysis simple without the need to use weights. However, unequal selection probabilities can be useful in situations where a subgroup of the target population is of interest, but its proportion is low enough that its selection would be rare with equal selection probabilities. An option could be to stratify the sampling, but it could be quite an effort if we simply want to ensure that it is sampled enough to produce reasonable estimates for this subgroup. Another solution could be to oversample it, leading to unequal selection probabilities. The downside is that it implies [analyzing the data with some additional adjustments](link to the survey analysis chapter) to take that into account.
 
-We will not cover non-probability sampling. This type of methods are more often used in qualitative research and do not allow us to make inferences on the distribution of the statistics of interest in the target population.
+We will not cover non-probability sampling. This type of methods are more often used in qualitative research and do not allow us to make inferences on the distribution of statistics of interest in the target population.
 
 ```{r "sampling_methods", echo=TRUE, warning=FALSE, message=FALSE}
 # code chunks to illustrate the probablity sampling methods
@@ -72,9 +74,9 @@ We will not cover non-probability sampling. This type of methods are more often 
 
 ## Sample size calculation
 
-We will focus on the sample size calculation for descriptive studies.
+In this chapter, we will focus on the sample size calculation for descriptive studies.
 
-Several R packages XXXXXXXXX can help you make such calculations easily. However you still meed to make choices and assumptions. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter.
+Several R packages XXXXXXXXX can help you make such calculations easily. However you still need to make choices and sometimes some assumptions. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter.
 
 For any sample size calculation it is necessary to decide/identify:
 
@@ -84,10 +86,12 @@ For any sample size calculation it is necessary to decide/identify:
 	- The $\alpha$ level (type I error), typically 0.05
 	- The acceptable margin of error/precision.
 - An estimation of the variance of the primary variable of interest:
-	- For continuous data
+	- For continuous data: this could rely on the literature or it could be asusmed. As a guideline keep in mind that 95% of estimates based on the sample will fall within +/- 1.96 standard deviation of the mean. As long as you have a reasonble idea of what could be the mean in the target population and you can define a range of values around it to be able to capture the value in a sample (which will vary a bit) you can make some assumptions on the variance (the standard deviation is the square root of the variance).
 	- For categorical data: it can be summarized as the proportion you expect to find in your sample. The most conservative assumption maximizing the variance would be 0.5.
 
-The sampling scheme influences the sample size calculation. However, it is common to start by assuming SRS and then adjust the sample size to the specificities of our sampling scheme (stratification or cluster sampling). In practive cluster sampling and stratified sampling are mostly used in combination with SRS and/or systematic sampling in a multistage sampling. Below we will then assume it is also the case.
+You can see that a lot of reading is necessary to minimize the assumptions you have to make. When making assumptions, you will often consider several possible variations to consider a range of sample sizes. Your final sample size will sometimes be a tradeoff between conservative assumptions and logistical capacities. When making such tradeoffs, **you must also keep in mind that a sample size too big is a loss of time of resources, whereas a smaple size too small lead to estimates lacking precisions and potentially unreliable**.
+
+The sampling scheme influences the sample size calculation. However, it is common to start by assuming a 1 stage SRS sampling and then adjust the sample size to the specificities of our sampling scheme (stratification or cluster sampling). In practice, cluster sampling and stratified sampling are mostly used in combination with SRS and/or systematic sampling in a multistage sampling. Below we will then assume it is also the case.
 
 ### SRS
 
@@ -97,25 +101,109 @@ Building a sampling frame listing all the students of a school to randomly choos
 
 When it comes to sample size calculation, a first step is often to assume that your use 1 stage sampling with SRS. Then you will take into account the specificities of your chosen design (see below).
 
+```{r "Basic SRS", echo=TRUE, fig.align='center'}
+# Let us create a mock sampling frame with 1000 students with their names and sex
+set.seed(1) # So that the example can be exactly reproduced
+student_list <- data.frame(
+					sex=sample(rep(0:1, each=500), 1000, replace=FALSE)) %>% # 0 is male and 1 is female with a 1/1 ratio here,
+				mutate(
+					prob=ifelse(sex==0, 0.8, 0.6),		 	 # For some reason boys had a higher probability to be vaccinated than girls
+					vacci_status=rbinom(n=1000, size=1, prob=prob)) %>% # 0 is unvaccinated and 1 is vaccinated
+				mutate(names=randomNames(gender=sex)) # Random name generation
+# In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything!
+
+# Let us randomly select 250 students
+selected_students <- student_list[sample(1:nrow(student_list), 250),]
+
+# Vaccination coverage in our student population (the "true" vaccination coverage)
+mean(student_list$vacci_status)
+
+# Vaccination coverage based on our randomly selected students (the estimate of the vaccination coverage)
+mean(selected_students$vacci_status)
+
+# The estimate of the vaccination coverage based on the sample is pretty close to the one in the population
+
+datatable(selected_students, rownames=FALSE)
+```
+
 #### Primary variable: continuous data
+
+$$
+n=\frac{sd^2Z^2}{\Delta^2}
+$$
+
+$sd^2$ is the estimate of the variance (squared standard deviation), and $Z=0.196$ for $\alpha=0.05$
+
+```{r "SRS continuous 1", echo=TRUE, fig.align="center", fig.height=4, fig.width=9}
+# Let us see what the different combinations of precision or prevalence lead to in terms of sample size using the example of the score assessing well being (between 0 and 10).
+ssize <- expand.grid(
+			sd=seq(0.1, 1.5, by=0.1),
+			delta=seq(0.01, 1, length=100)) %>%
+			mutate(n=(sd^2*qnorm(0.975)^2)/(delta^2))
+
+ssize_explo <- ggplot(
+					data=ssize,
+					aes(x=delta, y=sd, z=log10(n))) +
+					geom_contour_filled(
+						breaks=seq(0, 4, by=0.5)) +
+					labs(fill="Log10 sample size") +
+					geom_contour(
+						size=1,
+						breaks=1:3,
+						color="black") +
+					geom_text_contour(
+						breaks=1:3,
+						color="black",
+						rotate=FALSE,
+						stroke=0.05) +
+					geom_vline(
+						xintercept=0.1,
+						linetype="dashed",
+						color="red",
+						size=1) +
+					ggtitle("Variation of the sample size (log10)\nfor various combinations of sd and delta") +
+					theme_bw()
+
+# Let us now restrict a bit the range of the assumptions we make
+ssize <- expand.grid(
+			sd=seq(0.4, 1, by=0.025),
+			delta=0.1) %>%
+			mutate(n=(sd^2*qnorm(0.975)^2)/(delta^2))
+
+ssize_zoom <- ggplot(
+				data=ssize,
+				aes(x=sd, y=n)) +
+				geom_line(
+					linetype="dashed",
+					color="red",
+					size=1) +
+				ggtitle("Variation of the sample size\nwith sd and assuming delta=0.1") +
+				theme_bw()
+
+grid.arrange(
+	ssize_explo,
+	ssize_zoom,
+	ncol=2,
+	widths=c(4, 3))
+```
+
+You can see that precision has a strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. 
 
 #### Primary variable: Categorical data
 
 $$
-n=\frac{p(1-p)Z^2}{\Delta}
+n=\frac{p(1-p)Z^2}{\Delta^2}
 $$
 
 $p(1-p)$ is the estimate of the variance, and $Z=0.196$ for $\alpha=0.05$
 
-We would typically consider a range of values to assess a range of acceptable sample sizes given some assumptions.
-
 ```{r "SRS categorical 1", echo=TRUE, fig.align="center", fig.height=4, fig.width=9}
+# Let us see what the different combinations of precision or prevalence lead to in terms of sample size
 ssize <- expand.grid(
 			p=seq(0.5, 0.95, by=0.05),
 			delta=seq(0.01, 0.1, by=0.01)) %>%
 			mutate(n=(p*(1-p)*qnorm(0.975)^2)/(delta^2))
 
-# Let us see what the different combinations of precision or prevalence lead to in terms of sample size
 ssize_explo <- ggplot(
 					data=ssize,
 					aes(x=delta, y=p, z=log10(n))) +
@@ -139,6 +227,7 @@ ssize_explo <- ggplot(
 					ggtitle("Variation of the sample size (log10)\nfor various combinations of p and delta") +
 					theme_bw()
 
+# Let us now restrict a bit the range of the assumptions we make
 ssize <- expand.grid(
 			p=seq(0.6, 0.95, by=0.025),
 			delta=0.05) %>%
@@ -151,7 +240,7 @@ ssize_zoom <- ggplot(
 					linetype="dashed",
 					color="red",
 					size=1) +
-				ggtitle("Variation of the sample size (log10)\nfor with p and assuming delta=0.05") +
+				ggtitle("Variation of the sample size\nwith p and assuming delta=0.05") +
 				theme_bw()
 
 grid.arrange(
@@ -161,23 +250,64 @@ grid.arrange(
 	widths=c(4, 3))
 ```
 
-You can see that precision has a strong impact on the sample size. It should help you make pragmatic choices and restrict the range of values to consider based on your objectives and logistics. So here, we could consider a 5% precision and assume a prevalence of at least 60% to look for a more reasonable range of sample sizes.
+As for continuous data, precision has a strong impact on the sample size, but so does the proportion you assume in the target population.
 
 ### Systematic sampling
 
 Systematic sampling is functionally equivalent to SRS: every individual in the sampling frame has the same selection probability. Sample size calculation is then commonly done assuming SRS.
 
-There is a risk of adding a bias without noticing with this strategy though. Using a regular sampling interval $k$ could oversample some in participants if the sampling frame you use is ordered in a specific way.
+There is a risk of adding a bias without noticing with this strategy though. Using a regular sampling interval $k$ could oversample participants with specific characteristics if the sampling frame you use is ordered in a specific way.
 
-```{r "systematic and bias", echo=TRUE, fig.width=5, fig.height=4, fig.align="center"}
-# Here we generate a population with 10 000 individuals with their age and some infection that is more frequent in older people
-population <- data.frame(
-				id=1:10000,
-				age=as.integer(10*rlnorm(10000, meanlog=0, sdlog=0.5))) %>%
-				mutate(infection=rbinom(10000, size=1, prob=0.2+0.1*(age/max(age))))
+```{r "systematic and bias 1", echo=TRUE}
+# Let us go back to our sampling frame created to illustrate SRS
+# If your remember well boys had more chance to be vaccinated
+# Now imagine that for administrative reasons the list of students is ordered by alternating boys and girls
+student_list <- student_list %>% # We are just reordering the list to alternate boys and girls
+					arrange(sex) %>%
+					mutate(index=rep(1:500, 2)) %>%
+					arrange(index, sex) %>%
+					select(-index)
 
-# Let us assume we made a sampling frame with the list of all individuals and we order it by inc
+datatable(student_list %>% select(-prob), rownames=FALSE)
 
+# We still want to select 250 students so let us calculate the interval
+interval <- nrow(student_list)/250
+# Now the random beginning
+set.seed(1)
+beginning <- sample(1:interval, 1)
+
+selected_students <- student_list[seq(beginning, nrow(student_list), by=interval),]
+
+# Vaccination coverage in our student population (the "true" vaccination coverage)
+mean(student_list$vacci_status)
+
+# Vaccination coverage based on our randomly selected students (the estimate of the vaccination coverage)
+mean(selected_students$vacci_status)
+```
+
+You can see in this example that we are substantially overestimating the vaccination coverage based on our sample. It is because the sampling frame (the list of students) is ordered in a specific way and our sampling interval happens to be even. Because the criteria used to order the sampling frame is associated with our outcome of interest (boys had more chance to be vaccinated) we can oversample or undersample boys if our sampling interval is even if our first selected student is a girl or a boy. This toy example is just a cartoonish illustration.
+
+In practice it can be very difficult to detect such issues before it is too late. The simple solution to this is to randmoly shuffle your sampling frame before making the systematic selection.
+
+```{r "systematic and bias 2", echo=TRUE}
+# Let us reshuffle our ordered list of students
+set.seed(2)
+student_list <- student_list[sample(1:nrow(student_list), nrow(student_list), replace=FALSE),]
+
+datatable(student_list %>% select(-prob), rownames=FALSE)
+
+# Now let us select the 250 students so let us calculate the interval
+interval <- nrow(student_list)/250
+# Now the random beginning
+beginning <- sample(1:interval, 1)
+
+selected_students <- student_list[seq(beginning, nrow(student_list), by=interval),]
+
+# Vaccination coverage in our student population (the "true" vaccination coverage)
+mean(student_list$vacci_status)
+
+# Vaccination coverage based on our randomly selected students (the estimate of the vaccination coverage)
+mean(selected_students$vacci_status)
 ```
 
 ### Other sampling methods and more complex designs
@@ -233,7 +363,7 @@ sample <- data.frame(cluster=clusters) %>%
 				p2=1/pop, # The probability of an individual to be sampled once a cluster was selected
 				p=p1*p2) # The selection probability id the product of p1 and p2
 
-kable(sample)
+datatable(sample, rownames=FALSE)
 ```
 
 #### Equal selection probabilities
