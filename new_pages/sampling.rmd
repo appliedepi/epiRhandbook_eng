@@ -27,7 +27,6 @@ pacman::p_load(here,         # File locator
 			   ggplot2,      # Ggplot2 graphics
 			   metR,         # Filled contours used with ggplot2
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
-			   knitr,		 # kable to make tables
 			   DT 			 # Interactive tables
 			)
 ``` 
@@ -110,7 +109,7 @@ student_list <- data.frame(
 					prob=ifelse(sex==0, 0.8, 0.6),		 	 # For some reason boys had a higher probability to be vaccinated than girls
 					vacci_status=rbinom(n=1000, size=1, prob=prob)) %>% # 0 is unvaccinated and 1 is vaccinated
 				mutate(names=randomNames(gender=sex)) # Random name generation
-# In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything!
+# In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything. This will allow us to compare our estimate using our sample to the truth.
 
 # Let us randomly select 250 students
 selected_students <- student_list[sample(1:nrow(student_list), 250),]
@@ -256,7 +255,7 @@ As for continuous data, precision has a strong impact on the sample size, but so
 
 Systematic sampling is functionally equivalent to SRS: every individual in the sampling frame has the same selection probability. Sample size calculation is then commonly done assuming SRS.
 
-There is a risk of adding a bias without noticing with this strategy though. Using a regular sampling interval $k$ could oversample participants with specific characteristics if the sampling frame you use is ordered in a specific way.
+There is a risk of adding a bias depending on the presence of patterns in the way the sampling frame is organized with this strategy though.
 
 ```{r "systematic and bias 1", echo=TRUE}
 # Let us go back to our sampling frame created to illustrate SRS
@@ -270,7 +269,7 @@ student_list <- student_list %>% # We are just reordering the list to alternate 
 
 datatable(student_list %>% select(-prob), rownames=FALSE)
 
-# We still want to select 250 students so let us calculate the interval
+# We still want to select 250 students so let us calculate the sampling interval
 interval <- nrow(student_list)/250
 # Now the random beginning
 set.seed(1)
@@ -281,13 +280,13 @@ selected_students <- student_list[seq(beginning, nrow(student_list), by=interval
 # Vaccination coverage in our student population (the "true" vaccination coverage)
 mean(student_list$vacci_status)
 
-# Vaccination coverage based on our randomly selected students (the estimate of the vaccination coverage)
+# Vaccination coverage based on our selected students (the estimate of the vaccination coverage)
 mean(selected_students$vacci_status)
 ```
 
-You can see in this example that we are substantially overestimating the vaccination coverage based on our sample. It is because the sampling frame (the list of students) is ordered in a specific way and our sampling interval happens to be even. Because the criteria used to order the sampling frame is associated with our outcome of interest (boys had more chance to be vaccinated) we can oversample or undersample boys if our sampling interval is even if our first selected student is a girl or a boy. This toy example is just a cartoonish illustration.
+You can see in this example that we are substantially overestimating the vaccination coverage based on our sample. It is because of the way the sampling frame (the list of students) is ordered and also because our sampling interval happens to be even. The conjunction of the two lead us to oversample or undersample boys if our sampling interval is even if our first selected student is a boy or a girl.
 
-In practice it can be very difficult to detect such issues before it is too late. The simple solution to this is to randmoly shuffle your sampling frame before making the systematic selection.
+This toy example is just a cartoonish illustration. In practice it can be very difficult to detect such issues before it is too late. The simple solution to this is to randmoly shuffle your sampling frame before making the systematic selection.
 
 ```{r "systematic and bias 2", echo=TRUE}
 # Let us reshuffle our ordered list of students
@@ -296,7 +295,7 @@ student_list <- student_list[sample(1:nrow(student_list), nrow(student_list), re
 
 datatable(student_list %>% select(-prob), rownames=FALSE)
 
-# Now let us select the 250 students so let us calculate the interval
+# Now let us select the 250 students again
 interval <- nrow(student_list)/250
 # Now the random beginning
 beginning <- sample(1:interval, 1)
@@ -306,7 +305,7 @@ selected_students <- student_list[seq(beginning, nrow(student_list), by=interval
 # Vaccination coverage in our student population (the "true" vaccination coverage)
 mean(student_list$vacci_status)
 
-# Vaccination coverage based on our randomly selected students (the estimate of the vaccination coverage)
+# Vaccination coverage based on our selected students (the estimate of the vaccination coverage)
 mean(selected_students$vacci_status)
 ```
 
@@ -314,7 +313,7 @@ mean(selected_students$vacci_status)
  
 As soon as you associate various sampling methods by using a multistage sampling design, calculating the sample size will require some information based on the litterature (idealy) or some additional assumptions.
 
-Adding several stages means that you use other methods (maybe in association) than SRS/systematic sampling. Cluster sampling typically will lead to sampling participants that are to some extent correlated to the participants of the same cluster. Analysing sample (assuming that their characteristics  are independent) as is then underestimate the variance of your primary variable of interest. This means that you need to inflate the sample size to compensate for this. By how much you need to inflate your sample size? This is the difficult part. **The constant by which you should multiply your sample size assuming SRS is called the design effect ($deff$).**
+Adding several stages very often means that you use other methods (maybe in association) than SRS/systematic sampling. Cluster sampling typically will lead to sampling participants that are to some extent correlated to the participants of the same cluster. Analysing a sample as is assumes that their characteristics are independent. When cluster sampling has been used at any stage, this assumption does not hold: it then underestimates the variance of your primary variable of interest. This means that you need to inflate the sample size to compensate for this. By how much you need to inflate your sample size? This is the difficult part. **The constant by which you should multiply your sample size assuming SRS is called the "design effect" ($deff$).**
 
 $$
 deff=\frac{V_{design}}{V_{SRS}}
@@ -322,17 +321,17 @@ $$
 
 $V_{SRS}$ is the variance in a sample using SRS.
 
-$V_{design}$ is the variance in a sample drawn using our design.
+$V_{design}$ is the variance in a sample drawn using our alternative design.
 
-$deff$ is usually above 1 with multistage sampling, but the closer it is to 1 the closer the sample size is to the one you would get only with SRS.
+$deff$ is usually above 1 with multistage sampling, but the closer it is to 1 the closer the sample size is to the one you would get only with a 1 stage SRS.
 
 This formula also means that if you can get some estimate of $deff$, based on the literature, things become quite simple. You can simply make your sample size calculation assuming SRS and multiply it by $deff$.
 
 $$
-n_{design}=deff \times V_{SRS}
+n_{design}=deff \times n_{SRS}
 $$
 
-An important point though: what you find in the litterature is relevant only if you defined your design in a similar way, eg: if your clusters are villages but some article used households it is not useful. Besides, the settings should be reasonably similar as well.
+An important point though: what you find in the litterature is relevant only if you defined your design and sampling units in a similar way, eg: if your clusters are villages but some article used households it is not useful. Besides, the settings should be reasonably similar as well.
 
 #### Cluster sampling
 
@@ -340,9 +339,11 @@ Cluster sampling is very common sampling strategy. It can be used as a 1 stage s
 
 A common 2 stage sampling scheme uses cluster sampling at the first stage, with probability proportional to size (PPS), and SRS as the second stage. The association of the two leads to an equal selection probability of all the individuals. This is convenient for two main reasons:
 
-- The cluster sampling adds logistical flexibility despite the increased sample size, eg: we first select villages with a probability proportional to population size.
+- The cluster sampling adds logistical flexibility despite the increased sample size, eg: we first select villages with a probability proportional to population size and then select individuals in the villages.
 
-- The selected participants have equal selection probability. This means that they do not need particular analysis methods becauseit is a self-weighted sample.  
+- The selected participants have an equal selection probability. This means that the sample does not need to be weighted during the analysis.
+
+There are more combinations with more than 2 stages that could lead you to a self-weighted sample. However, keep in mind that oversampling some groups might be desirable too and weighting your data is not excindingly complex either (see the chapter on the analysis).
 
 ```{r "self weighting demonstration", echo=TRUE}
 # Let us generate a list of villages with their sample sizes
@@ -350,7 +351,9 @@ villages <- data.frame(
 			name=LETTERS[1:20],
 			pop=as.integer(100*rlnorm(20, meanlog=3, sdlog=1.5)))
 
-# Now let us select 10 cluster (1 cluster is 5 households) by PPS
+# I do not define a seed on purpose here. You can rerun the code several times with different situations but always ending with a self-weighted sample.
+
+# Now let us select 10 clusters  by PPS (1 cluster could be 5 households chosen randomly, or any other way you want to define it that makes sense with your context)
 villages$p1 <- villages$pop/sum(villages$pop) # Probability that a cluster is selected in the villages
 clusters <- sample(villages$name, 10, replace=TRUE, prob=villages$p1)
 
@@ -360,17 +363,17 @@ sample <- data.frame(cluster=clusters) %>%
 				villages,
 				by=c("cluster"="name")) %>%
 			mutate(
-				p2=1/pop, # The probability of an individual to be sampled once a cluster was selected
-				p=p1*p2) # The selection probability id the product of p1 and p2
+				p2=1/pop, # The probability of an individual to be sampled once a cluster was selected in their village
+				p=p1*p2) # The overall selection probability is the product of p1 and p2
 
 datatable(sample, rownames=FALSE)
 ```
 
 #### Equal selection probabilities
 
-Let us assume we use this common design for now.
+Let us assume we use the common design describe above for now: 2 stage sampling with cluster sampling by PPS at the 1st stage and SRS at the 2nd stage.
 
-With this sampling scheme, an alternative way to see $deff$ is:
+With this sampling scheme, an alternative way to define $deff$ is:
 
 $$
 deff=1+(n-1)\delta
@@ -378,9 +381,9 @@ $$
 
 $n$ is the average cluster size. Ideally the size of all the clusters is identical or very similar.
 
-$\delta$ is the intra-class correlation (ICC). It reflects how similar individuals tend be in a cluster, eg: if 1 child had 2 doses of MCV, his/her siblings are more likely to have had 2 doses as well. 
+$\delta$ is the intra-class correlation (ICC). It reflects how similar individuals tend be in a cluster, eg: if 1 child had 2 doses of MCV, his/her siblings are more likely to have had 2 doses as well because they are raised and taken care of in a very similar way.
 
-As previously mentioned, the litterature can provide reasonable values for $\delta$. But again, it is necessary to ensure that you are referring to comparable designs and settings.
+As for the $deff$, the litterature can provide reasonable values for $\delta$. But again, it is necessary to ensure that you are referring to comparable designs and settings.
 
 Let us have a look at how the $deff$ behaves for various values of cluster size and ICC.
 
@@ -401,10 +404,11 @@ ggplot(
 
 This highlights two things:
 
-- The smaller the number of individuals selected from the same cluster the lower the $deff$. **Then if we have reasonable data/experience to pick a value for the $deff$ without information on $\delta$ it is safer to select a greater number of clusters of small sizes than the opposite.** You would be more likely to end up with a lower $deff$ than compared to your assumption than the opposite. Like a lot of things regarding sampling it comes down to the trade-offs you can do with how many interviewers, how much time, and how much time you have to collect data.
+- The smaller the number of individuals selected from the same cluster the lower the $deff$. For a constant sample size, smaller cluster size means more clusters. **If we have reasonable data/experience to pick a value for the $deff$ without information on $\delta$ it is safer to select a greater number of clusters of small sizes than the opposite.** You would be more likely to end up with a lower $deff$ than compared to your assumption than the opposite. Like a lot of things regarding sampling, it also comes down to the trade-offs you can do with logistical, financial, and time constraints you have to collect data.
+
 - For a given cluster size, the more heterogenous it is (the lower the value of $\delta$) the more precise the estimates will be because it leads to a lower $deff$.
 
-Another way to look at it: SRS can be viewed as an extreme case of cluster sampling with clusters of size 1.
+Another way to look at it: SRS can be viewed as an extreme case of cluster sampling with clusters of size 1 (leading to $deff=1$).
 
 #### Unequal selection probabilities
 
@@ -426,7 +430,7 @@ $\delta$ is the ICC.
 
 ### Stratified sampling
 
-Stratification becomes realy relevant when the target population is a mixture of reasonably homogeneous subgroups. It could be anything as long as it makes sense in regard to what your survey primarily measures, eg: rural vs urban, the various age groups, men vs women, etc. The identified strata are exclusive and their sum should cover the whole population. They identify more homogeneous partitions, reducing the variance of the statistics of interest within them leading to more precise estimates. Unlike for cluster sampling the more homogeneous the strata are, the more precise the estimates will be.
+Stratification becomes relevant when the target population is a mixture of reasonably homogeneous subgroups. It could be anything as long as it makes sense in regard to what your survey primarily measures, eg: rural vs urban, the various age groups, men vs women, etc. The identified strata are exclusive and their sum should cover the whole population. They identify more homogeneous partitions, reducing the variance of the statistics of interest within them. It leads to more precise estimates. Unlike for cluster sampling the more homogeneous the strata are, the more precise the estimates will be.
 
 When it comes to sample size calculation stratification is the same as applying your sampling strategy independently in the defined strata. You could vary the ratio between the necessary sample size in each strata any way you want as long as you have the minimum precision you look for in each strata.
 
@@ -436,25 +440,15 @@ $$
 
 $N$ is the total sample size including all the $S$ strata.
 
-$n_s$ is the sample size for the strata $s$. It could be the sample for every strata if the assumption used are conservative enough and you get the required miminam precision you want. If every strata has the same sample size then it is a 1 to 1 ratio.
+$n_s$ is the sample size for the strata $s$. It could be the same for every strata if the assumption used are conservative enough and you get the required miminum precision you want. So, if you use a 1 to 1 ratio with 2 strata, you multiply your sample size by 2. It is very powerful to control some confounding biases but can increase you total sample size really fast.
 
 ## Number of stages
 
-Choosing the sampling scheme will depend on the situation and the available logistics.
-
 The number of stages is the number of phases involved in the sample selection. If you randomly select individuals from a register: there is only one stage. There is no limit to the number of stages. However, adding a stage tends to increase the sample size, so it should simplify the logistical complexity in return to be worth it and/or allow you to answer some questions, eg: stratifying the sampling to be able to provide reasonable estimate in urban vs rural areas.
 
-All the the sampling calculations we saw so far should be applied for each stage.
+The difficult aspect is that choosing the sampling scheme will depend on the situation and the available logistics: there is no simple way to decide the number of stages. The positive aspect is that it means there is a LOT of freedom in defining the number of stages.
 
-
-
-----------------------------
-We need to inflate the sample size and [take the design in consideration during the analysis](link to the survey analyis chapter) to compensate for this.
-----------------------------
-
-
-
-
+Choosing the number of stages goes hand in hand with choosing how you will sample at each stage. Sometimes the setting or the questions you want to answer will naturally orient your choices. But, even though I keep repeating it, the logistical, financial, and time constraints should also be taken into account.
 
 ### Identifying sampling units
 
