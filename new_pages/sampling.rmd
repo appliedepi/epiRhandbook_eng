@@ -28,6 +28,7 @@ This code chunk shows the loading of packages required for the analyses. In this
 ```{r "package setup", echo=TRUE}
 ## load packages from CRAN
 pacman::p_load(here,         # File locator
+			   rio,			 # To load files
 			   randomNames,  # Generate random names
 			   dplyr,		 # Data management
 			   tidyr,		 # Switching from wide to long
@@ -35,7 +36,10 @@ pacman::p_load(here,         # File locator
 			   metR,         # Filled contours used with ggplot2
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
 			   DT, 			 # Interactive tables
-			   data.tree	 # Creation of a tree
+			   data.tree,	 # Creation of a tree
+			   tigris,
+			   sf,
+			   leaflet
 			)
 ``` 
 
@@ -80,6 +84,7 @@ SetNodeStyle(tree,
 	fillcolor = "steelblue1",
 	fontname = "helvetica", tooltip = GetDefaultTooltip)
 SetNodeStyle(tree$`Non-probability sampling`, fillcolor = "lightgrey")
+
 plot(tree)
 ```
 
@@ -150,7 +155,7 @@ var*qnorm(0.975)^2/(delta^2)
 # Then we would need to select 145 individuals in our survey if our assumptions are reasonable.
 ```
 
-When thinking about sample size, you would consider more than 1 set of asusmptions to check the impact of a reasonable range of values on the sample size. It is also useful to identify the values you can be a bit "vague" with in your assumptions and the one you should be more precise with.
+When thinking about sample size, you would consider more than 1 set of assumptions to check the impact of a reasonable range of values on the sample size. It is also useful to identify the values you can be a bit "vague" with in your assumptions and the one you should be more precise with.
 
 ```{r "SRS continuous 2", echo=TRUE, fig.align="center", fig.height=4, fig.width=9}
 # Let us see what the different combinations of precision and variance lead to in terms of sample size.
@@ -287,14 +292,19 @@ As for continuous data, precision has a strong impact on the sample size, but so
 Let us randomly select 250 students from the list of students loaded at the beginning of the packages to estimate the vaccination coverage of all the students.
 
 ```{r "Basic SRS", echo=TRUE, fig.align='center'}
-# Let us use a mock sampling frame with 1000 students with their names and sex.
-set.seed(1) # So that the example can be exactly reproduced
-student_list <- data.frame(
-					sex=sample(rep(0:1, each=500), 1000, replace=FALSE)) %>% # 0 is male and 1 is female with a 1/1 ratio here,
-				mutate(
-					prob=ifelse(sex==0, 0.8, 0.6),		 	 # For some reason boys had a higher probability to be vaccinated than girls
-					vacci_status=rbinom(n=1000, size=1, prob=prob)) %>% # 0 is unvaccinated and 1 is vaccinated
-				mutate(names=randomNames(gender=sex)) # Random name generation
+# Let us use load a mock sampling frame with 1000 students with their names and sex.
+student_list <- import(here("data", "student_list.csv"))
+
+# set.seed(1) # So that the example can be exactly reproduced
+# student_list <- data.frame(
+# 					sex=sample(rep(0:1, each=500), 1000, replace=FALSE)) %>% # 0 is male and 1 is female with a 1/1 ratio here,
+# 				mutate(
+# 					prob=ifelse(sex==0, 0.8, 0.6),		 	 # For some reason boys had a higher probability to be vaccinated than girls
+# 					vacci_status=rbinom(n=1000, size=1, prob=prob)) %>% # 0 is unvaccinated and 1 is vaccinated
+# 				mutate(names=randomNames(gender=sex)) # Random name generation
+
+# write.csv(student_list, "E:/Boulot/epiRhandbook/epiRhandbook_eng/data/student_list.csv")
+
 # In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything. This will allow us to compare our estimate using our sample to the truth.
 
 # Let us randomly select 250 students
@@ -354,7 +364,7 @@ This toy example is just a cartoonish illustration. In practice it can be very d
 
 ```{r "systematic and bias 2", echo=TRUE}
 # Let us reshuffle our ordered list of students
-set.seed(2)
+set.seed(2) # I define the seed to be able to reproduce exactly the way it was reshuffled 
 student_list <- student_list[sample(1:nrow(student_list), nrow(student_list), replace=FALSE),]
 
 datatable(student_list %>% select(-prob), rownames=FALSE)
@@ -416,7 +426,7 @@ n_srs <- p*(1-p)*qnorm(0.975)^2/(delta^2)
 deff <- 3.5
 deff*n_srs
 
-# Now our sample size increased to at 861 students.
+# Now our sample size increased to 861 students.
 ```
 
 #### Cluster sampling
@@ -586,19 +596,101 @@ Whatever your sampling strategy is, you will select sample units from sampling f
 
 Sampling frames are created by using information from external sources most of the time.
 
-Obtaining the information to build a sampling frame can be time consuming in resource limited settings. Demographic informations at the necessary scale can often be gathered from recent census surveys from the local statistics institute, other population based surveys such as [DHS](https://dhsprogram.com/) or [MICS](https://mics.unicef.org/), or even the EPI. Ensuring the data you use to build your sampling frame are up-to-date and at the necessary geographical scale can be challenging, and can require some trade-offs (again).
+Obtaining the information to build a sampling frame can be time consuming in resource limited settings. Demographic informations at the necessary scale can often be gathered from recent census surveys from the local statistics institute, other population based surveys such as [DHS](https://dhsprogram.com/) or [MICS](https://mics.unicef.org/), or even the Expanded Program of Immunization. Ensuring the data you use to build your sampling frame are up-to-date and at the necessary geographical scale can be challenging, and can require some trade-offs (again).
 
 We refer to these potential sources as "traditional" in opposition to more recent sources such as satellite imagery.
 
-## Recent alternative sampling frames
+## Alternative sampling frames: satellite images
 
-Sampling frames do not need to be a simple list (paper or otherwise). Other recent data could be really powerful to create a sampling frame in a setting where there are a lot of IDPs, or a natural disaster has substantially modified population distribution, or simply because you cannot find "traditional" data sources that are reliable enough. GIS sampling has been used more frequently in recent years to draw samples in complex settings. Although it can appear more complex, in many ways it is often a straigthforward application of SRS but using satelite images, or a map, or another GIS product as a sampling frame. Rather than sampling clusters in villages from a list and then sampling individuals, you might also sample households direclty from satellite images that cover those villages.
+Sampling frames do not need to be a simple list (paper or otherwise). Other recent data could be really powerful to create a sampling frame in a setting where population displacement occured, or a natural disaster has substantially modified population distribution, or simply because you cannot find "traditional" data sources that are reliable enough. GIS sampling has been used more frequently in recent years to draw samples in complex settings. Although it can appear more complex, in many ways it is often a straigthforward application of SRS but using satellite images, or a map, or another GIS product as a sampling frame. Rather than sampling clusters in villages from a list and then sampling individuals, you might also sample households directly from satellite images that cover those villages. Rather than using a list of villages you have a "list" of roofs on the satellite images and you randomly choose them through random points. The main difference is that the list is not a table in this case but the principle remains the same.
 
 
-
-```{r "spatial sampling", echo=TRUE}
+```{r "spatial sampling", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
 # Need to simplify code discussed with Pat
+hawaii <- county_subdivisions(state="Hawaii", county="Hawaii") # Download the county subdivisions of Hawaii (county of Hawaii)
+			# st_transform(32605) # To project to UTM (see more in the GIS chapter)
+urban_clusters <- urban_areas() # Download the boundaries of urban clusters (<50k people in the USA)
+					# st_transform(32605)
+
+sampling_area <- st_intersection( # We select the intersection of the urban clusters and our Hawaii county subdivisions
+					hawaii,
+					urban_clusters)
+
+set.seed(1)
+sampled_points <- st_sample(sampling_area, 150) %>% # Now we sample 150 points randomly in our sampling area
+					st_sf()
+					# st_transform(32605)
+
+sampled_points_df <- as(sampled_points, "Spatial") %>% # We turn our points into a SpatialPointsDataFrame and then a data.frame to use it outside of a map
+						as.data.frame() %>%
+						setNames(., c("Longitude", "Latitude")) %>%
+						mutate(ID=1:n()) # Just creating an ID for every point
+
+# Like when you use GIS softwares, you might use different data formats in R. The most common ones for GIS are sp and sf. The point here is not to dive in the details, simply be aware of this necessity. More details are provided in the GIS chapter.
+
+ggplot() +
+	geom_sf(
+		data=hawaii,
+		fill="lightgrey",
+		alpha=0.5) +
+	geom_sf(
+		data=sampling_area,
+		fill="blue",
+		alpha=0.5,
+		color=NA,
+		lwd=1) +
+	geom_sf(
+		data=sampled_points,
+		size=0.5) +
+	coord_sf(
+		datum = sf::st_crs(32605)) + # To project to UTM (see more in the GIS chapter)
+	theme_bw()
 ```
+
+<center>
+
+```{r "selected points GIS", echo=FALSE}
+datatable(sampled_points_df, rownames=FALSE)
+```
+
+</center>
+
+In this example, there already are data available for the area we want to sample from (the urban clusters). It is not necessary the case, especially if the area is very remote. It means that you might need to create those boundaries yourself on other GIS softwares first. It can be done on freely available softwares such as [GoogleEath](https://www.google.com/intl/fr/earth/versions/#earth-pro) or [QGIS](https://qgis.org/en/site/forusers/download.html).
+
+One necessary additional step here would be to "clean" the random points to keep the households with a point on the roof (+/- some buffer). This step can be tedious and might require you to draw more points more than once to reach your target number of households (+ some additional points to compensate for refusal).
+
+```{r "quick and dirty look ", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
+# You can explore quickly your sampled points...and see that a lot of them are far from a roof
+# Here we use leaflet because it is convenient
+# There are a lot of other options but a lot of them require an API, meaning that you often need an account (that you can get for free most of the time)
+# Leaflet allows you to explore you sampled points with some interactivity so it is a simple option here
+# Take some time to zoom in a bit and check several points
+
+leaflet() %>% 
+   addTiles() %>%
+   addMarkers(
+   	lng=sampled_points_df$Longitude,
+   	lat=sampled_points_df$Latitude,
+   	label=paste0("ID: ", sampled_points_df$ID)) %>%
+   setView(
+   	lng = mean(sampled_points_df$Longitude),
+   	lat = mean(sampled_points_df$Latitude),
+   	zoom = 10 ) %>% 
+   addProviderTiles("Esri.WorldImagery")
+```
+
+This approach to check which points fall on roofs is convenient but only exploratory at best. Removing the points that are far from roofs, resampling others and then cleaning them too could require the use of other GIS softwares (some are free and very efficient) and will also require some more GIS skills. You will also need to juggle between different data formats if you want to export those points in GPS devices. We will not explore those details in this chapter, but you can learn more in the GIS chapter.
+
+This sampling method can be very convenient and powerful in areas where very little information is available to make a more traditional sampling frame or simply because you know the available information is unreliable. In areas with large population displacements, it can be easier to find **up-to-date satellite imageries** of the area to draw boundaries and sample households than waiting the demographic data to catch-up with the current situation. However there are some limitations you should also be aware of:
+* Sampling households like we just did makes the **selection probability proportional to the size of the roof**. We implicitly assume that all the households in the area are roughly of comparable sizes here. This assumption can be reasonable or obviously wrong depending on the setting and the size of the area. Maybe larger households are much larger than the other ones and are also associated with higher incomes (with all the potential confounding biases associated with it), so you should gather some information to ensure that you are not adding an unecessary bias.
+* Here a household has as much chance to be selected as a skyscraper with a roof of the same size. People living in the skyscraper would then have a lower selection probability than people in the household if you randomly choose them. So, either you collect data on the number of people/family living in the selected household/skyscraper to weigh the data accordingly and correct for this unequal selection probability or you just avoid using this sampling strategy if there is a strong heterogeneity in the number of floors in the area.
+* Because the points your draw are randomly selected you might have by chance either very few points on roofs or sometimes more than one on the same roof. You need to decide on a rule that you apply consistently during your "cleaning" phase for those two situations:
+	* For more than 1 point on the same roof you could choose 1 randomly and discard the others.
+	* To minimize the number of points discarded because they are not exactly on a roof, it is not uncommon to use a buffer around the points (20 meters for example could be reasonable). If a roof is within this buffer, then you consider that house as selected. But there is drawback: the bigger the buffer the more isolated households are likely to be selected. Besides, when adding a buffer, more than 1 household might fall in the buffer and you need to decide on a rule to decide which one is selected. Adding a buffer is very common! So deciding on its size is a matter of trade-off (again).
+
+Typically, this sampling strategy is very convenient in rural/remote areas because it minimizes the potential issues associated to it and maximizes its advantages over using traditional sampling frameworks. And it often becomes a logical solution after disasters with population displacements, although it requires some extra GIS skills, it is worth getting some familiarity with it.
+
+This strategy also has logistical advantages: you have the coordinates of all the households you want to select. You just need to put them in GPS devices and dispatch your teams in an organized fashion. You can also SHOW them where they should go using softwares such as [GoogleEarth](https://www.google.com/intl/fr/earth/versions/#earth-pro). So the practical management of data collection is often simpler.
 
 # References
 
@@ -615,6 +707,8 @@ Kalton G. Introduction to survey sampling. Second edition. Thousand Oaks, Califo
 
 Kish L. Weighting in Deft. The Survey Statistician. The Newsletter of the International Association of Survey Statisticians, June. 1987;
 
+Miller AC, Rohloff P, Blake A, Dhaenens E, Shaw L, Tuiz E, et al. Feasibility of satellite image and GIS sampling for population representative surveys: a case study from rural Guatemala. Int J Health Geogr. 2020 Dec 5;19(1):56. 
+
 Peat J. Health Science Research. In London: SAGE Publications, Ltd; 2022. Available from: https://methods.sagepub.com/book/health-science-research
 
 Yarahmadi F. Multistage Sampling Technique and Estimating Sample Size for a Descriptive Study on Viewers’ Perception of TV Commercials [Internet]. 1 Oliver’s Yard, 55 City Road, London EC1Y 1SP United Kingdom: SAGE Publications Ltd; 2020 [cited 2022 Jan 30]. Available from: https://methods.sagepub.com/case/multistage-technique-estimating-sample-size-viewers-tv-commercials
@@ -622,4 +716,3 @@ Yarahmadi F. Multistage Sampling Technique and Estimating Sample Size for a Desc
 Design Effects (deff). In: Encyclopedia of Survey Research Methods [Internet]. 2455 Teller Road, Thousand Oaks California 91320 United States of America: Sage Publications, Inc.; 2008 [cited 2022 Jan 25]. Available from: http://methods.sagepub.com/reference/encyclopedia-of-survey-research-methods/n133.xml
 
 Systematic Sampling. In: Encyclopedia of Survey Research Methods [Internet]. 2455 Teller Road, Thousand Oaks California 91320 United States of America: Sage Publications, Inc.; 2008 [cited 2022 Jan 30]. Available from: http://methods.sagepub.com/reference/encyclopedia-of-survey-research-methods/n569.xml
-
