@@ -295,18 +295,10 @@ Let us randomly select 250 students from the list of students loaded at the begi
 # Let us use load a mock sampling frame with 1000 students with their names and sex.
 student_list <- import(here("data", "student_list.csv"))
 
-# set.seed(1) # So that the example can be exactly reproduced
-# student_list <- data.frame(
-# 					sex=sample(rep(0:1, each=500), 1000, replace=FALSE)) %>% # 0 is male and 1 is female with a 1/1 ratio here,
-# 				mutate(
-# 					prob=ifelse(sex==0, 0.8, 0.6),		 	 # For some reason boys had a higher probability to be vaccinated than girls
-# 					vacci_status=rbinom(n=1000, size=1, prob=prob)) %>% # 0 is unvaccinated and 1 is vaccinated
-# 				mutate(names=randomNames(gender=sex)) # Random name generation
-
-# write.csv(student_list, "E:/Boulot/epiRhandbook/epiRhandbook_eng/data/student_list.csv")
-
+# Have a quick look at this data.frame: it includes every vaccination status
 # In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything. This will allow us to compare our estimate using our sample to the truth.
 
+set.seed(1) # We just define a seed to be able to choose the same
 # Let us randomly select 250 students
 selected_rows <- sample(1:nrow(student_list), 250)
 selected_students <- student_list[selected_rows,]
@@ -321,7 +313,6 @@ mean(selected_students$vacci_status)
 
 datatable(selected_students, rownames=FALSE)
 ```
-
 
 ### Systematic sampling
 
@@ -364,7 +355,7 @@ This toy example is just a cartoonish illustration. In practice it can be very d
 
 ```{r "systematic and bias 2", echo=TRUE}
 # Let us reshuffle our ordered list of students
-set.seed(2) # I define the seed to be able to reproduce exactly the way it was reshuffled 
+set.seed(2) # We define the seed to be able to reproduce exactly the way it was reshuffled 
 student_list <- student_list[sample(1:nrow(student_list), nrow(student_list), replace=FALSE),]
 
 datatable(student_list %>% select(-prob), rownames=FALSE)
@@ -384,6 +375,8 @@ mean(student_list$vacci_status)
 # Vaccination coverage based on our selected students (the estimate of the vaccination coverage)
 mean(selected_students$vacci_status)
 ```
+
+After randomly reshuffling the sampling frame, our estimates using SRS and systematic sampling are now much closer.
 
 ### Other sampling methods and more complex designs
 
@@ -459,7 +452,7 @@ ggplot(
 	coord_flip() +
 	theme_bw()
 
-# I do not define a seed on purpose here. You can rerun the code several times with different situations but you always end up with a self-weighted sample.
+# We do not define a seed on purpose here. You can rerun the code several times with different situations but you always end up with a self-weighted sample.
 
 # Let us select 10 clusters by PPS (1 cluster could be 5 households chosen randomly, or any other way you want to define it that makes sense with your context).
 villages$p1 <- villages$pop/sum(villages$pop) # Probability that a cluster is selected in the villages
