@@ -2,20 +2,20 @@
 
 ## Overview
 
-Assessing accurately if an intervention (vaccination campaign, distribution of bednets, etc) reached enough individuals could idealy be done by collecting data from ALL those individuals. For obvious logistical constraints it is impossible in a reasonable amount of time and with limited resources. Drawing a representative sample of the population targeted by the intervention, the target population, is a robust strategy to gather information. It allows us to make reliable inferences on the target population by gathering information on a portion of it.
+Assessing accurately if an intervention (vaccination campaign, distribution of bed nets, etc) reached enough individuals could idealy be done by collecting data from ALL those individuals. For obvious logistical constraints it is impossible in a reasonable amount of time and with limited resources. Drawing a representative sample of the population targeted by the intervention, the target population, is a robust strategy to gather information. It allows us to make reliable inferences on the target population by gathering information on only a portion of it.
 
 ```{r "concept behind drawing sampling", out.width=c('100%', '100%'), echo=FALSE}
 # knitr::include_graphics(here::here("images", "gis_head_image.png"))
 ```
 
-Sampling strategies to draw a representative sample differ for descriptive studies, typically field surveys assessing the proportion of a population reached by various interventions (vaccination campaign, bednet distribution, etc), or analtyical studies (case control or cohort studies).
+Sampling strategies to draw a representative sample differ for descriptive studies, typically field surveys assessing the proportion of a population reached by various interventions, or analtyical studies (case control or cohort studies). We will focus on sampling in desciptive studies in this chapter.
 
 Some crucial elements should be defined to reach that goal:
 
 - Target population
 - Sampling scheme
 	- Choose the number of stages
-	- Identify the primary, secondary, tertiary (or more) sampling units and their number
+	- Identify the primary, secondary, tertiary (or more) sampling units
 - Sample size
 
 The last steps would be to draw the sample using the identified sampling frame(s) and collect information.
@@ -23,7 +23,7 @@ The last steps would be to draw the sample using the identified sampling frame(s
 ## Preparation
 ### Load packages
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize p_load() from pacman, which installs the package if necessary and loads it for use. You can also load installed packages with library() from base R. See the page on R basics for more information on R packages.
+This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize *p_load()* from pacman, which installs the package if necessary and loads it for use. You can also load installed packages with *library()* from base R. See the page on R basics for more information on R packages.
 
 ```{r "package setup", echo=TRUE}
 ## load packages from CRAN
@@ -37,18 +37,22 @@ pacman::p_load(here,         # File locator
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
 			   DT, 			 # Interactive tables
 			   data.tree,	 # Creation of a tree
-			   tigris,
-			   sf,
-			   leaflet
+			   tigris,		 # Access data from the US Census Bureau
+			   sf,			 # Allow the use of sf format for GIS data on R
+			   leaflet,		 # Creation of interactive maps
+			   maptools,	 # Some GIS functionalities
+			   rgdal,		 # Some GIS functionalities
+			   osmdata		 # Access OpenStreetMap data
 			)
 ``` 
 
 ### Import data
 
-We will use mock data to illustrate how to perform different sampling methods below. It includes a list of students with names, sex, and their vaccination status. In real life we would select a saple to estimate it, here because the data were generated we know the "true" vaccination coverage in this population. We will then be able to compable the estimate based on the sample to the true value.
+We will use mock data to illustrate how to perform different sampling methods below. It includes a list of students with names, sex, and their vaccination status. In real life we would select a sample to estimate it, here because the data were generated we know the "true" vaccination coverage in this population. We will then be able to compable the estimate based on the sample to the true value.
 
 ```{r "loading data", echo=TRUE}
-
+# Let us load a mock sampling frame with 1000 students with their names and sex. We will use it below to practice sampling.
+student_list <- import(here("data", "student_list.csv"))
 ```
 
 ## Target population
@@ -292,10 +296,10 @@ As for continuous data, precision has a strong impact on the sample size, but so
 Let us randomly select 250 students from the list of students loaded at the beginning of the packages to estimate the vaccination coverage of all the students.
 
 ```{r "Basic SRS", echo=TRUE, fig.align='center'}
-# Let us use load a mock sampling frame with 1000 students with their names and sex.
-student_list <- import(here("data", "student_list.csv"))
-
+# Let us use the data loaded at the beginning of the chapter
 # Have a quick look at this data.frame: it includes every vaccination status
+str(student_list)
+
 # In real life you will not know the vaccination status of all the students: it could be the reason you are doing the survey, but here we control everything. This will allow us to compare our estimate using our sample to the truth.
 
 set.seed(1) # We just define a seed to be able to choose the same
@@ -349,7 +353,7 @@ mean(student_list$vacci_status)
 mean(selected_students$vacci_status)
 ```
 
-You can see in this example that we are substantially overestimating the vaccination coverage based on our sample. It is because of the way the sampling frame (the list of students) is ordered and also because our sampling interval happens to be even. The conjunction of the two leads us to oversample or undersample boys if our sampling interval is even and if our first selected student is a boy or a girl respectively.
+You can see in this example that we are substantially overestimating the vaccination coverage. It is because of the way the sampling frame (the list of students) is ordered and also because our sampling interval happens to be even. The conjunction of the two leads us to oversample or undersample boys if our sampling interval is even and if our first selected student is a boy or a girl respectively.
 
 This toy example is just a cartoonish illustration. In practice it can be very difficult to detect such issues before it is too late. The simple solution to this is to randomly shuffle your sampling frame before making the systematic selection.
 
@@ -599,24 +603,25 @@ Sampling frames do not need to be a simple list (paper or otherwise). Other rece
 
 
 ```{r "spatial sampling", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
-# Need to simplify code discussed with Pat
-hawaii <- county_subdivisions(state="Hawaii", county="Hawaii") # Download the county subdivisions of Hawaii (county of Hawaii)
-			# st_transform(32605) # To project to UTM (see more in the GIS chapter)
-urban_clusters <- urban_areas() # Download the boundaries of urban clusters (<50k people in the USA)
-					# st_transform(32605)
+# Download the county subdivisions of Hawaii (county of Hawaii)
+hawaii <- county_subdivisions(state="Hawaii", county="Hawaii")
 
-sampling_area <- st_intersection( # We select the intersection of the urban clusters and our Hawaii county subdivisions
-					hawaii,
-					urban_clusters)
+# Let us download data on buildings in Hawaii using OSM
+box <- st_bbox(hawaii) # We extract the bounding box of our area
+sampling_area <- opq(c(box)) %>%
+			osmdata::add_osm_feature(key = "building") %>% # "building" here designates everything OSM categorizes in the building feature (accomodation or other), so doing it properly would require to add tags to select which features you are interested in
+			osmdata::osmdata_sf()
+# We end up with several layers of data. Have a quick look.
+sampling_area
+# We will use the points here: every point is a "building".
 
 set.seed(1)
-sampled_points <- st_sample(sampling_area, 150) %>% # Now we sample 150 points randomly in our sampling area
-					st_sf()
-					# st_transform(32605)
+sampled_points <- sampling_area$osm_points %>%
+					sample_n(150) # We randomly choose 150 points/buildings
 
 sampled_points_df <- as(sampled_points, "Spatial") %>% # We turn our points into a SpatialPointsDataFrame and then a data.frame to use it outside of a map
 						as.data.frame() %>%
-						setNames(., c("Longitude", "Latitude")) %>%
+						select(Longitude=coords.x1, Latitude=coords.x2) %>%
 						mutate(ID=1:n()) # Just creating an ID for every point
 
 # Like when you use GIS softwares, you might use different data formats in R. The most common ones for GIS are sp and sf. The point here is not to dive in the details, simply be aware of this necessity. More details are provided in the GIS chapter.
@@ -627,16 +632,15 @@ ggplot() +
 		fill="lightgrey",
 		alpha=0.5) +
 	geom_sf(
-		data=sampling_area,
-		fill="blue",
-		alpha=0.5,
-		color=NA,
-		lwd=1) +
+		data=sampling_area$osm_polygons,
+		alpha=0.8,
+		color="blue") +
 	geom_sf(
 		data=sampled_points,
-		size=0.5) +
+		alpha=0.8,
+		color="red") +
 	coord_sf(
-		datum = sf::st_crs(32605)) + # To project to UTM (see more in the GIS chapter)
+		datum = sf::st_crs(32605)) + # To project to UTM (see more in the GIS chapter) to have the axes in meters
 	theme_bw()
 ```
 
@@ -653,11 +657,10 @@ In this example, there already are data available for the area we want to sample
 One necessary additional step here would be to "clean" the random points to keep the households with a point on the roof (+/- some buffer). This step can be tedious and might require you to draw more points more than once to reach your target number of households (+ some additional points to compensate for refusal).
 
 ```{r "quick and dirty look ", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
-# You can explore quickly your sampled points...and see that a lot of them are far from a roof
-# Here we use leaflet because it is convenient
-# There are a lot of other options but a lot of them require an API, meaning that you often need an account (that you can get for free most of the time)
-# Leaflet allows you to explore you sampled points with some interactivity so it is a simple option here
-# Take some time to zoom in a bit and check several points
+# You can explore quickly your sampled points.
+# Here we use leaflet because of its interactivity.
+# There are a lot of other options but a lot of them require an API, meaning that you often need an account (that you can get for free most of the time).
+# Take some time to zoom in a bit and check several points.
 
 leaflet() %>% 
    addTiles() %>%
@@ -672,18 +675,47 @@ leaflet() %>%
    addProviderTiles("Esri.WorldImagery")
 ```
 
-This approach to check which points fall on roofs is convenient but only exploratory at best. Removing the points that are far from roofs, resampling others and then cleaning them too could require the use of other GIS softwares (some are free and very efficient) and will also require some more GIS skills. You will also need to juggle between different data formats if you want to export those points in GPS devices. We will not explore those details in this chapter, but you can learn more in the GIS chapter.
+In our example we sampled buildings with GPS positions already available thanks to OSM data. However, you might also need to draw points in polygons because such data are not available in your study area. In this case you will often see that a lot of points do not fall on roofs. Our current approach to check the points is convenient but only exploratory at best. In the situation where a lot of points are not on roofs, you will have to remove them. That also means that you will need to resample others and then clean them too. It could require the use of other GIS softwares (some are free and very efficient such as [QGIS](https://www.qgis.org/en/site/) or [GeoDa](https://geodacenter.github.io/)) and will also require some more GIS skills.
 
-This sampling method can be very convenient and powerful in areas where very little information is available to make a more traditional sampling frame or simply because you know the available information is unreliable. In areas with large population displacements, it can be easier to find **up-to-date satellite imageries** of the area to draw boundaries and sample households than waiting the demographic data to catch-up with the current situation. However there are some limitations you should also be aware of:
-* Sampling households like we just did makes the **selection probability proportional to the size of the roof**. We implicitly assume that all the households in the area are roughly of comparable sizes here. This assumption can be reasonable or obviously wrong depending on the setting and the size of the area. Maybe larger households are much larger than the other ones and are also associated with higher incomes (with all the potential confounding biases associated with it), so you should gather some information to ensure that you are not adding an unecessary bias.
-* Here a household has as much chance to be selected as a skyscraper with a roof of the same size. People living in the skyscraper would then have a lower selection probability than people in the household if you randomly choose them. So, either you collect data on the number of people/family living in the selected household/skyscraper to weigh the data accordingly and correct for this unequal selection probability or you just avoid using this sampling strategy if there is a strong heterogeneity in the number of floors in the area.
+Sampling GPS point can be very convenient and powerful in areas where very little information is available to make a more traditional sampling frame or simply because you know the available information is unreliable. In areas with large population displacements, it can be easier to find **up-to-date satellite imageries** of the area to draw boundaries and sample households than waiting the demographic data to catch-up with the current situation. However, there are some limitations you should also be aware of:
+* Sampling households by drawing points in a polygon makes the **selection probability proportional to the size of the roof**. We implicitly assume that all the households in the area are roughly of comparable sizes here. This assumption can be reasonable or obviously wrong depending on the setting and the size of the area. Maybe larger households are much larger than the other ones and are also associated with higher incomes (with all the potential confounding biases associated with it), so you should gather some information to ensure that you are not adding an unecessary bias.
+* Selecting households by drawing pointsmeans that a house has as much chance to be selected as a skyscraper with a roof of the same size. People living in the skyscraper would then have a lower selection probability than people in the house if you randomly choose them. So, either you collect data on the number of people/family living in the selected house/skyscraper to weigh the data accordingly and correct for this unequal selection probability or you just avoid using this sampling strategy if there is a strong heterogeneity in the number of floors in the area.
 * Because the points your draw are randomly selected you might have by chance either very few points on roofs or sometimes more than one on the same roof. You need to decide on a rule that you apply consistently during your "cleaning" phase for those two situations:
 	* For more than 1 point on the same roof you could choose 1 randomly and discard the others.
-	* To minimize the number of points discarded because they are not exactly on a roof, it is not uncommon to use a buffer around the points (20 meters for example could be reasonable). If a roof is within this buffer, then you consider that house as selected. But there is drawback: the bigger the buffer the more isolated households are likely to be selected. Besides, when adding a buffer, more than 1 household might fall in the buffer and you need to decide on a rule to decide which one is selected. Adding a buffer is very common! So deciding on its size is a matter of trade-off (again).
+	* To minimize the number of points discarded because they are not exactly on a roof, it is not uncommon to use a buffer around the points (20 meters for example could be reasonable). If a roof is within this buffer, then you consider that house as selected. But there is drawback: the bigger the buffer the more isolated households are likely to be selected. Besides, when adding a buffer, more than 1 household might fall in the buffer and you need to decide on a rule to decide which one is selected. Adding a buffer is common. So, deciding on its size is a matter of trade-off (again).
 
-Typically, this sampling strategy is very convenient in rural/remote areas because it minimizes the potential issues associated to it and maximizes its advantages over using traditional sampling frameworks. And it often becomes a logical solution after disasters with population displacements, although it requires some extra GIS skills, it is worth getting some familiarity with it.
+Typically, this sampling strategy is very convenient in rural/remote areas because it minimizes the potential issues associated to it and maximizes its advantages over using traditional sampling frameworks. And it often becomes a logical solution after disasters with population displacements. Although it requires some extra GIS skills, it is worth getting some familiarity with it.
 
-This strategy also has logistical advantages: you have the coordinates of all the households you want to select. You just need to put them in GPS devices and dispatch your teams in an organized fashion. You can also SHOW them where they should go using softwares such as [GoogleEarth](https://www.google.com/intl/fr/earth/versions/#earth-pro). So the practical management of data collection is often simpler.
+This strategy also has logistical advantages: you have the coordinates of all the households you want to select. You just need to put them in GPS devices and dispatch your teams in an organized fashion. You can also SHOW them where they should go using softwares such as [Google Earth](https://www.google.com/intl/fr/earth/versions/#earth-pro). So the practical management of data collection is often simpler. You will need to juggle between different data formats if you want to export those points in GPS devices or smartphones/tablets using a a GIS application. Two of the common formats you shouls be aware of include gpx (commonly used by some GPS devices and some apps such as [maps.me](https://maps.me/)) and kml (commonly used in other apps such as [OsmAnd](https://osmand.net/) or software like [Google Earth](https://www.google.com/intl/fr/earth/versions/)).
+
+```{r "editing kml ang gpx", echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+# Here is ho you could save your sampled points into kml points.
+sampled_points %>%
+	mutate(Name=paste0("ID-", 1:n())) %>% # Here we define the variable 'Name' that will be used to label the points.
+	st_write(.,
+		dsn="sampled_points.kml",
+		driver = "kml",
+		delete_dsn = TRUE)
+# This will save the kml in your current working directory. Just adjust the path as needed.
+
+# Here is how you could save your sampled points into gpx.
+# We will convert the sf data into SpatialPointsDataFrame, part of the sp format, as an intermediate step before saving them as gpx.
+# Some packages not on the CRAN would allow you to skip that step, but we will stick to options available on the CRAN.
+sampled_points_sp <-   as(sampled_points, "Spatial") # Here is the conversion to SpatialPointsDataFrame
+# Some functionalities are sometimes more convenient using the sp format so some familiarity with it could be useful.
+# The main difference you might keep in mind between sf and sp formats is that you could see sf data as data.frames with geometry attributes, whereas sp data could be seen as geometry elements with data attributes.
+
+sampled_points %>%
+	mutate(name=paste0("ID-", 1:n())) %>% # Here we define the variable 'name' that will be used to label the points.
+	select(name) %>%
+	st_write(.,
+		dsn="sampled_points.gpx",
+		driver = "GPX",
+		delete_dsn = TRUE)
+# This will save the gpx in your current working directory. Just adjust the path as needed.
+
+# You could then transfer the kml/gpx in the devices you want to use to reach the sampled points and collect the data for your survey or also show where they are to your teams on your computer.
+```
 
 # References
 
