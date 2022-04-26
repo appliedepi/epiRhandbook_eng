@@ -29,9 +29,9 @@ This code chunk shows the loading of packages required for the analyses. In this
 ## load packages from CRAN
 pacman::p_load(here,         # File locator
 			   rio,			 # To load files
-			   randomNames,  # Generate random names
 			   dplyr,		 # Data management
 			   tidyr,		 # Switching from wide to long
+			   samplingbook, # Calculate sample sizes
 			   ggplot2,      # Ggplot2 graphics
 			   metR,         # Filled contours used with ggplot2
 			   gridExtra,	 # Plotting ggplot2 graphs side by side
@@ -40,6 +40,9 @@ pacman::p_load(here,         # File locator
 			   tigris,		 # Access data from the US Census Bureau
 			   sf,			 # Allow the use of sf format for GIS data on R
 			   leaflet,		 # Creation of interactive maps
+			   mapedit,		 # Interactive modification of points/polygons
+			   mapview,		 # Creation of interactive maps
+			   leafpm,		 # Leaflet map plugin
 			   maptools,	 # Some GIS functionalities
 			   rgdal,		 # Some GIS functionalities
 			   osmdata		 # Access OpenStreetMap data
@@ -114,9 +117,9 @@ We will not cover non-probability sampling. This type of methods are more often 
 
 In this chapter, we will focus on the sample size calculation for descriptive studies.
 
-Several R packages such as [samplesize4surveys](https://cran.r-project.org/web/packages/samplesize4surveys/index.html) or [samplingbook](https://cran.r-project.org/web/packages/samplingbook/index.html) can help you make such calculations easily. You can also use some online applications (like [here](https://dhsprogram.com/data/survey-sampling-online-tools.cfm)) to keep things simple. However you still need to make choices and sometimes make some assumptions. Those choice and assumptions can be invisible if you just apply a command from a package and do not without fully understanding what is happening. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter.
+Several R packages such as [samplesize4surveys](https://cran.r-project.org/web/packages/samplesize4surveys/index.html) or [samplingbook](https://cran.r-project.org/web/packages/samplingbook/index.html) can help you make such calculations easily. You can also use some online applications (like [here](https://dhsprogram.com/data/survey-sampling-online-tools.cfm)) to keep things simple. However you still need to make choices and sometimes make some assumptions. Those choice and assumptions can be invisible if you just apply a command from a package and do not without fully understanding what is happening. We will here use a parametric approach and explicit the formulae used to highlight the choices you need to make and how they matter. We will then quickly illustrate how to do it using functions from the package [samplingbook](https://cran.r-project.org/web/packages/samplingbook/index.html). [samplesize4surveys](https://cran.r-project.org/web/packages/samplesize4surveys/index.html) provides more functions and is more thorough, but it is also more complex. We will keep it simple and as you will see below: for surveys you can keep it simple as long as you make reasonable choices/assumptions.
 
-For any sample size calculation it is necessary to decide/identify:
+For any sample size calculation it is necessary to identify or make decisions on:
 
 - The primary variable of interest
 	- Categorical (eg: vaccinated/unvaccinated) or continuous data (eg: score measuring well being on a 1 to 10 scale)
@@ -157,6 +160,12 @@ delta <- 0.2
 var*qnorm(0.975)^2/(delta^2)
 
 # Then we would need to select 145 individuals in our survey if our assumptions are reasonable.
+
+# Let us quickly show how to do to do it with the package samplingbook. This package is associated to a book explaining exactly that: sampling.
+sample.size.mean(
+	e=0.2, # Here is the precision delta
+	S=sqrt(1.5), # Here is the standard deviation
+	level=0.95) # A risk alpha of 5%
 ```
 
 When thinking about sample size, you would consider more than 1 set of assumptions to check the impact of a reasonable range of values on the sample size. It is also useful to identify the values you can be a bit "vague" with in your assumptions and the one you should be more precise with.
@@ -232,6 +241,12 @@ delta <- 0.05
 p*(1-p)*qnorm(0.975)^2/(delta^2)
 
 # Then we would need to select 246 individuals in our survey if our assumptions are reasonable.
+
+# Let us quickly show how to do to do it with the package samplingbook. This package is associated to a book explaining exactly that: sampling.
+sample.size.prop(
+	e=0.05, # Here is the precision delta
+	P=0.8, # Here is the expected vaccine coverage
+	level=0.95) # A risk alpha of 5%
 ```
 
 As previously, let us check a little more broadly how the sample size would vary with various combinations of assumptions.
@@ -320,7 +335,7 @@ datatable(selected_students, rownames=FALSE)
 
 ### Systematic sampling
 
-Systematic sampling is functionally equivalent to SRS: every individual in the sampling frame has the same selection probability. Sample size calculation is then commonly done assuming SRS.
+Systematic sampling is functionally equivalent to SRS: every individual in the sampling frame has the same selection probability. **Sample size calculation is then commonly done assuming SRS.**
 
 A potential issue to be aware of with systematic sampling though: there is a risk of adding a bias depending on the presence of patterns in the way the sampling frame is organized.
 
@@ -599,17 +614,17 @@ We refer to these potential sources as "traditional" in opposition to more recen
 
 ## Alternative sampling frames: satellite images
 
-Sampling frames do not need to be a simple list (paper or otherwise). Other recent data could be really powerful to create a sampling frame in a setting where population displacement occured, or a natural disaster has substantially modified population distribution, or simply because you cannot find "traditional" data sources that are reliable enough. GIS sampling has been used more frequently in recent years to draw samples in complex settings. Although it can appear more complex, in many ways it is often a straigthforward application of SRS but using satellite images, or a map, or another GIS product as a sampling frame. Rather than sampling clusters in villages from a list and then sampling individuals, you might also sample households directly from satellite images that cover those villages. Rather than using a list of villages you have a "list" of roofs on the satellite images and you randomly choose them through random points. The main difference is that the list is not a table in this case but the principle remains the same.
+Sampling frames do not need to be a simple list (paper or otherwise). Other recent types of data could be really powerful to create a sampling frame in a setting where population displacement occured, or a natural disaster has substantially modified population distribution, or simply because you cannot find "traditional" data sources that are reliable enough. GIS sampling has been used more frequently in recent years to draw samples in complex settings. Although it can appear more complex, in many ways it is often a straigthforward application of SRS but using satellite images, or a map, or another GIS product as a sampling frame. Rather than sampling clusters in villages from a list and then sampling individuals, you might also sample households directly from satellite images that cover those villages. Rather than using a list of villages you have a "list" of roofs on the satellite images and you randomly choose them through random points. The main difference is that the list is not a table in this case, but the principle remains the same.
 
 
 ```{r "spatial sampling", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
-# Download the county subdivisions of Hawaii (county of Hawaii)
+# Download the county subdivisions of Hawaii (county of Hawaii).
 hawaii <- county_subdivisions(state="Hawaii", county="Hawaii")
 
-# Let us download data on buildings in Hawaii using OSM
-box <- st_bbox(hawaii) # We extract the bounding box of our area
+# Let us download data on buildings in Hawaii using OSM.
+box <- st_bbox(hawaii) # We extract the bounding box of our area.
 sampling_area <- opq(c(box)) %>%
-			osmdata::add_osm_feature(key = "building") %>% # "building" here designates everything OSM categorizes in the building feature (accomodation or other), so doing it properly would require to add tags to select which features you are interested in
+			osmdata::add_osm_feature(key = "building") %>% # "building" here designates everything OSM categorizes in the building feature (accomodation or other), so doing it properly would require to add tags to select which features you are interested in.
 			osmdata::osmdata_sf()
 # We end up with several layers of data. Have a quick look.
 sampling_area
@@ -619,10 +634,12 @@ set.seed(1)
 sampled_points <- sampling_area$osm_points %>%
 					sample_n(150) # We randomly choose 150 points/buildings
 
-sampled_points_df <- as(sampled_points, "Spatial") %>% # We turn our points into a SpatialPointsDataFrame and then a data.frame to use it outside of a map
+sampled_points_df <- as(sampled_points, "Spatial") %>% # We turn our points into a SpatialPointsDataFrame and then a data.frame to use it outside of a map. Here this is what you see in the interactive table below.
 						as.data.frame() %>%
-						select(Longitude=coords.x1, Latitude=coords.x2) %>%
-						mutate(ID=1:n()) # Just creating an ID for every point
+						select(
+							Longitude=coords.x1,
+							Latitude=coords.x2) %>%
+						mutate(ID=paste0("ID-", 1:n())) # Just creating an ID for every point. It matches the on on the leaflet map below.
 
 # Like when you use GIS softwares, you might use different data formats in R. The most common ones for GIS are sp and sf. The point here is not to dive in the details, simply be aware of this necessity. More details are provided in the GIS chapter.
 
@@ -631,16 +648,16 @@ ggplot() +
 		data=hawaii,
 		fill="lightgrey",
 		alpha=0.5) +
-	geom_sf(
+	geom_sf( # The blue points are all the "buildings" pulled from OSM data.
 		data=sampling_area$osm_polygons,
 		alpha=0.8,
 		color="blue") +
-	geom_sf(
+	geom_sf( # The red points are the ones we randomly sampled.
 		data=sampled_points,
 		alpha=0.8,
 		color="red") +
 	coord_sf(
-		datum = sf::st_crs(32605)) + # To project to UTM (see more in the GIS chapter) to have the axes in meters
+		datum = sf::st_crs(32605)) + # To project the map to UTM (see more in the GIS chapter) to have the axes in meters.
 	theme_bw()
 ```
 
@@ -654,28 +671,88 @@ datatable(sampled_points_df, rownames=FALSE)
 
 In this example, there already are data available for the area we want to sample from (the urban clusters). It is not necessary the case, especially if the area is very remote. It means that you might need to create those boundaries yourself on other GIS softwares first. It can be done on freely available softwares such as [GoogleEath](https://www.google.com/intl/fr/earth/versions/#earth-pro) or [QGIS](https://qgis.org/en/site/forusers/download.html).
 
-One necessary additional step here would be to "clean" the random points to keep the households with a point on the roof (+/- some buffer). This step can be tedious and might require you to draw more points more than once to reach your target number of households (+ some additional points to compensate for refusal).
+Let us illustrate this procedure simply.
+1. We will use the package [mapedit](https://cran.r-project.org/web/packages/mapedit/index.html) to define a polygon in the same area.
 
-```{r "quick and dirty look ", echo=TRUE, fig.width=6, fig.height=6, fig.align="center"}
-# You can explore quickly your sampled points.
-# Here we use leaflet because of its interactivity.
-# There are a lot of other options but a lot of them require an API, meaning that you often need an account (that you can get for free most of the time).
-# Take some time to zoom in a bit and check several points.
+```{r "polygon drawing ", echo=TRUE, fig.width=12, fig.height=6, fig.align="center"}
+# Let us create a leaflet object centered on the same area. Leaflet allows you to interact with the map, zoom in, zoom out, and so on.
 
-leaflet() %>% 
-   addTiles() %>%
-   addMarkers(
-   	lng=sampled_points_df$Longitude,
-   	lat=sampled_points_df$Latitude,
-   	label=paste0("ID: ", sampled_points_df$ID)) %>%
-   setView(
-   	lng = mean(sampled_points_df$Longitude),
-   	lat = mean(sampled_points_df$Latitude),
-   	zoom = 10 ) %>% 
-   addProviderTiles("Esri.WorldImagery")
+leaflet_area <- leaflet() %>% 
+					addTiles() %>%
+					setView( # Here we center the leaflet map on the center of the area of out sampled points coming from OSM. This is just to be centered in the right place.
+						lng = mean(sampled_points_df$Longitude),
+						lat = mean(sampled_points_df$Latitude),
+						zoom = 12 ) %>% 
+					addProviderTiles("Esri.WorldImagery")
+
+# The next line will automatically open the leaflet created just above and will also let you "draw" on it using mapedit.
+# Zoom in on an area and draw a polygon around it.
+# When you are done, click on "Finish".
+# Then click on "Done" on the bottom right.
+
+# Have a quick look at their webpage it you need additional help: https://r-spatial.org/r/2017/06/09/mapedit_0-2-0.html
+
+polygon <- editMap(leaflet_area)
+# Your polygon is now saved in the object "polygon", more specifically in the slot "finished" of the object polygon.
 ```
 
-In our example we sampled buildings with GPS positions already available thanks to OSM data. However, you might also need to draw points in polygons because such data are not available in your study area. In this case you will often see that a lot of points do not fall on roofs. Our current approach to check the points is convenient but only exploratory at best. In the situation where a lot of points are not on roofs, you will have to remove them. That also means that you will need to resample others and then clean them too. It could require the use of other GIS softwares (some are free and very efficient such as [QGIS](https://www.qgis.org/en/site/) or [GeoDa](https://geodacenter.github.io/)) and will also require some more GIS skills.
+2. Now let us randomly draw  100 points in your polygon.
+
+```{r "point drawing ", echo=TRUE, fig.width=12, fig.height=6, fig.align="center"}
+# Let us just keep the polygon drawn stored in the slot "finished".
+polygon <- polygon$finished
+
+# Now we draw the points.
+random_points <- st_sample(polygon, 100)
+```
+
+3. Have quick look at the points you just drew.
+
+```{r "quick and dirty look ", echo=TRUE, fig.width=12, fig.height=6, fig.align="center"}
+# You can explore quickly your sampled points.
+# Take some time to zoom in a bit and check several points.
+leaflet() %>% 
+	addTiles() %>%
+	addProviderTiles("Esri.WorldImagery") %>%
+	addPolygons(
+		data=polygon,
+		color="red",
+		fillOpacity=0) %>%
+	addCircleMarkers(data=random_points)
+```
+
+
+Unless you drew a small polygon VERY neatly around blocks of houses, it is likely that some points did not fall on roofs. The proportion will increase as the area will get more remote and as the polygon gets simpler, to the point that a majority of the points can fall outside of roofs. One necessary additional step here would be to "clean" the random points to only keep the households with a point on a roof. This will require you to draw more points (probably more than once) to reach your target number of households (+ some additional points to compensate for refusal) as you will need to draw points to replace the ones you removed...and then clean those too and so on.
+
+4. You can remove points also using mapedit.
+
+```{r "quick and dirty look ", echo=TRUE, fig.width=12, fig.height=6, fig.align="center"}
+
+# Draw small polygons around the points not on a roof
+points_to_clean <- leaflet() %>% 
+					addTiles() %>%
+					addProviderTiles("Esri.WorldImagery") %>%
+					addCircleMarkers(data=random_points)
+
+# Now we identify only the points outside the polygons you just drew
+not_on_roof <- sapply(st_intersects(random_point, points_to_clean$finished), function(x){length(x)==0})
+# Now we only the others
+cleaned_points <- random_point[not_on_roof,]
+# Keep in mind that it might be faster to select the points on roofs sometimes.
+
+# Have a quick look with in blue the random points before cleaning and in red what remains after your cleaning
+leaflet() %>% 
+	addTiles() %>%
+	addProviderTiles("Esri.WorldImagery") %>%
+	addCircleMarkers(
+		data=random_point,
+		color="red") %>%
+	addCircleMarkers(
+		data=cleaned_points,
+		color="blue") # Only the deleted points will appear red
+```
+
+Our current approach to check and "clean" the points is convenient but only exploratory at best. The repetition of cleaning and resampling can be tedious. It could require the use of other GIS softwares (some are free and very efficient such as [QGIS](https://www.qgis.org/en/site/) or [GeoDa](https://geodacenter.github.io/)) to be a little faster and/or to start making more complex to streamline every step as much as possible.
 
 Sampling GPS point can be very convenient and powerful in areas where very little information is available to make a more traditional sampling frame or simply because you know the available information is unreliable. In areas with large population displacements, it can be easier to find **up-to-date satellite imageries** of the area to draw boundaries and sample households than waiting the demographic data to catch-up with the current situation. However, there are some limitations you should also be aware of:
 * Sampling households by drawing points in a polygon makes the **selection probability proportional to the size of the roof**. We implicitly assume that all the households in the area are roughly of comparable sizes here. This assumption can be reasonable or obviously wrong depending on the setting and the size of the area. Maybe larger households are much larger than the other ones and are also associated with higher incomes (with all the potential confounding biases associated with it), so you should gather some information to ensure that you are not adding an unecessary bias.
@@ -686,10 +763,10 @@ Sampling GPS point can be very convenient and powerful in areas where very littl
 
 Typically, this sampling strategy is very convenient in rural/remote areas because it minimizes the potential issues associated to it and maximizes its advantages over using traditional sampling frameworks. And it often becomes a logical solution after disasters with population displacements. Although it requires some extra GIS skills, it is worth getting some familiarity with it.
 
-This strategy also has logistical advantages: you have the coordinates of all the households you want to select. You just need to put them in GPS devices and dispatch your teams in an organized fashion. You can also SHOW them where they should go using softwares such as [Google Earth](https://www.google.com/intl/fr/earth/versions/#earth-pro). So the practical management of data collection is often simpler. You will need to juggle between different data formats if you want to export those points in GPS devices or smartphones/tablets using a a GIS application. Two of the common formats you shouls be aware of include gpx (commonly used by some GPS devices and some apps such as [maps.me](https://maps.me/)) and kml (commonly used in other apps such as [OsmAnd](https://osmand.net/) or software like [Google Earth](https://www.google.com/intl/fr/earth/versions/)).
+This strategy also has logistical advantages: you have the coordinates of all the households you want to select. You just need to put them in GPS devices and dispatch your teams in an organized fashion. You can also SHOW them where they should go using softwares such as [Google Earth](https://www.google.com/intl/fr/earth/versions/#earth-pro). So the practical management of data collection is often simpler. You will need to juggle between different data formats if you want to export those points in GPS devices or smartphones/tablets using a GIS application. Two of the common formats you should be aware of include gpx (commonly used by some GPS devices and some apps such as [maps.me](https://maps.me/)) and kml (commonly used in other apps such as [OsmAnd](https://osmand.net/) or software like [Google Earth](https://www.google.com/intl/fr/earth/versions/)).
 
 ```{r "editing kml ang gpx", echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
-# Here is ho you could save your sampled points into kml points.
+# Here is how you could save your sampled points into kml points.
 sampled_points %>%
 	mutate(Name=paste0("ID-", 1:n())) %>% # Here we define the variable 'Name' that will be used to label the points.
 	st_write(.,
