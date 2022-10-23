@@ -947,23 +947,22 @@ Use **dplyr**'s `case_when()` if you are re-coding into many new groups, or if y
 
 For example, here we utilize the columns `age` and `age_unit` to create a column `age_years`:  
 
-
 ```{r}
 linelist <- linelist %>% 
   mutate(age_years = case_when(
-            age_unit == "years"  ~ age,       # if age is given in years
-            age_unit == "months" ~ age/12,    # if age is given in months
-            is.na(age_unit)      ~ age,       # if age unit is missing, assume years
-            TRUE                 ~ NA_real_)) # any other circumstance, assign missing
+       age_unit == "years"  ~ age,       # if age is given in years
+       age_unit == "months" ~ age/12,    # if age is given in months
+       is.na(age_unit)      ~ age))      # if age unit is missing, assume years
+                                         # any other circumstance, assign NA
 ```
 
 
 As each row in the data is evaluated, the criteria are applied/evaluated in the order the `case_when()` statements are written - from top-to-bottom. If the top criteria evaluates to `TRUE` for a given row, the RHS value is assigned, and the remaining criteria are not even tested for that row. Thus, it is best to write the most specific criteria first, and the most general last.  
 
-Along those lines, in your final statement, place `TRUE` on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like "check me!" or missing.  
+Sometimes, you may with to write a final statement that assigns a value for all other scenarios not described by one of the previous lines. To do this, place `TRUE` on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like "check me!" or missing.  
 
 
-<span style="color: red;">**_DANGER:_** **Vvalues on the right-side must all be the same class** - either numeric, character, date, logical, etc. To assign missing (`NA`), you may need to use special variations of `NA` such as `NA_character_`, `NA_real_` (for numeric or POSIX), and `as.Date(NA)`. Read more in [Working with dates].</span>  
+<span style="color: red;">**_DANGER:_** **Values on the right-side must all be the same class** - either numeric, character, date, logical, etc. To assign missing (`NA`), you may need to use special variations of `NA` such as `NA_character_`, `NA_real_` (for numeric or POSIX), and `as.Date(NA)`. Read more in [Working with dates].</span>  
 
 
 
