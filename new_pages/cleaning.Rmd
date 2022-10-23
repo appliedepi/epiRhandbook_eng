@@ -1025,7 +1025,7 @@ linelist <- linelist %>%
 
 ### Cleaning dictionary {.unnumbered}
 
-Use the R package **linelist** and it's function `clean_variable_spelling()` to clean a data frame with a *cleaning dictionary*. **linelist** is a package developed by [RECON](https://github.com/reconhub/linelist) - the R Epidemics Consortium.  
+Use the R package **matchmaker** and its function `match_df()` to clean a data frame with a *cleaning dictionary*.
 
 1) Create a cleaning dictionary with 3 columns:  
     * A "from" column (the incorrect value)  
@@ -1049,13 +1049,17 @@ cleaning_dict <- rio::import(here("data", "case_linelists", "cleaning_dict.csv")
 cleaning_dict <- import("cleaning_dict.csv")
 ```
 
-3) Pass the raw linelist to `clean_variable_spelling()`, specifying to `wordlists = ` the cleaning dictionary data frame. The `spelling_vars = ` argument can be used to specify which column in the dictionary refers to the columns (3rd by default), or can be set to `NULL` to have the dictionary apply to all character and factor columns. Note this function can take a long time to run.  
+3) Pass the raw linelist to `match_df()`, specifying to `dictionary = ` the cleaning dictionary data frame. The `from = ` argument should be the name of the dictionary column which contains the "old" values, the `by = ` argument should be dictionary column which contains the corresponding "new" values, and the third column lists the column in which to make the change. Use `.global` in the `by = ` column to apply a change across all columns. A fourth dictionary column `order` can be used to specify factor order of new values.  
+
+Read more details in the package documentation by running `?match_df`. Note this function can take a long time to run for a large dataset.  
 
 ```{r}
-linelist <- linelist %>% 
-  linelist::clean_variable_spelling(
-    wordlists = cleaning_dict,
-    spelling_vars = "col",        # dict column containing column names, defaults to 3rd column in dict
+linelist2 <- linelist %>%     # provide or pipe your dataset
+     matchmaker::match_df(
+          dictionary = cleaning_dict,  # name of your dictionary
+          from = "from",               # column with values to be replaced (default is col 1)
+          to = "to",                   # column with final values (default is col 2)
+          by = "col"                   # column with column names (default is col 3)
   )
 ```
 
