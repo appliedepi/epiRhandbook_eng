@@ -1025,7 +1025,7 @@ linelist <- linelist %>%
 
 ### Cleaning dictionary {.unnumbered}
 
-Use the R package **matchmaker** and its function `match_df()` to clean a data frame with a *cleaning dictionary*.
+Use the R package **matchmaker** and its function `match_df()` to clean a data frame with a *cleaning dictionary*.  
 
 1) Create a cleaning dictionary with 3 columns:  
     * A "from" column (the incorrect value)  
@@ -1034,7 +1034,7 @@ Use the R package **matchmaker** and its function `match_df()` to clean a data f
 
 Note: .global dictionary entries will be overridden by column-specific dictionary entries.  
 
-```{r, fig.align = "center", out.width = "100%", echo=F}
+```{r, fig.align = "center", out.width = "75%", echo=F}
 knitr::include_graphics(here::here("images", "cleaning_dict.png"))
 ```
 
@@ -1049,12 +1049,12 @@ cleaning_dict <- rio::import(here("data", "case_linelists", "cleaning_dict.csv")
 cleaning_dict <- import("cleaning_dict.csv")
 ```
 
-3) Pass the raw linelist to `match_df()`, specifying to `dictionary = ` the cleaning dictionary data frame. The `from = ` argument should be the name of the dictionary column which contains the "old" values, the `by = ` argument should be dictionary column which contains the corresponding "new" values, and the third column lists the column in which to make the change. Use `.global` in the `by = ` column to apply a change across all columns. A fourth dictionary column `order` can be used to specify factor order of new values.  
+3) Pipe the raw linelist to `match_df()`, specifying to `dictionary = ` the cleaning dictionary data frame. The `from = ` argument should be the name of the dictionary column which contains the "old" values, the `by = ` argument should be dictionary column which contains the corresponding "new" values, and the third column lists the column in which to make the change. Use `.global` in the `by = ` column to apply a change across all columns. A fourth dictionary column `order` can be used to specify factor order of new values.  
 
-Read more details in the package documentation by running `?match_df`. Note this function can take a long time to run for a large dataset.  
+Read more details in the [package documentation](https://cran.r-project.org/web/packages/matchmaker/vignettes/intro.html) by running `?match_df`. Note this function can take a long time to run for a large dataset.  
 
 ```{r}
-linelist2 <- linelist %>%     # provide or pipe your dataset
+linelist <- linelist %>%     # provide or pipe your dataset
      matchmaker::match_df(
           dictionary = cleaning_dict,  # name of your dictionary
           from = "from",               # column with values to be replaced (default is col 1)
