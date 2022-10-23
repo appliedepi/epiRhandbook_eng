@@ -652,7 +652,7 @@ We will demonstrate using the **apyramid** package as it allows for weighted
 proportions using our survey design object created above. Other options for creating
 [demographic pyramids](https://epirhandbook.com/demographic-pyramids-and-likert-scales.html)
 are covered extensively in that chapter of the handbook. We will also use a 
-wrapper function from **sitrep** called `plot_age_pyramid()` which saves a few lines
+wrapper function from **apyramid** called `age_pyramid()` which saves a few lines
 of coding for producing a plot with proportions. 
 
 As with the formal binomial test of difference, seen above in the sampling bias 
@@ -731,7 +731,7 @@ source_population <- population %>%
   
   
 ## plot the unweighted sample population 
-sample_population <- plot_age_pyramid(survey_data, 
+sample_population <- age_pyramid(survey_data, 
                  age_group = "age_group", 
                  split_by = "sex",
                  proportion = TRUE) + 
@@ -750,7 +750,7 @@ weighted_population <- survey_design %>%
   ## make sure the variables are factors
   mutate(age_group = factor(age_group), 
          sex = factor(sex)) %>%
-  plot_age_pyramid(
+  age_pyramid(
     age_group = "age_group",
     split_by = "sex", 
     proportion = TRUE) +
