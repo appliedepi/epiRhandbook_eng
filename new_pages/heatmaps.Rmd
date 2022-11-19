@@ -315,7 +315,9 @@ agg_weeks <- agg_weeks %>%
     n_reports       = dplyr::n(),                                 # number of reports received per week (could be >7)
     malaria_tot     = sum(malaria_tot, na.rm = T),                # total malaria cases reported
     n_days_reported = length(unique(data_date)),                  # number of unique days reporting per week
-    p_days_reported = round(100*(n_days_reported / n_days)))      # percent of days reporting
+    p_days_reported = round(100*(n_days_reported / n_days))) %>%  # percent of days reporting
+
+  ungroup(location_name, week)                                    # ungroup so expand() works in next step
 ```
 
 ```{r, echo=F}
@@ -329,19 +331,16 @@ We are using a `right_join()` on itself (the dataset is represented by ".") but 
 ```{r, message=F, warning=F}
 # Create data frame of every possible facility-week
 expanded_weeks <- agg_weeks %>% 
-  mutate(week = as.factor(week)) %>%         # convert date to a factor so expand() works correctly
-  tidyr::expand(., week, location_name) %>%  # expand data frame to include all possible facility-week combinations
-                                             # note: "." represents the dataset at that moment in the pipe chain
-  mutate(week = as.Date(week))               # re-convert week to class Date so the subsequent right_join works
+  tidyr::expand(location_name, week)  # expand data frame to include all possible facility-week combinations
 ```
 
-Here is `expanded_weeks`:  
+Here is `expanded_weeks`, with `r nrow(expanded_weeks)` rows:  
 
 ```{r, echo=F}
 DT::datatable(expanded_weeks, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
 ```
 
-Before running this code, `agg_weeks` contains ` nrow(agg_weeks)` rows.   
+Before running this code, `agg_weeks` contains `r nrow(agg_weeks)` rows.   
 
 ```{r}
 # Use a right-join with the expanded facility-week list to fill-in the missing gaps in the data

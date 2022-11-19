@@ -12,6 +12,7 @@ select <- dplyr::select
 summarise <- dplyr::summarise
 summary <- base::summary
 incidence <- incidence2::incidence
+clean_names <- janitor::clean_names
 
 #load core packages
 pacman::p_load(

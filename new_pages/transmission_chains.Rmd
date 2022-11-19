@@ -24,7 +24,6 @@ pacman::p_load(tidyverse, epicontacts, magrittr, here, webshot, visNetwork)
 ## load linelist
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds")) %>%
   filter(!duplicated(case_id))
-
 ## generate contacts
 contacts <- linelist %>%
   transmute(
@@ -43,12 +42,13 @@ epic <- epicontacts::make_epicontacts(
 )
 
 ## subset object
-epic %<>% subset(
-  node_attribute = list(date_onset = c(as.Date(c("2014-06-01", "2014-07-01"))))
-) %>%
+#epic %<>% subset(
+epic_small <- epic %>% 
+  subset(
+    node_attribute = list(date_onset = c(as.Date(c("2014-06-01", "2014-07-01"))))) %>%
   thin("contacts")
 
-## plot with date of onset as x-axis
+# plot with date of onset as x-axis
 plot(
   epic,
   x_axis = "date_onset",
