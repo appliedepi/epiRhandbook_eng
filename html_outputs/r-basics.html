@@ -615,12 +615,12 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <div id="how-to-install-and-load" class="section level4 unnumbered">
 <h4>How to install and load<a class="anchor" aria-label="anchor" href="#how-to-install-and-load"><i class="fas fa-link"></i></a>
 </h4>
-<p>In this handbook, we suggest using the <strong>pacman</strong> package (short for “package manager”). It offers a convenient function <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> which will install a package if necessary <em>and</em> load it for use in the current R session.</p>
-<p>The syntax quite simple. Just list the names of the packages within the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> parentheses, separated by commas. This command will install the <strong>rio</strong>, <strong>tidyverse</strong>, and <strong>here</strong> packages if they are not yet installed, and will load them for use. This makes the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> approach convenient and concise if sharing scripts with others. Note that package names are case-sensitive.</p>
+<p>In this handbook, we suggest using the <strong>pacman</strong> package (short for “package manager”). It offers a convenient function <code>p_load()</code> which will install a package if necessary <em>and</em> load it for use in the current R session.</p>
+<p>The syntax quite simple. Just list the names of the packages within the <code>p_load()</code> parentheses, separated by commas. This command will install the <strong>rio</strong>, <strong>tidyverse</strong>, and <strong>here</strong> packages if they are not yet installed, and will load them for use. This makes the <code>p_load()</code> approach convenient and concise if sharing scripts with others. Note that package names are case-sensitive.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install (if necessary) and load packages for use</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>, <span class="va">tidyverse</span>, <span class="va">here</span><span class="op">)</span></span></code></pre></div>
-<p>Note that we have used the syntax <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> which explicitly writes the package name (<strong>pacman</strong>) prior to the function name (<code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code>), connected by two colons <code>::</code>. This syntax is useful because it also loads the <strong>pacman</strong> package (assuming it is already installed).</p>
+<p>Note that we have used the syntax <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> which explicitly writes the package name (<strong>pacman</strong>) prior to the function name (<code>p_load()</code>), connected by two colons <code>::</code>. This syntax is useful because it also loads the <strong>pacman</strong> package (assuming it is already installed).</p>
 <p>There are alternative <strong>base</strong> R functions that you will see often. The <strong>base</strong> R function for installing a package is <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. The name of the package to install must be provided in the parentheses <em>in quotes</em>. If you want to install multiple packages in one command, they must be listed within a character vector <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>.</p>
 <p>Note: this command <em>installs</em> a package, but does <em>not</em> load it for use in the current session.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -630,7 +630,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <span><span class="co"># install multiple packages with base R</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"rio"</span>, <span class="st">"here"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Installation can also be accomplished point-and-click by going to the RStudio “Packages” pane and clicking “Install” and searching for the desired package name.</p>
-<p>The <strong>base</strong> R function to <strong>load</strong> a package for use (after it has been installed) is <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>. It can load only one package at a time (another reason to use <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code>). You can provide the package name with or without quotes.</p>
+<p>The <strong>base</strong> R function to <strong>load</strong> a package for use (after it has been installed) is <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>. It can load only one package at a time (another reason to use <code>p_load()</code>). You can provide the package name with or without quotes.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load packages for use, with base R</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -639,7 +639,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <p>To check whether a package in installed and/or loaded, you can view the Packages pane in RStudio. If the package is installed, it is shown there with version number. If its box is checked, it is loaded for the current session.</p>
 <p><strong>Install from Github</strong></p>
 <p>Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the <em>development version</em> with new features not yet offered in the more stable published CRAN version. These are often hosted on the website <a href="https://github.com/">github.com</a> in a free, public-facing code “repository”. Read more about Github in the handbook page on <a href="version-control-and-collaboration-with-git-and-github.html#version-control-and-collaboration-with-git-and-github">Version control and collaboration with Git and Github</a>.</p>
-<p>To download R packages from Github, you can use the function <code><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh()</a></code> from <strong>pacman</strong>, which will install the package if necessary, and load it for use in your current R session. Alternatives to install include using the <strong>remotes</strong> or <strong>devtools</strong> packages. Read more about all the <strong>pacman</strong> functions in the <a href="https://cran.r-project.org/web/packages/pacman/pacman.pdf">package documentation</a>.</p>
+<p>To download R packages from Github, you can use the function <code>p_load_gh()</code> from <strong>pacman</strong>, which will install the package if necessary, and load it for use in your current R session. Alternatives to install include using the <strong>remotes</strong> or <strong>devtools</strong> packages. Read more about all the <strong>pacman</strong> functions in the <a href="https://cran.r-project.org/web/packages/pacman/pacman.pdf">package documentation</a>.</p>
 <p>To install from Github, you have to provide more information. You must provide:</p>
 <ol style="list-style-type: decimal">
 <li>The Github ID of the repository owner</li>
@@ -650,12 +650,12 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <p>In the examples below, the first word in the quotation marks is the Github ID of the repository owner, after the slash is the name of the repository (the name of the package).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install/load the epicontacts package from its Github repository</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh</a></span><span class="op">(</span><span class="st">"reconhub/epicontacts"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">p_load_gh</span><span class="op">(</span><span class="st">"reconhub/epicontacts"</span><span class="op">)</span></span></code></pre></div>
 <p>If you want to install from a “branch” (version) other than the main branch, add the branch name after an “@”, after the repository name.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install the "timeline" branch of the epicontacts package from Github</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh</a></span><span class="op">(</span><span class="st">"reconhub/epicontacts@timeline"</span><span class="op">)</span></span></code></pre></div>
-<p>If there is no difference between the Github version and the version on your computer, no action will be taken. You can “force” a re-install by instead using <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> with the argument <code>update = TRUE</code>. Read more about <strong>pacman</strong> in this <a href="http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html">online vignette</a></p>
+<span><span class="fu">p_load_gh</span><span class="op">(</span><span class="st">"reconhub/epicontacts@timeline"</span><span class="op">)</span></span></code></pre></div>
+<p>If there is no difference between the Github version and the version on your computer, no action will be taken. You can “force” a re-install by instead using <code>p_load_current_gh()</code> with the argument <code>update = TRUE</code>. Read more about <strong>pacman</strong> in this <a href="http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html">online vignette</a></p>
 <p><strong>Install from ZIP or TAR</strong></p>
 <p>You could install the package from a URL:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -692,13 +692,13 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <div id="delete-packages" class="section level3 unnumbered">
 <h3>Delete packages<a class="anchor" aria-label="anchor" href="#delete-packages"><i class="fas fa-link"></i></a>
 </h3>
-<p>Use <code><a href="https://rdrr.io/pkg/pacman/man/p_delete.html">p_delete()</a></code> from <strong>pacman</strong>, or <code><a href="https://rdrr.io/r/utils/remove.packages.html">remove.packages()</a></code> from <strong>base</strong> R. Alternatively, go find the folder which contains your library and manually delete the folder.</p>
+<p>Use <code>p_delete()</code> from <strong>pacman</strong>, or <code><a href="https://rdrr.io/r/utils/remove.packages.html">remove.packages()</a></code> from <strong>base</strong> R. Alternatively, go find the folder which contains your library and manually delete the folder.</p>
 </div>
 <div id="dependencies" class="section level3 unnumbered">
 <h3>Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"><i class="fas fa-link"></i></a>
 </h3>
 <p>Packages often depend on other packages to work. These are called dependencies. If a dependency fails to install, then the package depending on it may also fail to install.</p>
-<p>See the dependencies of a package with <code><a href="https://rdrr.io/pkg/pacman/man/p_depends.html">p_depends()</a></code>, and see which packages depend on it with <code><a href="https://rdrr.io/pkg/pacman/man/p_depends.html">p_depends_reverse()</a></code></p>
+<p>See the dependencies of a package with <code>p_depends()</code>, and see which packages depend on it with <code>p_depends_reverse()</code></p>
 </div>
 <div id="masked-functions" class="section level3 unnumbered">
 <h3>Masked functions<a class="anchor" aria-label="anchor" href="#masked-functions"><i class="fas fa-link"></i></a>
@@ -710,7 +710,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <ol style="list-style-type: decimal">
 <li>Specify the package name in the command. For example, use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code><br>
 </li>
-<li>Re-arrange the order in which the packages are loaded (e.g. within <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code>), and <strong>start a new R session</strong>
+<li>Re-arrange the order in which the packages are loaded (e.g. within <code>p_load()</code>), and <strong>start a new R session</strong>
 </li>
 </ol>
 </div>

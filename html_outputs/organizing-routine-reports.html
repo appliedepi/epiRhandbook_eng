@@ -148,7 +148,7 @@
 </h3>
 <p>From within RStudio, install the latest version of the <strong>reportfactory</strong> package from Github.</p>
 <p>You can do this via the <strong>pacman</strong> package with <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> which will force intall of the latest version from Github. Provide the character string “reconverse/reportfactory”, which specifies the Github organization (reconverse) and repository (reportfactory). You can also use <code>install_github()</code> from the <strong>remotes</strong> package, as an alternative.</p>
-<div class="sourceCode" id="cb1768"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1771"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install and load the latest version of the package from Github</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh</a></span><span class="op">(</span><span class="st">"reconverse/reportfactory"</span><span class="op">)</span></span>
 <span><span class="co">#remotes::install_github("reconverse/reportfactory") # alternative</span></span></code></pre></div>
@@ -165,7 +165,7 @@
 </li>
 <li>Your RStudio session will “move in” to this R project</li>
 </ul>
-<div class="sourceCode" id="cb1769"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This will create the factory in the working directory</span></span>
 <span><span class="fu">new_factory</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Looking inside the factory, you can see that sub-folders and some files were created automatically.</p>
@@ -202,10 +202,10 @@
 </ul>
 <p>See <code>?new_factory</code> for a complete list of the arguments.</p>
 <p>When you create the new factory, your R session is transferred to the new R project, so you should again load the <strong>reportfactory</strong> package.</p>
-<div class="sourceCode" id="cb1770"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">reportfactory</span><span class="op">)</span></span></code></pre></div>
 <p>Now you can run a the <code>factory_overview()</code> command to see the internal structure (all folders and files) in the factory.</p>
-<div class="sourceCode" id="cb1771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">factory_overview</span><span class="op">(</span><span class="op">)</span>            <span class="co"># print overview of the factory to console</span></span></code></pre></div>
 <p>The following “tree” of the factory’s folders and files is printed to the R console. Note that in the “data” folder there are sub-folders for “raw” and “clean” data, and example CSV data. There is also “example_report.Rmd” in the “report_sources” folder.</p>
 <div class="inline-figure"><img src="images/factory_overview.png" width="202"></div>
@@ -230,7 +230,7 @@
 </li>
 <li>Import the linelist data using a filepath from the <strong>here</strong> package (read more in the page on <a href="import-and-export.html#import-and-export">Import and export</a>)</li>
 </ul>
-<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1775"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Print a summary table of cases, and export it with <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> as a .csv file<br>
@@ -238,7 +238,7 @@
 <li>Print an epicurve, and export it with <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> as a .png file</li>
 </ul>
 <p>You can review just the list of R Markdown reports in the “report_sources” folder with this command:</p>
-<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">list_reports</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="compile" class="section level2" number="40.4">
@@ -262,7 +262,7 @@
 <h3>Compile by number<a class="anchor" aria-label="anchor" href="#compile-by-number"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can also specify the Rmd script to compile by providing a number or vector of numbers to <code>reports =</code>. The numbers must align with the order the reports appear when you run <code>list_reports()</code>.</p>
-<div class="sourceCode" id="cb1774"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1777"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compile the second and fourth Rmds in the "report_sources" folder</span></span>
 <span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -276,19 +276,19 @@
 <h3>Compile from sub-folder<a class="anchor" aria-label="anchor" href="#compile-from-sub-folder"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can add sub-folders to the “report_sources” folder. To run an R Markdown report from a subfolder, simply provide the name of the folder to <code>subfolder =</code>. Below is an example of code to compile a Rmd report that lives in a sub_folder of “report_sources”.</p>
-<div class="sourceCode" id="cb1775"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1778"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>     reports <span class="op">=</span> <span class="st">"summary_for_partners.Rmd"</span>,</span>
 <span>     subfolder <span class="op">=</span> <span class="st">"for_partners"</span><span class="op">)</span></span></code></pre></div>
 <p>You can compile all Rmd reports within a subfolder by providing the subfolder name to <code>reports =</code>, with a slash on the end, as below.</p>
-<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1779"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="st">"for_partners/"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="parameterization" class="section level3 unnumbered">
 <h3>Parameterization<a class="anchor" aria-label="anchor" href="#parameterization"><i class="fas fa-link"></i></a>
 </h3>
 <p>As noted in the page on <a href="reports-with-r-markdown.html#reports-with-r-markdown">Reports with R Markdown</a>, you can run reports with specified parameters. You can pass these parameters as a list to <code>compile_reports()</code> via the <code>params =</code> argument. For example, in this fictional report there are three parameters provided to the R Markdown reports.</p>
-<div class="sourceCode" id="cb1777"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1780"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>  reports <span class="op">=</span> <span class="st">"daily_sitrep.Rmd"</span>,</span>
 <span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>most_recent_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>

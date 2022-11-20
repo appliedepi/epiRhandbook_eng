@@ -163,25 +163,25 @@
 </h2>
 <p>Below are some useful commands when trying to troubleshoot issues using R on network drives.</p>
 <p>You can return the path(s) to package libraries that R is using. They will be listed in the order that R is using to install/load/search for packages. Thus, if you want R to use a different default library, you can switch the order of these paths (see below).</p>
-<div class="sourceCode" id="cb1916"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1919"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find libraries</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span>                   <span class="co"># Your library paths, listed in order that R installs/searches. </span></span>
 <span>                              <span class="co"># Note: all libraries will be listed, but to install to some (e.g. C:) you </span></span>
 <span>                              <span class="co"># may need to be running RStudio as an administrator (it won't appear in the </span></span>
 <span>                              <span class="co"># install packages library drop-down menu) </span></span></code></pre></div>
 <p>You may want to switch the order of the package libraries used by R. For example if R is picking up a library location that begins with “\" and one that begins with a letter e.g. ”D:“. You can adjust the order of <code><a href="https://rdrr.io/r/base/libPaths.html">.libPaths()</a></code> with the following code.</p>
-<div class="sourceCode" id="cb1917"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1920"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Switch order of libraries</span></span>
 <span><span class="co"># this can effect the priority of R finding a package. E.g. you may want your C: library to be listed first</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># get the paths</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myPaths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># switch them</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">)</span> <span class="co"># reassign them</span></span></code></pre></div>
 <p>If you are having difficulties with R Markdown connecting to Pandoc, begin with this code to find out where RStudio thinks your Pandoc installation is.</p>
-<div class="sourceCode" id="cb1918"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1921"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find Pandoc</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"RSTUDIO_PANDOC"</span><span class="op">)</span>  <span class="co"># Find where RStudio thinks your Pandoc installation is</span></span></code></pre></div>
 <p>If you want to see which library a package is loading from, try the below code:</p>
-<div class="sourceCode" id="cb1919"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1922"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find a package</span></span>
 <span><span class="co"># gives first location of package (note order of your libraries)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html">find.package</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"verbose"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
@@ -195,7 +195,7 @@
 <ul>
 <li>Check the installation of TinyTex, or install TinyTex to C: location. See the <a href="r-basics.html#r-basics">R basics</a> page on how to install TinyTex.</li>
 </ul>
-<div class="sourceCode" id="cb1920"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1923"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check/install tinytex, to C: location</span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">tinytex</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/is_tinytex.html">is_tinytex</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># should return TRUE (note three colons)</span></span></code></pre></div>

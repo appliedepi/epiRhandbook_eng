@@ -151,7 +151,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </h3>
 <p>In this handbook we emphasize <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> from <strong>base</strong> R. See the page on <a href="r-basics.html#r-basics">R basics</a> for more information on R packages.</p>
 <p>We begin by installing the <strong>shiny</strong> R package:</p>
-<div class="sourceCode" id="cb1786"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1789"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="import-data-26" class="section level3 unnumbered">
@@ -178,7 +178,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </li>
 </ol>
 <p>In this page, we will use the first approach of having one file called <em>app.R</em>. Here is an example script:</p>
-<div class="sourceCode" id="cb1787"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1790"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># an example of app.R</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
@@ -277,7 +277,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <li>An area where we can show our resulting epicurve.</li>
 </ol>
 <p>This might look something like this:</p>
-<div class="sourceCode" id="cb1788"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1791"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -360,7 +360,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </ol>
 <p>This list is pretty straightforward, and shouldn’t be too hard to do. It’s now important to think about which parts of this process need to <em>be done only once</em> and which parts need to <em>run in response to user inputs</em>. This is because shiny apps generally run some code before running, which is only performed once. It will help our app’s performance if as much of our code can be moved to this section. For this example, we only need to load our data/packages and do basic transformations once, so we can put that code <em>outside the server</em>. This means the only thing we’ll need in the server is the code to visualise our data. Lets develop all of these componenets in a script first. However, since we’re visualising our data with a function, we can also put the code <em>for the function</em> outside the server so our function is in the environment when the app runs!</p>
 <p>First lets load our data. Since we’re working with a new project, and we want to make it clean, we can create a new directory called data, and add our malaria data in there. We can run this code below in a testing script we will eventually delete when we clean up the structure of our app.</p>
-<div class="sourceCode" id="cb1789"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1792"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># read data</span></span>
@@ -369,21 +369,22 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,038 × 10
-##    location_name data_date  submitted_date Province District `malaria_rdt_0-4` malaria_rdt_…¹ malar…² malar…³ newid
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt;          &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                  11             12      23      46     1
-##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                    11             10       5      26     2
-##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                    8              5       5      18     3
-##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                    16             16      17      49     4
-##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                     9              2       6      17     5
-##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                    3              1       4       8     6
-##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                    4              0       3       7     6
-##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                    15             14      13      42     5
-##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                    11             11      13      35     5
-## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                    19             15      15      49     5
-## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_5-14`, ²​malaria_rdt_15, ³​malaria_tot</code></pre>
+##    location_name data_date  submitted_date Province District malaria_rdt_0-…¹ malar…² malar…³ malar…⁴ newid
+##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;               &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                 11      12      23      46     1
+##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                   11      10       5      26     2
+##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                   8       5       5      18     3
+##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                   16      16      17      49     4
+##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                    9       2       6      17     5
+##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                   3       1       4       8     6
+##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                   4       0       3       7     6
+##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                   15      14      13      42     5
+##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                   11      11      13      35     5
+## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                   19      15      15      49     5
+## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_0-4`, ²​`malaria_rdt_5-14`,
+## #   ³​malaria_rdt_15, ⁴​malaria_tot</code></pre>
 <p>It will be easier to work with this data if we use tidy data standards, so we should also transform into a longer data format, where age group is a column, and cases is another column. We can do this easily using what we’ve learned in the <a href="pivoting-data.html#pivoting-data">Pivoting data</a> page.</p>
-<div class="sourceCode" id="cb1791"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1794"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"malaria_"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"age_group"</span>, values_to <span class="op">=</span> <span class="st">"cases_reported"</span><span class="op">)</span></span>
@@ -410,7 +411,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <li>The district of choice</li>
 <li>The age group of choice</li>
 </ol>
-<div class="sourceCode" id="cb1793"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1796"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -464,7 +465,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <p>We won’t go into great detail about this function, as it’s relatively simple in how it works. One thing to note however, is we handle errors by returning <code>NULL</code> when it would otherwise give an error. This is because when a shiny server produces a <code>NULL</code> object instead of a plot object, nothing will be shown in the ui! This is important, as otherwise errors will often cause your app to stop working.</p>
 <p>Another thing to note is the use of the <code>%in%</code> operator when evaluating the <code>district</code> input. As mentioned above, this could arrive as a character vector with multiple values, so using <code>%in%</code> is more flexible than say, <code>==</code>.</p>
 <p>Let’s test our function!</p>
-<div class="sourceCode" id="cb1794"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1797"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Bolo"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1437-1.png" width="672"></div>
 <p>With our function working, we now have to understand how this all is going to fit into our shiny app. We mentioned the concept of <em>startup code</em> before, but lets look at how we can actually incorporate this into the structure of our app. There are two ways we can do this!</p>
@@ -474,7 +475,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <li>Create a new file in your app’s directory called <em>global.R</em>, and put the startup code in this file.</li>
 </ol>
 <p>It’s worth noting at this point that it’s generally easier, especially with bigger apps, to use the second file structure, as it lets you separate your file structure in a simple way. Lets fully develop a this global.R script now. Here is what it could look like:</p>
-<div class="sourceCode" id="cb1795"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1798"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># global.R script</span></span>
 <span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"shiny"</span><span class="op">)</span></span>
@@ -544,7 +545,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span><span class="op">}</span></span></code></pre></div>
 <p>Easy! One great feature of shiny is that it will understand what files named <em>app.R</em>, <em>server.R</em>, <em>ui.R</em>, and <em>global.R</em> are for, so there is no need to connect them to each other via any code. So just by having this code in <em>global.R</em> in the directory it will run before we start our app!.</p>
 <p>We should also note that it would improve our app’s organisation if we moved the plotting function to its own file - this will be especially helpful as apps become larger. To do this, we could make another directory called <em>funcs</em>, and put this function in as a file called <em>plot_epicurve.R</em>. We could then read this function in via the following command in <em>global.R</em></p>
-<div class="sourceCode" id="cb1796"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1799"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span><span class="op">)</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Note that you should <em>always</em> specify <code>local = TRUE</code> in shiny apps, since it will affect sourcing when/if the app is published on a server.</p>
 </div>
@@ -559,7 +560,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <li><p>Endpoints - these are outputs that are passed from the server to the UI. In our example, this would be the epi curve we are producing.</p></li>
 </ol>
 <p>With this in mind lets construct our server step-by-step. We’ll show our UI code again here just for reference:</p>
-<div class="sourceCode" id="cb1797"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1800"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -619,7 +620,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </li>
 </ul>
 <p>As stated previously, these unique names we have assigned to our inputs and outputs are crucial. They <em>must be unique</em> and are used to pass information between the ui and server. In our server, we access our inputs via the syntax <code>input$inputID</code> and outputs and passed to the ui through the syntax <code>output$output_name</code> Lets have a look at an example, because again this is hard to understand otherwise!</p>
-<div class="sourceCode" id="cb1798"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1801"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
@@ -675,7 +676,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <li><p><code>tags$b()</code> and <code>tags$i()</code> - these are used to create bold <code>tags$b()</code> and italicised <code>tags$i()</code> with whichever text is enclosed!</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> and <code>tags$li()</code> - these are tags used in creating <em>lists</em>. These are all used within the syntax below, and allow the user to create either an ordered list (<code>tags$ol()</code>; i.e. numbered) or unordered list (<code>tags$ul()</code>, i.e. bullet points). <code>tags$li()</code> is used to denote items in the list, regardless of which type of list is used. e.g.:</p></li>
 </ul>
-<div class="sourceCode" id="cb1799"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1802"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">ol</span><span class="op">(</span></span>
 <span>  </span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">li</span><span class="op">(</span><span class="st">"Item 1"</span><span class="op">)</span>,</span>
@@ -692,7 +693,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <p>Note that every one of these objects can be accessed through <code>tags$...</code> or for some, just the function. These are effectively synonymous, but it may help to use the <code>tags$...</code> style if you’d rather be more explicit and not overwrite the functions accidentally. This is also by no means an exhaustive list of tags available. There is a full list of all tags available in shiny <a href="https://shiny.rstudio.com/articles/tag-glossary.html">here</a> and even more can be used by inserting HTML directly into your ui!</p>
 <p>If you’re feeling confident, you can also add any <em>css styling elements</em> to your HTML tags with the <code>style</code> argument in any of them. We won’t go into how this works in detail, but one tip for testing aesthetic changes to a UI is using the HTML inspector mode in chrome (of your shiny app you are running in browser), and editing the style of objects yourself!</p>
 <p>Lets add some text to our app</p>
-<div class="sourceCode" id="cb1800"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1803"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -755,7 +756,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <h3>Adding a link<a class="anchor" aria-label="anchor" href="#adding-a-link"><i class="fas fa-link"></i></a>
 </h3>
 <p>To add a link to a website, use <code>tags$a()</code> with the link and display text as shown below. To have as a standalone paragraph, put it within <code><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p()</a></code>. To have only a few words of a sentence linked, break the sentence into parts and use <code>tags$a()</code> for the hyperlinked part. To ensure the link opens in a <em>new</em> browser window, add <code>target = "_blank"</code> as an argument.</p>
-<div class="sourceCode" id="cb1801"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1804"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">a</span><span class="op">(</span>href <span class="op">=</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="adding-a-download-button" class="section level3 unnumbered">
@@ -763,7 +764,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </h3>
 <p>Lets move on to the second of the three features. A download button is a fairly common thing to add to an app and is fairly easy to make. We need to add another Widget to our ui, and we need to add another output to our server to attach to it. We can also introduce <em>reactive conductors</em> in this example!</p>
 <p>Lets update our ui first - this is easy as shiny comes with a widget called <code><a href="https://rdrr.io/pkg/shiny/man/downloadButton.html">downloadButton()</a></code> - lets give it an inputId and a label.</p>
-<div class="sourceCode" id="cb1802"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1805"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -829,7 +830,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span><span class="op">)</span></span></code></pre></div>
 <p>Note that we’ve also added in a <code><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr()</a></code> tag - this adds a horizontal line separating our control widgets from our download widgets. This is another one of the HTML tags that we discussed previously.</p>
 <p>Now that we have our ui ready, we need to add the server component. Downloads are done in the server with the <code><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler()</a></code> function. Similar to our plot, we need to attach it to an output that has the same inputId as the download button. This function takes two arguments - <code>filename</code> and <code>content</code> - these are both functions. As you might be able to guess, <code>filename</code> is used to specify the name of the downloaded file, and <code>content</code> is used to specify what should be downloaded. <code>content</code> contain a function that you would use to save data locally - so if you were downloading a csv file you could use <code><a href="https://rdrr.io/pkg/rio/man/export.html">rio::export()</a></code>. Since we’re downloading a plot, we’ll use <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggplot2::ggsave()</a></code>. Lets look at how we would program this (we won’t add it to the server yet).</p>
-<div class="sourceCode" id="cb1803"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
@@ -855,7 +856,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <p>1.<code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code> - this is the most basic reactive conductor - it will react whenever any inputs used inside of it change (so our district/age group widgets)<br>
 2. <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code>- this rective conductor works the same as <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code>, except that the user can specify which inputs cause it to rerun. This is useful if your reactive conductor takes a long time to process, but this will be explained more later.</p>
 <p>Lets look at the two examples:</p>
-<div class="sourceCode" id="cb1804"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1807"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_plot_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
@@ -871,7 +872,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>When we use the <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code> setup, we can specify which inputs cause this chunk of code to run - this isn’t very useful to us at the moment, so we can leave it for now. Note that you can include multiple inputs with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code></p>
 <p>Lets look at how we can integrate this into our server code:</p>
-<div class="sourceCode" id="cb1805"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -906,7 +907,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <h3>Adding a facility selector<a class="anchor" aria-label="anchor" href="#adding-a-facility-selector"><i class="fas fa-link"></i></a>
 </h3>
 <p>Lets move on to our next feature - a selector for specific facilities. We’ll implement another parameter into our function so we can pass this as an argument from our code. Lets look at doing this first - it just operates off the same principles as the other parameters we’ve set up. Lets update and test our function.</p>
-<div class="sourceCode" id="cb1806"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1809"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span>, <span class="va">facility</span> <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -977,11 +978,11 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span>  </span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Let’s test it:</p>
-<div class="sourceCode" id="cb1807"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1810"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Spring"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span>, facility <span class="op">=</span> <span class="st">"Facility 1"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1454-1.png" width="672"></div>
 <p>With all the facilites in our data, it isn’t very clear which facilities correspond to which districts - and the end user won’t know either. This might make using the app quite unintuitive. For this reason, we should make the facility options in the UI change dynamically as the user changes the district - so one filters the other! Since we have so many variables that we’re using in the options, we might also want to generate some of our options for the ui in our <em>global.R</em> file <em>from the data</em>. For example, we can add this code chunk to <em>global.R</em> after we’ve read our data in:</p>
-<div class="sourceCode" id="cb1808"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">$</span><span class="va">District</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># data frame of location names by district</span></span>
@@ -990,10 +991,10 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s look at them:</p>
-<div class="sourceCode" id="cb1809"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1812"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span></span></code></pre></div>
 <pre><code>## [1] "All"     "Spring"  "Bolo"    "Dingo"   "Barnard"</code></pre>
-<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">facility_list</span></span></code></pre></div>
 <pre><code>## # A tibble: 65 × 2
 ##    location_name District
@@ -1010,7 +1011,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 ## 10 Facility 18   Bolo    
 ## # … with 55 more rows</code></pre>
 <p>We can pass these new variables to the ui without any issue, since they are globally visible by both the server and the ui! Lets update our UI:</p>
-<div class="sourceCode" id="cb1813"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -1091,7 +1092,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 </ol>
 <p>We also need to understand the shiny-provided functions that update widgets. These are fairly straightforward to run - they first take the <code>session</code> object from the server function (this doesn’t need to be understood for now), and then the <code>inputId</code> of the function to be changed. We then pass new versions of all parameters that are already taken by <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> - these will be automatically updated in the widget.</p>
 <p>Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to <em>only reflect those that are available in that district</em> (and an option for all facilities)</p>
-<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1817"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span> <span class="op">==</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1109,7 +1110,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span>  </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>And that’s it! we can add it into our server, and that behaviour will now work. Here’s what our new server should look like:</p>
-<div class="sourceCode" id="cb1815"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -1163,7 +1164,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <h3>Adding another tab with a table<a class="anchor" aria-label="anchor" href="#adding-another-tab-with-a-table"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now we’ll move on to the last component we want to add to our app. We’ll want to separate our ui into two tabs, one of which will have an interactive table where the user can see the data they are making the epidemic curve with. To do this, we can use the packaged ui elements that come with shiny relevant to tabs. On a basic level, we can enclose most of our main panel in this general structure:</p>
-<div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... the rest of ui</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
@@ -1181,7 +1182,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Lets apply this to our ui. We also will want to use the <strong>DT</strong> package here - this is a great package for making interactive tables from pre-existing data. We can see it being used for <code>DT::datatableOutput()</code> in this example.</p>
-<div class="sourceCode" id="cb1817"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>     </span>
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -1257,7 +1258,7 @@ For an alternative method of making dashboards that is faster, easier, but perha
 <span>     <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now our app is arranged into tabs! Lets make the necessary edits to the server as well. Since we dont need to manipulate our dataset at all before we render it this is actually very simple - we just render the malaria_data dataset via DT::renderDT() to the ui!</p>
-<div class="sourceCode" id="cb1818"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1821"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>

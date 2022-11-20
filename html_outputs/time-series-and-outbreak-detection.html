@@ -169,7 +169,7 @@ with multiple countries or other strata, then there is an example code template 
 <h3>Packages<a class="anchor" aria-label="anchor" href="#packages-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load packages with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> from <strong>base</strong> R. See the page on <a href="https://epirhandbook.com/r-basics.html">R basics</a> for more information on R packages.</p>
-<div class="sourceCode" id="cb1099"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>,          <span class="co"># File import</span></span>
 <span>               <span class="va">here</span>,         <span class="co"># File locator</span></span>
 <span>               <span class="va">tidyverse</span>,    <span class="co"># data management + ggplot2 graphics</span></span>
@@ -196,12 +196,12 @@ You can click here to download<span> this data file (.xlsx).</span></a></p>
 <p>This dataset is a reduced version of the dataset available in the <a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a> package.
 (for details load the surveillance package and see <code>?campyDE</code>)</p>
 <p>Import these data with the <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> function from the <strong>rio</strong> package (it handles many file types like .xlsx, .csv, .rds - see the <a href="import-and-export.html#import-and-export">Import and export</a> page for details).</p>
-<div class="sourceCode" id="cb1100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import the counts into R</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"campylobacter_germany.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>The first 10 rows of the counts are displayed below.</p>
-<div id="htmlwidget-7ab19d476a0f8829aa61" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7ab19d476a0f8829aa61">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a5e8851ae0db40b276b6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5e8851ae0db40b276b6">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="clean-data-1" class="section level3 unnumbered">
 <h3>Clean data<a class="anchor" aria-label="anchor" href="#clean-data-1"><i class="fas fa-link"></i></a>
@@ -211,7 +211,7 @@ For this tab we will be using the <strong>tsibble</strong> package and so the <c
 function will be used to create a calendar week variable. There are several other
 ways of doing this (see the <a href="https://epirhandbook.com/working-with-dates.html">Working with dates</a>
 page for details), however for time series its best to keep within one framework (<strong>tsibble</strong>).</p>
-<div class="sourceCode" id="cb1101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## ensure the date column is in the appropriate format</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span></span>
@@ -241,7 +241,7 @@ maps. An alternative option is the <a href="https://github.com/rCarto/photon"><s
 package, however this has not been released on to CRAN yet; the nice thing about
 <strong>photon</strong> is that it provides more contextual data for when there are several
 matches for your search.</p>
-<div class="sourceCode" id="cb1102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## retrieve location coordinates</span></span>
 <span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu">geocode_OSM</span><span class="op">(</span><span class="st">"Germany"</span>, geometry <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span>
 <span></span>
@@ -295,7 +295,7 @@ matches for your search.</p>
 </h3>
 <p>Whether you downloaded the climate data via our handbook, or used the code above, you now should have 10 years of “.nc” climate data files stored in the same folder on your computer.</p>
 <p>Use the code below to import these files into R with the <strong>stars</strong> package.</p>
-<div class="sourceCode" id="cb1103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define path to weather folder </span></span>
 <span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span></span>
 <span>  <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"time_series"</span>, <span class="st">"weather"</span><span class="op">)</span>, <span class="co"># replace with your own file path </span></span>
@@ -317,7 +317,7 @@ matches for your search.</p>
 ## t2m, tp, 
 ## t2m, tp,</code></pre>
 <p>Once these files have been imported as the object <code>data</code>, we will convert them to a data frame.</p>
-<div class="sourceCode" id="cb1105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## change to a data frame </span></span>
 <span><span class="va">temp_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## add in variables and correct units</span></span>
@@ -352,7 +352,7 @@ specifying the time unit of interest. In our case this is the <code>epiweek</cod
 <p>If we had a data set with weekly counts by province, for example, we would also
 be able to specify the grouping variable using the <code>key =</code> argument.
 This would allow us to do analysis for each group.</p>
-<div class="sourceCode" id="cb1107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define time series object </span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">tsibble</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span></span></code></pre></div>
 <p>Looking at <code>class(counts)</code> tells you that on top of being a tidy data frame
@@ -362,7 +362,7 @@ data frame (“tbl_ts”).</p>
 there is a clear seasonal pattern, and that there are no missings. However, there
 seems to be an issue with reporting at the beginning of each year; cases drop
 in the last week of the year and then increase for the first week of the next year.</p>
-<div class="sourceCode" id="cb1108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## plot a line graph of cases by week</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">case</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -380,7 +380,7 @@ The package has a few functions that help to identify duplicates. These include
 duplicate, and <code>duplicates()</code> which gives you a data frame of the duplicated rows.</p>
 <p>See the page on <a href="https://epirhandbook.com/de-duplication.html">De-duplication</a>
 for more details on how to select rows you want.</p>
-<div class="sourceCode" id="cb1109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## get a vector of TRUE/FALSE whether rows are duplicates</span></span>
 <span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> </span>
 <span></span>
@@ -400,7 +400,7 @@ To do this we will use the <strong>imputeTS</strong> package function <code>na_i
 <p>See the <a href="https://epirhandbook.com/missing-data.html">Missing data</a> page for other options for imputation.</p>
 <p>Another alternative would be to calculate a moving average, to try and smooth
 over these apparent reporting issues (see next section, and the page on <a href="https://epirhandbook.com/moving-averages.html">Moving averages</a>).</p>
-<div class="sourceCode" id="cb1110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## create a variable with missings instead of weeks with reporting issues</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>case_miss <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
@@ -440,7 +440,7 @@ average number of cases from the four previous weeks. This smooths the data, to
 make it more interpretable. In our case this does not really add much, so we will
 stick to the interpolated data for further analysis.
 See the <a href="https://epirhandbook.com/moving-averages.html">Moving averages</a> page for more detail.</p>
-<div class="sourceCode" id="cb1111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## create a moving average variable (deals with missings)</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="co">## create the ma_4w variable </span></span>
@@ -463,7 +463,7 @@ See the <a href="https://epirhandbook.com/moving-averages.html">Moving averages<
 </h3>
 <p>Below we define a custom function to create a periodogram. See the <a href="writing-functions-1.html#writing-functions-1">Writing functions</a> page for information about how to write functions in R.</p>
 <p>First, the function is defined. Its arguments include a dataset with a column <code>counts</code>, <code>start_week =</code> which is the first week of the dataset, a number to indicate how many periods per year (e.g. 52, 12), and lastly the output style (see details in the code below).</p>
-<div class="sourceCode" id="cb1112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Function arguments</span></span>
 <span><span class="co">#####################</span></span>
 <span><span class="co">## x is a dataset</span></span>
@@ -521,7 +521,7 @@ See the <a href="https://epirhandbook.com/moving-averages.html">Moving averages<
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Period (Weeks)"</span>, y <span class="op">=</span> <span class="st">"Log(density)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/periodogram-1.png" width="672"></div>
-<div class="sourceCode" id="cb1113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## get a vector weeks in ascending order </span></span>
 <span><span class="va">peak_weeks</span> <span class="op">&lt;-</span> <span class="fu">periodogram</span><span class="op">(</span><span class="va">counts</span>, </span>
 <span>                          <span class="va">case_int</span>, </span>
@@ -543,7 +543,7 @@ These different parts are:</p>
 </li>
 <li>The random (what is left after removing trend and season)</li>
 </ul>
-<div class="sourceCode" id="cb1114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## decompose the counts dataset </span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co"># using an additive classical decomposition model</span></span>
@@ -571,7 +571,7 @@ year (52 weeks before).</p>
 <p>Using the <code>PACF()</code> function (for partial autocorrelation) shows the same type of relation
 but adjusted for all other weeks between. This is less informative for determining
 periodicity.</p>
-<div class="sourceCode" id="cb1115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## using the counts dataset</span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## calculate autocorrelation using a full years worth of lags</span></span>
@@ -579,7 +579,7 @@ periodicity.</p>
 <span>  <span class="co">## show a plot</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/autocorrelation-1.png" width="672"></div>
-<div class="sourceCode" id="cb1116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## using the counts data set </span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## calculate the partial autocorrelation using a full years worth of lags</span></span>
@@ -590,7 +590,7 @@ periodicity.</p>
 <p>You can formally test the null hypothesis of independence in a time series (i.e. 
 that it is not autocorrelated) using the Ljung-Box test (in the <strong>stats</strong> package).
 A significant p-value suggests that there is autocorrelation in the data.</p>
-<div class="sourceCode" id="cb1117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## test for independance </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html">Box.test</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span>, type <span class="op">=</span> <span class="st">"Ljung-Box"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -621,7 +621,7 @@ case 52 weeks). We use the <code>fourier()</code> function from the <strong>fore
 <p>In the below code we assign using the <code>$</code>, as <code>fourier()</code> returns two columns (one
 for sin one for cosin) and so these are added to the dataset as a list, called
 “fourier” - but this list can then be used as a normal variable in regression.</p>
-<div class="sourceCode" id="cb1119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## add in fourier terms using the epiweek and case_int variabless</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">fourier</span><span class="op">(</span>K <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -645,7 +645,7 @@ counts you could include the population variable as a logarithmic offset term, b
 using <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> in order to produce a rate. </span></p>
 <p><span style="color: darkgreen;"><strong><em>TIP:</em></strong> For fitting more complex models such
 as ARIMA or prophet, see the <a href="https://fable.tidyverts.org/index.html"><strong>fable</strong></a> package.</span></p>
-<div class="sourceCode" id="cb1120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define the model you want to fit (negative binomial) </span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## set number of cases as outcome of interest</span></span>
@@ -691,7 +691,7 @@ and address the amplitude. However for this example we will leave it as is.
 The plots show that our model does worse in the peaks and troughs (when counts are
 at their highest and lowest) and that it might be more likely to underestimate
 the observed counts.</p>
-<div class="sourceCode" id="cb1121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate the residuals </span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fitted_model</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span>
@@ -703,14 +703,14 @@ the observed counts.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"epiweek"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-854-1.png" width="672"></div>
-<div class="sourceCode" id="cb1122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## is there autocorelation in the residuals (is there a pattern to the error?)  </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-854-2.png" width="672"></div>
-<div class="sourceCode" id="cb1123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## are residuals normally distributed (are under or over estimating?)  </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -718,7 +718,7 @@ the observed counts.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html">geom_rug</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-854-3.png" width="672"></div>
-<div class="sourceCode" id="cb1124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare observed counts to their residuals </span></span>
 <span>  <span class="co">## should also be no pattern </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -726,7 +726,7 @@ the observed counts.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-854-4.png" width="672"></div>
-<div class="sourceCode" id="cb1125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## formally test autocorrelation of the residuals</span></span>
 <span><span class="co">## H0 is that residuals are from a white-noise series (i.e. random)</span></span>
 <span><span class="co">## test for independence </span></span>
@@ -752,7 +752,7 @@ campylobacter case counts.</p>
 </h3>
 <p>We can join our datasets using the week variable. For more on merging see the
 handbook section on <a href="https://epirhandbook.com/joining-data.html">joining</a>.</p>
-<div class="sourceCode" id="cb1127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## left join so that we only have the rows already existing in counts</span></span>
 <span><span class="co">## drop the date variable from temp_data (otherwise is duplicated)</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">counts</span>, </span>
@@ -767,7 +767,7 @@ handbook section on <a href="https://epirhandbook.com/joining-data.html">joining
 The plot below shows that there is a clear relation in the seasonality of the two
 variables, and that temperature might peak a few weeks before the case number.
 For more on pivoting data, see the handbook section on <a href="https://epirhandbook.com/pivoting-data.html">pivoting data</a>.</p>
-<div class="sourceCode" id="cb1128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## keep the variables we are interested </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">case_int</span>, <span class="va">t2m</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -796,7 +796,7 @@ For more on pivoting data, see the handbook section on <a href="https://epirhand
 <p>To formally test which weeks are most highly related between cases and temperature.
 We can use the cross-correlation function (<code>CCF()</code>) from the <strong>feasts</strong> package.
 You could also visualise (rather than using <code>arrange</code>) using the <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> function.</p>
-<div class="sourceCode" id="cb1129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## calculate cross-correlation between interpolated counts and temperature</span></span>
 <span>  <span class="fu">CCF</span><span class="op">(</span><span class="va">case_int</span>, <span class="va">t2m</span>,</span>
@@ -831,7 +831,7 @@ weeks prior to get data from. In order to use this dataset with the <strong>tren
 <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> further down. If we did want to use the simulate option, then
 we have to drop these missings and store as a new data set by adding <code>drop_na(t2m_lag4)</code>
 to the code chunk below.</span></p>
-<div class="sourceCode" id="cb1131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## create a new variable for temperature lagged by four weeks</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>t2m_lag4 <span class="op">=</span> <span class="fu">lag</span><span class="op">(</span><span class="va">t2m</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -847,7 +847,7 @@ within the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></c
 is to use the <strong>ciTools</strong> package to estimate a prediction interval. This does not
 work if there are <code>NA</code> counts, and also produces more granular intervals.
 See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-prediction.html">?trending::predict.trending_model_fit</a></code> for details. </span></p>
-<div class="sourceCode" id="cb1132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define the model you want to fit (negative binomial) </span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## set number of cases as outcome of interest</span></span>
@@ -873,7 +873,7 @@ confidence intervals.</p>
 is similar to the case counts (estimate ~ 1) and significantly associated.
 This suggests that it might be a good variable for use in predicting future case
 numbers (as climate forecasts are readily available).</p>
-<div class="sourceCode" id="cb1133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## extract original negative binomial regression</span></span>
 <span>  <span class="fu">get_model</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -890,7 +890,7 @@ numbers (as climate forecasts are readily available).</p>
 ## 5 t2m_lag4        1.01  0.00269         2.48 1.30e- 2    1.00      1.01</code></pre>
 <p>A quick visual inspection of the model shows that it might do a better job of
 estimating the observed case counts.</p>
-<div class="sourceCode" id="cb1135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## plot your regression </span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## add in a line for the model estimate</span></span>
@@ -912,7 +912,7 @@ estimating the observed case counts.</p>
 <p>We investigate the residuals again to see how well our model fits the observed data.
 The results and interpretation here are similar to those of the previous regression,
 so it may be more feasible to stick with the simpler model without temperature.</p>
-<div class="sourceCode" id="cb1136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate the residuals </span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="va">case_int</span> <span class="op">-</span> <span class="va">estimate</span><span class="op">)</span></span>
@@ -926,14 +926,14 @@ so it may be more feasible to stick with the simpler model without temperature.<
 <pre><code>## Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
 <pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-855-1.png" width="672"></div>
-<div class="sourceCode" id="cb1139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## is there autocorelation in the residuals (is there a pattern to the error?)  </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-855-2.png" width="672"></div>
-<div class="sourceCode" id="cb1140"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## are residuals normally distributed (are under or over estimating?)  </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -942,7 +942,7 @@ so it may be more feasible to stick with the simpler model without temperature.<
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_bin).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-855-3.png" width="672"></div>
-<div class="sourceCode" id="cb1142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare observed counts to their residuals </span></span>
 <span>  <span class="co">## should also be no pattern </span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -951,7 +951,7 @@ so it may be more feasible to stick with the simpler model without temperature.<
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-855-4.png" width="672"></div>
-<div class="sourceCode" id="cb1144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## formally test autocorrelation of the residuals</span></span>
 <span><span class="co">## H0 is that residuals are from a white-noise series (i.e. random)</span></span>
 <span><span class="co">## test for independence </span></span>
@@ -999,7 +999,7 @@ be predicting)~.
 We also define how many weeks are between our baseline cut-off and the end date
 that we are interested in predicting for.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> In this example we pretend to currently be at the end of September 2011 (“2011 W39”).</span></p>
-<div class="sourceCode" id="cb1146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define start date (when observations began)</span></span>
 <span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span></span>
 <span></span>
@@ -1025,7 +1025,7 @@ The <code>group_by_key()</code> function from <strong>tsibble</strong> allows us
 and then pass the grouped data to <strong>dplyr</strong> functions, <code><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify()</a></code> and
 <code><a href="https://tibble.tidyverse.org/reference/add_row.html">add_row()</a></code>. Then we specify the sequence of weeks between one after the maximum week
 currently available in the data and the end week.</p>
-<div class="sourceCode" id="cb1147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## add in missing weeks till end of year </span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co">## group by the region</span></span>
@@ -1047,7 +1047,7 @@ the first one is for the baseline data, and the second one predicts for the
 year of interest (by defining the <code>h</code> argument).</p>
 <p><em>N.b.</em> to bind rows we have to use <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> (rather than tidyverse <code>bind_rows</code>) as
 the fourier columns are a list (so not named individually).</p>
-<div class="sourceCode" id="cb1148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define fourier terms (sincos) </span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -1093,7 +1093,7 @@ within the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></c
 is to use the <strong>ciTools</strong> package to estimate a prediction interval. This does not
 work if there are <code>NA</code> counts, and also produces more granular intervals.
 See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-prediction.html">?trending::predict.trending_model_fit</a></code> for details. </span></p>
-<div class="sourceCode" id="cb1149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># split data for fitting and prediction</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cut_off</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1130,7 +1130,7 @@ See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-predictio
 <p>As previously, we can visualise our model with <strong>ggplot</strong>. We highlight alerts with
 red dots for observed counts above the 95% prediction interval.
 This time we also add a vertical line to label when the forecast starts.</p>
-<div class="sourceCode" id="cb1150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## plot your regression </span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## add in a line for the model estimate</span></span>
@@ -1199,7 +1199,7 @@ within the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></c
 is to use the <strong>ciTools</strong> package to estimate a prediction interval. This does not
 work if there are <code>NA</code> counts, and also produces more granular intervals.
 See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-prediction.html">?trending::predict.trending_model_fit</a></code> for details. </span></p>
-<div class="sourceCode" id="cb1152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Cross validation: predicting week(s) ahead based on sliding window</span></span>
 <span></span>
 <span><span class="co">## expand your data by rolling over in 52 week windows (before + after) </span></span>
@@ -1379,7 +1379,7 @@ weeks so if there is a sustained shift an alarm will be triggered.
 <p>In order to work with the <strong>surveillance</strong> package, we first need to define a
 “surveillance time series” object (using the <code>sts()</code> function) to fit within the
 framework.</p>
-<div class="sourceCode" id="cb1154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define surveillance time series object</span></span>
 <span><span class="co">## nb. you can include a denominator with the population object (see ?sts)</span></span>
 <span><span class="va">counts_sts</span> <span class="op">&lt;-</span> <span class="fu">sts</span><span class="op">(</span>observed <span class="op">=</span> <span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -1404,7 +1404,7 @@ Then we run the algorithm using <code>farringtonFlexible()</code> and then we ca
 threshold for an alert using <code>farringtonmethod@upperbound</code>to include this in our
 dataset. It is also possible to extract a TRUE/FALSE for each week if it triggered
 an alert (was above the threshold) using <code>farringtonmethod@alarm</code>.</p>
-<div class="sourceCode" id="cb1155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define control</span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## define what time period that want threshold for (i.e. 2011)</span></span>
@@ -1429,7 +1429,7 @@ an alert (was above the threshold) using <code>farringtonmethod@alarm</code>.</p
 <span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              <span class="st">"threshold"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">farringtonmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
 <p>We can then visualise the results in ggplot as done previously.</p>
-<div class="sourceCode" id="cb1156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## add in observed case counts as a line</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1455,7 +1455,7 @@ then fit the algorithm and extract the upper bounds.</p>
 <p><span style="color: orange;"><strong><em>CAUTION:</em></strong> This method uses “brute force” (similar to bootstrapping) for calculating thresholds, so can take a long time!</span></p>
 <p>See the <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">GLRNB vignette</a>
 for details.</p>
-<div class="sourceCode" id="cb1157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define control options</span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## define what time period that want threshold for (i.e. 2011)</span></span>
@@ -1481,7 +1481,7 @@ for details.</p>
 <span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              <span class="st">"threshold_glrnb"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">glrnbmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
 <p>Visualise the outputs as previously.</p>
-<div class="sourceCode" id="cb1158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## add in observed case counts as a line</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1528,7 +1528,7 @@ This means that the <span class="math inline">\(β_2\)</span> and <span class="m
 <p>We need to re-calculate the fourier terms without forecasting here, as we will use
 all the data available to us (i.e. retrospectively). Additionally we need to calculate
 the extra terms needed for the regression.</p>
-<div class="sourceCode" id="cb1159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## add in fourier terms using the epiweek and case_int variabless</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1558,7 +1558,7 @@ within the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></c
 is to use the <strong>ciTools</strong> package to estimate a prediction interval. This does not
 work if there are <code>NA</code> counts, and also produces more granular intervals.
 See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-prediction.html">?trending::predict.trending_model_fit</a></code> for details. </span></p>
-<div class="sourceCode" id="cb1160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define the model you want to fit (negative binomial) </span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## set number of cases as outcome of interest</span></span>
@@ -1613,7 +1613,7 @@ See <code><a href="https://rdrr.io/pkg/trending/man/trending_model_fit-predictio
 ##   &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 0.936       0.874         1.00               -6.40              -12.6               0.306    0.0645</code></pre>
 <p>As previously we can visualise the outputs of the regression.</p>
-<div class="sourceCode" id="cb1162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## add in observed case counts as a line</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>

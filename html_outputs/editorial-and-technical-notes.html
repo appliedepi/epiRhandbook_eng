@@ -161,7 +161,7 @@
 <p>When applicable, we also offer code options using <strong>base</strong> R - the packages and functions that come with R at installation. This is because we recognize that some of this book’s audience may not have reliable internet to download extra packages.</p>
 <p><strong>Linking functions to packages explicitly</strong></p>
 <p>It is often frustrating in R tutorials when a function is shown in code, but you don’t know which package it is from! We try to avoid this situation.</p>
-<p>In the narrative text, package names are written in bold (e.g. <strong>dplyr</strong>) and functions are written like this: <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. We strive to be explicit about which package a function comes from, either by referencing the package in nearby text or by specifying the package explicitly in the code like this: <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>. It may look redundant, but we are doing it on purpose.</p>
+<p>In the narrative text, package names are written in bold (e.g. <strong>dplyr</strong>) and functions are written like this: <code>mutate()</code>. We strive to be explicit about which package a function comes from, either by referencing the package in nearby text or by specifying the package explicitly in the code like this: <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>. It may look redundant, but we are doing it on purpose.</p>
 <p>See the page on <a href="r-basics.html#r-basics">R basics</a> to learn more about packages and functions.</p>
 </div>
 <div id="code-style" class="section level3 unnumbered">
@@ -179,14 +179,14 @@
 </ul>
 <p>As a result, code that <em>could</em> be written like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># group rows by hospital</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">date</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="co"># if there's a tie (of date), take the first row</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># group rows by hospital</span></span>
+<span>  <span class="fu">slice_max</span><span class="op">(</span><span class="va">date</span>, n <span class="op">=</span> <span class="fl">1</span>, with_ties <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="co"># if there's a tie (of date), take the first row</span></span></code></pre></div>
 <p>…is written like this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># group rows by hospital</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># group rows by hospital</span></span>
+<span>  <span class="fu">slice_max</span><span class="op">(</span></span>
 <span>    <span class="va">date</span>,                <span class="co"># keep row per group with maximum date value </span></span>
 <span>    n <span class="op">=</span> <span class="fl">1</span>,               <span class="co"># keep only the single highest row </span></span>
 <span>    with_ties <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>       <span class="co"># if there's a tie (of date), take the first row</span></span></code></pre></div>
@@ -256,10 +256,10 @@
 <tr class="even">
 <td>Grouping for summary statistics</td>
 <td>
-<strong>dplyr</strong> <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <strong>stats</strong> <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>
+<strong>dplyr</strong> <code>group_by()</code>, <strong>stats</strong> <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>
 </td>
 <td>
-<strong>dplyr</strong> <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>
+<strong>dplyr</strong> <code>group_by()</code>
 </td>
 <td>Consistent with <strong>tidyverse</strong> emphasis</td>
 </tr>
@@ -293,9 +293,9 @@
 <tr class="even">
 <td>ggplot labels</td>
 <td>
-<code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle()</a></code>/<code><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab()</a></code>/<code><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab()</a></code>
+<code>labs()</code>, <code>ggtitle()</code>/<code>ylab()</code>/<code>xlab()</code>
 </td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code></td>
+<td><code>labs()</code></td>
 <td>all labels in one place, simplicity</td>
 </tr>
 <tr class="odd">
@@ -318,9 +318,9 @@
 <tr class="odd">
 <td>Concatenation</td>
 <td>
-<code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>, <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, <code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code>, <code>glue()</code>
+<code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>, <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, <code>str_glue()</code>, <code>glue()</code>
 </td>
-<td><code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code></td>
+<td><code>str_glue()</code></td>
 <td>More simple syntax than paste functions; within <strong>stringr</strong>
 </td>
 </tr>
@@ -352,21 +352,21 @@ With version 1.0.1 the following changes have been implemented:</p>
 <ul>
 <li>Update to R version 4.2<br>
 </li>
-<li>Data cleaning: switched {linelist} to {matchmaker}, removed unnecessary line from <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> example<br>
+<li>Data cleaning: switched {linelist} to {matchmaker}, removed unnecessary line from <code>case_when()</code> example<br>
 </li>
-<li>Dates: switched {linelist} <code>guess_date()</code> to {parsedate} <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">parse_date()</a></code>
+<li>Dates: switched {linelist} <code>guess_date()</code> to {parsedate} <code>parse_date()</code>
 </li>
-<li>Pivoting: slight update to <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> <code>id_cols=</code><br>
+<li>Pivoting: slight update to <code>pivot_wider()</code> <code>id_cols=</code><br>
 </li>
 <li>Survey analysis: switched <code>plot_age_pyramid()</code> to <code>age_pyramid()</code>, slight change to alluvial plot code<br>
 </li>
-<li>Heat plots: added <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> to <code>agg_weeks</code> chunk<br>
+<li>Heat plots: added <code>ungroup()</code> to <code>agg_weeks</code> chunk<br>
 </li>
-<li>Interactive plots: added <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> to chunk that makes <code>agg_weeks</code> so that <code><a href="https://tidyr.tidyverse.org/reference/expand.html">expand()</a></code> works as intended<br>
+<li>Interactive plots: added <code>ungroup()</code> to chunk that makes <code>agg_weeks</code> so that <code>expand()</code> works as intended<br>
 </li>
 <li>Time series: added <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> around objects within all <code><a href="https://rdrr.io/pkg/trending/man/fit.html">trending::fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> commands<br>
 </li>
-<li>Combinations analysis: Switch <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> to <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> and added optional <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> code for preparing the data<br>
+<li>Combinations analysis: Switch <code>case_when()</code> to <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> and added optional <code>across()</code> code for preparing the data<br>
 </li>
 <li>Transmission chains: Update to more recent version of {epicontacts}</li>
 </ul>
@@ -378,7 +378,7 @@ With version 1.0.1 the following changes have been implemented:</p>
 <p>Below is the information on the versions of R, RStudio, and R packages used during this rendering of the Handbook.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html">session_info</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## ─ Session info ──────────────────────────────────────────────────────────────────────────────────────────────────
+<pre><code>## ─ Session info ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value
 ##  version  R version 4.2.1 (2022-06-23 ucrt)
 ##  os       Windows 10 x64 (build 22000)
@@ -392,365 +392,133 @@ With version 1.0.1 the following changes have been implemented:</p>
 ##  rstudio  2022.07.1+554 Spotted Wakerobin (desktop)
 ##  pandoc   2.18 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)
 ## 
-## ─ Packages ──────────────────────────────────────────────────────────────────────────────────────────────────────
-##  !  package              * version    date (UTC) lib source
-##  P  abind                * 1.4-5      2016-07-21 [?] CRAN (R 4.2.0)
-##  P  ada                    2.0-5      2016-05-13 [?] CRAN (R 4.2.1)
-##  P  adagio                 0.8.5      2022-10-03 [?] CRAN (R 4.2.1)
-##  P  ade4                   1.7-19     2022-04-19 [?] CRAN (R 4.2.1)
-##  P  anytime                0.3.9      2020-08-27 [?] CRAN (R 4.2.1)
-##  P  ape                  * 5.6-2      2022-03-02 [?] CRAN (R 4.2.1)
-##  P  aplot                  0.1.7      2022-09-06 [?] CRAN (R 4.2.1)
-##  P  apyramid             * 0.1.2      2022-08-26 [?] Github (R4EPI/apyramid@c4114cc)
-##  P  assertive.base         0.0-9      2021-02-08 [?] CRAN (R 4.2.1)
-##  P  assertive.properties   0.0-5      2022-04-21 [?] CRAN (R 4.2.1)
-##  P  assertive.types        0.0-3      2016-12-30 [?] CRAN (R 4.2.1)
-##  P  assertthat             0.2.1      2019-03-21 [?] CRAN (R 4.2.1)
-##  P  aweek                * 1.0.2      2021-01-04 [?] CRAN (R 4.2.1)
-##  P  backports              1.4.1      2021-12-13 [?] CRAN (R 4.2.0)
-##  P  base64enc              0.1-3      2015-07-28 [?] CRAN (R 4.2.0)
-##  P  bayestestR           * 0.13.0     2022-09-18 [?] CRAN (R 4.2.1)
-##  P  bit                  * 4.0.4      2020-08-04 [?] CRAN (R 4.2.1)
-##  P  bit64                  4.0.5      2020-08-30 [?] CRAN (R 4.2.1)
-##  P  blob                   1.2.3      2022-04-10 [?] CRAN (R 4.2.1)
-##  P  bookdown               0.29       2022-09-12 [?] CRAN (R 4.2.1)
-##  P  boot                 * 1.3-28     2021-05-03 [?] CRAN (R 4.2.1)
-##  P  broom                * 1.0.1      2022-08-29 [?] CRAN (R 4.2.1)
-##  P  broom.helpers          1.9.0      2022-09-23 [?] CRAN (R 4.2.1)
-##  P  bslib                  0.4.0      2022-07-16 [?] CRAN (R 4.2.1)
-##  P  cachem                 1.0.6      2021-08-19 [?] CRAN (R 4.2.1)
-##  P  callr                  3.7.2      2022-08-22 [?] CRAN (R 4.2.1)
-##  P  car                    3.1-1      2022-10-19 [?] CRAN (R 4.2.1)
-##  P  carData                3.0-5      2022-01-06 [?] CRAN (R 4.2.1)
-##  P  cellranger             1.1.0      2016-07-27 [?] CRAN (R 4.2.1)
-##  P  class                  7.3-20     2022-01-16 [?] CRAN (R 4.2.1)
-##     classInt               0.4-8      2022-09-29 [1] CRAN (R 4.2.1)
-##     cli                    3.4.1      2022-09-23 [1] CRAN (R 4.2.1)
-##  P  clipr                  0.8.0      2022-02-22 [?] CRAN (R 4.2.1)
-##  P  clock                  0.6.1      2022-07-18 [?] CRAN (R 4.2.1)
-##  P  cmprsk                 2.2-11     2022-01-06 [?] CRAN (R 4.2.1)
-##  P  coarseDataTools        0.6-6      2021-12-09 [?] CRAN (R 4.2.1)
-##  P  coda                   0.19-4     2020-09-30 [?] CRAN (R 4.2.1)
-##  P  codetools              0.2-18     2020-11-04 [?] CRAN (R 4.2.1)
-##  P  colorspace             2.0-3      2022-02-21 [?] CRAN (R 4.2.1)
-##     commonmark             1.8.1      2022-10-14 [1] CRAN (R 4.2.1)
-##  P  correlation          * 0.8.2      2022-08-09 [?] CRAN (R 4.2.1)
-##  P  corrr                * 0.4.4      2022-08-16 [?] CRAN (R 4.2.1)
-##  P  cowplot              * 1.1.1      2020-12-30 [?] CRAN (R 4.2.1)
-##  P  crayon                 1.5.2      2022-09-29 [?] CRAN (R 4.2.1)
-##  P  crosstalk              1.2.0      2021-11-04 [?] CRAN (R 4.2.1)
-##  P  curl                   4.3.3      2022-10-06 [?] CRAN (R 4.2.1)
-##  P  data.table           * 1.14.4     2022-10-17 [?] CRAN (R 4.2.1)
-##  P  datawizard           * 0.6.1      2022-09-25 [?] CRAN (R 4.2.1)
-##  P  DBI                  * 1.1.3      2022-06-18 [?] CRAN (R 4.2.1)
-##  P  dbplyr                 2.2.1      2022-06-27 [?] CRAN (R 4.2.1)
-##  P  deldir                 1.0-6      2021-10-23 [?] CRAN (R 4.2.0)
-##  P  Deriv                  4.1.3      2021-02-24 [?] CRAN (R 4.2.1)
-##  P  DiagrammeR           * 1.0.9      2022-03-05 [?] CRAN (R 4.2.1)
-##  P  dichromat              2.0-0.1    2022-05-02 [?] CRAN (R 4.2.0)
-##  P  digest                 0.6.30     2022-10-18 [?] CRAN (R 4.2.1)
-##  P  distcrete            * 1.0.3      2017-11-23 [?] CRAN (R 4.2.1)
-##  P  distributional         0.3.1      2022-09-02 [?] CRAN (R 4.2.1)
-##  P  doBy                 * 4.6.13     2022-05-02 [?] CRAN (R 4.2.1)
-##  P  doParallel             1.0.17     2022-02-07 [?] CRAN (R 4.2.1)
-##     downlit                0.4.2      2022-07-05 [1] CRAN (R 4.2.1)
-##  P  dplyr                * 1.0.10     2022-09-01 [?] CRAN (R 4.2.1)
-##  P  dsr                  * 0.2.2      2019-08-23 [?] Github (cran/dsr@f5e1c3f)
-##  P  DT                   * 0.24       2022-08-09 [?] CRAN (R 4.2.1)
-##  P  e1071                  1.7-11     2022-06-07 [?] CRAN (R 4.2.1)
-##  P  easystats            * 0.5.2      2022-08-30 [?] CRAN (R 4.2.1)
-##  P  ecmwfr               * 1.4.0      2022-08-17 [?] CRAN (R 4.2.1)
-##  P  effectsize           * 0.7.0.5    2022-08-10 [?] CRAN (R 4.2.1)
-##  P  ellipsis               0.3.2      2021-04-29 [?] CRAN (R 4.2.1)
-##  P  Epi                  * 2.47       2022-06-26 [?] CRAN (R 4.2.1)
-##     epicontacts          * 1.2.0      2022-11-20 [1] Github (reconhub/epicontacts@c5cd648)
-##     epidict                0.0.0.9001 2022-10-23 [1] Github (R4EPI/epidict@9cf5a53)
-##  P  EpiEstim             * 2.2-4      2021-01-07 [?] CRAN (R 4.2.1)
-##  P  epikit               * 0.1.4      2022-09-29 [?] Github (R4EPI/epikit@f2f6c6c)
-##  P  EpiNow2              * 1.3.2      2020-12-14 [?] CRAN (R 4.2.1)
-##     epitabulate            0.0.0.9007 2022-10-23 [1] Github (R4EPI/epitabulate@fa6338c)
-##  P  epitrix              * 0.2.2      2019-01-15 [?] CRAN (R 4.2.1)
-##  P  etm                    1.1.1      2020-09-08 [?] CRAN (R 4.2.1)
-##  P  evaluate               0.17       2022-10-07 [?] CRAN (R 4.2.1)
-##  P  evd                    2.3-6.1    2022-07-04 [?] CRAN (R 4.2.1)
-##  P  fabletools           * 0.3.2      2021-11-29 [?] CRAN (R 4.2.1)
-##  P  FactoClass             1.2.7      2018-10-01 [?] CRAN (R 4.2.1)
-##     fansi                  1.0.3      2022-03-24 [1] CRAN (R 4.2.1)
-##  P  farver                 2.1.1      2022-07-06 [?] CRAN (R 4.2.1)
-##  P  fastLink             * 0.6.0      2020-04-29 [?] CRAN (R 4.2.1)
-##  P  fastmap                1.1.0      2021-01-25 [?] CRAN (R 4.2.1)
-##  P  feasts               * 0.3.0      2022-09-01 [?] CRAN (R 4.2.1)
-##  P  ff                   * 4.0.7      2022-05-06 [?] CRAN (R 4.2.1)
-##  P  fitdistrplus           1.1-8      2022-03-10 [?] CRAN (R 4.2.1)
-##  P  flexdashboard        * 0.6.0      2022-08-05 [?] CRAN (R 4.2.1)
-##  P  flextable            * 0.8.2      2022-09-26 [?] CRAN (R 4.2.1)
-##  P  forcats              * 0.5.2      2022-08-19 [?] CRAN (R 4.2.1)
-##  P  foreach                1.5.2      2022-02-02 [?] CRAN (R 4.2.1)
-##  P  forecast             * 8.18       2022-10-02 [?] CRAN (R 4.2.1)
-##  P  foreign                0.8-82     2022-01-16 [?] CRAN (R 4.2.1)
-##  P  formatR                1.12       2022-03-31 [?] CRAN (R 4.2.1)
-##  P  formattable          * 0.2.1      2021-01-07 [?] CRAN (R 4.2.1)
-##  P  Formula              * 1.2-4      2020-10-16 [?] CRAN (R 4.2.0)
-##  P  fracdiff               1.5-1      2020-01-24 [?] CRAN (R 4.2.1)
-##  P  frailtypack          * 3.5.0      2021-12-20 [?] CRAN (R 4.2.1)
-##  P  fs                   * 1.5.2      2021-12-08 [?] CRAN (R 4.2.1)
-##  P  futile.logger          1.4.3      2016-07-10 [?] CRAN (R 4.2.1)
-##  P  futile.options         1.0.1      2018-04-20 [?] CRAN (R 4.2.0)
-##  P  future                 1.28.0     2022-09-02 [?] CRAN (R 4.2.1)
-##  P  future.apply           1.9.1      2022-09-07 [?] CRAN (R 4.2.1)
-##  P  gargle                 1.2.0      2021-07-02 [?] CRAN (R 4.2.1)
-##  P  gdtools                0.2.4      2022-02-14 [?] CRAN (R 4.2.1)
-##  P  generics               0.1.3      2022-07-05 [?] CRAN (R 4.2.1)
-##  P  ggExtra              * 0.10.0     2022-03-23 [?] CRAN (R 4.2.1)
-##  P  ggforce              * 0.4.1      2022-10-04 [?] CRAN (R 4.2.1)
-##  P  ggfun                  0.0.7      2022-08-31 [?] CRAN (R 4.2.1)
-##  P  gghighlight          * 0.3.3      2022-06-06 [?] CRAN (R 4.2.1)
-##  P  ggnewscale           * 0.4.7      2022-03-25 [?] CRAN (R 4.2.1)
-##  P  ggplot2              * 3.3.6      2022-05-03 [?] CRAN (R 4.2.1)
-##  P  ggplotify              0.1.0      2021-09-02 [?] CRAN (R 4.2.1)
-##  P  ggpubr               * 0.4.0      2020-06-27 [?] CRAN (R 4.2.1)
-##  P  ggrepel              * 0.9.1      2021-01-15 [?] CRAN (R 4.2.1)
-##  P  ggsignif               0.6.4      2022-10-13 [?] CRAN (R 4.2.1)
-##  P  ggtext                 0.1.2      2022-09-16 [?] CRAN (R 4.2.1)
-##  P  ggtree               * 3.4.4      2022-09-27 [?] Bioconductor
-##  P  ggupset              * 0.3.0      2020-05-05 [?] CRAN (R 4.2.1)
-##  P  globals                0.16.1     2022-08-28 [?] CRAN (R 4.2.1)
-##  P  glue                   1.6.2      2022-02-24 [?] CRAN (R 4.2.1)
-##  P  googledrive            2.0.0      2021-07-08 [?] CRAN (R 4.2.1)
-##  P  googlesheets4          1.0.0      2021-07-21 [?] CRAN (R 4.2.1)
-##  P  grates                 0.3.0      2021-10-21 [?] CRAN (R 4.2.1)
-##  P  gridExtra              2.3        2017-09-09 [?] CRAN (R 4.2.1)
-##  P  gridGraphics           0.5-1      2020-12-13 [?] CRAN (R 4.2.1)
-##  P  gridtext               0.1.5      2022-09-16 [?] CRAN (R 4.2.1)
-##  P  gt                     0.7.0      2022-08-25 [?] CRAN (R 4.2.1)
-##  P  gtable                 0.3.1      2022-09-01 [?] CRAN (R 4.2.1)
-##  P  gtools                 3.9.3      2022-07-11 [?] CRAN (R 4.2.1)
-##  P  gtsummary            * 1.6.1      2022-06-22 [?] CRAN (R 4.2.1)
-##  P  haven                  2.5.1      2022-08-22 [?] CRAN (R 4.2.1)
-##  P  here                 * 1.0.1      2020-12-13 [?] CRAN (R 4.2.1)
-##  P  highcharter          * 0.9.4      2022-01-03 [?] CRAN (R 4.2.1)
-##  P  highr                  0.9        2021-04-16 [?] CRAN (R 4.2.1)
-##  P  hms                    1.1.2      2022-08-19 [?] CRAN (R 4.2.1)
-##  P  htmltools              0.5.3      2022-07-18 [?] CRAN (R 4.2.1)
-##  P  htmlwidgets            1.5.4      2021-09-08 [?] CRAN (R 4.2.1)
-##  P  httpuv                 1.6.6      2022-09-08 [?] CRAN (R 4.2.1)
-##  P  httr                   1.4.4      2022-08-17 [?] CRAN (R 4.2.1)
-##  P  i2extras             * 0.1.2      2021-07-08 [?] CRAN (R 4.2.1)
-##  P  igraph                 1.3.5      2022-09-22 [?] CRAN (R 4.2.1)
-##  P  imputeTS             * 3.3        2022-09-09 [?] CRAN (R 4.2.1)
-##  P  incidence              1.7.3      2020-11-04 [?] CRAN (R 4.2.1)
-##  P  incidence2           * 1.2.3      2021-11-07 [?] CRAN (R 4.2.1)
-##  P  inline                 0.3.19     2021-05-31 [?] CRAN (R 4.2.1)
-##  P  insight              * 0.18.4     2022-09-20 [?] CRAN (R 4.2.1)
-##  P  ipred                  0.9-13     2022-06-02 [?] CRAN (R 4.2.1)
-##  P  isoband                0.2.6      2022-10-06 [?] CRAN (R 4.2.1)
-##  P  iterators              1.0.14     2022-02-05 [?] CRAN (R 4.2.1)
-##  P  janitor              * 2.1.0      2021-01-05 [?] CRAN (R 4.2.1)
-##  P  jpeg                   0.1-9      2021-07-24 [?] CRAN (R 4.2.0)
-##  P  jquerylib              0.1.4      2021-04-26 [?] CRAN (R 4.2.1)
-##  P  jsonlite               1.8.3      2022-10-21 [?] CRAN (R 4.2.1)
-##  P  kableExtra           * 1.3.4      2021-02-20 [?] CRAN (R 4.2.1)
-##  P  KernSmooth             2.23-20    2021-05-03 [?] CRAN (R 4.2.1)
-##  P  km.ci                  0.5-6      2022-04-06 [?] CRAN (R 4.2.1)
-##  P  KMsurv                 0.1-5      2012-12-03 [?] CRAN (R 4.2.0)
-##  P  knitr                  1.40       2022-08-24 [?] CRAN (R 4.2.1)
-##  P  labeling               0.4.2      2020-10-20 [?] CRAN (R 4.2.0)
-##  P  labelled               2.10.0     2022-09-14 [?] CRAN (R 4.2.1)
-##  P  lambda.r               1.2.4      2019-09-18 [?] CRAN (R 4.2.1)
-##  P  later                  1.3.0      2021-08-18 [?] CRAN (R 4.2.1)
-##  P  lattice                0.20-45    2021-09-22 [?] CRAN (R 4.2.1)
-##  P  lava                   1.6.10     2021-09-02 [?] CRAN (R 4.2.1)
-##  P  lazyeval               0.2.2      2019-03-15 [?] CRAN (R 4.2.1)
-##  P  leafem                 0.2.0      2022-04-16 [?] CRAN (R 4.2.1)
-##  P  leaflet                2.1.1      2022-03-23 [?] CRAN (R 4.2.1)
-##  P  leaflet.providers      1.9.0      2019-11-09 [?] CRAN (R 4.2.1)
-##  P  leafsync               0.1.0      2019-03-05 [?] CRAN (R 4.2.1)
-##  P  lifecycle              1.0.3      2022-10-07 [?] CRAN (R 4.2.1)
-##  P  listenv                0.8.0      2019-12-05 [?] CRAN (R 4.2.1)
-##  P  lmtest               * 0.9-40     2022-03-21 [?] CRAN (R 4.2.1)
-##  P  loo                    2.5.1      2022-03-24 [?] CRAN (R 4.2.1)
-##  P  lpSolve                5.6.17     2022-10-10 [?] CRAN (R 4.2.1)
-##  P  lubridate            * 1.8.0      2021-10-07 [?] CRAN (R 4.2.1)
-##  P  lwgeom                 0.2-9      2022-10-01 [?] CRAN (R 4.2.1)
-##  P  magrittr             * 2.0.3      2022-03-30 [?] CRAN (R 4.2.1)
-##  P  markdown               1.2        2022-10-19 [?] CRAN (R 4.2.1)
-##  P  MASS                 * 7.3-58.1   2022-08-03 [?] CRAN (R 4.2.1)
-##     matchmaker           * 0.1.1      2020-02-21 [1] CRAN (R 4.2.1)
-##  P  Matrix               * 1.5-1      2022-09-13 [?] CRAN (R 4.2.1)
-##  P  MatrixModels           0.5-1      2022-09-11 [?] CRAN (R 4.2.1)
-##  P  matrixStats            0.62.0     2022-04-19 [?] CRAN (R 4.2.1)
-##  P  mcmc                   0.9-7      2020-03-21 [?] CRAN (R 4.2.1)
-##  P  MCMCpack               1.6-3      2022-04-13 [?] CRAN (R 4.2.1)
-##  P  memoise                2.0.1      2021-11-26 [?] CRAN (R 4.2.1)
-##  P  mgcv                   1.8-41     2022-10-21 [?] CRAN (R 4.2.1)
-##  P  mice                 * 3.14.0     2021-11-24 [?] CRAN (R 4.2.1)
-##  P  microbenchmark         1.4.9      2021-11-09 [?] CRAN (R 4.2.1)
-##  P  mime                   0.12       2021-09-28 [?] CRAN (R 4.2.0)
-##  P  miniUI                 0.1.1.1    2018-05-18 [?] CRAN (R 4.2.1)
-##  P  mitools                2.4        2019-04-26 [?] CRAN (R 4.2.1)
-##  P  modelbased           * 0.8.5      2022-08-18 [?] CRAN (R 4.2.1)
-##  P  modelr                 0.1.8      2020-05-19 [?] CRAN (R 4.2.1)
-##  P  munsell                0.5.0      2018-06-12 [?] CRAN (R 4.2.1)
-##  P  naniar               * 0.6.1      2021-05-14 [?] CRAN (R 4.2.1)
-##  P  networkD3            * 0.4        2017-03-18 [?] CRAN (R 4.2.1)
-##  P  nlme                   3.1-160    2022-10-10 [?] CRAN (R 4.2.1)
-##  P  nnet                   7.3-18     2022-09-28 [?] CRAN (R 4.2.1)
-##  P  numDeriv               2016.8-1.1 2019-06-06 [?] CRAN (R 4.2.0)
-##  P  officer              * 0.4.4      2022-09-09 [?] CRAN (R 4.2.1)
-##     OpenStreetMap        * 0.3.4      2019-05-31 [1] CRAN (R 4.2.2)
-##  P  openxlsx               4.2.5      2021-12-14 [?] CRAN (R 4.2.1)
-##  P  outbreaks              1.9.0      2020-09-28 [?] CRAN (R 4.2.1)
-##  P  pacman                 0.5.1      2019-03-11 [?] CRAN (R 4.2.1)
-##  P  parallelly             1.32.1     2022-07-21 [?] CRAN (R 4.2.1)
-##  P  parameters           * 0.18.2     2022-08-10 [?] CRAN (R 4.2.1)
-##     parsedate            * 1.3.0      2022-02-13 [1] CRAN (R 4.2.1)
-##  P  patchwork            * 1.1.2      2022-08-19 [?] CRAN (R 4.2.1)
-##  P  performance          * 0.9.2      2022-08-10 [?] CRAN (R 4.2.1)
-##  P  PerformanceAnalytics * 2.0.4      2020-02-06 [?] CRAN (R 4.2.1)
-##  P  PHEindicatormethods  * 1.4.1      2022-08-08 [?] CRAN (R 4.2.1)
-##  P  pillar                 1.8.1      2022-08-19 [?] CRAN (R 4.2.1)
-##  P  pkgbuild               1.3.1      2021-12-20 [?] CRAN (R 4.2.1)
-##  P  pkgconfig              2.0.3      2019-09-22 [?] CRAN (R 4.2.1)
-##  P  plotly               * 4.10.0     2021-10-09 [?] CRAN (R 4.2.1)
-##  P  plotrix                3.8-2      2021-09-08 [?] CRAN (R 4.2.0)
-##  P  plyr                   1.8.7      2022-03-24 [?] CRAN (R 4.2.1)
-##  P  png                    0.1-7      2013-12-03 [?] CRAN (R 4.2.0)
-##  P  polyclip               1.10-4     2022-10-20 [?] CRAN (R 4.2.1)
-##  P  polyCub                0.8.0      2021-01-27 [?] CRAN (R 4.2.1)
-##  P  prettyunits            1.1.1      2020-01-24 [?] CRAN (R 4.2.1)
-##  P  processx               3.7.0      2022-07-07 [?] CRAN (R 4.2.1)
-##  P  prodlim                2019.11.13 2019-11-17 [?] CRAN (R 4.2.1)
-##  P  progressr              0.11.0     2022-09-02 [?] CRAN (R 4.2.1)
-##  P  projections          * 0.5.4      2021-04-22 [?] CRAN (R 4.2.1)
-##  P  promises               1.2.0.1    2021-02-11 [?] CRAN (R 4.2.1)
-##  P  proxy                  0.4-27     2022-06-09 [?] CRAN (R 4.2.1)
-##  P  ps                     1.7.1      2022-06-18 [?] CRAN (R 4.2.1)
-##  P  purrr                * 0.3.5      2022-10-06 [?] CRAN (R 4.2.1)
-##  P  quadprog               1.5-8      2019-11-20 [?] CRAN (R 4.2.0)
-##  P  Quandl                 2.11.0     2021-08-11 [?] CRAN (R 4.2.1)
-##  P  quantmod             * 0.4.20     2022-04-29 [?] CRAN (R 4.2.1)
-##  P  quantreg               5.94       2022-07-20 [?] CRAN (R 4.2.1)
-##  P  R.methodsS3            1.8.2      2022-06-13 [?] CRAN (R 4.2.0)
-##  P  R.oo                   1.25.0     2022-06-12 [?] CRAN (R 4.2.0)
-##  P  R.utils                2.12.0     2022-06-28 [?] CRAN (R 4.2.1)
-##  P  R6                     2.5.1      2021-08-19 [?] CRAN (R 4.2.1)
-##  P  raster                 3.5-29     2022-08-14 [?] CRAN (R 4.2.1)
-##  P  RColorBrewer         * 1.1-3      2022-04-03 [?] CRAN (R 4.2.0)
-##  P  Rcpp                 * 1.0.9      2022-07-08 [?] CRAN (R 4.2.1)
-##  PD RcppParallel           5.1.5      2022-01-05 [?] CRAN (R 4.2.1)
-##  P  readr                * 2.1.3      2022-10-01 [?] CRAN (R 4.2.1)
-##  P  readxl               * 1.4.1      2022-08-17 [?] CRAN (R 4.2.1)
-##  P  RecordLinkage        * 0.4-12.3   2022-01-09 [?] CRAN (R 4.2.1)
-##  P  remotes                2.4.2      2021-11-30 [?] CRAN (R 4.2.1)
-##  P  renv                   0.16.0     2022-09-29 [?] CRAN (R 4.2.1)
-##  P  report               * 0.5.5      2022-08-22 [?] CRAN (R 4.2.1)
-##  P  repr                   1.1.4      2022-01-04 [?] CRAN (R 4.2.1)
-##  P  reprex                 2.0.1      2021-08-05 [?] CRAN (R 4.2.1)
-##  P  reshape2               1.4.4      2020-04-09 [?] CRAN (R 4.2.1)
-##  P  rgdal                  1.5-32     2022-05-09 [?] CRAN (R 4.2.1)
-##  P  rio                  * 0.5.29     2021-11-22 [?] CRAN (R 4.2.1)
-##  PD rJava                  1.0-6      2021-12-10 [?] CRAN (R 4.2.0)
-##  P  rlang                  1.0.6      2022-09-24 [?] CRAN (R 4.2.1)
-##  P  rlist                  0.4.6.2    2021-09-03 [?] CRAN (R 4.2.1)
-##  P  rmarkdown              2.17       2022-10-07 [?] CRAN (R 4.2.1)
-##  P  rootSolve              1.8.2.3    2021-09-29 [?] CRAN (R 4.2.0)
-##  P  rpart                  4.1.19     2022-10-21 [?] CRAN (R 4.2.1)
-##     rprojroot              2.0.3      2022-04-02 [1] CRAN (R 4.2.1)
-##  P  RSQLite              * 2.2.18     2022-10-04 [?] CRAN (R 4.2.1)
-##  P  rstan                  2.21.7     2022-09-08 [?] CRAN (R 4.2.1)
-##  P  rstatix              * 0.7.0      2021-02-13 [?] CRAN (R 4.2.1)
-##  P  rstudioapi             0.14       2022-08-22 [?] CRAN (R 4.2.1)
-##  P  runner                 0.4.2      2022-09-17 [?] CRAN (R 4.2.1)
-##  P  rvest                  1.0.2      2021-10-16 [?] CRAN (R 4.2.1)
-##  P  s2                     1.1.0      2022-07-18 [?] CRAN (R 4.2.1)
-##  P  sass                   0.4.2      2022-07-16 [?] CRAN (R 4.2.1)
-##  P  scales               * 1.2.1      2022-08-20 [?] CRAN (R 4.2.1)
-##  P  scatterplot3d          0.3-42     2022-09-08 [?] CRAN (R 4.2.1)
-##  P  see                  * 0.7.3      2022-09-20 [?] CRAN (R 4.2.1)
-##  P  SemiCompRisks        * 3.4        2021-02-03 [?] CRAN (R 4.2.1)
-##  P  sessioninfo            1.2.2      2021-12-06 [?] CRAN (R 4.2.1)
-##  P  sf                   * 1.0-8      2022-07-14 [?] CRAN (R 4.2.1)
-##  P  shiny                * 1.7.2      2022-07-19 [?] CRAN (R 4.2.1)
-##     sitrep               * 0.2.3      2022-10-23 [1] Github (R4EPI/sitrep@75c86a7)
-##  P  skimr                * 2.1.4      2022-04-15 [?] CRAN (R 4.2.1)
-##  P  slider               * 0.2.2      2021-07-01 [?] CRAN (R 4.2.1)
-##  P  snakecase              0.11.0     2019-05-25 [?] CRAN (R 4.2.1)
-##  P  sp                   * 1.5-0      2022-06-05 [?] CRAN (R 4.2.1)
-##  P  SparseM                1.81       2021-02-18 [?] CRAN (R 4.2.0)
-##  P  spatstat.data          3.0-0      2022-10-21 [?] CRAN (R 4.2.1)
-##  P  spatstat.geom          2.4-0      2022-03-29 [?] CRAN (R 4.2.1)
-##  P  spatstat.utils         3.0-1      2022-10-19 [?] CRAN (R 4.2.1)
-##  P  spData               * 2.2.0      2022-08-31 [?] CRAN (R 4.2.1)
-##  P  spdep                * 1.2-7      2022-10-01 [?] CRAN (R 4.2.1)
-##  P  srvyr                * 1.1.1      2022-02-20 [?] CRAN (R 4.2.1)
-##  P  StanHeaders            2.21.0-7   2020-12-17 [?] CRAN (R 4.2.1)
-##  P  stars                * 0.5-6      2022-07-21 [?] CRAN (R 4.2.1)
-##  P  statmod                1.4.37     2022-08-12 [?] CRAN (R 4.2.1)
-##  P  stinepack              1.4        2018-07-30 [?] CRAN (R 4.2.0)
-##  P  stringdist           * 0.9.9      2022-10-20 [?] CRAN (R 4.2.1)
-##  P  stringi                1.7.8      2022-07-11 [?] CRAN (R 4.2.1)
-##  P  stringr              * 1.4.1      2022-08-20 [?] CRAN (R 4.2.1)
-##  P  survC1               * 1.0-3      2021-02-10 [?] CRAN (R 4.2.1)
-##  P  surveillance         * 1.20.1     2022-07-19 [?] CRAN (R 4.2.1)
-##  P  survey               * 4.1-1      2021-07-19 [?] CRAN (R 4.2.1)
-##  P  survival             * 3.4-0      2022-08-09 [?] CRAN (R 4.2.1)
-##  P  survminer            * 0.4.9      2021-03-09 [?] CRAN (R 4.2.1)
-##  P  survMisc               0.5.6      2022-04-07 [?] CRAN (R 4.2.1)
-##  P  svglite                2.1.0      2022-02-03 [?] CRAN (R 4.2.1)
-##  P  systemfonts            1.0.4      2022-02-11 [?] CRAN (R 4.2.1)
-##  P  terra                  1.6-7      2022-08-07 [?] CRAN (R 4.2.1)
-##  P  tibble               * 3.1.8      2022-07-22 [?] CRAN (R 4.2.1)
-##  P  tidyquant            * 1.0.5      2022-09-08 [?] CRAN (R 4.2.1)
-##  P  tidyr                * 1.2.1      2022-09-08 [?] CRAN (R 4.2.1)
-##  P  tidyselect             1.2.0      2022-10-10 [?] CRAN (R 4.2.1)
-##  P  tidytree               0.4.1      2022-09-26 [?] CRAN (R 4.2.1)
-##  P  tidyverse            * 1.3.2      2022-07-18 [?] CRAN (R 4.2.1)
-##  P  timeDate               4021.106   2022-09-30 [?] CRAN (R 4.2.1)
-##  P  tinytex                0.42       2022-09-27 [?] CRAN (R 4.2.1)
-##  P  tmap                 * 3.3-3      2022-03-02 [?] CRAN (R 4.2.1)
-##  P  tmaptools            * 3.1-1      2021-01-19 [?] CRAN (R 4.2.1)
-##  P  treeio               * 1.20.2     2022-08-14 [?] Bioconductor
-##  P  trending             * 0.0.3      2021-04-19 [?] CRAN (R 4.2.1)
-##  P  truncnorm              1.0-8      2018-02-27 [?] CRAN (R 4.2.1)
-##  P  tseries                0.10-52    2022-10-10 [?] CRAN (R 4.2.1)
-##  P  tsibble              * 1.1.3      2022-10-09 [?] CRAN (R 4.2.1)
-##  P  TTR                  * 0.24.3     2021-12-12 [?] CRAN (R 4.2.1)
-##  P  tweenr                 2.0.2      2022-09-06 [?] CRAN (R 4.2.1)
-##  P  tzdb                   0.3.0      2022-03-28 [?] CRAN (R 4.2.1)
-##  P  units                * 0.8-0      2022-02-05 [?] CRAN (R 4.2.1)
-##  P  UpSetR               * 1.4.0      2019-05-22 [?] CRAN (R 4.2.1)
-##  P  urca                   1.3-3      2022-08-29 [?] CRAN (R 4.2.1)
-##  P  utf8                   1.2.2      2021-07-24 [?] CRAN (R 4.2.1)
-##  P  uuid                   1.1-0      2022-04-19 [?] CRAN (R 4.2.0)
-##  P  vctrs                  0.5.0      2022-10-22 [?] CRAN (R 4.2.1)
-##  P  viridis              * 0.6.2      2021-10-13 [?] CRAN (R 4.2.1)
-##  P  viridisLite          * 0.4.1      2022-08-22 [?] CRAN (R 4.2.1)
-##  P  visdat                 0.5.3      2019-02-15 [?] CRAN (R 4.2.1)
-##  P  visNetwork           * 2.1.2      2022-09-29 [?] CRAN (R 4.2.1)
-##  P  vistime              * 1.2.3      2022-10-16 [?] CRAN (R 4.2.1)
-##  P  warp                   0.2.0      2020-10-21 [?] CRAN (R 4.2.1)
-##  P  webshot              * 0.5.3      2022-04-14 [?] CRAN (R 4.2.1)
-##     withr                  2.5.0      2022-03-03 [1] CRAN (R 4.2.1)
-##     wk                     0.7.0      2022-10-13 [1] CRAN (R 4.2.1)
-##  P  writexl              * 1.4.1      2022-10-18 [?] CRAN (R 4.2.1)
-##  P  xfun                   0.34       2022-10-18 [?] CRAN (R 4.2.1)
-##  P  XML                    3.99-0.11  2022-10-03 [?] CRAN (R 4.2.1)
-##     xml2                   1.3.3      2021-11-30 [1] CRAN (R 4.2.1)
-##  P  xtable               * 1.8-4      2019-04-21 [?] CRAN (R 4.2.1)
-##  P  xts                  * 0.12.2     2022-10-16 [?] CRAN (R 4.2.1)
-##  P  yaml                   2.3.6      2022-10-18 [?] CRAN (R 4.2.1)
-##  P  yardstick            * 1.1.0      2022-09-07 [?] CRAN (R 4.2.1)
-##  P  yulab.utils            0.0.5      2022-06-30 [?] CRAN (R 4.2.1)
-##  P  zip                    2.2.1      2022-09-08 [?] CRAN (R 4.2.1)
-##  P  zoo                  * 1.8-11     2022-09-17 [?] CRAN (R 4.2.1)
+## ─ Packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+##  ! package       * version  date (UTC) lib source
+##  P abind           1.4-5    2016-07-21 [?] CRAN (R 4.2.0)
+##  P anytime         0.3.9    2020-08-27 [?] CRAN (R 4.2.1)
+##  P assertthat      0.2.1    2019-03-21 [?] CRAN (R 4.2.1)
+##  P backports       1.4.1    2021-12-13 [?] CRAN (R 4.2.0)
+##  P bookdown        0.29     2022-09-12 [?] CRAN (R 4.2.1)
+##  P broom           1.0.1    2022-08-29 [?] CRAN (R 4.2.1)
+##  P bslib           0.4.0    2022-07-16 [?] CRAN (R 4.2.1)
+##  P cachem          1.0.6    2021-08-19 [?] CRAN (R 4.2.1)
+##  P cellranger      1.1.0    2016-07-27 [?] CRAN (R 4.2.1)
+##  P class           7.3-20   2022-01-16 [?] CRAN (R 4.2.1)
+##    classInt        0.4-8    2022-09-29 [1] CRAN (R 4.2.1)
+##    cli             3.4.1    2022-09-23 [1] CRAN (R 4.2.1)
+##  P colorspace      2.0-3    2022-02-21 [?] CRAN (R 4.2.1)
+##  P crayon          1.5.2    2022-09-29 [?] CRAN (R 4.2.1)
+##  P curl            4.3.3    2022-10-06 [?] CRAN (R 4.2.1)
+##  P data.table      1.14.4   2022-10-17 [?] CRAN (R 4.2.1)
+##  P DBI             1.1.3    2022-06-18 [?] CRAN (R 4.2.1)
+##  P dbplyr          2.2.1    2022-06-27 [?] CRAN (R 4.2.1)
+##  P digest          0.6.30   2022-10-18 [?] CRAN (R 4.2.1)
+##    downlit         0.4.2    2022-07-05 [1] CRAN (R 4.2.1)
+##  P dplyr         * 1.0.10   2022-09-01 [?] CRAN (R 4.2.1)
+##  P DT            * 0.24     2022-08-09 [?] CRAN (R 4.2.1)
+##  P e1071           1.7-11   2022-06-07 [?] CRAN (R 4.2.1)
+##  P ellipsis        0.3.2    2021-04-29 [?] CRAN (R 4.2.1)
+##  P evaluate        0.17     2022-10-07 [?] CRAN (R 4.2.1)
+##    fansi           1.0.3    2022-03-24 [1] CRAN (R 4.2.1)
+##  P fastmap         1.1.0    2021-01-25 [?] CRAN (R 4.2.1)
+##  P forcats       * 0.5.2    2022-08-19 [?] CRAN (R 4.2.1)
+##  P forecast        8.18     2022-10-02 [?] CRAN (R 4.2.1)
+##  P foreign         0.8-82   2022-01-16 [?] CRAN (R 4.2.1)
+##  P fracdiff        1.5-1    2020-01-24 [?] CRAN (R 4.2.1)
+##  P fs              1.5.2    2021-12-08 [?] CRAN (R 4.2.1)
+##  P gargle          1.2.0    2021-07-02 [?] CRAN (R 4.2.1)
+##  P generics        0.1.3    2022-07-05 [?] CRAN (R 4.2.1)
+##  P ggplot2       * 3.3.6    2022-05-03 [?] CRAN (R 4.2.1)
+##  P ggtext          0.1.2    2022-09-16 [?] CRAN (R 4.2.1)
+##  P glue            1.6.2    2022-02-24 [?] CRAN (R 4.2.1)
+##  P googledrive     2.0.0    2021-07-08 [?] CRAN (R 4.2.1)
+##  P googlesheets4   1.0.0    2021-07-21 [?] CRAN (R 4.2.1)
+##  P gridtext        0.1.5    2022-09-16 [?] CRAN (R 4.2.1)
+##  P gtable          0.3.1    2022-09-01 [?] CRAN (R 4.2.1)
+##  P haven           2.5.1    2022-08-22 [?] CRAN (R 4.2.1)
+##  P here          * 1.0.1    2020-12-13 [?] CRAN (R 4.2.1)
+##  P highr           0.9      2021-04-16 [?] CRAN (R 4.2.1)
+##  P hms             1.1.2    2022-08-19 [?] CRAN (R 4.2.1)
+##  P htmltools       0.5.3    2022-07-18 [?] CRAN (R 4.2.1)
+##  P htmlwidgets     1.5.4    2021-09-08 [?] CRAN (R 4.2.1)
+##  P httr            1.4.4    2022-08-17 [?] CRAN (R 4.2.1)
+##  P imputeTS        3.3      2022-09-09 [?] CRAN (R 4.2.1)
+##  P incidence2      1.2.3    2021-11-07 [?] CRAN (R 4.2.1)
+##  P janitor         2.1.0    2021-01-05 [?] CRAN (R 4.2.1)
+##  P jquerylib       0.1.4    2021-04-26 [?] CRAN (R 4.2.1)
+##  P jsonlite        1.8.3    2022-10-21 [?] CRAN (R 4.2.1)
+##  P KernSmooth      2.23-20  2021-05-03 [?] CRAN (R 4.2.1)
+##  P knitr           1.40     2022-08-24 [?] CRAN (R 4.2.1)
+##  P lattice         0.20-45  2021-09-22 [?] CRAN (R 4.2.1)
+##  P lifecycle       1.0.3    2022-10-07 [?] CRAN (R 4.2.1)
+##  P lmtest          0.9-40   2022-03-21 [?] CRAN (R 4.2.1)
+##  P lubridate     * 1.8.0    2021-10-07 [?] CRAN (R 4.2.1)
+##  P lwgeom          0.2-9    2022-10-01 [?] CRAN (R 4.2.1)
+##  P magrittr        2.0.3    2022-03-30 [?] CRAN (R 4.2.1)
+##  P memoise         2.0.1    2021-11-26 [?] CRAN (R 4.2.1)
+##  P modelr          0.1.8    2020-05-19 [?] CRAN (R 4.2.1)
+##  P munsell         0.5.0    2018-06-12 [?] CRAN (R 4.2.1)
+##  P nlme            3.1-160  2022-10-10 [?] CRAN (R 4.2.1)
+##  P nnet            7.3-18   2022-09-28 [?] CRAN (R 4.2.1)
+##  P openxlsx        4.2.5    2021-12-14 [?] CRAN (R 4.2.1)
+##  P pacman          0.5.1    2019-03-11 [?] CRAN (R 4.2.1)
+##  P pillar          1.8.1    2022-08-19 [?] CRAN (R 4.2.1)
+##  P pkgconfig       2.0.3    2019-09-22 [?] CRAN (R 4.2.1)
+##  P proxy           0.4-27   2022-06-09 [?] CRAN (R 4.2.1)
+##  P purrr         * 0.3.5    2022-10-06 [?] CRAN (R 4.2.1)
+##  P quadprog        1.5-8    2019-11-20 [?] CRAN (R 4.2.0)
+##  P quantmod        0.4.20   2022-04-29 [?] CRAN (R 4.2.1)
+##  P R6              2.5.1    2021-08-19 [?] CRAN (R 4.2.1)
+##  P Rcpp            1.0.9    2022-07-08 [?] CRAN (R 4.2.1)
+##  P readr         * 2.1.3    2022-10-01 [?] CRAN (R 4.2.1)
+##  P readxl          1.4.1    2022-08-17 [?] CRAN (R 4.2.1)
+##  P renv            0.16.0   2022-09-29 [?] CRAN (R 4.2.1)
+##  P reprex          2.0.1    2021-08-05 [?] CRAN (R 4.2.1)
+##  P rio           * 0.5.29   2021-11-22 [?] CRAN (R 4.2.1)
+##  P rlang           1.0.6    2022-09-24 [?] CRAN (R 4.2.1)
+##  P rmarkdown       2.17     2022-10-07 [?] CRAN (R 4.2.1)
+##    rprojroot       2.0.3    2022-04-02 [1] CRAN (R 4.2.1)
+##  P rstudioapi      0.14     2022-08-22 [?] CRAN (R 4.2.1)
+##  P rvest           1.0.2    2021-10-16 [?] CRAN (R 4.2.1)
+##  P sass            0.4.2    2022-07-16 [?] CRAN (R 4.2.1)
+##  P scales          1.2.1    2022-08-20 [?] CRAN (R 4.2.1)
+##  P sessioninfo     1.2.2    2021-12-06 [?] CRAN (R 4.2.1)
+##  P sf              1.0-8    2022-07-14 [?] CRAN (R 4.2.1)
+##  P slider          0.2.2    2021-07-01 [?] CRAN (R 4.2.1)
+##  P snakecase       0.11.0   2019-05-25 [?] CRAN (R 4.2.1)
+##  P stars           0.5-6    2022-07-21 [?] CRAN (R 4.2.1)
+##  P stinepack       1.4      2018-07-30 [?] CRAN (R 4.2.0)
+##  P stringi         1.7.8    2022-07-11 [?] CRAN (R 4.2.1)
+##  P stringr       * 1.4.1    2022-08-20 [?] CRAN (R 4.2.1)
+##  P tibble        * 3.1.8    2022-07-22 [?] CRAN (R 4.2.1)
+##  P tidyr         * 1.2.1    2022-09-08 [?] CRAN (R 4.2.1)
+##  P tidyselect      1.2.0    2022-10-10 [?] CRAN (R 4.2.1)
+##  P tidyverse     * 1.3.2    2022-07-18 [?] CRAN (R 4.2.1)
+##  P timeDate        4021.106 2022-09-30 [?] CRAN (R 4.2.1)
+##  P trending        0.0.3    2021-04-19 [?] CRAN (R 4.2.1)
+##  P tseries         0.10-52  2022-10-10 [?] CRAN (R 4.2.1)
+##  P tsibble         1.1.3    2022-10-09 [?] CRAN (R 4.2.1)
+##  P TTR             0.24.3   2021-12-12 [?] CRAN (R 4.2.1)
+##  P tzdb            0.3.0    2022-03-28 [?] CRAN (R 4.2.1)
+##  P units           0.8-0    2022-02-05 [?] CRAN (R 4.2.1)
+##  P urca            1.3-3    2022-08-29 [?] CRAN (R 4.2.1)
+##  P utf8            1.2.2    2021-07-24 [?] CRAN (R 4.2.1)
+##  P vctrs           0.5.0    2022-10-22 [?] CRAN (R 4.2.1)
+##  P warp            0.2.0    2020-10-21 [?] CRAN (R 4.2.1)
+##    withr           2.5.0    2022-03-03 [1] CRAN (R 4.2.1)
+##  P xfun            0.34     2022-10-18 [?] CRAN (R 4.2.1)
+##    xml2            1.3.3    2021-11-30 [1] CRAN (R 4.2.1)
+##  P xts             0.12.2   2022-10-16 [?] CRAN (R 4.2.1)
+##  P yaml            2.3.6    2022-10-18 [?] CRAN (R 4.2.1)
+##  P zip             2.2.1    2022-09-08 [?] CRAN (R 4.2.1)
+##  P zoo             1.8-11   2022-09-17 [?] CRAN (R 4.2.1)
 ## 
 ##  [1] C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/renv/library/R-4.2/x86_64-w64-mingw32
-##  [2] C:/Users/neale/AppData/Local/Temp/RtmpE10lXs/renv-system-library
+##  [2] C:/Users/neale/AppData/Local/Temp/RtmpYbY8V8/renv-system-library
 ## 
 ##  P ── Loaded and on-disk path mismatch.
-##  D ── DLL MD5 mismatch, broken installation.
 ## 
-## ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
+## ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
 
 </div>
 </div>

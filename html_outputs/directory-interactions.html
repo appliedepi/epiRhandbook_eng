@@ -146,7 +146,7 @@
 <strong>fs</strong> package<a class="anchor" aria-label="anchor" href="#fs-package"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <strong>fs</strong> package is a <strong>tidyverse</strong> package that facilitate directory interactions, improving on some of the <strong>base</strong> R functions. In the sections below we will often use functions from <strong>fs</strong>.</p>
-<div class="sourceCode" id="cb1867"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1870"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">fs</span>,             <span class="co"># file/directory interactions</span></span>
 <span>  <span class="va">rio</span>,            <span class="co"># import/export</span></span>
@@ -158,7 +158,7 @@
 </h3>
 <p>Use the function <code>dir_tree()</code> from <strong>fs</strong>.</p>
 <p>Provide the folder filepath to <code>path =</code> and decide whether you want to show only one level (<code>recurse = FALSE</code>) or all files in all sub-levels (<code>recurse = TRUE</code>). Below we use <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> as shorthand for the R project and specify its sub-folder “data”, which contains all the data used for this R handbook. We set it to display all files within “data” and its sub-folders (e.g. “cache”, “epidemic models”, “population”, “shp”, and “weather”).</p>
-<div class="sourceCode" id="cb1868"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1871"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span>, recurse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data
 ## ├── africa_countries.geo.json
@@ -313,35 +313,35 @@
 <span class="header-section-number">44.2</span> List files in a directory<a class="anchor" aria-label="anchor" href="#list-files-in-a-directory"><i class="fas fa-link"></i></a>
 </h2>
 <p>To list just the file names in a directory you can use <code><a href="https://rdrr.io/r/base/list.files.html">dir()</a></code> from <strong>base</strong> R. For example, this command lists the file names of the files in the “population” subfolder of the “data” folder in an R project. The relative filepath is provided using <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> (which you can read about more in the <a href="import-and-export.html#import-and-export">Import and export</a> page).</p>
-<div class="sourceCode" id="cb1870"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1873"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># file names</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"gis"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "sle_admpop_adm3_2020.csv"                        "sle_population_statistics_sierraleone_2020.xlsx"</code></pre>
 <p>To list the full file paths of the directory’s files, you can use you can use <code>dir_ls()</code> from <strong>fs</strong>. A <strong>base</strong> R alternative is <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>.</p>
-<div class="sourceCode" id="cb1872"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1875"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># file paths</span></span>
 <span><span class="fu">dir_ls</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"gis"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_admpop_adm3_2020.csv
 ## C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx</code></pre>
 <p>To get all the metadata information about each file in a directory, (e.g. path, modification date, etc.) you can use <code>dir_info()</code> from <strong>fs</strong>.</p>
 <p>This can be particularly useful if you want to extract the last modification time of the file, for example if you want to import the most recent version of a file. For an example of this, see the <a href="import-and-export.html#import-and-export">Import and export</a> page.</p>
-<div class="sourceCode" id="cb1874"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1877"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># file info</span></span>
 <span><span class="fu">dir_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"gis"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here is the data frame returned. Scroll to the right to see all the columns.</p>
-<div id="htmlwidget-c24e8f33078fcb4f85f2" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c24e8f33078fcb4f85f2">{"x":{"filter":"none","vertical":false,"data":[["C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_admpop_adm3_2020.csv","C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx"],["file","file"],[26939,57850],[33206,33206],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"],[null,null],[null,null],[1040926351,1040926351],[1,1],[0,0],[1.97032483725277e+15,1.97032483725277e+15],[4096,4096],[56,120],[0,0],[0,0],["2022-11-20T09:18:13Z","2022-08-09T00:39:54Z"],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c942b40732463d591606" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c942b40732463d591606">{"x":{"filter":"none","vertical":false,"data":[["C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_admpop_adm3_2020.csv","C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/gis/population/sle_population_statistics_sierraleone_2020.xlsx"],["file","file"],[26939,57850],[33206,33206],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"],[null,null],[null,null],[1040926351,1040926351],[1,1],[0,0],[1.97032483725277e+15,1.97032483725277e+15],[4096,4096],[56,120],[0,0],[0,0],["2022-11-20T10:15:28Z","2022-08-09T00:39:54Z"],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"],["2022-03-03T15:18:34Z","2022-03-03T15:18:34Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="file-information" class="section level2" number="44.3">
 <h2>
 <span class="header-section-number">44.3</span> File information<a class="anchor" aria-label="anchor" href="#file-information"><i class="fas fa-link"></i></a>
 </h2>
 <p>To extract metadata information about a specific file, you can use <code>file_info()</code> from <strong>fs</strong> (or <code><a href="https://rdrr.io/r/base/file.info.html">file.info()</a></code> from <strong>base</strong> R).</p>
-<div class="sourceCode" id="cb1875"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1878"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">file_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-ac444b96dd6eea84444b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ac444b96dd6eea84444b">{"x":{"filter":"none","vertical":false,"data":[["C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/case_linelists/linelist_cleaned.rds"],["file"],[290215],[33206],["2022-03-03T15:18:33Z"],[null],[null],[1040926351],[1],[0],[1.97032483725272e+15],[4096],[568],[0],[0],["2022-11-20T09:22:36Z"],["2022-11-19T19:07:22Z"],["2022-03-03T15:18:33Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Here we use the <code>$</code> to index the result and return only the <code>modification_time</code> value.</p>
-<div class="sourceCode" id="cb1876"><pre class="downlit sourceCode r">
+<div id="htmlwidget-21fe99583906b7879f43" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21fe99583906b7879f43">{"x":{"filter":"none","vertical":false,"data":[["C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/case_linelists/linelist_cleaned.rds"],["file"],[290215],[33206],["2022-03-03T15:18:33Z"],[null],[null],[1040926351],[1],[0],[1.97032483725272e+15],[4096],[568],[0],[0],["2022-11-20T10:20:28Z"],["2022-11-19T19:07:22Z"],["2022-03-03T15:18:33Z"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>path<\/th>\n      <th>type<\/th>\n      <th>size<\/th>\n      <th>permissions<\/th>\n      <th>modification_time<\/th>\n      <th>user<\/th>\n      <th>group<\/th>\n      <th>device_id<\/th>\n      <th>hard_links<\/th>\n      <th>special_device_id<\/th>\n      <th>inode<\/th>\n      <th>block_size<\/th>\n      <th>blocks<\/th>\n      <th>flags<\/th>\n      <th>generation<\/th>\n      <th>access_time<\/th>\n      <th>change_time<\/th>\n      <th>birth_time<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Here we use the <code>$</code> to index the result and return only the <code>modification_time</code> value.</p>
+<div class="sourceCode" id="cb1879"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">file_info</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">modification_time</span></span></code></pre></div>
 <pre><code>## [1] "2022-03-03 16:18:33 CET"</code></pre>
 </div>
@@ -353,14 +353,14 @@
 <h3>R objects<a class="anchor" aria-label="anchor" href="#r-objects"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can use <code><a href="https://rdrr.io/r/base/exists.html">exists()</a></code> from <strong>base</strong> R to check whether an R object exists <em>within</em> R (supply the object name in quotes).</p>
-<div class="sourceCode" id="cb1878"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1881"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"linelist"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Note that some <strong>base</strong> R packages use generic object names like “data” behind the scenes, that will appear as TRUE unless <code>inherit = FALSE</code> is specified. This is one reason to not name your dataset “data”.</p>
-<div class="sourceCode" id="cb1880"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1883"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb1882"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1885"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"data"</span>, inherit <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>If you are writing a function, you should use <code><a href="https://rdrr.io/r/base/missing.html">missing()</a></code> from <strong>base</strong> R to check if an argument is present or not, instead of <code><a href="https://rdrr.io/r/base/exists.html">exists()</a></code>.</p>
@@ -369,7 +369,7 @@
 <h3>Directories<a class="anchor" aria-label="anchor" href="#directories"><i class="fas fa-link"></i></a>
 </h3>
 <p>To check whether a directory exists, provide the file path (and file name) to <code>is_dir()</code> from <strong>fs</strong>. Scroll to the right to see that <code>TRUE</code> is printed.</p>
-<div class="sourceCode" id="cb1884"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1887"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">is_dir</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data 
 ##                                                             TRUE</code></pre>
@@ -379,7 +379,7 @@
 <h3>Files<a class="anchor" aria-label="anchor" href="#files"><i class="fas fa-link"></i></a>
 </h3>
 <p>To check if a specific file exists, use <code>is_file()</code> from <strong>fs</strong>. Scroll to the right to see that <code>TRUE</code> is printed.</p>
-<div class="sourceCode" id="cb1886"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1889"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">is_file</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"case_linelists"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## C:/Users/neale/Documents/Applied Epi/repos/epiRhandbook_eng/data/case_linelists/linelist_cleaned.rds 
 ##                                                                                                 TRUE</code></pre>
@@ -394,7 +394,7 @@
 <h3>Directories<a class="anchor" aria-label="anchor" href="#directories-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>To create a new directory (folder) you can use <code>dir_create()</code> from <strong>fs</strong>. If the directory already exists, it will not be overwritten and no error will be returned.</p>
-<div class="sourceCode" id="cb1888"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1891"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dir_create</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>An alternative is <code><a href="https://rdrr.io/r/base/files2.html">dir.create()</a></code> from <strong>base</strong> R, which will show an error if the directory already exists. In contrast, <code>dir_create()</code> in this scenario will be silent.</p>
 </div>
@@ -402,7 +402,7 @@
 <h3>Files<a class="anchor" aria-label="anchor" href="#files-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can create an (empty) file with <code>file_create()</code> from <strong>fs</strong>. If the file already exists, it will not be over-written or changed.</p>
-<div class="sourceCode" id="cb1889"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1892"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">file_create</span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"test.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>A <strong>base</strong> R alternative is <code><a href="https://rdrr.io/r/base/files.html">file.create()</a></code>. But if the file already exists, this option will truncate it. If you use <code>file_create()</code> the file will be left unchanged.</p>
 </div>
@@ -441,7 +441,7 @@
 <code>source()</code><a class="anchor" aria-label="anchor" href="#source"><i class="fas fa-link"></i></a>
 </h3>
 <p>To run one R script from another R script, you can use the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> command (from <strong>base</strong> R).</p>
-<div class="sourceCode" id="cb1890"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1893"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"scripts"</span>, <span class="st">"cleaning_scripts"</span>, <span class="st">"clean_testing_data.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>This is equivalent to viewing the above R script and clicking the “Source” button in the upper-right of the script. This will execute the script but will do it silently (no output to the R console) unless specifically intended. See the page on [Interactive console] for examples of using <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> to interact with a user via the R console in question-and-answer mode.</p>
 <div class="inline-figure"><img src="images/source_button.png" width="82" height="300%" style="display: block; margin: auto;"></div>
@@ -457,12 +457,12 @@
 <h3>Run files in a directory<a class="anchor" aria-label="anchor" href="#run-files-in-a-directory"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can create a <em>for loop</em> and use it to <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> every file in a directory, as identified with <code><a href="https://rdrr.io/r/base/list.files.html">dir()</a></code>.</p>
-<div class="sourceCode" id="cb1891"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1894"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">script</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"scripts"</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">".R$"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>   <span class="co"># for each script name in the R Project's "scripts" folder (with .R extension)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"scripts"</span>, <span class="va">script</span><span class="op">)</span><span class="op">)</span>                        <span class="co"># source the file with the matching name that exists in the scripts folder</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>If you only want to run certain scripts, you can identify them by name like this:</p>
-<div class="sourceCode" id="cb1892"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1895"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scripts_to_run</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>     <span class="st">"epicurves.R"</span>,</span>
 <span>     <span class="st">"demographic_tables.R"</span>,</span>
@@ -496,7 +496,7 @@
 <span class="header-section-number">44.8</span> <strong>base</strong> R<a class="anchor" aria-label="anchor" href="#base-r-4"><i class="fas fa-link"></i></a>
 </h2>
 <p>See below the functions <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code> and <code><a href="https://rdrr.io/r/base/list.files.html">dir()</a></code>, which perform the same operation of listing files within a specified directory. You can specify <code>ignore.case =</code> or a specific pattern to look for.</p>
-<div class="sourceCode" id="cb1893"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1896"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span></span>
