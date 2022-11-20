@@ -244,12 +244,12 @@ data_cleaned <- data %>%
 <!-- ======================================================= -->
 ## Messy dates  
 
-The function `guess_dates()` from the **linelist** package attempts to read a "messy" date column containing dates in many different formats and convert the dates to a standard format. You can [read more online about `guess_dates()`](https://www.repidemicsconsortium.org/linelist/reference/guess_dates.html). If `guess_dates()` is not yet available on CRAN for R 4.0.2, try install via `pacman::p_load_gh("reconhub/linelist")`.
+The function `parse_date()` from the **parsedate** package attempts to read a "messy" date column containing dates in many different formats and convert the dates to a standard format. You can [read more online about `parse_date()`](https://readr.tidyverse.org/reference/parse_datetime.html).  
 
-For example `guess_dates` would see a vector of the following character dates "03 Jan 2018", "07/03/1982", and "08/20/85" and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.  
+For example `parse_date()` would see a vector of the following character dates "03 Jan 2018", "07/03/1982", and "08/20/85" and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.  
 
 ```{r}
-parsedate::parse_date(c("03 Jan 2018",
+parsedate::parse_date(c("03 January 2018",
                         "07/03/1982",
                         "08/20/85"))
 ```
@@ -258,7 +258,7 @@ parsedate::parse_date(c("03 Jan 2018",
 ```{r eval = FALSE}
 # An example using parse_date() on the column date_onset
 linelist <- linelist %>%      
-  mutate(date_onset = parse_date(date_onset)
+  mutate(date_onset = parse_date(date_onset))
 ```
 
 

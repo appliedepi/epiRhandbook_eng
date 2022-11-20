@@ -12,14 +12,18 @@ information, dragging them to move them and clicking on them to highlight downst
 
 ```{r out.width=c('25%', '25%'), fig.show='hold', echo=F}
 
-## install development version of epicontacts
-# if(
-#   !"epicontacts" %in% rownames(installed.packages()) |
-#   packageVersion("epicontacts") != "1.2.0"
-# ) remotes::install_github("reconhub/epicontacts@timeline")
+# install development version of epicontacts
+if(
+  !"epicontacts" %in% rownames(installed.packages()) |
+  packageVersion("epicontacts") != "1.2.0"
+) remotes::install_github("reconhub/epicontacts@timeline")
 
 ## install and load packages
-pacman::p_load(tidyverse, epicontacts, magrittr, here, webshot, visNetwork)
+pacman::p_load(tidyverse,
+               #epicontacts,
+               magrittr, here, webshot, visNetwork)
+
+library(epicontacts)
 
 ## load linelist
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds")) %>%
@@ -46,11 +50,11 @@ epic <- epicontacts::make_epicontacts(
 epic_small <- epic %>% 
   subset(
     node_attribute = list(date_onset = c(as.Date(c("2014-06-01", "2014-07-01"))))) %>%
-  thin("contacts")
+  epicontacts::thin("contacts")
 
 # plot with date of onset as x-axis
 plot(
-  epic,
+  epic_small,
   x_axis = "date_onset",
   label = FALSE,
   node_color = "outcome",
