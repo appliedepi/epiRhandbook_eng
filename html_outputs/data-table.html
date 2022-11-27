@@ -166,7 +166,7 @@
 <h3>Load packages<a class="anchor" aria-label="anchor" href="#load-packages-33"><i class="fas fa-link"></i></a>
 </h3>
 <p>Using the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> function from <strong>pacman</strong>, we load (and install if necessary) packages required for this analysis.</p>
-<div class="sourceCode" id="cb1924"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1925"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">rio</span>,        <span class="co"># to import data</span></span>
 <span>  <span class="va">data.table</span>, <span class="co"># to group and clean data</span></span>
@@ -179,12 +179,12 @@
 </h3>
 <p>This page will explore some of the core functions of <strong>data.table</strong> using the case linelist referenced throughout the handbook.</p>
 <p>We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data] page. The dataset is imported using the <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> function from the <strong>rio</strong> package. See the page on <a href="import-and-export.html#import-and-export">Import and export</a> for various ways to import data. From here we use <code>data.table()</code> to convert the data frame to a data table.</p>
-<div class="sourceCode" id="cb1925"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1926"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"linelist_cleaned.xlsx"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>fread()</code> function is used to directly import regular delimited files, such as .csv files, directly to a data table format. This function, and its counterpart, <code>fwrite()</code>, used for writing data.tables as regular delimited files are very fast and computationally efficient options for large databases.</p>
 <p>The first 20 rows of <code>linelist</code>:</p>
 <p>Base R commands such as <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> that are used for data frames can also be used for data tables</p>
-<div class="sourceCode" id="cb1926"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1927"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span> <span class="co">#gives the number of rows and columns in the data table</span></span></code></pre></div>
 <pre><code>## [1] 5888   30</code></pre>
 <!-- ======================================================= -->
@@ -196,12 +196,12 @@
 </h2>
 <p>Recalling the <strong>DT[i, j, by]</strong> structure, we can filter rows using either row numbers or logical expressions. The i argument is first; therefore, the syntax <strong>DT[i]</strong> or <strong>DT[i,]</strong> can be used.</p>
 <p>The first example retrieves the first 5 rows of the data table, the second example subsets cases are 18 years or over, and the third example subsets cases 18 years old or over but not diagnosed at the Central Hospital:</p>
-<div class="sourceCode" id="cb1928"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1929"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co">#returns the 1st to 5th row</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#subsets cases are equal to or over 18 years</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span> <span class="op">&amp;</span> <span class="va">hospital</span> <span class="op">!=</span> <span class="st">"Central Hospital"</span><span class="op">]</span> <span class="co">#subsets cases equal to or over 18 years old but not diagnosed at the Central Hospital</span></span></code></pre></div>
 <p>Using .N in the i argument represents the total number of rows in the data table. This can be used to subset on the row numbers:</p>
-<div class="sourceCode" id="cb1929"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1930"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">.N</span><span class="op">]</span> <span class="co">#returns the last row</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="fl">15</span><span class="op">:</span><span class="va">.N</span><span class="op">]</span> <span class="co">#returns the 15th to the last row</span></span></code></pre></div>
 <div id="using-helper-functions-for-filtering" class="section level3 unnumbered">
@@ -212,7 +212,7 @@
 * filter rows where the hospital variable contains “Hospital”
 * filter rows where the outcome is “Recover” or “Death”
 * filter rows in the age range 40-60</p>
-<div class="sourceCode" id="cb1930"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1931"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Hospital"</span><span class="op">]</span> <span class="co">#filter rows where the hospital variable contains “Hospital”</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">outcome</span> <span class="op">%chin%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Recover"</span>, <span class="st">"Death"</span><span class="op">)</span><span class="op">]</span> <span class="co">#filter rows where the outcome is “Recover” or “Death”</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">%between%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">60</span><span class="op">)</span><span class="op">]</span> <span class="co">#filter rows in the age range 40-60</span></span>
@@ -229,7 +229,7 @@
 <h3>Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first example retrieves the first, third and fifth columns of the data table, the second example selects all columns except the height, weight and gender columns. The third example uses the <code>.()</code> wrap to select the <strong>case_id</strong> and <strong>outcome</strong> columns.</p>
-<div class="sourceCode" id="cb1931"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1932"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">linelist</span><span class="op">[</span> , <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"age"</span>, <span class="st">"wt_kg"</span>, <span class="st">"ht_cm"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#linelist[ , .(case_id, outcome)] works just as well</span></span></code></pre></div>
@@ -242,14 +242,14 @@
 * Count the number of cases that stayed over 7 days in hospital
 * Calculate the mean age of the cases that died at the military hospital
 * Calculate the standard deviation, median, mean age of the cases that recovered at the central hospital</p>
-<div class="sourceCode" id="cb1932"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1933"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span> , <span class="va">.N</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 189</code></pre>
-<div class="sourceCode" id="cb1934"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1935"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Military"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">%chin%</span> <span class="st">"Death"</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#na.rm = T removes N/A values</span></span></code></pre></div>
 <pre><code>##         V1
 ## 1: 15.9084</code></pre>
-<div class="sourceCode" id="cb1936"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1937"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">==</span> <span class="st">"Central Hospital"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">==</span> <span class="st">"Recover"</span>, </span>
 <span>                 <span class="fu">.</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>                   median_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
@@ -268,7 +268,7 @@
 * group the number of cases by hospital
 * in cases 18 years old or over, calculate the mean height and weight of cases according to gender and whether they recovered or died
 * in admissions that lasted over 7 days, count the number of cases according to the month they were admitted and the hospital they were admitted to</p>
-<div class="sourceCode" id="cb1938"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1939"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span> <span class="co">#the number of cases by hospital</span></span></code></pre></div>
 <pre><code>##                                hospital    N
 ## 1:                                Other  885
@@ -277,7 +277,7 @@
 ## 4:                        Port Hospital 1762
 ## 5:                    Military Hospital  896
 ## 6:                     Central Hospital  454</code></pre>
-<div class="sourceCode" id="cb1940"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1941"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;</span> <span class="fl">18</span>, <span class="fu">.</span><span class="op">(</span>mean_wt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">wt_kg</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>                             mean_ht <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ht_cm</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#NAs represent the categories where the data is missing</span></span></code></pre></div>
 <pre><code>##    gender outcome  mean_wt  mean_ht
@@ -290,7 +290,7 @@
 ## 7:   &lt;NA&gt; Recover 67.21429 175.2143
 ## 8:   &lt;NA&gt;   Death 69.16667 170.7917
 ## 9:   &lt;NA&gt;    &lt;NA&gt; 70.25000 175.5000</code></pre>
-<div class="sourceCode" id="cb1942"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1943"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##     month                             hospital  N
 ##  1:     5                    Military Hospital  3
@@ -331,26 +331,26 @@
 ## 36:    12                        Port Hospital  1
 ##     month                             hospital  N</code></pre>
 <p>Data.table also allows the chaining expressions as follows:</p>
-<div class="sourceCode" id="cb1944"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1945"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">N</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#1st selects all cases by hospital, 2nd orders the cases in descending order, 3rd subsets the 3 hospitals with the largest caseload</span></span></code></pre></div>
 <pre><code>##             hospital    N
 ## 1:     Port Hospital 1762
 ## 2:           Missing 1469
 ## 3: Military Hospital  896</code></pre>
 <p>In these examples we are following the assumption that a row in the data table is equal to a new case, and so we can use the <strong>.N</strong> to represent the number of rows in the data table. Another useful function to represent the number of unique cases is <code>uniqueN()</code>, which returns the number of unique values in a given input. This is illustrated here:</p>
-<div class="sourceCode" id="cb1946"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1947"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#remember .() in the j argument returns a data table</span></span></code></pre></div>
 <pre><code>##    V1
 ## 1:  3</code></pre>
 <p>The answer is 3, as the unique values in the gender column are m, f and N/A. Compare with the base R function <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code>, which returns all the unique values in a given input:</p>
-<div class="sourceCode" id="cb1948"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1949"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##      V1
 ## 1:    m
 ## 2:    f
 ## 3: &lt;NA&gt;</code></pre>
 <p>To find the number of unique cases in a given month we would write the following:</p>
-<div class="sourceCode" id="cb1950"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1951"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">case_id</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##     month   V1
 ##  1:     5   62
@@ -371,7 +371,7 @@
 <span class="header-section-number">49.6</span> Adding and updating to data tables<a class="anchor" aria-label="anchor" href="#adding-and-updating-to-data-tables"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>:=</code> operator is used to add or update data in a data table. Adding columns to your data table can be done in the following ways:</p>
-<div class="sourceCode" id="cb1952"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1953"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">adult</span> <span class="op">:=</span> <span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#adds one column</span></span>
 <span><span class="va">linelist</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"child"</span>, <span class="st">"wt_lbs"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">18</span>, <span class="va">wt_kg</span><span class="op">*</span><span class="fl">2.204</span><span class="op">)</span><span class="op">]</span> <span class="co">#to add multiple columns requires c("") and list() or .() syntax</span></span>
 <span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">`:=`</span> <span class="op">(</span>bmi_in_range <span class="op">=</span> <span class="op">(</span><span class="va">bmi</span> <span class="op">&gt;</span> <span class="fl">16</span> <span class="op">&amp;</span> <span class="va">bmi</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span>,</span>
@@ -436,7 +436,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -60,7 +60,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 **Are you just starting with R?** Try our **[free interactive tutorials](https://www.appliedepi.org/tutorial/)** or synchronous, virtual **[intro course](https://www.appliedepi.org/live/)** used by US CDC, WHO, and 75+ other health agencies and Field Epi Training Programs worldwide.  
 
-**Languages:** [Vietnamese (Tiếng Việt)](https://epirhandbook.com/vn/), [Japanese (日本)](https://epirhandbook.com/jp/), [Turkish (Türkçe)](https://epirhandbook.com/tr/)  
+**Languages:** [Spanish (Español)](https://epirhandbook.com/es/), [Vietnamese (Tiếng Việt)](https://epirhandbook.com/vn/), [Japanese (日本)](https://epirhandbook.com/jp/), [Turkish (Türkçe)](https://epirhandbook.com/tr/)  
 
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
@@ -133,7 +133,7 @@ See instructions in the [Download handbook and data] page.
 <!-- ======================================================= -->
 ## Acknowledgements {-}  
 
-This handbook is produced by a collaboration of epidemiologists from around the world drawing upon experience with organizations including local, state, provincial, and national health agencies, the World Health Organization (WHO), Médecins Sans Frontières / Doctors without Borders (MSF), hospital systems, and academic institutions.
+This handbook is produced by an independent collaboration of epidemiologists from around the world drawing upon experience with organizations including local, state, provincial, and national health agencies, the World Health Organization (WHO), Doctors without Borders (MSF), hospital systems, and academic institutions.
 
 This handbook is **not** an approved product of any specific organization. Although we strive for accuracy, we provide no guarantee of the content in this book.  
 
@@ -197,7 +197,7 @@ More generally, the following sources provided inspiration for this handbook:
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a> Applied Epi Incorporated, 2021 <br />This work is licensed by Applied Epi Incorporated under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 
-Academic courses and epidemiologist training programs are welcome to use this handbook with their students, but please send us an email to let us know. If you have questions about your intended use, email **epiRhandbook@gmail.com**.  
+Academic courses and epidemiologist training programs are welcome to contact us about use or adaptation of this material (email **contact@appliedepi.org**).  
 
 
 ### Citation {.unnumbered}
@@ -4354,7 +4354,7 @@ Function       | Utility                               | Package
 `case_when()`|re-code values in a column using more complex logical criteria|**dplyr** 
 `replace_na()`, `na_if()`, `coalesce()`|special functions for re-coding|**tidyr**  
 `age_categories()` and `cut()`|create categorical groups from a numeric column|**epikit** and **base** R
-`clean_variable_spelling()`|re-code/clean values using a data dictionary|**linelist**
+`match_df()`|re-code/clean values using a data dictionary|**matchmaker**
 `which()`|apply logical criteria; return indices|**base** R
 
 If you want to see how these functions compare to Stata or SAS commands, see the page on [Transition to R].  
@@ -5267,20 +5267,40 @@ For example, here we utilize the columns `age` and `age_unit` to create a column
 ```{r}
 linelist <- linelist %>% 
   mutate(age_years = case_when(
-       age_unit == "years"  ~ age,       # if age is given in years
-       age_unit == "months" ~ age/12,    # if age is given in months
+       age_unit == "years"  ~ age,       # if age unit is years
+       age_unit == "months" ~ age/12,    # if age unit is months, divide age by 12
        is.na(age_unit)      ~ age))      # if age unit is missing, assume years
-                                         # any other circumstance, assign NA
+                                         # any other circumstance, assign NA (missing)
 ```
 
 
-As each row in the data is evaluated, the criteria are applied/evaluated in the order the `case_when()` statements are written - from top-to-bottom. If the top criteria evaluates to `TRUE` for a given row, the RHS value is assigned, and the remaining criteria are not even tested for that row. Thus, it is best to write the most specific criteria first, and the most general last.  
+As each row in the data is evaluated, the criteria are applied/evaluated in the order the `case_when()` statements are written - from top-to-bottom. If the top criteria evaluates to `TRUE` for a given row, the RHS value is assigned, and the remaining criteria are not even tested for that row in the data. Thus, it is best to write the most specific criteria first, and the most general last. A data row that does not meet any of the RHS criteria will be assigned `NA`.  
 
 Sometimes, you may with to write a final statement that assigns a value for all other scenarios not described by one of the previous lines. To do this, place `TRUE` on the left-side, which will capture any row that did not meet any of the previous criteria. The right-side of this statement could be assigned a value like "check me!" or missing.  
 
+Below is another example of `case_when()` used to create a new column with the patient classification, according to a case definition for confirmed and suspect cases:  
+
+```{r, eval=F}
+linelist <- linelist %>% 
+     mutate(case_status = case_when(
+          
+          # if patient had lab test and it is positive,
+          # then they are marked as a confirmed case 
+          ct_blood < 20                   ~ "Confirmed",
+          
+          # given that a patient does not have a positive lab result,
+          # if patient has a "source" (epidemiological link) AND has fever, 
+          # then they are marked as a suspect case
+          !is.na(source) & fever == "yes" ~ "Suspect",
+          
+          # any other patient not addressed above 
+          # is marked for follow up
+          TRUE                            ~ "To investigate"))
+```
+
+
 
 <span style="color: red;">**_DANGER:_** **Values on the right-side must all be the same class** - either numeric, character, date, logical, etc. To assign missing (`NA`), you may need to use special variations of `NA` such as `NA_character_`, `NA_real_` (for numeric or POSIX), and `as.Date(NA)`. Read more in [Working with dates].</span>  
-
 
 
 
@@ -5802,8 +5822,7 @@ linelist <- linelist_raw %>%
     mutate(age_years = case_when(
           age_unit == "years" ~ age,
           age_unit == "months" ~ age/12,
-          is.na(age_unit) ~ age,
-          TRUE ~ NA_real_)) %>% 
+          is.na(age_unit) ~ age)) %>% 
   
     # ABOVE ARE UPSTREAM CLEANING STEPS ALREADY DISCUSSED
     ###################################################   
@@ -6107,8 +6126,7 @@ linelist <- linelist_raw %>%
     mutate(age_years = case_when(
           age_unit == "years" ~ age,
           age_unit == "months" ~ age/12,
-          is.na(age_unit) ~ age,
-          TRUE ~ NA_real_)) %>% 
+          is.na(age_unit) ~ age)) %>% 
   
     mutate(
           # age categories: custom
@@ -31076,6 +31094,7 @@ The **%<+%** operator is used to connect the `sample_data` data frame to the `tr
 The most easy annotation of your tree is the addition of the sample names at the tips, as well as coloring of tip points and if desired the branches:
 
 Here is an example of a circular tree: 
+
 ```{r, phylogenetic_trees_adding_sampledata, fig.align='center', warning=F, message=F}
 
 ggtree(tree, layout = "circular", branch.length = 'none') %<+% sample_data + # %<+% adds dataframe with sample data to tree
@@ -31289,7 +31308,7 @@ p1 # print
 
 Now we can rotate node 37 in object `p1` so that the samples on node 38 move to the top. We store the rotated tree in a new object `p2`.
 ```{r}
-p2 <- rotate(p1, 37) + 
+p2 <- ggtree::rotate(p1, 37) + 
       ggtitle("Rotated Node 37")
 
 
