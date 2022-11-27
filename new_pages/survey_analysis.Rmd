@@ -652,7 +652,7 @@ We will demonstrate using the **apyramid** package as it allows for weighted
 proportions using our survey design object created above. Other options for creating
 [demographic pyramids](https://epirhandbook.com/demographic-pyramids-and-likert-scales.html)
 are covered extensively in that chapter of the handbook. We will also use a 
-wrapper function from **sitrep** called `plot_age_pyramid()` which saves a few lines
+wrapper function from **apyramid** called `age_pyramid()` which saves a few lines
 of coding for producing a plot with proportions. 
 
 As with the formal binomial test of difference, seen above in the sampling bias 
@@ -731,7 +731,7 @@ source_population <- population %>%
   
   
 ## plot the unweighted sample population 
-sample_population <- plot_age_pyramid(survey_data, 
+sample_population <- age_pyramid(survey_data, 
                  age_group = "age_group", 
                  split_by = "sex",
                  proportion = TRUE) + 
@@ -750,7 +750,7 @@ weighted_population <- survey_design %>%
   ## make sure the variables are factors
   mutate(age_group = factor(age_group), 
          sex = factor(sex)) %>%
-  plot_age_pyramid(
+  age_pyramid(
     age_group = "age_group",
     split_by = "sex", 
     proportion = TRUE) +
@@ -792,12 +792,7 @@ in the handbook chapter on [diagrams and charts](https://epirhandbook.com/diagra
 ## summarize data
 flow_table <- survey_data %>%
   count(startcause, endcause, sex) %>%  # get counts 
-  gather_set_data(x = c("startcause", "endcause")) %>%     # change format for plotting
-  mutate(x = fct_relevel(x, c("startcause", "endcause")),  # set startcause as first level
-         x = fct_recode(x, 
-                        "Start \n cause" = "startcause",   # add line break (\n) after start
-                        "End \n cause"   = "endcause")
-        )
+  gather_set_data(x = c("startcause", "endcause"))     # change format for plotting
 
 
 ## plot your dataset 
@@ -812,19 +807,10 @@ ggplot(flow_table, aes(x, id = id, split = y, value = n)) +
   geom_parallel_sets_axes(axis.width = 0.15, fill = "grey80", color = "grey80") +
   ## change text colour and angle (needs to be adjusted)
   geom_parallel_sets_labels(color = "black", angle = 0, size = 5) +
-  ## adjusted y and x axes (probably needs more vertical space)
-  scale_x_discrete(name = NULL, expand = c(0, 0.2)) + 
   ## remove axis labels
-  theme(
-    title = element_text(size = 26),
-    text = element_text(size = 26),
-    axis.line = element_blank(),
-    axis.ticks = element_blank(),
-    axis.text.y = element_blank(),
-    panel.background = element_blank(),
-    legend.position = "bottom",                    # move legend to bottom
-    legend.title = element_blank(),                # remove title
-  )
+  theme_void()+
+  ## move legend to bottom
+  theme(legend.position = "bottom")               
 
 ```
 

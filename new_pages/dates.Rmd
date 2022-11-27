@@ -30,7 +30,7 @@ This code chunk shows the loading of packages required for this page. In this ha
 
 pacman::p_load(
   lubridate,  # general package for handling and converting dates  
-  linelist,   # has function to "guess" messy dates
+  parsedate,   # has function to "guess" messy dates
   aweek,      # another option for converting dates to weeks, and weeks to dates
   zoo,        # additional date/time functions
   tidyverse,  # data management and visualization  
@@ -94,7 +94,7 @@ Below we present two approaches to converting a column from character values to 
 Use of `as.Date()` requires that:  
 
 * You *specify the **existing** format of the raw character date* or the origin date if supplying dates as numbers (see section on Excel dates)  
-* If used on a character column, all date values must have the same exact format (if this is not the case, try `guess_dates()` from the **linelist** package)  
+* If used on a character column, all date values must have the same exact format (if this is not the case, try `parse_date()` from the **parsedate** package)  
 
 **First**, check the class of your column with `class()` from **base** R. If you are unsure or confused about the class of your data (e.g. you see "POSIXct", etc.) it can be easiest to first convert the column to class Character with `as.character()`, and then convert it to class Date.  
 
@@ -244,32 +244,21 @@ data_cleaned <- data %>%
 <!-- ======================================================= -->
 ## Messy dates  
 
-The function `guess_dates()` from the **linelist** package attempts to read a "messy" date column containing dates in many different formats and convert the dates to a standard format. You can [read more online about `guess_dates()`](https://www.repidemicsconsortium.org/linelist/reference/guess_dates.html). If `guess_dates()` is not yet available on CRAN for R 4.0.2, try install via `pacman::p_load_gh("reconhub/linelist")`.
+The function `parse_date()` from the **parsedate** package attempts to read a "messy" date column containing dates in many different formats and convert the dates to a standard format. You can [read more online about `parse_date()`](https://readr.tidyverse.org/reference/parse_datetime.html).  
 
-For example `guess_dates` would see a vector of the following character dates "03 Jan 2018", "07/03/1982", and "08/20/85" and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.  
+For example `parse_date()` would see a vector of the following character dates "03 Jan 2018", "07/03/1982", and "08/20/85" and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.  
 
-```{r, }
-linelist::guess_dates(c("03 Jan 2018",
+```{r}
+parsedate::parse_date(c("03 January 2018",
                         "07/03/1982",
                         "08/20/85"))
 ```
 
-Some optional arguments for `guess_dates()` that you might include are:  
-
-* `error_tolerance` - The proportion of entries which cannot be identified as dates to be tolerated (defaults to 0.1 or 10%)
-* `last_date` - the last valid date (defaults to current date)  
-* `first_date` - the first valid date. Defaults to fifty years before the last_date.
-
 
 ```{r eval = FALSE}
-# An example using guess_dates on the column dater_onset
-linelist <- linelist %>%                 # the dataset is called linelist
-  mutate(
-    date_onset = linelist::guess_dates(  # the guess_dates() from package "linelist"
-      date_onset,
-      error_tolerance = 0.1,
-      first_date = "2016-01-01"
-    )
+# An example using parse_date() on the column date_onset
+linelist <- linelist %>%      
+  mutate(date_onset = parse_date(date_onset))
 ```
 
 

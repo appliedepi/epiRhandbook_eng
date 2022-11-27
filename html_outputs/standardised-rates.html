@@ -6,35 +6,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>21 Standardised rates | The Epidemiologist R Handbook</title>
 <meta name="author" content="the handbook team">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="This page will show you two ways to standardize an outcome, such as hospitalizations or mortality, by characteristics such as age and sex. Using dsr package Using PHEindicatormethods package We...">
+<meta name="generator" content="bookdown 0.29 with bs4_book()">
+<meta property="og:title" content="21 Standardised rates | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="This page will show you two ways to standardize an outcome, such as hospitalizations or mortality, by characteristics such as age and sex. Using dsr package Using PHEindicatormethods package We...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="21 Standardised rates | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="This page will show you two ways to standardize an outcome, such as hospitalizations or mortality, by characteristics such as age and sex. Using dsr package Using PHEindicatormethods package We...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.18/datatables.js"></script><link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.9.3/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script><link href="libs/vis-4.20.1/vis.css" rel="stylesheet">
-<script src="libs/vis-4.20.1/vis.min.js"></script><script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="libs/plotly-basic-1.57.1/plotly-basic-1.57.1.min.js"></script><script src="libs/plotly-cartesian-1.57.1/plotly-cartesian-1.57.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-8.1.2/css/motion.css" rel="stylesheet">
-<script src="libs/highcharts-8.1.2/highcharts.js"></script><script src="libs/highcharts-8.1.2/highcharts-3d.js"></script><script src="libs/highcharts-8.1.2/highcharts-more.js"></script><script src="libs/highcharts-8.1.2/modules/stock.js"></script><script src="libs/highcharts-8.1.2/modules/map.js"></script><script src="libs/highcharts-8.1.2/modules/annotations.js"></script><script src="libs/highcharts-8.1.2/modules/data.js"></script><script src="libs/highcharts-8.1.2/modules/drilldown.js"></script><script src="libs/highcharts-8.1.2/modules/item-series.js"></script><script src="libs/highcharts-8.1.2/modules/offline-exporting.js"></script><script src="libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-8.1.2/modules/exporting.js"></script><script src="libs/highcharts-8.1.2/modules/export-data.js"></script><script src="libs/highcharts-8.1.2/modules/funnel.js"></script><script src="libs/highcharts-8.1.2/modules/heatmap.js"></script><script src="libs/highcharts-8.1.2/modules/treemap.js"></script><script src="libs/highcharts-8.1.2/modules/sankey.js"></script><script src="libs/highcharts-8.1.2/modules/dependency-wheel.js"></script><script src="libs/highcharts-8.1.2/modules/organization.js"></script><script src="libs/highcharts-8.1.2/modules/solid-gauge.js"></script><script src="libs/highcharts-8.1.2/modules/streamgraph.js"></script><script src="libs/highcharts-8.1.2/modules/sunburst.js"></script><script src="libs/highcharts-8.1.2/modules/vector.js"></script><script src="libs/highcharts-8.1.2/modules/wordcloud.js"></script><script src="libs/highcharts-8.1.2/modules/xrange.js"></script><script src="libs/highcharts-8.1.2/modules/tilemap.js"></script><script src="libs/highcharts-8.1.2/modules/venn.js"></script><script src="libs/highcharts-8.1.2/modules/gantt.js"></script><script src="libs/highcharts-8.1.2/modules/timeline.js"></script><script src="libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script><script src="libs/highcharts-8.1.2/modules/bullet.js"></script><script src="libs/highcharts-8.1.2/modules/coloraxis.js"></script><script src="libs/highcharts-8.1.2/modules/dumbbell.js"></script><script src="libs/highcharts-8.1.2/modules/lollipop.js"></script><script src="libs/highcharts-8.1.2/modules/series-label.js"></script><script src="libs/highcharts-8.1.2/plugins/motion.js"></script><script src="libs/highcharts-8.1.2/custom/reset.js"></script><script src="libs/highcharts-8.1.2/modules/boost.js"></script><script src="libs/highchart-binding-0.8.2/highchart.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-QXDW878QLX');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
+    </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-
+<body>
+<div class="alert alert-info alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&amp;A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
 <div class="container-fluid">
 <div class="row">
   <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
@@ -95,22 +110,21 @@
 <li><a class="" href="heat-plots.html"><span class="header-section-number">34</span> Heat plots</a></li>
 <li><a class="" href="diagrams-and-charts.html"><span class="header-section-number">35</span> Diagrams and charts</a></li>
 <li><a class="" href="combinations-analysis.html"><span class="header-section-number">36</span> Combinations analysis</a></li>
-<li><a class="" href="transmission-chains.html"><span class="header-section-number">37</span> Transmission chains</a></li>
-<li><a class="" href="phylogenetic-trees-1.html"><span class="header-section-number">38</span> Phylogenetic trees</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="phylogenetic-trees-1.html"><span class="header-section-number">37</span> Phylogenetic trees</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">38</span> Interactive plots</a></li>
 <li class="book-part">Reports and dashboards</li>
-<li><a class="" href="reports-with-r-markdown.html"><span class="header-section-number">40</span> Reports with R Markdown</a></li>
-<li><a class="" href="organizing-routine-reports.html"><span class="header-section-number">41</span> Organizing routine reports</a></li>
-<li><a class="" href="dashboards-with-r-markdown.html"><span class="header-section-number">42</span> Dashboards with R Markdown</a></li>
-<li><a class="" href="dashboards-with-shiny.html"><span class="header-section-number">43</span> Dashboards with Shiny</a></li>
+<li><a class="" href="reports-with-r-markdown.html"><span class="header-section-number">39</span> Reports with R Markdown</a></li>
+<li><a class="" href="organizing-routine-reports.html"><span class="header-section-number">40</span> Organizing routine reports</a></li>
+<li><a class="" href="dashboards-with-r-markdown.html"><span class="header-section-number">41</span> Dashboards with R Markdown</a></li>
+<li><a class="" href="dashboards-with-shiny.html"><span class="header-section-number">42</span> Dashboards with Shiny</a></li>
 <li class="book-part">Miscellaneous</li>
-<li><a class="" href="writing-functions-1.html"><span class="header-section-number">44</span> Writing functions</a></li>
-<li><a class="" href="directory-interactions.html"><span class="header-section-number">45</span> Directory interactions</a></li>
-<li><a class="" href="version-control-and-collaboration-with-git-and-github.html"><span class="header-section-number">46</span> Version control and collaboration with Git and Github</a></li>
-<li><a class="" href="common-errors.html"><span class="header-section-number">47</span> Common errors</a></li>
-<li><a class="" href="getting-help.html"><span class="header-section-number">48</span> Getting help</a></li>
-<li><a class="" href="r-on-network-drives.html"><span class="header-section-number">49</span> R on network drives</a></li>
-<li><a class="" href="data-table.html"><span class="header-section-number">50</span> Data Table</a></li>
+<li><a class="" href="writing-functions-1.html"><span class="header-section-number">43</span> Writing functions</a></li>
+<li><a class="" href="directory-interactions.html"><span class="header-section-number">44</span> Directory interactions</a></li>
+<li><a class="" href="version-control-and-collaboration-with-git-and-github.html"><span class="header-section-number">45</span> Version control and collaboration with Git and Github</a></li>
+<li><a class="" href="common-errors.html"><span class="header-section-number">46</span> Common errors</a></li>
+<li><a class="" href="getting-help.html"><span class="header-section-number">47</span> Getting help</a></li>
+<li><a class="" href="r-on-network-drives.html"><span class="header-section-number">48</span> R on network drives</a></li>
+<li><a class="" href="data-table.html"><span class="header-section-number">49</span> Data Table</a></li>
 </ul>
 
         <div class="book-extra">
@@ -162,68 +176,68 @@ Let’s say we would like to the standardize mortality rate by age and sex for c
 <h3>Load packages<a class="anchor" aria-label="anchor" href="#load-packages-14"><i class="fas fa-link"></i></a>
 </h3>
 <p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> from <strong>base</strong> R. See the page on <a href="r-basics.html#r-basics">R basics</a> for more information on R packages.</p>
-<div class="sourceCode" id="cb1079"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
-     <span class="va">rio</span>,                 <span class="co"># import/export data</span>
-     <span class="va">here</span>,                <span class="co"># locate files</span>
-     <span class="va">tidyverse</span>,           <span class="co"># data management and visualization</span>
-     <span class="va">stringr</span>,             <span class="co"># cleaning characters and strings</span>
-     <span class="va">frailtypack</span>,         <span class="co"># needed for dsr, for frailty models</span>
-     <span class="va">dsr</span>,                 <span class="co"># standardise rates</span>
-     <span class="va">PHEindicatormethods</span><span class="op">)</span> <span class="co"># alternative for rate standardisation</span></code></pre></div>
+<div class="sourceCode" id="cb1073"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>     <span class="va">rio</span>,                 <span class="co"># import/export data</span></span>
+<span>     <span class="va">here</span>,                <span class="co"># locate files</span></span>
+<span>     <span class="va">tidyverse</span>,           <span class="co"># data management and visualization</span></span>
+<span>     <span class="va">stringr</span>,             <span class="co"># cleaning characters and strings</span></span>
+<span>     <span class="va">frailtypack</span>,         <span class="co"># needed for dsr, for frailty models</span></span>
+<span>     <span class="va">dsr</span>,                 <span class="co"># standardise rates</span></span>
+<span>     <span class="va">PHEindicatormethods</span><span class="op">)</span> <span class="co"># alternative for rate standardisation</span></span></code></pre></div>
 <p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you have a newer version of R, the <strong>dsr</strong> package cannot be directly downloaded from CRAN. However, it is still available from the CRAN archive. You can install and use this one. </span></p>
 <p>For non-Mac users:</p>
-<div class="sourceCode" id="cb1080"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">packageurl</span> <span class="op">&lt;-</span> <span class="st">"https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">packageurl</span>, repos<span class="op">=</span><span class="cn">NULL</span>, type<span class="op">=</span><span class="st">"source"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb1081"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Other solution that may work</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_version</a></span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"http:/cran.us.r.project.org"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1074"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">packageurl</span> <span class="op">&lt;-</span> <span class="st">"https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">packageurl</span>, repos<span class="op">=</span><span class="cn">NULL</span>, type<span class="op">=</span><span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1075"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Other solution that may work</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_version</span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"http:/cran.us.r.project.org"</span><span class="op">)</span></span></code></pre></div>
 <p>For Mac users:</p>
-<div class="sourceCode" id="cb1082"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_version</a></span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"https://mac.R-project.org"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1076"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_version</span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"https://mac.R-project.org"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="load-population-data" class="section level3 unnumbered">
 <h3>Load population data<a class="anchor" aria-label="anchor" href="#load-population-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>See the <a href="download-handbook-and-data.html#download-handbook-and-data">Download handbook and data</a> page for instructions on how to download all the example data in the handbook. You can import the Standardisation page data directly into R from our Github repository by running the following <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> commands:</p>
-<div class="sourceCode" id="cb1083"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># import demographics for country A directly from Github</span>
-<span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span>
-
-<span class="co"># import deaths for country A directly from Github</span>
-<span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span>
-
-<span class="co"># import demographics for country B directly from Github</span>
-<span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span>
-
-<span class="co"># import deaths for country B directly from Github</span>
-<span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span>
-
-<span class="co"># import demographics for country B directly from Github</span>
-<span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1077"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># import demographics for country A directly from Github</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import deaths for country A directly from Github</span></span>
+<span><span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import demographics for country B directly from Github</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import deaths for country B directly from Github</span></span>
+<span><span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import demographics for country B directly from Github</span></span>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>First we load the demographic data (counts of males and females by 5-year age category) for the two countries that we will be comparing, “Country A” and “Country B”.</p>
-<div class="sourceCode" id="cb1084"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Country A</span>
-<span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics.csv"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-a101bf0add757514970b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a101bf0add757514970b">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[7828087,6705882,5601230,4576430,3734111,3111651,2571215,2121247,1735468,1418749,1145345,900239,685141,500248,347093,202240,94325,40402],[7674675,6592449,5522555,4533885,3726537,3118040,2592416,2150490,1771213,1459439,1193903,956070,745682,563894,416543,258538,130479,64656]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb1085"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Country B</span>
-<span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics_2.csv"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-5cd53a2cfa7fd8d6f061" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5cd53a2cfa7fd8d6f061">{"x":{"filter":"none","data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[513458,508728,673522,844532,965423,1243552,1400065,1428773,1546221,1562880,2355220,2324555,2988200,2527110,1552200,1466902,876251,1073611],[503262,559249,652455,145453,965237,1238640,1392676,1505040,1671213,1459439,2218733,3528103,3204770,2500130,1683925,1683828,987362,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1078"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Country A</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-b1fc10f3558df28c0edd" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b1fc10f3558df28c0edd">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[7828087,6705882,5601230,4576430,3734111,3111651,2571215,2121247,1735468,1418749,1145345,900239,685141,500248,347093,202240,94325,40402],[7674675,6592449,5522555,4533885,3726537,3118040,2592416,2150490,1771213,1459439,1193903,956070,745682,563894,416543,258538,130479,64656]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb1079"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Country B</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics_2.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-c3e09d6ca3a87b6a65dc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c3e09d6ca3a87b6a65dc">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[513458,508728,673522,844532,965423,1243552,1400065,1428773,1546221,1562880,2355220,2324555,2988200,2527110,1552200,1466902,876251,1073611],[503262,559249,652455,145453,965237,1238640,1392676,1505040,1671213,1459439,2218733,3528103,3204770,2500130,1683925,1683828,987362,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="load-death-counts" class="section level3 unnumbered">
 <h3>Load death counts<a class="anchor" aria-label="anchor" href="#load-death-counts"><i class="fas fa-link"></i></a>
 </h3>
 <p>Conveniently, we also have the counts of deaths during the time period of interest, by age and sex. Each country’s counts are in a separate file, shown below.</p>
 <p>Deaths in Country A</p>
-<div id="htmlwidget-04b8983e4f59ec4931b5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-04b8983e4f59ec4931b5">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[224,257,251,245,334,245,154,189,334,342,565,432,543,432,245,543,234,354],[194,254,232,214,316,224,163,167,354,354,463,574,493,295,175,380,177,392]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Deaths in Country B</p>
-<div id="htmlwidget-fc1a74d45fcbd135f3d1" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fc1a74d45fcbd135f3d1">{"x":{"filter":"none","data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[34,37,51,145,434,120,100,143,307,354,463,639,706,232,275,543,234,274],[54,24,32,154,276,254,123,164,254,354,453,654,435,354,165,432,287,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-75e04c9a91f145902beb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-75e04c9a91f145902beb">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[224,257,251,245,334,245,154,189,334,342,565,432,543,432,245,543,234,354],[194,254,232,214,316,224,163,167,354,354,463,574,493,295,175,380,177,392]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Deaths in Country B</p>
+<div id="htmlwidget-a319199cf7d663d81dbc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a319199cf7d663d81dbc">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[34,37,51,145,434,120,100,143,307,354,463,639,706,232,275,543,234,274],[54,24,32,154,276,254,123,164,254,354,453,654,435,354,165,432,287,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="clean-populations-and-deaths" class="section level3 unnumbered">
 <h3>Clean populations and deaths<a class="anchor" aria-label="anchor" href="#clean-populations-and-deaths"><i class="fas fa-link"></i></a>
@@ -237,89 +251,89 @@ Let’s say we would like to the standardize mortality rate by age and sex for c
 <li>Join the deaths to the populations</li>
 </ul>
 <p>First, we combine the country populations datasets, pivot longer, and do minor cleaning. See the page on <a href="pivoting-data.html#pivoting-data">Pivoting data</a> for more detail.</p>
-<div class="sourceCode" id="cb1086"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pop_countries</span> <span class="op">&lt;-</span> <span class="va">A_demo</span> <span class="op">%&gt;%</span>  <span class="co"># begin with country A dataset</span>
-     <span class="fu">bind_rows</span><span class="op">(</span><span class="va">B_demo</span><span class="op">)</span> <span class="op">%&gt;%</span>        <span class="co"># bind rows, because cols are identically named</span>
-     <span class="fu">pivot_longer</span><span class="op">(</span>                       <span class="co"># pivot longer</span>
-          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">f</span><span class="op">)</span>,                   <span class="co"># columns to combine into one</span>
-          names_to <span class="op">=</span> <span class="st">"Sex"</span>,                 <span class="co"># name for new column containing the category ("m" or "f") </span>
-          values_to <span class="op">=</span> <span class="st">"Population"</span><span class="op">)</span> <span class="op">%&gt;%</span>     <span class="co"># name for new column containing the numeric values pivoted</span>
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Sex <span class="op">=</span> <span class="fu">recode</span><span class="op">(</span><span class="va">Sex</span>,            <span class="co"># re-code values for clarity</span>
-          <span class="st">"m"</span> <span class="op">=</span> <span class="st">"Male"</span>,
-          <span class="st">"f"</span> <span class="op">=</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1080"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pop_countries</span> <span class="op">&lt;-</span> <span class="va">A_demo</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># begin with country A dataset</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">B_demo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># bind rows, because cols are identically named</span></span>
+<span>     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>                       <span class="co"># pivot longer</span></span>
+<span>          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">f</span><span class="op">)</span>,                   <span class="co"># columns to combine into one</span></span>
+<span>          names_to <span class="op">=</span> <span class="st">"Sex"</span>,                 <span class="co"># name for new column containing the category ("m" or "f") </span></span>
+<span>          values_to <span class="op">=</span> <span class="st">"Population"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>     <span class="co"># name for new column containing the numeric values pivoted</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Sex <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">Sex</span>,            <span class="co"># re-code values for clarity</span></span>
+<span>          <span class="st">"m"</span> <span class="op">=</span> <span class="st">"Male"</span>,</span>
+<span>          <span class="st">"f"</span> <span class="op">=</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The combined population data now look like this (click through to see countries A and B):</p>
-<div id="htmlwidget-ebe89d7dfd960b842995" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ebe89d7dfd960b842995">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>And now we perform similar operations on the two deaths datasets.</p>
-<div class="sourceCode" id="cb1087"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">deaths_countries</span> <span class="op">&lt;-</span> <span class="va">A_deaths</span> <span class="op">%&gt;%</span>    <span class="co"># begin with country A deaths dataset</span>
-     <span class="fu">bind_rows</span><span class="op">(</span><span class="va">B_deaths</span><span class="op">)</span> <span class="op">%&gt;%</span>        <span class="co"># bind rows with B dataset, because cols are identically named</span>
-     <span class="fu">pivot_longer</span><span class="op">(</span>                  <span class="co"># pivot longer</span>
-          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Male</span>, <span class="va">Female</span><span class="op">)</span>,        <span class="co"># column to transform into one</span>
-          names_to <span class="op">=</span> <span class="st">"Sex"</span>,              <span class="co"># name for new column containing the category ("m" or "f") </span>
-          values_to <span class="op">=</span> <span class="st">"Deaths"</span><span class="op">)</span> <span class="op">%&gt;%</span>      <span class="co"># name for new column containing the numeric values pivoted</span>
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>age_cat5 <span class="op">=</span> <span class="va">AgeCat</span><span class="op">)</span>      <span class="co"># rename for clarity</span></code></pre></div>
+<div id="htmlwidget-a3a9719cc7ef7f534f52" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a3a9719cc7ef7f534f52">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>And now we perform similar operations on the two deaths datasets.</p>
+<div class="sourceCode" id="cb1081"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">deaths_countries</span> <span class="op">&lt;-</span> <span class="va">A_deaths</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co"># begin with country A deaths dataset</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">B_deaths</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># bind rows with B dataset, because cols are identically named</span></span>
+<span>     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>                  <span class="co"># pivot longer</span></span>
+<span>          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Male</span>, <span class="va">Female</span><span class="op">)</span>,        <span class="co"># column to transform into one</span></span>
+<span>          names_to <span class="op">=</span> <span class="st">"Sex"</span>,              <span class="co"># name for new column containing the category ("m" or "f") </span></span>
+<span>          values_to <span class="op">=</span> <span class="st">"Deaths"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>      <span class="co"># name for new column containing the numeric values pivoted</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>age_cat5 <span class="op">=</span> <span class="va">AgeCat</span><span class="op">)</span>      <span class="co"># rename for clarity</span></span></code></pre></div>
 <p>The deaths data now look like this, and contain data from both countries:</p>
-<div id="htmlwidget-d7af5e28d59d14b4d186" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d7af5e28d59d14b4d186">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>We now join the deaths and population data based on common columns <code>Country</code>, <code>age_cat5</code>, and <code>Sex</code>. This adds the column <code>Deaths</code>.</p>
-<div class="sourceCode" id="cb1088"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">pop_countries</span> <span class="op">%&gt;%</span> 
-     <span class="fu">left_join</span><span class="op">(</span><span class="va">deaths_countries</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>We can now classify <code>Sex</code>, <code>age_cat5</code>, and <code>Country</code> as factors and set the level order using <code>fct_relevel()</code> function from the <strong>forcats</strong> package, as described in the page on <a href="factors.html#factors">Factors</a>. Note, classifying the factor levels doesn’t visibly change the data, but the <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> command does sort it by Country, age category, and sex.</p>
-<div class="sourceCode" id="cb1089"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    Country <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">Country</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-      
-    Sex <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span><span class="va">Sex</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,
-        
-    age_cat5 <span class="op">=</span> <span class="fu">fct_relevel</span><span class="op">(</span>
-      <span class="va">age_cat5</span>,
-      <span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>,
-      <span class="st">"20-24"</span>, <span class="st">"25-29"</span>,  <span class="st">"30-34"</span>, <span class="st">"35-39"</span>,
-      <span class="st">"40-44"</span>, <span class="st">"45-49"</span>, <span class="st">"50-54"</span>, <span class="st">"55-59"</span>,
-      <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>,
-      <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-          
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">Country</span>, <span class="va">age_cat5</span>, <span class="va">Sex</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-6c7ff2243a31b6ffac40" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6c7ff2243a31b6ffac40">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you have few deaths per stratum, consider using 10-, or 15-year categories, instead of 5-year categories for age.</span></p>
+<div id="htmlwidget-360e83ea6dd0f93c380a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-360e83ea6dd0f93c380a">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>We now join the deaths and population data based on common columns <code>Country</code>, <code>age_cat5</code>, and <code>Sex</code>. This adds the column <code>Deaths</code>.</p>
+<div class="sourceCode" id="cb1082"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">pop_countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">deaths_countries</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We can now classify <code>Sex</code>, <code>age_cat5</code>, and <code>Country</code> as factors and set the level order using <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> function from the <strong>forcats</strong> package, as described in the page on <a href="factors.html#factors">Factors</a>. Note, classifying the factor levels doesn’t visibly change the data, but the <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> command does sort it by Country, age category, and sex.</p>
+<div class="sourceCode" id="cb1083"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    Country <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">Country</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>    Sex <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>    age_cat5 <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span></span>
+<span>      <span class="va">age_cat5</span>,</span>
+<span>      <span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>,</span>
+<span>      <span class="st">"20-24"</span>, <span class="st">"25-29"</span>,  <span class="st">"30-34"</span>, <span class="st">"35-39"</span>,</span>
+<span>      <span class="st">"40-44"</span>, <span class="st">"45-49"</span>, <span class="st">"50-54"</span>, <span class="st">"55-59"</span>,</span>
+<span>      <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>,</span>
+<span>      <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">Country</span>, <span class="va">age_cat5</span>, <span class="va">Sex</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-cbec7d78eeb7feb12007" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cbec7d78eeb7feb12007">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you have few deaths per stratum, consider using 10-, or 15-year categories, instead of 5-year categories for age.</span></p>
 </div>
 <div id="load-reference-population" class="section level3 unnumbered">
 <h3>Load reference population<a class="anchor" aria-label="anchor" href="#load-reference-population"><i class="fas fa-link"></i></a>
 </h3>
 <p>Lastly, for the direct standardisation, we import the reference population (world “standard population” by sex)</p>
-<div class="sourceCode" id="cb1090"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Reference population</span>
-<span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"world_standard_population_by_sex.csv"</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-427fb2bef34426187c5e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-427fb2bef34426187c5e">{"x":{"filter":"none","data":[["0-4 years","0-4 years","5-9 years","5-9 years","10-14 years","10-14 years","15-19 years","15-19 years","20-24 years","20-24 years","25-29 years","25-29 years","30-34 years","30-34 years","35-39 years","35-39 years","40-44 years","40-44 years","45-49 years","45-49 years","50-54 years","50-54 years","55-59 years","55-59 years","60-64 years","60-64 years","65-69 years","65-69 years","70-74 years","70-74 years","75-79 years","75-79 years","80-84 years","80-84 years","85plus years","85plus years"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>WorldStandardPopulation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+<div class="sourceCode" id="cb1084"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reference population</span></span>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-e3dc780611b85103e104" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e3dc780611b85103e104">{"x":{"filter":"none","vertical":false,"data":[["0-4 years","0-4 years","5-9 years","5-9 years","10-14 years","10-14 years","15-19 years","15-19 years","20-24 years","20-24 years","25-29 years","25-29 years","30-34 years","30-34 years","35-39 years","35-39 years","40-44 years","40-44 years","45-49 years","45-49 years","50-54 years","50-54 years","55-59 years","55-59 years","60-64 years","60-64 years","65-69 years","65-69 years","70-74 years","70-74 years","75-79 years","75-79 years","80-84 years","80-84 years","85plus years","85plus years"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>WorldStandardPopulation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
 </div>
 <div id="clean-reference-population" class="section level3 unnumbered">
 <h3>Clean reference population<a class="anchor" aria-label="anchor" href="#clean-reference-population"><i class="fas fa-link"></i></a>
 </h3>
 <p>The age category values in the <code>country_data</code> and <code>standard_pop_data</code> data frames will need to be aligned.</p>
-<p>Currently, the values of the column <code>age_cat5</code> from the <code>standard_pop_data</code> data frame contain the word “years” and “plus”, while those of the <code>country_data</code> data frame do not. We will have to make the age category values match. We use <code>str_replace_all()</code> from the <strong>stringr</strong> package, as described in the page on <a href="characters-and-strings.html#characters-and-strings">Characters and strings</a>, to replace these patterns with no space <code>""</code>.</p>
+<p>Currently, the values of the column <code>age_cat5</code> from the <code>standard_pop_data</code> data frame contain the word “years” and “plus”, while those of the <code>country_data</code> data frame do not. We will have to make the age category values match. We use <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code> from the <strong>stringr</strong> package, as described in the page on <a href="characters-and-strings.html#characters-and-strings">Characters and strings</a>, to replace these patterns with no space <code>""</code>.</p>
 <p>Furthermore, the package <strong>dsr</strong> expects that in the standard population, the column containing counts will be called <code>"pop"</code>. So we rename that column accordingly.</p>
-<div class="sourceCode" id="cb1091"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Remove specific string from column values</span>
-<span class="va">standard_pop_clean</span> <span class="op">&lt;-</span> <span class="va">standard_pop_data</span> <span class="op">%&gt;%</span>
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-          age_cat5 <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"years"</span>, <span class="st">""</span><span class="op">)</span>,   <span class="co"># remove "year"</span>
-          age_cat5 <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"plus"</span>, <span class="st">""</span><span class="op">)</span>,    <span class="co"># remove "plus"</span>
-          age_cat5 <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">" "</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>   <span class="co"># remove " " space</span>
-     
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>pop <span class="op">=</span> <span class="va">WorldStandardPopulation</span><span class="op">)</span>   <span class="co"># change col name to "pop", as this is expected by dsr package</span></code></pre></div>
-<p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you try to use <code>str_replace_all()</code> to remove a plus <em>symbol</em>, it won’t work because it is a special symbol. “Escape” the specialnes by putting two back slashes in front, as in <code>str_replace_call(column, "\\+", "")</code>. </span></p>
+<div class="sourceCode" id="cb1085"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Remove specific string from column values</span></span>
+<span><span class="va">standard_pop_clean</span> <span class="op">&lt;-</span> <span class="va">standard_pop_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"years"</span>, <span class="st">""</span><span class="op">)</span>,   <span class="co"># remove "year"</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"plus"</span>, <span class="st">""</span><span class="op">)</span>,    <span class="co"># remove "plus"</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">" "</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># remove " " space</span></span>
+<span>     </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>pop <span class="op">=</span> <span class="va">WorldStandardPopulation</span><span class="op">)</span>   <span class="co"># change col name to "pop", as this is expected by dsr package</span></span></code></pre></div>
+<p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you try to use <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code> to remove a plus <em>symbol</em>, it won’t work because it is a special symbol. “Escape” the specialnes by putting two back slashes in front, as in <code>str_replace_call(column, "\\+", "")</code>. </span></p>
 </div>
 <div id="standard_all" class="section level3 unnumbered">
 <h3>Create dataset with standard population<a class="anchor" aria-label="anchor" href="#standard_all"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, the package <strong>PHEindicatormethods</strong>, detailed <a href="standardised-rates.html#standard_phe">below</a>, expects the standard populations joined to the country event and population counts. So, we will create a dataset <code>all_data</code> for that purpose.</p>
-<div class="sourceCode" id="cb1092"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">country_data</span>, <span class="va">standard_pop_clean</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1086"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">country_data</span>, <span class="va">standard_pop_clean</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>This complete dataset looks like this:</p>
-<div id="htmlwidget-3e1f8f7b61130e8d2df8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3e1f8f7b61130e8d2df8">{"x":{"filter":"none","data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500,12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n      <th>pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+<div id="htmlwidget-2666455f078150dcb987" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2666455f078150dcb987">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500,12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n      <th>pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
 </div>
 </div>
 <div id="dsr-package" class="section level2" number="21.3">
@@ -341,24 +355,24 @@ Let’s say we would like to the standardize mortality rate by age and sex for c
 <p>Below, we calculate rates per country directly standardized for age and sex. We use the <code>dsr()</code> function.</p>
 <p>Of note - <code>dsr()</code> expects one data frame for the country populations and event counts (deaths), <em>and a <strong>separate</strong> data frame with the reference population</em>. It also expects that in this reference population dataset the unit-time column name is “pop” (we assured this in the data Preparation section).</p>
 <p>There are many arguments, as annotated in the code below. Notably, <code>event =</code> is set to the column <code>Deaths</code>, and the <code>fu =</code> (“follow-up”) is set to the <code>Population</code> column. We set the subgroups of comparison as the column <code>Country</code> and we standardize based on <code>age_cat5</code> and <code>Sex</code>. These last two columns are not assigned a particular named argument. See <code>?dsr</code> for details.</p>
-<div class="sourceCode" id="cb1093"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calculate rates per country directly standardized for age and sex</span>
-<span class="va">mortality_rate</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsr.html">dsr</a></span><span class="op">(</span>
-     data <span class="op">=</span> <span class="va">country_data</span>,  <span class="co"># specify object containing number of deaths per stratum</span>
-     event <span class="op">=</span> <span class="va">Deaths</span>,       <span class="co"># column containing number of deaths per stratum </span>
-     fu <span class="op">=</span> <span class="va">Population</span>,      <span class="co"># column containing number of population per stratum</span>
-     subgroup <span class="op">=</span> <span class="va">Country</span>,   <span class="co"># units we would like to compare</span>
-     <span class="va">age_cat5</span>,             <span class="co"># other columns - rates will be standardized by these</span>
-     <span class="va">Sex</span>,
-     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population data frame, with column called pop</span>
-     method <span class="op">=</span> <span class="st">"gamma"</span>,      <span class="co"># method to calculate 95% CI</span>
-     sig <span class="op">=</span> <span class="fl">0.95</span>,            <span class="co"># significance level</span>
-     mp <span class="op">=</span> <span class="fl">100000</span>,           <span class="co"># we want rates per 100.000 population</span>
-     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>          <span class="co"># number of decimals)</span>
-
-
-<span class="co"># Print output as nice-looking HTML table</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rate</span><span class="op">)</span> <span class="co"># show mortality rate before and after direct standardization</span></code></pre></div>
+<div class="sourceCode" id="cb1087"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate rates per country directly standardized for age and sex</span></span>
+<span><span class="va">mortality_rate</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsr.html">dsr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>,  <span class="co"># specify object containing number of deaths per stratum</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,       <span class="co"># column containing number of deaths per stratum </span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,      <span class="co"># column containing number of population per stratum</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,   <span class="co"># units we would like to compare</span></span>
+<span>     <span class="va">age_cat5</span>,             <span class="co"># other columns - rates will be standardized by these</span></span>
+<span>     <span class="va">Sex</span>,</span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population data frame, with column called pop</span></span>
+<span>     method <span class="op">=</span> <span class="st">"gamma"</span>,      <span class="co"># method to calculate 95% CI</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,            <span class="co"># significance level</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,           <span class="co"># we want rates per 100.000 population</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>          <span class="co"># number of decimals)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Print output as nice-looking HTML table</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rate</span><span class="op">)</span> <span class="co"># show mortality rate before and after direct standardization</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
 <th style="text-align:left;">
@@ -456,24 +470,24 @@ B
 <div id="standardized-rate-ratios" class="section level3 unnumbered">
 <h3>Standardized rate ratios<a class="anchor" aria-label="anchor" href="#standardized-rate-ratios"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb1094"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calculate RR</span>
-<span class="va">mortality_rr</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span>
-     data <span class="op">=</span> <span class="va">country_data</span>, <span class="co"># specify object containing number of deaths per stratum</span>
-     event <span class="op">=</span> <span class="va">Deaths</span>,      <span class="co"># column containing number of deaths per stratum </span>
-     fu <span class="op">=</span> <span class="va">Population</span>,     <span class="co"># column containing number of population per stratum</span>
-     subgroup <span class="op">=</span> <span class="va">Country</span>,  <span class="co"># units we would like to compare</span>
-     <span class="va">age_cat5</span>,
-     <span class="va">Sex</span>,                 <span class="co"># characteristics to which we would like to standardize </span>
-     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population, with numbers in column called pop</span>
-     refgroup <span class="op">=</span> <span class="st">"B"</span>,      <span class="co"># reference for comparison</span>
-     estimate <span class="op">=</span> <span class="st">"ratio"</span>,  <span class="co"># type of estimate</span>
-     sig <span class="op">=</span> <span class="fl">0.95</span>,          <span class="co"># significance level</span>
-     mp <span class="op">=</span> <span class="fl">100000</span>,         <span class="co"># we want rates per 100.000 population</span>
-     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>        <span class="co"># number of decimals</span>
-
-<span class="co"># Print table</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rr</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb1088"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate RR</span></span>
+<span><span class="va">mortality_rr</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>, <span class="co"># specify object containing number of deaths per stratum</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,      <span class="co"># column containing number of deaths per stratum </span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,     <span class="co"># column containing number of population per stratum</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,  <span class="co"># units we would like to compare</span></span>
+<span>     <span class="va">age_cat5</span>,</span>
+<span>     <span class="va">Sex</span>,                 <span class="co"># characteristics to which we would like to standardize </span></span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population, with numbers in column called pop</span></span>
+<span>     refgroup <span class="op">=</span> <span class="st">"B"</span>,      <span class="co"># reference for comparison</span></span>
+<span>     estimate <span class="op">=</span> <span class="st">"ratio"</span>,  <span class="co"># type of estimate</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,          <span class="co"># significance level</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,         <span class="co"># we want rates per 100.000 population</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>        <span class="co"># number of decimals</span></span>
+<span></span>
+<span><span class="co"># Print table</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rr</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
 <th style="text-align:left;">
@@ -544,24 +558,24 @@ B
 <div id="standardized-rate-difference" class="section level3 unnumbered">
 <h3>Standardized rate difference<a class="anchor" aria-label="anchor" href="#standardized-rate-difference"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb1095"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calculate RD</span>
-<span class="va">mortality_rd</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span>
-     data <span class="op">=</span> <span class="va">country_data</span>,       <span class="co"># specify object containing number of deaths per stratum</span>
-     event <span class="op">=</span> <span class="va">Deaths</span>,            <span class="co"># column containing number of deaths per stratum </span>
-     fu <span class="op">=</span> <span class="va">Population</span>,           <span class="co"># column containing number of population per stratum</span>
-     subgroup <span class="op">=</span> <span class="va">Country</span>,        <span class="co"># units we would like to compare</span>
-     <span class="va">age_cat5</span>,                  <span class="co"># characteristics to which we would like to standardize</span>
-     <span class="va">Sex</span>,                        
-     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population, with numbers in column called pop</span>
-     refgroup <span class="op">=</span> <span class="st">"B"</span>,            <span class="co"># reference for comparison</span>
-     estimate <span class="op">=</span> <span class="st">"difference"</span>,   <span class="co"># type of estimate</span>
-     sig <span class="op">=</span> <span class="fl">0.95</span>,                <span class="co"># significance level</span>
-     mp <span class="op">=</span> <span class="fl">100000</span>,               <span class="co"># we want rates per 100.000 population</span>
-     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>              <span class="co"># number of decimals</span>
-
-<span class="co"># Print table</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rd</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb1089"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate RD</span></span>
+<span><span class="va">mortality_rd</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>,       <span class="co"># specify object containing number of deaths per stratum</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,            <span class="co"># column containing number of deaths per stratum </span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,           <span class="co"># column containing number of population per stratum</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,        <span class="co"># units we would like to compare</span></span>
+<span>     <span class="va">age_cat5</span>,                  <span class="co"># characteristics to which we would like to standardize</span></span>
+<span>     <span class="va">Sex</span>,                        </span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># reference population, with numbers in column called pop</span></span>
+<span>     refgroup <span class="op">=</span> <span class="st">"B"</span>,            <span class="co"># reference for comparison</span></span>
+<span>     estimate <span class="op">=</span> <span class="st">"difference"</span>,   <span class="co"># type of estimate</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,                <span class="co"># significance level</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,               <span class="co"># we want rates per 100.000 population</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>              <span class="co"># number of decimals</span></span>
+<span></span>
+<span><span class="co"># Print table</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rd</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
 <th style="text-align:left;">
@@ -643,18 +657,18 @@ B
 <p>Below, we first group the data by Country and then pass it to the function <code>phe_dsr()</code> to get directly standardized rates per country.</p>
 <p>Of note - the reference (standard) population can be provided as a <strong>column within the country-specific data frame</strong> or as a <strong>separate vector</strong>. If provided within the country-specific data frame, you have to set <code>stdpoptype = "field"</code>. If provided as a vector, set <code>stdpoptype = "vector"</code>. In the latter case, you have to make sure the ordering of rows by strata is similar in both the country-specific data frame and the reference population, as records will be matched by position. In our example below, we provided the reference population as a column within the country-specific data frame.</p>
 <p>See the help with <code>?phr_dsr</code> or the links in the References section for more information.</p>
-<div class="sourceCode" id="cb1096"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calculate rates per country directly standardized for age and sex</span>
-<span class="va">mortality_ds_rate_phe</span> <span class="op">&lt;-</span> <span class="va">all_data</span> <span class="op">%&gt;%</span>
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Country</span><span class="op">)</span> <span class="op">%&gt;%</span>
-     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_dsr.html">phe_dsr</a></span><span class="op">(</span>
-          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># column with observed number of events</span>
-          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># column with non-standard pops for each stratum</span>
-          stdpop <span class="op">=</span> <span class="va">pop</span>,               <span class="co"># standard populations for each stratum</span>
-          stdpoptype <span class="op">=</span> <span class="st">"field"</span><span class="op">)</span>       <span class="co"># either "vector" for a standalone vector or "field" meaning std populations are in the data  </span>
-
-<span class="co"># Print table</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_ds_rate_phe</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1090"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate rates per country directly standardized for age and sex</span></span>
+<span><span class="va">mortality_ds_rate_phe</span> <span class="op">&lt;-</span> <span class="va">all_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_dsr.html">phe_dsr</a></span><span class="op">(</span></span>
+<span>          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># column with observed number of events</span></span>
+<span>          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># column with non-standard pops for each stratum</span></span>
+<span>          stdpop <span class="op">=</span> <span class="va">pop</span>,               <span class="co"># standard populations for each stratum</span></span>
+<span>          stdpoptype <span class="op">=</span> <span class="st">"field"</span><span class="op">)</span>       <span class="co"># either "vector" for a standalone vector or "field" meaning std populations are in the data  </span></span>
+<span></span>
+<span><span class="co"># Print table</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_ds_rate_phe</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
 <th style="text-align:left;">
@@ -755,22 +769,27 @@ Dobson
 <p>Below, we first create the reference population from country B. Then, we pass mortality and population data for country A, combine it with the reference population, and pass it to the function <code>phe_isr()</code>, to get indirectly standardized rates. Of course, you can do it also vice versa.</p>
 <p>Of note - in our example below, the reference population is provided as a separate data frame. In this case, we make sure that <code>x =</code>, <code>n =</code>, <code>x_ref =</code> and <code>n_ref =</code> vectors are all ordered by the same standardization category (stratum) values as that in our country-specific data frame, as records will be matched by position.</p>
 <p>See the help with <code>?phr_isr</code> or the links in the References section for more information.</p>
-<div class="sourceCode" id="cb1097"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create reference population</span>
-<span class="va">refpopCountryB</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> 
-
-<span class="co"># Calculate rates for country A indirectly standardized by age and sex</span>
-<span class="va">mortality_is_rate_phe_A</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op">%&gt;%</span>
-     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_isr.html">phe_isr</a></span><span class="op">(</span>
-          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># column with observed number of events</span>
-          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># column with non-standard pops for each stratum</span>
-          x_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Deaths</span>,  <span class="co"># reference number of deaths for each stratum</span>
-          n_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Population</span><span class="op">)</span>  <span class="co"># reference population for each stratum</span>
-
-<span class="co"># Print table</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_is_rate_phe_A</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1091"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create reference population</span></span>
+<span><span class="va">refpopCountryB</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Calculate rates for country A indirectly standardized by age and sex</span></span>
+<span><span class="va">mortality_is_rate_phe_A</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_isr.html">phe_isr</a></span><span class="op">(</span></span>
+<span>          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># column with observed number of events</span></span>
+<span>          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># column with non-standard pops for each stratum</span></span>
+<span>          x_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Deaths</span>,  <span class="co"># reference number of deaths for each stratum</span></span>
+<span>          n_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Population</span><span class="op">)</span>  <span class="co"># reference population for each stratum</span></span></code></pre></div>
+<pre><code>## Warning: `phe_isr()` was deprecated in PHEindicatormethods 1.4.0.
+## ℹ Please use `Calculate_ISRate()` instead.
+## ℹ Due to ambiguous use of acronyms isr and smr, the phe_isr function has been replaced with
+##   Calculate_ISRate(). The functionality of the function has not changed.The phe_isr function will be
+##   removed in a future release of PHEindicatormethods, not before December 2022.</code></pre>
+<div class="sourceCode" id="cb1093"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print table</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_is_rate_phe_A</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
 <th style="text-align:right;">
@@ -824,7 +843,7 @@ method
 95%
 </td>
 <td style="text-align:left;">
-isr per 100000
+indirectly standardised rate per 100000
 </td>
 <td style="text-align:left;">
 Byars
@@ -893,7 +912,7 @@ Byars
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-12-15.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -906,13 +925,29 @@ Byars
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
 </html>

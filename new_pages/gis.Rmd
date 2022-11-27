@@ -209,7 +209,7 @@ Next we use `clean_names()` from the **janitor** package to standardize the colu
 ```{r}
 # ADM3 level clean
 sle_adm3 <- sle_adm3_raw %>%
-  clean_names() %>% # standardize column names
+  janitor::clean_names() %>% # standardize column names
   filter(admin2name %in% c("Western Area Urban", "Western Area Rural")) # filter to keep certain areas
 ```
 
@@ -231,7 +231,7 @@ These data can again be downloaded from HDX (link [here](https://data.humdata.or
 ```{r}
 # Population by ADM3
 sle_adm3_pop <- import(here("data", "gis", "population", "sle_admpop_adm3_2020.csv")) %>%
-  clean_names()
+  janitor::clean_names()
 ```
 
 Here is what the population file looks like. Scroll to the right to see how each jurisdiction has columns with `male` population, `female` populaton, `total` population, and the population break-down in columns by age group.  
@@ -254,7 +254,7 @@ We import the facility points shapefile with `read_sf()`, again clean the column
 ```{r}
 # OSM health facility shapefile
 sle_hf <- sf::read_sf(here("data", "gis", "shp", "sle_hf.shp")) %>% 
-  clean_names() %>%
+  janitor::clean_names() %>%
   filter(amenity %in% c("hospital", "clinic", "doctors"))
 ```
 
