@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>40 Organizing routine reports | The Epidemiologist R Handbook</title>
+<title>41 Organizing routine reports | The Epidemiologist R Handbook</title>
 <meta name="author" content="the handbook team">
 <meta name="description" content="This page covers the reportfactory package, which is an accompaniment to using R Markdown for reports. In scenarios where you run reports routinely (daily, weekly, etc.), it eases the compilation...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
-<meta property="og:title" content="40 Organizing routine reports | The Epidemiologist R Handbook">
+<meta property="og:title" content="41 Organizing routine reports | The Epidemiologist R Handbook">
 <meta property="og:type" content="book">
 <meta property="og:description" content="This page covers the reportfactory package, which is an accompaniment to using R Markdown for reports. In scenarios where you run reports routinely (daily, weekly, etc.), it eases the compilation...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="40 Organizing routine reports | The Epidemiologist R Handbook">
+<meta name="twitter:title" content="41 Organizing routine reports | The Epidemiologist R Handbook">
 <meta name="twitter:description" content="This page covers the reportfactory package, which is an accompaniment to using R Markdown for reports. In scenarios where you run reports routinely (daily, weekly, etc.), it eases the compilation...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,9 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
 <script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
 <script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -110,21 +112,22 @@
 <li><a class="" href="heat-plots.html"><span class="header-section-number">34</span> Heat plots</a></li>
 <li><a class="" href="diagrams-and-charts.html"><span class="header-section-number">35</span> Diagrams and charts</a></li>
 <li><a class="" href="combinations-analysis.html"><span class="header-section-number">36</span> Combinations analysis</a></li>
-<li><a class="" href="phylogenetic-trees-1.html"><span class="header-section-number">37</span> Phylogenetic trees</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">38</span> Interactive plots</a></li>
+<li><a class="" href="transmission-chains.html"><span class="header-section-number">37</span> Transmission chains</a></li>
+<li><a class="" href="phylogenetic-trees-1.html"><span class="header-section-number">38</span> Phylogenetic trees</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
 <li class="book-part">Reports and dashboards</li>
-<li><a class="" href="reports-with-r-markdown.html"><span class="header-section-number">39</span> Reports with R Markdown</a></li>
-<li><a class="active" href="organizing-routine-reports.html"><span class="header-section-number">40</span> Organizing routine reports</a></li>
-<li><a class="" href="dashboards-with-r-markdown.html"><span class="header-section-number">41</span> Dashboards with R Markdown</a></li>
-<li><a class="" href="dashboards-with-shiny.html"><span class="header-section-number">42</span> Dashboards with Shiny</a></li>
+<li><a class="" href="reports-with-r-markdown.html"><span class="header-section-number">40</span> Reports with R Markdown</a></li>
+<li><a class="active" href="organizing-routine-reports.html"><span class="header-section-number">41</span> Organizing routine reports</a></li>
+<li><a class="" href="dashboards-with-r-markdown.html"><span class="header-section-number">42</span> Dashboards with R Markdown</a></li>
+<li><a class="" href="dashboards-with-shiny.html"><span class="header-section-number">43</span> Dashboards with Shiny</a></li>
 <li class="book-part">Miscellaneous</li>
-<li><a class="" href="writing-functions-1.html"><span class="header-section-number">43</span> Writing functions</a></li>
-<li><a class="" href="directory-interactions.html"><span class="header-section-number">44</span> Directory interactions</a></li>
-<li><a class="" href="version-control-and-collaboration-with-git-and-github.html"><span class="header-section-number">45</span> Version control and collaboration with Git and Github</a></li>
-<li><a class="" href="common-errors.html"><span class="header-section-number">46</span> Common errors</a></li>
-<li><a class="" href="getting-help.html"><span class="header-section-number">47</span> Getting help</a></li>
-<li><a class="" href="r-on-network-drives.html"><span class="header-section-number">48</span> R on network drives</a></li>
-<li><a class="" href="data-table.html"><span class="header-section-number">49</span> Data Table</a></li>
+<li><a class="" href="writing-functions-1.html"><span class="header-section-number">44</span> Writing functions</a></li>
+<li><a class="" href="directory-interactions.html"><span class="header-section-number">45</span> Directory interactions</a></li>
+<li><a class="" href="version-control-and-collaboration-with-git-and-github.html"><span class="header-section-number">46</span> Version control and collaboration with Git and Github</a></li>
+<li><a class="" href="common-errors.html"><span class="header-section-number">47</span> Common errors</a></li>
+<li><a class="" href="getting-help.html"><span class="header-section-number">48</span> Getting help</a></li>
+<li><a class="" href="r-on-network-drives.html"><span class="header-section-number">49</span> R on network drives</a></li>
+<li><a class="" href="data-table.html"><span class="header-section-number">50</span> Data Table</a></li>
 </ul>
 
         <div class="book-extra">
@@ -132,31 +135,31 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="organizing-routine-reports" class="section level1" number="40">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="organizing-routine-reports" class="section level1" number="41">
 <h1>
-<span class="header-section-number">40</span> Organizing routine reports<a class="anchor" aria-label="anchor" href="#organizing-routine-reports"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41</span> Organizing routine reports<a class="anchor" aria-label="anchor" href="#organizing-routine-reports"><i class="fas fa-link"></i></a>
 </h1>
 <p>This page covers the <strong>reportfactory</strong> package, which is an <em>accompaniment to using R Markdown for reports</em>.</p>
 <p>In scenarios where you run reports routinely (daily, weekly, etc.), it eases the compilation of multiple R Markdown files and the organization of their outputs. In essence, it provides a “factory” from which you can run the R Markdown reports, get automatically date- and time-stamped folders for the outputs, and have “light” version control.</p>
 <p><strong>reportfactory</strong> is one of the packages developed by RECON (R Epidemics Consortium). Here is their <a href="https://www.repidemicsconsortium.org/">website</a> and <a href="https://github.com/reconverse">Github</a>.</p>
-<div id="preparation-33" class="section level2" number="40.1">
+<div id="preparation-34" class="section level2" number="41.1">
 <h2>
-<span class="header-section-number">40.1</span> Preparation<a class="anchor" aria-label="anchor" href="#preparation-33"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.1</span> Preparation<a class="anchor" aria-label="anchor" href="#preparation-34"><i class="fas fa-link"></i></a>
 </h2>
-<div id="load-packages-29" class="section level3 unnumbered">
-<h3>Load packages<a class="anchor" aria-label="anchor" href="#load-packages-29"><i class="fas fa-link"></i></a>
+<div id="load-packages-30" class="section level3 unnumbered">
+<h3>Load packages<a class="anchor" aria-label="anchor" href="#load-packages-30"><i class="fas fa-link"></i></a>
 </h3>
 <p>From within RStudio, install the latest version of the <strong>reportfactory</strong> package from Github.</p>
 <p>You can do this via the <strong>pacman</strong> package with <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> which will force intall of the latest version from Github. Provide the character string “reconverse/reportfactory”, which specifies the Github organization (reconverse) and repository (reportfactory). You can also use <code>install_github()</code> from the <strong>remotes</strong> package, as an alternative.</p>
-<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1826"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install and load the latest version of the package from Github</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh</a></span><span class="op">(</span><span class="st">"reconverse/reportfactory"</span><span class="op">)</span></span>
 <span><span class="co">#remotes::install_github("reconverse/reportfactory") # alternative</span></span></code></pre></div>
 </div>
 </div>
-<div id="new-factory" class="section level2" number="40.2">
+<div id="new-factory" class="section level2" number="41.2">
 <h2>
-<span class="header-section-number">40.2</span> New factory<a class="anchor" aria-label="anchor" href="#new-factory"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.2</span> New factory<a class="anchor" aria-label="anchor" href="#new-factory"><i class="fas fa-link"></i></a>
 </h2>
 <p>To create a new factory, run the function <code>new_factory()</code>. This will create a new self-contained R project folder. By default:</p>
 <ul>
@@ -165,7 +168,7 @@
 </li>
 <li>Your RStudio session will “move in” to this R project</li>
 </ul>
-<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1827"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This will create the factory in the working directory</span></span>
 <span><span class="fu">new_factory</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Looking inside the factory, you can see that sub-folders and some files were created automatically.</p>
@@ -202,17 +205,17 @@
 </ul>
 <p>See <code>?new_factory</code> for a complete list of the arguments.</p>
 <p>When you create the new factory, your R session is transferred to the new R project, so you should again load the <strong>reportfactory</strong> package.</p>
-<div class="sourceCode" id="cb1774"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1828"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">reportfactory</span><span class="op">)</span></span></code></pre></div>
 <p>Now you can run a the <code>factory_overview()</code> command to see the internal structure (all folders and files) in the factory.</p>
-<div class="sourceCode" id="cb1775"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1829"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">factory_overview</span><span class="op">(</span><span class="op">)</span>            <span class="co"># print overview of the factory to console</span></span></code></pre></div>
 <p>The following “tree” of the factory’s folders and files is printed to the R console. Note that in the “data” folder there are sub-folders for “raw” and “clean” data, and example CSV data. There is also “example_report.Rmd” in the “report_sources” folder.</p>
 <div class="inline-figure"><img src="images/factory_overview.png" width="202"></div>
 </div>
-<div id="create-a-report" class="section level2" number="40.3">
+<div id="create-a-report" class="section level2" number="41.3">
 <h2>
-<span class="header-section-number">40.3</span> Create a report<a class="anchor" aria-label="anchor" href="#create-a-report"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.3</span> Create a report<a class="anchor" aria-label="anchor" href="#create-a-report"><i class="fas fa-link"></i></a>
 </h2>
 <p>From within the factory R project, create a R Markdown report just as you would normally, and save it into the “report_sources” folder. See the <a href="reports-with-r-markdown.html#reports-with-r-markdown">R Markdown</a> page for instructions. For purposes of example, we have added the following to the factory:</p>
 <ul>
@@ -230,7 +233,7 @@
 </li>
 <li>Import the linelist data using a filepath from the <strong>here</strong> package (read more in the page on <a href="import-and-export.html#import-and-export">Import and export</a>)</li>
 </ul>
-<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1830"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Print a summary table of cases, and export it with <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> as a .csv file<br>
@@ -238,12 +241,12 @@
 <li>Print an epicurve, and export it with <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> as a .png file</li>
 </ul>
 <p>You can review just the list of R Markdown reports in the “report_sources” folder with this command:</p>
-<div class="sourceCode" id="cb1777"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1831"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">list_reports</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="compile" class="section level2" number="40.4">
+<div id="compile" class="section level2" number="41.4">
 <h2>
-<span class="header-section-number">40.4</span> Compile<a class="anchor" aria-label="anchor" href="#compile"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.4</span> Compile<a class="anchor" aria-label="anchor" href="#compile"><i class="fas fa-link"></i></a>
 </h2>
 <p>In a report factory, to “compile” a R Markdown report means that the .Rmd script will be run and the output will be produced (as specified in the script YAML e.g. as HTML, Word, PDF, etc).</p>
 <p><em>The factory will automatically create a date- and time-stamped folder for the outputs in the “outputs” folder.</em></p>
@@ -262,7 +265,7 @@
 <h3>Compile by number<a class="anchor" aria-label="anchor" href="#compile-by-number"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can also specify the Rmd script to compile by providing a number or vector of numbers to <code>reports =</code>. The numbers must align with the order the reports appear when you run <code>list_reports()</code>.</p>
-<div class="sourceCode" id="cb1778"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1832"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compile the second and fourth Rmds in the "report_sources" folder</span></span>
 <span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -276,19 +279,19 @@
 <h3>Compile from sub-folder<a class="anchor" aria-label="anchor" href="#compile-from-sub-folder"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can add sub-folders to the “report_sources” folder. To run an R Markdown report from a subfolder, simply provide the name of the folder to <code>subfolder =</code>. Below is an example of code to compile a Rmd report that lives in a sub_folder of “report_sources”.</p>
-<div class="sourceCode" id="cb1779"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1833"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>     reports <span class="op">=</span> <span class="st">"summary_for_partners.Rmd"</span>,</span>
 <span>     subfolder <span class="op">=</span> <span class="st">"for_partners"</span><span class="op">)</span></span></code></pre></div>
 <p>You can compile all Rmd reports within a subfolder by providing the subfolder name to <code>reports =</code>, with a slash on the end, as below.</p>
-<div class="sourceCode" id="cb1780"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1834"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="st">"for_partners/"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="parameterization" class="section level3 unnumbered">
 <h3>Parameterization<a class="anchor" aria-label="anchor" href="#parameterization"><i class="fas fa-link"></i></a>
 </h3>
 <p>As noted in the page on <a href="reports-with-r-markdown.html#reports-with-r-markdown">Reports with R Markdown</a>, you can run reports with specified parameters. You can pass these parameters as a list to <code>compile_reports()</code> via the <code>params =</code> argument. For example, in this fictional report there are three parameters provided to the R Markdown reports.</p>
-<div class="sourceCode" id="cb1781"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1835"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>  reports <span class="op">=</span> <span class="st">"daily_sitrep.Rmd"</span>,</span>
 <span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>most_recent_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -303,9 +306,9 @@
 <p>If you have multiple reports to run, consider creating a R script that contains all the <code>compile_reports()</code> commands. A user can simply run all the commands in this R script and all the reports will compile. You can save this “run-file” to the “scripts” folder.</p>
 </div>
 </div>
-<div id="outputs-1" class="section level2" number="40.5">
+<div id="outputs-1" class="section level2" number="41.5">
 <h2>
-<span class="header-section-number">40.5</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.5</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>After we have compiled the reports a few times, the “outputs” folder might look like this (highlights added for clarity):</p>
 <div class="inline-figure"><img src="images/factory_overview_all.png" width="350"></div>
@@ -328,9 +331,9 @@
 <div class="inline-figure"><img src="images/factory_html.png" width="452"></div>
 <p>You can use <code>list_outputs()</code> to review a list of the outputs.</p>
 </div>
-<div id="miscellaneous-1" class="section level2" number="40.6">
+<div id="miscellaneous-1" class="section level2" number="41.6">
 <h2>
-<span class="header-section-number">40.6</span> Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.6</span> Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1"><i class="fas fa-link"></i></a>
 </h2>
 <div id="knit" class="section level3 unnumbered">
 <h3>Knit<a class="anchor" aria-label="anchor" href="#knit"><i class="fas fa-link"></i></a>
@@ -361,9 +364,9 @@
 <!-- ======================================================= -->
 </div>
 </div>
-<div id="resources-33" class="section level2" number="40.7">
+<div id="resources-34" class="section level2" number="41.7">
 <h2>
-<span class="header-section-number">40.7</span> Resources<a class="anchor" aria-label="anchor" href="#resources-33"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7</span> Resources<a class="anchor" aria-label="anchor" href="#resources-34"><i class="fas fa-link"></i></a>
 </h2>
 <p>See the <strong>reportfactory</strong> package’s <a href="https://github.com/reconverse/reportfactory">Github page</a></p>
 <p>See the <strong>rfextras</strong> package’s <a href="https://github.com/reconhub/rfextras">Github page</a></p>
@@ -371,19 +374,19 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="reports-with-r-markdown.html"><span class="header-section-number">39</span> Reports with R Markdown</a></div>
-<div class="next"><a href="dashboards-with-r-markdown.html"><span class="header-section-number">41</span> Dashboards with R Markdown</a></div>
+<div class="prev"><a href="reports-with-r-markdown.html"><span class="header-section-number">40</span> Reports with R Markdown</a></div>
+<div class="next"><a href="dashboards-with-r-markdown.html"><span class="header-section-number">42</span> Dashboards with R Markdown</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#organizing-routine-reports"><span class="header-section-number">40</span> Organizing routine reports</a></li>
+<li><a class="nav-link" href="#organizing-routine-reports"><span class="header-section-number">41</span> Organizing routine reports</a></li>
 <li>
-<a class="nav-link" href="#preparation-33"><span class="header-section-number">40.1</span> Preparation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#load-packages-29">Load packages</a></li></ul>
+<a class="nav-link" href="#preparation-34"><span class="header-section-number">41.1</span> Preparation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#load-packages-30">Load packages</a></li></ul>
 </li>
-<li><a class="nav-link" href="#new-factory"><span class="header-section-number">40.2</span> New factory</a></li>
-<li><a class="nav-link" href="#create-a-report"><span class="header-section-number">40.3</span> Create a report</a></li>
+<li><a class="nav-link" href="#new-factory"><span class="header-section-number">41.2</span> New factory</a></li>
+<li><a class="nav-link" href="#create-a-report"><span class="header-section-number">41.3</span> Create a report</a></li>
 <li>
-<a class="nav-link" href="#compile"><span class="header-section-number">40.4</span> Compile</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#compile"><span class="header-section-number">41.4</span> Compile</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#compile-by-name">Compile by name</a></li>
 <li><a class="nav-link" href="#compile-by-number">Compile by number</a></li>
 <li><a class="nav-link" href="#compile-all">Compile all</a></li>
@@ -392,15 +395,15 @@
 <li><a class="nav-link" href="#using-a-run-file">Using a “run-file”</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#outputs-1"><span class="header-section-number">40.5</span> Outputs</a></li>
+<li><a class="nav-link" href="#outputs-1"><span class="header-section-number">41.5</span> Outputs</a></li>
 <li>
-<a class="nav-link" href="#miscellaneous-1"><span class="header-section-number">40.6</span> Miscellaneous</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#miscellaneous-1"><span class="header-section-number">41.6</span> Miscellaneous</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#knit">Knit</a></li>
 <li><a class="nav-link" href="#scripts-2">Scripts</a></li>
 <li><a class="nav-link" href="#extras">Extras</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#resources-33"><span class="header-section-number">40.7</span> Resources</a></li>
+<li><a class="nav-link" href="#resources-34"><span class="header-section-number">41.7</span> Resources</a></li>
 </ul>
 
       <div class="book-extra">
@@ -417,7 +420,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-27.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-12-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
