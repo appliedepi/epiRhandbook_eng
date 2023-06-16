@@ -465,7 +465,7 @@ We will create the input using **incidence2**. See the page on [Epidemic curves]
 
 ```{r epidemic_models_epiestim_incidence,}
 ## get incidence from onset date
-cases <- incidence2::incidence(linelist, date_index = date_onset) %>% # get case counts by day
+cases <- incidence2::incidence(linelist, date_index = "date_onset") %>% # get case counts by day
   tidyr::complete(date_index = seq.Date(                              # ensure all dates are represented
     from = min(date_index, na.rm = T),
     to = max(date_index, na.rm=T),
@@ -497,8 +497,22 @@ config_lit <- make_config(
 We can then estimate R<sub>t</sub> with the `estimate_R` function:
 
 ```{r epidemic_models_epiestim_lit,  warning = FALSE}
+
+cases <- cases %>% 
+     filter(!is.na(date))
+
+
+#create a dataframe for the function estimate_R()
+cases_incidence <- data.frame(dates = seq.Date(from = min(cases$dates),
+                               to = max(cases$dates), 
+                               by = 1))
+
+cases_incidence <- left_join(cases_incidence, cases) %>% 
+     select(dates, I) %>% 
+     mutate(I = ifelse(is.na(I), 0, I))
+
 epiestim_res_lit <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_lit
 )
@@ -559,7 +573,7 @@ config_emp <- make_config(
 
 ## run epiestim
 epiestim_res_emp <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_emp
 )
@@ -608,7 +622,7 @@ Now we re-run **EpiEstim** and can see that the estimates only start from June:
 
 ## run epiestim
 epiestim_res_partial <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_partial
 )

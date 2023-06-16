@@ -133,656 +133,6 @@ ggplot(data = linelist)+
 ```
 
 
-
-<!-- ======================================================= -->
-## Epicurves with **incidence2** package { }
-
-Below we demonstrate how to make epicurves using the **incidence2** package. The authors of this package have tried to allow the user to create and modify epicurves without needing to know **ggplot2** syntax. Much of this page is adapted from the package vignettes, which can be found at the **incidence2** [github page](https://github.com/reconhub/incidence2).   
-
-
-<!-- ======================================================= -->
-### Simple example {.unnumbered}
-
-**2 steps are required to plot an epidemic curve with the *incidence2* package:**  
-
-1) **Create** an *incidence object* (using the function `incidence()`)  
-    + Provide the data  
-    + Specify the date column to `date_index = `  
-    + Specify the `interval = ` into which the cases should be aggregated (daily, weekly, monthly..)  
-    + Specify any grouping columns (e.g. gender, hospital, outcome)  
-2) **Plot** the incidence object  
-    + Specify labels, colors, titles, etc.  
-
-
-Below, we load the **incidence2** package, create the incidence object from the `linelist` on column `date_onset` and aggregated cases by day. We then print a summary of the incidence object. 
-
-```{r, warning=F, message=F}
-# load incidence2 package
-pacman::p_load(incidence2)
-
-# create the incidence object, aggregating cases by day
-epi_day <- incidence(       # create incidence object
-  x = linelist,             # dataset
-  date_index = date_onset,  # date column
-  interval = "day"          # date grouping interval
-  )
-```
-
-The **incidence2** object itself looks like a tibble (like a data frame) and can be printed or further manipulated like a data frame.  
-
-```{r}
-class(epi_day)
-```
-
-Here is what it looks like when printed. It has a `date_index` column and a `count` column.  
-
-```{r}
-epi_day
-```
-
-You can also print a summary of the object:  
-
-```{r}
-# print summary of the incidence object
-summary(epi_day)
-```
-
-To *plot* the *incidence* object, use `plot()` on the *name of the incidence object*. In the background, the function `plot.incidence2()` is called, so to read the **incidence2**-specific documentation you would run `?plot.incidence2`.  
-
-```{r}
-# plot the incidence object
-plot(epi_day)
-```
-
-If you notice lots of tiny white vertical lines, try to adjust the size of your image. For example, if you export your plot with `ggsave()`, you can provide numbers to `width = ` and `height = `. If you widen the plot those lines may disappear.    
-
-
-
-### Change time interval of case aggregation {.unnumbered}  
-The `interval = ` argument of `incidence()` defines how the observations are grouped into vertical bars. 
-
-**Specify interval**  
-
-**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument. You can write any of the below as plural (e.g. "week**s**"), and you can add numbers before (e.g. "3 months").  
-
-Argument option | Further explanation 
-------------------- | ------------------------------------ |
-Number (1, 7, 13, 14, etc.) | Number of days per interval  
-"week" | note: Monday start day is default
-"2 weeks" | or 3, 4, 5...
-"Sunday week" | weeks beginning on Sundays (could also use Thursday, etc.)
-"2 Sunday weeks" | or 3, 4, 5...
-"MMWRweek" | week starts on Sundays - see US CDC
-"month" | 1st of month
-"quarter" | 1st of month of quarter
-"2 months" | or 3, 4, 5...
-"year" | 1st day of calendar year
-
-
-Below are examples of how different intervals look when applied to the linelist. Note how the default format and frequency of the date *labels* on the x-axis change as the date interval changes.  
-
-```{r incidence, out.width=c('50%', '50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
-# Create the incidence objects (with different intervals)
-##############################
-# Weekly (Monday week by default)
-epi_wk      <- incidence(linelist, date_onset, interval = "Monday week")
-
-# Sunday week
-epi_Sun_wk  <- incidence(linelist, date_onset, interval = "Sunday week")
-
-# Three weeks (Monday weeks by default)
-epi_2wk     <- incidence(linelist, date_onset, interval = "2 weeks")
-
-# Monthly
-epi_month   <- incidence(linelist, date_onset, interval = "month")
-
-# Quarterly
-epi_quarter   <- incidence(linelist, date_onset, interval = "quarter")
-
-# Years
-epi_year   <- incidence(linelist, date_onset, interval = "year")
-
-
-# Plot the incidence objects (+ titles for clarity)
-############################
-plot(epi_wk)+      labs(title = "Monday weeks")
-plot(epi_Sun_wk)+  labs(title = "Sunday weeks")
-plot(epi_2wk)+     labs(title = "2 (Monday) weeks")
-plot(epi_month)+   labs(title = "Months")
-plot(epi_quarter)+ labs(title = "Quarters")
-plot(epi_year)+    labs(title = "Years")
-
-```
-
-
-<!-- **Begin at first case**   -->
-
-<!-- If you want the intervals to begin at the first case, you can add the argument `standard = TRUE` to the `incidence()` command. This only works if the interval is either "week", "month", "quarter" or "year".   -->
-
-**First date**
-
-You can optionally specify a value of class Date (e.g. `as.Date("2016-05-01")`) to `firstdate = ` in the `incidence()` command. If given, the data will be trimmed to this range and the intervals will begin on this date. 
-
-
-
-### Groups {.unnumbered}
-
-Groups are specified in the `incidence()` command, and can be used to color the bars or to facet the data. To specify groups in your data provide the column name(s) to the `groups =` argument in the `incidence()` command (no quotes around the column name). If specifying multiple columns, put their names within `c()`.
-
-You can specify that cases with missing values in the grouping columns be listed as a distinct `NA` group by setting `na_as_group = TRUE`. Otherwise, they will be excluded from the plot.   
-
-* To *color the bars by a grouping column*, you must again provide the column name to `fill = ` in the `plot()` command.  
-
-* To *facet based on a grouping column*, see the section below on facets with **incidence2**.  
-
-In the example below, the cases in the whole outbreak are grouped by their age category. Missing values are included as a group. The epicurve interval is weeks.  
-
-
-```{r, message=F, warning=F}
-# Create incidence object, with data grouped by age category
-age_outbreak <- incidence(
-  linelist,                # dataset
-  date_index = date_onset, # date column
-  interval = "week",       # Monday weekly aggregation of cases
-  groups = age_cat,        # age_cat is set as a group
-  na_as_group = TRUE)      # missing values assigned their own group
-
-# plot the grouped incidence object
-plot(
-  age_outbreak,             # incidence object with age_cat as group
-  fill = age_cat)+          # age_cat is used for bar fill color (must have been set as a groups column above)
-labs(fill = "Age Category") # change legend title from default "age_cat" (this is a ggplot2 modification)
-```
-<span style="color: darkgreen;">**_TIP:_** Change the title of the legend by adding `+` the **ggplot2** command `labs(fill = "your title")` to your **incidence2** plot.</span>  
-
-You can also have the grouped bars display side-by-side by setting `stack = FALSE` in `plot()`, as shown below:  
-
-```{r, warning=F, message=F}
-# Make incidence object of monthly counts. 
-monthly_gender <- incidence(
- linelist,
- date_index = date_onset,
- interval = "month",
- groups = gender            # set gender as grouping column
-)
-
-plot(
-  monthly_gender,   # incidence object
-  fill = gender,    # display bars colored by gender
-  stack = FALSE)    # side-by-side (not stacked)
-``` 
-
-You can set the `na_as_group = ` argument to FALSE in the `incidence()` command to remove rows with missing values from the plot.  
-
-
-
-
-### Filtered data {.unnumbered}
-
-To plot the epicurve of a subset of data:  
-
-1) Filter the linelist data  
-2) Provide the filtered data to the `incidence()` command  
-3) Plot the incidence object
-
-The example below uses data filtered to show only cases at Central Hospital.  
-
-```{r, warning=F, message=F}
-# filter the linelist
-central_data <- linelist %>% 
-  filter(hospital == "Central Hospital")
-
-# create incidence object using filtered data
-central_outbreak <- incidence(central_data, date_index = date_onset, interval = "week")
-
-# plot the incidence object
-plot(central_outbreak, title = "Weekly case incidence at Central Hospital")
-```
-
-
-
-
-### Aggregated counts {.unnumbered}
-
-If your original data are aggregated (counts), provide the name of the column that contains the case counts to the `count = ` argument when creating the incidence object with `incidence()`.  
-
-For example, this data frame `count_data` is the linelist aggregated into daily counts by hospital. The first 50 rows look like this:  
-
-```{r message=FALSE, echo=F}
-DT::datatable(head(count_data,50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
-```
-
-If you are beginning your analysis with daily count data like the dataset above, your `incidence()` command to convert this to a weekly epicurve by hospital would look like this:  
-
-```{r}
-epi_counts <- incidence(              # create weekly incidence object
-  count_data,                         # dataset with counts aggregated by day
-  date_index = date_hospitalisation,  # column with dates
-  count = n_cases,                    # column with counts
-  interval = "week",                  # aggregate daily counts up to weeks
-  groups = hospital                   # group by hospital
-  )
-
-# plot the weekly incidence epi curve, with stacked bars by hospital
-plot(epi_counts,                      # incidence object
-     fill = hospital)                 # color the bars by hospital
-```
-
-
-
-
-### Facets/small multiples {.unnumbered}  
-
-To facet the data by group (i.e. produce "small multiples"):  
-
-1) Specify the faceting column to `groups = ` when you create the incidence object  
-2) Use the `facet_plot()` command instead of `plot()`  
-3) Specify which grouping columns to use as `fill = ` and which to use as `facets = `  
-
-Below, we set both columns `hospital` and `outcome` as grouping columns in the `incidence()` command. Then, in `facet_plot()` we plot the epicurve, specifying that we want a different epicurve for each hospital and that within each epicurve the bars should be stacked and colored by outcome.  
- 
-
-```{r, warning=F, message=F}
-epi_wks_hosp_out <- incidence(
-  linelist,                      # dataset
-  date_index = date_onset,       # date column
-  interval = "month",            # monthly bars  
-  groups = c(outcome, hospital)  # both outcome and hospital are given as grouping columns
-  )
-
-# plot
-incidence2::facet_plot(
-  epi_wks_hosp_out,      # incidence object
-  facets = hospital,     # facet column
-  fill = outcome)        # fill column
-
-```
-
-Note that the package **ggtree** (used for displaying phylogenetic trees) also has a function `facet_plot()` - this is why we specified `incidence2::facet_plot()` above.  
-
-
-
-### Modifications with `plot()` {.unnumbered} 
-
-An epicurve produced by **incidence2** can be modified via these arguments *within the `plot()` function*.  
-
-**Here are `plot()` arguments that modify the appearance of the bars:**  
-
-Argument | Description | Examples
-------------------|---------------------------------------|-------------------
-`fill = `|Bar color. Either a color name or a column name previously specified to `groups = ` in the `incidence()` command|`fill = "red"`, or `fill = gender`  
-`color = ` |Color around each bar, or around each grouping within a bar|`border = "white"` 
-`legend = `|Location of legend|One of "bottom", "top", "left", "right", or "none"  
-`alpha = `|Transparency of bars/boxes|1 is fully opaque, 0 is fully transparent
-`width = `|Value between 0 and 1 indicating the relative size of the bars to their time interval|`width = .7`  
-`show_cases = `|Logical; if TRUE, each case shows as a box. Displays best on smaller outbreaks.|`show_cases = TRUE`  
-
-**Here are `plot()` arguments that modify the date axis:**  
-
-Argument(s)|Description
-----------------------|----------------------------------------------------
-`centre_dates = `|TRUE/FALSE as to whether date displays appear under center of bars, or at beginning of bars  
-`date_format = `|Adjust the date display format using strptime ("%") syntax. Only works if `centre_dates = FALSE` (details below).  
-`n.breaks = `|Approximate number of x-axis label breaks desired.  
-`angle = `|Angle of x-axis date labels (number of degrees)  
-`size = `|Size of text in points  
-
-Note that the `date_breaks = ` argument only works if `centre_dates = FALSE`. Provide a character value in quotation marks using the strptime syntax below, as detailed in the [Working with dates] page. You can use `\n` for a "newline".  
-
-%d = Day number of month (5, 17, 28, etc.)  
-%j = Day number of the year (Julian day 001-366)  
-%a = Abbreviated weekday (Mon, Tue, Wed, etc.)  
-%A = Full weekday (Monday, Tuesday, etc.)  
-%w = Weekday number (0-6, Sunday is 0)  
-%u = Weekday number (1-7, Monday is 1)  
-%W = Week number (00-53, Monday is week start)  
-%U = Week number (01-53, Sunday is week start)  
-%m = Month number (e.g. 01, 02, 03, 04)  
-%b = Abbreviated month (Jan, Feb, etc.)  
-%B = Full month (January, February, etc.)  
-%y = 2-digit year  (e.g. 89)  
-%Y = 4-digit year  (e.g. 1989)  
-%h = hours (24-hr clock)  
-%m = minutes  
-%s = seconds  
-%z = offset from GMT  
-%Z = Time zone (character)
-
-
-<!-- <span style="color: darkgreen;">**_TIP:_** For breaks every "nth" interval (e.g. every 4th), use `n.breaks = nrow(i)/n` (where “i” is your incidence object name and “n” is a number). If your data are grouped, you will need to multiply "n" by the number of unique groups.</span>   -->
-
-
-
-**Here are `plot()` arguments that modify plot labels:**
-
-Argument(s)|Description
-----------------------|----------------------------------------------------
-`title = `|Title of plot|`title = "Epidemic curve of Acute Jaundice Syndrome (AJS)"`
-`xlab = `|Title of x-axis|`xlab = "Date of onset"`  
-`ylab = `|Title of y-axis|`ylab = "Daily case"`  
-`size = `|Size of x-axis text in pts (use ggplot's theme() to adjust other sizes)  
-
-
-An example using many of the above arguments:  
-
-```{r, warning=F, message=F}
-# filter the linelist
-central_data <- linelist %>% 
-  filter(hospital == "Central Hospital")
-
-# create incidence object using filtered data
-central_outbreak <- incidence(
-  central_data,
-  date_index = date_onset,
-  interval = "week",
-  groups = outcome)
-
-# plot incidence object
-plot(
-  central_outbreak,
-  fill = outcome,                       # box/bar color
-  legend = "top",                       # legend on top
-  title = "Cases at Central Hospital",  # title
-  xlab = "Week of onset",               # x-axis label
-  ylab = "Week of onset",               # y-axis label
-  show_cases = TRUE,                    # show each case as an individual box
-  alpha = 0.7,                          # transparency 
-  border = "grey",                      # box border
-  angle = 30,                           # angle of date labels
-  centre_dates = FALSE,                 # date labels at edge of bar
-  date_format = "%a %d %b %Y\n(Week %W)" # adjust how dates are displayed
-  )
-```
-
-To further adjust plot appearance, see the section below on modifications with `ggplot()`.  
-
-
-
-
-
-
-### Modifications with ggplot2 {.unnumbered}
-
-You can further modify an **incidence2** plot by adding **ggplot2** modifications with a `+` after the close of the incidence `plot()` function, as demonstrated below.  
-
-Below, the **incidence2** plot finishes and then **ggplot2** commands are used to modify the axes, add a caption, and adjust the bold font and text size.  
-
-Note that if you add `scale_x_date()`, most date formatting from `plot()` will be overwritten. See the `ggplot()` epicurves section and the Handbook page [ggplot tips] for more options.  
-
-```{r, warning=F, message=F}
-# filter the linelist
-central_data <- linelist %>% 
-  filter(hospital == "Central Hospital")
-
-# create incidence object using filtered data
-central_outbreak <- incidence(
-  central_data,
-  date_index = date_onset,
-  interval = "week",
-  groups = c(outcome))
-
-# plot incidence object
-plot(
-  central_outbreak,
-  fill = outcome,                       # box/bar color
-  legend = "top",                       # legend on top
-  title = "Cases at Central Hospital",  # title
-  xlab = "Week of onset",               # x-axis label
-  ylab = "Week of onset",               # y-axis label
-  show_cases = TRUE,                    # show each case as an individual box
-  alpha = 0.7,                          # transparency 
-  border = "grey",                      # box border
-  centre_dates = FALSE,                   
-  date_format = "%a %d %b\n%Y (Week %W)", 
-  angle = 30                           # angle of date labels
-  )+
-  
-  scale_y_continuous(
-    breaks = seq(from = 0, to = 30, by = 5),  # specify y-axis increments by 5
-    expand = c(0,0))+                         # remove excess space below 0 on y-axis
-  
-  # add dynamic caption
-  labs(
-    fill = "Patient outcome",                               # Legend title
-    caption = stringr::str_glue(                            # dynamic caption - see page on characters and strings for details
-      "n = {central_cases} from Central Hospital
-      Case onsets range from {earliest_date} to {latest_date}. {missing_onset} cases are missing date of onset and not shown",
-      central_cases = nrow(central_data),
-      earliest_date = format(min(central_data$date_onset, na.rm=T), format = '%a %d %b %Y'),
-      latest_date = format(max(central_data$date_onset, na.rm=T), format = '%a %d %b %Y'),      
-      missing_onset = nrow(central_data %>% filter(is.na(date_onset)))))+
-  
-  # adjust bold face, and caption position
-  theme(
-    axis.title = element_text(size = 12, face = "bold"),    # axis titles larger and bold
-    axis.text = element_text(size = 10, face = "bold"),     # axis text size and bold
-    plot.caption = element_text(hjust = 0, face = "italic") # move caption to left
-  )
-  
-```
-
-
-
-
-### Change colors  {.unnumbered}  
-
-#### Specify a palette {.unnumbered}  
-
-Provide the name of a pre-defined palette to the `col_pal = ` argument in `plot()`. The **incidence2** package comes with 2 pre-defined paletted: "vibrant" and "muted". In "vibrant" the first 6 colors and distinct and in "muted" the first 9 colors are distinct. After these numbers, the colors are interpolations/intermediaries of other colors. These pre-defined palettes can be found at [this website](https://personal.sron.nl/~pault/#sec:qualitative). The palettes exclude grey, which is reserved for missing data (use `na_color = ` to change this default).  
-
-```{r out.width = c('50%', '50%'), fig.show='hold', warning = F, message = F}
-# Create incidence object, with data grouped by age category  
-age_outbreak <- incidence(
-  linelist,
-  date_index = date_onset,   # date of onset for x-axis
-  interval = "week",         # weekly aggregation of cases
-  groups = age_cat)
-
-# plot the epicurve with default palette
-plot(age_outbreak, fill = age_cat, title = "'vibrant' default incidence2 palette")
-
-# plot with different color palette
-#plot(age_outbreak, fill = age_cat, col_pal = muted, title = "'muted' incidence2 palette")
-```
-
-You can also use one of the **base** R palettes (put the name of the palette *without* quotes).  
-
-```{r out.width = c('50%', '50%'), fig.show='hold', warning = F, message = F}
-# plot with base R palette
-plot(age_outbreak, fill = age_cat, col_pal = heat.colors, title = "base R heat.colors palette")
-
-# plot with base R palette
-plot(age_outbreak, fill = age_cat, col_pal = rainbow, title = "base R rainbow palette")
-```
-
-You can also add a color palette from the **viridis** package or **RColorBrewer** package. First those packages must be loaded, then add their respective `scale_fill_*()` functions with a `+`, as shown below.
-
-```{r out.width = c('50%', '50%'), fig.show='hold', warning = F, message = F}
-pacman::p_load(RColorBrewer, viridis)
-
-# plot with color palette
-plot(age_outbreak, fill = age_cat, title = "Viridis palette")+
-  scale_fill_viridis_d(
-    option = "inferno",     # color scheme, try also "plasma" or the default
-    name = "Age Category",  # legend name
-    na.value = "grey")      # for missing values
-
-# plot with color palette
-plot(age_outbreak, fill = age_cat, title = "RColorBrewer palette")+
-  scale_fill_brewer(
-    palette = "Dark2",      # color palette, try also Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3
-    name = "Age Category",  # legend name
-    na.value = "grey")      # for missing values
-```
-
-
-#### Specify manually {.unnumbered}  
-
-To specify colors manually, add the **ggplot2** function `scale_fill_manual()` to the `plot()` with a `+` and provide the vector of colors names or HEX codes to the argument `values = `. The number of colors listed must equal the number of groups. Be aware of whether missing values are a group - they can be converted to a character value like "Missing" during your data preparation with the function `fct_explicit_na()` as explained in the page on [Factors].  
-
-```{r out.width = c('50%', '50%'), fig.show='hold', warning=F, message=F}
-# manual colors
-plot(age_outbreak, fill = age_cat, title = "Manually-specified colors")+
-  scale_fill_manual(
-    values = c("darkgreen", "darkblue", "purple", "grey", "yellow", "orange", "red", "lightblue"),  # colors
-    name = "Age Category")      # Name for legend
-```
-
-As mentioned in the [ggplot tips] page, you can create your own palettes using `colorRampPalette()` on a vector of colors and specifying the number of colors you want in return. This is a good way to get many colors in a ramp by specifying a few.  
-
-```{r}
-my_cols <- c("darkgreen", "darkblue", "purple", "grey", "yellow", "orange")
-my_palette <- colorRampPalette(my_cols)(12)  # expand the 6 colors above to 12 colors
-my_palette
-```
-          
-          
-### Adjust level order {.unnumbered}  
-
-To adjust the order of group appearance (on plot and in legend), the grouping column must be class Factor. See the page on [Factors] for more information.  
-
-First, let's see a weekly epicurve by hospital with the default ordering:  
-
-```{r, message=F, warning=F}
-# ORIGINAL - hospital NOT as factor
-###################################
-
-# create weekly incidence object, rows grouped by hospital and week
-hospital_outbreak <- incidence(
-  linelist,
-  date_index = date_onset, 
-  interval = "week", 
-  groups = hospital)
-
-# plot incidence object
-plot(hospital_outbreak, fill = hospital, title = "ORIGINAL - hospital not a factor")
-```
-
-Now, to adjust the order so that "Missing" and "Other" are at the top of the epicurve we can do the following:  
-
-* Load the package **forcats**, to work with factors  
-* Adjust the dataset - in this case we'll define a new dataset (`plot_data`) in which:  
-  * the `gender` column is defined as a factor the order of levels are set with `fct_relevel()` so that "Other" and "Missing" are first, so they appear at the top of the bars  
-* The incidence object is created and plotted as before  
-* We add **ggplot2** modifications  
-  * `scale_fill_manual()` to manually assign colors so that "Missing" is grey and "Other" is beige  
- 
-
-
-
-```{r, message=F, warning=F}
-# MODIFIED - hospital as factor
-###############################
-
-# load forcats package for working with factors
-pacman::p_load(forcats)
-
-# Convert hospital column to factor and adjust levels
-plot_data <- linelist %>% 
-  mutate(hospital = fct_relevel(hospital, c("Missing", "Other"))) # Set "Missing" and "Other" as top levels
-
-
-# Create weekly incidence object, grouped by hospital and week
-hospital_outbreak_mod <- incidence(
-  plot_data,
-  date_index = date_onset, 
-  interval = "week", 
-  groups = hospital)
-
-# plot incidence object
-plot(hospital_outbreak_mod, fill = hospital)+
-  
-  # manual specify colors
-  scale_fill_manual(values = c("grey", "beige", "darkgreen", "green2", "orange", "red", "pink"))+                      
-
-  # labels added via ggplot
-  labs(
-      title = "MODIFIED - hospital as factor",   # plot title
-      subtitle = "Other & Missing at top of epicurve",
-      y = "Weekly case incidence",               # y axis title  
-      x = "Week of symptom onset",               # x axis title
-      fill = "Hospital")                         # title of legend     
-```
-
-<span style="color: darkgreen;">**_TIP:_** If you want to reverse the order of the legend only, add this **ggplot2** command `guides(fill = guide_legend(reverse = TRUE))`.</span>  
-
-
-
-### Vertical gridlines {.unnumbered}  
-
-If you plot with default **incidence2** settings, you may notice that the vertical gridlines appear at each date label and once between each date label. This can result in gridlines intersecting with the top of some bars.  
-
-<!-- [TO DO Note this paragraph is not applicable with version 1.0.0 of incidence2). You can specify the interval for the gridlines by adding **ggplot2**'s `scale_x_date()` command to your **incidence2** plot. Within it, specify the intervals for `date_breaks = ` and `date_minor_breaks = ` (e.g. "weeks" or "3 weeks" or "months"). Note that use of `scale_x_date()` will over-ride any formatting of the date labels in `plot()`, so you will need to specify any string format to `date_labels = ` as below.   -->
-
-You can remove all gridlines by adding the **ggplot2** command `theme_classic()`.  
-
-```{r, warning=F, message=F, out.width = c('50%', '50%', '50%'), fig.show='hold'}
-# make incidence object
-a <- incidence(
-  central_data,
-  date_index = date_onset,
-  interval = "Monday weeks"
-)
-
-# Default gridlines
-plot(a, title = "Default lines")
-
-# Specified gridline intervals
-# NOT WORKING WITH INCIDENCE2 1.0.0
-# plot(a, title = "Weekly lines")+
-#   scale_x_date(
-#     date_breaks = "4 weeks",      # major vertical lines align on weeks
-#     date_minor_breaks = "weeks",  # minor vertical lines every week
-#     date_labels = "%a\n%d\n%b")   # format of date labels
-
-# No gridlines
-plot(a, title = "No lines")+
-  theme_classic()                 # remove all gridlines
-```
-
-Note however, that if using weeks, the `date_breaks` and `date_minor_breaks` arguments only work for *Monday* weeks. If your weeks are by another day of the week you will need to manually provide a vector of dates to the `breaks = ` and `minor_breaks = ` arguments instead. See the **ggplot2** section for examples of this using `seq.Date()`.
-
-### Cumulative incidence {.unnumbered}  
-
-You can easily produce a plot of cumulative incidence by passing the incidence object to the **incidence2** command `cumulate()` and then to `plot()`. This also works with `facet_plot()`.  
-
-```{r}
-# make weekly incidence object
-wkly_inci <- incidence(
-  linelist,
-  date_index = date_onset,
-  interval = "week"
-)
-
-# plot cumulative incidence
-wkly_inci %>% 
-  cumulate() %>% 
-  plot()
-```
-
-
-See the section farther down on this page for alternative method to plot cumulative incidence with **ggplot2** - for example to overlay a cumulative incidence line over an epicurve.  
-
-### Rolling average  {.unnumbered}
-
-You can add a rolling average to an **incidence2** plot easily with `add_rolling_average()` from the **i2extras** package. Pass your incidence2 object to this function, and then to `plot()`. Set `before = ` as the number of previous days you want included in the rolling average (default is 2). If your data are grouped, the rolling average will be calculated per group. 
-
-```{r, warning=F, message=F}
-rolling_avg <- incidence(                    # make incidence object
-  linelist,
-  date_index = date_onset,
-  interval = "week",
-  groups = gender) %>% 
-  
-  i2extras::add_rolling_average(before = 6)  # add rolling averages (in this case, by gender)
-
-# plot
-plot(rolling_avg) # faceted automatically because rolling average on groups
-```
-
-To learn how to apply rolling averages more generally on data, see the Handbook page on [Moving averages].  
-
-
 <!-- ======================================================= -->
 ## Epicurves with ggplot2 { }
 
@@ -1008,7 +358,8 @@ scale_x_date(
       by   = "week"),
    
     # date label format
-    date_labels = "%a\n%d %b\n%Y")+         # day, above month abbrev., above 2-digit year
+    #date_labels = "%a\n%d %b\n%Y")+         # day, above month abbrev., above 2-digit year
+    label = scales::label_date_short())+ # automatic label formatting
 
 ```
 
@@ -1122,10 +473,10 @@ ggplot(plot_data) +                     # Use NEW dataset with hospital as re-or
     
   # x-axis labels
   scale_x_date(
-    expand            = c(0,0),         # remove excess x-axis space before and after case bars
-    date_breaks       = "3 weeks",      # labels appear every 3 Monday weeks
-    date_minor_breaks = "week",         # vertical lines appear every Monday week
-    date_labels       = "%d\n%b\n'%y")+ # date labels format
+    expand            = c(0,0),           # remove excess x-axis space before and after case bars
+    date_breaks       = "3 weeks",        # labels appear every 3 Monday weeks
+    date_minor_breaks = "week",           # vertical lines appear every Monday week
+    label = scales::label_date_short()) + # efficient label formatting
   
   # y-axis
   scale_y_continuous(
@@ -1200,10 +551,10 @@ ggplot(central_data %>% drop_na(gender))+   # begin with Central Hospital cases 
                       
   
   # The labels on the x-axis
-  scale_x_date(expand            = c(0,0),         # remove excess x-axis space below and after case bars
-               date_breaks       = "3 weeks",      # labels appear every 3 Monday weeks
-               date_minor_breaks = "week",         # vertical lines appear every Monday week
-               date_labels       = "%d\n%b\n'%y")+ # date labels format
+  scale_x_date(expand            = c(0,0),          # remove excess x-axis space below and after case bars
+               date_breaks       = "3 weeks",       # labels appear every 3 Monday weeks
+               date_minor_breaks = "week",          # vertical lines appear every Monday week
+               label = scales::label_date_short())+ # efficient date labels
   
   # y-axis
   scale_y_continuous(expand = c(0,0))+             # removes excess y-axis space between bottom of bars and the labels
@@ -1288,10 +639,10 @@ ggplot(central_data) +
     fill = "lightblue") +
   
   scale_x_date(
-    expand = c(0,0),               # remove excess x-axis space below and after case bars
-    date_breaks = "3 weeks",       # Monday every 3 weeks
-    date_minor_breaks = "week",    # Monday weeks
-    date_labels = "%a\n%d\n%b\n'%y")+  # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "3 weeks",             # Monday every 3 weeks
+    date_minor_breaks = "week",          # Monday weeks
+    label = scales::label_date_short())+ # automatic label formatting
   
   scale_y_continuous(
     expand = c(0,0))+              # remove excess space under x-axis, make flush
@@ -1312,10 +663,10 @@ ggplot(central_data) +
     fill = "lightblue") +
   
   scale_x_date(
-    expand = c(0,0),                  # remove excess x-axis space below and after case bars
-    date_breaks = "months",           # 1st of month
-    date_minor_breaks = "week",       # Monday weeks
-    date_labels = "%a\n%d %b\n%Y")+   # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "months",              # 1st of month
+    date_minor_breaks = "week",          # Monday weeks
+    label = scales::label_date_short())+ # automatic label formatting
   
   scale_y_continuous(
     expand = c(0,0))+                 # remove excess space under x-axis, make flush 
@@ -1341,10 +692,10 @@ ggplot(central_data) +
     fill = "lightblue") + 
   
   scale_x_date(
-    expand = c(0,0),                   # remove excess x-axis space below and after case bars
-    date_breaks = "4 weeks",           # Monday every 4 weeks
-    date_minor_breaks = "week",        # Monday weeks 
-    date_labels = "%a\n%d %b\n%Y")+    # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "4 weeks",             # Monday every 4 weeks
+    date_minor_breaks = "week",          # Monday weeks 
+    label = scales::label_date_short())+ # label formatting
   
   scale_y_continuous(
     expand = c(0,0))+                  # remove excess space under x-axis, make flush 
@@ -1370,10 +721,10 @@ ggplot(central_data) +
     fill = "lightblue") + 
   
   scale_x_date(
-    expand = c(0,0),                   # remove excess x-axis space below and after case bars
-    date_breaks = "months",            # Monday every 4 weeks
-    date_minor_breaks = "week",        # Monday weeks 
-    date_labels = "%b\n%Y")+           # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "months",              # Monday every 4 weeks
+    date_minor_breaks = "week",          # Monday weeks 
+    label = scales::label_date_short())+ # label formatting
   
   scale_y_continuous(
     expand = c(0,0))+                  # remove excess space under x-axis, make flush 
@@ -1414,7 +765,7 @@ ggplot(central_data) +
                             to   = ceiling_date(max(central_data$date_onset, na.rm=T), "week", week_start = 7),
                             by   = "7 days"),
     
-    date_labels = "%a\n%d\n%b\n'%y")+  # label format
+    label = scales::label_date_short())+ # label formatting
   
   scale_y_continuous(
     expand = c(0,0))+                # remove excess space under x-axis, make flush 
@@ -1495,7 +846,7 @@ ggplot(data = count_data_weekly)+
   scale_x_date(
     date_breaks = "2 months",      # labels every 2 months 
     date_minor_breaks = "1 month", # gridlines every month
-    date_labels = '%b\n%Y')+       #labeled by month with year below
+    label = scales::label_date_short())+ # label formatting
      
   # Choose color palette (uses RColorBrewer package)
   scale_fill_brewer(palette = "Pastel2")+ 
@@ -1566,7 +917,7 @@ ggplot(data = ll_counts_7day) +  # begin with new dataset defined above
       size = 1) +                # width of line
     scale_x_date(                # date scale
       date_breaks = "1 month",
-      date_labels = '%d/%m',
+      label = scales::label_date_short(), # label formatting
       expand = c(0,0)) +
     scale_y_continuous(          # y-axis scale
       expand = c(0,0),
@@ -1649,10 +1000,10 @@ ggplot(central_data) +
                       
   # The labels on the x-axis
   scale_x_date(
-    expand            = c(0,0),         # remove excess x-axis space below and after case bars
-    date_breaks       = "2 months",     # labels appear every 2 months
-    date_minor_breaks = "1 month",      # vertical lines appear every 1 month 
-    date_labels       = "%b\n'%y")+     # date labels format
+    expand            = c(0,0),          # remove excess x-axis space below and after case bars
+    date_breaks       = "2 months",      # labels appear every 2 months
+    date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
+    label = scales::label_date_short())+ # label formatting
   
   # y-axis
   scale_y_continuous(expand = c(0,0))+                       # removes excess y-axis space between bottom of bars and the labels
@@ -1715,10 +1066,10 @@ ggplot(central_data) +
   
   # labels on x-axis
   scale_x_date(
-    expand            = c(0,0),         # remove excess x-axis space below and after case bars
-    date_breaks       = "2 months",     # labels appear every 2 months
-    date_minor_breaks = "1 month",      # vertical lines appear every 1 month 
-    date_labels       = "%b\n'%y")+     # date labels format
+    expand            = c(0,0),          # remove excess x-axis space below and after case bars
+    date_breaks       = "2 months",      # labels appear every 2 months
+    date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
+    label = scales::label_date_short())+ # label formatting
   
   # y-axis
   scale_y_continuous(expand = c(0,0))+  # removes excess y-axis space below 0
@@ -1811,10 +1162,10 @@ ggplot(central_data2) +
                      
   # Labels on x-axis
   scale_x_date(
-    expand            = c(0,0),         # remove excess x-axis space below and after case bars
-    date_breaks       = "2 months",     # labels appear every 2 months
-    date_minor_breaks = "1 month",      # vertical lines appear every 1 month 
-    date_labels       = "%b\n'%y")+     # date labels format
+    expand            = c(0,0),          # remove excess x-axis space below and after case bars
+    date_breaks       = "2 months",      # labels appear every 2 months
+    date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
+    label = scales::label_date_short())+ # automatic label formatting
   
   # y-axis
   scale_y_continuous(expand = c(0,0))+  # removes excess y-axis space between bottom of bars and the labels
@@ -1883,10 +1234,10 @@ ggplot(central_data) +
   # scales
   scale_y_continuous(expand = c(0,0))+
   scale_x_date(
-    expand = c(0,0),                   # remove excess x-axis space below and after case bars
-    date_breaks = "1 month",           # 1st of month
-    date_minor_breaks = "1 month",     # 1st of month
-    date_labels = "%b\n'%y")+          # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "1 month",             # 1st of month
+    date_minor_breaks = "1 month",       # 1st of month
+    label = scales::label_date_short())+ # automatic label formatting
   
   # labels and theme
   labs(
@@ -1962,10 +1313,10 @@ ggplot(plot_data, aes(x = date_onset, fill = tentative)) +
   scale_y_continuous(expand = c(0,0))+
   scale_fill_manual(values = c("lightblue", "grey"))+
   scale_x_date(
-    expand = c(0,0),                   # remove excess x-axis space below and after case bars
-    date_breaks = "3 weeks",           # Monday every 3 weeks
-    date_minor_breaks = "week",        # Monday weeks 
-    date_labels = "%d\n%b\n'%y")+      # label format
+    expand = c(0,0),                     # remove excess x-axis space below and after case bars
+    date_breaks = "3 weeks",             # Monday every 3 weeks
+    date_minor_breaks = "week",          # Monday weeks 
+    label = scales::label_date_short())+ # automatic label formatting
   
   # labels and theme
   labs(title = "Show days that are tentative reporting",

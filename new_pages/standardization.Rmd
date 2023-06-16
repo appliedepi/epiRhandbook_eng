@@ -457,7 +457,7 @@ knitr::kable(mortality_ds_rate_phe)
 
 For indirect standardization, you need a reference population with the number of deaths and number of population per stratum. In this example, we will be calculating rates for country A *using country B as the reference population*, as the `standard_pop_clean` reference population does not include number of deaths per stratum. 
 
-Below, we first create the reference population from country B. Then, we pass mortality and population data for country A, combine it with the reference population, and pass it to the function `phe_isr()`, to get indirectly standardized rates. Of course, you can do it also vice versa.
+Below, we first create the reference population from country B. Then, we pass mortality and population data for country A, combine it with the reference population, and pass it to the function `calculate_ISRate()`, to get indirectly standardized rates. Of course, you can do it also vice versa.
 
 Of note - in our example below, the reference population is provided as a separate data frame. In this case, we make sure that `x = `, `n = `, `x_ref = ` and `n_ref = ` vectors are all ordered by the same standardization category (stratum) values as that in our country-specific data frame, as records will be matched by position.
 
@@ -471,7 +471,7 @@ refpopCountryB <- country_data %>%
 # Calculate rates for country A indirectly standardized by age and sex
 mortality_is_rate_phe_A <- country_data %>%
      filter(Country == "A") %>%
-     PHEindicatormethods::phe_isr(
+     PHEindicatormethods::calculate_ISRate(
           x = Deaths,                 # column with observed number of events
           n = Population,             # column with non-standard pops for each stratum
           x_ref = refpopCountryB$Deaths,  # reference number of deaths for each stratum
