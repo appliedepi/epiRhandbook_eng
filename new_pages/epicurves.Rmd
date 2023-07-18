@@ -10,10 +10,7 @@ An epidemic curve (also known as an "epi curve") is a core epidemiological chart
 
 Analysis of the epicurve can reveal temporal trends, outliers, the magnitude of the outbreak, the most likely time period of exposure, time intervals between case generations, and can even help identify the mode of transmission of an unidentified disease (e.g. point source, continuous common source, person-to-person propagation). One online lesson on interpretation of epi curves can be found at the website of the [US CDC](https://www.cdc.gov/training/quicklearns/epimode/index.html).    
 
-In this page we demonstrate two approaches to producing epicurves in R:  
-
-* The **incidence2** package, which can produce an epi curve with simple commands  
-* The **ggplot2** package, which allows for advanced customizability via more complex commands  
+In this page we demonstrate making epidemic curves with the **ggplot2** package, which allows for advanced customizability.
 
 Also addressed are specific use-cases such as:  
 
@@ -22,6 +19,9 @@ Also addressed are specific use-cases such as:
 * Applying moving averages  
 * Showing which data are "tentative" or subject to reporting delays  
 * Overlaying cumulative case incidence using a second axis  
+
+The **incidence2** package offers alternative approach with easier commands, but as of this writing was undergoing revisions and was not stable. It will be re-added to this chapter when stable.  
+
 
 <!-- ======================================================= -->
 ## Preparation
@@ -136,9 +136,9 @@ ggplot(data = linelist)+
 <!-- ======================================================= -->
 ## Epicurves with ggplot2 { }
 
-Using `ggplot()` to build your epicurve allows for more flexibility and customization, but requires more effort and understanding of how `ggplot()` works.  
+Using `ggplot()` to build your epicurve allows for flexibility and customization, but requires more effort and understanding of how `ggplot()` works.  
 
-Unlike using the **incidence2** package, you must *manually* control the aggregation of the cases by time (into weeks, months, etc) *and* the intervals of the labels on the date axis. This must be carefully managed.  
+You must *manually* control the aggregation of the cases by time (into weeks, months, etc) *and* the intervals of the labels on the date axis. This must be carefully managed.  
 
 These examples use a subset of the `linelist` dataset - only the cases from Central Hospital.  
 
@@ -1514,8 +1514,6 @@ ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
 
 
 ## Cumulative Incidence {}
-
-Note: If using **incidence2**, see the section on how you can produce cumulative incidence with a simple function. This page will address how to calculate cumulative incidence and plot it with `ggplot()`.  
 
 If beginning with a case linelist, create a new column containing the cumulative number of cases per day in an outbreak using `cumsum()` from **base** R:    
 
