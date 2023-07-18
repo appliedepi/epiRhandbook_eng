@@ -587,8 +587,10 @@ fitted_model <- trending::fit(model, data.frame(counts))
 ## calculate confidence intervals and prediction intervals 
 observed <- predict(fitted_model, simulate_pi = FALSE)
 
+estimate_res <- data.frame(observed$result)
+
 ## plot your regression 
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
   ## add in a line for the model estimate
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -623,24 +625,24 @@ the observed counts.
 ```{r, warning=F, message=F}
 
 ## calculate the residuals 
-observed <- observed %>% 
-  mutate(resid = residuals(fitted_model$fitted_model, type = "response"))
+estimate_res <- estimate_res %>% 
+  mutate(resid = fitted_model$result[[1]]$residuals)
 
 ## are the residuals fairly constant over time (if not: outbreaks? change in practice?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
   labs(x = "epiweek", y = "Residuals")
 
 ## is there autocorelation in the residuals (is there a pattern to the error?)  
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
 
 ## are residuals normally distributed (are under or over estimating?)  
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -648,7 +650,7 @@ observed %>%
   
 ## compare observed counts to their residuals 
   ## should also be no pattern 
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -657,7 +659,7 @@ observed %>%
 ## H0 is that residuals are from a white-noise series (i.e. random)
 ## test for independence 
 ## if p value significant then non-random
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
 
 ```
 
@@ -809,10 +811,10 @@ numbers (as climate forecasts are readily available).
 
 fitted_model %>% 
   ## extract original negative binomial regression
-  get_model() %>% 
+  get_fitted_model() #%>% 
   ## get a tidy dataframe of results
-  tidy(exponentiate = TRUE, 
-       conf.int = TRUE)
+  #tidy(exponentiate = TRUE, 
+  #     conf.int = TRUE)
 ```
 
 A quick visual inspection of the model shows that it might do a better job of 
@@ -820,8 +822,10 @@ estimating the observed case counts.
 
 ```{r plot_nb_reg_bivar, warning=F, message=F}
 
+estimate_res <- data.frame(observed$result)
+
 ## plot your regression 
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
   ## add in a line for the model estimate
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -848,24 +852,24 @@ so it may be more feasible to stick with the simpler model without temperature.
 ```{r}
 
 ## calculate the residuals 
-observed <- observed %>% 
+estimate_res <- estimate_res %>% 
   mutate(resid = case_int - estimate)
 
 ## are the residuals fairly constant over time (if not: outbreaks? change in practice?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
   labs(x = "epiweek", y = "Residuals")
 
 ## is there autocorelation in the residuals (is there a pattern to the error?)  
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
 
 ## are residuals normally distributed (are under or over estimating?)  
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -873,7 +877,7 @@ observed %>%
   
 ## compare observed counts to their residuals 
   ## should also be no pattern 
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -882,7 +886,7 @@ observed %>%
 ## H0 is that residuals are from a white-noise series (i.e. random)
 ## test for independence 
 ## if p value significant then non-random
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
 
 ```
 
@@ -1066,7 +1070,7 @@ forecasts <- fitted_model %>%
   predict(data.frame(pred_data), simulate_pi = FALSE)
 
 ## combine baseline and predicted datasets
-observed <- bind_rows(observed, forecasts)
+observed <- bind_rows(observed$result, forecasts$result)
 
 ```
 
@@ -1270,8 +1274,9 @@ forecasts <- purrr::map(unique(case_roll$.id),
   
   # forecast with data want to predict with 
   forecasts <- fitted_model %>% 
-    predict(data.frame(pred_data), simulate_pi = FALSE) %>% 
-    ## only keep the week and the forecast estimate
+    predict(data.frame(pred_data), simulate_pi = FALSE)
+  forecasts <- data.frame(forecasts$result[[1]]) %>% 
+       ## only keep the week and the forecast estimate
     select(epiweek, estimate)
     
   }
@@ -1569,7 +1574,9 @@ fitted_model <- trending::fit(model, counts)
 ## calculate confidence intervals and prediction intervals 
 observed <- predict(fitted_model, simulate_pi = FALSE)
 
+```
 
+```{r table_regression, eval = FALSE, echo = TRUE}
 
 ## show estimates and percentage change in a table
 fitted_model %>% 
@@ -1604,7 +1611,9 @@ As previously we can visualise the outputs of the regression.
 
 ```{r plot_interrupted}
 
-ggplot(observed, aes(x = epiweek)) + 
+estimate_res <- data.frame(observed$result)
+
+ggplot(estimate_res, aes(x = epiweek)) + 
   ## add in observed case counts as a line
   geom_line(aes(y = case_int, colour = "Observed")) + 
   ## add in a line for the model estimate
