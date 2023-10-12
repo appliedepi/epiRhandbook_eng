@@ -1,0 +1,465 @@
+# Antimicrobial Resistance (AMR)
+
+## Introduction
+
+The **antimicrobial resistance** (AMR) that manifests in bacteria and fungi, is central within the diverse field of infectious disease epidemiology and, more specifically, microbial epidemiology. It occurs when microorganisms develop mechanisms that protect them from the effects of antimicrobial agents, such as antibiotics. AMR occurring specifically in bacteria is often termed **antibiotic resistance** (ABR). An important distinction should be made between intrinsic AMR (that is, AMR inherently present in certain microbial species as a distinctive property of that species) and acquired AMR (that is, AMR present in some strains of a certain microbial species induced by the presence of an antimicrobial agent). Generally speaking, infections caused by microorganisms that are resistant to one or more antimicrobial agents cannot be treated with those antimicrobial agents anymore.
+
+AMR is a global health problem and of great concern for human medicine, veterinary medicine, and the environment alike. It is associated with significant burdens to both patients and health care systems. Current estimates show the immense dimensions we are already facing, such as claiming at least 50,000 lives due to AMR each year across Europe and the US alone (O’Neill J., 2014). Although estimates for the burden through AMR and their predictions are disputed by some, the rising trend is undeniable, thus calling for worldwide efforts to tackle this problem (De Kraker MEA, 2016; CDC AR Threats Report, 2019). For this reason, laboratory diagnostics are of utmost importance for generating AMR results that can be used to acquire new or improved AMR insights by conducting microbial epidemiology. From clinical illness alone (such as fever, redness, swelling, pain, and loss of function), it is impossible to determine whether the microorganism causing the infection is drug-resistant; it requires laboratory diagnostics to measure AMR. Please read [here](https://msberends.github.io/a_new_instrument_for_microbial_epidemiology/ch01-introduction.html#antimicrobial-resistance-in-microorganisms) for more information about this topic.
+
+Laboratory diagnostics regarding AMR can ultimately result in three different types of data:
+
+1. Raw measurements of AMR using so-called disk diffusion (on agar plates, of which the results are measured in millimetres)
+2. Raw measurements of AMR using automated devices (based on concentrations of a minimum required antibiotic dose to inhibit microbial growth, measured in milligrams per litre)
+3. Interpretations of either of these two based on guidelines from the *Clinical and Laboratory Standards Institute* (CLSI) or the *European Committee on Antimicrobial Susceptibility Testing* (EUCAST), resulting in a tri-form abbreviated as ‘RSI’:
+
+    * R = **resistant**. A microorganism is categorised as ‘resistant’ when there is a high likelihood of therapeutic failure even when there is increased exposure.
+      Exposure is a function of how the mode of administration, dose, dosing interval, infusion time, as well as distribution and excretion of the antimicrobial agent will influence the infecting organism at the site of infection.
+
+    * S = **susceptible**. A microorganism is categorised as ‘susceptible’ when there is a high likelihood of therapeutic success using a standard dosing regimen of the agent.
+
+    * I  
+      
+      (according to CLSI) I = **intermediate**. A microorganism is categorised as ‘intermediate’ when there is an unsure likelihood of therapeutic success. Additionally, CLSI considers a susceptible dose-dependent (SDD) category for certain drug and organism combinations, for which the susceptibility of an isolate depends on the dosing regimen used.  
+      
+      (according to EUCAST) I = **susceptible, increased exposure**. A microorganism is categorised as such when there is a high likelihood of therapeutic success because exposure to the agent is increased by adjusting the dosing regimen or by its concentration at the site of infection.
+
+On top of this, microbiological laboratory diagnostics also often result in the identification of microbial species.
+
+Data sets containing information about microorganisms and AMR, such as MIC values, disk diffusion values and/or AMR interpretations, can be analysed using the `AMR` package for R.
+
+## Data analysis using the `AMR` package
+
+The `AMR` package is a free, open-source and independent R package (released under GPL v2.0) to simplify the analysis and prediction of AMR and to work with microbial and antimicrobial data and properties, by using evidence-based methods. This package is fully independent of any other R package and works on Windows, macOS and Linux with all versions of R since R-3.0 (April 2013). It was developed by public health contributors from seven countries and designed to work in any setting, including those with very limited resources. After installing this package, R knows ~`r round(nrow(AMR::microorganisms), -3)` distinct microbial species and all ~`r round(nrow(AMR::antibiotics) + nrow(AMR::antivirals), -1)` antibiotic, antimycotic and antiviral drugs by name and code (including ATC, EARS-Net, PubChem, LOINC and SNOMED CT), and knows all about valid R/SI and MIC values. It supports any data format, including WHONET/EARS-Net data. Antimicrobial names and group names are available in `r paste(sort(names(AMR:::LANGUAGES_SUPPORTED)), collapse = ", ")`. Since its first public release in early 2018, the `AMR` package has been used in at least 175 countries. For more information, please visit [the website](https://msberends.github.io/AMR/).
+
+```{r}
+pacman::p_load(
+  AMR,            # for AMR data analysis
+  tidyverse,      # for data management and viz
+)
+```
+
+### Data cleaning
+
+Most often, input data have to been cleaned first. AMR data analysis heavily relies on the biological taxonomy of microorganisms, guideline interpretation rules of raw AMR measurements and epidemiological methods to correct for duplicate patients and isolates. These are all integrated in the `AMR` package.
+
+The `AMR` package comes with two data sets; `example_isolates`, which contains fictituous laboratory results of `r nrow(example_isolates)` microbial isolates with their full antibiograms, and `example_isolates_unclean`, which contains data that are yet to be cleaned:
+
+```{r}
+as_tibble(example_isolates)
+as_tibble(example_isolates_unclean)
+```
+
+#### Microorganisms
+
+The biological taxonomy of microorganisms is highly volatile and changes in detail every day. Because of this, laboratory information systems often have delays in their updates, and the data sent to the epidemiologist might subsequently have outdated taxonomies. Furthermore, the structure in which the names of microorganisms are stored do also not always follow the taxonomic convention. Take for example this frequency table of the `bacteria` column of the `example_isolates_unclean` data set:
+
+```{r}
+example_isolates_unclean %>%
+  count(bacteria, sort = TRUE)
+```
+
+The `AMR` package can transform any input to a microorganism ID using `as.mo()`, which in turn can be used to retrieve any taxonomic property. The algorithm is dependent on human pathogenic prevalence and the resemblance between the input and the microbial taxonomy (read [more about it here](https://msberends.github.io/AMR/reference/mo_matching_score.html)).
+
+```{r}
+df <- example_isolates_unclean %>%
+  mutate(microorganism_id = as.mo(bacteria))
+```
+
+As the console says, check the uncertain hits using `mo_uncertainties()`:
+
+```{r}
+mo_uncertainties()
+```
+
+This lets you know that the conversion went fine in this case. You can now retrieve any taxonomic property:
+
+```{r}
+# the microorganism ID themselves
+df %>%
+  count(mo = microorganism_id,
+        sort = TRUE)
+# the full taxonomic name
+df %>%
+  count(fullname = mo_name(microorganism_id),
+        sort = TRUE)
+# the genus
+df %>%
+  count(genus = mo_genus(microorganism_id),
+        sort = TRUE)
+# the gramstain
+df %>%
+  count(gramstain = mo_gramstain(microorganism_id),
+        sort = TRUE)
+```
+
+This new microorganism ID thus enables data analyses based on any taxonomic property of the microorganism names that are present in the data. Strictly speaking, the `mo_*` functions use `as.mo()` internally as well, so there is no need to transform to a microorganism ID on beforehand, though this will increase the speed and reliability of the analysis.
+
+#### Antibiotics
+
+For antibiotics (and their properties) this works in a similar way, using `as.ab()`. The `AMR` package contains names, codes and many other reference data about antibiotics, in its `antibiotics` data set. The `as.ab()` function can take any input resembling the name or code of an antimicrobial agent, transforms it into an antimicrobial ID. Helper functions are available to get specific properties of antimicrobial IDs, such as `ab_name()` for getting the official name, `ab_atc()` for the ATC code(s), or `ab_cid()` for the CID (Compound ID) used by PubChem. Trade names can be also used as input. For example, the input values "Amoxil", "dispermox", "amox" and "J01CA04" all return the ID of amoxicillin (AMX):
+
+```{r}
+as.ab("Amoxicillin")
+
+as.ab(c("Amoxil", "dispermox", "amox", "J01CA04"))
+
+ab_name("Amoxil")
+
+ab_atc("amox")
+
+ab_name("J01CA04")
+
+ab_group("J01CA04")
+```
+
+If a data set contains column names that resemble antibiotic names or code, they can be transformed using `as.mo()` as well, to enable advanced data analysis later on (see *Data analysis*):
+
+```{r}
+df <- data.frame(patient = "John Doe",
+                 date = Sys.Date(),
+                 amoxi = "S",
+                 amox_clav = "S",
+                 vancomycin = "R",
+                 gen = "S") %>%
+  set_ab_names(property = "ab")
+
+df
+```
+
+Or if the official names or ATC codes are preferred, these properties can be set as well:
+
+```{r}
+df %>%
+  set_ab_names(property = "atc")
+
+df %>%
+  set_ab_names(property = "name")
+```
+
+#### Antimicrobial resistance
+
+Antimicrobial resistance (AMR) can be measured in millimetres when the disk diffusion method is used, or in antimicrobial concentrations when an automated antimicrobial susceptibility testing (AST) device is used. The antimicrobial concentration that inhibits at least 99.99% growth of the microorganism, is denoted the minimum inhibitory concentration (MIC) and is typically expressed in milligrams per litre (mg/L).
+
+AST devices allow for timely and reproducible results. Yet, the cartridges used for this type of instrument have a limited number of wells to test different manufacturer-set concentrations and types of antimicrobial agents. Since this limitation thus disallows testing for any desired concentration, MICs are often capped at a minimum or maximum value. For example, an actual MIC could be 128 mg/L, although the highest available concentration on a cartridge could be 32 mg/L. In such cases, the MIC will be reported as "≥ 32 mg/L". This is a technical limitation of colourimetric detection of CO~2~ production as a test technique, which brings important disadvantages for microbial epidemiological analyses. Capped values (such as "≤ 0.0125 mg/L" and "≥ 32 mg/L") hinder comparison with previous findings or findings from other laboratories as they might conceal the true MICs. Furthermore, different cartridges may be used for bacteria isolated from different specimen types (such as urine or blood), which can yield different ranges of the resulting MICs. For example, an isolate of *Staphylococcus aureus* from a urinary tract infection could be tested for many concentrations of only a few orally available antibiotics using cartridge A, while an isolate of *S. aureus* from a complex surgical wound could be tested for only a few concentrations of many intravenously available antibiotics using cartridge B. Consequently, the MIC of e.g., ciprofloxacin could be reported as "≤ 0.0625 mg/L" using cartridge A, while it could be reported as "≤ 0.125 mg/L" using cartridge B, even when the *S. aureus* isolates are identical. This makes it hard to compare results in epidemiological data analyses as the data availability can (unknowingly) be unequal, potentially affecting the outcome of any AMR data analysis.
+
+The `AMR` contains methods to work with these raw values, and also to interpret these raw values. The `as.disk()` function can be used to clean disk diffusion results and the `as.mic()` function can be used to clean MIC values:
+
+```{r}
+# disk must be between 6 and 50 millimetres, other values will become NA:
+disks <- as.disk(c("12mm", "25", "4 mm", 65))
+disks
+
+mics <- as.mic(c("≤ 0.0625 mg/L",
+                 "0.125",
+                 "0,5",
+                 "<0.25; S",
+                 ">32; R!",
+                 "not an MIC"))
+mics
+```
+
+Values of the new class `mic` are treated specially by the `AMR` package; they are ordered factors (to keep operators like ">="), but they can be used in mathematical functions as if they were numeric, allowing numeric subsetting as well:
+
+```{r}
+mics <- mics[!is.na(mics)]
+log2(mics)
+mics[mics >= 0.5]
+```
+
+For interpreted values (i.e., "R", "S" or "I"), an additional class `rsi` exists, which is an ordered factor with the levels `S` < `I` < `R`. The function `as.rsi()` can be used to clean laboratory data:
+
+```{r}
+messy_data <- tibble(mo = "E. coli",
+                     # these examples are straight from a laboratory system:
+                     gentamicin = c("S",
+                                    "S; S",
+                                    "susceptible",
+                                    "resis",
+                                    ".",
+                                    "1 S",
+                                    "19 R δ",
+                                    "2 R",
+                                    "2 S",
+                                    "24 S δ",
+                                    "27 S δ",
+                                    "4 I",
+                                    "4 R",
+                                    "6 R ε; 4 R",
+                                    "8 R",
+                                    "<=0,5 S",
+                                    "<=1 S",
+                                    ">=16 R"))
+messy_data %>% 
+  mutate(genta_clean = as.rsi(gentamicin))
+```
+
+The `as.rsi()` can also be used to interpret minimum inhibitory concentration (MIC) values and disk diffusion values. As this is part of the data analysis, please see \@ref(mic-disk-interpretation).
+
+### Data analysis
+
+For the data analysis part, we will use the included `example_isolates` data set, which contains the antimicrobial results of 2,000 fictitious isolates.
+
+```{r}
+# use dplyr::as_tibble() to print the data nicely
+as_tibble(example_isolates)
+```
+
+#### Correcting for duplicate isolates
+
+To conduct epidemiological analyses on antimicrobial resistance data in an methodologically sensible way, only so-called first isolates should be included to prevent overestimation and underestimation of antimicrobial resistance. For example, the data could contain five results of one patient with a methicillin-resistant *Staphylococcus aureus* (MRSA) in three weeks. Including all these results would be an overestimation of the methicillin resistance for *S. aureus* or for the whole group of Gram-positive bacteria.
+
+According to Hindler *et al.* (2007, doi: 10.1086/511864), there are different methods (algorithms) to select first isolates with increasing reliability: **isolate-based**, **patient-based**, **episode-based** and **phenotype-based**. All methods select on a combination of the taxonomic genus and species (not subspecies). They can all be applied using the `first_isolate()` function, which returns `TRUE` or `FALSE` for each row in the data set:
+
+* **Isolate-based**  
+  This method does not require any selection, as all isolates should be included. It does, however, respect all arguments set in the `first_isolate()` function. For example, the default setting for `include_unknown` (`FALSE`) will omit selection of rows without a microbial ID.
+
+* **Patient-based**  
+  To include every genus-species combination per patient once, set the `episode_days` to *Inf*. Although often inappropriate, this method makes sure that no duplicate isolates are selected from the same patient. In a large longitudinal data set, this could mean that isolates are excluded that were found years after the initial isolate.
+
+* **Episode-based**  
+  To include every genus-species combination per patient episode once, set the `episode_days` to a sensible number of days. Depending on the type of analysis, this could be 14, 30, 60 or 365. Short episodes are common for analysing specific hospital or ward data, long episodes are common for analysing regional and national data.
+
+  *This is probably the most common method to correct for duplicate isolates.* Patients are categorised into episodes based on their ID and dates (e.g., the date of specimen receipt or laboratory result). While this is a common method, it does not take into account antimicrobial test results. This means that e.g. a methicillin-resistant *Staphylococcus aureus* (MRSA) isolate cannot be differentiated from a wildtype *Staphylococcus aureus* isolate.
+
+* **Phenotype-based**  
+  This is a more reliable method, since it also weighs the antibiogram (antimicrobial test results) yielding so-called 'first weighted isolates'. There are two different methods to weigh the antibiogram:
+
+  * Using `type = "points"` and argument `points_threshold` (default)
+
+    This method weighs all antimicrobial agents available in the data set. Any difference from I to S or R (or vice versa) counts as 0.5 points, a difference from S to R (or vice versa) counts as 1 point. When the sum of points exceeds `points_threshold`, which defaults to 2, an isolate will be selected as a first (weighted) isolate.
+
+    All antimicrobials are internally selected using the `all_antimicrobials()` function. The output of this function does not need to be passed to the `first_isolate()` function.
+
+  * Using `type = "keyantimicrobials"` and argument `ignore_I`
+
+    This method only weighs specific antimicrobial agents, called key antimicrobials. Any difference from S to R (or vice versa) in these key antimicrobials will select an isolate as a first (weighted) isolate. With `ignore_I = FALSE`, also differences from I to S or R (or vice versa) will lead to this.
+
+    Key antimicrobials are internally selected using the `key_antimicrobials()` function, but can also be added manually as a variable to the data and set in the `col_keyantimicrobials` argument. Another option is to pass the output of the `key_antimicrobials()` function directly to the `col_keyantimicrobials` argument.
+
+The default method is phenotype-based (using `type = "points"` and `episode_days = 365`). This makes sure that every genus-species combination is selected per patient once per year, while taking into account all antimicrobial test results. If no antimicrobial test results are available in the data set, only the episode-based method is applied at default.
+
+The `first_isolate` takes a data set as input, and arguments to set the column with microoganism IDs, the dates, and the patient IDs. If these are left blank, they are all determined automatically:
+
+```{r}
+nrow(example_isolates)
+
+example_isolates_first <- example_isolates %>% 
+  filter(first_isolate()) %>% 
+  # print in nice format
+  as_tibble()
+
+nrow(example_isolates_first)
+```
+
+So out of 2,000 isolates, `r format(nrow(example_isolates_first), big.mark = ",")` are first isolates that can be used for AMR data analysis. Be sure to **always** filter on first isolates when conducting AMR data analysis.
+
+#### Selecting and filtering using antibiotic selectors
+
+What if you want to determine AMR of certain antibiotic classes, such as glycopeptides? The knowledge about which antibiotics are member of a pharmaceutical class is also included in the `AMR` package and available to users by means of *antibiotic selectors*. These are functions that have the pharmaceutical class as name, such as `penicillins()`, `aminoglycosides()` and `glycopeptides()`. They work in the same way as Tidyverse selectors such as `everything()` and `starts_with()`:
+
+```{r}
+example_isolates_first %>% 
+  select(mo, aminoglycosides(), glycopeptides())
+```
+
+There are tens of antibiotic class selectors and they all use `as.ab()` internally to find antibiotic columns. This means that they can pick up many different column names that resemble antibiotic names:
+
+```{r}
+data.frame(x = 0,
+           mo = 0,
+           # some abbreviations:
+           oxa = "R",
+           ampi = "R",
+           # full name:
+           benzylpenicillin = "R",
+           # ATC code of amoxicillin/clavulanic acid:
+           J01CR02 = "R",
+           # EARS-Net/WHO code of flucloxacillin:
+           FLC = "R") %>% 
+  select(penicillins())
+```
+
+They can not only be used for selecting, they can be used for filtering as well:
+
+```{r}
+example_isolates_first %>% 
+  # filter using any()
+  filter(any(aminoglycosides() == "R"))
+example_isolates_first %>% 
+  # filter using all()
+  filter(all(aminoglycosides() == "R"))
+example_isolates_first %>% 
+  # filter using a combination of any() and all()
+  filter(any(aminoglycosides() == "R"),
+         all(cephalosporins_2nd() == "R"))
+```
+
+
+#### Determine AMR and number of suitable isolates
+
+If you have a data set containing columns with interpreted antimicrobial results (i.e., R, S or I), it's easy to determine the antimicrobial resistance per antibiotic, or even antibiotic combinations:
+
+```{r}
+# just the susceptibility (= S + I) of amoxicillin:
+example_isolates_first %>% 
+  susceptibility(AMX)
+# just the resistance (= R) of amoxicillin:
+example_isolates_first %>% 
+  resistance(AMX)
+```
+
+The package provides five 'proportion' functions to calculate AMR; `proportion_R()`, `proportion_IR()`, `proportion_I()`, `proportion_SI()`, and `proportion_S()`. The `susceptibility()` function is an alias of `proportion_SI()` and the `resistance()` function is an alias of `proportion_R()`.
+
+```{r}
+# empiric coverage of different antibiotics per hospital:
+example_isolates_first %>% 
+  group_by(hospital_id) %>% 
+  summarise(
+    # amoxicillin, mono therapy
+    amoxi_SI = susceptibility(AMX),
+    amoxi_n = n_rsi(AMX),
+    # gentamicin, mono therapy
+    genta_SI = susceptibility(GEN),
+    genta_n = n_rsi(GEN),
+    # amoxicillin + gentamicin, combination therapy
+    amoxi_genta_SI = susceptibility(AMX, GEN),
+    amoxi_genta_n = n_rsi(AMX, GEN))
+```
+
+All of these functions to calculate AMR have a `minimum` argument, to set the minimum allowed number of available (tested) isolates. Any isolate count lower than `minimum` will return `NA` with a warning. The default number of 30 is advised by the Clinical and Laboratory Standards Institute (CLSI) as best practice.
+
+Using the power of `dplyr`, you can also use `resistance()` or `susceptibility()` in conjunction with antibiotic selectors in `across()` to analyse AMR for different groups *and* antibiotic classes:
+
+```{r}
+example_isolates_first %>% 
+  group_by(ages = age_groups(age, split_at = c(60, 70, 80))) %>% 
+  summarise(across(c(aminoglycosides(), carbapenems()),
+                   resistance))
+# an even more advanced example, calculating both resistance and number of isolates
+example_isolates_first %>% 
+  group_by(hospital_id) %>% 
+  summarise(across(c(aminoglycosides(), carbapenems()),
+                   list(R = resistance, n = n_rsi),
+                   .names = "{.col}_{.fn}"))
+```
+
+It is also possible to calculate AMR of all bug-drug combinations in your data set using the `bug_drug_combinations()` function. It also allows the result to be formatted with `format()` (to prettify it to a publishable/printable format) and it supports `dplyr` grouping:
+
+```{r}
+example_isolates_first %>%
+  filter(mo_genus() %in% c("Escherichia", "Klebsiella")) %>% 
+  bug_drug_combinations() %>% 
+  as_tibble()
+example_isolates_first %>%
+  # the default is FUN = mo_shortname, like above
+  # - now we will use mo_gramstain:
+  bug_drug_combinations(FUN = mo_gramstain) %>% 
+  as_tibble()
+example_isolates_first %>%
+  group_by(hospital_id) %>% 
+  bug_drug_combinations(FUN = mo_gramstain) %>% 
+  as_tibble()
+```
+
+#### Interpreting MICs and disk diffusion values {#mic-disk-interpretation}
+
+To interpret minimum inhibitory concentration (MIC) values and disk diffusion values, international guidelines are in place. The two most common guidelines are from the *European Committee on Antimicrobial Susceptibility Testing* (EUCAST) and the *Clinical and Laboratory Standards Institute* (CLSI). The `AMR` package contains the yearly guidelines of these two institutes since 2010.
+
+These interpretations are at least dependent on (1) the raw antimicrobial result, either MICs or disk diffusion values, and (2) the taxonomic family, genus or species. If you use `as.rsi()` on data that have been transformed with either `as.mic()` or `as.disk()`, the `as.rsi()` function will try to interpret the data:
+
+```{r}
+my_mics <- as.mic(c(1, 2, 4, 8, 16, 32, 64))
+as.rsi(my_mics, mo = "E. coli", ab = "ampicillin")
+as.rsi(my_mics, mo = "E. coli", ab = "ampicillin", guideline = "CLSI 2020")
+# for a data frame:
+my_df <- data.frame(ampi = my_mics,
+                    mo = "E. coli")
+my_df
+my_df %>% 
+  as.rsi()
+```
+
+Use the `across()` function of `dplyr` to be specific about the columns you want to transform:
+
+```{r}
+my_df <- data.frame(ampi = my_mics,
+                    cipro = my_mics,
+                    gentamicin = my_mics,
+                    mo = "E. coli")
+my_df
+my_df %>%
+  mutate(across(ampi:cipro, as.rsi))
+my_df %>%
+  mutate(across(ampi:cipro, as.rsi))
+my_df %>%
+  mutate(across(where(is.mic), as.rsi))
+```
+
+#### Plotting AMR results
+
+Plotting AMR results is supported for interpreted results (i.e., RSI values) and raw results (i.e., MICs and disk diffusion values). It is supported in both base R and in `ggplot2`.
+
+##### Interpreted results
+
+RSI values can be plotting directly:
+
+```{r}
+# base R
+plot(example_isolates$CIP)
+# ggplot2 contains the autoplot() function, which the AMR package supports:
+autoplot(example_isolates$CIP)
+```
+
+Or multiple drugs can be plotting using more extensive `ggplot2` code. The `AMR` pacakge provides a new `geom_rsi` geom:
+
+```{r}
+UTI_drugs <- example_isolates %>%
+  select(AMX, NIT, FOS, TMP, CIP)
+
+glimpse(UTI_drugs)
+
+ggplot(UTI_drugs) +
+  geom_rsi()
+```
+
+Different helper functions are available to edit the scales and themes:
+
+```{r}
+ggplot(UTI_drugs) +
+  geom_rsi() +
+  scale_y_percent() + # percentages on y axis
+  scale_rsi_colours() + # colour-blindness-safe colours for green/yellow/red
+  labels_rsi_count() + # datalabels with number of isolates
+  theme_rsi() # a clean theme
+```
+
+The `ggplot_rsi()` function is a wrapper around these functions:
+
+```{r}
+ggplot_rsi(UTI_drugs)
+```
+
+##### Raw results
+
+Raw results can be plotted in plain:
+
+```{r}
+# generate random values
+mic <- random_mic(100)
+
+# base R
+plot(mic)
+
+
+autoplot(mic)
+```
+
+But they can also have (colour-blindness-safe) colours based on interpretation guidelines as well:
+
+```{r}
+plot(mic, mo = "S. pneumoniae", ab = "ampicillin", guideline = "EUCAST 2020")
+plot(mic, mo = "S. pneumoniae", ab = "ampicillin", guideline = "CLSI 2020")
+
+# omitting `guideline` will result in the latest EUCAST guideline:
+autoplot(mic, mo = "S. pneumoniae", ab = "ampicillin")
+```
