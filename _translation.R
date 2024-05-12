@@ -1,7 +1,3 @@
-# Setup the environment variable
-Sys.setenv("DEEPL_API_URL" = "https://api.deepl.com")
-Sys.setenv(DEEPL_API_KEY = "287d5481-9d96-8500-228c-6f98cfb3c576")
-
 pacman::p_load(
   rio,
   gert,
@@ -63,6 +59,9 @@ pacman::p_load(
 
 # UPDATE LANGUAGE TRANSLATION PROTOCOL ------------------------------------------------------------------------
 # 1 Detect chapters changed in the book
+readRenviron(".env")
+DEEPL_API_URL <- Sys.getenv("DEEPL_API_URL")
+DEEPL_API_KEY <- Sys.getenv("DEEPL_API_KEY")
 
 diffs <- system("git diff --name-only main...", intern = TRUE) # to include only committed file, use ... after main
 chapters_changed <- diffs[stringr::str_detect(diffs, "\\.qmd$")] # Filter only .qmd files
@@ -94,14 +93,15 @@ for (old_chapter in names(chapters_changed_new)) {
     new_chapter <- new_chapters[idx]
     lang <- deepL_lang[idx]
 
+    try({
     babeldown::deepl_update(
       path = here::here(old_chapter),
       out_path = here::here(new_chapter),
       source_lang = "EN",
       target_lang = lang,
       formality = "less",
-      yaml_fields = NULL
-    )
+      yaml_fields = NULL)
+    }, silent = FALSE)    
   }
 }
 
