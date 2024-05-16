@@ -1,0 +1,53 @@
+name: Create Translation Branches and PRs
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+
+jobs:
+  create_translation_branches:
+    if: startsWith(github.head_ref, 'handbook_v') && endsWith(github.head_ref, '_en') 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'ntluong95'
+          git config --global user.email 'ph.ntluong95@gmail.com'
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+
+      - name: Create language branches and PRs
+        run: |
+          LANGS=("fr" "es" "vn" "jp" "tr" "pt" "ru")  
+          PR_BRANCH="${{ github.head_ref }}"  
+          VERSION_SUFFIX="${PR_BRANCH#handbook_}"
+          BASE_BRANCH="main"
+
+          for lang in "${LANGS[@]}"; do
+            NEW_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
+            # Check if the branch already exists
+            if ! git rev-parse --verify --quiet "${NEW_BRANCH}"; then
+              git checkout -b "${NEW_BRANCH}"
+            else
+              git checkout "${NEW_BRANCH}" 
+              git pull "${PR_BRANCH}" "${NEW_BRANCH}" --rebase
+            fi
+
+            git fetch origin "${NEW_BRANCH}"
+            git push origin "${NEW_BRANCH}"
+            gh pr create --base $BASE_BRANCH --head $NEW_BRANCH --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
