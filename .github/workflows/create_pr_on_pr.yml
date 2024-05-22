@@ -1,13 +1,14 @@
-name: Create Translation Branches and PRs
+name: Create and Update Translation Branches and PRs
 
+# This will run when there is a push to any English language branch
+# With the format listed below.
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-
+  push:
+    branches:
+      - 'handbook_v*_en'
 
 jobs:
-  create_translation_branches:
-    if: startsWith(github.head_ref, 'handbook_v') && endsWith(github.head_ref, '_en') 
+  create_and_update_translation_branches:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,31 +24,40 @@ jobs:
           sudo apt update
           sudo apt install -y gh
 
-
-      - name: Create language branches and PRs
+      - name: Create and update language branches and PRs
         run: |
           LANGS=("fr" "es" "vn" "jp" "tr" "pt" "ru")  
-          PR_BRANCH="${{ github.head_ref }}"  
-          VERSION_SUFFIX="${PR_BRANCH#handbook_}"
-          BASE_BRANCH="main"
+          EN_BRANCH="${{ github.ref }}"
+          VERSION_SUFFIX="${EN_BRANCH#refs/heads/handbook_}"
 
           for lang in "${LANGS[@]}"; do
-            NEW_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
-            # Check if the branch already exists
-            if ! git rev-parse --verify --quiet "${NEW_BRANCH}"; then
-              git checkout -b "${NEW_BRANCH}"
+            TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
+            # Check if the translation branch exists
+            if git rev-parse --verify --quiet "${TRANSLATION_BRANCH}"; then
+              git checkout "${TRANSLATION_BRANCH}"
+              git pull origin "${EN_BRANCH}" --rebase
             else
-              git checkout "${NEW_BRANCH}" 
-              git pull "${PR_BRANCH}" "${NEW_BRANCH}" --rebase
+              git checkout -b "${TRANSLATION_BRANCH}"
+              git pull origin "${EN_BRANCH}"
+            fi
+            git push origin "${TRANSLATION_BRANCH}"
+
+            # Get the PR number for the translation branch
+            PR_NUMBER=$(gh pr list --base main --json number --jq ".[] | select(.headRefName == \"$TRANSLATION_BRANCH\") | .number")
+
+            # Add new commits as checkboxes to the PR description
+            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq '.[] | select(.commit.message | startswith("handbook_v")) | .sha')
+            checkboxes=""
+            for commit in $commits; do
+              checkboxes="$checkboxes\n- [ ] [$commit](https://github.com/${{ github.repository }}/commit/$commit)"
+            done
+
+            # Mention a user in the PR description
+            if [ "$lang" == "es" ]; then
+              checkboxes="$checkboxes\n\n@robcrystalornelas, please review."
             fi
 
-            git fetch origin "${NEW_BRANCH}"
-            git push origin "${NEW_BRANCH}"
-            gh pr create --base $BASE_BRANCH --head $NEW_BRANCH --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}"
+            gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$checkboxes"
           done
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
-
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
