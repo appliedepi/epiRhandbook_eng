@@ -45,8 +45,13 @@ jobs:
             # Get the PR number for the translation branch
             PR_NUMBER=$(gh pr list --base main --json number --jq ".[] | select(.headRefName == \"$TRANSLATION_BRANCH\") | .number")
 
+            # Get the date of the latest commit on the translation branch
+            latest_commit_date=$(git show -s --format=%ci ${TRANSLATION_BRANCH})
+
+            # Get the commits on the English branch that were made after the latest commit on the translation branch
+            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq ".[] | select(.commit.author.date > \"$latest_commit_date\") | .sha")
+
             # Add new commits as checkboxes to the PR description
-            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq '.[] | select(.commit.message | startswith("handbook_v")) | .sha')
             checkboxes=""
             for commit in $commits; do
               checkboxes="$checkboxes\n- [ ] [$commit](https://github.com/${{ github.repository }}/commit/$commit)"
