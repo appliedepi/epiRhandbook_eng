@@ -42,8 +42,18 @@ jobs:
             fi
             git push origin "${TRANSLATION_BRANCH}"
 
-            # Get the PR number for the translation branch
-            PR_NUMBER=$(gh pr list --base main --json number --jq ".[] | select(.headRefName == \"$TRANSLATION_BRANCH\") | .number")
+             # Check if a PR already exists for this branch
+            PR_EXISTS=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq length)
+            if [ "$PR_EXISTS" -eq 0 ]; then
+              PR_URL=$(gh pr create --base main --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
+              PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
+            
+            else
+              # Get the PR number for the translation branch
+              PR_NUMBER=$(gh pr list --base main --json number --jq ".[] | select(.headRefName == \"$TRANSLATION_BRANCH\") | .number")
+
+            fi
+            echo "Pull Request Number: $PR_NUMBER"
 
             # Get the date of the latest commit on the translation branch
             latest_commit_date=$(git show -s --format=%ci ${TRANSLATION_BRANCH})
