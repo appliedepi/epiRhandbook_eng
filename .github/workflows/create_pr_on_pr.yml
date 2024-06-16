@@ -30,8 +30,6 @@ jobs:
           EN_BRANCH="${{ github.ref }}"
           VERSION_SUFFIX="${EN_BRANCH#refs/heads/handbook_}"
           
-          # Fetch the latest changes from the remote repository
-          git fetch origin 
 
           for lang in "${LANGS[@]}"; do
             TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
@@ -42,37 +40,45 @@ jobs:
               git checkout "${TRANSLATION_BRANCH}"
               git pull origin "${TRANSLATION_BRANCH}"
               git rebase "origin/${EN_BRANCH#refs/heads/}"
+              
             else
               echo "Branch ${TRANSLATION_BRANCH} does not exist. Creating new branch from ${EN_BRANCH}."
-              git checkout -b "${TRANSLATION_BRANCH}" "origin/${EN_BRANCH#refs/heads/}"
-              git pull origin "${EN_BRANCH}"
+              git checkout -b "${TRANSLATION_BRANCH}"
+              git pull origin "${EN_BRANCH#refs/heads/}"
+              
             fi
             
             # Force push the changes to the remote repository
             git push origin "${TRANSLATION_BRANCH}" --force
-
+            
+            
+            # Get the date of the latest commit on the translation branch
+            latest_commit_date=$(git show -s --format=%ci ${TRANSLATION_BRANCH})
+            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq ".[] | select(.commit.author.date > \"$latest_commit_date\") | .sha")
+            # commits=$(git log origin/"${EN_BRANCH#refs/heads/}" --since="$latest_commit_date" --pretty=format:"%H")
+            echo "Commits on the English branch that were made after the latest commit on the translation branch: $commits at $latest_commit_date"
+            
+            # Check if there are new commits
+            if [ -z "$commits" ]; then
+              echo "No new commits to include in PR for ${TRANSLATION_BRANCH}"
+              continue
+            fi
+            
             # Check if a PR already exists for this branch
             PR_EXISTS=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq length)
             if [ "$PR_EXISTS" -eq 0 ]; then
               echo "Creating new PR for ${TRANSLATION_BRANCH}"
-              PR_URL=$(gh pr create --base main --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
+              # PR_URL=$(gh pr create --base main --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
+              PR_URL=$(gh pr create --base "${EN_BRANCH#refs/heads/}" --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
               PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
-            
             else
-
-            # Get the PR number for the translation branch
+              # Get the PR number for the translation branch
               echo "PR already exists for ${TRANSLATION_BRANCH}"
               PR_NUMBER=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq ".[0].number")
             fi
 
             echo "Pull Request Number: $PR_NUMBER"
-
-            # Get the date of the latest commit on the translation branch
-            latest_commit_date=$(git show -s --format=%ci ${TRANSLATION_BRANCH})
-
-            # Get the commits on the English branch that were made after the latest commit on the translation branch
-            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq ".[] | select(.commit.author.date > \"$latest_commit_date\") | .sha")
-
+            
             # Add new commits as checkboxes to the PR description
             checkboxes=""
             for commit in $commits; do
@@ -85,6 +91,7 @@ jobs:
             fi
 
             gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$checkboxes"
+
           done
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
