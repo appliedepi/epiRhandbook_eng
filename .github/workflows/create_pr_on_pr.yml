@@ -54,8 +54,8 @@ jobs:
             
             # Get the date of the latest commit on the translation branch
             latest_commit_date=$(git show -s --format=%ci ${TRANSLATION_BRANCH})
-            commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq ".[] | select(.commit.author.date > \"$latest_commit_date\") | .sha")
-            # commits=$(git log origin/"${EN_BRANCH#refs/heads/}" --since="$latest_commit_date" --pretty=format:"%H")
+            # commits=$(gh api repos/${{ github.repository }}/commits --paginate --jq ".[] | select(.commit.author.date > \"$latest_commit_date\") | .sha")
+            commits=$(git log origin/"${EN_BRANCH#refs/heads/}" --since="$latest_commit_date" --pretty=format:"%H")
             echo "Commits on the English branch that were made after the latest commit on the translation branch: $commits at $latest_commit_date"
             
             # Check if there are new commits
