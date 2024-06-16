@@ -29,30 +29,40 @@ jobs:
           LANGS=("fr" "es" "vn" "jp" "tr" "pt" "ru")  
           EN_BRANCH="${{ github.ref }}"
           VERSION_SUFFIX="${EN_BRANCH#refs/heads/handbook_}"
+          
+          # Fetch the latest changes from the remote repository
+          git fetch origin 
 
           for lang in "${LANGS[@]}"; do
             TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
+            
             # Check if the translation branch exists
-            if git rev-parse --verify --quiet "${TRANSLATION_BRANCH}"; then
+            if git ls-remote --exit-code --heads origin "${TRANSLATION_BRANCH}"; then
+              echo "Branch ${TRANSLATION_BRANCH} exists. Checking out and rebasing with ${EN_BRANCH}"
               git checkout "${TRANSLATION_BRANCH}"
-              git pull origin "${EN_BRANCH}" --rebase
+              git pull origin "${TRANSLATION_BRANCH}"
+              git rebase "origin/${EN_BRANCH#refs/heads/}"
             else
-              git checkout -b "${TRANSLATION_BRANCH}"
+              echo "Branch ${TRANSLATION_BRANCH} does not exist. Creating new branch from ${EN_BRANCH}."
+              git checkout -b "${TRANSLATION_BRANCH}" "origin/${EN_BRANCH#refs/heads/}"
               git pull origin "${EN_BRANCH}"
             fi
-            git push origin "${TRANSLATION_BRANCH}"
+            
+            # Force push the changes to the remote repository
+            git push origin "${TRANSLATION_BRANCH}" --force
 
             # Check if a PR already exists for this branch
             PR_EXISTS=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq length)
             if [ "$PR_EXISTS" -eq 0 ]; then
+              echo "Creating new PR for ${TRANSLATION_BRANCH}"
               PR_URL=$(gh pr create --base main --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
               PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
             
             else
 
             # Get the PR number for the translation branch
-              PR_NUMBER=$(gh pr list --base main --json number --jq ".[] | select(.headRefName == \"$TRANSLATION_BRANCH\") | .number")
-
+              echo "PR already exists for ${TRANSLATION_BRANCH}"
+              PR_NUMBER=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq ".[0].number")
             fi
 
             echo "Pull Request Number: $PR_NUMBER"
@@ -71,7 +81,7 @@ jobs:
 
             # Mention a user in the PR description
             if [ "$lang" == "es" ]; then
-              checkboxes="$checkboxes\n\n@robcrystalornelas, please review."
+              checkboxes="$checkboxes @robcrystalornelas, please review."
             fi
 
             gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$checkboxes"
