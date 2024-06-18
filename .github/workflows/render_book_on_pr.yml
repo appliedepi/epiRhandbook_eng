@@ -8,7 +8,7 @@ on:
 
 jobs:
   check-merged:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'handbook_update')
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'handbook_v*')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,10 +17,9 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
   build-and-render:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'handbook_update')
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'handbook_v*')
     runs-on: ubuntu-latest
     needs: [check-merged]  # Ensure this runs only after the check-merged job completes
-    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
