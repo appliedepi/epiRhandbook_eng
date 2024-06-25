@@ -20,6 +20,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: deploy-preview
+
+      - name: Fetch latest changes
+        run: |
+          git fetch origin
+          git reset --hard origin/deploy-preview
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
