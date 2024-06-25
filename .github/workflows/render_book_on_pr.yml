@@ -5,11 +5,11 @@ on:
   pull_request_target:
     types: [closed]
     branches:
-      - main
+      - deploy-preview
 
 jobs:
   render-and-commit:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'handbook_v')
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'deploy-preview' && startsWith(github.event.pull_request.head.ref, 'handbook_v')
     runs-on: ubuntu-latest
     continue-on-error: true
     env:
