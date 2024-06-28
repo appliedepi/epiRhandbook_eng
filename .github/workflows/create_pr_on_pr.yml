@@ -14,13 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Git
+      - name: Set up Git and GitHub CLI
         run: |
           git config --global user.name 'ntluong95'
           git config --global user.email 'ph.ntluong95@gmail.com'
-
-      - name: Install GitHub CLI
-        run: |
           sudo apt update
           sudo apt install -y gh
 
@@ -35,20 +32,16 @@ jobs:
 
           for lang in "${LANGS[@]}"; do
             TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
+            git fetch --prune
             
+            # Ensure we have all history
+            git fetch --all            
+
             # Check if the translation branch exists
             if git ls-remote --exit-code --heads origin "${TRANSLATION_BRANCH}"; then
               echo "Branch ${TRANSLATION_BRANCH} exists. Checking out and rebasing with ${EN_BRANCH}"
-              git fetch --prune
               git checkout "${TRANSLATION_BRANCH}"
-              
-              echo "${EN_BRANCH#refs/heads/}"
-              echo "${TRANSLATION_BRANCH}"
-
-              git status
               git pull -s recursive -X theirs --no-rebase --no-edit origin "${EN_BRANCH#refs/heads/}" --allow-unrelated-histories
-              git push origin "${TRANSLATION_BRANCH}"
-              
             else
               echo "Branch ${TRANSLATION_BRANCH} does not exist. Creating new branch from ${EN_BRANCH}."
               git checkout -b "${TRANSLATION_BRANCH}"
@@ -57,7 +50,6 @@ jobs:
             
             # Force push the changes to the remote repository
             git push origin "${TRANSLATION_BRANCH}" --force
-            
             
             # Get the date of the latest commit on the english branch
             latest_commit_date=$(git show -s --format=%ci ${EN_BRANCH})
@@ -93,28 +85,25 @@ jobs:
             echo "Pull Request Number: $PR_NUMBER"
             
             # Add new commits as checkboxes to the PR description
+            IFS=$'\n' # Change the Internal Field Separator to newline for correct iteration over lines
             checkboxes=""
-            for commit in $latest_commit_en_branch; do
-              checkboxes="$checkboxes- [ ] [$commit_messages](https://github.com/${{ github.repository }}/commit/$commit)"
+            for commit_info in $latest_commit_info; do
+              commit_hash=$(echo "$commit_info" | cut -d' ' -f1)
+              commit_message=$(echo "$commit_info" | cut -d' ' -f2-)
+              checkboxes="$checkboxes- [ ] [$commit_message](https://github.com/\${{ github.repository }}/commit/$commit_hash)\n"
             done
 
 
             # Mention a user in the PR description
-            if [ "$lang" = "vn" ]; then
-              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
-            elif [ "$lang" = "fr" ]; then
-              checkboxes="$checkboxes @nsbatra, please check the box when you finish"
-            elif [ "$lang" = "es" ]; then
-              checkboxes="$checkboxes @robcrystalornelas, please check the box when you finish"
-            elif [ "$lang" = "jp" ]; then
-              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
-            elif [ "$lang" = "tr" ]; then
-              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
-            elif [ "$lang" = "pt" ]; then
-              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
-            elif [ "$lang" = "ru" ]; then
-              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
-            fi
+          case "$lang" in
+            "vn") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
+            "fr") checkboxes="$checkboxes @nsbatra, please check the box when you finish" ;;
+            "es") checkboxes="$checkboxes @robcrystalornelas, please check the box when you finish" ;;
+            "jp") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
+            "tr") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
+            "pt") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
+            "ru") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
+          esac
 
 
             # Retrieve the current PR description
@@ -123,7 +112,6 @@ jobs:
             # Append checkboxes to the current PR description
             new_pr_body=$(printf "%s\n%s" "$current_pr_body" "$checkboxes")
 
-            # gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$checkboxes"
             gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$new_pr_body"
 
           done
