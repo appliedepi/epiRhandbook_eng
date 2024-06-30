@@ -82,7 +82,7 @@ jobs:
             PR_EXISTS=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq length)
             if [ "$PR_EXISTS" -eq 0 ]; then
               echo "Creating new PR for ${TRANSLATION_BRANCH}"
-              PR_URL=$(gh pr create --base main --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
+              PR_URL=$(gh pr create --base deploy-preview --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
               PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
             else
               # Get the PR number for the translation branch
