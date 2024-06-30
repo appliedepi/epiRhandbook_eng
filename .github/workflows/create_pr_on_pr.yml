@@ -14,6 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+
       - name: Set up Git and Github CLI
         run: |
           git config --global user.name 'ntluong95'
@@ -33,10 +34,10 @@ jobs:
           for lang in "${LANGS[@]}"; do
             TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
             git fetch --prune
-
-            # Ensure we have all history
-            git fetch --all
             
+            # Ensure we have all history
+            git fetch --all            
+
             # Check if the translation branch exists
             if git ls-remote --exit-code --heads origin "${TRANSLATION_BRANCH}"; then
               echo "Branch ${TRANSLATION_BRANCH} exists. Checking out and rebasing with ${EN_BRANCH}"
@@ -50,7 +51,7 @@ jobs:
             
             # Force push the changes to the remote repository
             git push origin "${TRANSLATION_BRANCH}" --force
-                        
+
             # Get the date of the latest commit on the english branch
             latest_commit_date=$(git show -s --format=%ci ${EN_BRANCH})
             
@@ -90,12 +91,16 @@ jobs:
             for commit_info in $latest_commit_info; do
               commit_hash=$(echo "$commit_info" | cut -d' ' -f1)
               commit_message=$(echo "$commit_info" | cut -d' ' -f2-)
+
               checkboxes="$checkboxes- [ ] [$commit_message](https://github.com/\${{ github.repository }}/commit/$commit_hash)"
+
             done
 
 
             # Mention a user in the PR description
-            case "$lang" in
+
+          case "$lang" in
+
             "vn") checkboxes="$checkboxes @ntluong95, please check the box when you finish" ;;
             "fr") checkboxes="$checkboxes @nsbatra, please check the box when you finish" ;;
             "es") checkboxes="$checkboxes @robcrystalornelas, please check the box when you finish" ;;
