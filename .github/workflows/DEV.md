@@ -11,7 +11,7 @@ The workflow consists of five main steps, which are executed using GitHub Action
 
 ### 1. Create a new branch
 
-The English version is the standard language, and changes are always made in the English version first, then adapted to other languages.  First, create a new branch based on the `master` branch following this name pattern `handbook_v*_en`, such as `handbook_v2.1.1_en`. 
+The English version is the standard language, and changes are always made in the English version first, then adapted to other languages.  First, create a new branch based on the `deploy-preview` branch following this name pattern `handbook_v*_en`, such as `handbook_v2.1.1_en`. 
 
 ```sh
 # Fetch the latest updates from the remote repository
