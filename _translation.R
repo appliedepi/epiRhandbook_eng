@@ -3,6 +3,7 @@ pacman::p_load(
   gert,
   stringr,
   babeldown,
+  fs,
   here
 )
 
@@ -18,6 +19,28 @@ pacman::p_load(
 # babelquarto::register_main_language(main_language = "en")
 # babelquarto::register_further_languages(further_languages = "de")
 # # https://docs.ropensci.org/babeldown/articles/quarto.html
+
+chapter_list = c("editorial_style.qmd", "data_used.qmd", "basics.qmd", "transition_to_R.qmd", "packages_suggested.qmd", "r_projects.qmd", "importing.qmd", "cleaning.qmd",
+                 "dates.qmd", "characters_strings.qmd",
+                 "factors.qmd", "pivoting.qmd", "grouping.qmd", "joining_matching.qmd", "deduplication.qmd", "iteration.qmd", "tables_descriptive.qmd", "stat_tests.qmd", "regression.qmd", "missing_data.qmd",
+                 "standardization.qmd", "moving_average.qmd", "time_series.qmd", "epidemic_models.qmd", "contact_tracing.qmd", "survey_analysis.qmd", "survival_analysis.qmd", "gis.qmd", "tables_presentation.qmd", "ggplot_basics.qmd", "ggplot_tips.qmd", "epicurves.qmd", "age_pyramid.qmd", "heatmaps.qmd", "diagrams.qmd", "combination_analysis.qmd", "transmission_chains.qmd", "phylogenetic_trees.qmd", "interactive_plots.qmd", "rmarkdown.qmd", "reportfactory.qmd", "flexdashboard.qmd", "shiny_basics.qmd", "writing_functions.qmd", "directories.qmd", "collaboration.qmd", "errors.qmd", "help.qmd", "network_drives.qmd", "data_table.qmd")
+
+# Function to copy and rename files
+copy_and_rename_files <- function(chapters, language_tag) {
+  for (chapter in chapters) {
+    source_file <- file.path("new_pages", chapter)
+    target_file <- file.path("new_pages", gsub("\\.qmd$", paste0(".", language_tag, ".qmd"), chapter))
+    if (file_exists(source_file)) {
+      file_copy(source_file, target_file)
+      message(paste("Copied and renamed:", source_file, "to", target_file))
+    } else {
+      message(paste("Source file does not exist:", source_file))
+    }
+  }
+}
+
+# Copy and rename files with the specified language tag "ar"
+copy_and_rename_files(chapter_list, "ar")
 
 # # 3. Translate the book
 # # babeldown helps you translate each book chapter. It will translate chapters one by one with babeldown before having a human review the translation.
@@ -36,10 +59,7 @@ pacman::p_load(
 #      formality = "less")
 
 # # Translate chapter page
-# chapter_list = c("editorial_style.qmd", "data_used.qmd", "basics.qmd", "transition_to_R.qmd", "packages_suggested.qmd", "r_projects.qmd", "importing.qmd", "cleaning.qmd", 
-#                  "dates.qmd", "characters_strings.qmd", 
-#                  "factors.qmd", "pivoting.qmd", "grouping.qmd", "joining_matching.qmd", "deduplication.qmd", "iteration.qmd", "tables_descriptive.qmd", "stat_tests.qmd", "regression.qmd", "missing_data.qmd", 
-#                  "standardization.qmd", "moving_average.qmd", "time_series.qmd", "epidemic_models.qmd", "contact_tracing.qmd", "survey_analysis.qmd", "survival_analysis.qmd", "gis.qmd", "tables_presentation.qmd", "ggplot_basics.qmd", "ggplot_tips.qmd", "epicurves.qmd", "age_pyramid.qmd", "heatmaps.qmd", "diagrams.qmd", "combination_analysis.qmd", "transmission_chains.qmd", "phylogenetic_trees.qmd", "interactive_plots.qmd", "rmarkdown.qmd", "reportfactory.qmd", "flexdashboard.qmd", "shiny_basics.qmd", "writing_functions.qmd", "directories.qmd", "collaboration.qmd", "errors.qmd", "help.qmd", "network_drives.qmd", "data_table.qmd")
+
 
 # # Write a loop to run the translation for each chapter based on chapter_list
 # for (i in 1:length(chapter_list)) {
