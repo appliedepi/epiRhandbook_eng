@@ -1,96 +1,96 @@
-# R Basics {#rbasics}
+# أساسيات R {#rbasics}
 
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "basics_header_close.png"))
 ```
 
-Welcome!
+مرحبًا!
 
-This page reviews the essentials of R. It is not intended to be a comprehensive tutorial, but it provides the basics and can be useful for refreshing your memory. The section on [Resources for learning](#learning) links to more comprehensive tutorials.
+تستعرض هذه الصفحة أساسيات لغة البرمجة R. لا تهدف إلى أن تكون دورة تعليمية شاملة، ولكنها تقدم الأساسيات ويمكن أن تكون مفيدة لتحديث ذاكرتك. تحتوي القسم المخصص لـ [موارد التعلم](#learning) على روابط لدورات تعليمية شاملة أكثر.
 
-Parts of this page have been adapted with permission from the [R4Epis project](https://r4epis.netlify.app/).
+تم تكييف أجزاء من هذه الصفحة بإذن من [مشروع R4Epis](https://r4epis.netlify.app/).
 
-See the page on [Transition to R](transition_to_R.qmd) for tips on switching to R from STATA, SAS, or Excel.
+انظر الصفحة حول [الانتقال إلى R](transition_to_R.qmd) للحصول على نصائح حول التحول إلى R من STATA أو SAS أو Excel.
 
 ```{r, echo=F}
-# import the cleaned ebola linelist
+# استيراد قائمة الحالات المنظمة لفيروس إيبولا
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 pacman::p_load(apyramid)
 ```
 
 <!-- ======================================================= -->
 
-## Why use R?
+## لماذا استخدام R؟
 
-As stated on the [R project website](https://www.r-project.org/about.html), R is a programming language and environment for statistical computing and graphics. It is highly versatile, extendable, and community-driven.
+كما هو موضح على [موقع مشروع R](https://www.r-project.org/about.html)، R هي لغة برمجة وبيئة للحوسبة الإحصائية والرسومات. إنها متعددة الاستخدامات بشكل كبير، ويمكن توسيعها، وتدعمها المجتمع.
 
-**Cost**
+**التكلفة**
 
-R is free to use! There is a strong ethic in the community of free and open-source material.
+R مجاني للاستخدام! هناك أخلاق قوية في المجتمع تجاه المواد المجانية ومفتوحة المصدر.
 
-**Reproducibility**
+**إعادة الإنتاجية**
 
-Conducting your data management and analysis through a programming language (compared to Excel or another primarily point-click/manual tool) enhances **reproducibility**, makes **error-detection** easier, and eases your workload.
+يعزز إجراء إدارة البيانات والتحليلات الخاصة بك من خلال لغة برمجة (بالمقارنة مع Excel أو أداة أخرى تعتمد بشكل أساسي على النقرات والأوامر اليدوية) **إعادة الإنتاجية**، ويجعل **كشف الأخطاء** أسهل، ويخفف عبء عملك.
 
-**Community**
+**المجتمع**
 
-The R community of users is enormous and collaborative. New packages and tools to address real-life problems are developed daily, and vetted by the community of users. As one example, [R-Ladies](https://rladies.org/) is a worldwide organization whose mission is to promote gender diversity in the R community, and is one of the largest organizations of R users. It likely has a chapter near you!
+مجتمع مستخدمي R ضخم وتعاوني. يتم تطوير حزم وأدوات جديدة لمعالجة المشاكل الحياتية يوميًا، ويتم فحصها من قبل مجتمع المستخدمين. كمثال، [R-Ladies](https://rladies.org/) هي منظمة عالمية تهدف إلى تعزيز التنوع الجنسي في مجتمع R، وهي واحدة من أكبر المنظمات لمستخدمي R. من المحتمل أن يكون لديها فرع بالقرب منك!
 
-## Key terms
+## مصطلحات رئيسية
 
-**RStudio** - RStudio is a Graphical User Interface (GUI) for easier use of **R**. Read more [in the RStudio section](#rstudio).
+**RStudio** - RStudio هو واجهة رسومية لمستخدم (GUI) لتسهيل استخدام **R**. اقرأ المزيد [في قسم RStudio](#rstudio).
 
-**Objects** - Everything you store in R - datasets, variables, a list of village names, a total population number, even outputs such as graphs - are *objects* which are *assigned a name* and *can be referenced* in later commands. Read more [in the Objects section](#objects).
+**الكائنات** - كل ما تخزنه في R - مجموعات البيانات، المتغيرات، قائمة بأسماء القرى، عدد سكان إجمالي، حتى النواتج مثل الرسوم البيانية - هي *كائنات* تُعطى *اسمًا* ويمكن *الرجوع إليها* في الأوامر لاحقًا. اقرأ المزيد [في قسم الكائنات](#objects).
 
-**Functions** - A function is a code operation that accept inputs and returns a transformed output. Read more [in the Functions section](#functions).
+**الدوال** - الدالة هي عملية برمجية تقبل مدخلات وتُرجع ناتجًا محولًا. اقرأ المزيد [في قسم الدوال](#functions).
 
-**Packages** - An R package is a shareable bundle of functions. Read more [in the Packages section](#packages).
+**الحزم** - حزمة R هي مجموعة قابلة للمشاركة من الدوال. اقرأ المزيد [في قسم الحزم](#packages).
 
-**Scripts** - A script is the document file that hold your commands. Read more [in the Scripts section](#scripts)
+**النصوص** - النص هو ملف الوثيقة الذي يحتوي على أوامرك. اقرأ المزيد [في قسم النصوص](#scripts).
 
-## Resources for learning {#learning}
+## موارد للتعلم {#learning}
 
-### Resources within RStudio {.unnumbered}
+### موارد داخل RStudio {.unnumbered}
 
-**Help documentation**
+**توثيق المساعدة**
 
-Search the RStudio "Help" tab for documentation on R packages and specific functions. This is within the pane that also contains Files, Plots, and Packages (typically in the lower-right pane). As a shortcut, you can also type the name of a package or function into the R console after a question-mark to open the relevant Help page. Do not include parentheses.
+ابحث في علامة التبويب "المساعدة" في RStudio عن توثيق حول حزم R ودوال محددة. هذا داخل اللوحة التي تحتوي أيضًا على ملفات، رسوم بيانية، وحزم (عادة في اللوحة السفلية اليمنى). كاختصار، يمكنك أيضًا كتابة اسم حزمة أو دالة في وحدة التحكم R بعد علامة الاستفهام لفتح صفحة المساعدة ذات الصلة. لا تضع الأقواس.
 
-For example: `?filter` or `?diagrammeR`.
+على سبيل المثال: `?filter` أو `?diagrammeR`.
 
-**Interactive tutorials**
+**البرامج التعليمية التفاعلية**
 
-There are several ways to learn R interactively *within* RStudio.
+هناك طرق عديدة لتعلم R تفاعليًا *داخل* RStudio.
 
-RStudio itself offers a Tutorial pane that is powered by the [**learnr**](https://blog.rstudio.com/2020/02/25/rstudio-1-3-integrated-tutorials/) R package. Simply install this package and open a tutorial via the new "Tutorial" tab in the upper-right RStudio pane (which also contains Environment and History tabs).
+يقدم RStudio نفسه لوحة تعليمية تعتمد على حزمة [**learnr**](https://blog.rstudio.com/2020/02/25/rstudio-1-3-integrated-tutorials/). قم ببساطة بتثبيت هذه الحزمة وافتح تعليمًا عبر علامة التبويب الجديدة "التعليم" في اللوحة العلوية اليمنى في RStudio (التي تحتوي أيضًا على علامات بيئة وتاريخ).
 
-The R package [**swirl**](https://swirlstats.com/) offers interactive courses in the R Console. Install and load this package, then run the command `swirl()` (empty parentheses) in the R console. You will see prompts appear in the Console. Respond by typing in the Console. It will guide you through a course of your choice.
+تقدم حزمة R [**swirl**](https://swirlstats.com/) دورات تفاعلية في وحدة التحكم R. قم بتثبيت هذه الحزمة وتحميلها، ثم قم بتشغيل الأمر `swirl()` (بأقواس فارغة) في وحدة التحكم R. ستظهر لك تعليمات في وحدة التحكم. قم بالرد عن طريق الكتابة في وحدة التحكم. سترشدك خلال دورة اختيارك.
 
-### Cheatsheets {.unnumbered}
+### الورقات الغش {.unnumbered}
 
-There are many PDF "cheatsheets" available on the [RStudio website](https://rstudio.com/resources/cheatsheets/), for example:
+هناك العديد من "ورقات الغش" بتنسيق PDF متاحة على [موقع RStudio](https://rstudio.com/resources/cheatsheets/). على سبيل المثال:
 
--   Factors with **forcats** package\
--   Dates and times with **lubridate** package\
--   Strings with **stringr** package\
--   iterative opertaions with **purrr** package\
--   Data import\
--   Data transformation cheatsheet with **dplyr** package\
--   R Markdown (to create documents like PDF, Word, Powerpoint...)\
--   Shiny (to build interactive web apps)\
--   Data visualization with **ggplot2** package\
--   Cartography (GIS)\
--   **leaflet** package (interactive maps)\
--   Python with R (**reticulate** package)
+-   العوامل مع حزمة **forcats**\
+-   التواريخ والأوقات مع حزمة **lubridate**\
+-   السلاسل النصية مع حزمة **stringr**\
+-   العمليات التكرارية مع حزمة **purrr**\
+-   استيراد البيانات\
+-   ورقة مراوغة لتحويل البيانات مع حزمة **dplyr**\
+-   R Markdown (لإنشاء مستندات مثل PDF، Word، Powerpoint...)\
+-   Shiny (لبناء تطبيقات ويب تفاعلية)\
+-   تصور البيانات مع حزمة **ggplot2**\
+-   علم الخرائط (GIS)\
+-   حزمة **leaflet** (خرائط تفاعلية)\
+-   Python مع R (حزمة **reticulate**)
 
-This is an online R resource specifically for [Excel users](https://jules32.github.io/r-for-excel-users/)
+هذا مورد R عبر الإنترنت خاص بمستخدمي [Excel](https://jules32.github.io/r-for-excel-users/)
 
-### Twitter {.unnumbered}
+### تويتر {.unnumbered}
 
-R has a vibrant twitter community where you can learn tips, shortcuts, and news - follow these accounts:
+R لديه مجتمع نشط على تويتر حيث يمكنك تعلم النصائح والاختصارات والأخبار - تابع هذه الحسابات:
 
--   Follow us! [\@epiRhandbook](https://twitter.com/epirhandbook)\
--   R Function A Day [\@rfuntionaday](https://twitter.com/rfunctionaday) is an *incredible* resource\
+-   تابعنا! [\@epiRhandbook](https://twitter.com/epirhandbook)\
+-   R Function A Day [\@rfuntionaday](https://twitter.com/rfunctionaday) هو مورد *رائع*\
 -   R for Data Science [\@rstats4ds](https://twitter.com/rstats4ds?lang=en)\
 -   RStudio [\@RStudio](https://twitter.com/rstudio?lang=en)\
 -   RStudio Tips [\@rstudiotips](https://twitter.com/rstudiotips)\
@@ -98,131 +98,126 @@ R has a vibrant twitter community where you can learn tips, shortcuts, and news 
 -   R-ladies [\@RLadiesGlobal](https://twitter.com/RLadiesGlobal)\
 -   Hadley Wickham [\@hadleywickham](https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)
 
-Also:
+أيضًا:
 
-**#epitwitter** and **#rstats**
+**\#epitwitter** و **\#rstats**
 
-### Free online resources {.unnumbered}
+### موارد مجانية عبر الإنترنت {.unnumbered}
 
-A definitive text is the [R for Data Science](https://r4ds.had.co.nz/) book by Garrett Grolemund and Hadley Wickham
+نص محدد هو كتاب [R for Data Science](https://r4ds.had.co.nz/) من تأليف Garrett Grolemund و Hadley Wickham
 
-The [R4Epis](https://r4epis.netlify.app/) project website aims to "develop standardised data cleaning, analysis and reporting tools to cover common types of outbreaks and population-based surveys that would be conducted in an MSF emergency response setting." You can find R basics training materials, templates for RMarkdown reports on outbreaks and surveys, and tutorials to help you set them up.
+موقع مشروع [R4Epis](https://r4epis.netlify.app/) يهدف إلى "تطوير أدوات قياسية لتنظيف البيانات وتحليلها وإعداد تقارير تغطي أنواعًا شائعة من الفترات الاندفاعية والدراسات السكانية التي يمكن إجراؤها في إطار استجابة الطوارئ لمنظمة أطباء بلا حدود." يمكنك العثور على مواد تدريبية أساسية لـ R، قوالب لتقارير RMarkdown حول الاندفاعات والدراسات السكانية، وبرامج تعليمية لمساعدتك في إعدادها.
 
-### Languages other than English {.unnumbered}
+### لغات أخرى غير الإنجليزية {.unnumbered}
 
-[Materiales de RStudio en Español](https://www.rstudio.com/collections/espanol/)
 
-[Introduction à R et au tidyverse (Francais)](https://juba.github.io/tidyverse/index.html)
+## التثبيت
 
-<!-- ======================================================= -->
+### R و RStudio {.unnumbered}
 
-## Installation
+**كيفية تثبيت R**
 
-### R and RStudio {.unnumbered}
+قم بزيارة هذا الموقع <https://www.r-project.org/> وقم بتنزيل أحدث إصدار من R المناسب لجهاز الكمبيوتر الخاص بك.
 
-**How to install R**
+**كيفية تثبيت RStudio**
 
-Visit this website <https://www.r-project.org/> and download the latest version of R suitable for your computer.
+قم بزيارة هذا الموقع <https://rstudio.com/products/rstudio/download/> وقم بتنزيل أحدث إصدار مجاني من RStudio Desktop المناسب لجهاز الكمبيوتر الخاص بك.
 
-**How to install RStudio**
+**الأذونات**\
+يرجى ملاحظة أنه يجب عليك تثبيت R و RStudio على قرص تمتلك فيه صلاحيات القراءة والكتابة. وإلا، ستتأثر قدرتك على تثبيت حزم R (وهو أمر شائع). إذا واجهت مشاكل، جرب فتح RStudio بالنقر بزر الماوس الأيمن على الرمز واختيار "تشغيل كمسؤول". يمكن العثور على نصائح أخرى في الصفحة [R على محركات الأقراص الشبكية](network_drives.qmd).
 
-Visit this website <https://rstudio.com/products/rstudio/download/> and download the latest free Desktop version of RStudio suitable for your computer.
+**كيفية تحديث R و RStudio**
 
-**Permissions**\
-Note that you should install R and RStudio to a drive where you have read and write permissions. Otherwise, your ability to install R packages (a frequent occurrence) will be impacted. If you encounter problems, try opening RStudio by right-clicking the icon and selecting "Run as administrator". Other tips can be found in the page [R on network drives](network_drives.qmd).
+يتم طباعة إصدار R الخاص بك في وحدة التحكم R عند بدء التشغيل. يمكنك أيضًا تشغيل `sessionInfo()`.
 
-**How to update R and RStudio**
+لتحديث R، انتقل إلى الموقع المذكور أعلاه وأعد تثبيت R. بدلاً من ذلك، يمكنك استخدام حزمة **installr** (على نظام Windows) عن طريق تشغيل `installr::updateR()`. سيتم فتح صناديق حوار لمساعدتك في تنزيل أحدث إصدار من R وتحديث حزمك إلى الإصدار الجديد من R. يمكن العثور على تفاصيل أكثر في [الوثائق](https://www.r-project.org/nosvn/pandoc/installr.html) لـ **installr**.
 
-Your version of R is printed to the R Console at start-up. You can also run `sessionInfo()`.
+كن على علم بأن الإصدار القديم من R سيظل موجودًا على جهاز الكمبيوتر الخاص بك. يمكنك تشغيل إصدار أقدم مؤقتًا (تثبيت أقدم) من R عن طريق النقر فوق "الأدوات" -\> "الخيارات العالمية" في RStudio واختيار إصدار R. يمكن أن يكون هذا مفيدًا إذا كنت ترغب في استخدام حزمة لم يتم تحديثها للعمل على أحدث إصدار من R.
 
-To update R, go to the website mentioned above and re-install R. Alternatively, you can use the **installr** package (on Windows) by running `installr::updateR()`. This will open dialog boxes to help you download the latest R version and update your packages to the new R version. More details can be found in the **installr** [documentation](https://www.r-project.org/nosvn/pandoc/installr.html).
+لتحديث RStudio، يمكنك الانتقال إلى الموقع أعلاه وإعادة تنزيل RStudio. خيار آخر هو النقر فوق "المساعدة" -\> "التحقق من التحديثات" داخل RStudio، ولكن قد لا تظهر أحدث التحديثات.
 
-Be aware that the old R version will still exist in your computer. You can temporarily run an older version (older "installation") of R by clicking "Tools" -\> "Global Options" in RStudio and choosing an R version. This can be useful if you want to use a package that has not been updated to work on the newest version of R.
+لمعرفة الإصدارات التي تم استخدامها من R أو RStudio أو الحزم عند إنشاء هذا الدليل، انظر إلى الصفحة على [الملاحظات التحريرية والتقنية](editorial_style.qmd).
 
-To update RStudio, you can go to the website above and re-download RStudio. Another option is to click "Help" -\> "Check for Updates" within RStudio, but this may not show the very latest updates.
+### برامج أخرى *قد* تحتاج إلى تثبيتها {.unnumbered}
 
-To see which versions of R, RStudio, or packages were used when this Handbook as made, see the page on [Editorial and technical notes](editorial_style.qmd).
-
-### Other software you *may* need to install {.unnumbered}
-
--   TinyTeX (*for compiling an RMarkdown document to PDF*)\
--   Pandoc (*for compiling RMarkdown documents*)\
--   RTools (*for building packages for R*)\
--   phantomjs (*for saving still images of animated networks, such as transmission chains*)
+-   TinyTeX (*لتجميع مستند RMarkdown إلى PDF*)\
+-   Pandoc (*لتجميع مستندات RMarkdown*)\
+-   RTools (*لبناء حزم لـ R*)\
+-   phantomjs (*لحفظ صور ثابتة لشبكات متحركة، مثل سلاسل النقل*)
 
 #### TinyTex {.unnumbered}
 
-TinyTex is a custom LaTeX distribution, useful when trying to produce PDFs from R.\
-See <https://yihui.org/tinytex/> for more informaton.
+TinyTex هو توزيع LaTeX مخصص، مفيد عند محاولة إنتاج ملفات PDF من R.\
+انظر <https://yihui.org/tinytex/> لمزيد من المعلومات.
 
-To install TinyTex from R:
+لتثبيت TinyTex من R:
 
 ```{r, eval=F}
 install.packages('tinytex')
 tinytex::install_tinytex()
-# to uninstall TinyTeX, run tinytex::uninstall_tinytex()
+# لإلغاء تثبيت TinyTeX، قم بتشغيل tinytex::uninstall_tinytex()
 ```
 
 #### Pandoc {.unnumbered}
 
-Pandoc is a document converter, a separate software from R. **It comes bundled with RStudio and should not need to be downloaded.** It helps the process of converting Rmarkdown documents to formats like .pdf and adding complex functionality.
+Pandoc هو محول مستندات، برنامج منفصل عن R. **يأتي معبأ مع RStudio ولا يجب تنزيله.** يساعد في عملية تحويل مستندات Rmarkdown إلى تنسيقات مثل .pdf وإضافة وظائف معقدة.
 
 #### RTools {.unnumbered}
 
-RTools is a collection of software for building packages for R
+RTools هو مجموعة من البرامج لبناء حزم لـ R
 
-Install from this website: <https://cran.r-project.org/bin/windows/Rtools/>
+قم بالتثبيت من هذا الموقع: <https://cran.r-project.org/bin/windows/Rtools/>
 
 #### phantomjs {.unnumbered}
 
-This is often used to take "screenshots" of webpages. For example when you make a transmission chain with **epicontacts** package, an HTML file is produced that is interactive and dynamic. If you want a static image, it can be useful to use the [**webshot**](https://wch.github.io/webshot/articles/intro.html) package to automate this process. This will require the external program "phantomjs". You can install phantomjs via the **webshot** package with the command `webshot::install_phantomjs()`.
+يُستخدم هذا البرنامج غالبًا لأخذ "لقطات" من صفحات الويب. على سبيل المثال، عند إنشاء سلسلة نقل باستخدام حزمة **epicontacts**، يتم إنتاج ملف HTML تفاعلي وديناميكي. إذا كنت ترغب في صورة ثابتة، يمكن استخدام الحزمة [**webshot**](https://wch.github.io/webshot/articles/intro.html) لتلقين هذه العملية. سيتطلب ذلك برنامجًا خارجيًا يُدعى "phantomjs". يمكنك تثبيت phantomjs عبر الحزمة **webshot** باستخدام الأمر `webshot::install_phantomjs()`.
 
 <!-- ======================================================= -->
 
 ## RStudio {#rstudio}
 
-### RStudio orientation {.unnumbered}
+### توجيه RStudio {.unnumbered}
 
-**First, open RStudio.** As their icons can look very similar, be sure you are opening *RStudio* and not R.
+**أولاً، افتح RStudio.** نظرًا لأن رموزهما يمكن أن تبدو متشابهة للغاية، تأكد من أنك تفتح *RStudio* وليس R.
 
-For RStudio to work you must also have R installed on the computer (see above for installation instructions).
+لكي يعمل RStudio، يجب أيضًا أن يكون لديك R مثبتًا على الكمبيوتر (انظر أعلاه لتعليمات التثبيت).
 
-**RStudio** is an interface (GUI) for easier use of **R**. You can think of R as being the engine of a vehicle, doing the crucial work, and RStudio as the body of the vehicle (with seats, accessories, etc.) that helps you actually use the engine to move forward! You can see the complete RStudio user-interface cheatsheet (PDF) [here](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)
+**RStudio** هو واجهة (GUI) لسهولة استخدام **R**. يمكنك أن تفكر في R كمحرك للمركبة، يقوم بالعمل الحاسم، و RStudio كجسم المركبة (مع المقاعد، الإكسسوارات، الخ) الذي يساعدك فعليًا على استخدام المحرك للتقدم إلى الأمام! يمكنك رؤية ورقة مرجعية كاملة لواجهة مستخدم RStudio (PDF) [هنا](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)
 
-By default RStudio displays four rectangle panes.
+افتراضيًا، يعرض RStudio أربع لوحات مستطيلة.
 
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "RStudio_overview.png"))
 ```
 
-[***TIP:*** If your RStudio displays only one left pane it is because you have no scripts open yet.]{style="color: black;"}
+[***نصيحة:*** إذا كان RStudio الخاص بك يعرض لوحة يسارية واحدة فقط، فهذا لأنه ليس لديك نصوص مفتوحة حتى الآن.]{style="color: black;"}
 
-**The Source Pane**\
-This pane, by default in the upper-left, is a space to edit, run, and save your [scripts](#scripts). Scripts contain the commands you want to run. This pane can also display datasets (data frames) for viewing.
+**لوحة المصدر**\
+هذه اللوحة، افتراضيًا في الزاوية العلوية اليسرى، هي مساحة لتحرير، تشغيل، وحفظ [النصوص](#scripts). النصوص تحتوي على الأوامر التي تريد تشغيلها. يمكن لهذه اللوحة أيضًا عرض مجموعات البيانات (إطارات البيانات) للعرض.
 
-For Stata users, this pane is similar to your Do-file and Data Editor windows.
+بالنسبة لمستخدمي Stata، هذه اللوحة مشابهة لنافذة Do-file ومحرر البيانات الخاصة بك.
 
-**The R Console Pane**
+**لوحة وحدة التحكم R**
 
-The R Console, by default the left or lower-left pane in R Studio, is the home of the R "engine". This is where the commands are actually run and non-graphic outputs and error/warning messages appear. You can directly enter and run commands in the R Console, but realize that these commands are not saved as they are when running commands from a script.
+وحدة التحكم R، افتراضيًا في الزاوية اليسرى أو السفلى اليسرى في R Studio، هي موطن "المحرك" R. هنا حيث تُشغل الأوامر فعليًا وتظهر النواتج غير الرسومية ورسائل الخطأ/التحذير. يمكنك إدخال الأوامر مباشرة وتشغيلها في وحدة التحكم R، ولكن تدرك أن هذه الأوامر لا تُحفظ كما هي عند تشغيل الأوامر من نص.
 
-If you are familiar with Stata, the R Console is like the Command Window and also the Results Window.
+إذا كنت ملمًا بـ Stata، فوحدة التحكم R تشبه نافذة الأوامر وأيضًا نافذة النتائج.
 
-**The Environment Pane**\
-This pane, by default in the upper-right, is most often used to see brief summaries of [objects](#objects) in the R Environment in the current session. These objects could include imported, modified, or created datasets, parameters you have defined (e.g. a specific epi week for the analysis), or vectors or lists you have defined during analysis (e.g. names of regions). You can click on the arrow next to a data frame name to see its variables.
+**لوحة البيئة**\
+هذه اللوحة، افتراضيًا في الزاوية العلوية اليمنى، تُستخدم في معظم الأحيان لرؤية ملخصات موجزة لـ [الكائنات](#objects) في بيئة R في الجلسة الحالية. يمكن أن تتضمن هذه الكائنات مجموعات بيانات مستوردة، معدلة، أو تم إنشاؤها، المعلمات التي قمت بتعريفها (على سبيل المثال، أسبوع epi محدد للتحليل)، أو متجهات أو قوائم قمت بتعريفها أثناء التحليل (على سبيل المثال، أسماء المناطق). يمكنك النقر على السهم المجاور لاسم إطار البيانات لرؤية متغيراته.
 
-In Stata, this is most similar to the Variables Manager window.
+في Stata، هذا يشبه إلى حد كبير نافذة مدير المتغيرات.
 
-This pane also contains *History* where you can see commands that you can previously. It also has a "Tutorial" tab where you can complete interactive R tutorials if you have the **learnr** package installed. It also has a "Connections" pane for external connections, and can have a "Git" pane if you choose to interface with Github.
+هذا الجزء يحتوي أيضًا على *History* حيث يمكنك رؤية الأوامر التي قمت بها سابقًا. كما يحتوي على علامة تبويب "Tutorial" حيث يمكنك إكمال دروس R التفاعلية إذا كان لديك حزمة **learnr** مثبتة. كما يحتوي على جزء "Connections" للاتصالات الخارجية، ويمكن أن يحتوي على جزء "Git" إذا اخترت التفاعل مع Github.
 
-**Plots, Viewer, Packages, and Help Pane**\
-The lower-right pane includes several important tabs. Typical plot graphics including maps will display in the Plot pane. Interactive or HTML outputs will display in the Viewer pane. The Help pane can display documentation and help files. The Files pane is a browser which can be used to open or delete files. The Packages pane allows you to see, install, update, delete, load/unload R packages, and see which version of the package you have. To learn more about packages see the [packages section](#packages) below.
+**الرسوم البيانية، العارض، الحزم، وجزء المساعدة**\
+الجزء السفلي الأيمن يتضمن عدة علامات تبويب مهمة. ستعرض الرسوم البيانية النمطية بما في ذلك الخرائط في الجزء الخاص بالرسوم البيانية. ستعرض النتائج التفاعلية أو HTML في العارض. يمكن لجزء المساعدة عرض الوثائق وملفات المساعدة. يعد جزء الملفات متصفحًا يمكن استخدامه لفتح أو حذف الملفات. يسمح لك جزء الحزم برؤية، تثبيت، تحديث، حذف، تحميل/تفريغ حزم R، ورؤية الإصدار الذي تمتلكه من الحزمة. لمعرفة المزيد حول الحزم، انظر إلى [قسم الحزم](#packages) أدناه.
 
-This pane contains the Stata equivalents of the Plots Manager and Project Manager windows.
+يحتوي هذا الجزء على ما يعادل Stata من مدير الرسوم البيانية ونافذة مدير المشروع.
 
-### RStudio settings {.unnumbered}
+### إعدادات RStudio {.unnumbered}
 
-Change RStudio settings and appearance in the *Tools* drop-down menu, by selecting *Global Options*. There you can change the default settings, including appearance/background color.
+قم بتغيير إعدادات ومظهر RStudio في قائمة السحب *Tools*، عن طريق تحديد *Global Options*. يمكنك هنا تغيير الإعدادات الافتراضية، بما في ذلك الظهور/لون الخلفية.
 
 ```{r out.width = c('50%'), fig.show='hold', echo=F}
 knitr::include_graphics(here::here("images", "RStudio_tools_options_1.png"))
@@ -230,205 +225,179 @@ knitr::include_graphics(here::here("images", "RStudio_tools_options_1.png"))
 knitr::include_graphics(here::here("images", "RStudio_tools_options.png"))
 ```
 
-**Restart**
+**إعادة التشغيل**
 
-If your R freezes, you can re-start R by going to the Session menu and clicking "Restart R". This avoids the hassle of closing and opening RStudio. Everything in your R environment will be removed when you do this.
+إذا تجمد R الخاص بك، يمكنك إعادة تشغيل R من خلال الانتقال إلى قائمة الجلسة والنقر على "إعادة تشغيل R". هذا يتجنب عناء إغلاق وفتح RStudio. سيتم إزالة كل شيء في بيئتك R عند القيام بذلك.
 
-### Keyboard shortcuts {.unnumbered}
+### اختصارات لوحة المفاتيح {.unnumbered}
 
-Some very useful keyboard shortcuts are below. See all the keyboard shortcuts for Windows, Max, and Linux in the second page of this RStudio [user interface cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf).
+بعض اختصارات لوحة المفاتيح المفيدة أدناه. انظر إلى جميع اختصارات لوحة المفاتيح لنظامي Windows و Mac و Linux في الصفحة الثانية من ورقة مراجع اختصارات واجهة المستخدم هذه لـ RStudio [هنا](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf).
 
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Windows/Linux                    | Mac                    | Action                                                                                                                         |
+| Windows/Linux                    | Mac                    | الإجراء                                                                                                                         |
 +==================================+========================+================================================================================================================================+
-| Esc                              | Esc                    | Interrupt current command (useful if you accidentally ran an incomplete command and cannot escape seeing "+" in the R console) |
+| Esc                              | Esc                    | إيقاف الأمر الحالي (مفيد إذا قمت بتشغيل أمر غير كامل عن طريق الخطأ ولا يمكنك الهروب من رؤية "+" في وحدة التحكم R) |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl+s                           | Cmd+s                  | Save (script)                                                                                                                  |
+| Ctrl+s                           | Cmd+s                  | حفظ (النص)                                                                                                                  |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Tab                              | Tab                    | Auto-complete                                                                                                                  |
+| Tab                              | Tab                    | إكمال تلقائي                                                                                                                  |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Enter                     | Cmd + Enter            | Run current line(s)/selection of code                                                                                          |
+| Ctrl + Enter                     | Cmd + Enter            | تشغيل السطر(السطور)/تحديد الكود                                                                                          |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Shift + C                 | Cmd + Shift + c        | comment/uncomment the highlighted lines                                                                                        |
+| Ctrl + Shift + C                 | Cmd + Shift + c        | تعليق/إلغاء تعليق الأسطر المحددة                                                                                        |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Alt + -                          | Option + -             | Insert `<-`                                                                                                                    |
+| Alt + -                          | Option + -             | إدراج `<-`                                                                                                                    |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Shift + m                 | Cmd + Shift + m        | Insert `%>%`                                                                                                                   |
+| Ctrl + Shift + m                 | Cmd + Shift + m        | إدراج `%>%`                                                                                                                   |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + l                         | Cmd + l                | Clear the R console                                                                                                            |
+| Ctrl + l                         | Cmd + l                | مسح وحدة التحكم R                                                                                                            |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Alt + b                   | Cmd + Option + b       | Run from start to current line                                                                                                 |
+| Ctrl + Alt + b                   | Cmd + Option + b       | تشغيل من البداية إلى السطر الحالي                                                                                                 |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Alt + t                   | Cmd + Option + t       | Run the current code section (R Markdown)                                                                                      |
+| Ctrl + Alt + t                   | Cmd + Option + t       | تشغيل الجزء الحالي من الكود (R Markdown)                                                                                      |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Alt + i                   | Cmd + Shift + r        | Insert code chunk (into R Markdown)                                                                                            |
+| Ctrl + Alt + i                   | Cmd + Shift + r        | إدراج قطعة كود (في R Markdown)                                                                                            |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Alt + c                   | Cmd + Option + c       | Run current code chunk (R Markdown)                                                                                            |
+| Ctrl + Alt + c                   | Cmd + Option + c       | تشغيل قطعة الكود الحالية (R Markdown)                                                                                            |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| up/down arrows in R console      | Same                   | Toggle through recently run commands                                                                                           |
+| السهم لأعلى/لأسفل في وحدة التحكم R      | نفسه                   | التبديل بين الأوامر التي تم تشغيلها مؤخرًا                                                                                           |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Shift + up/down arrows in script | Same                   | Select multiple code lines                                                                                                     |
+| Shift + السهم لأعلى/لأسفل في النص | نفسه                   | تحديد عدة أسطر من الكود                                                                                                     |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + f                         | Cmd + f                | Find and replace in current script                                                                                             |
+| Ctrl + f                         | Cmd + f                | البحث والاستبدال في النص الحالي                                                                                             |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Ctrl + Shift + f                 | Cmd + Shift + f        | Find in files (search/replace across many scripts)                                                                             |
+| Ctrl + Shift + f                 | Cmd + Shift + f        | البحث في الملفات (البحث/الاستبدال عبر العديد من النصوص)                                                                             |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Alt + l                          | Cmd + Option + l       | Fold selected code                                                                                                             |
+| Alt + l                          | Cmd + Option + l       | طي الكود المحدد                                                                                                             |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Shift + Alt + l                  | Cmd + Shift + Option+l | Unfold selected code                                                                                                           |
+| Shift + Alt + l                  | Cmd + Shift + Option+l | فتح الكود المحدد                                                                                                           |
 +----------------------------------+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
 
-[***TIP:*** Use your Tab key when typing to engage RStudio's auto-complete functionality. This can prevent spelling errors. Press Tab while typing to produce a drop-down menu of likely functions and objects, based on what you have typed so far.]{style="color: darkgreen;"}
-
-<!-- ======================================================= -->
-
-## Functions {#functions}
-
-Functions are at the core of using R. Functions are how you perform tasks and operations. Many functions come installed with R, many more are available for download in *packages* (explained in the [packages](#packages) section), and you can even write your own custom functions!
-
-This basics section on functions explains:
-
--   What a function is and how they work\
--   What function *arguments* are\
--   How to get help understanding a function
-
-*A quick note on syntax:* In this handbook, functions are written in code-text with open parentheses, like this: `filter()`. As explained in the [packages](#packages) section, functions are downloaded within *packages*. In this handbook, package names are written in **bold**, like **dplyr**. Sometimes in example code you may see the function name linked explicitly to the name of its package with two colons (`::`) like this: `dplyr::filter()`. The purpose of this linkage is explained in the packages section.
+[***نصيحة:*** استخدم مفتاح Tab عند الكتابة لاستخدام وظيفة الإكمال التلقائي في RStudio. يمكن أن يمنع هذا الأخطاء الإملائية. اضغط على Tab أثناء الكتابة لعرض قائمة من الوظائف والكائنات المحتملة، استنادًا إلى ما قمت بكتابته حتى الآن.]{style="color: darkgreen;"}
 
 <!-- ======================================================= -->
 
-### Simple functions {.unnumbered}
+## الوظائف {#functions}
 
-**A function is like a machine that receives inputs, does some action with those inputs, and produces an output.** What the output is depends on the function.
+الوظائف هي في صميم استخدام R. الوظائف هي الطريقة التي تقوم بها بأداء المهام والعمليات. تأتي العديد من الوظائف مثبتة مع R، والمزيد منها متاح للتنزيل في *حزم* (المشروحة في القسم [الحزم](#packages))، ويمكنك حتى كتابة وظائف مخصصة خاصة بك!
 
-**Functions typically operate upon some object placed within the function's parentheses**. For example, the function `sqrt()` calculates the square root of a number:
+يشرح هذا القسم الأساسي حول الوظائف:
+
+-   ما هي الوظيفة وكيف تعمل\
+-   ما هي *المُعطيات* الخاصة بالوظيفة\
+-   كيفية الحصول على مساعدة في فهم الوظيفة
+
+*ملاحظة سريعة حول الصيغة:* في هذا الدليل، تُكتب الوظائف في نص الكود بفتح القوسين، مثل هذا: `filter()` كما هو مشروح في القسم [الحزم](#packages)، تُنزل الوظائف ضمن *حزم*. في هذا الدليل، تُكتب أسماء الحزم بخط عريض، مثل **dplyr**. أحيانًا في الشيفرة المثالية قد ترى ارتباط اسم الوظيفة بشكل صريح باسم حزمتها باستخدام نقطتين (`::`) مثل هذا: `dplyr::filter()`. يُشرح هدف هذا الربط في قسم الحزم.
+
+<!-- ======================================================= -->
+
+### الوظائف البسيطة {.unnumbered}
+
+**الوظيفة مثل آلة تستقبل مدخلات، تقوم بإجراء بعض الإجراءات باستخدام تلك المدخلات، وتنتج مخرجًا.** ما هو المخرج يعتمد على الوظيفة.
+
+**تعمل الوظائف عادة على كائن ما يتم وضعه داخل قوسي الوظيفة**. على سبيل المثال، تقوم الوظيفة `sqrt()` بحساب الجذر التربيعي لرقم ما:
 
 ```{r basics_function_sqrt}
 sqrt(49)
 ```
 
-The object provided to a function also can be a column in a dataset (see the [Objects](#objects) section for detail on all the kinds of objects). Because R can store multiple datasets, you will need to specify both the dataset and the column. One way to do this is using the `$` notation to link the name of the dataset and the name of the column (`dataset$column`). In the example below, the function `summary()` is applied to the numeric column `age` in the dataset `linelist`, and the output is a summary of the column's numeric and missing values.
+يمكن أن يكون الكائن الذي يتم توفيره للوظيفة أيضًا عمودًا في مجموعة بيانات (انظر القسم [الكائنات](#objects) للتفاصيل حول جميع أنواع الكائنات). نظرًا لأن R يمكنه تخزين مجموعات بيانات متعددة، ستحتاج إلى تحديد كل من المجموعة البياناتية والعمود. يمكن القيام بذلك باستخدام علامة الدولار `$` لربط اسم المجموعة البياناتية واسم العمود (`dataset$column`). في المثال أدناه، يتم تطبيق الوظيفة `summary()` على العمود الرقمي `age` في مجموعة البيانات `linelist`، والمخرج هو ملخص للقيم الرقمية والقيم المفقودة في العمود.
 
 ```{r basics_functions_summary}
-# Print summary statistics of column 'age' in the dataset 'linelist'
+# طباعة إحصائيات ملخصة للعمود 'العمر' في مجموعة البيانات 'linelist'
 summary(linelist$age)
 ```
 
-[***NOTE:*** Behind the scenes, a function represents complex additional code that has been wrapped up for the user into one easy command.]{style="color: black;"}
+[***ملاحظة:*** خلف الكواليس، تمثل الوظيفة رمزًا معقدًا إضافيًا تم تجميعه للمستخدم في أمر واحد سهل.]{style="color: black;"}
 
 <!-- ======================================================= -->
 
-### Functions with multiple arguments {.unnumbered}
+### الوظائف مع عدة وسائط {.unnumbered}
 
-Functions often ask for several inputs, called ***arguments***, located within the parentheses of the function, usually separated by commas.
+غالبًا ما تطلب الوظائف عدة مدخلات، تُسمى ***وسائط***، تقع داخل الأقواس المستديرة للوظيفة، عادة ما تكون مفصولة بفواصل.
 
--   Some arguments are required for the function to work correctly, others are optional\
--   Optional arguments have default settings\
--   Arguments can take character, numeric, logical (TRUE/FALSE), and other inputs
+-   تُطلب بعض الوسائط لعمل الوظيفة بشكل صحيح، بينما تكون البعض الآخر اختيارية\
+-   تحتوي الوسائط الاختيارية على إعدادات افتراضية\
+-   يمكن أن تأخذ الوسائط مدخلات شخصية أو رقمية أو منطقية (صحيح/خطأ) ومدخلات أخرى
 
-Here is a fun fictional function, called `oven_bake()`, as an example of a typical function. It takes an input object (e.g. a dataset, or in this example "dough") and performs operations on it as specified by additional arguments (`minutes =` and `temperature =`). The output can be printed to the console, or saved as an object using the assignment operator `<-`.
+هنا وظيفة خيالية ممتعة، تسمى `oven_bake()`، كمثال على وظيفة نموذجية. تأخذ كائن مدخل (على سبيل المثال، مجموعة بيانات، أو في هذا المثال "العجين") وتنفذ العمليات عليه كما هو محدد بوسائط إضافية (`minutes =` و `temperature =`). يمكن طباعة الناتج إلى وحدة التحكم، أو حفظه ككائن باستخدام عامل التعيين `<-`.
 
 ```{r basics_functions_image, echo=F, out.width = "75%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "Function_Bread_Example.png"))
 ```
 
-**In a more realistic example**, the `age_pyramid()` command below produces an age pyramid plot based on defined age groups and a binary split column, such as `gender`. The function is given three arguments within the parentheses, separated by commas. The values supplied to the arguments establish `linelist` as the dataframe to use, `age_cat5` as the column to count, and `gender` as the binary column to use for splitting the pyramid by color.
+**في مثال أكثر واقعية**, ينتج الأمر `age_pyramid()` أدناه رسم هرم الأعمار بناءً على مجموعات عمرية محددة وعمود تقسيم ثنائي، مثل `gender`. يتم تقديم الوظيفة ثلاث وسائط داخل الأقواس، مفصولة بفواصل. القيم المقدمة للوسائط تحدد `linelist` كإطار بيانات للاستخدام، `age_cat5` كالعمود للعد، و `gender` كالعمود الثنائي لاستخدامه في تقسيم الهرم باللون.
 
 ```{r basics_functions_arguments, include=FALSE, results='hide', message=FALSE, warning=FALSE,}
-## create an age group variable by specifying categorical breaks
+## إنشاء متغير مجموعة عمرية عن طريق تحديد الفواصل الفئوية
 linelist$age_group <- cut(linelist$age, breaks = c(0, 5, 10, 15, 20, 30, 45, 60))
 ```
 
 ```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
-# Create an age pyramid
+# إنشاء هرم عمر
 age_pyramid(data = linelist, age_group = "age_cat5", split_by = "gender")
 ```
 
-The above command can be equivalently written as below, in a longer style with a new line for each argument. This style can be easier to read, and easier to write "comments" with `#` to explain each part (commenting extensively is good practice!). To run this longer command you can highlight the entire command and click "Run", or just place your cursor in the first line and then press the Ctrl and Enter keys simultaneously.
+الأمر أعلاه يمكن كتابته بشكل مكافئ كما يلي، بأسلوب أطول مع سطر جديد لكل وسيط. يمكن أن يكون هذا الأسلوب أسهل للقراءة، وأسهل لكتابة "تعليقات" باستخدام `#` لشرح كل جزء (التعليق بشكل موسع هو ممارسة جيدة!). لتشغيل هذا الأمر الطويل يمكنك تحديد الأمر بالكامل والنقر فوق "تشغيل"، أو مجرد وضع المؤشر في السطر الأول ثم الضغط على مفاتيح Ctrl و Enter معًا.
 
 ```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
-# Create an age pyramid
+# إنشاء هرم عمري
 age_pyramid(
-  data = linelist,        # use case linelist
-  age_group = "age_cat5", # provide age group column
-  split_by = "gender"     # use gender column for two sides of pyramid
+  data = linelist,        # استخدام حالة linelist
+  age_group = "age_cat5", # توفير عمود مجموعة العمر
+  split_by = "gender"     # استخدام عمود الجنس لجانبي الهرم
   )
-```
+```{style="color: black;"}
 
-The first half of an argument assignment (e.g. `data =`) does not need to be specified if the arguments are written in a specific order (specified in the function's documentation). The below code produces the exact same pyramid as above, because the function expects the argument order: data frame, `age_group` variable, `split_by` variable.
+نصف الجزء الأول من تعيين الوسيط (مثل `data =`) لا يحتاج إلى تحديد إذا كانت الوسائط مكتوبة بترتيب محدد (محدد في وثائق الوظيفة). الشيفرة أدناه تنتج نفس الهرم الذي تم ذكره أعلاه، لأن الوظيفة تتوقع ترتيب الوسائط: إطار البيانات، متغير `age_group`، متغير `split_by`.
 
 ```{r, basics_functions_pyramid2, eval = FALSE, warning=FALSE, message=FALSE, , out.width = "75%", out.height="75%", eval=F}
-# This command will produce the exact same graphic as above
+# هذا الأمر سينتج نفس الرسم البياني الذي تم ذكره أعلاه
 age_pyramid(linelist, "age_cat5", "gender")
-```
+```{style="color: black;"}
 
-**A more complex `age_pyramid()` command might include the *optional* arguments to:**
+**قد يتضمن أمر `age_pyramid()` الأكثر تعقيدًا الوسائط *الاختيارية* ل:**
 
--   Show proportions instead of counts (set `proportional = TRUE` when the default is `FALSE`)\
--   Specify the two colors to use (`pal =` is short for "palette" and is supplied with a vector of two color names. See the [objects](#objectstructure) page for how the function `c()` makes a vector)
+-   عرض النسب بدلاً من العدادات (قم بتعيين `proportional = TRUE` عندما يكون الافتراضي `FALSE`)
+-   تحديد اللونين المستخدمين (`pal =` اختصار لـ "palette" ويتم توفيره بمتجه من اسماء الألوان الاثنين. انظر [الكائنات](#objectstructure) لكيفية عمل الوظيفة `c()` على إنشاء متجه)
 
-[***NOTE:*** For arguments that you specify with both parts of the argument (e.g. `proportional = TRUE`), their order among all the arguments does not matter.]{style="color: black;"}
+[***ملاحظة:*** بالنسبة للوسائط التي تحددها بكل جزء من الوسيط (مثل `proportional = TRUE`، ترتيبها بين جميع الوسائط لا يهم.]{style="color: black;"}
 
 ```{r message=FALSE, warning=FALSE, out.width = "75%", out.height="75%"}
 age_pyramid(
-  linelist,                    # use case linelist
-  "age_cat5",                  # age group column
-  "gender",                    # split by gender
-  proportional = TRUE,         # percents instead of counts
-  pal = c("orange", "purple")  # colors
+  linelist,                    # استخدام حالة linelist
+  "age_cat5",                  # عمود مجموعة العمر
+  "gender",                    # تقسيم حسب الجنس
+  proportional = TRUE,         # نسب بدلاً من عدادات
+  pal = c("orange", "purple")  # الألوان
   )
 ```
 
-<!-- ======================================================= -->
+### Escrevendo Funções {.unnumbered}
 
-### Writing Functions {.unnumbered}
+R é uma linguagem orientada em torno de funções, então você deve se sentir capacitado para escrever suas próprias funções. Criar funções traz várias vantagens:
 
-R is a language that is oriented around functions, so you should feel empowered to write your own functions. Creating functions brings several advantages:
+-   Para facilitar a programação modular - a separação do código em pedaços independentes e gerenciáveis\
+-   Substituir cópias e colagens repetitivas, que podem conter erros\
+-   Dar nomes memoráveis a pedaços de código
 
--   To facilitate modular programming - the separation of code in to independent and manageable pieces\
--   Replace repetitive copy-and-paste, which can be error prone\
--   Give pieces of code memorable names
-
-How to write a function is covered in-depth in the [Writing functions](writing_functions.qmd) page.
-
-<!-- A function is given a name and defined with the assignment operator `<-` to a special **base** R function called `function()`. Within the parentheses, the arguments that the function will accept are defined. This is followed by curly brackets `{ }`, within which the actual code of the function is written.     -->
+Como escrever uma função é abordado em profundidade na página [Escrevendo funções](writing_functions.qmd).
 
 ```{r, eval=F, echo=F}
-my_function <- function( ARGUMENTS HERE ){ CODE HERE }
+minha_funcao <- function( ARGUMENTOS AQUI ){ CÓDIGO AQUI }
 ```
-
-<!-- The arguments should be provided in the syntax `argument = default`, separated by commas.   -->
-
-<!-- Here is an example where we create a function `staff_calc()` to serve as a staffing calculator for COVID-19 case investigation and contact tracing calls.   -->
-
-<!-- The arguments (inputs) and their default values will be:   -->
-
-<!-- * `daily_cases = NULL` The number of new COVID-19 cases per day   -->
-
-<!-- * `contacts_each = 5` The number contacts enumerated for each case   -->
-
-<!-- * `time_case = 0.5`  Number of hours to complete a case investigaton by phone   -->
-
-<!-- * `time_contact = 0.25`  Number of hours to complete a contact follow-up by phone   -->
-
-<!-- * `time_day = 8` The number of hours one staff works per day   -->
-
-<!-- Below, the function is created. The code ends with the special function `return()`, which is what the function produces.    -->
-
-<!-- ```{r message=FALSE, warning=FALSE, out.width = "75%", out.height="75%"} -->
-
-<!-- staff_calc <- function(daily_cases = NULL, contacts_each = 5, -->
 
 <!--                        time_case = 0.5, time_contact = 0.25, time_day = 8){ -->
 
-<!--   # Define total daily hours for calling cases -->
+<!--   # تعريف إجمالي ساعات العمل اليومية للاتصال بالحالات -->
 
 <!--   case_hours <- daily_cases * time_case  -->
 
-<!--   # Define total daily hours for calling contacts -->
+<!--   # تعريف إجمالي ساعات العمل اليومية للاتصال بالجهات الاتصال -->
 
 <!--   contact_hours <- daily_cases * contacts_each * time_contact -->
 
-<!--   # Calculate number of staff required -->
+<!--   # حساب عدد الموظفين المطلوبين -->
 
 <!--   staff_required <- (case_hours + contact_hours)/time_day -->
 
@@ -438,7 +407,7 @@ my_function <- function( ARGUMENTS HERE ){ CODE HERE }
 
 <!-- ``` -->
 
-<!-- Once this code is run, the function will be defined and will appear in the R Environment. We can run the function. Below all the default values are used and the `daily_cases = ` is set to 150.   -->
+<!-- بمجرد تشغيل هذا الكود، سيتم تعريف الدالة وستظهر في بيئة R. يمكننا تشغيل الدالة. أدناه يتم استخدام جميع القيم الافتراضية وتم تعيين `daily_cases = 150`.   -->
 
 ```{r eval=F, echo=F, message=FALSE, warning=FALSE, out.width = "75%", out.height="75%"}
 staff_calc(daily_cases = 150)
@@ -456,284 +425,273 @@ ggplot(case_incidence, aes(x = dates))+
   geom_line(aes(y = staff_needed))
 ```
 
-<!-- There are many other nuances to understand when writing functions, as discussed in the page [Writing functions].   -->
+<!-- هناك العديد من الجوانب الأخرى التي يجب فهمها عند كتابة الدوال، كما هو موضح في الصفحة [كتابة الدوال].   -->
 
 <!-- ======================================================= -->
 
 <!-- ======================================================= -->
 
-## Packages {#packages}
+## الحزم {#packages}
 
-**Packages contain functions.**
+**الحزم تحتوي على الدوال.**
 
-An R package is a shareable bundle of code and documentation that contains pre-defined functions. Users in the R community develop packages all the time catered to specific problems, it is likely that one can help with your work! You will install and use hundreds of packages in your use of R.
+الحزمة في R هي حزمة قابلة للمشاركة من الشيفرة والوثائق التي تحتوي على دوال محددة مسبقًا. يقوم مستخدمو R في المجتمع بتطوير حزم باستمرار تتناسب مع مشاكل محددة، ومن المحتمل أن تساعدك واحدة منها في عملك! ستقوم بتثبيت واستخدام مئات الحزم في استخدامك لـ R.
 
-On installation, R contains **"base"** packages and functions that perform common elementary tasks. But many R users create specialized functions, which are verified by the R community and which you can download as a **package** for your own use. In this handbook, package names are written in **bold**. One of the more challenging aspects of R is that there are often many functions or packages to choose from to complete a given task.
+عند التثبيت، يحتوي R على حزم ودوال **"الأساسية"** التي تقوم بأداء المهام الأساسية الشائعة. ولكن العديد من مستخدمي R ينشئون دوال متخصصة، والتي يتم التحقق منها من قبل مجتمع R والتي يمكنك تنزيلها كـ **حزمة** لاستخدامها الخاص. في هذا الدليل، تكتب أسماء الحزم بخط **عريض**. واحدة من أصعب جوانب R هو أنه غالبًا ما تكون هناك العديد من الدوال أو الحزم للاختيار من بينها لإكمال مهمة معينة.
 
-### Install and load {.unnumbered}
+### التثبيت والتحميل {.unnumbered}
 
-*Functions* are contained within **packages** which can be downloaded ("installed") to your computer from the internet. Once a package is downloaded, it is stored in your "library". You can then access the functions it contains during your current R session by "loading" the package.
+*الوظائف* موجودة ضمن **الحزم** التي يمكن تنزيلها ("تثبيتها") على جهاز الكمبيوتر الخاص بك من الإنترنت. بمجرد تنزيل الحزمة، يتم تخزينها في "مكتبتك". يمكنك بعد ذلك الوصول إلى الوظائف التي تحتويها خلال جلسة R الحالية عن طريق "تحميل" الحزمة.
 
-*Think of R as your personal library*: When you download a package, your library gains a new book of functions, but each time you want to use a function in that book, you must borrow ("load") that book from your library.
+*فكر في R كمكتبتك الشخصية*: عندما تقوم بتنزيل حزمة، تحصل مكتبتك على كتاب جديد من الوظائف، ولكن في كل مرة ترغب في استخدام وظيفة في ذلك الكتاب، يجب عليك استعارة ("تحميل") تلك الكتاب من مكتبتك.
 
-In summary: to use the functions available in an R package, 2 steps must be implemented:
+في الختام: لاستخدام الوظائف المتاحة في حزمة R، يجب تنفيذ خطوتين:
 
-1)  The package must be **installed** (once), *and*\
-2)  The package must be **loaded** (each R session)
+1)  يجب **تثبيت** الحزمة (مرة واحدة)، *و*\
+2)  يجب **تحميل** الحزمة (في كل جلسة R)
 
-#### Your library {.unnumbered}
+#### مكتبتك {.unnumbered}
 
-Your "library" is actually a folder on your computer, containing a folder for each package that has been installed. Find out where R is installed in your computer, and look for a folder called "win-library". For example: `R\win-library\4.0` (the 4.0 is the R version - you'll have a different library for each R version you've downloaded).
+"مكتبتك" هي في الواقع مجلد على جهاز الكمبيوتر الخاص بك، يحتوي على مجلد لكل حزمة تم تثبيتها. ابحث عن مكان تثبيت R على جهاز الكمبيوتر الخاص بك، وابحث عن مجلد يسمى "win-library". على سبيل المثال: `R\win-library\4.0` (الرقم 4.0 هو إصدار R - ستكون لديك مكتبة مختلفة لكل إصدار R قمت بتنزيله).
 
-You can print the file path to your library by entering `.libPaths()` (empty parentheses). This becomes especially important if working with [R on network drives](network_drives.qmd).
+يمكنك طباعة مسار الملف إلى مكتبتك عن طريق إدخال `.libPaths()` (قوسين فارغة). يصبح هذا مهمًا بشكل خاص عند العمل مع [R على محركات الأقراص الشبكية](network_drives.qmd).
 
-#### Install from CRAN {.unnumbered}
+#### التثبيت من CRAN {.unnumbered}
 
-Most often, R users download packages from CRAN. CRAN (Comprehensive R Archive Network) is an online public warehouse of R packages that have been published by R community members.
+غالبًا ما يقوم مستخدمو R بتنزيل الحزم من CRAN. CRAN (شبكة الأرشيف الشاملة لـ R) هي مستودع عام على الإنترنت لحزم R التي تم نشرها من قبل أعضاء مجتمع R.
 
-Are you worried about viruses and security when downloading a package from CRAN? Read [this article](https://support.rstudio.com/hc/en-us/articles/360042593974-R-and-R-Package-Security) on the topic.
+هل تشعر بالقلق بشأن الفيروسات والأمان عند تنزيل حزمة من CRAN؟ اقرأ [هذه المقالة](https://support.rstudio.com/hc/en-us/articles/360042593974-R-and-R-Package-Security) حول هذا الموضوع.
 
-#### How to install and load {.unnumbered}
+#### كيفية التثبيت والتحميل {.unnumbered}
 
-In this handbook, we suggest using the **pacman** package (short for "package manager"). It offers a convenient function `p_load()` which will install a package if necessary *and* load it for use in the current R session.
+في هذا الدليل، نقترح استخدام حزمة **pacman** (اختصارًا لـ "مدير الحزم"). تقدم وظيفة مريحة `p_load()` التي ستقوم بتثبيت الحزمة إذا لزم الأمر *و* تحميلها للاستخدام في جلسة R الحالية.
 
-The syntax quite simple. Just list the names of the packages within the `p_load()` parentheses, separated by commas. This command will install the **rio**, **tidyverse**, and **here** packages if they are not yet installed, and will load them for use. This makes the `p_load()` approach convenient and concise if sharing scripts with others. Note that package names are case-sensitive.
+الصيغة بسيطة تمامًا. ما عليك سوى سرد أسماء الحزم داخل قوسين `p_load()`، مفصولة بفواصل. سيقوم هذا الأمر بتثبيت حزم **rio**, **tidyverse**, و **here** إذا لم يتم تثبيتها بعد، وسيقوم بتحميلها للاستخدام. يجعل هذا النهج `p_load()` مريحًا وموجزًا عند مشاركة النصوص مع الآخرين. لاحظ أن أسماء الحزم حساسة لحالة الأحرف.
 
 ```{r}
-# Install (if necessary) and load packages for use
+# قم بتثبيت (إذا لزم الأمر) وتحميل الحزم للاستخدام
 pacman::p_load(rio, tidyverse, here)
 ```
 
-Note that we have used the syntax `pacman::p_load()` which explicitly writes the package name (**pacman**) prior to the function name (`p_load()`), connected by two colons `::`. This syntax is useful because it also loads the **pacman** package (assuming it is already installed).
+يرجى ملاحظة أننا استخدمنا بنية `pacman::p_load()` التي تكتب بشكل صريح اسم الحزمة (**pacman**) قبل اسم الدالة (`p_load()`), متصلة بواسطة نقطتين `::`. هذه الصيغة مفيدة لأنها تحمل أيضًا حزمة **pacman** (بشرط أن تكون مثبتة بالفعل).
 
-There are alternative **base** R functions that you will see often. The **base** R function for installing a package is `install.packages()`. The name of the package to install must be provided in the parentheses *in quotes*. If you want to install multiple packages in one command, they must be listed within a character vector `c()`.
+هناك وظائف **base** R بديلة ستراها كثيرًا. الوظيفة **base** R لتثبيت حزمة هي `install.packages()`. يجب توفير اسم الحزمة التي تريد تثبيتها داخل القوسين *بين علامتي اقتباس*. إذا كنت ترغب في تثبيت عدة حزم في أمر واحد، يجب أن تُدرج في متجه الأحرف `c()`.
 
-Note: this command *installs* a package, but does *not* load it for use in the current session.
+ملاحظة: هذا الأمر *يثبت* حزمة، ولكنها لا تُحمل للاستخدام في الجلسة الحالية.
 
 ```{r, eval=F}
-# install a single package with base R
+# تثبيت حزمة واحدة باستخدام base R
 install.packages("tidyverse")
 
-# install multiple packages with base R
+# تثبيت عدة حزم باستخدام base R
 install.packages(c("tidyverse", "rio", "here"))
 ```
 
-Installation can also be accomplished point-and-click by going to the RStudio "Packages" pane and clicking "Install" and searching for the desired package name.
+يمكن أيضًا تنفيذ التثبيت بالنقر بالماوس عن طريق الانتقال إلى لوحة RStudio "Packages" والنقر على "Install" والبحث عن اسم الحزمة المطلوبة.
 
-The **base** R function to **load** a package for use (after it has been installed) is `library()`. It can load only one package at a time (another reason to use `p_load()`). You can provide the package name with or without quotes.
+الوظيفة **base** R لـ **تحميل** حزمة للاستخدام (بعد تثبيتها) هي `library()`. يمكنها تحميل حزمة واحدة فقط في كل مرة (سبب آخر لاستخدام `p_load()`). يمكنك توفير اسم الحزمة مع أو بدون اقتباسات.
 
 ```{r, eval=F}
-# load packages for use, with base R
+# تحميل الحزم للاستخدام، باستخدام base R
 library(tidyverse)
 library(rio)
 library(here)
 ```
 
-To check whether a package in installed and/or loaded, you can view the Packages pane in RStudio. If the package is installed, it is shown there with version number. If its box is checked, it is loaded for the current session.
+للتحقق مما إذا كانت الحزمة مثبتة و/أو محملة، يمكنك عرض لوحة الحزم في RStudio. إذا كانت الحزمة مثبتة، ستظهر هناك مع رقم الإصدار. إذا تم تحديد خانتها، فهي محملة للجلسة الحالية.
 
-**Install from Github**
+**التثبيت من Github**
 
-Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the *development version* with new features not yet offered in the more stable published CRAN version. These are often hosted on the website [github.com](https://github.com/) in a free, public-facing code "repository". Read more about Github in the handbook page on \[Version control and collaboration with Git and Github\].
+أحيانًا، قد تحتاج إلى تثبيت حزمة غير متوفرة بعد من CRAN. أو ربما تكون الحزمة متوفرة على CRAN ولكنك تريد *النسخة التطويرية* بميزات جديدة لم تُقدم بعد في النسخة المنشورة الأكثر استقرارًا على CRAN. غالبًا ما تكون هذه مستضافة على موقع [github.com](https://github.com/) في "مستودع" للشفرة المجاني والعام. اقرأ المزيد حول Github في صفحة الدليل عن [التحكم في الإصدار والتعاون مع Git وGithub].
 
-To download R packages from Github, you can use the function `p_load_gh()` from **pacman**, which will install the package if necessary, and load it for use in your current R session. Alternatives to install include using the **remotes** or **devtools** packages. Read more about all the **pacman** functions in the [package documentation](https://cran.r-project.org/web/packages/pacman/pacman.pdf).
 
-To install from Github, you have to provide more information. You must provide:
+لتنزيل حزم R من Github، يمكنك استخدام الدالة `p_load_gh()` من **pacman**، والتي ستقوم بتثبيت الحزمة إذا لزم الأمر، وتحميلها لاستخدامها في جلسة R الحالية. البدائل للتثبيت تشمل استخدام حزم **remotes** أو **devtools**. اقرأ المزيد عن جميع وظائف **pacman** في [وثائق الحزمة](https://cran.r-project.org/web/packages/pacman/pacman.pdf).
 
-1)  The Github ID of the repository owner
-2)  The name of the repository that contains the package\
-3)  *(optional) The name of the "branch" (specific development version) you want to download*
+لتثبيت من Github، يجب عليك توفير مزيد من المعلومات. يجب عليك توفير:
 
-In the examples below, the first word in the quotation marks is the Github ID of the repository owner, after the slash is the name of the repository (the name of the package).
+1)  معرف Github لمالك المستودع
+2)  اسم المستودع الذي يحتوي على الحزمة
+3)  *(اختياري) اسم "الفرع" (الإصدار التطويري المحدد) الذي تريد تنزيله*
+
+في الأمثلة أدناه، الكلمة الأولى بين علامات التنصيص هي معرف Github لمالك المستودع، بعد شرطة مائلة يأتي اسم المستودع (اسم الحزمة).
 
 ```{r, eval=F}
-# install/load the epicontacts package from its Github repository
+# تثبيت/تحميل حزمة epicontacts من مستودعها على Github
 p_load_gh("reconhub/epicontacts")
 ```
 
-If you want to install from a "branch" (version) other than the main branch, add the branch name after an "\@", after the repository name.
+إذا كنت ترغب في التثبيت من "فرع" (إصدار) غير الرئيسي، أضف اسم الفرع بعد "\@" بعد اسم المستودع.
 
 ```{r, eval=F}
-# install the "timeline" branch of the epicontacts package from Github
+# تثبيت فرع "timeline" من حزمة epicontacts من Github
 p_load_gh("reconhub/epicontacts@timeline")
 ```
 
-If there is no difference between the Github version and the version on your computer, no action will be taken. You can "force" a re-install by instead using `p_load_current_gh()` with the argument `update = TRUE`. Read more about **pacman** in this [online vignette](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html)
+إذا لم يكن هناك فرق بين الإصدار على Github والإصدار على جهاز الكمبيوتر الخاص بك، لن يتم اتخاذ أي إجراء. يمكنك "إجبار" إعادة التثبيت بدلاً من ذلك باستخدام `p_load_current_gh()` مع الوسيط `update = TRUE`. اقرأ المزيد عن **pacman** في هذا [المقال على الإنترنت](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html)
 
-**Install from ZIP or TAR**
+**التثبيت من ملف ZIP أو TAR**
 
-You could install the package from a URL:
+يمكنك تثبيت الحزمة من عنوان URL:
 
 ```{r, eval=F}
 packageurl <- "https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"
 install.packages(packageurl, repos=NULL, type="source")
 ```
 
-Or, download it to your computer in a zipped file:
+أو، قم بتنزيلها إلى جهاز الكمبيوتر الخاص بك في ملف مضغوط:
 
-Option 1: using `install_local()` from the **remotes** package
+الخيار 1: باستخدام `install_local()` من حزمة **remotes**
 
 ```{r, eval=F}
 remotes::install_local("~/Downloads/dplyr-master.zip")
 ```
 
-Option 2: using `install.packages()` from **base** R, providing the file path to the ZIP file and setting `type = "source` and `repos = NULL`.
+Option 2: استخدام `install.packages()` من **base** R، وتقديم مسار الملف إلى ملف ZIP وضبط `type = "source` و `repos = NULL`.
 
 ```{r, eval=F}
 install.packages("~/Downloads/dplyr-master.zip", repos=NULL, type="source")
 ```
 
-### Code syntax {.unnumbered}
+### بناء جملة الكود {.unnumbered}
 
-For clarity in this handbook, functions are sometimes preceded by the name of their package using the `::` symbol in the following way: `package_name::function_name()`
+للوضوح في هذا الدليل، يتم تسبق بعض الدوال أحيانًا باسم حزمتها باستخدام رمز `::` بالطريقة التالية: `package_name::function_name()`
 
-Once a package is loaded for a session, this explicit style is not necessary. One can just use `function_name()`. However writing the package name is useful when a function name is common and may exist in multiple packages (e.g. `plot()`). Writing the package name will also load the package if it is not already loaded.
+بمجرد تحميل حزمة لجلسة، لا يلزم هذا النمط الصريح. يمكن استخدام `function_name()` مباشرة. ومع ذلك، فإن كتابة اسم الحزمة مفيدة عندما يكون اسم الدالة شائعًا وقد يكون موجودًا في عدة حزم (على سبيل المثال، `plot()`). كتابة اسم الحزمة سيقوم أيضًا بتحميل الحزمة إذا لم تكن محملة بالفعل.
 
 ```{r eval=FALSE}
-# This command uses the package "rio" and its function "import()" to import a dataset
+# تستخدم هذه الأمر الحزمة "rio" ودالتها "import()" لاستيراد مجموعة بيانات
 linelist <- rio::import("linelist.xlsx", which = "Sheet1")
 ```
 
-### Function help {.unnumbered}
+### مساعدة الدوال {.unnumbered}
 
-To read more about a function, you can search for it in the Help tab of the lower-right RStudio. You can also run a command like `?thefunctionname` (put the name of the function after a question mark) and the Help page will appear in the Help pane. Finally, try searching online for resources.
+لقراءة المزيد عن دالة ما، يمكنك البحث عنها في علامة المساعدة في أسفل يمين RStudio. يمكنك أيضًا تشغيل أمر مثل `?thefunctionname` (ضع اسم الدالة بعد علامة الاستفهام) وسيظهر صفحة المساعدة في اللوحة المساعدة. وأخيرًا، جرب البحث عبر الإنترنت عن الموارد.
 
-### Update packages {.unnumbered}
+### تحديث الحزم {.unnumbered}
 
-You can update packages by re-installing them. You can also click the green "Update" button in your RStudio Packages pane to see which packages have new versions to install. Be aware that your old code may need to be updated if there is a major revision to how a function works!
+يمكنك تحديث الحزم عن طريق إعادة تثبيتها. يمكنك أيضًا النقر على الزر الأخضر "تحديث" في لوحة حزم RStudio الخاصة بك لمعرفة الحزم التي تحتوي على إصدارات جديدة لتثبيتها. كن على علم بأنه قد يكون من الضروري تحديث كودك القديم إذا كان هناك تعديل رئيسي على كيفية عمل دالة!
 
-### Delete packages {.unnumbered}
+### حذف الحزم {.unnumbered}
 
-Use `p_delete()` from **pacman**, or `remove.packages()` from **base** R. Alternatively, go find the folder which contains your library and manually delete the folder.
+استخدم `p_delete()` من **pacman**، أو `remove.packages()` من **base** R. بالإضافة إلى ذلك، اذهب للعثور على المجلد الذي يحتوي على مكتبتك واحذف المجلد يدويًا.
 
-### Dependencies {.unnumbered}
+### التبعيات {.unnumbered}
 
-Packages often depend on other packages to work. These are called dependencies. If a dependency fails to install, then the package depending on it may also fail to install.
+غالبًا ما تعتمد الحزم على حزم أخرى للعمل. تُعرف هذه بالتبعيات. إذا فشل تثبيت تبعية، فقد يفشل تثبيت الحزمة التي تعتمد عليها.
 
-See the dependencies of a package with `p_depends()`, and see which packages depend on it with `p_depends_reverse()`
+انظر إلى التبعيات لحزمة معينة باستخدام `p_depends()`، وانظر إلى الحزم التي تعتمد عليها باستخدام `p_depends_reverse()`
 
-### Masked functions {.unnumbered}
+### الدوال المقنعة {.unnumbered}
 
-It is not uncommon that two or more packages contain the same function name. For example, the package **dplyr** has a `filter()` function, but so does the package **stats**. The default `filter()` function depends on the order these packages are first loaded in the R session - the later one will be the default for the command `filter()`.
+ليس من النادر أن تحتوي حزمتان أو أكثر على نفس اسم الدالة. على سبيل المثال، تحتوي حزمة **dplyr** على دالة `filter()`، ولكن الحزمة **stats** تحتوي أيضًا على نفس الدالة. تعتمد الدالة الافتراضية `filter()` على ترتيب تحميل هذه الحزم في جلسة R - ستكون الأخيرة هي الافتراضية للأمر `filter()`.
 
-You can check the order in your Environment pane of R Studio - click the drop-down for "Global Environment" and see the order of the packages. Functions from packages *lower* on that drop-down list will mask functions of the same name in packages that appear higher in the drop-down list. When first loading a package, R will warn you in the console if masking is occurring, but this can be easy to miss.
+يمكنك التحقق من الترتيب في لوحة البيئة الخاصة بك في R Studio - انقر فوق القائمة المنسدلة لـ "البيئة العالمية" وانظر ترتيب الحزم. ستقوم الدوال من الحزم *الأقل* في تلك القائمة المنسدلة بتغطية الدوال التي تحمل نفس الاسم في الحزم التي تظهر في الجزء الأعلى من القائمة المنسدلة. عند تحميل حزمة لأول مرة، سيقوم R بتحذيرك في وحدة التحكم إذا كانت هناك تغطية، ولكن يمكن أن يكون من السهل تفويت هذا التحذير.
 
 ```{r out.width = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "masking_functions.png"))
 ```
 
-Here are ways you can fix masking:
+إليك طرق يمكنك من خلالها إصلاح التغطية:
 
-1)  Specify the package name in the command. For example, use `dplyr::filter()`\
-2)  Re-arrange the order in which the packages are loaded (e.g. within `p_load()`), and **start a new R session**
+1)  حدد اسم الحزمة في الأمر. على سبيل المثال، استخدم `dplyr::filter()`\
+2)  أعد ترتيب ترتيب تحميل الحزم (على سبيل المثال، ضمن `p_load()`)، و**ابدأ جلسة R جديدة**
 
-### Detach / unload {.unnumbered}
+### فصل / تفريغ {.unnumbered}
 
-To detach (unload) a package, use this command, with the correct package name and only one colon. Note that this may not resolve masking.
+لفصل (تفريغ) حزمة، استخدم هذا الأمر، مع اسم الحزمة الصحيح وفقط نقطة واحدة. يرجى ملاحظة أن هذا قد لا يحل مشكلة التغطية.
 
 ```{r, eval=F}
 detach(package:PACKAGE_NAME_HERE, unload=TRUE)
 ```
 
-### Install older version {.unnumbered}
+### تثبيت إصدار أقدم {.unnumbered}
 
-See this [guide](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages) to install an older version of a particular package.
+انظر إلى هذا [الدليل](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages) لتثبيت إصدار أقدم من حزمة معينة.
 
-### Suggested packages {.unnumbered}
+### الحزم المقترحة {.unnumbered}
 
-See the page on [Suggested packages](packages_suggested.qmd) for a listing of packages we recommend for everyday epidemiology.
+انظر إلى الصفحة حول [الحزم المقترحة](packages_suggested.qmd) للحصول على قائمة بالحزم التي نوصي بها للإيبيدميولوجيا اليومية.
 
 <!-- ======================================================= -->
 
-## Scripts {#scripts}
+## النصوص {#scripts}
 
-Scripts are a fundamental part of programming. They are documents that hold your commands (e.g. functions to create and modify datasets, print visualizations, etc). You can save a script and run it again later. There are many advantages to storing and running your commands from a script (vs. typing commands one-by-one into the R console "command line"):
+النصوص هي جزء أساسي من البرمجة. إنها وثائق تحتوي على أوامرك (على سبيل المثال، الدوال لإنشاء وتعديل مجموعات البيانات، طباعة التصورات البصرية، إلخ). يمكنك حفظ نص وتشغيله مرة أخرى لاحقًا. هناك العديد من المزايا في تخزين وتشغيل أوامرك من نص (بدلاً من كتابة الأوامر واحدة تلو الأخرى في سطر الأوامر "الموجه")، سواءً كانت تعديلاتك تعمل أم لا.
 
--   Portability - you can share your work with others by sending them your scripts\
--   Reproducibility - so that you and others know exactly what you did\
--   Version control - so you can track changes made by yourself or colleagues\
--   Commenting/annotation - to explain to your colleagues what you have done
+-   النقل - يمكنك مشاركة عملك مع الآخرين عن طريق إرسال النصوص الخاصة بك\
+-   إعادة الإنتاجية - حتى تعرف أنت والآخرون بالضبط ما فعلت\
+-   التحكم في الإصدارات - حتى تتمكن من تتبع التغييرات التي قمت بها أو قام بها زملاؤك\
+-   التعليق/التعليق - لشرح لزملائك ما قمت به
 
-### Commenting {.unnumbered}
+### التعليق {.unnumbered}
 
-In a script you can also annotate ("comment") around your R code. Commenting is helpful to explain to yourself and other readers what you are doing. You can add a comment by typing the hash symbol (#) and writing your comment after it. The commented text will appear in a different color than the R code.
+في النص البرمجي يمكنك أيضًا التعليق ("تعليق") حول رمزك R. التعليق مفيد لشرح لنفسك وللقراء الآخرين ما تقوم به. يمكنك إضافة تعليق عن طريق كتابة رمز الهاش (\#) وكتابة تعليقك بعد ذلك. سيظهر النص المعلق بلون مختلف عن رمز R.
 
-Any code written after the \# will not be run. Therefore, placing a \# before code is also a useful way to temporarily block a line of code ("comment out") if you do not want to delete it). You can comment out/in multiple lines at once by highlighting them and pressing Ctrl+Shift+c (Cmd+Shift+c in Mac).
+أي رمز مكتوب بعد الهاش (\#) لن يتم تشغيله. لذلك، وضع الهاش (\#) قبل الرمز هو أيضًا طريقة مفيدة لحجب سطر من الرمز مؤقتًا ("تعليق") إذا لم ترغب في حذفه. يمكنك تعليق/إلغاء تعليق عدة أسطر دفعة واحدة عن طريق تحديدها والضغط على Ctrl+Shift+c (Cmd+Shift+c في نظام Mac).
 
 ```{r, eval = F}
-# A comment can be on a line by itself
-# import data
-linelist <- import("linelist_raw.xlsx") %>%   # a comment can also come after code
-# filter(age > 50)                          # It can also be used to deactivate / remove a line of code
+# يمكن أن يكون التعليق في سطر بمفرده
+# استيراد البيانات
+linelist <- import("linelist_raw.xlsx") %>%   # يمكن أيضًا وضع تعليق بعد الرمز
+# تصفية(العمر > 50)                          # يمكن أيضًا استخدامه لتعطيل/إزالة سطر من الرمز
   count()
 
 ```
 
--   Comment on *what* you are doing *and on **why** you are doing it*.\
--   Break your code into logical sections\
--   Accompany your code with a text step-by-step description of what you are doing (e.g. numbered steps)
+-   تعليق على *ما* تقوم به *وعلى **لماذا** تقوم به*.\
+-   قسّم رمزك إلى أقسام منطقية\
+-   رافق رمزك بوصف نصي تفصيلي خطوة بخطوة لما تقوم به (على سبيل المثال، خطوات مرقمة)
 
-### Style {.unnumbered}
+### الأسلوب {.unnumbered}
 
-It is important to be conscious of your coding style - especially if working on a team. We advocate for the **tidyverse** [style guide](https://style.tidyverse.org/). There are also packages such as **styler** and **lintr** which help you conform to this style.
+من المهم أن تكون واعيًا لأسلوب البرمجة الخاص بك - خاصة عند العمل ضمن فريق. نحن ننصح بدليل أسلوب **tidyverse** [style guide](https://style.tidyverse.org/). هناك أيضًا حزم مثل **styler** و **lintr** التي تساعدك على الالتزام بهذا الأسلوب.
 
-A few very basic points to make your code readable to others:\
-\* When naming objects, use only lowercase letters, numbers, and underscores `_`, e.g. `my_data`\
-\* Use frequent spaces, including around operators, e.g. `n = 1` and `age_new <- age_old + 3`
+بعض النقاط الأساسية جدًا لجعل رمزك قابلًا للقراءة للآخرين:\
+\* عند تسمية الكائنات، استخدم فقط الحروف الصغيرة، الأرقام، وشرطة سفلية `_`، على سبيل المثال، `my_data`\
+\* استخدم المسافات بشكل متكرر، بما في ذلك حول العوامل، على سبيل المثال، `n = 1` و `age_new <- age_old + 3`
 
-### Example Script {.unnumbered}
+### نصوص مثال {.unnumbered}
 
-Below is an example of a short R script. Remember, the better you succinctly explain your code in comments, the more your colleagues will like you!
+### سكريبت R {.unnumbered}
 
-```{r out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "example_script.png"))
-```
+سكريبت R markdown هو نوع من سكريبت R حيث يصبح السكريبت نفسه وثيقة إخراج (PDF، Word، HTML، Powerpoint، إلخ). هذه الأدوات مفيدة ومتعددة الاستخدامات وغالبًا ما تُستخدم لإنشاء تقارير ديناميكية وآلية. حتى هذا الموقع والكتيب يتم إنتاجهما باستخدام سكريبتات R markdown!
 
-<!-- ======================================================= -->
+من المهم أن نلاحظ أن مستخدمي R المبتدئين يمكنهم أيضًا استخدام R Markdown - لا تكونوا مرتابين! لمزيد من المعلومات، انظر صفحة الكتيب حول [تقارير باستخدام R Markdown](rmarkdown.qmd) documents.
 
-### R markdown {.unnumbered}
+### دفاتر R {.unnumbered}
 
-An R markdown script is a type of R script in which the script itself *becomes* an output document (PDF, Word, HTML, Powerpoint, etc.). These are incredibly useful and versatile tools often used to create dynamic and automated reports. Even this website and handbook is produced with R markdown scripts!
-
-It is worth noting that beginner R users can also use R Markdown - do not be intimidated! To learn more, see the handbook page on [Reports with R Markdown](rmarkdown.qmd) documents.
-
-<!-- ======================================================= -->
-
-### R notebooks {.unnumbered}
-
-There is no difference between writing in a Rmarkdown vs an R notebook. However the execution of the document differs slightly. See this [site](http://uc-r.github.io/r_notebook) for more details.
-
-<!-- ======================================================= -->
+لا يوجد فرق بين كتابة في Rmarkdown مقابل دفتر R. ومع ذلك، تختلف تنفيذ الوثيقة قليلاً. انظر هذا [الموقع](http://uc-r.github.io/r_notebook) لمزيد من التفاصيل.
 
 ### Shiny {.unnumbered}
 
-Shiny apps/websites are contained within one script, which must be named `app.R`. This file has three components:
+تحتوي تطبيقات/مواقع Shiny على سكريبت واحد، يجب أن يكون اسمه `app.R`. يحتوي هذا الملف على ثلاث مكونات:
 
-1)  A user interface (ui)\
-2)  A server function\
-3)  A call to the `shinyApp` function
+1) واجهة مستخدم (ui)\
+2) وظيفة الخادم\
+3) استدعاء لوظيفة `shinyApp`
 
-See the handbook page on [Dashboards with Shiny](shiny_basics.qmd), or this online tutorial: [Shiny tutorial](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/)
+انظر صفحة الكتيب حول [لوحات التحكم باستخدام Shiny](shiny_basics.qmd)، أو هذا البرنامج التعليمي عبر الإنترنت: [برنامج تعليمي Shiny](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/)
 
-*In older times, the above file was split into two files (`ui.R` and `server.R`)*
+*في الأوقات القديمة، كان يتم تقسيم الملف أعلاه إلى ملفين (`ui.R` و `server.R`)*
 
-### Code folding {.unnumbered}
+### طي الشيفرة {.unnumbered}
 
-You can collapse portions of code to make your script easier to read.
+يمكنك طي أجزاء من الشيفرة لجعل سكريبتك أسهل قراءة.
 
-To do this, create a text header with #, write your header, and follow it with at least 4 of either dashes (-), hashes (#) or equals (=). When you have done this, a small arrow will appear in the "gutter" to the left (by the row number). You can click this arrow and the code below until the next header will collapse and a dual-arrow icon will appear in its place.
+للقيام بذلك، أنشئ رأس نصي بـ \#، اكتب رأسك، واتبعه بـ 4 على الأقل من الشرطات (-)، الهاشات (\#) أو العلامات (=). عند القيام بذلك، سيظهر سهم صغير في "الخطاف" إلى اليسار (بجانب رقم الصف). يمكنك النقر فوق هذا السهم وسيتم طي الشيفرة أدناه حتى الرأس التالي وسيظهر رمز سهم مزدوج مكانه.
 
-To expand the code, either click the arrow in the gutter again, or the dual-arrow icon. There are also keyboard shortcuts as explained in the [RStudio section](#rstudio) of this page.
+لتوسيع الشيفرة، انقر على السهم في الهامش مرة أخرى، أو على أيقونة السهم المزدوج. هناك أيضًا اختصارات لوحة المفاتيح كما هو موضح في [قسم RStudio](#rstudio) من هذه الصفحة.
 
-By creating headers with #, you will also activate the Table of Contents at the bottom of your script (see below) that you can use to navigate your script. You can create sub-headers by adding more \# symbols, for example \# for primary, \## for seconary, and \### for tertiary headers.
+من خلال إنشاء رؤوس بواسطة \#، ستقوم أيضًا بتنشيط جدول المحتويات في أسفل النص الخاص بك (انظر أدناه) الذي يمكنك استخدامه لتصفح النص الخاص بك. يمكنك إنشاء رؤوس فرعية عن طريق إضافة المزيد من رموز \#، على سبيل المثال \# للرئيسية، \#\# للثانوية، و \#\#\# للرؤوس الثلاثية.
 
-Below are two versions of an example script. On the left is the original with commented headers. On the right, four dashes have been written after each header, making them collapsible. Two of them have been collapsed, and you can see that the Table of Contents at the bottom now shows each section.
+أدناه توجد نسختان من نص مثالي. على اليمين الأصلي مع رؤوس معلقة. على اليمين، تمت كتابة أربعة شرطات بعد كل رأس، مما يجعلها قابلة للطي. تم طي اثنين منها، ويمكنك رؤية أن جدول المحتويات في الأسفل الآن يظهر كل قسم.
 
 ```{r, out.width = c('50%'), fig.show='hold', echo=F}
 knitr::include_graphics(here::here("images", "code_folding1.png"))
 knitr::include_graphics(here::here("images", "code_folding2.png"))
 ```
 
-Other areas of code that are automatically eligible for folding include "braced" regions with brackets `{ }` such as function definitions or conditional blocks (if else statements). You can read more about code folding at the RStudio [site](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
+المناطق الأخرى من الشيفرة التي تكون مؤهلة تلقائيًا للطي تشمل المناطق "المقوسة" بأقواس `{ }` مثل تعريفات الدوال أو الكتل الشرطية (بيانات if else). يمكنك قراءة المزيد حول الطي في الشيفرة على موقع RStudio [هنا](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
 
 <!-- ======================================================= -->
 
@@ -741,418 +699,405 @@ Other areas of code that are automatically eligible for folding include "braced"
 
 <!-- ======================================================= -->
 
-## Working directory
+## الدليل العامل
 
-The working directory is the root folder location used by R for your work - where R looks for and saves files by default. By default, it will save new files and outputs to this location, and will look for files to import (e.g. datasets) here as well.
+الدليل العامل هو موقع مجلد الجذر الذي يستخدمه R لعملك - حيث يبحث R عن الملفات ويحفظها افتراضيًا. بشكل افتراضي، سيحفظ الملفات الجديدة والنواتج في هذا الموقع، وسيبحث عن الملفات للاستيراد (على سبيل المثال، مجموعات البيانات) هنا أيضًا.
 
-The working directory appears in grey text at the top of the RStudio Console pane. You can also print the current working directory by running `getwd()` (leave the parentheses empty).
+يظهر الدليل العامل بنص رمادي في أعلى نافذة الوحدة النصية في RStudio. يمكنك أيضًا طباعة الدليل العامل الحالي عن طريق تشغيل `getwd()` (اترك الأقواس فارغة).
 
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "working_directory_1.png"))
 ```
 
-### Recommended approach {.unnumbered}
+### النهج الموصى به {.unnumbered}
 
-**See the page on [R projects](r_projects.qmd) for details on our recommended approach to managing your working directory.**\
-A common, efficient, and trouble-free way to manage your working directory and file paths is to combine these 3 elements in an [R project](r_projects.qmd)-oriented workflow:
+**انظر إلى الصفحة حول [مشاريع R](r_projects.qmd) للحصول على تفاصيل حول النهج الموصى به لإدارة دليل العمل الخاص بك.**\
+طريقة شائعة وفعالة وخالية من المشاكل لإدارة دليل العمل الخاص بك ومسارات الملفات هي دمج هذه العناصر الثلاثة في سير العمل الموجه نحو [مشروع R](r_projects.qmd):
 
-1)  An R Project to store all your files (see page on [R projects](r_projects.qmd))\
-2)  The **here** package to locate files (see page on [Import and export](importing.qmd))\
-3)  The **rio** package to import/export files (see page on [Import and export](importing.qmd))
+1)  مشروع R لتخزين جميع ملفاتك (انظر الصفحة حول [مشاريع R](r_projects.qmd))\
+2)  حزمة **here** لتحديد مواقع الملفات (انظر الصفحة حول [الاستيراد والتصدير](importing.qmd))\
+3)  حزمة **rio** لاستيراد/تصدير الملفات (انظر الصفحة حول [الاستيراد والتصدير](importing.qmd))
 
 <!-- ======================================================= -->
 
-### Set by command {.unnumbered}
+### تعيين بواسطة الأمر {.unnumbered}
 
-Until recently, many people learning R were taught to begin their scripts with a `setwd()` command. Please instead consider using an \[R project\]\[r_projects.qmd\]-oriented workflow and read the [reasons for not using `setwd()`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/). In brief, your work becomes specific to your computer, file paths used to import and export files become "brittle", and this severely hinders collaboration and use of your code on any other computer. There are easy alternatives!
+حتى وقت قريب، كان يُعلم العديد من الأشخاص الذين يتعلمون R ببدء نصوصهم بأمر `setwd()`. يُرجى بدلاً من ذلك النظر في استخدام سير عمل موجه نحو [مشروع R][r_projects.qmd] وقراءة [الأسباب لعدم استخدام `setwd()`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/). بإيجاز، يصبح عملك محددًا لجهاز الكمبيوتر الخاص بك، وتصبح مسارات الملفات المستخدمة للاستيراد والتصدير "هشة"، وهذا يعيق بشكل كبير التعاون واستخدام كودك على أي كمبيوتر آخر. هناك بدائل سهلة!
 
-As noted above, although we do not recommend this approach in most circumstances, you can use the command `setwd()` with the desired folder file path in quotations, for example:
+كما هو مذكور أعلاه، على الرغم من أننا لا نوصي بهذا النهج في معظم الحالات، يمكنك استخدام الأمر `setwd()` مع مسار المجلد المطلوب بين علامتي اقتباس، على سبيل المثال:
 
 ```{r, eval=F}
 setwd("C:/Documents/R Files/My analysis")
 ```
 
-[***DANGER:*** Setting a working directory with `setwd()` *can* be "brittle" if the file path is specific to one computer. Instead, use file paths relative to an R Project root directory (with the **here** package).]{style="color: red;"}
+[***خطر:*** تعيين دليل عمل باستخدام `setwd()` *قد* يكون "هشًا" إذا كان مسار الملف محددًا لجهاز كمبيوتر واحد. بدلاً من ذلك، استخدم مسارات الملفات ذات الصلة بالنسبة إلى دليل جذر مشروع R (مع حزمة **here**). ]{style="color: red;"}
 
 <!-- ======================================================= -->
 
-### Set manually {.unnumbered}
+### تعيين يدويًا {.unnumbered}
 
-To set the working directory manually (the point-and-click equivalent of `setwd()`), click the Session drop-down menu and go to "Set Working Directory" and then "Choose Directory". This will set the working directory for that specific R session. Note: if using this approach, you will have to do this manually each time you open RStudio.
+لتعيين دليل العمل يدويًا (ما يعادل النقر والتحديد لأمر `setwd()`)، انقر فوق قائمة الجلسة وانتقل إلى "تعيين دليل العمل" ثم "اختيار المجلد". سيتم تعيين دليل العمل لجلسة R المحددة. ملاحظة: إذا كنت تستخدم هذا النهج، سيتعين عليك القيام بذلك يدويًا في كل مرة تفتح فيها RStudio.
 
-<!-- ======================================================= -->
+### ضمن مشروع R {.unnumbered}
+إذا كنت تستخدم مشروع R، سيكون دليل العمل افتراضيًا هو مجلد جذر مشروع R الذي يحتوي على ملف ".rproj". سيتم تطبيق هذا إذا قمت بفتح RStudio عن طريق فتح مشروع R (الملف الذي يحمل امتداد ".rproj").
 
-### Within an R project {.unnumbered}
+{/*examples*/}
 
-If using an R project, the working directory will default to the R project root folder that contains the ".rproj" file. This will apply if you open RStudio by clicking open the R Project (the file with ".rproj" extension).
+### دليل العمل في سكربت R markdown {.unnumbered}
+في سكربت R markdown، الدليل الافتراضي للعمل هو المجلد الذي يتم حفظ ملف Rmarkdown (`.Rmd`) داخله. إذا كنت تستخدم مشروع R وحزمة **here**، فهذا لا ينطبق وسيكون دليل العمل `here()` كما هو موضح في صفحة [مشاريع R](r_projects.qmd).
 
-<!-- ======================================================= -->
-
-### Working directory in an R markdown {.unnumbered}
-
-In an R markdown script, the default working directory is the folder the Rmarkdown file (`.Rmd`) is saved within. If using an R project and **here** package, this does not apply and the working directory will be `here()` as explained in the [R projects](r_projects.qmd) page.
-
-If you want to change the working directory of a stand-alone R markdown (not in an R project), if you use `setwd()` this will only apply to that specific code chunk. To make the change for all code chunks in an R markdown, edit the setup chunk to add the `root.dir =` parameter, such as below:
+إذا كنت ترغب في تغيير دليل العمل لسكربت R markdown مستقل (ليس ضمن مشروع R)، إذا استخدمت `setwd()`، سينطبق هذا فقط على تلك القطعة البرمجية الخاصة. لجعل التغيير لجميع قطع البرمجة في سكربت R markdown، عدل قطعة الإعداد لإضافة المعلمة `root.dir =`، كما هو موضح أدناه:
 
 ```{r, eval=F}
-knitr::opts_knit$set(root.dir = 'desired/directorypath')
+knitr::opts_knit$set(root.dir = 'المسار/المطلوب/للمجلد')
 ```
 
-It is much easier to just use the R markdown within an R project and use the **here** package.
+من الأسهل بكثير استخدام سكربت R markdown ضمن مشروع R واستخدام حزمة **here**.
 
-<!-- ======================================================= -->
+{/*examples*/}
 
-### Providing file paths {.unnumbered}
+### توفير مسارات الملفات {.unnumbered}
+ربما يكون أكثر مصادر الإحباط للمبتدئين في R (على الأقل على جهاز Windows) هو كتابة مسار الملف لاستيراد البيانات أو تصديرها. هناك شرح مفصل حول كيفية إدخال مسارات الملفات بشكل أفضل في صفحة [الاستيراد والتصدير](importing.qmd)، ولكن هنا بعض النقاط الرئيسية:
 
-Perhaps the most common source of frustration for an R beginner (at least on a Windows machine) is typing in a file path to import or export data. There is a thorough explanation of how to best input file paths in the [Import and export](importing.qmd) page, but here are a few key points:
+**مسارات مكسورة**
 
-**Broken paths**
+أدناه مثال على مسار ملف "مطلق" أو "عنوان كامل". من المحتمل أن تتعطل هذه المسارات إذا استخدمتها جهاز كمبيوتر آخر. الاستثناء الوحيد هو إذا كنت تستخدم محرك أقراص مشترك/شبكة.
 
-Below is an example of an "absolute" or "full address" file path. These will likely break if used by another computer. One exception is if you are using a shared/network drive.
+    C:/Users/Name/Document/Analytic Software/R/Projects/Analysis2019/data/March2019.csv  
 
-```         
-C:/Users/Name/Document/Analytic Software/R/Projects/Analysis2019/data/March2019.csv  
-```
+**اتجاه الشرطة**
 
-**Slash direction**
+*عند كتابة مسار ملف، كن على علم باتجاه الشرطة.* استخدم *شرطات مائلة* (`/`) لفصل العناصر ("data/provincial.csv"). بالنسبة لمستخدمي Windows، الطريقة الافتراضية التي يتم عرض مسارات الملفات بها هي باستخدام *شرطات خلفية* (\\) - لذا ستحتاج إلى تغيير اتجاه كل شرطة. إذا استخدمت حزمة **here** كما هو موضح في صفحة [مشاريع R](r_projects.qmd)، فإن اتجاه الشرطة ليس مشكلة.
 
-*If typing in a file path, be aware the direction of the slashes.* Use *forward slashes* (`/`) to separate the components ("data/provincial.csv"). For Windows users, the default way that file paths are displayed is with *back slashes* (\\) - so you will need to change the direction of each slash. If you use the **here** package as described in the [R projects](r_projects.qmd) page the slash direction is not an issue.
+**مسارات الملفات النسبية**
 
-**Relative file paths**
-
-We generally recommend providing "relative" filepaths instead - that is, the path *relative to* the root of your R Project. You can do this using the **here** package as explained in the [R projects](r_projects.qmd) page. A relativel filepath might look like this:
+نوصي عمومًا بتوفير مسارات الملفات "النسبية" بدلاً من ذلك - أي، المسار الذي يكون *نسبيًا لـ* جذر مشروع R الخاص بك. يمكنك القيام بذلك باستخدام حزمة **here** كما هو موضح في الصفحة [مشاريع R](r_projects.qmd). يمكن أن يبدو مسار الملف النسبي مثل هذا:
 
 ```{r, eval=F}
-# Import csv linelist from the data/linelist/clean/ sub-folders of an R project
+# استيراد csv linelist من المجلدات الفرعية data/linelist/clean/ لمشروع R
 linelist <- import(here("data", "clean", "linelists", "marin_country.csv"))
 ```
 
-Even if using relative file paths within an R project, you can still use absolute paths to import/export data outside your R project.
+حتى عند استخدام مسارات ملفات نسبية داخل مشروع R، يمكنك لا تزال استخدام مسارات مطلقة لاستيراد/تصدير البيانات خارج مشروع R الخاص بك.
 
 <!-- ======================================================= -->
 
-## Objects {#objects}
+## الكائنات {#objects}
 
-Everything in R is an object, and R is an "object-oriented" language. These sections will explain:
+كل شيء في R هو كائن، وR هي لغة "موجهة نحو الكائنات". ستشرح هذه الأقسام:
 
--   How to create objects (`<-`)
--   Types of objects (e.g. data frames, vectors..)\
--   How to access subparts of objects (e.g. variables in a dataset)\
--   Classes of objects (e.g. numeric, logical, integer, double, character, factor)
-
-<!-- ======================================================= -->
-
-### Everything is an object {.unnumbered}
-
-*This section is adapted from the [R4Epis project](https://r4epis.netlify.app/training/r_basics/objects/).*\
-Everything you store in R - datasets, variables, a list of village names, a total population number, even outputs such as graphs - are **objects** which are **assigned a name** and **can be referenced** in later commands.
-
-An object exists when you have assigned it a value (see the assignment section below). When it is assigned a value, the object appears in the Environment (see the upper right pane of RStudio). It can then be operated upon, manipulated, changed, and re-defined.
+-   كيفية إنشاء الكائنات (`<-`)
+-   أنواع الكائنات (على سبيل المثال، إطارات البيانات، الفواصل..)
+-   كيفية الوصول إلى الأجزاء الفرعية للكائنات (على سبيل المثال، المتغيرات في مجموعة بيانات)
+-   فئات الكائنات (على سبيل المثال، رقمية، منطقية، صحيحة، مزدوجة، نصية، عامل)
 
 <!-- ======================================================= -->
 
-### Defining objects (`<-`) {.unnumbered}
+### كل شيء هو كائن {.unnumbered}
 
-**Create objects *by assigning them a value* with the \<- operator.**\
-You can think of the assignment operator `<-` as the words "is defined as". Assignment commands generally follow a standard order:
+*تم تكييف هذا القسم من [مشروع R4Epis](https://r4epis.netlify.app/training/r_basics/objects/).*\
+كل ما تخزنه في R - مجموعات بيانات، متغيرات، قائمة بأسماء القرى، عدد سكان إجمالي، حتى النواتج مثل الرسوم البيانية - هي **كائنات** تُسند لها **اسم** ويمكن **الرجوع إليها** في الأوامر لاحقًا.
 
-**object_name** \<- **value** (or process/calculation that produce a value)
+الكائن موجود عندما تسنده قيمة (انظر إلى القسم الخاص بالتعيين أدناه). عندما يتم تسنيده قيمة، يظهر الكائن في البيئة (انظر إلى الجزء العلوي الأيمن من RStudio). يمكن بعد ذلك التعامل معه، تلاعبه، تغييره، وإعادة تعريفه.
 
-For example, you may want to record the current epidemiological reporting week as an object for reference in later code. In this example, the object `current_week` is created when it is assigned the value `"2018-W10"` (the quote marks make this a character value). The object `current_week` will then appear in the RStudio Environment pane (upper-right) and can be referenced in later commands.
+<!-- ======================================================= -->
 
-See the R commands and their output in the boxes below.
+### تعريف الكائنات (`<-`) {.unnumbered}
+
+**أنشئ الكائنات *من خلال تسنيدها قيمة* باستخدام عامل \<- .**\
+يمكنك أن تفكر في عامل التسنيد `<-` ككلمة "يتم تعريفه كـ". تتبع الأوامر التي تتضمن التسنيد عادة ترتيبًا قياسيًا:
+
+**اسم_الكائن** <- **القيمة** (أو عملية/حساب تنتج قيمة)
+
+على سبيل المثال، قد ترغب في تسجيل الأسبوع الوبائي الحالي ككائن للرجوع إليه في الشيفرة لاحقًا. في هذا المثال، يتم إنشاء الكائن `current_week` عندما يتم تعيين له القيمة `"2018-W10"` (تجعل علامات الاقتباس هذه قيمة نصية). سيظهر الكائن `current_week` بعد ذلك في لوحة بيئة RStudio (أعلى اليمين) ويمكن الرجوع إليه في الأوامر لاحقًا.
+
+انظر إلى الأوامر R وإخراجها في المربعات أدناه.
 
 ```{r basics_objects_assignment}
-current_week <- "2018-W10"   # this command creates the object current_week by assigning it a value
-current_week                 # this command prints the current value of current_week object in the console
+current_week <- "2018-W10"   # تنشئ هذه الأمر الكائن current_week عن طريق تعيين قيمة له
+current_week                 # تطبع هذه الأمر القيمة الحالية لكائن current_week في وحدة التحكم
 ```
 
-[***NOTE:*** Note the `[1]` in the R console output is simply indicating that you are viewing the first item of the output]{style="color: black;"}
+[***ملاحظة:*** لاحظ `[1]` في إخراج وحدة التحكم R يشير ببساطة إلى أنك تعرض العنصر الأول من الإخراج]{style="color: black;"}
 
-[***CAUTION:*** **An object's value can be over-written** at any time by running an assignment command to re-define its value. Thus, the **order of the commands run is very important**.]{style="color: orange;"}
+[***تحذير:*** **يمكن كتابة قيمة الكائن مرة أخرى** في أي وقت عن طريق تشغيل أمر تعيين لإعادة تعريف قيمته. لذا، **ترتيب تشغيل الأوامر مهم جدًا**.]{style="color: orange;"}
 
-The following command will re-define the value of `current_week`:
+الأمر التالي سيعيد تعريف قيمة `current_week`:
 
 ```{r basics_objects_reassignment}
-current_week <- "2018-W51"   # assigns a NEW value to the object current_week
-current_week                 # prints the current value of current_week in the console
+current_week <- "2018-W51"   # يعيد تعيين قيمة جديدة لكائن current_week
+current_week                 # يطبع القيمة الحالية لكائن current_week في وحدة التحكم
 ```
 
-**Equals signs `=`**
+**علامات المساواة `=`**
 
-You will also see equals signs in R code:
+سترى أيضًا علامات المساواة في شيفرة R:
 
--   A double equals sign `==` between two objects or values asks a logical *question*: "is this equal to that?".\
--   You will also see equals signs within functions used to specify values of function arguments (read about these in sections below), for example `max(age, na.rm = TRUE)`.\
--   You *can* use a single equals sign `=` in place of `<-` to create and define objects, but this is discouraged. You can read about why this is discouraged [here](https://renkun.me/2014/01/28/difference-between-assignment-operators-in-r/).
+-   علامة مساواة مزدوجة `==` بين كائنين أو قيمتين تطرح سؤالًا منطقيًا: "هل هذا مساوٍ لذلك؟".\
+-   سترى أيضًا علامات المساواة داخل الدوال المستخدمة لتحديد قيم لوسائط الدالة (اقرأ عن هذه في الأقسام أدناه)، على سبيل المثال `max(age, na.rm = TRUE)`.\
 
-**Datasets**
+**المجموعات البيانات**
 
-Datasets are also objects (typically "dataframes") and must be assigned names when they are imported. In the code below, the object `linelist` is created and assigned the value of a CSV file imported with the **rio** package and its `import()` function.
+
+المجموعات البيانية هي أيضًا كائنات (عادة "إطارات بيانات") ويجب تعيين أسماء لها عند استيرادها. في الكود أدناه، يتم إنشاء الكائن `linelist` وتعيين قيمة ملف CSV مستورد باستخدام حزمة **rio** ووظيفتها `import()`.
 
 ```{r basics_objects_dataframes, eval=FALSE}
-# linelist is created and assigned the value of the imported CSV file
+# يتم إنشاء الكائن linelist وتعيين قيمة الملف CSV المستورد
 linelist <- import("my_linelist.csv")
 ```
 
-You can read more about importing and exporting datasets with the section on [Import and export](importing.qmd).
+يمكنك قراءة المزيد حول استيراد وتصدير المجموعات البيانية في القسم حول [الاستيراد والتصدير](importing.qmd).
 
-[***CAUTION:*** A quick note on naming of objects:]{style="color: orange;"}
+[***تحذير:*** ملاحظة سريعة حول تسمية الكائنات:]{style="color: orange;"}
 
--   Object names must not contain spaces, but you should use underscore (\_) or a period (.) instead of a space.\
--   Object names are case-sensitive (meaning that Dataset_A is different from dataset_A).
--   Object names must begin with a letter (cannot begin with a number like 1, 2 or 3).
+-   يجب ألا تحتوي أسماء الكائنات على مسافات، ولكن يجب استخدام شرطة سفلية (\_) أو نقطة (.) بدلاً من المسافة.
+-   أسماء الكائنات حساسة لحالة الأحرف (مما يعني أن `Dataset_A` مختلف عن `dataset_A`).
+-   يجب أن تبدأ أسماء الكائنات بحرف (لا يمكن أن تبدأ برقم مثل 1، 2 أو 3).
 
-**Outputs**
+**النواتج**
 
-Outputs like tables and plots provide an example of how outputs can be saved as objects, or just be printed without being saved. A cross-tabulation of gender and outcome using the **base** R function `table()` can be printed directly to the R console (*without* being saved).
+النواتج مثل الجداول والرسوم البيانية توفر مثالًا على كيفية حفظ النواتج ككائنات، أو فقط طباعتها دون حفظها. يمكن طباعة جدول التقاطع بين الجنس والنتيجة باستخدام وظيفة **base** R `table()` مباشرة إلى وحدة التحكم R (*دون* حفظ).
 
 ```{r}
-# printed to R console only
+# طباعة إلى وحدة التحكم R فقط
 table(linelist$gender, linelist$outcome)
 ```
 
-But the same table can be saved as a named object. Then, optionally, it can be printed.
+ولكن يمكن حفظ نفس الجدول ككائن مسمى. ثم، اختياريًا، يمكن طباعته.
 
 ```{r}
-# save
+# حفظ
 gen_out_table <- table(linelist$gender, linelist$outcome)
 
-# print
+# طباعة
 gen_out_table
 ```
 
-**Columns**
+**الأعمدة**
 
-Columns in a dataset are also objects and can be defined, over-written, and created as described below in the section on Columns.
+الأعمدة في مجموعة بيانات هي أيضًا كائنات ويمكن تعريفها، والكتابة فوقها، وإنشاؤها كما هو موضح أدناه في القسم حول الأعمدة.
 
-You can use the assignment operator from **base** R to create a new column. Below, the new column `bmi` (Body Mass Index) is created, and for each row the new value is result of a mathematical operation on the row's value in the `wt_kg` and `ht_cm` columns.
+يمكنك استخدام مشغل التعيين من **base** R لإنشاء عمود جديد. فيما يلي، يتم إنشاء العمود الجديد `bmi` (مؤشر كتلة الجسم)، ولكل صف القيمة الجديدة هي نتيجة عملية رياضية على قيمة الصف في أعمدة `wt_kg` و `ht_cm`.
 
 ```{r, eval=F}
-# create new "bmi" column using base R syntax
+# إنشاء عمود "bmi" الجديد باستخدام بنية جملة base R
 linelist$bmi <- linelist$wt_kg / (linelist$ht_cm/100)^2
 ```
 
-However, in this handbook, we emphasize a different approach to defining columns, which uses the function `mutate()` from the **dplyr** package and *piping* with the pipe operator (`%>%`). The syntax is easier to read and there are other advantages explained in the page on [Cleaning data and core functions](cleaning.qmd). You can read more about *piping* in the Piping section below.
+ومع ذلك، في هذا الدليل، نؤكد على نهج مختلف لتعريف الأعمدة، والذي يستخدم الدالة `mutate()` من حزمة **dplyr** و *التوجيه* مع مشغل الأنبوب (`%>%`). الصيغة أسهل قراءة وهناك مزايا أخرى موضحة في الصفحة حول [تنظيف البيانات والوظائف الأساسية](cleaning.qmd). يمكنك قراءة المزيد حول *التوجيه* في القسم حول التوجيه أدناه.
 
 ```{r, eval=F}
-# create new "bmi" column using dplyr syntax
+# إنشاء عمود "bmi" جديد باستخدام بنية dplyr
 linelist <- linelist %>% 
   mutate(bmi = wt_kg / (ht_cm/100)^2)
 ```
 
 <!-- ======================================================= -->
 
-### Object structure {.unnumbered}
+### هيكل الكائن {.unnumbered}
 
-**Objects can be a single piece of data (e.g. `my_number <- 24`), or they can consist of structured data.**
+**يمكن أن تكون الكائنات قطعة واحدة من البيانات (على سبيل المثال `my_number <- 24`)، أو يمكن أن تتكون من بيانات منظمة.**
 
-The graphic below is borrowed from [this online R tutorial](http://venus.ifca.unican.es/Rintro/dataStruct.html). It shows some common data structures and their names. Not included in this image is spatial data, which is discussed in the [GIS basics](gis.qmd) page.
+الرسم البياني أدناه مأخوذ من [هذا البرنامج التعليمي عبر الإنترنت حول R](http://venus.ifca.unican.es/Rintro/dataStruct.html). يظهر بعض الهياكل البيانية الشائعة وأسماؤها. لم يتم تضمين بيانات المكانية في هذه الصورة، والتي يتم مناقشتها في صفحة [مبادئ نظم المعلومات الجغرافية](gis.qmd).
 
 ```{r basics_objects_structures, echo=F, out.width = "75%", out.height="50%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "R_data_structures.png"))
 ```
 
-In epidemiology (and particularly field epidemiology), you will *most commonly* encounter data frames and vectors:
+في علم الوبائيات (وخاصة في مجال الوبائيات الميدانية)، ستواجه *بشكل أكثر شيوعًا* إطارات بيانات ومتجهات:
 
 +------------------+--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
-| Common structure | Explanation                                                                                      | Example                                                                             |
+| الهيكل الشائع  | الشرح                                                                                           | المثال                                                                             |
 +==================+==================================================================================================+=====================================================================================+
-| Vectors          | A container for a sequence of singular objects, all of the same class (e.g. numeric, character). | **"Variables" (columns) in data frames are vectors** (e.g. the column `age_years`). |
+| متجهات          | حاوية لتسلسل من كائنات فردية، جميعها من نفس الفئة (على سبيل المثال، رقمية، نصية).         | **"المتغيرات" (الأعمدة) في إطارات البيانات هي متجهات** (على سبيل المثال، العمود `age_years`). |
 +------------------+--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
-| Data Frames      | Vectors (e.g. columns) that are bound together that all have the same number of rows.            | `linelist` is a data frame.                                                         |
+| إطارات بيانات  | متجهات (على سبيل المثال، أعمدة) مرتبطة معًا تحتوي جميعها على نفس عدد الصفوف.                 | `linelist` هو إطار بيانات.                                                         |
 +------------------+--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
 
-Note that to create a vector that "stands alone" (is not part of a data frame) the function `c()` is used to combine the different elements. For example, if creating a vector of colors plot's color scale: `vector_of_colors <- c("blue", "red2", "orange", "grey")`
+ملاحظة أنه لإنشاء متجه "مستقل" (لا يكون جزءًا من إطار بيانات) يتم استخدام الدالة `c()` لدمج العناصر المختلفة. على سبيل المثال، إذا كنت تقوم بإنشاء متجه من ألوان مقياس الألوان للرسم البياني: `vector_of_colors <- c("blue", "red2", "orange", "grey")`
 
 <!-- ======================================================= -->
 
-### Object classes {.unnumbered}
+### فئات الكائنات {.unnumbered} { /*examples*/}
 
-All the objects stored in R have a *class* which tells R how to handle the object. There are many possible classes, but common ones include:
+جميع الكائنات المخزنة في R لديها *فئة* تخبر R كيفية التعامل مع الكائن. هناك العديد من الفئات الممكنة، ولكن الشائعة تشمل:
 
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| # Class    | # Explanation                                                                                                                                                                                                                   | # Examples                                                                                            |         |
-|            |                                                                                                                                                                                                                                 |                                                                                                       |         |
-| Character  | These are text/words/sentences **"within quotation marks"**. Math cannot be done on these objects.                                                                                                                              | "Character objects are in quotation marks"                                                            |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-|            |                                                                                                                                                                                                                                 |                                                                                                       |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| Integer    | Numbers that are **whole only** (no decimals)                                                                                                                                                                                   | -5, 14, or 2000                                                                                       |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| Numeric    | These are numbers and **can include decimals**. If within quotation marks they will be considered character class.                                                                                                              | 23.1 or 14                                                                                            |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| Factor     | These are vectors that have a **specified order** or hierarchy of values                                                                                                                                                        | An variable of economic status with ordered values                                                    |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| Date       | **Once R is told that certain data are Dates**, these data can be manipulated and displayed in special ways. See the page on [Working with dates](dates.qmd) for more information. \| 2018-04-12 or 15/3/1954 or Wed 4 Jan 1980 |                                                                                                       |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| Logical    | Values must be one of the two special values TRUE or FALSE (note these are **not** "TRUE" and "FALSE" in quotation marks)                                                                                                       | TRUE or FALSE                                                                                         |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| data.frame | A data frame is how R stores a **typical dataset**. It consists of vectors (columns) of data bound together, that all have the same number of observations (rows).                                                              | The example AJS dataset named `linelist_raw` contains 68 variables with 300 observations (rows) each. |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| tibble     | tibbles are a variation on data frame, the main operational difference being that they print more nicely to the console (display first 10 rows and only columns that fit on the screen)                                         | Any data frame, list, or matrix can be converted to a tibble with `as_tibble()`                       |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
-| list       | A list is like vector, but holds other objects that can be other different classes                                                                                                                                              | A list could hold a single number, and a dataframe, and a vector, and even another list within it!    |         |
-+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+---------+
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| الفئة     | الشرح                                                                                                                                                                                   | الأمثلة                                                                                              |
++============+=========================================================================================================================================================================================+=======================================================================================================+
+| نصي       | هذه هي النصوص/الكلمات/الجمل **"بين علامات الاقتباس"**. لا يمكن إجراء عمليات رياضية على هذه الكائنات.                                                                               | "الكائنات النصية بين علامات الاقتباس"                                                           |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| عددي صحيح| الأرقام التي تكون **صحيحة فقط** (بدون أرقام عشرية)                                                                                                                                   | -5، 14، أو 2000                                                                                      |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| عددي      | هذه هي الأرقام و **يمكن أن تتضمن أرقامًا عشرية**. إذا كانت بين علامات الاقتباس، فسيتم اعتبارها من الفئة النصية.                                                                      | 23.1 أو 14                                                                                            |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| Factor     | هذه هي متجهات تحتوي على **ترتيب محدد** أو تسلسل للقيم                                                                                                                               | متغير للوضع الاقتصادي مع قيم مرتبة                                                               |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| تاريخ     | **بمجرد أن يُخبر R أن بعض البيانات هي تواريخ**، يمكن تلاعب هذه البيانات وعرضها بطرق خاصة. انظر الصفحة على [العمل مع التواريخ](dates.qmd) لمزيد من المعلومات. | 2018-04-12 أو 15/3/1954 أو الأربعاء 4 يناير 1980                                                 |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| منطقي     | يجب أن تكون القيم إحدى القيمتين الخاصتين TRUE أو FALSE (لاحظ أن هذه ليست "TRUE" و "FALSE" بين علامات الاقتباس)                                                               | TRUE أو FALSE                                                                                         |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| إطار بيانات| إطار البيانات هو كيفية تخزين R لـ **مجموعة بيانات نموذجية**. يتكون من متجهات (أعمدة) من البيانات مرتبة معًا، والتي تحتوي جميعها على نفس عدد الملاحظات (الصفوف).             | مثال على مجموعة البيانات AJS المسماة `linelist_raw` تحتوي على 68 متغيرًا مع 300 ملاحظة (صفوف) لكل منها. |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| tibble     | تعتبر التيبلز تغييرًا على إطار البيانات، والفرق التشغيلي الرئيسي هو أنها تطبع بشكل أجمل على وحدة التحكم (تعرض أول 10 صفوف والأعمدة فقط التي تناسب الشاشة)               | يمكن تحويل أي إطار بيانات، أو قائمة، أو مصفوفة إلى تيبل باستخدام `as_tibble()`                   |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| قائمة     | القائمة شبيهة بالمتجه، ولكنها تحتوي على كائنات أخرى يمكن أن تكون من فئات مختلفة                                                                                                    | يمكن أن تحتوي القائمة على رقم واحد، وإطار بيانات، ومتجه، وحتى قائمة أخرى ضمنها!                 |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 
-**You can test the class of an object by providing its name to the function `class()`**. Note: you can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column.
+**يمكنك اختبار فئة كائن عن طريق توفير اسمه لوظيفة `class()`**. ملاحظة: يمكنك الإشارة إلى عمود معين ضمن مجموعة بيانات باستخدام علامة `$` لفصل اسم المجموعة البيانات واسم العمود.
 
 ```{r, echo=TRUE,}
-class(linelist)         # class should be a data frame or tibble
+class(linelist)         # يجب أن تكون الفئة إطار بيانات أو tibble
 
-class(linelist$age)     # class should be numeric
+class(linelist$age)     # يجب أن تكون الفئة رقمية
 
-class(linelist$gender)  # class should be character
+class(linelist$gender)  # يجب أن تكون الفئة حرفية
 ```
 
-Sometimes, a column will be converted to a different class automatically by R. Watch out for this! For example, if you have a vector or column of numbers, but a character value is inserted... the entire column will change to class character.
+أحيانًا، يتم تحويل عمود إلى فئة مختلفة تلقائيًا بواسطة R. كن حذرًا من ذلك! على سبيل المثال، إذا كان لديك متجه أو عمود من الأرقام، ولكن تم إدراج قيمة حرفية... سيتم تغيير العمود بأكمله إلى فئة حرفية.
 
 ```{r}
-num_vector <- c(1,2,3,4,5) # define vector as all numbers
-class(num_vector)          # vector is numeric class
-num_vector[3] <- "three"   # convert the third element to a character
-class(num_vector)          # vector is now character class
+num_vector <- c(1,2,3,4,5) # تعريف المتجه بأنه جميع الأرقام
+class(num_vector)          # المتجه من الفئة الرقمية
+num_vector[3] <- "three"   # تحويل العنصر الثالث إلى حرف
+class(num_vector)          # المتجه الآن من الفئة الحرفية
 ```
 
-One common example of this is when manipulating a data frame in order to print a table - if you make a total row and try to paste/glue together percents in the same cell as numbers (e.g. `23 (40%)`), the entire numeric column above will convert to character and can no longer be used for mathematical calculations.**Sometimes, you will need to convert objects or columns to another class.**
+مثال شائع على ذلك هو عند تلاعب إطار البيانات من أجل طباعة جدول - إذا قمت بإنشاء صف إجمالي وحاولت لصق النسب المئوية مع الأرقام في نفس الخلية (على سبيل المثال، `23 (40%)`)، سيتم تحويل العمود الرقمي بأكمله إلى حرفي ولا يمكن استخدامه بعد الآن للحسابات الرياضية. **أحيانًا، ستحتاج إلى تحويل الكائنات أو الأعمدة إلى فئة أخرى.**
 
-+------------------+---------------------------------------------------------------------------------------+---------+
-| # Function       | # Action                                                                              |         |
-|                  |                                                                                       |         |
-| `as.character()` | Converts to character class                                                           |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
-|                  |                                                                                       |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
-| `as.numeric()`   | Converts to numeric class                                                             |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
-| `as.integer()`   | Converts to integer class                                                             |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
-| `as.Date()`      | Converts to Date class - Note: see section on [dates](dates.qmd) for details          |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
-| `factor()`       | Converts to factor - Note: re-defining order of value levels requires extra arguments |         |
-+------------------+---------------------------------------------------------------------------------------+---------+
++------------------+---------------------------------------------------------------------------------------+
+| الوظيفة         | الإجراء                                                                               |
++==================+=======================================================================================+
+| `as.character()` | يحول إلى فئة حرفية                                                               |
++------------------+---------------------------------------------------------------------------------------+
+| `as.numeric()`   | يحول إلى فئة رقمية                                                               |
++------------------+---------------------------------------------------------------------------------------+
+| `as.integer()`   | يحول إلى فئة صحيحة                                                               |
++------------------+---------------------------------------------------------------------------------------+
+| `as.Date()`      | يحول إلى فئة تاريخ - ملاحظة: انظر القسم حول [التواريخ](dates.qmd) للتفاصيل           |
++------------------+---------------------------------------------------------------------------------------+
+| `factor()`       | يحول إلى factor - ملاحظة: إعادة تعريف ترتيب مستويات القيم يتطلب وسيطات إضافية |
++------------------+---------------------------------------------------------------------------------------+
 
-Likewise, there are **base** R functions to check whether an object IS of a specific class, such as `is.numeric()`, `is.character()`, `is.double()`, `is.factor()`, `is.integer()`
+بالمثل، هناك **وظائف أساسية** في R للتحقق مما إذا كان الكائن من فئة معينة، مثل `is.numeric()`، `is.character()`، `is.double()`، `is.factor()`، `is.integer()`
 
-Here is [more online material on classes and data structures in R](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/).
+هنا [المزيد من المواد عبر الإنترنت حول الفئات والهياكل البيانية في R](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/).
 
 <!-- ======================================================= -->
 
-### Columns/Variables (`$`) {.unnumbered}
+### الأعمدة/المتغيرات (`$`) {.unnumbered}
 
-**A column in a data frame is technically a "vector" (see table above)** - a series of values that must all be the same class (either character, numeric, logical, etc).
+**العمود في إطار البيانات هو تقنيًا "متجه" (انظر الجدول أعلاه)** - سلسلة من القيم التي يجب أن تكون جميعها من نفس الفئة (سواء كانت نصية، رقمية، منطقية، إلخ).
 
-A vector can exist independent of a data frame, for example a vector of column names that you want to include as explanatory variables in a model. To create a "stand alone" vector, use the `c()` function as below:
+يمكن أن يكون المتجه موجودًا بشكل مستقل عن إطار البيانات، على سبيل المثال متجه من أسماء الأعمدة التي ترغب في تضمينها كمتغيرات توضيحية في نموذج. لإنشاء متجه "مستقل"، استخدم الدالة `c()` كما هو موضح أدناه:
 
 ```{r, warning=F, message=F}
-# define the stand-alone vector of character values
+# تعريف متجه القيم النصية المستقلة
 explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
 
-# print the values in this named vector
+# طباعة القيم في هذا المتجه المسمى
 explanatory_vars
 ```
 
-**Columns in a data frame are also vectors and can be called, referenced, extracted, or created using the `$` symbol.** The `$` symbol connects the name of the column to the name of its data frame. In this handbook, we try to use the word "column" instead of "variable".
+**الأعمدة في إطار البيانات هي أيضًا متجهات ويمكن استدعاؤها، والإشارة إليها، واستخراجها، أو إنشاؤها باستخدام رمز `$`.** يربط رمز `$` بين اسم العمود واسم إطار البيانات الخاص به. في هذا الدليل، نحاول استخدام كلمة "عمود" بدلاً من "متغير".
 
 ```{r basics_objects_call, eval=F}
-# Retrieve the length of the vector age_years
-length(linelist$age) # (age is a column in the linelist data frame)
+# استرداد طول المتجه age_years
+length(linelist$age) # (age هو عمود في إطار البيانات linelist)
 
 ```
 
-By typing the name of the dataframe followed by `$` you will also see a drop-down menu of all columns in the data frame. You can scroll through them using your arrow key, select one with your Enter key, and avoid spelling mistakes!
+من خلال كتابة اسم إطار البيانات تليه `$` سترى أيضًا قائمة منسدلة لجميع الأعمدة في إطار البيانات. يمكنك التمرير من خلالها باستخدام مفتاح السهم، اختيار واحدة باستخدام مفتاح Enter، وتجنب أخطاء الإملاء!
 
 ```{r echo=F, out.width = "100%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "Calling_Names.gif"))
 ```
 
-[***ADVANCED TIP:*** Some more complex objects (e.g. a list, or an `epicontacts` object) may have multiple levels which can be accessed through multiple dollar signs. For example `epicontacts$linelist$date_onset`]{style="color: darkgreen;"}
+[***نصيحة متقدمة:*** بعض الكائنات المعقدة أكثر (على سبيل المثال، قائمة، أو كائن `epicontacts`) قد تحتوي على مستويات متعددة يمكن الوصول إليها من خلال علامات الدولار المتعددة. على سبيل المثال `epicontacts$linelist$date_onset`]{style="color: darkgreen;"}
 
-<!-- ======================================================= -->
+### الوصول/الفهرسة بالأقواس (`[ ]`) {.unnumbered}
 
-### Access/index with brackets (`[ ]`) {.unnumbered}
-
-You may need to view parts of objects, also called "indexing", which is often done using the square brackets `[ ]`. Using `$` on a dataframe to access a column is also a type of indexing.
+قد تحتاج إلى عرض أجزاء من الكائنات، والتي تُسمى أيضًا "الفهرسة"، والتي غالبًا ما يتم ذلك باستخدام الأقواس المربعة `[ ]`. استخدام `$` على إطار بيانات للوصول إلى عمود هو أيضًا نوع من أنواع الفهرسة.
 
 ```{r}
-my_vector <- c("a", "b", "c", "d", "e", "f")  # define the vector
-my_vector[5]                                  # print the 5th element
+my_vector <- c("a", "b", "c", "d", "e", "f")  # تعريف الفيكتور
+my_vector[5]                                  # طباعة العنصر الخامس
 ```
 
-Square brackets also work to return specific parts of an returned output, such as the output of a `summary()` function:
+الأقواس المربعة تعمل أيضًا لإرجاع أجزاء محددة من الناتج المُرجع، مثل ناتج دالة `summary()`:
 
 ```{r}
-# All of the summary
+# كل الناتج المرجع
 summary(linelist$age)
 
-# Just the second element of the summary, with name (using only single brackets)
+# العنصر الثاني فقط من الناتج المرجع، مع الاسم (استخدام الأقواس الفردية فقط)
 summary(linelist$age)[2]
 
-# Just the second element, without name (using double brackets)
+# العنصر الثاني فقط، بدون اسم (استخدام الأقواس المزدوجة)
 summary(linelist$age)[[2]]
 
-# Extract an element by name, without showing the name
+# استخراج عنصر بالاسم، بدون عرض الاسم
 summary(linelist$age)[["Median"]]
 
 ```
 
-Brackets also work on data frames to view specific rows and columns. You can do this using the syntax `dataframe[rows, columns]`:
+الأقواس تعمل أيضًا على الإطارات البيانية لعرض صفوف وأعمدة محددة. يمكنك القيام بذلك باستخدام بنية `dataframe[rows, columns]`:
 
 ```{r basics_objects_access, eval=F}
-# View a specific row (2) from dataset, with all columns (don't forget the comma!)
+# عرض صف محدد (2) من مجموعة البيانات، مع جميع الأعمدة (لا تنسى الفاصلة!)
 linelist[2,]
 
-# View all rows, but just one column
+# عرض جميع الصفوف، ولكن فقط عمود واحد
 linelist[, "date_onset"]
 
-# View values from row 2 and columns 5 through 10
+# عرض القيم من الصف 2 والأعمدة من 5 إلى 10
 linelist[2, 5:10] 
 
-# View values from row 2 and columns 5 through 10 and 18
+# عرض القيم من الصف 2 والأعمدة من 5 إلى 10 و 18
 linelist[2, c(5:10, 18)] 
 
-# View rows 2 through 20, and specific columns
+# عرض الصفوف من 2 إلى 20، والأعمدة المحددة
 linelist[2:20, c("date_onset", "outcome", "age")]
 
-# View rows and columns based on criteria
-# *** Note the dataframe must still be named in the criteria!
+# عرض الصفوف والأعمدة بناءً على معايير
+# *** ملاحظة: يجب أن يظل الإطار البيانات مسمى في المعايير!
 linelist[linelist$age > 25 , c("date_onset", "outcome", "age")]
 
-# Use View() to see the outputs in the RStudio Viewer pane (easier to read) 
-# *** Note the capital "V" in View() function
+# استخدام View() لرؤية النواتج في لوحة RStudio Viewer (أسهل قراءة) 
+# *** ملاحظة: الحرف الكبير "V" في دالة View()
 View(linelist[2:20, "date_onset"])
 
-# Save as a new object
+# حفظ ككائن جديد
 new_table <- linelist[2:20, c("date_onset")] 
 ```
 
-Note that you can also achieve the above row/column indexing on data frames and tibbles using **dplyr** syntax (functions `filter()` for rows, and `select()` for columns). Read more about these core functions in the [Cleaning data and core functions](cleaning.qmd) page.
+يرجى ملاحظة أنه يمكنك أيضًا تحقيق الفهرسة السابقة للصفوف/الأعمدة على الإطارات البيانية والجداول باستخدام بنية **dplyr** (الدوال `filter()` للصفوف، و `select()` للأعمدة). اقرأ المزيد حول هذه الدوال الأساسية في الصفحة [تنظيف البيانات والدوال الأساسية](cleaning.qmd).
 
-To filter based on "row number", you can use the **dplyr** function `row_number()` with open parentheses as part of a logical filtering statement. Often you will use the `%in%` operator and a range of numbers as part of that logical statement, as shown below. To see the *first* N rows, you can also use the special **dplyr** function `head()`.
+لتصفية بناءً على "رقم الصف"، يمكنك استخدام وظيفة **dplyr** `row_number()` مع فتح القوسين كجزء من عبارة تصفية منطقية. غالبًا ما ستستخدم مشغل `%in%` ونطاقًا من الأرقام كجزء من تلك العبارة المنطقية، كما هو موضح أدناه. لرؤية *أول* N صفوف، يمكنك أيضًا استخدام وظيفة **dplyr** الخاصة `head()`.
 
 ```{r, eval=F}
-# View first 100 rows
+# عرض أول 100 صف
 linelist %>% head(100)
 
-# Show row 5 only
+# عرض الصف 5 فقط
 linelist %>% filter(row_number() == 5)
 
-# View rows 2 through 20, and three specific columns (note no quotes necessary on column names)
+# عرض الصفوف من 2 إلى 20، وثلاثة أعمدة محددة (لاحظ عدم الحاجة للعلامات التنصتية على أسماء الأعمدة)
 linelist %>% filter(row_number() %in% 2:20) %>% select(date_onset, outcome, age)
 ```
 
-When indexing an object of class **list**, single brackets always return with class list, even if only a single object is returned. Double brackets, however, can be used to access a single element and return a different class than list.\
-Brackets can also be written after one another, as demonstrated below.
+عند فهرسة كائن من النوع **list**، تُرجع القوسين الفردية دائمًا بنوع list، حتى إذا تم إرجاع كائن واحد فقط. ومع ذلك، يمكن استخدام القوسين المزدوجة للوصول إلى عنصر واحد وإرجاع نوع مختلف عن list.\
+يمكن كتابة القوسين أيضًا بعد بعضها البعض، كما هو موضح أدناه.
 
-This [visual explanation of lists indexing, with pepper shakers](https://r4ds.had.co.nz/vectors.html#lists-of-condiments) is humorous and helpful.
+هذا [الشرح المرئي لفهرسة القوائم، مع مبينات الفلفل](https://r4ds.had.co.nz/vectors.html#lists-of-condiments) مضحك ومفيد.
 
 ```{r}
-# define demo list
+# تعريف قائمة توضيحية
 my_list <- list(
-  # First element in the list is a character vector
+  # العنصر الأول في القائمة هو متجه أحرف
   hospitals = c("Central", "Empire", "Santa Anna"),
   
-  # second element in the list is a data frame of addresses
+  # العنصر الثاني في القائمة هو إطار بيانات للعناوين
   addresses   = data.frame(
     street = c("145 Medical Way", "1048 Brown Ave", "999 El Camino"),
     city   = c("Andover", "Hamilton", "El Paso")
@@ -1160,114 +1105,104 @@ my_list <- list(
   )
 ```
 
-Here is how the list looks when printed to the console. See how there are two named elements:
+هنا كيف تبدو القائمة عند طباعتها إلى وحدة التحكم. انظر كيف توجد عناصر اثنين مسماة:
 
--   `hospitals`, a character vector\
--   `addresses`, a data frame of addresses
+-   `hospitals`، متجه أحرف\
+-   `addresses`، إطار بيانات للعناوين
 
 ```{r}
 my_list
 ```
 
-Now we extract, using various methods:
+الآن نستخرج، باستخدام طرق مختلفة:
 
 ```{r}
-my_list[1] # this returns the element in class "list" - the element name is still displayed
+my_list[1] # يُرجع هذا العنصر بنوع "list" - اسم العنصر لا يزال معروضًا
 
-my_list[[1]] # this returns only the (unnamed) character vector
+my_list[[1]] # يُرجع هذا فقط المتجه الأحرف (غير المسمى)
 
-my_list[["hospitals"]] # you can also index by name of the list element
+my_list[["hospitals"]] # يمكنك أيضًا الفهرسة بواسطة اسم عنصر القائمة
 
-my_list[[1]][3] # this returns the third element of the "hospitals" character vector
+my_list[[1]][3] # يُرجع هذا العنصر الثالث من متجه الأحرف "hospitals"
 
-my_list[[2]][1] # This returns the first column ("street") of the address data frame
+my_list[[2]][1] # يُرجع هذا العمود الأول ("street") من إطار بيانات العناوين
 
 ```
 
-<!-- ======================================================= -->
+### إزالة الكائنات {.unnumbered}
 
-### Remove objects {.unnumbered}
-
-You can remove individual objects from your R environment by putting the name in the `rm()` function (no quote marks):
+يمكنك إزالة الكائنات الفردية من بيئة R الخاصة بك عن طريق وضع اسم الكائن في دالة `rm()` (بدون علامات اقتباس):
 
 ```{r, eval=F}
 rm(object_name)
 ```
 
-You can remove all objects (clear your workspace) by running:
+يمكنك إزالة جميع الكائنات (تنظيف مساحة العمل الخاصة بك) عن طريق تشغيل:
 
 ```{r, eval=F}
 rm(list = ls(all = TRUE))
 ```
 
-<!-- ======================================================= -->
+## الأنابيب (`%>%`)
 
-<!-- ======================================================= -->
+**هناك نهجان عامان للعمل مع الكائنات:**
 
-<!-- ======================================================= -->
+1) **الأنابيب/tidyverse** - ترسل الأنابيب كائنًا من وظيفة إلى أخرى - يكمن التركيز على *الإجراء*، ليس الكائن\
+2) **تعريف الكائنات الوسيطة** - يتم إعادة تعريف كائن مرارًا وتكرارًا - يكمن التركيز على الكائن
 
-## Piping (`%>%`)
+### **الأنابيب** {.unnumbered}
 
-**Two general approaches to working with objects are:**
+**ببساطة، يقوم مشغل الأنبوب (`%>%`) بتمرير الإخراج الوسيط من وظيفة واحدة إلى الأخرى.**\
+يمكنك التفكير فيه على أنه يقول "ثم". يمكن ربط العديد من الوظائف معًا باستخدام `%>%`.
 
-1)  **Pipes/tidyverse** - pipes send an object from function to function - emphasis is on the *action*, not the object\
-2)  **Define intermediate objects** - an object is re-defined again and again - emphasis is on the object
+- **الأنابيب تؤكد على تسلسل الإجراءات، ليس على الكائن الذي يتم تنفيذ الإجراءات عليه**\
+- الأنابيب هي الأفضل عندما يجب تنفيذ سلسلة من الإجراءات على كائن واحد\
+- تأتي الأنابيب من حزمة **magrittr**، والتي تتضمن تلقائيًا في الحزم **dplyr** و **tidyverse**\
+- يمكن للأنابيب جعل الشفرة أكثر نظافة وأسهل قراءة، وأكثر تفهمًا
 
-<!-- ======================================================= -->
+اقرأ المزيد حول هذا النهج في دليل الأنماط في tidyverse [هنا](https://style.tidyverse.org/pipes.html)
 
-### **Pipes** {.unnumbered}
-
-**Simply explained, the pipe operator (`%>%`) passes an intermediate output from one function to the next.**\
-You can think of it as saying "then". Many functions can be linked together with `%>%`.
-
--   **Piping emphasizes a sequence of actions, not the object the actions are being performed on**\
--   Pipes are best when a sequence of actions must be performed on one object\
--   Pipes come from the package **magrittr**, which is automatically included in packages **dplyr** and **tidyverse**
--   Pipes can make code more clean and easier to read, more intuitive
-
-Read more on this approach in the tidyverse [style guide](https://style.tidyverse.org/pipes.html)
-
-Here is a fake example for comparison, using fictional functions to "bake a cake". First, the pipe method:
+هنا مثال وهمي للمقارنة، باستخدام وظائف خيالية لـ "خبز كعكة". أولاً، طريقة الأنبوب:
 
 ```{r piping_example_pipe, eval=F}
-# A fake example of how to bake a cake using piping syntax
+# مثال وهمي عن كيفية خبز كعكة باستخدام بنية الأنابيب
 
-cake <- flour %>%       # to define cake, start with flour, and then...
-  add(eggs) %>%   # add eggs
-  add(oil) %>%    # add oil
-  add(water) %>%  # add water
-  mix_together(         # mix together
-    utensil = spoon,
-    minutes = 2) %>%    
-  bake(degrees = 350,   # bake
-       system = "fahrenheit",
-       minutes = 35) %>%  
-  let_cool()            # let it cool down
+cake <- flour %>%       # لتحديد الكعكة، ابدأ بالطحين، ثم...
+  add(eggs) %>%   # إضافة البيض
+  add(oil) %>%    # إضافة الزيت
+  add(water) %>%  # إضافة الماء
+  mix_together(         # امزج معًا
+    utensil = ملعقة,
+    دقائق = 2) %>%    
+  bake(درجة الحرارة = 350,   # اخبز
+       النظام = "فهرنهايت",
+       دقائق = 35) %>%  
+  let_cool()            # دعه يبرد
 ```
 
-Here is another [link](https://cfss.uchicago.edu/notes/pipes/#:~:text=Pipes%20are%20an%20extremely%20useful,code%20and%20combine%20multiple%20operations) describing the utility of pipes.
+ها هو [الرابط](https://cfss.uchicago.edu/notes/pipes/#:~:text=Pipes%20are%20an%20extremely%20useful,code%20and%20combine%20multiple%20operations) الذي يصف فائدة الأنابيب.
 
-Piping is not a **base** function. To use piping, the **magrittr** package must be installed and loaded (this is typically done by loading **tidyverse** or **dplyr** package which include it). You can [read more about piping in the magrittr documentation](https://magrittr.tidyverse.org/).
+التوجيه ليس وظيفة **أساسية**. لاستخدام التوجيه، يجب تثبيت وتحميل حزمة **magrittr** (وهذا عادة ما يتم عن طريق تحميل حزمة **tidyverse** أو **dplyr** التي تتضمنها). يمكنك [قراءة المزيد حول التوجيه في وثائق magrittr](https://magrittr.tidyverse.org/).
 
-Note that just like other R commands, pipes can be used to just display the result, or to save/re-save an object, depending on whether the assignment operator `<-` is involved. See both below:
+يرجى ملاحظة أنه مثل أوامر R الأخرى، يمكن استخدام الأنابيب لعرض النتيجة فقط، أو لحفظ/إعادة حفظ كائن، اعتمادًا على ما إذا كانت هناك عملية تعيين `<-`. انظر الأمثلة أدناه:
 
 ```{r, eval=F}
-# Create or overwrite object, defining as aggregate counts by age category (not printed)
+# إنشاء أو تجاوز الكائن، تعريف عدد العمليات الإجمالية حسب فئة العمر (لن يتم طباعته)
 linelist_summary <- linelist %>% 
   count(age_cat)
 ```
 
 ```{r}
-# Print the table of counts in the console, but don't save it
+# طباعة جدول العدادات في وحدة التحكم، ولكن لا تحفظه
 linelist %>% 
   count(age_cat)
 ```
 
 **`%<>%`**\
-This is an "assignment pipe" from the **magrittr** package, which *pipes an object forward and also re-defines the object*. It must be the first pipe operator in the chain. It is shorthand. The below two commands are equivalent:
+هذا هو "أنبوب التعيين" من حزمة **magrittr**، الذي *يوجه كائنًا إلى الأمام ويعيد تعريف الكائن أيضًا*. يجب أن يكون أول مشغل أنبوب في السلسلة. إنه اختصار. الأوامر التاليتان متكافئتان:
 
 ```{r, eval=F}
-linelist <- linelist %>%
+linelist <- linelist %>% 
   filter(age > 50)
 
 linelist %<>% filter(age > 50)
@@ -1275,80 +1210,64 @@ linelist %<>% filter(age > 50)
 
 <!-- ======================================================= -->
 
-### Define intermediate objects {.unnumbered}
+### تعريف الكائنات الوسيطة {.unnumbered}
 
-This approach to changing objects/dataframes may be better if:
+قد تكون هذه الطريقة لتغيير الكائنات/الإطارات البياناتية أفضل إذا:
 
--   You need to manipulate multiple objects\
--   There are intermediate steps that are meaningful and deserve separate object names
+-   كنت بحاجة إلى تلاعب بعدة كائنات\
+-   هناك خطوات وسيطة ذات معنى وتستحق أسماء كائنات منفصلة
 
-**Risks:**
+**المخاطر:**
 
--   Creating new objects for each step means creating lots of objects. If you use the wrong one you might not realize it!\
--   Naming all the objects can be confusing\
--   Errors may not be easily detectable
+-   إنشاء كائنات جديدة لكل خطوة يعني إنشاء الكثير من الكائنات. إذا استخدمت الخاطئة قد لا تدرك ذلك!\
+-   قد تكون تسمية جميع الكائنات مربكة\
+-   قد لا يكون من السهل اكتشاف الأخطاء
 
-Either name each intermediate object, or overwrite the original, or combine all the functions together. All come with their own risks.
+سواء قمت بتسمية كل كائن وسيط، أو تجاوز الأصلي، أو دمج جميع الوظائف معًا. كلها تأتي مع مخاطرها الخاصة.
 
-Below is the same fake "cake" example as above, but using this style:
+أدناه نفس مثال "الكعكة" الوهمي كما في الأعلى، ولكن باستخدام هذا النمط:
 
-```{r piping_example_redefine, eval=F}
-# a fake example of how to bake a cake using this method (defining intermediate objects)
-batter_1 <- left_join(flour, eggs)
-batter_2 <- left_join(batter_1, oil)
-batter_3 <- left_join(batter_2, water)
+```%%%%%
 
-batter_4 <- mix_together(object = batter_3, utensil = spoon, minutes = 2)
-
-cake <- bake(batter_4, degrees = 350, system = "fahrenheit", minutes = 35)
-
-cake <- let_cool(cake)
-```
-
-Combine all functions together - this is difficult to read:
-
-```{r eval=F}
-# an example of combining/nesting mutliple functions together - difficult to read
-cake <- let_cool(bake(mix_together(batter_3, utensil = spoon, minutes = 2), degrees = 350, system = "fahrenheit", minutes = 35))
 ```
 
 <!-- ======================================================= -->
 
-## Key operators and functions {#operators}
+## العمليات والدوال الرئيسية {#operators}
 
-This section details operators in R, such as:
+تفصيل العمليات في R، مثل:
 
--   Definitional operators\
--   Relational operators (less than, equal too..)\
--   Logical operators (and, or...)\
--   Handling missing values\
--   Mathematical operators and functions (+/-, \>, sum(), median(), ...)\
--   The `%in%` operator
+-   عمليات التعريف\
+-   عمليات العلاقة (أقل من، يساوي..)\
+-   عمليات المنطق (و، أو...)\
+-   التعامل مع القيم المفقودة\
+-   العمليات الرياضية والدوال (+/-, \>, sum(), median(), ...)\
+-   عامل `%in%`
 
 <!-- ======================================================= -->
 
-### Assignment operators {.unnumbered}
+### عمليات التعيين {.unnumbered}
 
 **`<-`**
 
-The basic assignment operator in R is `<-`. Such that `object_name <- value`.\
-This assignment operator can also be written as `=`. We advise use of `<-` for general R use.\
-We also advise surrounding such operators with spaces, for readability.
+عامل التعيين الأساسي في R هو `<-`. مثل `object_name <- value`.\
+يمكن كتابة هذا العامل أيضًا على أنه `=`. ننصح باستخدام `<-` للاستخدام العام في R.\
+ننصح أيضًا بتحيط مثل هذه العمليات بمسافات، لقراءة أفضل.
 
 **`<<-`**
 
-If [Writing functions](writing_functions.qmd), or using R in an interactive way with sourced scripts, then you may need to use this assignment operator `<<-` (from **base** R). This operator is used to define an object in a higher 'parent' R Environment. See this [online reference](https://stat.ethz.ch/R-manual/R-devel/library/base/html/assignOps.html).
+إذا كنت [تكتب الدوال](writing_functions.qmd)، أو تستخدم R بطريقة تفاعلية مع النصوص المصدرية المُدخلة، فقد تحتاج إلى استخدام هذا العامل `<<-` (من **base** R). يُستخدم هذا العامل لتعريف كائن في بيئة R 'أبوية' أعلى. انظر هذا [المرجع عبر الإنترنت](https://stat.ethz.ch/R-manual/R-devel/library/base/html/assignOps.html).
 
 **`%<>%`**
 
-This is an "assignment pipe" from the **magrittr** package, which pipes an object forward and *also re-defines the object*. It must be the first pipe operator in the chain. It is shorthand, as shown below in two equivalent examples:
+هذا هو "أنبوب التعيين" من حزمة **magrittr**، الذي ينقل كائنًا إلى الأمام و*يعيد تعريف الكائن أيضًا*. يجب أن يكون أول عامل أنبوبي في السلسلة. إنه اختصار، كما هو موضح أدناه في مثالين مكافئين:
 
 ```{r, eval=F}
 linelist <- linelist %>% 
   mutate(age_months = age_years * 12)
 ```
 
-The above is equivalent to the below:
+المثال أعلاه يعادل المثال التالي:
 
 ```{r, eval=F}
 linelist %<>% mutate(age_months = age_years * 12)
@@ -1356,49 +1275,48 @@ linelist %<>% mutate(age_months = age_years * 12)
 
 **`%<+%`**
 
-This is used to add data to phylogenetic trees with the **ggtree** package. See the page on [Phylogenetic trees](phylogenetic_trees.qmd) or this online [resource book](https://yulab-smu.top/treedata-book/).
+يُستخدم هذا لإضافة بيانات إلى الأشجار الفيلوجينية باستخدام حزمة **ggtree**. انظر الصفحة على [الأشجار الفيلوجينية](phylogenetic_trees.qmd) أو هذا [كتاب الموارد عبر الإنترنت](https://yulab-smu.top/treedata-book/).
 
 <!-- ======================================================= -->
 
 ### Relational and logical operators {.unnumbered}
 
-Relational operators compare values and are often used when defining new variables and subsets of datasets. Here are the common relational operators in R:
+تقوم العوامل العلاقية بمقارنة القيم وغالبًا ما تُستخدم عند تعريف متغيرات جديدة ومجموعات فرعية من مجموعات البيانات. فيما يلي العوامل العلاقية الشائعة في R:
 
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| # Meaning                | # Operator | # Example    | # Example Result                                                                                                                                       |       |
-|                          |            |              |                                                                                                                                                        |       |
-| Equal to                 | `==`       | `"A" == "a"` | `FALSE` (because R is case sensitive) *Note that == (double equals) is different from = (single equals), which acts like the assignment operator `<-`* |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-|                          |            |              |                                                                                                                                                        |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Not equal to             | `!=`       | `2 != 0`     | `TRUE`                                                                                                                                                 |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Greater than             | `>`        | `4 > 2`      | `TRUE`                                                                                                                                                 |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Less than                | `<`        | `4 < 2`      | `FALSE`                                                                                                                                                |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Greater than or equal to | `>=`       | `6 >= 4`     | `TRUE`                                                                                                                                                 |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Less than or equal to    | `<=`       | `6 <= 4`     | `FALSE`                                                                                                                                                |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Value is missing         | `is.na()`  | `is.na(7)`   | `FALSE` (see page on [Missing data](missing_data.qmd))                                                                                                 |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
-| Value is not missing     | `!is.na()` | `!is.na(7)`  | `TRUE`                                                                                                                                                 |       |
-+--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| المعنى                  | العامل    | المثال      | نتيجة المثال                                                                                                                                         |
++==========================+============+==============+========================================================================================================================================================+
+| مساوي لـ               | `==`       | `"A" == "a"` | `FALSE` (لأن R حساس لحالة الأحرف) *يرجى ملاحظة أن == (مزدوج يساوي) مختلف عن = (يساوي واحد)، الذي يعمل كعامل التعيين `<-`* |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| غير مساوي لـ           | `!=`       | `2 != 0`     | `TRUE`                                                                                                                                                 |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| أكبر من                 | `>`        | `4 > 2`      | `TRUE`                                                                                                                                                 |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| أقل من                  | `<`        | `4 < 2`      | `FALSE`                                                                                                                                                |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| أكبر من أو يساوي        | `>=`       | `6 >= 4`     | `TRUE`                                                                                                                                                 |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| أقل من أو يساوي         | `<=`       | `6 <= 4`     | `FALSE`                                                                                                                                                |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| القيمة مفقودة           | `is.na()`  | `is.na(7)`   | `FALSE` (انظر الصفحة على [البيانات المفقودة](missing_data.qmd))                                                                                                                   |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| القيمة غير مفقودة       | `!is.na()` | `!is.na(7)`  | `TRUE`                                                                                                                                                 |
++--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Logical operators, such as AND and OR, are often used to connect relational operators and create more complicated criteria. Complex statements might require parentheses ( ) for grouping and order of application.
 
-+----------------+-----------------------------------------------------------------------+
-| Meaning        | Operator                                                              |
-+================+=======================================================================+
-| AND            | `&`                                                                   |
-+----------------+-----------------------------------------------------------------------+
-| OR             | `|` (vertical bar)                                                    |
-+----------------+-----------------------------------------------------------------------+
-| Parentheses    | `( )` Used to group criteria together and clarify order of operations |
-+----------------+-----------------------------------------------------------------------+
+العوامل المنطقية، مثل AND و OR، غالبًا ما تُستخدم لربط العوامل العلاقوية وإنشاء معايير أكثر تعقيدًا. قد تتطلب البيانات المعقدة استخدام الأقواس ( ) للتجميع وتحديد ترتيب التطبيق.
 
-For example, below, we have a linelist with two variables we want to use to create our case definition, `hep_e_rdt`, a test result and `other_cases_in_hh`, which will tell us if there are other cases in the household. The command below uses the function `case_when()` to create the new variable `case_def` such that:
++---------------------+-----------------------------------------------------------------------+
+| المعنى             | العامل                                                               |
++=====================+=======================================================================+
+| AND                 | `&`                                                                   |
++---------------------+-----------------------------------------------------------------------+
+| OR                  | `|` (شريط رأسي)                                                      |
++---------------------+-----------------------------------------------------------------------+
+| الأقواس            | `( )` تُستخدم لتجميع المعايير معًا وتوضيح ترتيب العمليات         |
++---------------------+-----------------------------------------------------------------------+
+
+على سبيل المثال، أدناه، لدينا قائمة بيانات تحتوي على متغيرين نريد استخدامهما لإنشاء تعريف الحالة الخاص بنا، `hep_e_rdt`، نتيجة الاختبار و `other_cases_in_hh`، الذي سيخبرنا إذا كانت هناك حالات أخرى في الأسرة. يستخدم الأمر أدناه الوظيفة `case_when()` لإنشاء المتغير الجديد `case_def` بحيث:
 
 ```{r eval=FALSE}
 linelist_cleaned <- linelist %>%
@@ -1411,143 +1329,122 @@ linelist_cleaned <- linelist %>%
 ```
 
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
-| Criteria in example above                                                                      | Resulting value in new variable "case_def" |
+| المعايير في المثال أعلاه                                                                     | القيمة الناتجة في المتغير الجديد "case_def" |
 +================================================================================================+============================================+
-| If the value for variables `rdt_result` and `other_cases_in_home` are missing                  | `NA` (missing)                             |
+| إذا كانت القيمة للمتغيرات `rdt_result` و `other_cases_in_home` مفقودة                     | `NA` (مفقود)                              |
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
-| If the value in `rdt_result` is "Positive"                                                     | "Confirmed"                                |
+| إذا كانت القيمة في `rdt_result` هي "Positive"                                                | "Confirmed"                                |
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
-| If the value in `rdt_result` is NOT "Positive" AND the value in `other_cases_in_home` is "Yes" | "Probable"                                 |
+| إذا كانت القيمة في `rdt_result` ليست "Positive" وكانت القيمة في `other_cases_in_home` هي "Yes" | "Probable"                             |
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
-| If one of the above criteria are not met                                                       | "Suspected"                                |
+| إذا لم تتم مطابقة أي من المعايير أعلاه                                                     | "Suspected"                                |
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
 
-*Note that R is case-sensitive, so "Positive" is different than "positive"...*
+### القيم المفقودة {.unnumbered}
 
-<!-- ======================================================= -->
+في R، تُمثل القيم المفقودة بالقيمة الخاصة `NA` (قيمة "محجوزة") (حروف كبيرة N و A - لا توضع بين علامات اقتباس). إذا قمت بتوريد بيانات تسجل البيانات المفقودة بطريقة أخرى (على سبيل المثال 99، "مفقود"، أو .)، قد ترغب في إعادة تشفير تلك القيم إلى `NA`. كيفية القيام بذلك موجود في الصفحة [الاستيراد والتصدير](importing.qmd).
 
-### Missing values {.unnumbered}
-
-In R, missing values are represented by the special value `NA` (a "reserved" value) (capital letters N and A - not in quotation marks). If you import data that records missing data in another way (e.g. 99, "Missing", or .), you may want to re-code those values to `NA`. How to do this is addressed in the [Import and export](importing.qmd) page.
-
-**To test whether a value is `NA`, use the special function `is.na()`**, which returns `TRUE` or `FALSE`.
+**للاختبار ما إذا كانت القيمة `NA`، استخدم الدالة الخاصة `is.na()`**، التي تعيد `TRUE` أو `FALSE`.
 
 ```{r basics_operators_missing}
-rdt_result <- c("Positive", "Suspected", "Positive", NA)   # two positive cases, one suspected, and one unknown
-is.na(rdt_result)  # Tests whether the value of rdt_result is NA
+rdt_result <- c("Positive", "Suspected", "Positive", NA)   # حالتان إيجابيتان، حالة مشتبه فيها، وحالة مجهولة
+is.na(rdt_result)  # يختبر ما إذا كانت قيمة rdt_result هي NA
 ```
 
-Read more about missing, infinite, `NULL`, and impossible values in the page on [Missing data](missing_data.qmd). Learn how to convert missing values when importing data in the page on [Import and export](importing.qmd).
+اقرأ المزيد حول القيم المفقودة، اللامتناهية، `NULL`، والقيم المستحيلة في الصفحة عن [البيانات المفقودة](missing_data.qmd). تعلم كيفية تحويل القيم المفقودة عند استيراد البيانات في الصفحة عن [الاستيراد والتصدير](importing.qmd).
 
-<!-- ======================================================= -->
+### الرياضيات والإحصاء {.unnumbered}
 
-### Mathematics and statistics {.unnumbered}
+جميع العمليات والدوال في هذه الصفحة متاحة تلقائيًا باستخدام R **الأساسي**.
 
-All the operators and functions in this page are automatically available using **base** R.
+#### العمليات الرياضية {.unnumbered}
 
-#### Mathematical operators {.unnumbered}
+تُستخدم هذه العمليات غالبًا للقيام بالجمع، القسمة، إنشاء أعمدة جديدة، إلخ. أدناه توجد العمليات الرياضية الشائعة في R. إذا كنت تضع مسافات حول العمليات أم لا، فذلك ليس مهمًا.
 
-These are often used to perform addition, division, to create new columns, etc. Below are common mathematical operators in R. Whether you put spaces around the operators is not important.
+| الغرض            | المثال في R |
+|-------------------|--------------|
+| الجمع            | 2 + 3        |
+| الطرح            | 2 - 3        |
+| الضرب            | 2 \* 3       |
+| القسمة           | 30 / 5       |
+| الأس              | 2\^3         |
+| ترتيب العمليات  | ( )          |
 
-| Purpose             | Example in R |
-|---------------------|--------------|
-| addition            | 2 + 3        |
-| subtraction         | 2 - 3        |
-| multiplication      | 2 \* 3       |
-| division            | 30 / 5       |
-| exponent            | 2\^3         |
-| order of operations | ( )          |
+#### الدوال الرياضية {.unnumbered}
 
-#### Mathematical functions {.unnumbered}
+| الغرض            | الدالة                                |
+|-------------------|---------------------------------------|
+| التقريب          | round(x, digits = n)                  |
+| التقريب          | janitor::round_half_up(x, digits = n) |
+| السقف (التقريب لأعلى) | ceiling(x)                            |
+| الأرضية (التقريب لأسفل) | floor(x)                              |
+| القيمة المطلقة   | abs(x)                                |
+| الجذر التربيعي  | sqrt(x)                               |
+| الأس              | exponent(x)                           |
+| اللوغاريتم الطبيعي | log(x)                                |
+| اللوغاريتم بالقاعدة 10 | log10(x)                              |
+| اللوغاريتم بالقاعدة 2 | log2(x)                               |
 
-| Purpose            | Function                              |
-|--------------------|---------------------------------------|
-| rounding           | round(x, digits = n)                  |
-| rounding           | janitor::round_half_up(x, digits = n) |
-| ceiling (round up) | ceiling(x)                            |
-| floor (round down) | floor(x)                              |
-| absolute value     | abs(x)                                |
-| square root        | sqrt(x)                               |
-| exponent           | exponent(x)                           |
-| natural logarithm  | log(x)                                |
-| log base 10        | log10(x)                              |
-| log base 2         | log2(x)                               |
+#### التدوير {.unnumbered}
 
-Note: for `round()` the `digits =` specifies the number of decimal placed. Use `signif()` to round to a number of significant figures.
-
-#### Scientific notation {.unnumbered}
-
-The likelihood of scientific notation being used depends on the value of the `scipen` option.
-
-From the documentation of `?options`: scipen is a penalty to be applied when deciding to print numeric values in fixed or exponential notation. Positive values bias towards fixed and negative towards scientific notation: fixed notation will be preferred unless it is more than 'scipen' digits wider.
-
-If it is set to a low number (e.g. 0) it will be "turned on" always. To "turn off" scientific notation in your R session, set it to a very high number, for example:
-
-```{r, eval=F}
-# turn off scientific notation
-options(scipen=999)
-```
-
-#### Rounding {.unnumbered}
-
-[***DANGER:*** `round()` uses "banker's rounding" which rounds up from a .5 only if the upper number is even. Use `round_half_up()` from **janitor** to consistently round halves up to the nearest whole number. See [this explanation](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#explore-records-with-duplicated-values-for-specific-combinations-of-variables-with-get_dupes)]{style="color: red;"}
+[***خطر:*** تستخدم `round()` "التقريب البنكي" الذي يقرب من .5 فقط إذا كان الرقم العلوي زوجيًا. استخدم `round_half_up()` من **janitor** لتقريب الأرقام بشكل متسق إلى أقرب عدد صحيح. انظر [هذا التوضيح](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#explore-records-with-duplicated-values-for-specific-combinations-of-variables-with-get_dupes) ]{style="color: red;"}
 
 ```{r}
-# use the appropriate rounding function for your work
+# استخدم الدالة المناسبة للتدوير في عملك
 round(c(2.5, 3.5))
 
 janitor::round_half_up(c(2.5, 3.5))
 ```
 
-#### Statistical functions {.unnumbered}
+#### الدوال الإحصائية {.unnumbered}
 
-[***CAUTION:*** The functions below will by default include missing values in calculations. Missing values will result in an output of `NA`, unless the argument `na.rm = TRUE` is specified. This can be written shorthand as `na.rm = T`.]{style="color: orange;"}
+[***تحذير:*** ستتضمن الدوال أدناه افتراضيًا القيم المفقودة في الحسابات. ستؤدي القيم المفقودة إلى نتيجة `NA`، ما لم يتم تحديد الوسيط `na.rm = TRUE`. يمكن كتابتها بشكل مختصر كـ `na.rm = T`.]{style="color: orange;"}
 
-| Objective               | Function           |
-|-------------------------|--------------------|
-| mean (average)          | mean(x, na.rm=T)   |
-| median                  | median(x, na.rm=T) |
-| standard deviation      | sd(x, na.rm=T)     |
-| quantiles\*             | quantile(x, probs) |
-| sum                     | sum(x, na.rm=T)    |
-| minimum value           | min(x, na.rm=T)    |
-| maximum value           | max(x, na.rm=T)    |
-| range of numeric values | range(x, na.rm=T)  |
-| summary\*\*             | summary(x)         |
+| الهدف               | الدالة           |
+|---------------------|------------------|
+| المتوسط (المتوسط)  | mean(x, na.rm=T) |
+| الوسيط              | median(x, na.rm=T) |
+| الانحراف المعياري  | sd(x, na.rm=T) |
+| النسب المئوية\*    | quantile(x, probs) |
+| المجموع             | sum(x, na.rm=T) |
+| القيمة الدنيا       | min(x, na.rm=T) |
+| القيمة العظمى      | max(x, na.rm=T) |
+| نطاق القيم الرقمية | range(x, na.rm=T) |
+| ملخص\*\*            | summary(x)         |
 
-Notes:
+ملاحظات:
 
--   `*quantile()`: `x` is the numeric vector to examine, and `probs =` is a numeric vector with probabilities within 0 and 1.0, e.g `c(0.5, 0.8, 0.85)`
--   `**summary()`: gives a summary on a numeric vector including mean, median, and common percentiles
+-   `*quantile()`: `x` هو الناقل الرقمي الذي يجب فحصه، و `probs =` هو ناقل رقمي يحتوي على احتماليات تتراوح بين 0 و 1.0، على سبيل المثال `c(0.5, 0.8, 0.85)`
+-   `**summary()`: يقدم ملخصًا عن ناقل رقمي بما في ذلك المتوسط، الوسيط، والنسب المئوية الشائعة
 
-[***DANGER:*** If providing a vector of numbers to one of the above functions, be sure to wrap the numbers within `c()` .]{style="color: red;"}
+[***خطر:*** إذا كنت تقدم ناقل أرقام إلى واحدة من الوظائف أعلاه، تأكد من لف الأرقام بين `c()` .]{style="color: red;"}
 
 ```{r}
-# If supplying raw numbers to a function, wrap them in c()
-mean(1, 6, 12, 10, 5, 0)    # !!! INCORRECT !!!  
+# إذا كنت تزوّد بأرقام صافية إلى وظيفة، فلفها بـ c()
+mean(1, 6, 12, 10, 5, 0)    # !!! غير صحيح !!!  
 
-mean(c(1, 6, 12, 10, 5, 0)) # CORRECT
+mean(c(1, 6, 12, 10, 5, 0)) # صحيح
 ```
 
-#### Other useful functions {.unnumbered}
+#### وظائف مفيدة أخرى {.unnumbered}
 
 +----------------------------+-------------------+-------------------------------------------------+
-| Objective                  | Function          | Example                                         |
+| الهدف                     | الوظيفة          | المثال                                         |
 +============================+===================+=================================================+
-| create a sequence          | seq(from, to, by) | `seq(1, 10, 2)`                                 |
+| إنشاء تسلسل              | seq(from, to, by) | `seq(1, 10, 2)`                                 |
 +----------------------------+-------------------+-------------------------------------------------+
-| repeat x, n times          | rep(x, ntimes)    | `rep(1:3, 2)` or `rep(c("a", "b", "c"), 3)`     |
+| تكرار x، n مرات          | rep(x, ntimes)    | `rep(1:3, 2)` أو `rep(c("a", "b", "c"), 3)`     |
 +----------------------------+-------------------+-------------------------------------------------+
-| subdivide a numeric vector | cut(x, n)         | `cut(linelist$age, 5)`                          |
+| تقسيم ناقل رقمي          | cut(x, n)         | `cut(linelist$age, 5)`                          |
 +----------------------------+-------------------+-------------------------------------------------+
-| take a random sample       | sample(x, size)   | `sample(linelist$id, size = 5, replace = TRUE)` |
+| أخذ عينة عشوائية        | sample(x, size)   | `sample(linelist$id, size = 5, replace = TRUE)` |
 +----------------------------+-------------------+-------------------------------------------------+
 
 <!-- ======================================================= -->
 
 ### `%in%` {.unnumbered}
 
-A very useful operator for matching values, and for quickly assessing if a value is within a vector or dataframe.
+مُشغّل مفيد جدًا لمطابقة القيم، ولتقييم سريع ما إذا كانت القيمة ضمن ناقل أو إطار بيانات.
 
 ```{r}
 my_vector <- c("a", "b", "c", "d")
@@ -1558,36 +1455,36 @@ my_vector <- c("a", "b", "c", "d")
 "h" %in% my_vector
 ```
 
-To ask if a value is **not** `%in%` a vector, put an exclamation mark (!) **in front** of the logic statement:
+لطلب معرفة ما إذا كانت القيمة **ليست** `%in%` في الفيكتور، ضع علامة تعجب (!) **أمام** البيان المنطقي:
 
 ```{r}
-# to negate, put an exclamation in front
+# لنفي البيان المنطقي، ضع علامة تعجب في الأمام
 !"a" %in% my_vector
 !"h" %in% my_vector
 ```
 
-`%in%` is very useful when using the **dplyr** function `case_when()`. You can define a vector previously, and then reference it later. For example:
+`%in%` مفيد جدًا عند استخدام وظيفة **dplyr** `case_when()`. يمكنك تعريف فيكتور مسبقًا، ثم الرجوع إليه لاحقًا. على سبيل المثال:
 
 ```{r eval=F}
 affirmative <- c("1", "Yes", "YES", "yes", "y", "Y", "oui", "Oui", "Si")
 
 linelist <- linelist %>% 
   mutate(child_hospitaled = case_when(
-    hospitalized %in% affirmative & age < 18 ~ "Hospitalized Child",
-    TRUE                                      ~ "Not"))
+    hospitalized %in% affirmative & age < 18 ~ "طفل مستشفى",
+    TRUE                                      ~ "لا"))
 ```
 
-Note: If you want to detect a partial string, perhaps using `str_detect()` from **stringr**, it will not accept a character vector like `c("1", "Yes", "yes", "y")`. Instead, it must be given a *regular expression* - one condensed string with OR bars, such as "1\|Yes\|yes\|y". For example, `str_detect(hospitalized, "1|Yes|yes|y")`. See the page on [Characters and strings](characters_strings.qmd) for more information.
+ملاحظة: إذا كنت ترغب في اكتشاف سلسلة جزئية، ربما باستخدام `str_detect()` من **stringr**، فلن يقبل فيكتور الحروف مثل `c("1", "Yes", "yes", "y")`. بدلاً من ذلك، يجب أن يتم تزويده بـ *تعبير منتظم* - سلسلة مضغوطة واحدة مع أشرطة OR، مثل "1\|Yes\|yes\|y". على سبيل المثال، `str_detect(hospitalized, "1|Yes|yes|y")`. انظر الصفحة على [الحروف والسلاسل](characters_strings.qmd) لمزيد من المعلومات.
 
-You can convert a character vector to a named regular expression with this command:
+يمكنك تحويل فيكتور حروفي إلى تعبير منتظم مسمى بهذا الأمر:
 
 ```{r}
 affirmative <- c("1", "Yes", "YES", "yes", "y", "Y", "oui", "Oui", "Si")
 affirmative
 
-# condense to 
-affirmative_str_search <- paste0(affirmative, collapse = "|")  # option with base R
-affirmative_str_search <- str_c(affirmative, collapse = "|")   # option with stringr package
+# ضغط إلى 
+affirmative_str_search <- paste0(affirmative, collapse = "|")  # الخيار مع R الأساسي
+affirmative_str_search <- str_c(affirmative, collapse = "|")   # الخيار مع حزمة stringr
 
 affirmative_str_search
 ```
@@ -1598,47 +1495,43 @@ affirmative_str_search
 
 <!-- ======================================================= -->
 
-## Errors & warnings
+## الأخطاء والتحذيرات
 
-This section explains:
+تشرح هذه القسم:
 
--   The difference between errors and warnings\
--   General syntax tips for writing R code\
--   Code assists
+-   الفرق بين الأخطاء والتحذيرات\
+-   نصائح بناء الجملة العامة لكتابة رمز R\
+-   مساعدة الرمز
 
-Common errors and warnings and troubleshooting tips can be found in the page on [Errors and help](errors.qmd).
-
-<!-- ======================================================= -->
-
-### Error versus Warning {.unnumbered}
-
-When a command is run, the R Console may show you warning or error messages in red text.
-
--   A **warning** means that R has completed your command, but had to take additional steps or produced unusual output that you should be aware of.
-
--   An **error** means that R was not able to complete your command.
-
-Look for clues:
-
--   The error/warning message will often include a line number for the problem.
-
--   If an object "is unknown" or "not found", perhaps you spelled it incorrectly, forgot to call a package with library(), or forgot to re-run your script after making changes.
-
-If all else fails, copy the error message into Google along with some key terms - chances are that someone else has worked through this already!
+يمكن العثور على الأخطاء والتحذيرات الشائعة ونصائح استكشاف الأخطاء في الصفحة على [الأخطاء والمساعدة](errors.qmd).
 
 <!-- ======================================================= -->
 
-### General syntax tips {.unnumbered}
+### الخطأ مقابل التحذير {.unnumbered}
 
-A few things to remember when writing commands in R, to avoid errors and warnings:
+عند تشغيل أمر ما، قد يعرض لك وحدة التحكم R رسائل تحذير أو أخطاء باللون الأحمر.
 
--   Always close parentheses - tip: count the number of opening "(" and closing parentheses ")" for each code chunk
--   Avoid spaces in column and object names. Use underscore ( \_ ) or periods ( . ) instead
--   Keep track of and remember to separate a function's arguments with commas
--   R is case-sensitive, meaning `Variable_A` is *different* from `variable_A`
+-   **التحذير** يعني أن R قد أكمل الأمر الخاص بك، ولكن كان عليه أن يتخذ خطوات إضافية أو أنتج إخراجًا غير عادي يجب أن تكون على علم به.
 
-<!-- ======================================================= -->
+-   **الخطأ** يعني أن R لم يتمكن من إكمال الأمر الخاص بك.
 
-### Code assists {.unnumbered}
+ابحث عن دلائل:
 
-Any script (RMarkdown or otherwise) will give clues when you have made a mistake. For example, if you forgot to write a comma where it is needed, or to close a parentheses, RStudio will raise a flag on that line, on the right side of the script, to warn you.
+-   ستتضمن رسالة الخطأ/التحذير غالبًا رقم السطر الخاص بالمشكلة.
+
+-   إذا كان الكائن "غير معروف" أو "غير موجود"، ربما كنت قد كتبته بشكل غير صحيح، نسيت استدعاء حزمة باستخدام library()، أو نسيت إعادة تشغيل النص البرمجي بعد إجراء التغييرات.
+
+إذا فشلت جميع الحلول، قم بنسخ رسالة الخطأ إلى Google مع بعض المصطلحات الرئيسية - من المحتمل أن شخصًا آخر قد تعامل مع هذا بالفعل!
+
+### نصائح بناء الجملة العامة {.unnumbered}
+
+بعض الأشياء التي يجب تذكرها عند كتابة الأوامر في R، لتجنب الأخطاء والتحذيرات:
+
+-   دائمًا قم بإغلاق الأقواس - نصيحة: احسب عدد الأقواس المفتوحة "(" والمغلقة ")" لكل كتلة كود
+-   تجنب استخدام المسافات في أسماء الأعمدة والكائنات. استخدم الشرطة السفلية ( \_ ) أو النقاط ( . ) بدلاً من ذلك
+-   تتبع وتذكر فصل معاملات الدالة بفواصل
+-   R حساس لحالة الأحرف، مما يعني أن `Variable_A` مختلفة عن `variable_A`
+
+### مساعدات الكود {.unnumbered}
+
+سيقدم أي نص (RMarkdown أو غيره) دلائل عندما ترتكب خطأ. على سبيل المثال، إذا نسيت كتابة فاصلة حيث يلزم ذلك، أو إغلاق قوس، ستقوم RStudio برفع علم على تلك السطر، على الجانب الأيمن من النص البرمجي، لتحذيرك.
