@@ -66,14 +66,14 @@ jobs:
             latest_commit_en_branch=$(git show --format=%H -s ${EN_BRANCH})
             latest_commit_info=$(git log ${EN_BRANCH} --since="$latest_commit_date" --format="%H %s" --reverse)
             commit_messages=$(echo "$latest_commit_info" | cut -d' ' -f2-)
-            latest_commit_main=$(git show --format=%H -s origin/main)
+            latest_commit_master=$(git show --format=%H -s origin/master)
             
             echo $latest_commit_en_branch
-            echo $latest_commit_main
+            echo $latest_commit_master
             echo $latest_commit_info
 
             # Check if there are new commits
-            if [ "$latest_commit_en_branch" == "$latest_commit_main" ]; then
+            if [ "$latest_commit_en_branch" == "$latest_commit_master" ]; then
               echo "No new commits to include in PR for ${TRANSLATION_BRANCH}"
               continue
             fi
