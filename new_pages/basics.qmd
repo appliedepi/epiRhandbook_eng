@@ -335,7 +335,7 @@ Here is a fun fictional function, called `oven_bake()`, as an example of a typic
 knitr::include_graphics(here::here("images", "Function_Bread_Example.png"))
 ```
 
-**In a more realistic example**, the `age_pyramid()` command below produces an age pyramid plot based on defined age groups and a binary split column, such as `gender`. The function is given three arguments within the parentheses, separated by commas. The values supplied to the arguments establish `linelist` as the dataframe to use, `age_cat5` as the column to count, and `gender` as the binary column to use for splitting the pyramid by color.
+**In a more realistic example**, the `age_pyramid()` command below produces an age pyramid plot based on defined age groups and a binary split column, such as `gender`. The function is given three arguments within the parentheses, separated by commas. The values supplied to the arguments establish `linelist` as the data frame to use, `age_cat5` as the column to count, and `gender` as the binary column to use for splitting the pyramid by color.
 
 ```{r basics_functions_arguments, include=FALSE, results='hide', message=FALSE, warning=FALSE,}
 ## create an age group variable by specifying categorical breaks
@@ -904,9 +904,9 @@ You will also see equals signs in R code:
 
 **Datasets**
 
-Datasets are also objects (typically "dataframes") and must be assigned names when they are imported. In the code below, the object `linelist` is created and assigned the value of a CSV file imported with the **rio** package and its `import()` function.
+Datasets are also objects (typically "data frames") and must be assigned names when they are imported. In the code below, the object `linelist` is created and assigned the value of a CSV file imported with the **rio** package and its `import()` function.
 
-```{r basics_objects_dataframes, eval=FALSE}
+```{r basics_objects_data frames, eval=FALSE}
 # linelist is created and assigned the value of the imported CSV file
 linelist <- import("my_linelist.csv")
 ```
@@ -999,7 +999,7 @@ All the objects stored in R have a *class* which tells R how to handle the objec
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 | Factor     | These are vectors that have a **specified order** or hierarchy of values                                                                                                                | An variable of economic status with ordered values                                                    |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| Date       | **Once R is told that certain data are Dates**, these data can be manipulated and displayed in special ways. See the page on [Working with dates](dates.qmd) for more information.                 | 2018-04-12 or 15/3/1954 or Wed 4 Jan 1980                                                             |
+| Date       | **Once R is told that certain data are Dates**, these data can be manipulated and displayed in special ways. See the page on [Working with dates](dates.qmd) for more information.      | 2018-04-12 or 15/3/1954 or Wed 4 Jan 1980                                                           
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 | Logical    | Values must be one of the two special values TRUE or FALSE (note these are **not** "TRUE" and "FALSE" in quotation marks)                                                               | TRUE or FALSE                                                                                         |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
@@ -1007,7 +1007,7 @@ All the objects stored in R have a *class* which tells R how to handle the objec
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 | tibble     | tibbles are a variation on data frame, the main operational difference being that they print more nicely to the console (display first 10 rows and only columns that fit on the screen) | Any data frame, list, or matrix can be converted to a tibble with `as_tibble()`                       |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| list       | A list is like vector, but holds other objects that can be other different classes                                                                                                      | A list could hold a single number, and a dataframe, and a vector, and even another list within it!    |
+| list       | A list is like vector, but holds other objects that can be other different classes                                                                                                      | A list could hold a single number, and a data frame, and a vector, and even another list within it!    |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 
 **You can test the class of an object by providing its name to the function `class()`**. Note: you can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column.
@@ -1023,7 +1023,7 @@ class(linelist$gender)  # class should be character
 Sometimes, a column will be converted to a different class automatically by R. Watch out for this! For example, if you have a vector or column of numbers, but a character value is inserted... the entire column will change to class character.
 
 ```{r}
-num_vector <- c(1,2,3,4,5) # define vector as all numbers
+num_vector <- c(1, 2 , 3, 4, 5) # define vector as all numbers
 class(num_vector)          # vector is numeric class
 num_vector[3] <- "three"   # convert the third element to a character
 class(num_vector)          # vector is now character class
@@ -1040,14 +1040,14 @@ One common example of this is when manipulating a data frame in order to print a
 +------------------+---------------------------------------------------------------------------------------+
 | `as.integer()`   | Converts to integer class                                                             |
 +------------------+---------------------------------------------------------------------------------------+
-| `as.Date()`      | Converts to Date class - Note: see section on [dates](dates.qmd) for details             |
+| `as.Date()`      | Converts to Date class - Note: see section on [dates](dates.qmd) for details          |
 +------------------+---------------------------------------------------------------------------------------+
 | `factor()`       | Converts to factor - Note: re-defining order of value levels requires extra arguments |
 +------------------+---------------------------------------------------------------------------------------+
 
 Likewise, there are **base** R functions to check whether an object IS of a specific class, such as `is.numeric()`, `is.character()`, `is.double()`, `is.factor()`, `is.integer()`
 
-Here is [more online material on classes and data structures in R](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/).
+Here is [more online material on classes and data structures in R](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures.html).
 
 <!-- ======================================================= -->
 
@@ -1073,7 +1073,7 @@ length(linelist$age) # (age is a column in the linelist data frame)
 
 ```
 
-By typing the name of the dataframe followed by `$` you will also see a drop-down menu of all columns in the data frame. You can scroll through them using your arrow key, select one with your Enter key, and avoid spelling mistakes!
+By typing the name of the data frame followed by `$` you will also see a drop-down menu of all columns in the data frame. You can scroll through them using your arrow key, select one with your Enter key, and avoid spelling mistakes!
 
 ```{r echo=F, out.width = "100%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "Calling_Names.gif"))
@@ -1085,7 +1085,7 @@ knitr::include_graphics(here::here("images", "Calling_Names.gif"))
 
 ### Access/index with brackets (`[ ]`) {.unnumbered}
 
-You may need to view parts of objects, also called "indexing", which is often done using the square brackets `[ ]`. Using `$` on a dataframe to access a column is also a type of indexing.
+You may need to view parts of objects, also called "indexing", which is often done using the square brackets `[ ]`. Using `$` on a data frame to access a column is also a type of indexing.
 
 ```{r}
 my_vector <- c("a", "b", "c", "d", "e", "f")  # define the vector
@@ -1109,7 +1109,7 @@ summary(linelist$age)[["Median"]]
 
 ```
 
-Brackets also work on data frames to view specific rows and columns. You can do this using the syntax `dataframe[rows, columns]`:
+Brackets also work on data frames to view specific rows and columns. You can do this using the syntax `data frame[rows, columns]`:
 
 ```{r basics_objects_access, eval=F}
 # View a specific row (2) from dataset, with all columns (don't forget the comma!)
@@ -1128,7 +1128,7 @@ linelist[2, c(5:10, 18)]
 linelist[2:20, c("date_onset", "outcome", "age")]
 
 # View rows and columns based on criteria
-# *** Note the dataframe must still be named in the criteria!
+# *** Note the data frame must still be named in the criteria!
 linelist[linelist$age > 25 , c("date_onset", "outcome", "age")]
 
 # Use View() to see the outputs in the RStudio Viewer pane (easier to read) 
@@ -1151,11 +1151,12 @@ linelist %>% head(100)
 linelist %>% filter(row_number() == 5)
 
 # View rows 2 through 20, and three specific columns (note no quotes necessary on column names)
-linelist %>% filter(row_number() %in% 2:20) %>% select(date_onset, outcome, age)
+linelist %>% 
+     filter(row_number() %in% 2:20) %>% 
+     select(date_onset, outcome, age)
 ```
 
-When indexing an object of class **list**, single brackets always return with class list, even if only a single object is returned. Double brackets, however, can be used to access a single element and return a different class than list.\
-Brackets can also be written after one another, as demonstrated below.
+When indexing an object of class **list**, single brackets always return with class list, even if only a single object is returned. Double brackets, however, can be used to access a single element and return a different class than list. Brackets can also be written after one another, as demonstrated below.
 
 This [visual explanation of lists indexing, with pepper shakers](https://r4ds.had.co.nz/vectors.html#lists-of-condiments) is humorous and helpful.
 
@@ -1223,22 +1224,29 @@ rm(list = ls(all = TRUE))
 
 **Two general approaches to working with objects are:**
 
-1)  **Pipes/tidyverse** - pipes send an object from function to function - emphasis is on the *action*, not the object\
-2)  **Define intermediate objects** - an object is re-defined again and again - emphasis is on the object
+1)  **Pipes/tidyverse** - pipes send an object from function to function - emphasis is on the *action*, not the object.\
+2)  **Define intermediate objects** - an object is re-defined again and again - emphasis is on the object.
 
 <!-- ======================================================= -->
 
 ### **Pipes** {.unnumbered}
 
-**Simply explained, the pipe operator (`%>%`) passes an intermediate output from one function to the next.**\
-You can think of it as saying "then". Many functions can be linked together with `%>%`.
+**Simply explained, the pipe operator passes an intermediate output from one function to the next.**\
+You can think of it as saying "and then". Many functions can be linked together with `%>%`.
 
--   **Piping emphasizes a sequence of actions, not the object the actions are being performed on**\
--   Pipes are best when a sequence of actions must be performed on one object\
--   Pipes come from the package **magrittr**, which is automatically included in packages **dplyr** and **tidyverse**
--   Pipes can make code more clean and easier to read, more intuitive
+-   **Piping emphasizes a sequence of actions, not the object the actions are being performed on**.\
+-   Pipes are best when a sequence of actions must be performed on one object.\
+-   Pipes can make code more clean and easier to read, more intuitive.
 
-Read more on this approach in the tidyverse [style guide](https://style.tidyverse.org/pipes.html)
+Pipe operators were first introduced through the [magrittr package](https://magrittr.tidyverse.org/), which is part of tidyverse, and were specified as `%>%`. In R 4.1.0, they introduced a **base** R pipe which is specified through `|>`. The behaviour of the two pipes is the same, and they can be used somewhat interchangeably. However, there are a few key differences.
+
+* The `%>%` pipe allows you to pass multiple arguments.
+* The `%>%` pipe lets you drop parenthesis when calling a function with no other arguments (i.e. drop vs drop()).
+* The `%>%` pipe allows you to start a pipe with `.` to create a function in your linking of code.
+
+For these reasons, we recommend the **magrittr** pipe, `%>%`, over the **base** R pipe, `|>`.
+
+To read more about the differences between base R and tidyverse (magrittr) pipes, see this [blog post](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/). For more information on the tidyverse approach, please see this [style guide](https://style.tidyverse.org/pipes.html).
 
 Here is a fake example for comparison, using fictional functions to "bake a cake". First, the pipe method:
 
@@ -1257,10 +1265,6 @@ cake <- flour %>%       # to define cake, start with flour, and then...
        minutes = 35) %>%  
   let_cool()            # let it cool down
 ```
-
-Here is another [link](https://cfss.uchicago.edu/notes/pipes/#:~:text=Pipes%20are%20an%20extremely%20useful,code%20and%20combine%20multiple%20operations) describing the utility of pipes.
-
-Piping is not a **base** function. To use piping, the **magrittr** package must be installed and loaded (this is typically done by loading **tidyverse** or **dplyr** package which include it). You can [read more about piping in the magrittr documentation](https://magrittr.tidyverse.org/).
 
 Note that just like other R commands, pipes can be used to just display the result, or to save/re-save an object, depending on whether the assignment operator `<-` is involved. See both below:
 
@@ -1290,7 +1294,7 @@ linelist %<>% filter(age > 50)
 
 ### Define intermediate objects {.unnumbered}
 
-This approach to changing objects/dataframes may be better if:
+This approach to changing objects/data frames may be better if:
 
 -   You need to manipulate multiple objects\
 -   There are intermediate steps that are meaningful and deserve separate object names
@@ -1298,8 +1302,8 @@ This approach to changing objects/dataframes may be better if:
 **Risks:**
 
 -   Creating new objects for each step means creating lots of objects. If you use the wrong one you might not realize it!\
--   Naming all the objects can be confusing\
--   Errors may not be easily detectable
+-   Naming all the objects can be confusing.\
+-   Errors may not be easily detectable.
 
 Either name each intermediate object, or overwrite the original, or combine all the functions together. All come with their own risks.
 
@@ -1331,12 +1335,12 @@ cake <- let_cool(bake(mix_together(batter_3, utensil = spoon, minutes = 2), degr
 
 This section details operators in R, such as:
 
--   Definitional operators\
--   Relational operators (less than, equal too..)\
--   Logical operators (and, or...)\
--   Handling missing values\
--   Mathematical operators and functions (+/-, \>, sum(), median(), ...)\
--   The `%in%` operator
+-   Definitional operators.\
+-   Relational operators (less than, equal too..).\
+-   Logical operators (and, or...).\
+-   Handling missing values.\
+-   Mathematical operators and functions (+/-, \>, sum(), median(), ...).\
+-   The `%in%` operator.
 
 <!-- ======================================================= -->
 
@@ -1345,8 +1349,7 @@ This section details operators in R, such as:
 **`<-`**
 
 The basic assignment operator in R is `<-`. Such that `object_name <- value`.\
-This assignment operator can also be written as `=`. We advise use of `<-` for general R use.\
-We also advise surrounding such operators with spaces, for readability.
+This assignment operator can also be written as `=`. We advise use of `<-` for general R use. We also advise surrounding such operators with spaces, for readability.
 
 **`<<-`**
 
@@ -1392,12 +1395,12 @@ Relational operators compare values and are often used when defining new variabl
 +--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Less than or equal to    | `<=`       | `6 <= 4`     | `FALSE`                                                                                                                                                |
 +--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Value is missing         | `is.na()`  | `is.na(7)`   | `FALSE` (see page on [Missing data](missing_data.qmd))                                                                                                                   |
+| Value is missing         | `is.na()`  | `is.na(7)`   | `FALSE` (see page on [Missing data](missing_data.qmd))                                                                                                 |
 +--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Value is not missing     | `!is.na()` | `!is.na(7)`  | `TRUE`                                                                                                                                                 |
 +--------------------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Logical operators, such as AND and OR, are often used to connect relational operators and create more complicated criteria. Complex statements might require parentheses ( ) for grouping and order of application.
+Logical operators, such as AND and OR, are often used to connect relational operators and create more complicated criteria. Complex statements might require parentheses `( )` for grouping and order of application.
 
 +---------------------+-----------------------------------------------------------------------+
 | Meaning             | Operator                                                              |
@@ -1433,13 +1436,13 @@ linelist_cleaned <- linelist %>%
 | If one of the above criteria are not met                                                       | "Suspected"                                |
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
 
-*Note that R is case-sensitive, so "Positive" is different than "positive"...*
+*Note that R is case-sensitive, so "Positive" is different than "positive".*
 
 <!-- ======================================================= -->
 
 ### Missing values {.unnumbered}
 
-In R, missing values are represented by the special value `NA` (a "reserved" value) (capital letters N and A - not in quotation marks). If you import data that records missing data in another way (e.g. 99, "Missing", or .), you may want to re-code those values to `NA`. How to do this is addressed in the [Import and export](importing.qmd) page.
+In R, missing values are represented by the special value `NA` (a "reserved" value) (capital letters N and A - not in quotation marks). If you import data that records missing data in another way (e.g. 99, "Missing"), you may want to re-code those values to `NA`. How to do this is addressed in the [Import and export](importing.qmd) page.
 
 **To test whether a value is `NA`, use the special function `is.na()`**, which returns `TRUE` or `FALSE`.
 
@@ -1496,7 +1499,7 @@ If it is set to a low number (e.g. 0) it will be "turned on" always. To "turn of
 
 ```{r, eval=F}
 # turn off scientific notation
-options(scipen=999)
+options(scipen = 999)
 ```
 
 #### Rounding {.unnumbered}
@@ -1514,17 +1517,17 @@ janitor::round_half_up(c(2.5, 3.5))
 
 [***CAUTION:*** The functions below will by default include missing values in calculations. Missing values will result in an output of `NA`, unless the argument `na.rm = TRUE` is specified. This can be written shorthand as `na.rm = T`.]{style="color: orange;"}
 
-| Objective               | Function           |
-|-------------------------|--------------------|
-| mean (average)          | mean(x, na.rm=T)   |
-| median                  | median(x, na.rm=T) |
-| standard deviation      | sd(x, na.rm=T)     |
-| quantiles\*             | quantile(x, probs) |
-| sum                     | sum(x, na.rm=T)    |
-| minimum value           | min(x, na.rm=T)    |
-| maximum value           | max(x, na.rm=T)    |
-| range of numeric values | range(x, na.rm=T)  |
-| summary\*\*             | summary(x)         |
+| Objective               | Function             |
+|-------------------------|----------------------|
+| mean (average)          | mean(x, na.rm = T)   |
+| median                  | median(x, na.rm=  T) |
+| standard deviation      | sd(x, na.rm = T)     |
+| quantiles\*             | quantile(x, probs)   |
+| sum                     | sum(x, na.rm = T)    |
+| minimum value           | min(x, na.rm = T)    |
+| maximum value           | max(x, na.rm = T)    |
+| range of numeric values | range(x, na.rm = T)  |
+| summary\*\*             | summary(x)           |
 
 Notes:
 
@@ -1558,7 +1561,7 @@ mean(c(1, 6, 12, 10, 5, 0)) # CORRECT
 
 ### `%in%` {.unnumbered}
 
-A very useful operator for matching values, and for quickly assessing if a value is within a vector or dataframe.
+A very useful operator for matching values, and for quickly assessing if a value is within a vector or data frame.
 
 ```{r}
 my_vector <- c("a", "b", "c", "d")
