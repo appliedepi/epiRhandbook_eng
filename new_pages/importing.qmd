@@ -9,18 +9,18 @@ knitr::include_graphics(here::here("images", "Import_Export_1500x500.png"))
 
 In this page we describe ways to locate, import, and export files:  
 
-* Use of the **rio** package to flexibly `import()` and `export()` many types of files  
-* Use of the **here** package to locate files relative to an R project root - to prevent complications from file paths that are specific to one computer  
+* Use of the **rio** package to flexibly `import()` and `export()` many types of files.  
+* Use of the **here** package to locate files relative to an R project root. To prevent complications from file paths that are specific to one computer.  
 * Specific import scenarios, such as:  
-  * Specific Excel sheets  
-  * Messy headers and skipping rows  
-  * From Google sheets  
-  * From data posted to websites  
-  * With APIs  
-  * Importing the *most recent* file  
-* Manual data entry  
-* R-specific file types such as RDS and RData  
-* Exporting/saving files and plots  
+  * Specific Excel sheets.  
+  * Messy headers and skipping rows.  
+  * From Google sheets.  
+  * From data posted to websites.  
+  * With APIs.  
+  * Importing the *most recent* file.  
+* Manual data entry.  
+* R-specific file types such as RDS and RData.  
+* Exporting/saving files and plots.  
 
 
 ```{r, include=FALSE}
@@ -68,10 +68,10 @@ Used in conjunction with an R project, **here** allows you to describe the locat
 
 This is how `here()` works within an R project:  
 
-* When the **here** package is first loaded within the R project, it places a small file called ".here" in the root folder of your R project as a "benchmark" or "anchor"  
-* In your scripts, to reference a file in the R project's sub-folders, you use the function `here()` to build the file path *in relation to that anchor*
-* To build the file path, write the names of folders beyond the root, within quotes, separated by commas, finally ending with the file name and file extension as shown below  
-* `here()` file paths can be used for both importing and exporting  
+* When the **here** package is first loaded within the R project, it places a small file called ".here" in the root folder of your R project as a "benchmark" or "anchor".  
+* In your scripts, to reference a file in the R project's sub-folders, you use the function `here()` to build the file path *in relation to that anchor*.
+* To build the file path, write the names of folders beyond the root, within quotes, separated by commas, finally ending with the file name and file extension as shown below.  
+* `here()` file paths can be used for both importing and exporting.  
 
 For example, below, the function `import()` is being provided a file path constructed with `here()`.  
 
@@ -99,9 +99,9 @@ Read more about the **here** package [at this link](https://here.r-lib.org/).
 
 When importing or exporting data, you must provide a file path. You can do this one of three ways:  
 
-1) *Recommended:* provide a "relative" file path with the **here** package  
-2) Provide the "full" / "absolute" file path  
-3) Manual file selection  
+1) *Recommended:* provide a "relative" file path with the **here** package.  
+2) Provide the "full" / "absolute" file path.  
+3) Manual file selection.  
 
 
 
@@ -129,8 +129,8 @@ linelist <- import("C:/Users/Laura/Documents/analysis/data/linelists/ebola_linel
 
 A few things to note about absolute file paths:  
 
-* **Avoid using absolute file paths** as they will break if the script is run on a different computer
-* Use *forward* slashes (`/`), as in the example above (note: this is *NOT* the default for Windows file paths)  
+* **Avoid using absolute file paths** as they will not work if the script is run on a different computer.
+* Use *forward* slashes (`/`), as in the example above (note: this is *NOT* the default for Windows file paths).  
 * File paths that begin with double slashes (e.g. "//...") will likely **not be recognized by R** and will produce an error. Consider moving your work to a "named" or "lettered" drive that begins with a letter (e.g. "J:" or "C:"). See the page on [Directory interactions](directories.qmd) for more details on this issue.  
 
 One scenario where absolute file paths may be appropriate is when you want to import a file from a shared drive that has the same full file path for all users.  
@@ -144,8 +144,8 @@ One scenario where absolute file paths may be appropriate is when you want to im
 
 You can import data manually via one of these methods:  
 
-1) Environment RStudio Pane, click "Import Dataset", and select the type of data 
-2) Click File / Import Dataset / (select the type of data)  
+1) Environment RStudio Pane, click "Import Dataset", and select the type of data. 
+2) Click File / Import Dataset / (select the type of data).  
 3) To hard-code manual selection, use the *base R* command `file.choose()` (leaving the parentheses empty) to trigger appearance of a **pop-up window** that allows the user to manually select the file from their computer. For example:  
 
 ```{r import_choose, eval=F}
@@ -301,7 +301,8 @@ The exact argument used to bind the correct column names depends on the type of 
 
 ```{r, eval=F}
 # import first time; store the column names
-linelist_raw_names <- import("linelist_raw.xlsx") %>% names()  # save true column names
+linelist_raw_names <- import("linelist_raw.xlsx") %>% 
+     names()  # save true column names
 
 # import second time; skip row 2, and assign column names to argument col_names =
 linelist_raw <- import("linelist_raw.xlsx",
@@ -314,7 +315,8 @@ linelist_raw <- import("linelist_raw.xlsx",
 
 ```{r, eval=F}
 # import first time; sotre column names
-linelist_raw_names <- import("linelist_raw.csv") %>% names() # save true column names
+linelist_raw_names <- import("linelist_raw.csv") %>% 
+     names() # save true column names
 
 # note argument for csv files is 'col.names = '
 linelist_raw <- import("linelist_raw.csv",
@@ -333,7 +335,7 @@ colnames(linelist_raw) <- linelist_raw_names
 
 #### Make a data dictionary {.unnumbered}  
 
-Bonus! If you do have a second row that is a data dictionary, you can easily create a proper data dictionary from it. This tip is adapted from this [post](https://alison.rbind.io/post/2018-02-23-read-multiple-header-rows/).  
+Bonus! If you do have a second row that is a data dictionary, you can easily create a proper data dictionary from it. This tip is adapted from this [post](https://www.apreshill.com/blog/2018-07-multiple-headers/).  
 
 
 ```{r}
@@ -392,16 +394,21 @@ Gsheets_demo <- read_sheet("1scgtzkVLLHAe5a6_eFQEwkZcc14yFUx1KgOMZ4AKUfY")
 Another package, **googledrive** offers useful functions for writing, editing, and deleting Google sheets. For example, using the  `gs4_create()` and `sheet_write()` functions found in this package. 
 
 Here are some other helpful online tutorials:  
-[basic Google sheets importing tutorial](https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/)  
-[more detailed tutorial](https://googlesheets4.tidyverse.org/articles/googlesheets4.html)  
-[interaction between the googlesheets4 and tidyverse](https://googlesheets4.tidyverse.org/articles/articles/drive-and-sheets.html)  
+[Google sheets importing tutorial](https://felixanalytix.medium.com/how-to-read-write-append-google-sheet-data-using-r-programming-ecf278108691). 
+[More detailed tutorial](https://googlesheets4.tidyverse.org/articles/googlesheets4.html).  
+[Interaction between the googlesheets4 and tidyverse](https://googlesheets4.tidyverse.org/articles/articles/drive-and-sheets.html).  
 
+Additionally, you can also use `import` from the **rio** package.
 
-
+```{r, eval=F}
+Gsheets_demo <- rio("https://docs.google.com/spreadsheets/d/1scgtzkVLLHAe5a6_eFQEwkZcc14yFUx1KgOMZ4AKUfY/edit#gid=0")
+```
 
 ## Multiple files - import, export, split, combine  
 
-See the page on [Iteration, loops, and lists](iteration.qmd) for examples of how to import and combine multiple files, or multiple Excel workbook files. That page also has examples on how to split a data frame into parts and export each one separately, or as named sheets in an Excel workbook.  
+See the page on [Iteration, loops, and lists](iteration.qmd) for examples of how to import and combine multiple files, or multiple Excel workbook files. 
+
+That page also has examples on how to split a data frame into parts and export each one separately, or as named sheets in an Excel workbook.  
 
 
 
@@ -415,10 +422,10 @@ Importing data directly from Github into R can be very easy or can require a few
 
 It can be easy to import a .csv file directly from Github into R with an R command.  
 
-1) Go to the Github repo, locate the file of interest, and click on it  
-3) Click on the "Raw" button (you will then see the "raw" csv data, as shown below)  
-4) Copy the URL (web address)  
-5) Place the URL in quotes within the `import()` R command  
+1) Go to the Github repo, locate the file of interest, and click on it.  
+3) Click on the "Raw" button (you will then see the "raw" csv data, as shown below).  
+4) Copy the URL (web address).  
+5) Place the URL in quotes within the `import()` R command. 
 
 ```{r, out.width=c('100%', '100%'), fig.align = "left", echo=F}
 knitr::include_graphics(here::here("images", "download_csv_raw.png"))
@@ -549,9 +556,9 @@ Often you may receive daily updates to your datasets. In this case you will want
 
 This approach depends on three premises:  
 
-1) You trust the dates in the file names  
-2) The dates are numeric and appear in *generally* the same format (e.g. year then month then day)  
-3) There are no other numbers in the file name  
+1) You trust the dates in the file names.  
+2) The dates are numeric and appear in *generally* the same format (e.g. year then month then day).  
+3) There are no other numbers in the file name.  
 
 We will explain each step, and then show you them combined at the end.  
 
@@ -660,10 +667,10 @@ The API exchange is most commonly done through an HTTP request. HTTP is Hypertex
 
 Here are a few components of an *HTTP request*:  
 
-* The URL of the API endpoint  
-* The "Method" (or "Verb")  
-* Headers  
-* Body  
+* The URL of the API endpoint.  
+* The "Method" (or "Verb").  
+* Headers.  
+* Body.  
 
 The HTTP request "method" is the action your want to perform. The two most common HTTP methods are `GET` and `POST` but others could include `PUT`, `DELETE`, `PATCH`, etc. When importing data into R it is most likely that you will use `GET`.  
 
@@ -816,7 +823,7 @@ clipr::write_clip(linelist)
 
 ## RDS files {#import_rds}
 
-Along with .csv, .xlsx, etc, you can also export/save R data frames as .rds files. This is a file format specific to R, and is very useful if you know you will work with the exported data again in R. 
+Along with .csv, .xlsx, etc, you can also export (save) R data frames as .rds files. This is a file format specific to R, and is very useful if you know you will work with the exported data again in R. 
 
 The classes of columns are stored, so you don't have do to cleaning again when it is imported (with an Excel or even a CSV file this can be a headache!). It is also a smaller file, which is useful for export and import if your dataset is large.  
 
@@ -864,7 +871,7 @@ How to save a network graph, such as a transmission tree, is addressed in the pa
 <!-- ======================================================= -->
 ## Resources {} 
 
-The [R Data Import/Export Manual](https://cran.r-project.org/doc/manuals/r-release/R-data.html)  
+[R Data Import/Export Manual](https://cran.r-project.org/doc/manuals/r-release/R-data.html)  
 [R 4 Data Science chapter on data import](https://r4ds.had.co.nz/data-import.html#data-import)  
 [ggsave() documentation](https://ggplot2.tidyverse.org/reference/ggsave.html)  
 
