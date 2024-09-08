@@ -33,7 +33,7 @@ You will find that using R offers immense benefits in time saved, more consisten
 
 Excel is a well-known software that can be easy for a beginner to use to produce simple analysis and visualizations with "point-and-click". In comparison, it can take a couple weeks to become comfortable with R functions and interface. However, R has evolved in recent years to become much more friendly to beginners.  
 
-Many Excel workflows rely on memory and on repetition - thus, there is much opportunity for error. Furthermore, generally the data cleaning, analysis methodology, and equations used are hidden from view. It can require substantial time for a new colleague to learn what an Excel workbook is doing and how to troubleshoot it. With R, all the steps are explicitly written in the script and can be easily viewed, edited, corrected, and applied to other datasets.   
+Many Excel workflows rely on memory and on repetition - this means there is much opportunity for error. Furthermore, generally the data cleaning, analysis methodology, and equations used are hidden from view. It can require substantial time for a new colleague to learn what an Excel workbook is doing and how to troubleshoot it. With R, all the steps are explicitly written in the script and can be easily viewed, edited, corrected, and applied to other datasets.   
 
 
 **To begin your transition from Excel to R you must adjust your mindset in a few important ways:**  
@@ -43,9 +43,9 @@ Many Excel workflows rely on memory and on repetition - thus, there is much oppo
 
 Use machine-readable "tidy" data instead of messy "human-readable" data. These are the three main requirements for "tidy" data, as explained in this tutorial on ["tidy" data in R](https://r4ds.had.co.nz/tidy-data.html):  
 
-* Each variable must have its own column  
-* Each observation must have its own row  
-* Each value must have its own cell  
+* Each variable must have its own column.  
+* Each observation must have its own row.  
+* Each value must have its own cell.  
 
 To Excel users - think of the role that [Excel "tables"](https://exceljet.net/excel-tables) play in standardizing data and making the format more predictable.  
 
@@ -61,7 +61,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-*The main reason one encounters non-tidy data is because many Excel spreadsheets are designed to prioritize easy reading by humans, not easy reading by machines/software.*  
+*The main reason you might encounter non-tidy data is because many Excel spreadsheets are designed to prioritize easy reading by humans, not easy reading by machines/software.*  
 
 To help you see the difference, below are some fictional examples of **non-tidy data** that prioritize *human*-readability over *machine*-readability:  
 
@@ -190,9 +190,8 @@ Cross-tabulaton of two variables in a 2x2 table is done with **tab** *varname1 v
 
 While this list gives an overview of the basics in translating Stata commands into R, it is not exhaustive. There are many other great resources for Stata users transitioning to R that could be of interest:  
 
-* https://dss.princeton.edu/training/RStata.pdf  
-* https://clanfear.github.io/Stata_R_Equivalency/docs/r_stata_commands.html  
-* http://r4stats.com/books/r4stata/  
+* [R and Stata Equivalencies](https://clanfear.github.io/Stata_R_Equivalency/docs/r_stata_commands.html)
+* [R for Stata users](http://r4stats.com/books/r4stata/  )
 
 
 
@@ -219,7 +218,7 @@ Analysis is usually conducted by writing a SAS program in the Editor window.|Ana
 
 **SAS**                          | **R**  
 -------------------------------- | ---------------------------------------------
-Working directories can be either absolute, or relative to a project root folder by defining the root folder using `%let rootdir=/root path; %include “&rootdir/subfoldername/filename”`|Working directories can be either absolute, or relative to a project root folder by using the **here** package (see [Import and export](importing.qmd)))
+Working directories can be either absolute, or relative to a project root folder by defining the root folder using `%let rootdir=/root path; %include “&rootdir/subfoldername/filename”`|Working directories can be either absolute, or relative to a project root folder by using the **here** package (see [Import and export](importing.qmd))
 See current working directory with `%put %sysfunc(getoption(work));`|Use `getwd()` or `here()` (if using the **here** package), with empty parentheses
 Set working directory with `libname “folder location”`|Use `setwd(“folder location”)`, or `set_here("folder location)` if using **here** package
 
@@ -229,7 +228,7 @@ Set working directory with `libname “folder location”`|Use `setwd(“folder 
 **SAS**                          | **R**  
 -------------------------------- | ---------------------------------------------
 Use `Proc Import` procedure or using `Data Step Infile` statement.|Use `import()` from **rio** package for almost all filetypes. Specific functions exist as alternatives (see [Import and export](importing.qmd))
-Reading in csv files is done by using `Proc Import datafile=”filename.csv” out=work.filename dbms=CSV; run;` OR using [Data Step Infile statement](http://support.sas.com/techsup/technote/ts673.pdf)|Use `import("filename.csv")`
+Reading in csv files is done by using `Proc Import datafile=”filename.csv” out=work.filename dbms=CSV; run;` OR using [Data Step Infile statement](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lestmtsref/n1rill4udj0tfun1fvce3j401plo.htm)|Use `import("filename.csv")`
 Reading in xslx files is done by using `Proc Import datafile=”filename.xlsx” out=work.filename dbms=xlsx; run;` OR using [Data Step Infile statement](http://support.sas.com/techsup/technote/ts673.pdf)|Use import("filename.xlsx")
 Browse your data in a new window by opening the Explorer window and select desired library and the dataset|View a dataset in the RStudio source pane using View(dataset). You need to specify your dataset name to the function in R because multiple datasets can be held at the same time. Note capital “V” in this function
 
@@ -252,7 +251,7 @@ Datasets are combined using `Merge` statement in the Data Step. The datasets to 
 -------------------------------- | ---------------------------------------------
 Get a high-level overview of your dataset using `Proc Summary` procedure, which provides the variable names and descriptive statistics|Get a high-level overview of your dataset using `summary(dataset)` or `skim(dataset)` from the **skimr** package
 Tabulate counts of a variable using `proc freq data=Dataset; Tables varname; Run;`|See the page on [Descriptive tables](tables_descriptive.qmd). Options include `table()` from **base** R, and `tabyl()` from **janitor** package, among others. Note you will need to specify the dataset and column name as R holds multiple datasets.
-Cross-tabulation of two variables in a 2x2 table is done with `proc freq data=Dataset; Tables rowvar*colvar; Run;`|Again, you can use `table()`, `tabyl()` or other options as described in the [Descriptive tables](tables_desciptive.qmd) page.  
+Cross-tabulation of two variables in a 2x2 table is done with `proc freq data=Dataset; Tables rowvar*colvar; Run;`|Again, you can use `table()`, `tabyl()` or other options as described in the [Descriptive tables](tables_descriptive.qmd) page.  
 
 **Some useful resources:**  
 
@@ -265,7 +264,7 @@ Cross-tabulation of two variables in a 2x2 table is done with `proc freq data=Da
 ## Data interoperability  
 <!-- ======================================================= -->
 
-see the [Import and export](importing.qmd)(importing.qmd) page for details on how the R package **rio** can import and export files such as STATA .dta files, SAS .xpt and.sas7bdat files, SPSS .por and.sav files, and many others.  
+see the [Import and export](importing.qmd) page for details on how the R package **rio** can import and export files such as STATA .dta files, SAS .xpt and.sas7bdat files, SPSS .por and.sav files, and many others.  
 
 
 
