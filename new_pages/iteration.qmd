@@ -5,14 +5,14 @@ Epidemiologists often are faced with repeating analyses on subgroups such as cou
 
 This page will introduce two approaches to iterative operations - using *for loops* and using the package **purrr**.  
 
-1) *for loops* iterate code across a series of inputs, but are less common in R than in other programming languages. Nevertheless, we introduce them here as a learning tool and reference  
-2) The **purrr** package is the **tidyverse** approach to iterative operations - it works by "mapping" a function across many inputs (values, columns, datasets, etc.)  
+1) *for loops* iterate code across a series of inputs, but are less common in R than in other programming languages. Nevertheless, we introduce them here as a learning tool and reference. 
+2) The **purrr** package is the **tidyverse** approach to iterative operations - it works by "mapping" a function across many inputs (values, columns, datasets, etc.).  
 
 Along the way, we'll show examples like:  
 
-* Importing and exporting multiple files  
-* Creating epicurves for multiple jurisdictions  
-* Running T-tests for several columns in a data frame  
+* Importing and exporting multiple files.  
+* Creating epicurves for multiple jurisdictions.  
+* Running T-tests for several columns in a data frame.  
 
 In the **purrr** [section](#iter_purrr) we will also provide several examples of creating and handling `lists`.  
 
@@ -75,9 +75,9 @@ You may move quickly through *for loops* to iterating with mapped functions with
 
 A *for loop* has three core parts:  
      
-1) The **sequence** of items to iterate through  
-2) The **operations** to conduct per item in the sequence  
-3) The **container** for the results (optional)  
+1) The **sequence** of items to iterate through.  
+2) The **operations** to conduct per item in the sequence.  
+3) The **container** for the results (optional).  
 
 The basic syntax is: `for (item in sequence) {do operations using item}`. Note the parentheses and the curly brackets. The results could be printed to console, or stored in a container R object.   
 
@@ -111,7 +111,7 @@ hospital_names <- unique(linelist$hospital)
 hospital_names # print
 ```
 
-We have chosen the term `hosp` to represent values from the vector `hospital_names`. For the first iteration of the loop, the value of `hosp` will be ` hospital_names[[1]]`. For the second loop it will be ` hospital_names[[2]]`. And so on...  
+We have chosen the term `hosp` to represent values from the vector `hospital_names`. For the first iteration of the loop, the value of `hosp` will be ` hospital_names[[1]]`. For the second loop it will be ` hospital_names[[2]]`. And so on.  
 
 ```{r, eval=F}
 # a 'for loop' with character sequence
@@ -130,7 +130,7 @@ Below, the sequence is the `names()` (column names) of the `linelist` data frame
 
 For purposes of example, we include operations code inside the *for loop*, which is run for every value in the sequence. In this code, the sequence values (column names) are used to *index* (subset) `linelist`, one-at-a-time. As taught in the [R basics](basics.qmd) page, double branckets `[[ ]]` are used to subset. The resulting column is passed to `is.na()`, then to `sum()` to produce the number of values in the column that are missing. The result is printed to the console - one number for each column.  
 
-A note on indexing with column names - whenever referencing the column itself *do not just write "col"!* `col` represents just the character column name! To refer to the entire column you must use the column name as an *index* on `linelist` via `linelist[[col]]`.  
+A note on indexing with column names - whenever referencing the column itself **do not just write "col"!** `col` represents just the character column name! To refer to the entire column you must use the column name as an *index* on `linelist` via `linelist[[col]]`.  
 
 ```{r}
 for (col in names(linelist)){        # loop runs for each column in linelist; column name represented by "col" 
@@ -300,11 +300,11 @@ First, we save a named vector of the unique hospital names, `hospital_names`. Th
 
 Within the loop operations, you can write R code as normal, but use the "item" (`hosp` in this case) knowing that its value will be changing. Within this loop:  
      
-* A `filter()` is applied to `linelist`, such that column `hospital` must equal the current value of `hosp`  
-* The incidence object is created on the filtered linelist  
-* The plot for the current hospital is created, with an auto-adjusting title that uses `hosp`  
-* The plot for the current hospital is temporarily saved and then printed  
-* The loop then moves onward to repeat with the next hospital in `hospital_names`  
+* A `filter()` is applied to `linelist`, such that column `hospital` must equal the current value of `hosp`.  
+* The incidence object is created on the filtered linelist.  
+* The plot for the current hospital is created, with an auto-adjusting title that uses `hosp`.  
+* The plot for the current hospital is temporarily saved and then printed.  
+* The loop then moves onward to repeat with the next hospital in `hospital_names`.  
 
 ```{r, out.width='50%', message = F}
 # make vector of the hospital names
@@ -406,7 +406,7 @@ One core **purrr** function is `map()`, which "maps" (applies) a function to eac
 
 The basic syntax is `map(.x = SEQUENCE, .f = FUNCTION, OTHER ARGUMENTS)`. In a bit more detail:  
      
-* `.x = ` are the *inputs* upon which the `.f` function will be iteratively applied - e.g. a vector of jurisdiction names, columns in a data frame, or a list of data frames  
+* `.x = ` are the *inputs* upon which the `.f` function will be iteratively applied - e.g. a vector of jurisdiction names, columns in a data frame, or a list of data frames.  
 * `.f = ` is the *function* to apply to each element of the `.x` input - it could be a function like `print()` that already exists, or a custom function that you define. The function is often written after a tilde `~` (details below). 
 
 A few more notes on syntax:  
@@ -430,9 +430,9 @@ knitr::include_graphics(here::here("images", "hospital_linelists_excel_sheets.pn
 
 Here is one approach that uses `map()`:  
      
-1) `map()` the function `import()` so that it runs for each Excel sheet  
-2) Combine the imported data frames into one using `bind_rows()`  
-3) Along the way, preserve the original sheet name for each row, storing this information in a new column in the final data frame  
+1) `map()` the function `import()` so that it runs for each Excel sheet. 
+2) Combine the imported data frames into one using `bind_rows()`.  
+3) Along the way, preserve the original sheet name for each row, storing this information in a new column in the final data frame.  
 
 First, we need to extract the sheet names and save them. We provide the Excel workbook's file path to the function `excel_sheets()` from the package **readxl**, which extracts the sheet names. We store them in a character vector called `sheet_names`.  
 
@@ -635,14 +635,14 @@ It is a bit more complex command, but you can also export each hospital-specific
 
 Again we use `map()`: we take the vector of list element names (shown above) and use `map()` to iterate through them, applying `export()` (from the **rio** package, see [Import and export](importing.qmd) page) on the data frame in the list `linelist_split` that has that name. We also use the name to create a unique file name. Here is how it works:  
      
-* We begin with the vector of character names, passed to `map()` as `.x`  
-* The `.f` function is `export()` , which requires a data frame and a file path to write to  
+* We begin with the vector of character names, passed to `map()` as `.x`.  
+* The `.f` function is `export()` , which requires a data frame and a file path to write to.  
 * The input `.x` (the hospital name) is used *within* `.f` to extract/index that specific element of `linelist_split` list. This results in only one data frame at a time being provided to `export()`.  
 * For example, when `map()` iterates for "Military Hospital", then `linelist_split[[.x]]` is actually `linelist_split[["Military Hospital"]]`, thus returning the second element of `linelist_split` - which is all the cases from Military Hospital.  
 * The file path provided to `export()` is dynamic via use of `str_glue()` (see [Characters and strings](characters_strings.qmd) page):  
-     * `here()` is used to get the base of the file path and specify the "data" folder (note single quotes to not interrupt the `str_glue()` double quotes)  
-* Then a slash `/`, and then again the `.x` which prints the current hospital name to make the file identifiable  
-* Finally the extension ".csv" which `export()` uses to create a CSV file  
+     * `here()` is used to get the base of the file path and specify the "data" folder (note single quotes to not interrupt the `str_glue()` double quotes).  
+* Then a slash `/`, and then again the `.x` which prints the current hospital name to make the file identifiable.  
+* Finally the extension ".csv" which `export()` uses to create a CSV file.  
 
 ```{r, eval=F, message = F, warning=F}
 names(linelist_split) %>%
@@ -716,12 +716,12 @@ Another common use-case is to map a function across many columns. Below, we `map
 
 Recall from the page on [Simple statistical tests](stat_tests.qmd) that `t.test()` can take inputs in a formula format, such as `t.test(numeric column ~ binary column)`. In this example, we do the following:    
      
-* The numeric columns of interest are selected from `linelist` - these become the `.x` inputs to `map()`  
-* The function `t.test()` is supplied as the `.f` function, which is applied to each numeric column  
+* The numeric columns of interest are selected from `linelist` - these become the `.x` inputs to `map()`.  
+* The function `t.test()` is supplied as the `.f` function, which is applied to each numeric column.  
 * Within the parentheses of `t.test()`:  
-  * the first `~` precedes the `.f` that `map()` will iterate over `.x`  
-  * the `.x` represents the current column being supplied to the function `t.test()`  
-  * the second `~` is part of the t-test equation described above  
+  * the first `~` precedes the `.f` that `map()` will iterate over `.x`.  
+  * the `.x` represents the current column being supplied to the function `t.test()`.  
+  * the second `~` is part of the t-test equation described above.  
   * the `t.test()` function expects a binary column on the right-hand side of the equation. We supply the vector `linelist$gender` independently and statically (note that it is not included in `select()`).  
 
 `map()` returns a list, so the output is a list of t-test results - one list element for each numeric column analysed.  
@@ -815,12 +815,12 @@ This is a complex topic - see the Resources section for more complete tutorials.
 
 Here are some of the new approaches and functions that will be used:  
 
-* The function `tibble()` will be used to create a tibble (like a data frame)  
-  * We surround the `tibble()` function with curly brackets `{ }` to prevent the entire `t.test_results` from being stored as the first tibble column  
+* The function `tibble()` will be used to create a tibble (like a data frame).  
+  * We surround the `tibble()` function with curly brackets `{ }` to prevent the entire `t.test_results` from being stored as the first tibble column.  
 * Within `tibble()`, each column is created explicitly, similar to the syntax of `mutate()`:  
-  * The `.` represents `t.test_results`
-  * To create a column with the t-test variable names (the names of each list element) we use `names()` as described above  
-  * To create a column with the p-values we use `map_dbl()` as described above to pull the `p.value` elements and convert them to a numeric vector  
+  * The `.` represents `t.test_results`.
+  * To create a column with the t-test variable names (the names of each list element) we use `names()` as described above.  
+  * To create a column with the p-values we use `map_dbl()` as described above to pull the `p.value` elements and convert them to a numeric vector.  
 
 ```{r}
 t.test_results %>% {
@@ -844,9 +844,9 @@ t.test_results %>%
 
 Once you have this list column, there are several **tidyr** functions (part of **tidyverse**) that help you "rectangle" or "un-nest" these "nested list" columns. Read more about them [here](), or by running `vignette("rectangle")`. In brief:  
 
-* `unnest_wider()` - gives each element of a list-column its own column  
-* `unnest_longer()` - gives each element of a list-column its own row
-* `hoist()` - acts like `unnest_wider()` but you specify which elements to unnest  
+* `unnest_wider()` - gives each element of a list-column its own column.  
+* `unnest_longer()` - gives each element of a list-column its own row.
+* `hoist()` - acts like `unnest_wider()` but you specify which elements to unnest.  
 
 Below, we pass the tibble to `unnest_wider()` specifying the tibble's `means` column (which is a nested list). The result is that `means` is replaced by two new columns, each reflecting the two elements that were previously in each `means` cell.  
 
@@ -866,10 +866,10 @@ t.test_results %>%
 
 Because working with **purrr** so often involves lists, we will briefly explore some **purrr** functions to modify lists. See the Resources section for more complete tutorials on **purrr** functions.    
 
-* `list_modify()` has many uses, one of which can be to remove a list element  
-* `keep()` retains the elements specified to `.p = `, or where a function supplied to `.p = ` evaluates to TRUE  
-* `discard()` removes the elements specified to `.p`, or where a function supplied to `.p = ` evaluates to TRUE  
-* `compact()` removes all empty elements  
+* `list_modify()` has many uses, one of which can be to remove a list element.  
+* `keep()` retains the elements specified to `.p = `, or where a function supplied to `.p = ` evaluates to TRUE.  
+* `discard()` removes the elements specified to `.p`, or where a function supplied to `.p = ` evaluates to TRUE.  
+* `compact()` removes all empty elements.  
 
 Here are some examples using the `combined` list created in the section above on [using map() to import and combine multiple files](#iter_combined) (it contains 6 case linelist data frames):    
 
@@ -916,9 +916,73 @@ combined %>%
 
 ### `pmap()` {.unnumbered}
 
-THIS SECTION IS UNDER CONSTRUCTION  
+The function `pmap()` from the **purrr** package allows us to apply `map_*()` functions over multiple vectors. The "p" in `pmap()` stands for parallel. It works down a a dataset or list sequentially, carrying out your operation. Note, it does **not** refer to parallel [computing](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html).
+
+In `pmap()` you specify a single dataset, or list that contains all of the vectors, or lists, that you want to supply your function. 
+
+This can allow you to very quickly carry out calculations with multiple columns of a dataframe, or lists of information.
+
+For example, here is a simple dataset of three numbers.
+
+```{r, eval = T}
+
+data_generic <- data.frame(
+     A = c(1, 10, 100),
+     B = c(3, 6, 9),
+     C = c(25, 75, 50)
+)
+
+data_generic
+
+```
+
+Here we are going to using the function `sum()` from **base** R to look at what the sum of each row is.
+
+```{r, eval = T}
+
+data_generic %>%    #Our dataset
+     pmap_dbl(sum)      #The function we want to use
+
+```
+
+You can see that the function `pmap_dbl` has gone through each row of the datasets, and summed the values. While there are other ways of carrying out this operation in this example, such as using `rowSums()` from **base**, `pmap_*()` functions are much quicker. Additionally, `pmap_*()` allows you to input custom functions, and specify more complicated inputs.
+
+For example, here we are going to create a new column to count how many symptoms those in our `linelist` dataset have.
+
+```{r, eval = T}
+
+linelist_symptom_count <- linelist %>%                                                     #Our dataset
+     mutate(number_symptoms = linelist %>%                       #Creating a new column to count symptoms
+                 select(fever:vomit) %>%                         #Selecting the columns that indicate the presence of symptoms
+                 pmap_int(~sum(c(...) == "yes", na.rm = T)))    #Here pmap is looking at each row of symptoms, counting which values are set as "yes" and then summing all the values in the row
+
+#Display the results
+linelist_symptom_count %>%
+     select(fever:vomit, number_symptoms) %>%
+     slice(1:10)
 
 
+```
+
+As another example, here we have written our own [custom function](writing_functions.qmd), using `str_glue`, see section on [Characters and strings](characters_strings.qmd) to summarise each patient's gender, age, date of onset, outcome and the date of outcome: 
+
+```{r, eval = T}
+
+#Function
+summarise_function <- function(case_id, gender, age, date_onset, date_outcome, outcome, ...){
+     str_glue("Case {case_id} who had the gender {gender} and the age {age}, had symptom onset on {date_onset}, and had the outcome of {outcome} on {date_outcome}.")
+}
+
+#Run the custom pmap function
+linelist_summary <- linelist %>%
+     pmap_chr(summarise_function)
+
+#Display only the first 3 for ease of viewing
+linelist_summary[1:2]
+
+```
+
+Note that here we did not even have to specify which columns to use, as they are the same name in the function, `summarise_function()` as in the dataset. `pmap_*()` functions automatically map the column or list names to the function.
 
 ## Apply functions  
 
