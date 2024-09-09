@@ -7,9 +7,9 @@ knitr::include_graphics(here::here("images", "deduplication.png"))
 
 This page covers the following de-duplication techniques:  
 
-1. Identifying and removing duplicate rows  
-2. "Slicing" rows to keep only certain rows (e.g. min or max) from each group of rows  
-3. "Rolling-up", or combining values from multiple rows into one row  
+1. Identifying and removing duplicate rows.  
+2. "Slicing" rows to keep only certain rows (e.g. min or max) from each group of rows.  
+3. "Rolling-up", or combining values from multiple rows into one row.  
 
 
 <!-- ======================================================= -->
@@ -24,7 +24,8 @@ This code chunk shows the loading of packages required for the analyses. In this
 pacman::p_load(
   tidyverse,   # deduplication, grouping, and slicing functions
   janitor,     # function for reviewing duplicates
-  stringr)      # for string searches, can be used in "rolling-up" values
+  stringr      # for string searches, can be used in "rolling-up" values
+  )      
 ```
 
 ### Import data {.unnumbered}
@@ -66,9 +67,9 @@ DT::datatable(obs, rownames = FALSE, filter = "top", options = list(pageLength =
 
 A few things to note as you review the data:  
 
-* The first two records are 100% complete duplicates including duplicate `recordID` (must be a computer glitch!)  
-* The second two rows are duplicates, in all columns *except for `recordID`*  
-* Several people had multiple phone encounters, at various dates and times, and as contacts and/or cases  
+* The first two records are 100% complete duplicates including duplicate `recordID` (must be a computer glitch!).  
+* The second two rows are duplicates, in all columns *except for `recordID`*.  
+* Several people had multiple phone encounters, at various dates and times, and as contacts and/or cases.
 * At each encounter, the person was asked if they had **ever** had symptoms, and some of this information is missing.  
 
 
@@ -91,7 +92,7 @@ This section describes how to review and remove duplicate rows in a data frame. 
 
 To quickly review rows that have duplicates, you can use `get_dupes()` from the **janitor** package. *By default*, all columns are considered when duplicates are evaluated - rows returned by the function are 100% duplicates considering the values in *all* columns.  
 
-In the `obs` data frame, the first two rows are *100% duplicates* - they have the same value in every column (including the `recordID` column, which is *supposed* to be unique - it must be some computer glitch). The returned data frame automatically includes a new column `dupe_count` on the right side, showing the number of rows with that combination of duplicate values. 
+In the `obs` data frame, the first two rows are *100% duplicates* - they have the same value in every column (including the `recordID` column, which is *supposed* to be unique). The returned data frame automatically includes a new column `dupe_count` on the right side, showing the number of rows with that combination of duplicate values. 
 
 ```{r, eval=F}
 # 100% duplicates across all columns
@@ -123,7 +124,7 @@ obs %>%
 
 You can also positively specify the columns to consider. Below, only rows that have the same values in the `name` and `purpose` columns are returned. Notice how "amrish" now has `dupe_count` equal to 3 to reflect his three "contact" encounters.  
 
-*Scroll left for more rows**  
+*Scroll left for more rows* 
 
 ```{r, eval=F}
 # duplicates based on name and purpose columns ONLY
@@ -265,12 +266,13 @@ To "slice" a data frame to apply a filter on the rows by row number/position. Th
 The basic `slice()` function accepts numbers and returns rows in those positions. If the numbers provided are positive, only they are returned. If negative, those rows are *not* returned. Numbers must be either all positive or all negative.     
 
 ```{r}
-obs %>% slice(4)  # return the 4th row
+obs %>% 
+     slice(4)  # return the 4th row
 ```
 
 ```{r}
-obs %>% slice(c(2,4))  # return rows 2 and 4
-#obs %>% slice(c(2:4))  # return rows 2 through 4
+obs %>% 
+     slice(c(2,4))  # return rows 2 and 4
 ```
 
 
@@ -284,17 +286,18 @@ There are several variations:  These should be provided with a column and a numb
 
 
 ```{r}
-obs %>% slice_max(encounter, n = 1)  # return rows with the largest encounter number
+obs %>% 
+     slice_max(encounter, n = 1)  # return rows with the largest encounter number
 ```
 
 Use arguments `n = ` or `prop = ` to specify the number or proportion of rows to keep. If not using the function in a pipe chain, provide the data argument first (e.g. `slice(data, n = 2)`). See `?slice` for more information. 
 
 Other arguments:  
 
-`.order_by = ` used in `slice_min()` and `slice_max()` this is a column to order by before slicing.  
-`with_ties = ` TRUE by default, meaning ties are kept.  
-`.preserve = ` FALSE by default. If TRUE then the grouping structure is re-calculated after slicing.  
-`weight_by = ` Optional, numeric column to weight by (bigger number more likely to get sampled).  Also `replace = ` for whether sampling is done with/without replacement.  
+* `.order_by = ` used in `slice_min()` and `slice_max()` this is a column to order by before slicing.  
+* `with_ties = ` TRUE by default, meaning ties are kept.  
+* `.preserve = ` FALSE by default. If TRUE then the grouping structure is re-calculated after slicing.  
+* `weight_by = ` Optional, numeric column to weight by (bigger number more likely to get sampled).  Also * `replace = ` for whether sampling is done with/without replacement.  
 
 <span style="color: darkgreen;">**_TIP:_** When using `slice_max()` and `slice_min()`, be sure to specify/write the `n = `  (e.g. `n = 2`, not just `2`). Otherwise you may get an error `Error: `...` is not empty.` </span>
 
@@ -310,7 +313,9 @@ The `slice_*()` functions can be very useful if applied to a grouped data frame 
 
 This is helpful for de-duplication if you have multiple rows per person but only want to keep one of them. You first use `group_by()` with key columns that are the same per person, and then use a slice function on a column that will differ among the grouped rows.  
 
-In the example below, to keep only the *latest* encounter *per person*, we group the rows by `name` and then use `slice_max()` with `n = 1` on the `date` column. Be aware! To apply a function like `slice_max()` on dates, the date column must be class Date.   
+In the example below, to keep only the *latest* encounter *per person*, we group the rows by `name` and then use `slice_max()` with `n = 1` on the `date` column. 
+
+**Be aware!** To apply a function like `slice_max()` on dates, the date column must be class Date.   
 
 By default, "ties" (e.g. same date in this scenario) are kept, and we would still get multiple rows for some people (e.g. adam). To avoid this we set `with_ties = FALSE`. We get back only one row per person.  
 
@@ -392,7 +397,9 @@ If you want to keep all records but mark only some for analysis, consider a two-
 # 1. Define data frame of rows to keep for analysis
 obs_keep <- obs %>%
   group_by(name) %>%
-  slice_max(encounter, n = 1, with_ties = FALSE) # keep only latest encounter per person
+  slice_max(encounter, 
+            n = 1, 
+            with_ties = FALSE) # keep only latest encounter per person
 
 
 # 2. Mark original data frame
@@ -429,7 +436,7 @@ Then the new column `key_completeness` is created with `mutate()`. The new value
 
 This involves the function `rowSums()` from **base** R. Also used is `.`, which within piping refers to the data frame at that point in the pipe (in this case, it is being subset with brackets `[]`).  
 
-*Scroll to the right to see more rows**  
+*Scroll to the right to see more rows*
 
 ```{r, eval=F}
 # create a "key variable completeness" column
@@ -460,8 +467,8 @@ See the [original data](#dedup_data).
 
 This section describes:  
 
-1) How to "roll-up" values from multiple rows into just one row, with some variations  
-2) Once you have "rolled-up" values, how to overwrite/prioritize the values in each cell  
+1) How to "roll-up" values from multiple rows into just one row, with some variations.  
+2) Once you have "rolled-up" values, how to overwrite/prioritize the values in each cell.  
 
 This tab uses the example dataset from the Preparation tab.  
 
@@ -472,9 +479,9 @@ This tab uses the example dataset from the Preparation tab.
 
 The code example below uses `group_by()` and `summarise()` to group rows by person, and then paste together all unique values within the grouped rows. Thus, you get one summary row per person. A few notes:  
 
-* A suffix is appended to all new columns ("_roll" in this example)  
-* If you want to show only unique values per cell, then wrap the `na.omit()` with `unique()`  
-* `na.omit()` removes `NA` values, but if this is not desired it can be removed `paste0(.x)`...  
+* A suffix is appended to all new columns ("_roll" in this example).  
+* If you want to show only unique values per cell, then wrap the `na.omit()` with `unique()`.  
+* `na.omit()` removes `NA` values, but if this is not desired it can be removed `paste0(.x)`.  
 
 
 
