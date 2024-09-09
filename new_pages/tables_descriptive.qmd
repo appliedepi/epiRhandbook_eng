@@ -13,11 +13,11 @@ Each of these packages has advantages and disadvantages in the areas of code sim
 
 You have several choices when producing tabulation and cross-tabulation summary tables. Some of the factors to consider include code simplicity, customizeability, the desired output (printed to R console, as data frame, or as "pretty" .png/.jpeg/.html image), and ease of post-processing. Consider the points below as you choose the tool for your situation.
 
-* Use `tabyl()` from **janitor** to produce and "adorn" tabulations and cross-tabulations  
-* Use `get_summary_stats()` from **rstatix** to easily generate data frames of numeric summary statistics for multiple columns and/or groups  
-* Use `summarise()` and `count()` from **dplyr** for more complex statistics, tidy data frame outputs, or preparing data for `ggplot()`  
-* Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables  
-* Use `table()` from **base** R if you do not have access to the above packages  
+* Use `tabyl()` from **janitor** to produce and "adorn" tabulations and cross-tabulations.  
+* Use `get_summary_stats()` from **rstatix** to easily generate data frames of numeric summary statistics for multiple columns and/or groups.  
+* Use `summarise()` and `count()` from **dplyr** for more complex statistics, tidy data frame outputs, or preparing data for `ggplot()`.  
+* Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables.  
+* Use `table()` from **base** R if you do not have access to the above packages.  
 
 
 <!-- ======================================================= -->
@@ -45,7 +45,7 @@ pacman::p_load(
 
 ### Import data {.unnumbered}
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export](importing.qmd) page for details).  
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export](importing.qmd) page for details).  
 
 ```{r, echo=F}
 # import the linelist into R
@@ -165,7 +165,7 @@ Use **janitor**'s "adorn" functions to add totals or convert to proportions, per
 Function           | Outcome                          
 -------------------|--------------------------------
 `adorn_totals()`   | Adds totals (`where = ` "row", "col", or "both"). Set `name =` for "Total".  
-`adorn_percentages()` | Convert counts to proportions, with `denominator = ` "row", "col", or "all"  
+`adorn_percentages()` | Convert counts to proportions, with `denominator = ` "row", "col", or "all". 
 `adorn_pct_formatting()` | Converts proportions to percents. Specify `digits =`. Remove the "%" symbol with `affix_sign = FALSE`.  
 `adorn_rounding()` | To round proportions to `digits =` places. To round percents use `adorn_pct_formatting()` with `digits = `.  
 `adorn_ns()` | Add counts to a table of proportions or percents. Indicate `position =` "rear" to show counts in parentheses, or "front" to put the percents in parentheses.  
@@ -281,7 +281,7 @@ See the page on [Simple statistical tests](stat_tests.qmd) for more code and tip
 ### Other tips {.unnumbered}  
 
 * Include the argument `na.rm = TRUE` to exclude missing values from any of the above calculations.  
-* If applying any `adorn_*()` helper functions to tables not created by `tabyl()`, you can specify particular column(s) to apply them to like  `adorn_percentage(,,,c(cases,deaths))` (specify them to the 4th unnamed argument). The syntax is not simple. Consider using `summarise()` instead.  
+* If applying any `adorn_*()` helper functions to tables not created by `tabyl()`, you can specify particular column(s) to apply them to like.  `adorn_percentage(,,,c(cases,deaths))` (specify them to the 4th unnamed argument). The syntax is not simple. Consider using `summarise()` instead.  
 * You can read more detail in the [janitor page](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) and this [tabyl vignette](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html).  
 
 
@@ -316,9 +316,9 @@ linelist %>%
 
 The above command can be shortened by using the `count()` function instead. `count()` does the following:  
 
-1) Groups the data by the columns provided to it  
-2) Summarises them with `n()` (creating column `n`)  
-3) Un-groups the data  
+1) Groups the data by the columns provided to it.  
+2) Summarises them with `n()` (creating column `n`).  
+3) Un-groups the data.  
 
 ```{r}
 linelist %>% 
@@ -358,7 +358,8 @@ To easily display percents, you can wrap the proportion in the function `percent
 age_summary <- linelist %>% 
   count(age_cat) %>%                     # group and count by gender (produces "n" column)
   mutate(                                # create percent of column - note the denominator
-    percent = scales::percent(n / sum(n))) 
+    percent = scales::percent(n / sum(n))
+    ) 
 
 # print
 age_summary
@@ -428,12 +429,12 @@ summary_table  # print
 
 Some tips:  
 
-* Use `sum()` with a logic statement to "count" rows that meet certain criteria (`==`)  
-* Note the use of `na.rm = TRUE` within mathematical functions like `sum()`, otherwise `NA` will be returned if there are any missing values  
-* Use the function `percent()` from the **scales** package to easily convert to percents  
-  * Set `accuracy = ` to 0.1 or 0.01 to ensure 1 or 2 decimal places respectively  
-* Use `round()` from **base** R to specify decimals  
-* To calculate these statistics on the entire dataset, use `summarise()` without `group_by()`  
+* Use `sum()` with a logic statement to "count" rows that meet certain criteria (`==`).  
+* Note the use of `na.rm = TRUE` within mathematical functions like `sum()`, otherwise `NA` will be returned if there are any missing values.  
+* Use the function `percent()` from the **scales** package to easily convert to percents.  
+  * Set `accuracy = ` to 0.1 or 0.01 to ensure 1 or 2 decimal places respectively.  
+* Use `round()` from **base** R to specify decimals.  
+* To calculate these statistics on the entire dataset, use `summarise()` without `group_by()`.
 * You may create columns for the purposes of later calculations (e.g. denominators) that you eventually drop from your data frame with `select()`.  
 
 
@@ -484,7 +485,7 @@ summary_table %>%
 
 *Percentiles* and quantiles in **dplyr** deserve a special mention. To return quantiles, use `quantile()` with the defaults or specify the value(s) you would like with `probs = `.
 
-```{r}
+```{r, warning=FALSE, message=F}
 # get default percentile values of age (0%, 25%, 50%, 75%, 100%)
 linelist %>% 
   summarise(age_percentiles = quantile(age_years, na.rm = TRUE))
@@ -563,14 +564,14 @@ linelist_agg %>%
 
 You can use `summarise()` across multiple columns using `across()`. This makes life easier when you want to calculate the same statistics for many columns. Place `across()` within `summarise()` and specify the following:  
 
-* `.cols = ` as either a vector of column names `c()` or "tidyselect" helper functions (explained below)  
-* `.fns = ` the function to perform (no parentheses) - you can provide multiple within a `list()`
+* `.cols = ` as either a vector of column names `c()` or "tidyselect" helper functions (explained below).  
+* `.fns = ` the function to perform (no parentheses) - you can provide multiple within a `list()`.
 
 Below, `mean()` is applied to several numeric columns. A vector of columns are named explicitly to `.cols = ` and a single function `mean` is specified (no parentheses) to `.fns = `. Any additional arguments for the function (e.g. `na.rm=TRUE`) are provided after `.fns = `, separated by a comma.  
 
 It can be difficult to get the order of parentheses and commas correct when using `across()`. Remember that within `across()` you must include the columns, the functions, and any extra arguments needed for the functions. 
 
-```{r}
+```{r, warning=F, message=F}
 linelist %>% 
   group_by(outcome) %>% 
   summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm),  # columns
@@ -580,7 +581,7 @@ linelist %>%
 
 Multiple functions can be run at once. Below the functions `mean` and `sd` are provided to `.fns = ` within a `list()`. You have the opportunity to provide character names (e.g. "mean" and "sd") which are appended in the new column names.  
 
-```{r}
+```{r, warning=F, message=F}
 linelist %>% 
   group_by(outcome) %>% 
   summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm), # columns
@@ -590,15 +591,15 @@ linelist %>%
 
 Here are those "tidyselect" helper functions you can provide to `.cols = ` to select columns:  
 
-* `everything()`  - all other columns not mentioned  
-* `last_col()`    - the last column  
-* `where()`       - applies a function to all columns and selects those which are TRUE  
-* `starts_with()` - matches to a specified prefix. Example: `starts_with("date")`
-* `ends_with()`   - matches to a specified suffix. Example: `ends_with("_end")`  
-* `contains()`    - columns containing a character string. Example: `contains("time")` 
-* `matches()`     - to apply a regular expression (regex). Example: `contains("[pt]al")`  
-* `num_range()`   - 
-* `any_of()`      - matches if column is named. Useful if the name might not exist. Example: `any_of(date_onset, date_death, cardiac_arrest)`  
+* `everything()`  - all other columns not mentioned.  
+* `last_col()`    - the last column.  
+* `where()`       - applies a function to all columns and selects those which are `TRUE`.  
+* `starts_with()` - matches to a specified prefix. Example: `starts_with("date")`.
+* `ends_with()`   - matches to a specified suffix. Example: `ends_with("_end")`.  
+* `contains()`    - columns containing a character string. Example: `contains("time")`. 
+* `matches()`     - to apply a regular expression (regex). Example: `contains("[pt]al")`.  
+* `num_range()`   - matches a numerical range. Example: `num_range("wk", 1:5)` would select columns with the prefix "wk" and the number 1:5 after.
+* `any_of()`      - matches if column is named. Useful if the name might not exist. Example: `any_of(date_onset, date_death, cardiac_arrest)`.  
 
 
 For example, to return the mean of every numeric column use `where()` and provide the function `as.numeric()` (without parentheses). All this remains within the `across()` command.  
@@ -831,7 +832,7 @@ table
 
 If you want to print your summary statistics in a pretty, publication-ready graphic, you can use the **gtsummary** package and its function `tbl_summary()`. The code can seem complex at first, but the outputs look very nice and print to your RStudio Viewer panel as an HTML image. Read a [vignette here](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html).    
 
-You can also add the results of statistical tests to **gtsummary** tables. This process is described in the **gtsummary** section of the [Simple statistical tests](#stats_gt) page.  
+You can also add the results of statistical tests to **gtsummary** tables. This process is described in the **gtsummary** section of the [Simple statistical tests](descriptive_statistics.qmd) page.  
 
 To introduce `tbl_summary()` we will show the most basic behavior first, which actually produces a large and beautiful table. Then, we will examine in detail how to make adjustments and more tailored tables. 
 
@@ -934,6 +935,18 @@ linelist %>%
       "{min}, {max}")                              # line 3: min and max
     )
 ```
+
+### `tbl_wide_summary()`
+
+You may also want to display your results in *wide* format, rather than *long*. To do so in **gtsummary** you can use the function `tbl_wide_summary()`.
+
+```{r}
+linelist %>% 
+     select(age_years, temp) %>%
+     tbl_wide_summary()
+```
+
+
 There are many other ways to modify these tables, including adding p-values, adjusting color and headings, etc. Many of these are described in the documentation (enter `?tbl_summary` in Console), and some are given in the section on [statistical tests](https://epirhandbook.com/simple-statistical-tests.html).  
 
 
@@ -983,9 +996,9 @@ addmargins(age_by_outcome)
 Converting a `table()` object directly to a data frame is not straight-forward. One approach is demonstrated below:  
 
 1) Create the table, *without using* `useNA = "always"`. Instead convert `NA` values to "(Missing)" with `fct_explicit_na()` from **forcats**.  
-2) Add totals (optional) by piping to `addmargins()`  
-3) Pipe to the **base** R function `as.data.frame.matrix()`  
-4) Pipe the table to the **tibble** function `rownames_to_column()`, specifying the name for the first column  
+2) Add totals (optional) by piping to `addmargins()`.  
+3) Pipe to the **base** R function `as.data.frame.matrix()`.  
+4) Pipe the table to the **tibble** function `rownames_to_column()`, specifying the name for the first column. 
 5) Print, View, or export as desired. In this example we use `flextable()` from package **flextable** as described in the [Tables for presentation](tables_presentation.qmd) page. This will print to the RStudio viewer pane as a pretty HTML image.  
 
 ```{r, warning=F, message=F}
