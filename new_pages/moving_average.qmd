@@ -8,8 +8,8 @@ knitr::include_graphics(here::here("images", "moving_avg_epicurve.png"))
 
 This page will cover two methods to calculate and visualize moving averages:  
 
-1) Calculate with the **slider** package  
-2) Calculate *within* a `ggplot()` command with the **tidyquant** package  
+1) Calculate with the **slider** package.  
+2) Calculate *within* a `ggplot()` command with the **tidyquant** package.  
 
 
 
@@ -62,24 +62,24 @@ The **slider** package provides several "sliding window" functions to compute ro
 
 Here are some of the common functions:  
 
-* `slide_dbl()` - iterates through a *numeric* (hence "_dbl") column performing an operation using a sliding window  
-  * `slide_sum()` - rolling sum shortcut function for `slide_dbl()`  
-  * `slide_mean()` - rolling average shortcut function for `slide_dbl()` 
-* `slide_index_dbl()` - applies the rolling window on a numeric column using a separate column to *index* the window progression (useful if rolling by date with some dates absent)  
-  * `slide_index_sum()` - rolling sum shortcut function with indexing  
-  * `slide_index_mean()` - rolling mean shortcut function with indexing  
+* `slide_dbl()` - iterates through a *numeric* (hence "_dbl") column performing an operation using a sliding window.  
+  * `slide_sum()` - rolling sum shortcut function for `slide_dbl()`.  
+  * `slide_mean()` - rolling average shortcut function for `slide_dbl()`. 
+* `slide_index_dbl()` - applies the rolling window on a numeric column using a separate column to *index* the window progression (useful if rolling by date with some dates absent).  
+  * `slide_index_sum()` - rolling sum shortcut function with indexing.  
+  * `slide_index_mean()` - rolling mean shortcut function with indexing.  
   
 The **slider** package has many other functions that are covered in the Resources section of this page. We briefly touch upon the most common.  
 
 **Core arguments**  
 
-* `.x`, the first argument by default, is the vector to iterate over and to apply the function to  
-* `.i = ` for the "index" versions of the **slider** functions - provide a column to "index" the roll on (see section [below](#roll_index))  
+* `.x`, the first argument by default, is the vector to iterate over and to apply the function to.  
+* `.i = ` for the "index" versions of the **slider** functions - provide a column to "index" the roll on (see section [below](#roll_index)).  
 * `.f = `, the second argument by default, either:  
-  * A function, written without parentheses, like `mean`, or  
-  * A formula, which will be converted into a function. For example `~ .x - mean(.x)` will return the result of the current value minus the mean of the window's value  
+  * A function, written without parentheses, like `mean`, or, 
+  * A formula, which will be converted into a function. For example `~ .x - mean(.x)` will return the result of the current value minus the mean of the window's value.  
   
-* For more details see this [reference material](https://davisvaughan.github.io/slider/reference/slide.html)
+* For more details see this [reference material](https://cran.r-project.org/web/packages/slider/vignettes/slider.html)
 
 
 
@@ -87,9 +87,9 @@ The **slider** package has many other functions that are covered in the Resource
 
 Specify the size of the window by using either `.before`, `.after`, or both arguments:   
 
-* `.before = ` - Provide an integer  
-* `.after = ` - Provide an integer  
-* `.complete = ` - Set this to `TRUE` if you only want calculation performed on complete windows  
+* `.before = ` - Provide an integer.  
+* `.after = ` - Provide an integer.  
+* `.complete = ` - Set this to `TRUE` if you only want calculation performed on complete windows.  
 
 For example, to achieve a 7-day window including the current value and the six previous, use `.before = 6`. To achieve a "centered" window provide the same number to both `.before = ` and `.after = `.    
 
@@ -175,7 +175,7 @@ DT::datatable(rolling, rownames = FALSE, options = list(pageLength = 12, scrollX
 Now you can plot these data using `ggplot()`:  
 
 ```{r}
-ggplot(data = rolling)+
+ggplot(data = rolling) +
   geom_line(mapping = aes(x = date_hospitalisation, y = indexed_7day), size = 1)
 ```
 
@@ -253,22 +253,22 @@ We can now plot the moving averages, displaying the data by group by specifying 
 
 
 ```{r, warning=F, message=F}
-ggplot(data = grouped_roll)+
+ggplot(data = grouped_roll) +
   geom_col(                       # plot daly case counts as grey bars
     mapping = aes(
       x = date_hospitalisation,
       y = new_cases),
     fill = "grey",
-    width = 1)+
+    width = 1) +
   geom_line(                      # plot rolling average as line colored by hospital
     mapping = aes(
       x = date_hospitalisation,
       y = mean_7day_hosp,
       color = hospital),
-    size = 1)+
-  facet_wrap(~hospital, ncol = 2)+ # create mini-plots per hospital
-  theme_classic()+                 # simplify background  
-  theme(legend.position = "none")+ # remove legend
+    size = 1) +
+  facet_wrap(~hospital, ncol = 2) + # create mini-plots per hospital
+  theme_classic() +                 # simplify background  
+  theme(legend.position = "none") + # remove legend
   labs(                            # add plot labels
     title = "7-day rolling average of daily case incidence",
     x = "Date of admission",
@@ -311,7 +311,7 @@ ggplot(data = grouped_roll)+
 <!-- ``` -->
 
 <!-- ```{r} -->
-<!-- ggplot(data = months_delay, mapping = aes(x = month_onset))+ -->
+<!-- ggplot(data = months_delay, mapping = aes(x = month_onset)) + -->
 <!--   geom_line(mapping = aes(y = )) -->
 
 <!-- ``` -->
@@ -330,23 +330,23 @@ Below the `linelist` data are counted by date of onset, and this is plotted as a
 
 By default `geom_ma()` uses a simple moving average (`ma_fun = "SMA"`), but other types can be specified, such as:  
 
-* "EMA" - exponential moving average (more weight to recent observations)  
-* "WMA" - weighted moving average (`wts` are used to weight observations in the moving average)  
-* Others can be found in the function documentation  
+* "EMA" - exponential moving average (more weight to recent observations).  
+* "WMA" - weighted moving average (`wts` are used to weight observations in the moving average).  
+* Others can be found in the function documentation.  
 
 ```{r}
 linelist %>% 
   count(date_onset) %>%                 # count cases per day
   drop_na(date_onset) %>%               # remove cases missing onset date
-  ggplot(aes(x = date_onset, y = n))+   # start ggplot
+  ggplot(aes(x = date_onset, y = n)) +   # start ggplot
     geom_line(                          # plot raw values
       size = 1,
       alpha = 0.2                       # semi-transparent line
-      )+             
+      ) +             
     tidyquant::geom_ma(                 # plot moving average
       n = 7,           
       size = 1,
-      color = "blue")+ 
+      color = "blue") + 
   theme_minimal()                       # simple background
 ```
 
@@ -362,7 +362,7 @@ See this [vignette](https://cran.r-project.org/web/packages/tidyquant/vignettes/
 <!--   mutate(reg_admit_hour = slide(., ~lm(days_onset_hosp ~ hour), .before = 3, .complete = T)) %>%  -->
 <!--   mutate(coeff = reg_admit_hour[[1]]) -->
 
-<!-- ggplot()+ -->
+<!-- ggplot() + -->
 <!--   geom_point(aes(x = hour, y = days_onset_hosp)) -->
 
 <!-- ``` -->
@@ -384,7 +384,7 @@ See the helpful online [vignette for the **slider** package](https://cran.r-proj
 
 The **slider** [github page](https://github.com/DavisVaughan/slider)
 
-A **slider** [vignette](https://davisvaughan.github.io/slider/articles/slider.html)  
+A **slider** [vignette](https://cran.r-project.org/web/packages/slider/vignettes/slider.html)  
 
 [tidyquant vignette](https://cran.r-project.org/web/packages/tidyquant/vignettes/TQ04-charting-with-tidyquant.html)
 
