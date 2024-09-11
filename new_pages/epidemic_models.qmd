@@ -10,8 +10,8 @@ fairly complex analyses with minimal effort. This section will provide an
 overview on how to use these tools to:
 
 * estimate the effective reproduction number R<sub>t</sub> and related statistics
-  such as the doubling time
-* produce short-term projections of future incidence
+  such as the doubling time.
+* produce short-term projections of future incidence.
 
 It is *not* intended as an overview of the methodologies and statistical methods
 underlying these tools, so please refer to the Resources tab for links to some
@@ -302,7 +302,8 @@ that **EpiNow2** requires the column names to  be `date` and `confirm`.
 ## get incidence from onset dates
 cases <- linelist %>%
   group_by(date = date_onset) %>%
-  summarise(confirm = n())
+  summarise(confirm = n()) %>%
+     drop_na()                    #epinow wont run with NA values
 ```
 
 We can then estimate R<sub>t</sub> using the `epinow` function. Some notes on
@@ -324,7 +325,7 @@ the inputs:
 ## run epinow
 epinow_res <- epinow(
   reported_cases = cases,
-  generation_time = generation_time,
+  generation_time = generation_time_opts(generation_time),
   delays = delay_opts(incubation_period),
   return_output = TRUE,
   verbose = TRUE,
@@ -984,7 +985,7 @@ DT::datatable(
 
 * [Here is the paper](https://www.sciencedirect.com/science/article/pii/S1755436519300350) describing
   the methodology implemented in **EpiEstim**.
-* [Here is the paper](https://wellcomeopenresearch.org/articles/5-112/v1) describing
+* [Here is the paper](https://wellcomeopenresearch.org/articles/5-112) describing
   the methodology implemented in **EpiNow2**.
 * [Here is a paper](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008409) describing
   various methodological and practical considerations for estimating R<sub>t</sub>.
