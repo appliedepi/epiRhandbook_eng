@@ -33,13 +33,13 @@ eventually have a section on sampling frames as well as sample size calculations
 
 
 
-1.  Survey data 
-2.  Observation time 
-3.  Weighting 
-4.  Survey design objects
-5.  Descriptive analysis 
-6.  Weighted proportions
-7.  Weighted rates 
+1.  Survey data. 
+2.  Observation time. 
+3.  Weighting. 
+4.  Survey design objects.
+5.  Descriptive analysis. 
+6.  Weighted proportions.
+7.  Weighted rates. 
 
 
 <!-- ======================================================= -->
@@ -243,31 +243,6 @@ we will demonstrate code for:
 - Cluster 
 - Stratified and cluster 
 
-As described above (depending on how you design your questionnaire) the data for 
-each level would be exported as a separate dataset from Kobo. In our example there
-is one level for households and one level for individuals within those households. 
-
-These two levels are linked by a unique identifier. 
-For a Kobo dataset this variable is "_index" at the household level, which 
-matches the "_parent_index" at the individual level.
-This will create new rows for household with each matching individual, 
-see the handbook section on [joining](https://epirhandbook.com/joining-data.html)
-for details. 
-
-```{r merge_data_levels, eval = FALSE}
-
-## join the individual and household data to form a complete data set
-survey_data <- left_join(survey_data_hh, 
-                         survey_data_indiv,
-                         by = c("_index" = "_parent_index"))
-
-
-## create a unique identifier by combining indeces of the two levels 
-survey_data <- survey_data %>% 
-     mutate(uid = str_glue("{index}_{index_y}"))
-
-```
-
 <!-- ======================================================= -->
 ## Observation time {  }
 
@@ -320,14 +295,14 @@ We can use the `find_start_date()` function from **sitrep** to fine the causes f
 the dates and then use that to calculate the difference between days (person-time). 
 
 start date: 
-Earliest appropriate arrival event within your recall period
+Earliest appropriate arrival event within your recall period.
 Either the beginning of your recall period (which you define in advance), or a 
-date after the start of recall if applicable (e.g. arrivals or births)
+date after the start of recall if applicable (e.g. arrivals or births).
 
 end date: 
-Earliest appropriate departure event within your recall period
+Earliest appropriate departure event within your recall period.
 Either the end of your recall period, or a date before the end of recall 
-if applicable (e.g. departures, deaths)
+if applicable (e.g. departures, deaths).
 
 ```{r observation_time}
 
@@ -459,19 +434,18 @@ survey_data <- survey_data %>%
 <!-- ======================================================= -->
 ## Survey design objects {  }
 
-Create survey object according to your study design. 
-Used the same way as data frames to calculate weight proportions etc. 
-Make sure that all necessary variables are created before this. 
+Next you should create a survey object according to your study design. This is used in the same way as data frames to calculate weight proportions and other aspects of survey analysis. You should make sure all your necessary variables are created before this.
 
-There are four options, comment out those you do not use: 
+There are four options:
 - Simple random 
 - Stratified 
 - Cluster 
 - Stratified cluster
 
-For this template - we will pretend that we cluster surveys in two separate 
+In the template below - we will pretend that we cluster surveys in two separate 
 strata (health districts A and B). 
-So to get overall estimates we need have combined cluster and strata weights. 
+
+To get overall estimates we need to have combined cluster and strata weights. 
 
 As mentioned previously, there are two packages available for doing this. The 
 classic one is **survey** and then there is a wrapper package called **srvyr** 
@@ -572,9 +546,9 @@ alluvial/sankey diagrams.
 
 In general, you should consider including the following descriptive analyses:  
 
-- Final number of clusters, households and individuals included  
-- Number of excluded individuals and the reasons for exclusion 
-- Median (range) number of households per cluster and individuals per household 
+- Final number of clusters, households and individuals included.  
+- Number of excluded individuals and the reasons for exclusion. 
+- Median (range) number of households per cluster and individuals per household. 
 
 
 ### Sampling bias 
@@ -646,11 +620,11 @@ left_join(ag, propcount, by = "age_group", suffix = c("", "_pop")) %>%
 
 Demographic (or age-sex) pyramids are an easy way of visualising the distribution
 in your survey population. It is also worth considering creating 
-[descriptive tables](https://epirhandbook.com/descriptive-tables.html) of age 
+[descriptive tables](tables_descriptive.qmd) of age 
 and sex by survey strata. 
 We will demonstrate using the **apyramid** package as it allows for weighted 
 proportions using our survey design object created above. Other options for creating
-[demographic pyramids](https://epirhandbook.com/demographic-pyramids-and-likert-scales.html)
+[demographic pyramids](age_pyramid.qmd)
 are covered extensively in that chapter of the handbook. We will also use a 
 wrapper function from **apyramid** called `age_pyramid()` which saves a few lines
 of coding for producing a plot with proportions. 
@@ -823,12 +797,9 @@ with associated confidence intervals and design effect.
 There are four different options using functions from the following packages: 
 **survey**, **srvyr**, **sitrep** and **gtsummary**. 
 For minimal coding to produce a standard epidemiology style table, we would 
-recommend the **sitrep** function - which is a wrapper for **srvyr** code; note 
-however that this is not yet on CRAN and may change in the future. 
+recommend the **sitrep** function - which is a wrapper for **srvyr** code.
 Otherwise, the **survey** code is likely to be the most stable long-term, whereas 
-**srvyr** will fit most nicely within tidyverse work-flows. While **gtsummary** 
-functions hold a lot of potential, they appear to be experimental and incomplete
-at the time of writing. 
+**srvyr** will fit most nicely within tidyverse work-flows. As another alternative, **gtsummary** offers an easy way to display survey data following its update to versions >=2.0.
 
 
 ### **Survey** package 
@@ -1017,43 +988,20 @@ survey_design %>%
 
 ### **Gtsummary** package
 
-With **gtsummary** there does not seem to be inbuilt functions yet to add confidence
-intervals or design effect. 
-Here we show how to define a function for adding confidence intervals and then 
-add confidence intervals to a **gtsummary** table created using the `tbl_svysummary()` 
-function. 
-
+With **gtsummary** we can use the function `tbl_svysummary()` and the addition `add_ci()` to add confidence intervals.
 
 ```{r gtsummary_table}
-
-
-confidence_intervals <- function(data, variable, by, ...) {
-  
-  ## extract the confidence intervals and multiply to get percentages
-  props <- svyciprop(as.formula(paste0( "~" , variable)),
-              data, na.rm = TRUE)
-  
-  ## extract the confidence intervals 
-  as.numeric(confint(props) * 100) %>% ## make numeric and multiply for percentage
-    round(., digits = 1) %>%           ## round to one digit
-    c(.) %>%                           ## extract the numbers from matrix
-    paste0(., collapse = "-")          ## combine to single character
-}
 
 ## using the survey package design object
 tbl_svysummary(base_survey_design, 
                include = c(arrived, left, died),   ## define variables want to include
                statistic = list(everything() ~ c("{n} ({p}%)"))) %>% ## define stats of interest
-  add_n() %>%  ## add the weighted total 
-  add_stat(fns = everything() ~ confidence_intervals) %>% ## add CIs
-  ## modify the column headers
-  modify_header(
-    list(
-      n ~ "**Weighted total (N)**",
-      stat_0 ~ "**Weighted Count**",
-      add_stat_1 ~ "**95%CI**"
-    )
-    )
+     add_ci() %>% ## add confidence intervals
+  add_n() %>%
+     modify_header(label = list(
+          n ~ "**Weighted total (N)**",
+          stat_0 ~ "**Weighted count**"
+     ))
 
 ```
 

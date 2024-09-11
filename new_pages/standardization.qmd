@@ -21,11 +21,11 @@ Let's say we would like to the standardize mortality rate by age and sex for cou
 
 To show how standardization is done, we will use fictitious population counts and death counts from  country A and country B, by age (in 5 year categories) and sex (female, male). To make the datasets ready for use, we will perform the following preparation steps:  
 
-1. Load packages  
-2. Load datasets  
-3. Join the population and death data from the two countries
-4. Pivot longer so there is one row per age-sex stratum
-5. Clean the reference population (world standard population) and join it to the country data  
+1. Load packages. 
+2. Import datasets.  
+3. Join the population and death data from the two countries.
+4. Pivot longer so there is one row per age-sex stratum.
+5. Clean the reference population (world standard population) and join it to the country data.  
 
 In your scenario, your data may come in a different format. Perhaps your data are by province, city, or other catchment area. You may have one row for each death and information on age and sex for each (or a significant proportion) of these deaths. In this case, see the pages on [Grouping data](grouping.qmd), [Pivoting data](pivoting.qmd), and [Descriptive tables](tables_descriptive.qmd) to create a dataset with event and population counts per age-sex stratum.  
 
@@ -44,7 +44,8 @@ pacman::p_load(
      frailtypack,         # needed for dsr, for frailty models
      dsr,                 # standardise rates
      PHEindicatormethods, # alternative for rate standardisation
-     tidyverse)           # data management and visualization
+     tidyverse            # data management and visualization
+)
 ```
 
 
@@ -178,22 +179,24 @@ rio::export(B_deaths, here::here("data", "standardization", "deaths_countryB.csv
 
 We need to join and transform these data in the following ways:  
 
-* Combine country populations into one dataset and pivot "long" so that each age-sex stratum is one row  
-* Combine country death counts into one dataset and pivot "long" so each age-sex stratum is one row  
-* Join the deaths to the populations  
+* Combine country populations into one dataset and pivot "long" so that each age-sex stratum is one row.  
+* Combine country death counts into one dataset and pivot "long" so each age-sex stratum is one row.  
+* Join the deaths to the populations.  
 
 First, we combine the country populations datasets, pivot longer, and do minor cleaning. See the page on [Pivoting data](pivoting.qmd) for more detail.  
 
 ```{r}
 pop_countries <- A_demo %>%  # begin with country A dataset
-     bind_rows(B_demo) %>%        # bind rows, because cols are identically named
+     mutate(Country = "A") %>%    # add in a country identifier
+     bind_rows(B_demo %>%                             # bind rows, because cols are identically named
+                    mutate(Country = "B")) %>%        # add in country identifier
      pivot_longer(                       # pivot longer
           cols = c(m, f),                   # columns to combine into one
           names_to = "Sex",                 # name for new column containing the category ("m" or "f") 
           values_to = "Population") %>%     # name for new column containing the numeric values pivoted
      mutate(Sex = recode(Sex,            # re-code values for clarity
-          "m" = "Male",
-          "f" = "Female"))
+                         "m" = "Male",
+                         "f" = "Female"))
 ```
 
 The combined population data now look like this (click through to see countries A and B):  
@@ -260,7 +263,7 @@ DT::datatable(country_data, rownames = FALSE, options = list(pageLength = 5, scr
 
 ### Load reference population {.unnumbered}  
 
-Lastly, for the direct standardisation, we import the reference population (world "standard population" by sex)
+Lastly, for the direct standardisation, we import the reference population (world "standard population" by sex):
 
 ```{r, echo=F}
 # Reference population
@@ -291,6 +294,7 @@ Furthermore, the package **dsr** expects that in the standard population, the co
 ```{r}
 # Remove specific string from column values
 standard_pop_clean <- standard_pop_data %>%
+     rename(age_cat5 = AgeGroup) %>%                 #Change name of age group column to match that in our population data and death counts
      mutate(
           age_cat5 = str_replace_all(age_cat5, "years", ""),   # remove "year"
           age_cat5 = str_replace_all(age_cat5, "plus", ""),    # remove "plus"
@@ -484,10 +488,10 @@ knitr::kable(mortality_is_rate_phe_A)
 <!-- ======================================================= -->
 ## Resources {  }
 
-If you would like to see another reproducible example using **dsr** please see [this vignette]( https://mran.microsoft.com/snapshot/2020-02-12/web/packages/dsr/vignettes/dsr.html)  
+If you would like to see another reproducible example using **dsr** please see [this vignette]( https://mran.microsoft.com/snapshot/2020-02-12/web/packages/dsr/vignettes/dsr.html).  
 
-For another example using **PHEindicatormethods**, please go to [this website](https://mran.microsoft.com/snapshot/2018-10-22/web/packages/PHEindicatormethods/vignettes/IntroductiontoPHEindicatormethods.html)  
+For another example using **PHEindicatormethods**, please go to [this website](https://cran.r-project.org/web/packages/PHEindicatormethods/vignettes/Introduction_to_PHEindicatormethods.html).  
 
-See the **PHEindicatormethods** [reference pdf file](https://cran.r-project.org/web/packages/PHEindicatormethods/PHEindicatormethods.pdf)  
+See the **PHEindicatormethods** [reference pdf file](https://cran.r-project.org/web/packages/PHEindicatormethods/PHEindicatormethods.pdf).  
 
 

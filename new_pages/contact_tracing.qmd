@@ -1,6 +1,6 @@
 
 # Contact tracing { }
-
+\n
 
 This page demonstrates descriptive analysis of contact tracing data, addessing some key considerations and approaches unique to these kinds of data.  
 
@@ -8,7 +8,7 @@ This page references many of the core R data management and visualisation compet
 
 For demonstration purposes we will use sample contact tracing data from the [Go.Data](https://www.who.int/tools/godata) platform. The principles covered here will apply for contact tracing data from other platforms - you may just need to undergo different data pre-processing steps depending on the structure of your data.  
 
-You can read more about the Go.Data project on the [Github Documentation site](https://worldhealthorganization.github.io/godata/) or [Community of Practice](https://community-godata.who.int/). 
+You can read more about the Go.Data project on the [Github Documentation site](https://worldhealthorganization.github.io/godata/). 
 
 ## Preparation
 
@@ -85,9 +85,9 @@ DT::datatable(cases, rownames = FALSE, options = list(pageLength = 5, scrollX=T)
 
 These data are a table of all the contacts and information about them. Again, provide your own file path. After importing we perform a few preliminary data cleaning steps including:  
 
-* Set age_class as a factor and reverse the level order so that younger ages are first  
-* Select only certain column, while re-naming a one of them  
-* Artificially assign rows with missing admin level 2 to "Djembe", to improve clarity of some example visualisations  
+* Set age_class as a factor and reverse the level order so that younger ages are first.  
+* Select only certain column, while re-naming a one of them.  
+* Artificially assign rows with missing admin level 2 to "Djembe", to improve clarity of some example visualisations.  
 
 
 ```{r}
@@ -170,7 +170,7 @@ apyramid::age_pyramid(
   split_by = "gender") +                             # gender for halfs of pyramid
   labs(
     fill = "Gender",                                 # title of legend
-    title = "Age/Sex Pyramid of COVID-19 contacts")+ # title of the plot
+    title = "Age/Sex Pyramid of COVID-19 contacts") + # title of the plot
   theme_minimal()                                    # simple background
 ```
 
@@ -200,10 +200,10 @@ apyramid::age_pyramid(
   split_by = "category") +                           # by cases and contacts
   scale_fill_manual(
     values = c("orange", "purple"),                  # to specify colors AND labels
-    labels = c("Case", "Contact"))+
+    labels = c("Case", "Contact")) +
   labs(
     fill = "Legend",                                           # title of legend
-    title = "Age/Sex Pyramid of COVID-19 contacts and cases")+ # title of the plot
+    title = "Age/Sex Pyramid of COVID-19 contacts and cases") + # title of the plot
   theme_minimal()                                              # simple background
 ```
 
@@ -217,12 +217,12 @@ occ_plot_data <- cases %>%
   count(occupation)                                          # get counts by occupation
   
 # Make pie chart
-ggplot(data = occ_plot_data, mapping = aes(x = "", y = n, fill = occupation))+
+ggplot(data = occ_plot_data, mapping = aes(x = "", y = n, fill = occupation)) +
   geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start = 0) +
   labs(
     fill = "Occupation",
-    title = "Known occupations of COVID-19 cases")+
+    title = "Known occupations of COVID-19 cases") +
   theme_minimal() +                    
   theme(axis.line = element_blank(),
         axis.title = element_blank(),
@@ -250,10 +250,10 @@ contacts_per_case
 We use `geom_histogram()` to plot these data as a histogram.  
 
 ```{r, warning=F, message=F}
-ggplot(data = contacts_per_case)+        # begin with count data frame created above
-  geom_histogram(mapping = aes(x = n))+  # print histogram of number of contacts per case
-  scale_y_continuous(expand = c(0,0))+   # remove excess space below 0 on y-axis
-  theme_light()+                         # simplify background
+ggplot(data = contacts_per_case) +        # begin with count data frame created above
+  geom_histogram(mapping = aes(x = n)) +  # print histogram of number of contacts per case
+  scale_y_continuous(expand = c(0,0)) +   # remove excess space below 0 on y-axis
+  theme_light() +                         # simplify background
   labs(
     title = "Number of contacts per case",
     y = "Cases",
@@ -295,7 +295,7 @@ followups %>%
   filter(n > 1)                             # view records where count is more than 1  
 ```
 
-In our example data, the only records that this applies to are ones missing an ID! We can remove those. But, for purposes of demonstration we will go show the steps for de-duplication so there is only one follow-up encoutner per person per day. See the page on [De-duplication](deduplication.qmd) for more detail. We will assume that the most recent encounter record is the correct one. We also take the opportunity to clean the `followup_number` column (the "day" of follow-up which should range 1 - 14).  
+In our example data, the only records that this applies to are ones missing an ID! We can remove those. But, for purposes of demonstration we will go show the steps for de-duplication so there is only one follow-up encounter per person per day. See the page on [De-duplication](deduplication.qmd) for more detail. We will assume that the most recent encounter record is the correct one. We also take the opportunity to clean the `followup_number` column (the "day" of follow-up which should range 1 - 14).  
 
 ```{r, warning=F, message=F}
 followups_clean <- followups %>%
@@ -328,9 +328,9 @@ As the dates data are continuous, we will use a histogram to plot them with `dat
 We can see that the contacts were identified in waves (presumably corresponding with epidemic waves of cases), and that follow-up completion did not seemingly improve over the course of the epidemic.  
 
 ```{r, warning=F, message=F}
-ggplot(data = followups_clean)+
+ggplot(data = followups_clean) +
   geom_histogram(mapping = aes(x = date_of_followup, fill = followup_status)) +
-  scale_fill_discrete(drop = FALSE)+   # show all factor levels (followup_status) in the legend, even those not used
+  scale_fill_discrete(drop = FALSE) +   # show all factor levels (followup_status) in the legend, even those not used
   theme_classic() +
   labs(
     x = "",
@@ -352,11 +352,11 @@ If your outbreak is small enough, you may want to look at each contact individua
 A convenient visualisation mechanism (if the number of cases is not too large) can be a heat plot, made with `geom_tile()`. See more details in the [heat plot](heatmaps.qmd) page.  
 
 ```{r, warning=F, message=F}
-ggplot(data = followups_clean)+
+ggplot(data = followups_clean) +
   geom_tile(mapping = aes(x = followup_number, y = contact_id, fill = followup_status),
-            color = "grey")+       # grey gridlines
-  scale_fill_manual( values = c("yellow", "grey", "orange", "darkred", "darkgreen"))+
-  theme_minimal()+
+            color = "grey") +       # grey gridlines
+  scale_fill_manual( values = c("yellow", "grey", "orange", "darkred", "darkgreen")) +
+  theme_minimal() +
   scale_x_continuous(breaks = seq(from = 1, to = 14, by = 1))
 ```
 
@@ -375,22 +375,22 @@ plot_by_region <- followups_clean %>%                                        # b
     mapping = aes(x = reorder(admin_2_name, n),     # reorder admin factor levels by the numeric values in column 'n'
                   y = n,                            # heights of bar from column 'n'
                   fill = followup_status,           # color stacked bars by their status
-                  label = n))+                      # to pass to geom_label()              
-  geom_col()+                                     # stacked bars, mapping inherited from above 
+                  label = n)) +                      # to pass to geom_label()              
+  geom_col() +                                     # stacked bars, mapping inherited from above 
   geom_text(                                      # add text, mapping inherited from above
     size = 3,                                         
     position = position_stack(vjust = 0.5), 
     color = "white",           
     check_overlap = TRUE,
-    fontface = "bold")+
-  coord_flip()+
+    fontface = "bold") +
+  coord_flip() +
   labs(
     x = "",
     y = "Number of contacts",
     title = "Contact Followup Status, by Region",
     fill = "Followup Status",
     subtitle = str_glue("Data as of {max(followups_clean$date_of_followup, na.rm=T)}")) +
-  theme_classic()+                                                                      # Simplify background
+  theme_classic() +                                                                      # Simplify background
   facet_wrap(~admin_1_name, strip.position = "right", scales = "free_y", ncol = 1)      # introduce facets 
 
 plot_by_region
@@ -439,12 +439,12 @@ table_data <- followups_clean %>%
 Now, based on our data structure, we will do the following:  
 
 1) Begin with the `followups` data and summarise it to contain, for each unique contact:  
-  * The date of latest record (no matter the status of the encounter)  
-  * The date of latest encounter where the contact was "seen"  
-  * The encounter status at that final "seen" encounter (e.g. with symptoms, without symptoms)  
-2) Join these data to the contacts data, which contains other information such as the overall contact status, date of last exposure to a case, etc. Also we will calculate metrics of interest for each contact such as days since last exposure  
-3) We group the enhanced contact data by geographic region (`admin_2_name`) and calculate summary statistics per region  
-4) Finally, we format the table nicely for presentation  
+  * The date of latest record (no matter the status of the encounter).  
+  * The date of latest encounter where the contact was "seen".  
+  * The encounter status at that final "seen" encounter (e.g. with symptoms, without symptoms).  
+2) Join these data to the contacts data, which contains other information such as the overall contact status, date of last exposure to a case, etc. Also we will calculate metrics of interest for each contact such as days since last exposure.  
+3) We group the enhanced contact data by geographic region (`admin_2_name`) and calculate summary statistics per region.  
+4) Finally, we format the table nicely for presentation.  
 
 
 First we summarise the follow-up data to get the information of interest:  
@@ -586,16 +586,16 @@ and create a heat-map for age.
 
 ```{r, warning=F, message=F}
 
-ggplot(data = long_prop)+       # use long data, with proportions as Freq
+ggplot(data = long_prop) +       # use long data, with proportions as Freq
   geom_tile(                    # visualize it in tiles
     aes(
       x = target_cases,         # x-axis is case age
       y = source_cases,     # y-axis is infector age
-      fill = Freq))+            # color of the tile is the Freq column in the data
+      fill = Freq)) +            # color of the tile is the Freq column in the data
   scale_fill_gradient(          # adjust the fill color of the tiles
     low = "blue",
-    high = "orange")+
-  theme(axis.text.x = element_text(angle = 90))+
+    high = "orange") +
+  theme(axis.text.x = element_text(angle = 90)) +
   labs(                         # labels
     x = "Target case age",
     y = "Source case age",
@@ -609,8 +609,5 @@ ggplot(data = long_prop)+       # use long data, with proportions as Freq
 
 ## Resources  
 
-https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting
-
-https://worldhealthorganization.github.io/godata/
-
-https://community-godata.who.int/
+[Go.Data](https://worldhealthorganization.github.io/godata/)
+[Automated R Reporting using Go.Data API](https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting)
