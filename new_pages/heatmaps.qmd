@@ -4,8 +4,8 @@
 
 Heat plots, also known as "heat maps" or "heat tiles", can be useful visualizations when trying to display 3 variables (x-axis, y-axis, and fill). Below we demonstrate two examples:  
 
-* A visual matrix of transmission events by age ("who infected whom")  
-* Tracking reporting metrics across many facilities/jurisdictions over time  
+* A visual matrix of transmission events by age ("who infected whom").  
+* Tracking reporting metrics across many facilities/jurisdictions over time.  
 
 
 ```{r, out.width = c('50%', '50%'), fig.show='hold', warning=F, message=F, echo=F}
@@ -48,7 +48,7 @@ This page utilizes the case linelist of a simulated outbreak for the transmissio
 
 Heat tiles can be useful to visualize matrices. One example is to display "who-infected-whom" in an outbreak. This assumes that you have information on transmission events.  
 
-Note that the [Contact tracing] page contains another example of making a heat tile contact matrix, using a different (perhaps more simple) dataset where the ages of cases and their sources are neatly aligned in the same row of the data frame. This same data is used to make a *density* map in the [ggplot tips] page. This example below begins from a case linelist and so involves considerable data manipulation prior to achieving a plotable data frame. So there are many scenarios to chose from...  
+Note that the [Contact tracing](contact_tracing.qmd) page contains another example of making a heat tile contact matrix, using a different (perhaps more simple) dataset where the ages of cases and their sources are neatly aligned in the same row of the data frame. This same data is used to make a *density* map in the [ggplot tips](ggplot_tips.qmd) page. This example below begins from a case linelist and so involves considerable data manipulation prior to achieving a plottable data frame. So there are many scenarios to chose from.
 
 
 We begin from the case linelist of a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export](importing.qmd) page for details).  
@@ -69,8 +69,8 @@ linelist <- import("linelist_cleaned.rds")
 
 In this linelist:  
 
-* There is one row per case, as identified by `case_id`  
-* There is a later column `infector` that contains the `case_id` of the *infector*, who is also a case in the linelist  
+* There is one row per case, as identified by `case_id`.  
+* There is a later column `infector` that contains the `case_id` of the *infector*, who is also a case in the linelist.  
 
 
 ```{r message=FALSE, echo=F}
@@ -194,22 +194,22 @@ DT::datatable(head(long_prop, 50), rownames = FALSE, options = list(pageLength =
 
 Now finally we can create the heat plot with **ggplot2** package, using the `geom_tile()` function. See the [ggplot tips](ggplot_tips.qmd) page to learn more extensively about color/fill scales, especially the `scale_fill_gradient()` function.  
 
-* In the aesthetics `aes()` of `geom_tile()` set the x and y as the case age and infector age  
-* Also in `aes()` set the argument `fill = ` to the `Freq` column - this is the value that will be converted to a tile color  
-* Set a scale color with `scale_fill_gradient()` - you can specify the high/low colors  
-  * Note that `scale_color_gradient()` is different! In this case you want the fill  
-* Because the color is made via "fill", you can use the `fill = ` argument in `labs()` to change the legend title  
+* In the aesthetics `aes()` of `geom_tile()` set the x and y as the case age and infector age.  
+* Also in `aes()` set the argument `fill = ` to the `Freq` column - this is the value that will be converted to a tile color.  
+* Set a scale color with `scale_fill_gradient()` - you can specify the high/low colors.  
+  * Note that `scale_color_gradient()` is different! In this case you want the fill.  
+* Because the color is made via "fill", you can use the `fill = ` argument in `labs()` to change the legend title.  
 
 ```{r}
-ggplot(data = long_prop)+       # use long data, with proportions as Freq
+ggplot(data = long_prop) +       # use long data, with proportions as Freq
   geom_tile(                    # visualize it in tiles
     aes(
       x = cases,         # x-axis is case age
       y = infectors,     # y-axis is infector age
-      fill = Freq))+            # color of the tile is the Freq column in the data
+      fill = Freq)) +            # color of the tile is the Freq column in the data
   scale_fill_gradient(          # adjust the fill color of the tiles
     low = "blue",
-    high = "orange")+
+    high = "orange") +
   labs(                         # labels
     x = "Case age",
     y = "Infector age",
@@ -254,16 +254,16 @@ DT::datatable(head(facility_count_data,30), rownames = FALSE, options = list(pag
 
 To achieve this we will do the following data management steps:  
 
-1) Filter the data as appropriate (by place, date)  
-2) Create a week column using `floor_date()` from package **lubridate**  
-    + This function returns the start-date of a given date's week, using a specified start date of each week (e.g. "Mondays")  
-3) The data are grouped by columns "location" and "week" to create analysis units of "facility-week"  
+1) Filter the data as appropriate (by place, date).  
+2) Create a week column using `floor_date()` from package **lubridate**.  
+    + This function returns the start-date of a given date's week, using a specified start date of each week (e.g. "Mondays").  
+3) The data are grouped by columns "location" and "week" to create analysis units of "facility-week".  
 4) The function `summarise()` creates new columns to reflecting summary statistics per facility-week group:  
-    + Number of days per week (7 - a static value)  
-    + Number of reports received from the facility-week (could be more than 7!)  
-    + Sum of malaria cases reported by the facility-week (just for interest)  
-    + Number of *unique* days in the facility-week for which there is data reported  
-    + **Percent of the 7 days per facility-week for which data was reported**  
+    + Number of days per week (7 - a static value).  
+    + Number of reports received from the facility-week (could be more than 7!). 
+    + Sum of malaria cases reported by the facility-week (just for interest).  
+    + Number of *unique* days in the facility-week for which there is data reported.  
+    + **Percent of the 7 days per facility-week for which data was reported**.  
 5) The data frame is joined with `right_join()` to a comprehensive list of all possible facility-week combinations, to make the dataset complete. The matrix of all possible combinations is created by applying `expand()` to those two columns of the data frame as it is at that moment in the pipe chain (represented by `.`). Because a `right_join()` is used, all rows in the `expand()` data frame are kept, and added to `agg_weeks` if necessary. These new rows appear with `NA` (missing) summarized values.  
 
 
@@ -272,7 +272,6 @@ Below we demonstrate step-by-step:
 ```{r, message=FALSE, warning=FALSE}
 # Create weekly summary dataset
 agg_weeks <- facility_count_data %>% 
-  
   # filter the data as appropriate
   filter(
     District == "Spring",
@@ -358,12 +357,12 @@ After running this code, `agg_weeks` contains ` nrow(agg_weeks)` rows.
 
 The `ggplot()` is made using `geom_tile()` from the **ggplot2** package:  
 
-* Weeks on the x-axis is transformed to dates, allowing use of `scale_x_date()`  
-* `location_name` on the y-axis will show all facility names  
-* The `fill` is `p_days_reported`, the performance for that facility-week (numeric)  
-* `scale_fill_gradient()` is used on the numeric fill, specifying colors for high, low, and `NA`  
-* `scale_x_date()` is used on the x-axis specifying labels every 2 weeks and their format  
-* Display themes and labels can be adjusted as necessary
+* Weeks on the x-axis is transformed to dates, allowing use of `scale_x_date()`.  
+* `location_name` on the y-axis will show all facility names.  
+* The `fill` is `p_days_reported`, the performance for that facility-week (numeric).  
+* `scale_fill_gradient()` is used on the numeric fill, specifying colors for high, low, and `NA`.  
+* `scale_x_date()` is used on the x-axis specifying labels every 2 weeks and their format.  
+* Display themes and labels can be adjusted as necessary.
 
 
 
@@ -374,7 +373,7 @@ The `ggplot()` is made using `geom_tile()` from the **ggplot2** package:
 A basic heat plot is produced below, using the default colors, scales, etc. As explained above, within the `aes()` for `geom_tile()` you must provide an x-axis column, y-axis column, **and** a column for the the `fill = `. The fill is the numeric value that presents as tile color.  
 
 ```{r}
-ggplot(data = agg_weeks)+
+ggplot(data = agg_weeks) +
   geom_tile(
     aes(x = week,
         y = location_name,
@@ -386,28 +385,28 @@ ggplot(data = agg_weeks)+
 We can make this plot look better by adding additional **ggplot2** functions, as shown below. See the page on [ggplot tips](ggplot_tips.qmd) for details.  
 
 ```{r, message=FALSE, warning=FALSE}
-ggplot(data = agg_weeks)+ 
+ggplot(data = agg_weeks) + 
   
   # show data as tiles
   geom_tile(
     aes(x = week,
         y = location_name,
         fill = p_days_reported),      
-    color = "white")+                 # white gridlines
+    color = "white") +                 # white gridlines
   
   scale_fill_gradient(
     low = "orange",
     high = "darkgreen",
-    na.value = "grey80")+
+    na.value = "grey80") +
   
   # date axis
   scale_x_date(
     expand = c(0,0),             # remove extra space on sides
     date_breaks = "2 weeks",     # labels every 2 weeks
-    date_labels = "%d\n%b")+     # format is day over month (\n in newline)
+    date_labels = "%d\n%b") +     # format is day over month (\n in newline)
   
   # aesthetic themes
-  theme_minimal()+                                  # simplify background
+  theme_minimal() +                                  # simplify background
   
   theme(
     legend.title = element_text(size=12, face="bold"),
@@ -422,7 +421,7 @@ ggplot(data = agg_weeks)+
     
     plot.title = element_text(hjust=0,size=14,face="bold"),  # title right-aligned, large, bold
     plot.caption = element_text(hjust = 0, face = "italic")  # caption right-aligned and italic
-    )+
+    ) +
   
   # plot labels
   labs(x = "Week",
@@ -478,43 +477,43 @@ agg_weeks <- agg_weeks %>%
 And now the data are re-plotted, with location_name being an ordered factor:  
 
 ```{r, message=FALSE, warning=FALSE}
-ggplot(data = agg_weeks)+ 
+ggplot(data = agg_weeks) + 
   
   # show data as tiles
   geom_tile(
     aes(x = week,
         y = location_name,
         fill = p_days_reported),      
-    color = "white")+                 # white gridlines
+    color = "white") +                 # white gridlines
   
   scale_fill_gradient(
     low = "orange",
     high = "darkgreen",
-    na.value = "grey80")+
+    na.value = "grey80") +
   
   # date axis
   scale_x_date(
     expand = c(0,0),             # remove extra space on sides
     date_breaks = "2 weeks",     # labels every 2 weeks
-    date_labels = "%d\n%b")+     # format is day over month (\n in newline)
+    date_labels = "%d\n%b") +     # format is day over month (\n in newline)
   
   # aesthetic themes
-  theme_minimal()+                                  # simplify background
+  theme_minimal() +                                  # simplify background
   
   theme(
-    legend.title = element_text(size=12, face="bold"),
-    legend.text  = element_text(size=10, face="bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text  = element_text(size = 10, face = "bold"),
     legend.key.height = grid::unit(1,"cm"),           # height of legend key
     legend.key.width  = grid::unit(0.6,"cm"),         # width of legend key
     
-    axis.text.x = element_text(size=12),              # axis text size
-    axis.text.y = element_text(vjust=0.2),            # axis text alignment
-    axis.ticks = element_line(size=0.4),               
-    axis.title = element_text(size=12, face="bold"),  # axis title size and bold
+    axis.text.x = element_text(size = 12),              # axis text size
+    axis.text.y = element_text(vjust = 0.2),            # axis text alignment
+    axis.ticks = element_line(size = 0.4),               
+    axis.title = element_text(size = 12, face = "bold"),  # axis title size and bold
     
-    plot.title = element_text(hjust=0,size=14,face="bold"),  # title right-aligned, large, bold
+    plot.title = element_text(hjust = 0, size = 14, face = "bold"),  # title right-aligned, large, bold
     plot.caption = element_text(hjust = 0, face = "italic")  # caption right-aligned and italic
-    )+
+    ) +
   
   # plot labels
   labs(x = "Week",
@@ -541,51 +540,51 @@ The following code has been added: `geom_text(aes(label = p_days_reported))`. Th
 
   
 ```{r, message=FALSE, warning=FALSE}
-ggplot(data = agg_weeks)+ 
+ggplot(data = agg_weeks) + 
   
   # show data as tiles
   geom_tile(
     aes(x = week,
         y = location_name,
         fill = p_days_reported),      
-    color = "white")+                 # white gridlines
+    color = "white") +                 # white gridlines
   
   # text
   geom_text(
     aes(
       x = week,
       y = location_name,
-      label = p_days_reported))+      # add text on top of tile
+      label = p_days_reported)) +      # add text on top of tile
   
   # fill scale
   scale_fill_gradient(
     low = "orange",
     high = "darkgreen",
-    na.value = "grey80")+
+    na.value = "grey80") +
   
   # date axis
   scale_x_date(
     expand = c(0,0),             # remove extra space on sides
     date_breaks = "2 weeks",     # labels every 2 weeks
-    date_labels = "%d\n%b")+     # format is day over month (\n in newline)
+    date_labels = "%d\n%b") +     # format is day over month (\n in newline)
   
   # aesthetic themes
-  theme_minimal()+                                    # simplify background
+  theme_minimal() +                                    # simplify background
   
   theme(
-    legend.title = element_text(size=12, face="bold"),
-    legend.text  = element_text(size=10, face="bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text  = element_text(size = 10, face = "bold"),
     legend.key.height = grid::unit(1,"cm"),           # height of legend key
     legend.key.width  = grid::unit(0.6,"cm"),         # width of legend key
     
-    axis.text.x = element_text(size=12),              # axis text size
-    axis.text.y = element_text(vjust=0.2),            # axis text alignment
-    axis.ticks = element_line(size=0.4),               
-    axis.title = element_text(size=12, face="bold"),  # axis title size and bold
+    axis.text.x = element_text(size = 12),              # axis text size
+    axis.text.y = element_text(vjust = 0.2),            # axis text alignment
+    axis.ticks = element_line(size = 0.4),               
+    axis.title = element_text(size = 12, face = "bold"),  # axis title size and bold
     
-    plot.title = element_text(hjust=0,size=14,face="bold"),  # title right-aligned, large, bold
+    plot.title = element_text(hjust = 0,size = 14,face = "bold"),  # title right-aligned, large, bold
     plot.caption = element_text(hjust = 0, face = "italic")  # caption right-aligned and italic
-    )+
+    ) +
   
   # plot labels
   labs(x = "Week",
@@ -604,7 +603,7 @@ ggplot(data = agg_weeks)+
 
 [scale_fill_gradient()](https://ggplot2.tidyverse.org/reference/scale_gradient.html)  
 
-[R graph gallery - heatmap](https://ggplot2.tidyverse.org/reference/scale_gradient.html)  
+[R graph gallery - heatmap](https://r-graph-gallery.com/heatmap)  
 
 
 
