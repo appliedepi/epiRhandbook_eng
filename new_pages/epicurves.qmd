@@ -14,11 +14,11 @@ In this page we demonstrate making epidemic curves with the **ggplot2** package,
 
 Also addressed are specific use-cases such as:  
 
-* Plotting aggregated count data  
-* Faceting or producing small-multiples  
-* Applying moving averages  
-* Showing which data are "tentative" or subject to reporting delays  
-* Overlaying cumulative case incidence using a second axis  
+* Plotting aggregated count data.  
+* Faceting or producing small-multiples.  
+* Applying moving averages.  
+* Showing which data are "tentative" or subject to reporting delays.  
+* Overlaying cumulative case incidence using a second axis.  
 
 The **incidence2** package offers alternative approach with easier commands, but as of this writing was undergoing revisions and was not stable. It will be re-added to this chapter when stable.  
 
@@ -128,7 +128,7 @@ Verify that each relevant date column is class Date and has an appropriate range
 
 ```{r, out.width = c('50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
 # check range of onset dates
-ggplot(data = linelist)+
+ggplot(data = linelist) +
   geom_histogram(aes(x = date_onset))
 ```
 
@@ -182,14 +182,14 @@ In the over-arching `ggplot()` command the dataset is provided to `data = `. Ont
 ggplot(data = central_data) +          # set data
   geom_histogram(                      # add histogram
     mapping = aes(x = date_onset),     # map date column to x-axis
-    binwidth = 1)+                     # cases binned by 1 day 
+    binwidth = 1) +                     # cases binned by 1 day 
   labs(title = "Central Hospital - Daily")                # title
 
 # weekly
 ggplot(data = central_data) +          # set data 
   geom_histogram(                      # add histogram
       mapping = aes(x = date_onset),   # map date column to x-axis
-      binwidth = 7)+                   # cases binned every 7 days, starting from first case (!) 
+      binwidth = 7) +                   # cases binned every 7 days, starting from first case (!) 
   labs(title = "Central Hospital - 7-day bins, starting at first case") # title
 ```
 
@@ -218,7 +218,7 @@ This vector can be provided to `geom_histogram()` as `breaks = `:
 ggplot(data = central_data) +  
   geom_histogram(
     mapping = aes(x = date_onset),
-    breaks = monthly_breaks)+         # provide the pre-defined vector of breaks                    
+    breaks = monthly_breaks) +         # provide the pre-defined vector of breaks                    
   labs(title = "Monthly case bins")   # title
 ```
 
@@ -301,26 +301,26 @@ ggplot(data = central_data) +
     # bars
     color = "darkblue",     # color of lines around bars
     fill = "lightblue"      # color of fill within bars
-  )+ 
+  ) + 
     
   # x-axis labels
   scale_x_date(
     expand            = c(0,0),           # remove excess x-axis space before and after case bars
     date_breaks       = "4 weeks",        # date labels and major vertical gridlines appear every 3 Monday weeks
     date_minor_breaks = "week",           # minor vertical lines appear every Monday week
-    date_labels       = "%a\n%d %b\n%Y")+ # date labels format
+    date_labels       = "%a\n%d %b\n%Y") + # date labels format
   
   # y-axis
   scale_y_continuous(
-    expand = c(0,0))+             # remove excess y-axis space below 0 (align histogram flush with x-axis)
+    expand = c(0,0)) +             # remove excess y-axis space below 0 (align histogram flush with x-axis)
   
   # aesthetic themes
-  theme_minimal()+                # simplify plot background
+  theme_minimal() +                # simplify plot background
   
   theme(
     plot.caption = element_text(hjust = 0,        # caption on left side
                                 face = "italic"), # caption in italics
-    axis.title = element_text(face = "bold"))+    # axis titles in bold
+    axis.title = element_text(face = "bold")) +    # axis titles in bold
   
   # labels including dynamic caption
   labs(
@@ -358,8 +358,8 @@ scale_x_date(
       by   = "week"),
    
     # date label format
-    #date_labels = "%a\n%d %b\n%Y")+         # day, above month abbrev., above 2-digit year
-    label = scales::label_date_short())+ # automatic label formatting
+    #date_labels = "%a\n%d %b\n%Y") +         # day, above month abbrev., above 2-digit year
+    label = scales::label_date_short()) + # automatic label formatting
 
 ```
 
@@ -411,7 +411,7 @@ ggplot(data = linelist) +     # begin with linelist (many hospitals)
 * For more tips on color scales and palettes, see the page on [ggplot basics](ggplot_basics.qmd).  
 
 ```{r, warning=F, message=F}
-ggplot(data = linelist)+           # begin with linelist (many hospitals)
+ggplot(data = linelist) +           # begin with linelist (many hospitals)
   
   # make histogram
   geom_histogram(
@@ -425,7 +425,7 @@ ggplot(data = linelist)+           # begin with linelist (many hospitals)
     closed = "left",               # count cases from start of breakpoint
 
     # Color around bars
-    color = "black")+              # border color of each bar
+    color = "black") +              # border color of each bar
   
   # manual specification of colors
   scale_fill_manual(
@@ -469,7 +469,7 @@ ggplot(plot_data) +                     # Use NEW dataset with hospital as re-or
     
     closed = "left",                    # count cases from start of breakpoint
 
-    color = "black")+                   # border color around each bar
+    color = "black") +                   # border color around each bar
     
   # x-axis labels
   scale_x_date(
@@ -480,21 +480,21 @@ ggplot(plot_data) +                     # Use NEW dataset with hospital as re-or
   
   # y-axis
   scale_y_continuous(
-    expand = c(0,0))+                   # remove excess y-axis space below 0
+    expand = c(0,0)) +                   # remove excess y-axis space below 0
   
   # manual specification of colors, ! attention to order
   scale_fill_manual(
     values = c("grey", "beige", "black", "orange", "blue", "brown"),
     labels = c("St. Mark's Maternity Hospital (SMMH)" = "St. Mark's"),
-    name = "Hospital")+ 
+    name = "Hospital") + 
   
   # aesthetic themes
-  theme_minimal()+                      # simplify plot background
+  theme_minimal() +                      # simplify plot background
   
   theme(
     plot.caption = element_text(face = "italic", # caption on left side in italics
                                 hjust = 0), 
-    axis.title = element_text(face = "bold"))+   # axis titles in bold
+    axis.title = element_text(face = "bold")) +   # axis titles in bold
   
   # labels
   labs(
@@ -533,7 +533,7 @@ Side-by-side display of group bars (as opposed to stacked) is specified within `
 If there are more than two value groups, these can become difficult to read. Consider instead using a faceted plot (small multiples). To improve readability in this example, missing gender values are removed.  
 
 ```{r, warning=F, message=F}
-ggplot(central_data %>% drop_na(gender))+   # begin with Central Hospital cases dropping missing gender
+ggplot(central_data %>% drop_na(gender)) +   # begin with Central Hospital cases dropping missing gender
     geom_histogram(
         mapping = aes(
           x = date_onset,
@@ -547,26 +547,26 @@ ggplot(central_data %>% drop_na(gender))+   # begin with Central Hospital cases 
         
         color = "black",          # bar edge color
         
-        position = "dodge")+      # SIDE-BY-SIDE bars
+        position = "dodge") +      # SIDE-BY-SIDE bars
                       
   
   # The labels on the x-axis
   scale_x_date(expand            = c(0,0),          # remove excess x-axis space below and after case bars
                date_breaks       = "3 weeks",       # labels appear every 3 Monday weeks
                date_minor_breaks = "week",          # vertical lines appear every Monday week
-               label = scales::label_date_short())+ # efficient date labels
+               label = scales::label_date_short()) + # efficient date labels
   
   # y-axis
-  scale_y_continuous(expand = c(0,0))+             # removes excess y-axis space between bottom of bars and the labels
+  scale_y_continuous(expand = c(0,0)) +             # removes excess y-axis space between bottom of bars and the labels
   
   #scale of colors and legend labels
   scale_fill_manual(values = c("brown", "orange"),  # specify fill colors ("values") - attention to order!
-                    na.value = "grey" )+     
+                    na.value = "grey" ) +     
 
   # aesthetic themes
-  theme_minimal()+                                               # a set of themes to simplify plot
+  theme_minimal() +                                               # a set of themes to simplify plot
   theme(plot.caption = element_text(face = "italic", hjust = 0), # caption on left side in italics
-        axis.title = element_text(face = "bold"))+               # axis titles in bold
+        axis.title = element_text(face = "bold")) +               # axis titles in bold
   
   # labels
   labs(title    = "Weekly incidence of cases, by gender",
@@ -642,10 +642,10 @@ ggplot(central_data) +
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "3 weeks",             # Monday every 3 weeks
     date_minor_breaks = "week",          # Monday weeks
-    label = scales::label_date_short())+ # automatic label formatting
+    label = scales::label_date_short()) + # automatic label formatting
   
   scale_y_continuous(
-    expand = c(0,0))+              # remove excess space under x-axis, make flush
+    expand = c(0,0)) +              # remove excess space under x-axis, make flush
   
   labs(
     title = "MISALIGNED",
@@ -666,10 +666,10 @@ ggplot(central_data) +
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "months",              # 1st of month
     date_minor_breaks = "week",          # Monday weeks
-    label = scales::label_date_short())+ # automatic label formatting
+    label = scales::label_date_short()) + # automatic label formatting
   
   scale_y_continuous(
-    expand = c(0,0))+                 # remove excess space under x-axis, make flush 
+    expand = c(0,0)) +                 # remove excess space under x-axis, make flush 
   
   labs(
     title = "MISALIGNED",
@@ -695,10 +695,10 @@ ggplot(central_data) +
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "4 weeks",             # Monday every 4 weeks
     date_minor_breaks = "week",          # Monday weeks 
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
   
   scale_y_continuous(
-    expand = c(0,0))+                  # remove excess space under x-axis, make flush 
+    expand = c(0,0)) +                  # remove excess space under x-axis, make flush 
   
   labs(
     title = "ALIGNED Mondays",
@@ -724,12 +724,12 @@ ggplot(central_data) +
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "months",              # Monday every 4 weeks
     date_minor_breaks = "week",          # Monday weeks 
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
   
   scale_y_continuous(
-    expand = c(0,0))+                  # remove excess space under x-axis, make flush 
+    expand = c(0,0)) +                  # remove excess space under x-axis, make flush 
   
-  theme(panel.grid.major = element_blank())+  # Remove major gridlines (fall on 1st of month)
+  theme(panel.grid.major = element_blank()) +  # Remove major gridlines (fall on 1st of month)
           
   labs(
     title = "ALIGNED Mondays with MONTHLY labels",
@@ -765,10 +765,10 @@ ggplot(central_data) +
                             to   = ceiling_date(max(central_data$date_onset, na.rm=T), "week", week_start = 7),
                             by   = "7 days"),
     
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
   
   scale_y_continuous(
-    expand = c(0,0))+                # remove excess space under x-axis, make flush 
+    expand = c(0,0)) +                # remove excess space under x-axis, make flush 
   
   labs(title = "ALIGNED Sundays",
        subtitle = "7-day bins manually set to begin Sunday before first case (27 Apr)\nDate labels and gridlines manually set to Sundays as well")
@@ -799,11 +799,11 @@ We can plot a daily epicurve from these *daily counts*. Here are the differences
 
 
 ```{r, message=FALSE, warning=F}
-ggplot(data = count_data)+
+ggplot(data = count_data) +
   geom_histogram(
    mapping = aes(x = date_hospitalisation, y = n_cases),
    stat = "identity",
-   width = 1)+                # for daily counts, set width = 1 to avoid white space between bars
+   width = 1) +                # for daily counts, set width = 1 to avoid white space between bars
   labs(
     x = "Date of report", 
     y = "Number of cases",
@@ -832,7 +832,7 @@ DT::datatable(count_data_weekly, rownames = FALSE, options = list(pageLength = 5
 Now plot so that `x = ` the epiweek column. Remember to add `y = ` the counts column to the aesthetic mapping, and add `stat = "identity"` as explained above.  
 
 ```{r, warning=F, message=F}
-ggplot(data = count_data_weekly)+
+ggplot(data = count_data_weekly) +
   
   geom_histogram(
     mapping = aes(
@@ -840,18 +840,18 @@ ggplot(data = count_data_weekly)+
       y = n_cases_weekly,    # y-axis height in the weekly case counts
       group = hospital,      # we are grouping the bars and coloring by hospital
       fill = hospital),
-    stat = "identity")+      # this is also required when plotting count data
+    stat = "identity") +      # this is also required when plotting count data
      
   # labels for x-axis
   scale_x_date(
     date_breaks = "2 months",      # labels every 2 months 
     date_minor_breaks = "1 month", # gridlines every month
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
      
   # Choose color palette (uses RColorBrewer package)
-  scale_fill_brewer(palette = "Pastel2")+ 
+  scale_fill_brewer(palette = "Pastel2") + 
   
-  theme_minimal()+
+  theme_minimal() +
   
   labs(
     x = "Week of onset", 
@@ -907,7 +907,7 @@ ggplot(data = ll_counts_7day) +  # begin with new dataset defined above
         stat = "identity",       # height is y value
         fill="#92a8d1",          # cool color for bars
         colour = "#92a8d1",      # same color for bar border
-        )+ 
+        ) + 
     geom_line(                   # make line for rolling average
       mapping = aes(
         x = date_onset,          # date column for x-axis
@@ -925,8 +925,8 @@ ggplot(data = ll_counts_7day) +  # begin with new dataset defined above
     labs(
       x="",
       y ="Number of confirmed cases",
-      fill = "Legend")+ 
-    theme_minimal()+
+      fill = "Legend") + 
+    theme_minimal() +
     theme(legend.title = element_blank())  # removes title of legend
 ```
 
@@ -996,33 +996,33 @@ ggplot(central_data) +
     # histogram breaks
     breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
     closed = "left" # count cases from start of breakpoint
-    )+  
+    ) +  
                       
   # The labels on the x-axis
   scale_x_date(
     expand            = c(0,0),          # remove excess x-axis space below and after case bars
     date_breaks       = "2 months",      # labels appear every 2 months
     date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
   
   # y-axis
-  scale_y_continuous(expand = c(0,0))+                       # removes excess y-axis space between bottom of bars and the labels
+  scale_y_continuous(expand = c(0,0)) +                       # removes excess y-axis space between bottom of bars and the labels
   
   # aesthetic themes
-  theme_minimal()+                                           # a set of themes to simplify plot
+  theme_minimal() +                                           # a set of themes to simplify plot
   theme(
     plot.caption = element_text(face = "italic", hjust = 0), # caption on left side in italics
     axis.title = element_text(face = "bold"),
     legend.position = "bottom",
     strip.text = element_text(face = "bold", size = 10),
-    strip.background = element_rect(fill = "grey"))+         # axis titles in bold
+    strip.background = element_rect(fill = "grey")) +         # axis titles in bold
   
   # create facets
   facet_wrap(
     ~age_cat,
     ncol = 4,
     strip.position = "top",
-    labeller = my_labels)+             
+    labeller = my_labels) +             
   
   # labels
   labs(
@@ -1059,36 +1059,36 @@ ggplot(central_data) +
     breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
     
     closed = "left", # count cases from start of breakpoint
-    )+     # pre-defined date vector (see top of ggplot section)                
+    ) +     # pre-defined date vector (see top of ggplot section)                
   
   # add grey epidemic in background to each facet
-  gghighlight::gghighlight()+
+  gghighlight::gghighlight() +
   
   # labels on x-axis
   scale_x_date(
     expand            = c(0,0),          # remove excess x-axis space below and after case bars
     date_breaks       = "2 months",      # labels appear every 2 months
     date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
-    label = scales::label_date_short())+ # label formatting
+    label = scales::label_date_short()) + # label formatting
   
   # y-axis
-  scale_y_continuous(expand = c(0,0))+  # removes excess y-axis space below 0
+  scale_y_continuous(expand = c(0,0)) +  # removes excess y-axis space below 0
   
   # aesthetic themes
-  theme_minimal()+                                           # a set of themes to simplify plot
+  theme_minimal() +                                           # a set of themes to simplify plot
   theme(
     plot.caption = element_text(face = "italic", hjust = 0), # caption on left side in italics
     axis.title = element_text(face = "bold"),
     legend.position = "bottom",
     strip.text = element_text(face = "bold", size = 10),
-    strip.background = element_rect(fill = "white"))+        # axis titles in bold
+    strip.background = element_rect(fill = "white")) +        # axis titles in bold
   
   # create facets
   facet_wrap(
     ~age_cat,                          # each plot is one value of age_cat
     ncol = 4,                          # number of columns
     strip.position = "top",            # position of the facet title/strip
-    labeller = my_labels)+             # labeller defines above
+    labeller = my_labels) +             # labeller defines above
   
   # labels
   labs(
@@ -1158,28 +1158,28 @@ ggplot(central_data2) +
         breaks = weekly_breaks_central, # pre-defined date vector (see earlier in this page)
         
         closed = "left", # count cases from start of breakpoint
-        )+    # pre-defined date vector (see top of ggplot section)
+        ) +    # pre-defined date vector (see top of ggplot section)
                      
   # Labels on x-axis
   scale_x_date(
     expand            = c(0,0),          # remove excess x-axis space below and after case bars
     date_breaks       = "2 months",      # labels appear every 2 months
     date_minor_breaks = "1 month",       # vertical lines appear every 1 month 
-    label = scales::label_date_short())+ # automatic label formatting
+    label = scales::label_date_short()) + # automatic label formatting
   
   # y-axis
-  scale_y_continuous(expand = c(0,0))+  # removes excess y-axis space between bottom of bars and the labels
+  scale_y_continuous(expand = c(0,0)) +  # removes excess y-axis space between bottom of bars and the labels
   
   # aesthetic themes
-  theme_minimal()+                                           # a set of themes to simplify plot
+  theme_minimal() +                                           # a set of themes to simplify plot
   theme(
     plot.caption = element_text(face = "italic", hjust = 0), # caption on left side in italics
     axis.title = element_text(face = "bold"),
-    legend.position = "bottom")+               
+    legend.position = "bottom") +               
   
   # create facets
   facet_wrap(facet~. ,                            # each plot is one value of facet
-             ncol = 1)+            
+             ncol = 1) +            
 
   # labels
   labs(title    = "Weekly incidence of cases, by age category",
@@ -1232,19 +1232,19 @@ ggplot(central_data) +
     fill = "lightblue") +
 
   # scales
-  scale_y_continuous(expand = c(0,0))+
+  scale_y_continuous(expand = c(0,0)) +
   scale_x_date(
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "1 month",             # 1st of month
     date_minor_breaks = "1 month",       # 1st of month
-    label = scales::label_date_short())+ # automatic label formatting
+    label = scales::label_date_short()) + # automatic label formatting
   
   # labels and theme
   labs(
     title = "Using annotate()\nRectangle and line showing that data from last 21-days are tentative",
     x = "Week of symptom onset",
-    y = "Weekly case indicence")+ 
-  theme_minimal()+
+    y = "Weekly case indicence") + 
+  theme_minimal() +
   
   # add semi-transparent red rectangle to tentative data
   annotate(
@@ -1254,7 +1254,7 @@ ggplot(central_data) +
     ymin  = 0,
     ymax  = Inf,
     alpha = 0.2,          # alpha easy and intuitive to adjust using annotate()
-    fill  = "red")+
+    fill  = "red") +
   
   # add black vertical line on top of other layers
   annotate(
@@ -1265,7 +1265,7 @@ ggplot(central_data) +
     yend  = Inf,       # line to top of plot
     size  = 2,         # line size
     color = "black",
-    lty   = "solid")+   # linetype e.g. "solid", "dashed"
+    lty   = "solid") +   # linetype e.g. "solid", "dashed"
 
   # add text in rectangle
   annotate(
@@ -1310,18 +1310,18 @@ ggplot(plot_data, aes(x = date_onset, fill = tentative)) +
     color = "black") +
 
   # scales
-  scale_y_continuous(expand = c(0,0))+
-  scale_fill_manual(values = c("lightblue", "grey"))+
+  scale_y_continuous(expand = c(0,0)) +
+  scale_fill_manual(values = c("lightblue", "grey")) +
   scale_x_date(
     expand = c(0,0),                     # remove excess x-axis space below and after case bars
     date_breaks = "3 weeks",             # Monday every 3 weeks
     date_minor_breaks = "week",          # Monday weeks 
-    label = scales::label_date_short())+ # automatic label formatting
+    label = scales::label_date_short()) + # automatic label formatting
   
   # labels and theme
   labs(title = "Show days that are tentative reporting",
-    subtitle = "")+ 
-  theme_minimal()+
+    subtitle = "") + 
+  theme_minimal() +
   theme(legend.title = element_blank())                 # remove title of legend
   
 ```
@@ -1347,18 +1347,18 @@ ggplot(central_data) +
     fill = "lightblue") +
 
   # y-axis scale as before 
-  scale_y_continuous(expand = c(0,0))+
+  scale_y_continuous(expand = c(0,0)) +
   
   # x-axis scale sets efficient date labels
   scale_x_date(
     expand = c(0,0),                      # remove excess x-axis space below and after case bars
-    labels = scales::label_date_short())+ # auto efficient date labels
+    labels = scales::label_date_short()) + # auto efficient date labels
   
   # labels and theme
   labs(
     title = "Using label_date_short()\nTo make automatic and efficient date labels",
     x = "Week of symptom onset",
-    y = "Weekly case indicence")+ 
+    y = "Weekly case indicence") + 
   theme_minimal()
 ```
 
@@ -1399,12 +1399,12 @@ ggplot(central_weekly,
             color = "#69b3a2") +            # line color
   geom_point(size=1, color="#69b3a2") +     # make points at the weekly data points
   geom_area(fill = "#69b3a2",               # fill area below line
-            alpha = 0.4)+                   # fill transparency
+            alpha = 0.4) +                   # fill transparency
   scale_x_date(date_labels="%b",            # date label format show month 
                date_breaks="month",         # date labels on 1st of each month
                expand=c(0,0)) +             # remove excess space
   scale_y_continuous(
-    expand  = c(0,0))+                      # remove excess space below x-axis
+    expand  = c(0,0)) +                      # remove excess space below x-axis
   facet_grid(~lubridate::year(week),        # facet on year (of Date class column)
              space="free_x",                
              scales="free_x",               # x-axes adapt to data range (not "fixed")
@@ -1414,7 +1414,7 @@ ggplot(central_weekly,
           strip.background = element_blank(),         # no facet lable background
           panel.grid.minor.x = element_blank(),          
           panel.border = element_blank(),             # no border for facet panel
-          panel.spacing=unit(0,"cm"))+                # No space between facet panels
+          panel.spacing=unit(0,"cm")) +                # No space between facet panels
   labs(title = "Nested year labels - points, shaded, no label border")
 ```
 
@@ -1443,7 +1443,7 @@ pacman::p_load(cowplot)
 plot_cases <- linelist %>% 
   
   # plot cases per week
-  ggplot()+
+  ggplot() +
   
   # create histogram  
   geom_histogram(
@@ -1451,17 +1451,17 @@ plot_cases <- linelist %>%
     mapping = aes(x = date_onset),
     
     # bin breaks every week beginning monday before first case, going to monday after last case
-    breaks = weekly_breaks_all)+  # pre-defined vector of weekly dates (see top of ggplot section)
+    breaks = weekly_breaks_all) +  # pre-defined vector of weekly dates (see top of ggplot section)
         
   # specify beginning and end of date axis to align with other plot
   scale_x_date(
-    limits = c(min(weekly_breaks_all), max(weekly_breaks_all)))+  # min/max of the pre-defined weekly breaks of histogram
+    limits = c(min(weekly_breaks_all), max(weekly_breaks_all))) +  # min/max of the pre-defined weekly breaks of histogram
   
   # labels
   labs(
       y = "Daily cases",
       x = "Date of symptom onset"
-    )+
+    ) +
   theme_cowplot()
 
 
@@ -1476,29 +1476,29 @@ plot_deaths <- linelist %>%                        # begin with linelist
             pct_died = 100*died/n_cases) %>% 
   
   # begin plot
-  ggplot()+
+  ggplot() +
   
   # line of weekly percent who died
   geom_line(                                # create line of percent died
     mapping = aes(x = week, y = pct_died),  # specify y-height as pct_died column
     stat = "identity",                      # set line height to the value in pct_death column, not the number of rows (which is default)
     size = 2,
-    color = "black")+
+    color = "black") +
   
   # Same date-axis limits as the other plot - perfect alignment
   scale_x_date(
-    limits = c(min(weekly_breaks_all), max(weekly_breaks_all)))+  # min/max of the pre-defined weekly breaks of histogram
+    limits = c(min(weekly_breaks_all), max(weekly_breaks_all))) +  # min/max of the pre-defined weekly breaks of histogram
   
   
   # y-axis adjustments
   scale_y_continuous(                # adjust y-axis
     breaks = seq(0,100, 10),         # set break intervals of percent axis
     limits = c(0, 100),              # set extent of percent axis
-    position = "right")+             # move percent axis to the right
+    position = "right") +             # move percent axis to the right
   
   # Y-axis label, no x-axis label
   labs(x = "",
-       y = "Percent deceased")+      # percent axis label
+       y = "Percent deceased") +      # percent axis label
   
   theme_cowplot()                   # add this to make the two plots merge together nicely
 ```
@@ -1537,7 +1537,7 @@ DT::datatable(head(cumulative_case_counts, 10), rownames = FALSE, options = list
 This cumulative column can then be plotted against `date_onset`, using `geom_line()`:
 
 ```{r, warning=F, message=F}
-plot_cumulative <- ggplot()+
+plot_cumulative <- ggplot() +
   geom_line(
     data = cumulative_case_counts,
     aes(x = date_onset, y = cumulative_cases),
@@ -1555,29 +1555,29 @@ It can also be overlaid onto the epicurve, with dual-axis using the **cowplot** 
 pacman::p_load(cowplot)
 
 # Make first plot of epicurve histogram
-plot_cases <- ggplot()+
+plot_cases <- ggplot() +
   geom_histogram(          
     data = linelist,
     aes(x = date_onset),
-    binwidth = 1)+
+    binwidth = 1) +
   labs(
     y = "Daily cases",
     x = "Date of symptom onset"
-  )+
+  ) +
   theme_cowplot()
 
 # make second plot of cumulative cases line
-plot_cumulative <- ggplot()+
+plot_cumulative <- ggplot() +
   geom_line(
     data = cumulative_case_counts,
     aes(x = date_onset, y = cumulative_cases),
     size = 2,
-    color = "blue")+
+    color = "blue") +
   scale_y_continuous(
-    position = "right")+
+    position = "right") +
   labs(x = "",
-       y = "Cumulative cases")+
-  theme_cowplot()+
+       y = "Cumulative cases") +
+  theme_cowplot() +
   theme(
     axis.line.x = element_blank(),
     axis.text.x = element_blank(),
