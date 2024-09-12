@@ -27,15 +27,15 @@ Below we introduce some key terminology. For a thorough introduction to GIS and 
 
 Some popular GIS software allow point-and-click interaction for map development and spatial analysis. These tools comes with advantages such as not needing to learn code and the ease of manually selecting and placing icons and features on a map. Here are two popular ones:  
 
-**ArcGIS** - A commercial GIS software developed by the company ESRI, which is very popular but quite expensive  
+**ArcGIS** - A commercial GIS software developed by the company ESRI, which is very popular but quite expensive. 
 
-**QGIS** - A free open-source GIS software that can do almost anything that ArcGIS can do. You can [download QGIS here](https://qgis.org/en/site/forusers/download.html)  
+**QGIS** - A free open-source GIS software that can do almost anything that ArcGIS can do. You can [download QGIS here](https://qgis.org/en/site/forusers/download.html).  
 
 Using R as a GIS can seem more intimidating at first because instead of "point-and-click", it has a "command-line interface" (you must code to acquire the desired outcome). However, this is a major advantage if you need to repetitively produce maps or create an analysis that is reproducible.  
 
 ### Spatial data {.unnumbered}
 
-The two primary forms of spatial data used in GIS are vector and raster data:
+The two primary forms of spatial data used in GIS are vector and raster data.
 
 **Vector Data** - The most common format of spatial data used in GIS, vector data are comprised of geometric features of vertices and paths. Vector spatial data can be further divided into three widely-used types:
 
@@ -59,7 +59,7 @@ The shapefile will contain information about the features themselves, as well as
 
   * *Coordinate System* - There are many many different coordinate systems, so make sure you know which system your coordinates are from. Degrees of latitude/longitude are common, but you could also see [UTM](https://www.maptools.com/tutorials/utm/quick_guide) coordinates.  
   
-  * *Units* - Know what the units are for your coordinate system (e.g. decimal degrees, meters)  
+  * *Units* - Know what the units are for your coordinate system (e.g. decimal degrees, meters).  
 
   * *Datum* - A particular modeled version of the Earth. These have been revised over the years, so ensure that your map layers are using the same datum.  
 
@@ -76,7 +76,7 @@ There are a couple of key items you will need to have and to think about to make
   
   * If your dataset is not in a spatial format you will also need a **reference dataset**. Reference data consists of the spatial representation of the data and the related **attributes**, which would include material containing the location and address information of specific features.
   
-    + If you are working with pre-defined geographic boundaries (for example, administrative regions), reference shapefiles are often freely available to download from a government agency or data sharing organization. When in doubt, a good place to start is to Google “[regions] shapefile”
+    + If you are working with pre-defined geographic boundaries (for example, administrative regions), reference shapefiles are often freely available to download from a government agency or data sharing organization. When in doubt, a good place to start is to Google “[regions] shapefile”.
     
     + If you have address information, but no latitude and longitude, you may need to use a **geocoding engine** to get the spatial reference data for your records. 
     
@@ -192,9 +192,9 @@ In advance, we have downloaded all administrative boundaries for Sierra Leone fr
 
 Now we are going to do the following to save the Admin Level 3 shapefile in R:  
 
-1) Import the shapefile  
-2) Clean the column names  
-3) Filter rows to keep only areas of interest  
+1) Import the shapefile.  
+2) Clean the column names.  
+3) Filter rows to keep only areas of interest.  
 
 To import a shapefile we use the `read_sf()` function from **sf**. It is provided the filepath via `here()`. - in our case the file is within our R project in the "data", "gis", and "shp" subfolders, with filename "sle_adm3.shp" (see pages on [Import and export](importing.qmd) and [R projects](r_projects.qmd) for more information). You will need to provide your own file path.  
 
@@ -237,7 +237,7 @@ Here is what the population file looks like. Scroll to the right to see how each
 
 ```{r message=FALSE, echo=F}
 # display the population as a table
-DT::datatable(head(sle_adm3_pop, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+DT::datatable(head(sle_adm3_pop, 50), rownames = FALSE, options = list(pageLength = 5, scrollX = T), class = 'white-space: nowrap' )
 ```
 
 
@@ -245,7 +245,7 @@ DT::datatable(head(sle_adm3_pop, 50), rownames = FALSE, options = list(pageLengt
 
 **Sierra Leone: Health facility data from OpenStreetMap**  
 
-Again we have downloaded the locations of health facilities from HDX [here](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities) or via instructions in the [Download handbook and data](#data-used) page.   
+Again we have downloaded the locations of health facilities from HDX [here](https://data.humdata.org/dataset/hotosm_sle_health_facilities) or via instructions in the [Download handbook and data](#data-used) page.   
 
 We import the facility points shapefile with `read_sf()`, again clean the column names, and then filter to keep only the points tagged as either "hospital", "clinic", or "doctors".  
 
@@ -261,7 +261,7 @@ Here is the resulting dataframe - *scroll right* to see the facility name and `g
 
 ```{r message=FALSE, echo=F}
 # display the population as a table
-DT::datatable(head(sle_hf, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+DT::datatable(head(sle_hf, 50), rownames = FALSE, options = list(pageLength = 5, scrollX = T), class = 'white-space: nowrap' )
 ```
 
 
@@ -282,12 +282,13 @@ The package **tmap** offers simple mapping capabilities for both static ("plot" 
 tmap_mode("plot") # choose either "view" or "plot"
 ```
 
-Below, the points are plotted alone.`tm_shape()` is provided with the `linelist_sf` objects. We then add points via `tm_dots()`, specifying the size and color. Because `linelist_sf` is an sf object, we have already designated the two columns that contain the lat/long coordinates and the coordinate reference system (CRS): 
+Below, the points are plotted alone. The function `tm_shape()` is provided with the `linelist_sf` objects. We then add points via `tm_dots()`, specifying the size and color. Because `linelist_sf` is an sf object, we have already designated the two columns that contain the lat/long coordinates and the coordinate reference system (CRS): 
 
 
 ```{r, warning = F, message=F}
 # Just the cases (points)
-tm_shape(linelist_sf) + tm_dots(size=0.08, col='blue')
+tm_shape(linelist_sf) + 
+     tm_dots(size = 0.08, col='blue')
 ```
 
 Alone, the points do not tell us much. So we should also map the administrative boundaries:  
@@ -299,7 +300,7 @@ With the `bbox = ` argument (bbox stands for "bounding box") we can specify the 
 ```{r, out.width = c('50%', '50%'), fig.show='hold', warning=F, message=F}
 # Just the administrative boundaries (polygons)
 tm_shape(sle_adm3) +               # admin boundaries shapefile
-  tm_polygons(col = "#F7F7F7")+    # show polygons in light grey
+  tm_polygons(col = "#F7F7F7") +    # show polygons in light grey
   tm_borders(col = "#000000",      # show borders with color and line weight
              lwd = 2) +
   tm_text("admin3name")            # column text to display for each polygon
@@ -323,9 +324,9 @@ And now both points and polygons together:
 tm_shape(sle_adm3, bbox = c(-13.3, 8.43, -13.2, 8.5)) +     #
   tm_polygons(col = "#F7F7F7") +
   tm_borders(col = "#000000", lwd = 2) +
-  tm_text("admin3name")+
+  tm_text("admin3name") +
 tm_shape(linelist_sf) +
-  tm_dots(size=0.08, col='blue', alpha = 0.5) +
+  tm_dots(size = 0.08, col = 'blue', alpha = 0.5) +
   tm_layout(title = "Distribution of Ebola cases")   # give title to map
 
 ```
@@ -342,7 +343,7 @@ To read a good comparison of mapping options in R, see this [blog post](https://
 You may be familiar with *joining* data from one dataset to another one. Several methods are discussed in the [Joining data](joining_matching.qmd) page of this handbook. A spatial join serves a similar purpose but leverages spatial relationships. Instead of relying on common values in columns to correctly match observations, you can utilize their spatial relationships, such as one feature being *within* another, or *the nearest neighbor* to another, or within a *buffer* of a certain radius from another, etc.  
 
 
-The **sf** package offers various methods for spatial joins. See more documentation about the st_join method and spatial join types in this [reference](https://r-spatial.github.io/sf/reference/geos_binary_pred.html).  
+The **sf** package offers various methods for spatial joins. See more documentation about the `st_join()` method and spatial join types in this [reference](https://r-spatial.github.io/sf/reference/geos_binary_pred.html).  
 
 
 ### Points in polygon {.unnumbered}
@@ -352,13 +353,12 @@ Here is an interesting conundrum: the case linelist does not contain any informa
 
 Below, we will spatially intersect our case locations (points) with the ADM3 boundaries (polygons):  
 
-1) Begin with the linelist (points)  
-2) Spatial join to the boundaries, setting the type of join at "st_intersects"  
-3) Use `select()` to keep only certain of the new administrative boundary columns  
+1) Begin with the linelist (points).  
+2) Spatial join to the boundaries, setting the type of join at "st_intersects".  
+3) Use `select()` to keep only certain of the new administrative boundary columns.  
 
 ```{r, warning=F, message=F}
 linelist_adm <- linelist_sf %>%
-  
   # join the administrative boundary file to the linelist, based on spatial intersection
   sf::st_join(sle_adm3, join = st_intersects)
 ```
@@ -367,10 +367,8 @@ All the columns from `sle_adms` have been added to the linelist! Each case now h
 
 ```{r, warning=F, message=F}
 linelist_adm <- linelist_sf %>%
-  
   # join the administrative boundary file to the linelist, based on spatial intersection
   sf::st_join(sle_adm3, join = st_intersects) %>% 
-  
   # Keep the old column names and two new admin ones of interest
   select(names(linelist_sf), admin3name, admin3pcod)
 ```
@@ -379,7 +377,8 @@ Below, just for display purposes you can see the first ten cases and that their 
 
 ```{r, warning=F, message=F}
 # Now you will see the ADM3 names attached to each case
-linelist_adm %>% select(case_id, admin3name, admin3pcod)
+linelist_adm %>% 
+     select(case_id, admin3name, admin3pcod)
 ```
 
 Now we can describe our cases by administrative unit - something we were not able to do before the spatial join!  
@@ -403,10 +402,10 @@ In this example, we begin the `ggplot()` with the `linelist_adm`, so that we can
 ggplot(
     data = linelist_adm,                       # begin with linelist containing admin unit info
     mapping = aes(
-      x = fct_rev(fct_infreq(admin3name))))+ # x-axis is admin units, ordered by frequency (reversed)
-  geom_bar()+                                # create bars, height is number of rows
-  coord_flip()+                              # flip X and Y axes for easier reading of adm units
-  theme_classic()+                           # simplify background
+      x = fct_rev(fct_infreq(admin3name)))) + # x-axis is admin units, ordered by frequency (reversed)
+  geom_bar() +                                # create bars, height is number of rows
+  coord_flip() +                              # flip X and Y axes for easier reading of adm units
+  theme_classic() +                           # simplify background
   labs(                                      # titles and labels
     x = "Admin level 3",
     y = "Number of cases",
@@ -425,8 +424,8 @@ It might be useful to know where the health facilities are located in relation t
 
 We can use the *st_nearest_feature* join method from the `st_join()` function (**sf** package) to visualize the closest health facility to individual cases.  
 
-1) We begin with the shapefile linelist `linelist_sf`  
-2) We spatially join with `sle_hf`, which is the locations of health facilities and clinics (points)  
+1) We begin with the shapefile linelist `linelist_sf`.  
+2) We spatially join with `sle_hf`, which is the locations of health facilities and clinics (points).  
 
 ```{r, warning=F, message=F}
 # Closest health facility to each case
@@ -436,24 +435,25 @@ linelist_sf_hf <- linelist_sf %>%                  # begin with linelist shapefi
   rename("nearest_clinic" = "name")                # re-name for clarity
 ```
 
-We can see below (first 50 rows) that the each case now has data on the nearest clinic/hospital  
+We can see below (first 50 rows) that the each case now has data on the nearest clinic/hospital.  
 
 ```{r message=FALSE, echo=F}
 DT::datatable(head(linelist_sf_hf, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 
-We can see that "Den Clinic" is the closest health facility for about ~30% of the cases.
+We can see that "Den Clinic" is the closest health facility for about 34.6% of the cases.
 
 ```{r}
 # Count cases by health facility
-hf_catchment <- linelist_sf_hf %>%   # begin with linelist including nearest clinic data
-  as.data.frame() %>%                # convert from shapefile to dataframe
-  count(nearest_clinic,              # count rows by "name" (of clinic)
-        name = "case_n") %>%         # assign new counts column as "case_n"
-  arrange(desc(case_n))              # arrange in descending order
-
-hf_catchment                         # print to console
+hf_catchment <- linelist_sf_hf %>%        # begin with linelist including nearest clinic data
+  as.data.frame() %>%                     # convert from shapefile to dataframe
+  count(nearest_clinic,                   # count rows by "name" (of clinic)
+        name = "case_n") %>%              # assign new counts column as "case_n"
+  arrange(desc(case_n)) %>%               # arrange in descending order
+     mutate(percent = case_n/sum(case_n)) #Calculate % of cases per nearest clinic
+ 
+hf_catchment                              # print to console
 ```
 
 To visualize the results, we can use **tmap** - this time interactive mode for easier viewing  
@@ -469,7 +469,7 @@ tm_shape(sle_hf) +                    # plot clinic facilities in large black do
   tm_dots(size=0.3, col='black', alpha = 0.4) +      
   tm_text("name") +                   # overlay with name of facility
 tm_view(set.view = c(-13.2284, 8.4699, 13), # adjust zoom (center coords, zoom)
-        set.zoom.limits = c(13,14))+
+        set.zoom.limits = c(13,14)) +
 tm_layout(title = "Cases, colored by nearest clinic")
 ```
 
@@ -487,7 +487,7 @@ See more information about map projections and coordinate systems at this [esri 
 
 ```{r, warning=F, message=F}
 sle_hf_2k <- sle_hf %>%
-  st_buffer(dist=0.02)       # decimal degrees translating to approximately 2.5km 
+  st_buffer(dist = 0.02)       # decimal degrees translating to approximately 2.5km 
 ```
 
 Below we plot the buffer zones themselves, with the :  
@@ -496,19 +496,19 @@ Below we plot the buffer zones themselves, with the :
 tmap_mode("plot")
 # Create circular buffers
 tm_shape(sle_hf_2k) +
-  tm_borders(col = "black", lwd = 2)+
+  tm_borders(col = "black", lwd = 2) +
 tm_shape(sle_hf) +                    # plot clinic facilities in large red dots
-  tm_dots(size=0.3, col='black')      
+  tm_dots(size = 0.3, col = 'black')      
 ```
 
 
-**Second*, we intersect these buffers with the cases (points) using `st_join()` and the join type of *st_intersects*. That is, the data from the buffers are joined to the points that they intersect with. 
+*Second*, we intersect these buffers with the cases (points) using `st_join()` and the join type of *st_intersects*. That is, the data from the buffers are joined to the points that they intersect with. 
 
 ```{r, warning=F, message=F}
 # Intersect the cases with the buffers
 linelist_sf_hf_2k <- linelist_sf_hf %>%
   st_join(sle_hf_2k, join = st_intersects, left = TRUE) %>%
-  filter(osm_id.x==osm_id.y | is.na(osm_id.y)) %>%
+  filter(osm_id.x == osm_id.y | is.na(osm_id.y)) %>%
   select(case_id, osm_id.x, nearest_clinic, amenity.x, osm_id.y)
 ```
 
@@ -528,11 +528,11 @@ tmap_mode("view")
 
 # First display the cases in points
 tm_shape(linelist_sf_hf) +
-  tm_dots(size=0.08, col='nearest_clinic') +
+  tm_dots(size = 0.08, col = 'nearest_clinic') +
 
 # plot clinic facilities in large black dots
 tm_shape(sle_hf) +                    
-  tm_dots(size=0.3, col='black')+   
+  tm_dots(size = 0.3, col = 'black') +   
 
 # Then overlay the health facility buffers in polylines
 tm_shape(sle_hf_2k) +
@@ -540,9 +540,10 @@ tm_shape(sle_hf_2k) +
 
 # Highlight cases that are not part of any health facility buffers
 # in red dots  
-tm_shape(linelist_sf_hf_2k %>%  filter(is.na(osm_id.y))) +
-  tm_dots(size=0.1, col='red') +
-tm_view(set.view = c(-13.2284,8.4699, 13), set.zoom.limits = c(13,14))+
+tm_shape(linelist_sf_hf_2k %>%  
+              filter(is.na(osm_id.y))) +
+  tm_dots(size = 0.1, col='red') +
+tm_view(set.view = c(-13.2284,8.4699, 13), set.zoom.limits = c(13,14)) +
 
 # add title  
 tm_layout(title = "Cases by clinic catchment area")
@@ -584,8 +585,8 @@ Since we also have population data by ADM3, we can add this information to the *
 We begin with the dataframe created in the previous step `case_adm3`, which is a summary table of each administrative unit and its number of cases.  
 
 1) The population data `sle_adm3_pop` are joined using a `left_join()` from **dplyr** on the basis of common values across column `admin3pcod` in the `case_adm3` dataframe, and column `adm_pcode` in the `sle_adm3_pop` dataframe. See page on [Joining data](joining_matching.qmd)).  
-2) `select()` is applied to the new dataframe, to keep only the useful columns - `total` is total population  
-3) Cases per 10,000 populaton is calculated as a new column with `mutate()`  
+2) `select()` is applied to the new dataframe, to keep only the useful columns - `total` is total population.  
+3) Cases per 10,000 populaton is calculated as a new column with `mutate()`. 
 
 
 ```{r}
@@ -599,11 +600,11 @@ case_adm3 <- case_adm3 %>%
 case_adm3                                                # print to console for viewing
 ```
 
-Join this table with the ADM3 polygons shapefile for mapping
+Join this table with the ADM3 polygons shapefile for mapping.
 
 ```{r, warning=F, message=F}
 case_adm3_sf <- case_adm3 %>%                 # begin with cases & rate by admin unit
-  left_join(sle_adm3, by="admin3pcod") %>%    # join to shapefile data by common column
+  left_join(sle_adm3, by = "admin3pcod") %>%    # join to shapefile data by common column
   select(objectid, admin3pcod,                # keep only certain columns of interest
          admin3name = admin3name.x,           # clean name of one column
          admin2name, admin1name,
@@ -615,7 +616,7 @@ case_adm3_sf <- case_adm3 %>%                 # begin with cases & rate by admin
 ```
 
 
-Mapping the results
+Mapping the results.
 
 ```{r, message=F, warning=F}
 # tmap mode
@@ -663,32 +664,32 @@ select(sle_adm3_dat, admin3name.x, cases) # print selected variables to console
 To make a column chart of case counts by region, using **ggplot2**, we could then call `geom_col()` as follows:
 
 ```{r, fig.align = "center"}
-ggplot(data=sle_adm3_dat) +
-  geom_col(aes(x=fct_reorder(admin3name.x, cases, .desc=T),   # reorder x axis by descending 'cases'
-               y=cases)) +                                  # y axis is number of cases by region
+ggplot(data = sle_adm3_dat) +
+  geom_col(aes(x = fct_reorder(admin3name.x, cases, .desc=T),   # reorder x axis by descending 'cases'
+               y = cases)) +                                  # y axis is number of cases by region
   theme_bw() +
   labs(                                                     # set figure text
     title="Number of cases, by administrative unit",
     x="Admin level 3",
     y="Number of cases"
   ) + 
-  guides(x=guide_axis(angle=45))                            # angle x-axis labels 45 degrees to fit better
+  guides(x = guide_axis(angle = 45))                            # angle x-axis labels 45 degrees to fit better
 
 ```
 
 If we want to use **ggplot2** to instead make a choropleth map of case counts, we can use similar syntax to call the `geom_sf()` function:
 
 ```{r, fig.align = "center"}
-ggplot(data=sle_adm3_dat) + 
-  geom_sf(aes(fill=cases))    # set fill to vary by case count variable
+ggplot(data = sle_adm3_dat) + 
+  geom_sf(aes(fill = cases))    # set fill to vary by case count variable
 
 ```
 
 We can then customize the appearance of our map using grammar that is consistent across **ggplot2**, for example:
 ```{r, fig.align = "center"}
-ggplot(data=sle_adm3_dat) +                           
-  geom_sf(aes(fill=cases)) +						
-  scale_fill_continuous(high="#54278f", low="#f2f0f7") +    # change color gradient
+ggplot(data = sle_adm3_dat) +                           
+  geom_sf(aes(fill = cases)) +						
+  scale_fill_continuous(high = "#54278f", low = "#f2f0f7") +    # change color gradient
   theme_bw() +
   labs(title = "Number of cases, by administrative unit",   # set figure text
        subtitle = "Admin level 3"
@@ -714,11 +715,11 @@ First we load the **OpenStreetMap** package, from which we will get our basemap.
 
 Then, we create the object `map`, which we define using the function `openmap()` from **OpenStreetMap** package ([documentation](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/openmap)). We provide the following:  
 
-* `upperLeft` and `lowerRight` Two coordinate pairs specifying the limits of the basemap tile  
-  * In this case we've put in the max and min from the linelist rows, so the map will respond dynamically to the data  
-* `zoom = ` (if null it is determined automatically)  
-* `type =` which type of basemap - we have listed several possibilities here and the code is currently using the first one (`[1]`) "osm"  
-* `mergeTiles = ` we chose TRUE so the basetiles are all merged into one
+* `upperLeft` and `lowerRight` Two coordinate pairs specifying the limits of the basemap tile: 
+  * In this case we've put in the max and min from the linelist rows, so the map will respond dynamically to the data.  
+* `zoom = ` (if null it is determined automatically).  
+* `type =` which type of basemap - we have listed several possibilities here and the code is currently using the first one (`[1]`) "osm".  
+* `mergeTiles = ` we chose TRUE so the basetiles are all merged into one.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -738,7 +739,7 @@ If we plot this basemap right now, using `autoplot.OpenStreetMap()` from **OpenS
 ```{r, warning=F, message=F}
 autoplot.OpenStreetMap(map)
 ```
-Thus, we want to convert the map to latitude/longitude with the `openproj()` function from **OpenStreetMap** package. We provide the basemap `map` and also provide the Coordinate Reference System (CRS) we want. We do this by providing the "proj.4" character string for the WGS 1984 projection, but you can provide the CRS in other ways as well. (see [this page](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/) to better understand what a proj.4 string is)  
+Thus, we want to convert the map to latitude/longitude with the `openproj()` function from **OpenStreetMap** package. We provide the basemap `map` and also provide the Coordinate Reference System (CRS) we want. We do this by providing the "proj.4" character string for the WGS 1984 projection, but you can provide the CRS in other ways as well. (see [this page](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/) to better understand what a proj.4 string is). 
 
 ```{r, warning=F, message=F}
 # Projection WGS84
@@ -752,7 +753,7 @@ Now when we create the plot we see that along the axes are latitude and longitud
 autoplot.OpenStreetMap(map_latlon)
 ```
 
-See the tutorials [here](http://data-analytics.net/cep/Schedule_files/geospatial.html) and [here](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/autoplot.OpenStreetMap) for more info.  
+See the tutorials [here](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/autoplot.OpenStreetMap) for more info.  
 
 
 
@@ -762,9 +763,9 @@ See the tutorials [here](http://data-analytics.net/cep/Schedule_files/geospatial
 
 Below we describe how to achieve a contoured density heatmap of cases, over a basemap, beginning with a linelist (one row per case).  
 
-1) Create basemap tile from OpenStreetMap, as described above  
-2) Plot the cases from `linelist` using the latitude and longitude columns  
-3) Convert the points to a density heatmap with `stat_density_2d()` from **ggplot2**, 
+1) Create basemap tile from OpenStreetMap, as described above.  
+2) Plot the cases from `linelist` using the latitude and longitude columns.  
+3) Convert the points to a density heatmap with `stat_density_2d()` from **ggplot2**. 
 
 
 When we have a basemap with lat/long coordinates, we can plot our cases on top using the lat/long coordinates of their residence. 
@@ -773,7 +774,7 @@ Building on the function `autoplot.OpenStreetMap()` to create the basemap, **ggp
 
 ```{r, warning=F, message=F}
 # Plot map. Must be autoplotted to work with ggplot
-autoplot.OpenStreetMap(map_latlon)+                 # begin with the basemap
+autoplot.OpenStreetMap(map_latlon) +                 # begin with the basemap
   geom_point(                                       # add xy points from linelist lon and lat columns 
     data = linelist,                                
     aes(x = lon, y = lat),
@@ -790,7 +791,7 @@ The map above might be difficult to interpret, especially with the points overla
 
 ```{r, warning=F, message=F}
 # begin with the basemap
-autoplot.OpenStreetMap(map_latlon)+
+autoplot.OpenStreetMap(map_latlon) +
   
   # add the density plot
   ggplot2::stat_density_2d(
@@ -806,7 +807,7 @@ autoplot.OpenStreetMap(map_latlon)+
         show.legend = F) +                          
   
   # specify color scale
-  scale_fill_gradient(low = "black", high = "red")+
+  scale_fill_gradient(low = "black", high = "red") +
   
   # labels 
   labs(x = "Longitude",
@@ -843,7 +844,7 @@ Now, we simply introduce facetting via **ggplot2** to the density heatmap. `face
 pacman::p_load(OpenStreetMap, tidyverse)
 
 # begin with the basemap
-autoplot.OpenStreetMap(map_latlon)+
+autoplot.OpenStreetMap(map_latlon) +
   
   # add the density plot
   ggplot2::stat_density_2d(
@@ -859,12 +860,12 @@ autoplot.OpenStreetMap(map_latlon)+
         show.legend = F) +                          
   
   # specify color scale
-  scale_fill_gradient(low = "black", high = "red")+
+  scale_fill_gradient(low = "black", high = "red") +
   
   # labels 
   labs(x = "Longitude",
        y = "Latitude",
-       title = "Distribution of cumulative cases over time")+
+       title = "Distribution of cumulative cases over time") +
   
   # facet the plot by month-year of onset
   facet_wrap(~ date_onset_ym, ncol = 4)               
@@ -884,7 +885,7 @@ Before we can calculate any spatial statistics, we need to specify the relations
 We can quantify adjacency relationships between administrative region polygons in the `sle_adm3` data we have been using with the **spdep** package. We will specify *queen* contiguity, which means that regions will be neighbors if they share at least one point along their borders. The alternative would be *rook* contiguity, which requires that regions share an edge - in our case, with irregular polygons, the distinction is trivial, but in some cases the choice between queen and rook can be influential.  
  
 ```{r}
-sle_nb <- spdep::poly2nb(sle_adm3_dat, queen=T) # create neighbors 
+sle_nb <- spdep::poly2nb(sle_adm3_dat, queen = T) # create neighbors 
 sle_adjmat <- spdep::nb2mat(sle_nb)    # create matrix summarizing neighbor relationships
 sle_listw <- spdep::nb2listw(sle_nb)   # create listw (list of weights) object -- we will need this later
 
@@ -897,7 +898,7 @@ The matrix printed above shows the relationships between the 9 regions in our `s
 A better way to visualize these neighbor relationships is by plotting them:
 ```{r, fig.align='center', results='hide'}
 plot(sle_adm3_dat$geometry) +                                           # plot region boundaries
-  spdep::plot.nb(sle_nb,as(sle_adm3_dat, 'Spatial'), col='grey', add=T) # add neighbor relationships
+  spdep::plot.nb(sle_nb,as(sle_adm3_dat, 'Spatial'), col = 'grey', add = T) # add neighbor relationships
 ```
 
 We have used an adjacency approach to identify neighboring polygons; the neighbors we identified are also sometimes called **contiguity-based neighbors**. But this is just one way of choosing which regions are expected to have a geographic relationship. The most common alternative approaches for identifying geographic relationships generate **distance-based neighbors**; briefly, these are:
@@ -916,11 +917,11 @@ For an example, we will calculate a Moran's I statistic to quantify the spatial 
 
 ```{r}
 moran_i <-spdep::moran.test(sle_adm3_dat$cases,    # numeric vector with variable of interest
-                            listw=sle_listw)       # listw object summarizing neighbor relationships
+                            listw = sle_listw)       # listw object summarizing neighbor relationships
 
 moran_i                                            # print results of Moran's I test
 ```
-The output from the `moran.test()` function shows us a Moran I statistic of ` round(moran_i$estimate[1],2)`. This indicates the presence of spatial autocorrelation in our data - specifically, that regions with similar numbers of Ebola cases are likely to be close together. The p-value provided by `moran.test()` is generated by comparison to the expectation under null hypothesis of no spatial autocorrelation, and can be used if you need to report the results of a formal hypothesis test.
+The output from the `moran.test()` function shows us a Moran I statistic of `r round(moran_i$estimate[1], 2)`. This indicates the presence of spatial autocorrelation in our data - specifically, that regions with similar numbers of Ebola cases are likely to be close together. The p-value provided by `moran.test()` is generated by comparison to the expectation under null hypothesis of no spatial autocorrelation, and can be used if you need to report the results of a formal hypothesis test.
 
 **Local Moran's I** - We can decompose the (global) Moran's I statistic calculated above to identify *localized* spatial autocorrelation; that is, to identify specific clusters in our data. This statistic, which is sometimes called a **Local Indicator of Spatial Association (LISA)** statistic, summarizes the extent of spatial autocorrelation around each individual region. It can be useful for finding "hot" and "cold" spots on the map.
 
@@ -929,24 +930,24 @@ To show an example, we can calculate and map Local Moran's I for the Ebola case 
 # calculate local Moran's I
 local_moran <- spdep::localmoran(                  
   sle_adm3_dat$cases,                              # variable of interest
-  listw=sle_listw                                  # listw object with neighbor weights
+  listw = sle_listw                                  # listw object with neighbor weights
 )
 
 # join results to sf data
 sle_adm3_dat<- cbind(sle_adm3_dat, local_moran)    
 
 # plot map
-ggplot(data=sle_adm3_dat) +
-  geom_sf(aes(fill=Ii)) +
+ggplot(data = sle_adm3_dat) +
+  geom_sf(aes(fill = Ii)) +
   theme_bw() +
-  scale_fill_gradient2(low="#2c7bb6", mid="#ffffbf", high="#d7191c",
-                       name="Local Moran's I") +
-  labs(title="Local Moran's I statistic for Ebola cases",
-       subtitle="Admin level 3 regions, Sierra Leone")
+  scale_fill_gradient2(low = "#2c7bb6", mid = "#ffffbf", high = "#d7191c",
+                       name = "Local Moran's I") +
+  labs(title = "Local Moran's I statistic for Ebola cases",
+       subtitle = "Admin level 3 regions, Sierra Leone")
 
 ```
 
-**Getis-Ord Gi\*** - This is another statistic that is commonly used for hotspot analysis; in large part, the popularity of this statistic relates to its use in the Hot Spot Analysis tool in ArcGIS. It is based on the assumption that typically, the difference in a variable's value between neighboring regions should follow a normal distribution. It uses a z-score approach to identify regions that have significantly higher (hot spot) or significantly lower (cold spot) values of a specified variable, compared to their neighbors. 
+**Getis-Ord Gi\** - This is another statistic that is commonly used for hotspot analysis; in large part, the popularity of this statistic relates to its use in the Hot Spot Analysis tool in ArcGIS. It is based on the assumption that typically, the difference in a variable's value between neighboring regions should follow a normal distribution. It uses a z-score approach to identify regions that have significantly higher (hot spot) or significantly lower (cold spot) values of a specified variable, compared to their neighbors. 
 
 We can calculate and map the Gi* statistic using the `localG()` function from **spdep**:  
 
@@ -962,17 +963,17 @@ sle_adm3_dat$getis_ord <- as.numeric(getis_ord)
 
 # plot map
 ggplot(data=sle_adm3_dat) +
-  geom_sf(aes(fill=getis_ord)) +
+  geom_sf(aes(fill = getis_ord)) +
   theme_bw() +
-  scale_fill_gradient2(low="#2c7bb6", mid="#ffffbf", high="#d7191c",
-                       name="Gi*") +
-  labs(title="Getis-Ord Gi* statistic for Ebola cases",
-       subtitle="Admin level 3 regions, Sierra Leone")
+  scale_fill_gradient2(low="#2c7bb6", mid = "#ffffbf", high = "#d7191c",
+                       name = "Gi*") +
+  labs(title = "Getis-Ord Gi* statistic for Ebola cases",
+       subtitle = "Admin level 3 regions, Sierra Leone")
 
 ```
 
 
-As you can see, the map of Getis-Ord Gi* looks slightly different from the map of Local Moran's I produced earlier. This reflects that the method used to calculate these two statistics are slightly different; which one you should use depends on your specific use case and the research question of interest.
+As you can see, the map of Getis-Ord Gi looks slightly different from the map of Local Moran's I produced earlier. This reflects that the method used to calculate these two statistics are slightly different; which one you should use depends on your specific use case and the research question of interest.
 
 **Lee's L test** - This is a statistical test for bivariate spatial correlation. It allows you to test whether the spatial pattern for a given variable *x* is similar to the spatial pattern of another variable, *y*, that is hypothesized to be related spatially to *x*. 
 
@@ -987,25 +988,27 @@ We can quickly visualize the spatial patterns of the two variables side by side,
 ```{r, fig.align='center', warning=F, message=F}
 tmap_mode("plot")
 
-cases_map <- tm_shape(sle_adm3_dat) + tm_polygons("cases") + tm_layout(main.title="Cases")
-pop_map <- tm_shape(sle_adm3_dat) + tm_polygons("population") + tm_layout(main.title="Population")
+cases_map <- tm_shape(sle_adm3_dat) + 
+     tm_polygons("cases") + tm_layout(main.title = "Cases")
+pop_map <- tm_shape(sle_adm3_dat) + tm_polygons("population") + 
+     tm_layout(main.title = "Population")
 
-tmap_arrange(cases_map, pop_map, ncol=2)   # arrange into 2x1 facets
+tmap_arrange(cases_map, pop_map, ncol = 2)   # arrange into 2x1 facets
 ```
 
 Visually, the patterns seem dissimilar. We can use the `lee.test()` function in **spdep** to test statistically whether the pattern of spatial autocorrelation in the two variables is related. The L statistic will be close to 0 if there is no correlation between the patterns, close to 1 if there is a strong positive correlation (i.e. the patterns are similar), and close to -1 if there is a strong negative correlation (i.e. the patterns are inverse). 
 
 ```{r, warning=F, message=F}
 lee_test <- spdep::lee.test(
-  x=sle_adm3_dat$cases,          # variable 1 to compare
-  y=sle_adm3_dat$population,     # variable 2 to compare
-  listw=sle_listw                # listw object with neighbor weights
+  x = sle_adm3_dat$cases,          # variable 1 to compare
+  y = sle_adm3_dat$population,     # variable 2 to compare
+  listw = sle_listw                # listw object with neighbor weights
 )
 
 lee_test
 ```
 
-The output above shows that the Lee's L statistic for our two variables was ` round(lee_test$estimate[1],2)`, which indicates weak negative correlation. This confirms our visual assessment that the pattern of cases and population are not related to one another, and provides evidence that the spatial pattern of cases is not strictly a result of population density in high-risk areas.
+The output above shows that the Lee's L statistic for our two variables was `r round(lee_test$estimate[1], 2)`, which indicates weak negative correlation. This confirms our visual assessment that the pattern of cases and population are not related to one another, and provides evidence that the spatial pattern of cases is not strictly a result of population density in high-risk areas.
 
 The Lee L statistic can be useful for making these kinds of inferences about the relationship between spatially distributed variables; however, to describe the nature of the relationship between two variables in more detail, or adjust for confounding, *spatial regression* techniques will be needed. These are described briefly in the following section.
 
