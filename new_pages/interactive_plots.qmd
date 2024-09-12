@@ -21,9 +21,9 @@ p <- linelist %>%
          date_earliest = if_else(is.na(date_infection), date_onset, date_infection),
          week_earliest = floor_date(date_earliest, unit = "week",week_start = 1))%>% 
   count(week_earliest, outcome) %>% 
-  ggplot()+
-  geom_col(aes(week_earliest, n, fill = outcome))+
-  xlab("Week of infection/onset") + ylab("Cases per week")+
+  ggplot() +
+  geom_col(aes(week_earliest, n, fill = outcome)) +
+  xlab("Week of infection/onset") + ylab("Cases per week") +
   theme_minimal()
 
 p %>% 
@@ -111,7 +111,7 @@ DT::datatable(head(weekly_deaths, 50), rownames = FALSE, options = list(pageLeng
 Then we create the plot with **ggplot2**, using `geom_line()`.  
 
 ```{r, warning=F, message=F}
-deaths_plot <- ggplot(data = weekly_deaths)+            # begin with weekly deaths data
+deaths_plot <- ggplot(data = weekly_deaths) +            # begin with weekly deaths data
   geom_line(mapping = aes(x = epiweek, y = pct_death))  # make line 
 
 deaths_plot   # print
@@ -120,34 +120,37 @@ deaths_plot   # print
 
 We can make this interactive by simply passing this plot to `ggplotly()`, as below. Hover your mouse over the line to show the x and y values. You can zoom in on the plot, and drag it around. You can also see icons in the upper-right of the plot. In order, they allow you to:  
 
-* Download the current view as a PNG image  
-* Zoom in with a select box  
-* "Pan", or move across the plot by clicking and dragging the plot  
-* Zoom in, zoom out, or return to default zoom  
-* Reset axes to defaults  
-* Toggle on/off "spike lines" which are dotted lines from the interactive point extending to the x and y axes  
-* Adjustments to whether data show when you are not hovering on the line  
+* Download the current view as a PNG image.  
+* Zoom in with a select box.  
+* "Pan", or move across the plot by clicking and dragging the plot.  
+* Zoom in, zoom out, or return to default zoom.  
+* Reset axes to defaults.  
+* Toggle on/off "spike lines" which are dotted lines from the interactive point extending to the x and y axes.  
+* Adjustments to whether data show when you are not hovering on the line.  
 
 
 ```{r}
-deaths_plot %>% plotly::ggplotly()
+deaths_plot %>% 
+     plotly::ggplotly()
 ```
 
 Grouped data work with `ggplotly()` as well. Below, a weekly epicurve is made, grouped by outcome. The stacked bars are interactive. Try clicking on the different items in the legend (they will appear/disappear).  
 
 
 ```{r plot_show, eval=F}
-# Make epidemic curve with incidence2 pacakge
+# Make epidemic curve with incidence2 package
 p <- incidence2::incidence(
   linelist,
-  date_index = date_onset,
+  date_index = "date_onset",
   interval = "weeks",
-  groups = outcome) %>% plot(fill = outcome)
+  groups = "outcome") %>% 
+     plot(fill = "outcome")
 ```
 
 ```{r, echo=T, eval=F}
 # Plot interactively  
-p %>% plotly::ggplotly()
+p %>% 
+     plotly::ggplotly()
 ```
   
 ```{r, warning = F, message = F, , out.width=c('95%'), out.height=c('500px'), echo=FALSE}
@@ -220,13 +223,13 @@ agg_weeks <- facility_count_data %>%
 metrics_plot <- ggplot(agg_weeks,
        aes(x = week,
            y = location_name,
-           fill = p_days_reported))+
-  geom_tile(colour="white")+
-  scale_fill_gradient(low = "orange", high = "darkgreen", na.value = "grey80")+
+           fill = p_days_reported)) +
+  geom_tile(colour="white") +
+  scale_fill_gradient(low = "orange", high = "darkgreen", na.value = "grey80") +
   scale_x_date(expand = c(0,0),
                date_breaks = "2 weeks",
-               date_labels = "%d\n%b")+
-  theme_minimal()+ 
+               date_labels = "%d\n%b") +
+  theme_minimal() + 
   theme(
     legend.title = element_text(size=12, face="bold"),
     legend.text  = element_text(size=10, face="bold"),
@@ -238,7 +241,7 @@ metrics_plot <- ggplot(agg_weeks,
     axis.title = element_text(size=12, face="bold"),
     plot.title = element_text(hjust=0,size=14,face="bold"),
     plot.caption = element_text(hjust = 0, face = "italic")
-    )+
+    ) +
   labs(x = "Week",
        y = "Facility name",
        fill = "Reporting\nperformance (%)",
@@ -330,6 +333,6 @@ metrics_plot %>%
 <!-- ======================================================= -->
 ## Resources {  }
 
-Plotly is not just for R, but also works well with Python (and really any data science language as it's built in JavaScript). You can read more about it on the [plotly website](https://plotly.com/r/)
+Plotly is not just for R, but also works well with Python and Julia (and really any data science language as it's built in JavaScript). You can read more about it on the [plotly website](https://plotly.com/r/).
 
 
