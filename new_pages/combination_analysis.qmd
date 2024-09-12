@@ -49,9 +49,9 @@ This analysis plots the frequency of different **combinations** of values/respon
 
 This analysis is also often called:  
 
-* **"Multiple response analysis"**  
-* **"Sets analysis"**  
-* **"Combinations analysis"**  
+* **"Multiple response analysis"**.  
+* **"Sets analysis"**.  
+* **"Combinations analysis"**.  
 
 In the example plot above, five symptoms are shown. Below each vertical bar is a line and dots indicating the combination of symptoms reflected by the bar above. To the right, horizontal bars reflect the frequency of each individual symptom.  
 
@@ -127,10 +127,10 @@ mutate(fever = ifelse(fever == "yes", "fever", NA),
 
 Now we make two final columns:  
 
-1. Concatenating (gluing together) all the symptoms of the patient (a character column)  
-2. Convert the above column to class *list*, so it can be accepted by **ggupset** to make the plot  
+1. Concatenating (gluing together) all the symptoms of the patient (a character column).
+2. Convert the above column to class *list*, so it can be accepted by **ggupset** to make the plot.  
 
-See the page on [Characters and strings](characters_strings.qmd) to learn more about the `unite()` function from **stringr**
+See the page on [Characters and strings](characters_strings.qmd) to learn more about the `unite()` function from **stringr**.
 
 ```{r, warning=F, message=F}
 linelist_sym_1 <- linelist_sym_1 %>% 
@@ -145,7 +145,7 @@ linelist_sym_1 <- linelist_sym_1 %>%
     )
 ```
 
-View the new data. Note the two columns towards the right end - the pasted combined values, and the list
+View the new data. Note the two columns towards the right end - the pasted combined values, and the list.
 
 ```{r, echo=F, , warning=F, message=F}
 DT::datatable(head(linelist_sym_1,50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
@@ -172,7 +172,7 @@ geom_bar() +
 scale_x_upset(
   reverse = FALSE,
   n_intersections = 10,
-  sets = c("fever", "chills", "cough", "aches", "vomit"))+
+  sets = c("fever", "chills", "cough", "aches", "vomit")) +
 labs(
   title = "Signs & symptoms",
   subtitle = "10 most frequent combinations of signs and symptoms",
@@ -239,7 +239,8 @@ linelist_sym_2 %>%
        point.size = 3.5,
        line.size = 2, 
        mainbar.y.label = "Symptoms Combinations",
-       sets.x.label = "Patients with Symptom")
+       sets.x.label = "Patients with Symptom"
+       )
 
 ```
 
