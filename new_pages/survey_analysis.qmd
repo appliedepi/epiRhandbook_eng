@@ -1050,7 +1050,43 @@ survey_design %>%
 
 ```
 
+## Weighted regression
 
+Another tool we can use to analyse our survey data is to use weighted regression. This allows us to carry out to account for the survey design in our regression in order to avoid biases that may be introduced from the survey process.
+
+To carry out a *univariate regression*, we can use the packages **survey** for the function `svyglm()` and the package **gtsummary** which allows us to call `svyglm()` inside the function `tbl_uvregression`. To do this we first use the `survey_design` object created above. This is then provided to the function `tbl_uvregression()` as in the [Univariate and multivariable regression chapter](regression.qmd). We then make one key change, we change `method = glm` to `method = survey::svyglm` in order to carry out our survey weighted regression.
+
+Here we will be using the previously created object `survey_design` to predict whether the value in the column `died` is `TRUE`, using the columns `malaria_treatment`, `bednet`, and `age_years`.
+
+```{r, warning=F, message=F}
+
+survey_design %>%
+     tbl_uvregression(                             #Carry out a univariate regression, if we wanted a multivariable regression we would use tbl_
+          method = survey::svyglm,                 #Set this to survey::svyglm to carry out our weighted regression on the survey data
+          y = died,                                #The column we are trying to predict
+          method.args = list(family = binomial),   #The family, we are carrying out a logistic regression so we want the family as binomial
+          include = c(malaria_treatment,           #These are the columns we want to evaluate
+                      bednet,
+                      age_years),
+          exponentiate = T                         #To transform the log odds to odds ratio for easier interpretation
+     )
+
+```
+
+If we wanted to carry out a *multivariable* regression, we would have to first use the function `svyglm()` and pipe (`%>%`) the results into the function `tbl_regression`. Note that we need to specify the formula.
+
+```{r, warning=F, message=F}
+
+survey_design %>%
+     svyglm(formula = died ~ malaria_treatment + 
+                 bednet + 
+                 age_years,
+            family = binomial) %>%                   #The family, we are carrying out a logistic regression so we want the family as binomial
+     tbl_regression( 
+          exponentiate = T                           #To transform the log odds to odds ratio for easier interpretation                            
+     )
+     
+```
 
 
 <!-- ======================================================= -->
@@ -1065,3 +1101,5 @@ survey_design %>%
 [gtsummary package](http://www.danieldsjoberg.com/gtsummary/reference/index.html) 
 
 [EPIET survey case studies](https://github.com/EPIET/RapidAssessmentSurveys)
+
+[Analyzing Complex Survey Data](https://www.bookdown.org/rwnahhas/RMPH/survey.html)
