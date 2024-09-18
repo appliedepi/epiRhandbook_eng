@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>疫学のための R ハンドブック - 26&nbsp; 標本調査データ分析</title>
+<title>26  標本調査データ分析 – 疫学のための R ハンドブック</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/survival_analysis.jp.html" rel="next">
 <link href="../new_pages/contact_tracing.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/survey_analysis.jp.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/survey_analysis.jp.html"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,20 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/survey_analysis.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/survey_analysis.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/survey_analysis.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/survey_analysis.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/pt/new_pages/survey_analysis.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/survey_analysis.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/survey_analysis.ru.html" id="language-link-ru">Русский</a>
+<a class="dropdown-item" href="/ar/new_pages/survey_analysis.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -284,434 +310,445 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">26.1</span> 概要</a></li>
-  <li><a href="#準備" id="toc-準備" class="nav-link" data-scroll-target="#準備"><span class="header-section-number">26.2</span> 準備</a>
+<li><a href="#%E6%A6%82%E8%A6%81" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">26.1</span> 概要</a></li>
+  <li>
+<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link" data-scroll-target="#準備"><span class="header-section-number">26.2</span> 準備</a>
   <ul class="collapse">
-  <li><a href="#パッケージ" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
-  <li><a href="#データの読み込み" id="toc-データの読み込み" class="nav-link" data-scroll-target="#データの読み込み">データの読み込み</a></li>
-  <li><a href="#データの前処理データクリーニング" id="toc-データの前処理データクリーニング" class="nav-link" data-scroll-target="#データの前処理データクリーニング">データの前処理（データクリーニング）</a></li>
-  </ul></li>
-  <li><a href="#調査データ" id="toc-調査データ" class="nav-link" data-scroll-target="#調査データ"><span class="header-section-number">26.3</span> 調査データ</a></li>
-  <li><a href="#観察期間" id="toc-観察期間" class="nav-link" data-scroll-target="#観察期間"><span class="header-section-number">26.4</span> 観察期間</a></li>
-  <li><a href="#調査の重み付け" id="toc-調査の重み付け" class="nav-link" data-scroll-target="#調査の重み付け"><span class="header-section-number">26.5</span> 調査の重み付け</a></li>
-  <li><a href="#調査デザインオブジェクト" id="toc-調査デザインオブジェクト" class="nav-link" data-scroll-target="#調査デザインオブジェクト"><span class="header-section-number">26.6</span> 調査デザインオブジェクト</a>
-  <ul class="collapse">
-  <li><a href="#survey-パッケージ" id="toc-survey-パッケージ" class="nav-link" data-scroll-target="#survey-パッケージ"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> パッケージ</a></li>
-  <li><a href="#srvyr-パッケージ" id="toc-srvyr-パッケージ" class="nav-link" data-scroll-target="#srvyr-パッケージ"><span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> パッケージ</a></li>
-  </ul></li>
-  <li><a href="#記述的分析" id="toc-記述的分析" class="nav-link" data-scroll-target="#記述的分析"><span class="header-section-number">26.7</span> 記述的分析</a>
-  <ul class="collapse">
-  <li><a href="#標本抽出のバイアス" id="toc-標本抽出のバイアス" class="nav-link" data-scroll-target="#標本抽出のバイアス"><span class="header-section-number">26.7.1</span> 標本抽出のバイアス</a></li>
-  <li><a href="#人口統計ピラミッド" id="toc-人口統計ピラミッド" class="nav-link" data-scroll-target="#人口統計ピラミッド"><span class="header-section-number">26.7.2</span> 人口統計ピラミッド</a></li>
-  <li><a href="#沖積図サンキーダイアグラム" id="toc-沖積図サンキーダイアグラム" class="nav-link" data-scroll-target="#沖積図サンキーダイアグラム"><span class="header-section-number">26.7.3</span> 沖積図・サンキーダイアグラム</a></li>
-  </ul></li>
-  <li><a href="#重み付けされた人口比率" id="toc-重み付けされた人口比率" class="nav-link" data-scroll-target="#重み付けされた人口比率"><span class="header-section-number">26.8</span> 重み付けされた人口比率</a>
-  <ul class="collapse">
-  <li><a href="#survey-パッケージ-1" id="toc-survey-パッケージ-1" class="nav-link" data-scroll-target="#survey-パッケージ-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> パッケージ</a></li>
-  <li><a href="#srvyr-パッケージ-1" id="toc-srvyr-パッケージ-1" class="nav-link" data-scroll-target="#srvyr-パッケージ-1"><span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> パッケージ</a></li>
-  <li><a href="#sitrep-パッケージ" id="toc-sitrep-パッケージ" class="nav-link" data-scroll-target="#sitrep-パッケージ"><span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> パッケージ</a></li>
-  <li><a href="#gtsummary-パッケージ" id="toc-gtsummary-パッケージ" class="nav-link" data-scroll-target="#gtsummary-パッケージ"><span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> パッケージ</a></li>
-  </ul></li>
-  <li><a href="#重み付けされた比率" id="toc-重み付けされた比率" class="nav-link" data-scroll-target="#重み付けされた比率"><span class="header-section-number">26.9</span> 重み付けされた比率</a>
-  <ul class="collapse">
-  <li><a href="#survey-パッケージ-2" id="toc-survey-パッケージ-2" class="nav-link" data-scroll-target="#survey-パッケージ-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> パッケージ</a></li>
-  <li><a href="#srvyr-パッケージ-2" id="toc-srvyr-パッケージ-2" class="nav-link" data-scroll-target="#srvyr-パッケージ-2"><span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> パッケージ</a></li>
-  </ul></li>
-  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">26.10</span> 参考資料</a></li>
+<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF" id="toc-データの読み込み" class="nav-link" data-scroll-target="#データの読み込み">データの読み込み</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%89%8D%E5%87%A6%E7%90%86%E3%83%87%E3%83%BC%E3%82%BF%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0" id="toc-データの前処理データクリーニング" class="nav-link" data-scroll-target="#データの前処理データクリーニング">データの前処理（データクリーニング）</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li><a href="#%E8%AA%BF%E6%9F%BB%E3%83%87%E3%83%BC%E3%82%BF" id="toc-調査データ" class="nav-link" data-scroll-target="#調査データ"><span class="header-section-number">26.3</span> 調査データ</a></li>
+  <li><a href="#%E8%A6%B3%E5%AF%9F%E6%9C%9F%E9%96%93" id="toc-観察期間" class="nav-link" data-scroll-target="#観察期間"><span class="header-section-number">26.4</span> 観察期間</a></li>
+  <li><a href="#%E8%AA%BF%E6%9F%BB%E3%81%AE%E9%87%8D%E3%81%BF%E4%BB%98%E3%81%91" id="toc-調査の重み付け" class="nav-link" data-scroll-target="#調査の重み付け"><span class="header-section-number">26.5</span> 調査の重み付け</a></li>
+  <li>
+<a href="#%E8%AA%BF%E6%9F%BB%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88" id="toc-調査デザインオブジェクト" class="nav-link" data-scroll-target="#調査デザインオブジェクト"><span class="header-section-number">26.6</span> 調査デザインオブジェクト</a>
+  <ul class="collapse">
+<li><a href="#survey-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-survey-パッケージ" class="nav-link" data-scroll-target="#survey-パッケージ"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> パッケージ</a></li>
+  <li><a href="#srvyr-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-srvyr-パッケージ" class="nav-link" data-scroll-target="#srvyr-パッケージ"><span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> パッケージ</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E8%A8%98%E8%BF%B0%E7%9A%84%E5%88%86%E6%9E%90" id="toc-記述的分析" class="nav-link" data-scroll-target="#記述的分析"><span class="header-section-number">26.7</span> 記述的分析</a>
+  <ul class="collapse">
+<li><a href="#%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%AE%E3%83%90%E3%82%A4%E3%82%A2%E3%82%B9" id="toc-標本抽出のバイアス" class="nav-link" data-scroll-target="#標本抽出のバイアス"><span class="header-section-number">26.7.1</span> 標本抽出のバイアス</a></li>
+  <li><a href="#%E4%BA%BA%E5%8F%A3%E7%B5%B1%E8%A8%88%E3%83%94%E3%83%A9%E3%83%9F%E3%83%83%E3%83%89" id="toc-人口統計ピラミッド" class="nav-link" data-scroll-target="#人口統計ピラミッド"><span class="header-section-number">26.7.2</span> 人口統計ピラミッド</a></li>
+  <li><a href="#%E6%B2%96%E7%A9%8D%E5%9B%B3%E3%82%B5%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%80%E3%82%A4%E3%82%A2%E3%82%B0%E3%83%A9%E3%83%A0" id="toc-沖積図サンキーダイアグラム" class="nav-link" data-scroll-target="#沖積図サンキーダイアグラム"><span class="header-section-number">26.7.3</span> 沖積図・サンキーダイアグラム</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E9%87%8D%E3%81%BF%E4%BB%98%E3%81%91%E3%81%95%E3%82%8C%E3%81%9F%E4%BA%BA%E5%8F%A3%E6%AF%94%E7%8E%87" id="toc-重み付けされた人口比率" class="nav-link" data-scroll-target="#重み付けされた人口比率"><span class="header-section-number">26.8</span> 重み付けされた人口比率</a>
+  <ul class="collapse">
+<li><a href="#survey-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-1" id="toc-survey-パッケージ-1" class="nav-link" data-scroll-target="#survey-パッケージ-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> パッケージ</a></li>
+  <li><a href="#srvyr-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-1" id="toc-srvyr-パッケージ-1" class="nav-link" data-scroll-target="#srvyr-パッケージ-1"><span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> パッケージ</a></li>
+  <li><a href="#sitrep-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-sitrep-パッケージ" class="nav-link" data-scroll-target="#sitrep-パッケージ"><span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> パッケージ</a></li>
+  <li><a href="#gtsummary-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-gtsummary-パッケージ" class="nav-link" data-scroll-target="#gtsummary-パッケージ"><span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> パッケージ</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E9%87%8D%E3%81%BF%E4%BB%98%E3%81%91%E3%81%95%E3%82%8C%E3%81%9F%E6%AF%94%E7%8E%87" id="toc-重み付けされた比率" class="nav-link" data-scroll-target="#重み付けされた比率"><span class="header-section-number">26.9</span> 重み付けされた比率</a>
+  <ul class="collapse">
+<li><a href="#survey-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-2" id="toc-survey-パッケージ-2" class="nav-link" data-scroll-target="#survey-パッケージ-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> パッケージ</a></li>
+  <li><a href="#srvyr-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-2" id="toc-srvyr-パッケージ-2" class="nav-link" data-scroll-target="#srvyr-パッケージ-2"><span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> パッケージ</a></li>
+  </ul>
+</li>
+  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">26.10</span> 参考資料</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/survey_analysis.jp.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span id="survey-analysis" class="quarto-section-identifier"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/survey_analysis.jp.html"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title"><span id="survey-analysis" class="quarto-section-identifier"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></h1>
 </div>
 
 
@@ -725,12 +762,8 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<!-- ======================================================= -->
-<section id="概要" class="level2" data-number="26.1">
-<h2 data-number="26.1" class="anchored" data-anchor-id="概要"><span class="header-section-number">26.1</span> 概要</h2>
+</header><!-- ======================================================= --><section id="概要" class="level2" data-number="26.1"><h2 data-number="26.1" class="anchored" data-anchor-id="概要">
+<span class="header-section-number">26.1</span> 概要</h2>
 <p>この章では、標本調査データ分析のためのいくつかのパッケージの使用方法を説明します。</p>
 <p>ほとんどの調査用 R パッケージは、重み付け分析を行うために <a href="https://cran.r-project.org/web/packages/survey/index.html"><strong>survey</strong>パッケージ</a>に依存しています。本章では、<strong>survey</strong> パッケージと同様に <a href="https://cran.r-project.org/web/packages/srvyr/index.html"><strong>srvyr</strong></a> パッケージ（tidyverse スタイルのコーディングを可能にする <strong>survey</strong> パッケージのラッパー）および <a href="https://cran.r-project.org/web/packages/gtsummary/index.html"><strong>gtsummary</strong></a> パッケージ（出版原稿レベルの整った表の出力を可能にする <strong>survey</strong> パッケージのラッパー）を使用します。オリジナルの <strong>survey</strong> パッケージは、tidyverse スタイルのコーディングはできませんが、調査重み付け一般化線形モデル（survey-weighted generalised linearmodel）を使用できるという利点があります（後日この章に追加される予定です）。また、<a href="https://github.com/R4EPI/sitrep"><strong>sitrep</strong></a> パッケージの関数を使用して、標本抽出法による重み付けを作成するデモも行います（注：このパッケージは現在 CRAN にはありませんが、Github からインストールできます）。</p>
 <p>この章のほとんどは、<a href="https://r4epis.netlify.app/">“R4Epis” プロジェクト</a>で行われた作業に基づいています。詳細なコードと R markdown テンプレートファイルについては、<a href="https://github.com/R4EPI/sitrep">“R4Epis” の Github ページ</a>を参照してください。<strong>survey</strong> パッケージを利用したのコードの一部は、<a href="https://github.com/EPIET/RapidAssessmentSurveys">EPIET ケーススタディ</a>の初期バージョンに基づいています。</p>
@@ -744,12 +777,9 @@ cookieconsent.run({
 <li>重み付けされた割合</li>
 <li>重み付けされた比率</li>
 </ol>
-<!-- ======================================================= -->
-</section>
-<section id="準備" class="level2" data-number="26.2">
-<h2 data-number="26.2" class="anchored" data-anchor-id="準備"><span class="header-section-number">26.2</span> 準備</h2>
-<section id="パッケージ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
+<!-- ======================================================= --></section><section id="準備" class="level2" data-number="26.2"><h2 data-number="26.2" class="anchored" data-anchor-id="準備">
+<span class="header-section-number">26.2</span> 準備</h2>
+<section id="パッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
 <p>以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、<strong>pacman</strong> パッケージの <code>p_load()</code> を主に使用しています。<code>p_load()</code> は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである <strong>base</strong> （以下、<strong>base</strong> R）の <code>library()</code> を使用して読み込むこともできます。R のパッケージに関する詳細は <a href="basics.jp.html">R の基礎</a> の章をご覧ください。 <strong>pacman</strong> パッケージの <code>p_load_gh()</code> 関数を使って、まだ CRAN で公開されていない github 上のパッケージをインストールして読み込むデモも行っています。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## CRAN からパッケージを読み込む</span></span>
@@ -770,9 +800,7 @@ cookieconsent.run({
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="st">"R4EPI/sitrep"</span>          <span class="co"># 観察期間・重み付け関数</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="データの読み込み" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データの読み込み">データの読み込み</h3>
+</section><section id="データの読み込み" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データの読み込み">データの読み込み</h3>
 <p>本章で使用する例示用データセットです。</p>
 <ul>
 <li>架空の死亡率調査データ</li>
@@ -794,8 +822,8 @@ cookieconsent.run({
 <p>調査データの最初の 10 行を以下に示します。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a809820e97fef243a6fd" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a809820e97fef243a6fd">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]},{"name":"start","targets":0},{"name":"end","targets":1},{"name":"today","targets":2},{"name":"deviceid","targets":3},{"name":"date","targets":4},{"name":"team_number","targets":5},{"name":"village_name","targets":6},{"name":"village_other","targets":7},{"name":"cluster_number","targets":8},{"name":"household_number","targets":9},{"name":"households_building","targets":10},{"name":"random_hh","targets":11},{"name":"random_hh_note","targets":12},{"name":"consent","targets":13},{"name":"no_consent_reason","targets":14},{"name":"no_consent_other","targets":15},{"name":"member_number","targets":16},{"name":"sex","targets":17},{"name":"age_years","targets":18},{"name":"age_months_calc","targets":19},{"name":"age_months","targets":20},{"name":"bednet","targets":21},{"name":"read_write","targets":22},{"name":"education_level","targets":23},{"name":"measles_vaccination","targets":24},{"name":"vaccination_card","targets":25},{"name":"pregnant","targets":26},{"name":"malaria_treatment","targets":27},{"name":"arrived","targets":28},{"name":"remember_arrival","targets":29},{"name":"arrived_date","targets":30},{"name":"left","targets":31},{"name":"remember_departure","targets":32},{"name":"left_date","targets":33},{"name":"born","targets":34},{"name":"remember_dob","targets":35},{"name":"birthday_date","targets":36},{"name":"died","targets":37},{"name":"remember_death","targets":38},{"name":"death_date","targets":39},{"name":"cause","targets":40},{"name":"cause_other","targets":41},{"name":"violent_episode","targets":42},{"name":"violent_episodes_number","targets":43},{"name":"violence_nature_other","targets":44},{"name":"violence_nature","targets":45},{"name":"violence_nature/beaten","targets":46},{"name":"violence_nature/sexual","targets":47},{"name":"violence_nature/shot","targets":48},{"name":"violence_nature/detained_kidnapped","targets":49},{"name":"violence_nature/other","targets":50},{"name":"violence_nature/no_response","targets":51},{"name":"index","targets":52},{"name":"index_y","targets":53},{"name":"uid","targets":54}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b30c2e96b9c0887f02cc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b30c2e96b9c0887f02cc">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]},{"name":"start","targets":0},{"name":"end","targets":1},{"name":"today","targets":2},{"name":"deviceid","targets":3},{"name":"date","targets":4},{"name":"team_number","targets":5},{"name":"village_name","targets":6},{"name":"village_other","targets":7},{"name":"cluster_number","targets":8},{"name":"household_number","targets":9},{"name":"households_building","targets":10},{"name":"random_hh","targets":11},{"name":"random_hh_note","targets":12},{"name":"consent","targets":13},{"name":"no_consent_reason","targets":14},{"name":"no_consent_other","targets":15},{"name":"member_number","targets":16},{"name":"sex","targets":17},{"name":"age_years","targets":18},{"name":"age_months_calc","targets":19},{"name":"age_months","targets":20},{"name":"bednet","targets":21},{"name":"read_write","targets":22},{"name":"education_level","targets":23},{"name":"measles_vaccination","targets":24},{"name":"vaccination_card","targets":25},{"name":"pregnant","targets":26},{"name":"malaria_treatment","targets":27},{"name":"arrived","targets":28},{"name":"remember_arrival","targets":29},{"name":"arrived_date","targets":30},{"name":"left","targets":31},{"name":"remember_departure","targets":32},{"name":"left_date","targets":33},{"name":"born","targets":34},{"name":"remember_dob","targets":35},{"name":"birthday_date","targets":36},{"name":"died","targets":37},{"name":"remember_death","targets":38},{"name":"death_date","targets":39},{"name":"cause","targets":40},{"name":"cause_other","targets":41},{"name":"violent_episode","targets":42},{"name":"violent_episodes_number","targets":43},{"name":"violence_nature_other","targets":44},{"name":"violence_nature","targets":45},{"name":"violence_nature/beaten","targets":46},{"name":"violence_nature/sexual","targets":47},{"name":"violence_nature/shot","targets":48},{"name":"violence_nature/detained_kidnapped","targets":49},{"name":"violence_nature/other","targets":50},{"name":"violence_nature/no_response","targets":51},{"name":"index","targets":52},{"name":"index_y","targets":53},{"name":"uid","targets":54}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>適切な重みを作成するために、標本を抽出した集団（母集団）についてのデータをインポートしましょう。このデータの形式はいろいろなファイル形式で作成できますが、以下に例示するような形式をお勧めします（このデータは、Excel に直接入力しても作成できます）。</p>
@@ -806,8 +834,8 @@ cookieconsent.run({
 <p>母集団データの最初の 10 行を以下に示します。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-57ce3811d429c2ff5020" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-57ce3811d429c2ff5020">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.06610000000000001,0.034,0.1811,0.138,0.0808,0.06610000000000001],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"age_group","targets":0},{"name":"sex","targets":1},{"name":"proportions","targets":2},{"name":"population","targets":3},{"name":"health_district","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c0cd10bd9f81d92835db" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c0cd10bd9f81d92835db">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.06610000000000001,0.034,0.1811,0.138,0.0808,0.06610000000000001],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"age_group","targets":0},{"name":"sex","targets":1},{"name":"proportions","targets":2},{"name":"population","targets":3},{"name":"health_district","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>クラスター調査の場合は、クラスター単位で調査の重みを加えることが必要な場合もあります。クラスター単位のデータは上記と同じ手段でインポートできます。あるいは、クラスターや世帯のカウント数が少ない場合は、以下のように入力してクラスターとクラスターが含む世帯数の 2 つの列を定義できます。いずれの方法にしても、調査データと一致するクラスターを識別する列と、各クラスターが含む世帯数を表す列が必要になります。</p>
@@ -819,9 +847,7 @@ cookieconsent.run({
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">households =</span> <span class="fu">c</span>(<span class="dv">700</span>, <span class="dv">400</span>, <span class="dv">600</span>, <span class="dv">500</span>, <span class="dv">300</span>, </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="dv">800</span>, <span class="dv">700</span>, <span class="dv">400</span>, <span class="dv">500</span>, <span class="dv">500</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="データの前処理データクリーニング" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データの前処理データクリーニング">データの前処理（データクリーニング）</h3>
+</section><section id="データの前処理データクリーニング" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データの前処理データクリーニング">データの前処理（データクリーニング）</h3>
 <p>日付を値として持つ変数（列）が適切な形式であることを以下で確認しています。他にもいくつかの方法がありますが（詳しくは「<a href="dates.jp.html">日付型データ</a>」の章をご覧ください）、データ辞書を使って日付を定義するのが手っ取り早くて簡単です。</p>
 <p>また、<strong>epikit</strong> パッケージの <code>age_categories()</code> 関数を使って、年齢グループの変数を作成します（詳細は<a href="cleaning.jp.html">データクリーニングと主要関数</a>の章を参照）。さらに、各クラスターがどの担当保健所に含まれるかを定義する文字型変数（列）を作成します。</p>
 <p>最後に、yes/no で回答されている変数（列）をすべて TRUE/FALSE の値を取る変数に上書きします。値が yes/no のままであると、これらの変数は <strong>survey</strong> パッケージの人口を扱う関数で使用できません。</p>
@@ -886,10 +912,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="調査データ" class="level2" data-number="26.3">
-<h2 data-number="26.3" class="anchored" data-anchor-id="調査データ"><span class="header-section-number">26.3</span> 調査データ</h2>
+</section></section><section id="調査データ" class="level2" data-number="26.3"><h2 data-number="26.3" class="anchored" data-anchor-id="調査データ">
+<span class="header-section-number">26.3</span> 調査データ</h2>
 <p>標本調査の方法には、さまざまな標本抽出法があります。このセクションでは、以下の標本抽出法のコード実装例を紹介します。 - 層化抽出法 - クラスター抽出法 - 層化クラスター抽出法</p>
 <p>「データの読み込み」セクションで例示したように、（調査票をどのように計画するかにもよりますが）各レベル（水準）のデータは、Kobo から別々のデータセットとしてエクスポートされます。下記のコード例では、世帯と、その世帯内の個人がそれぞれ 1 つのレベルで表現されています。</p>
 <p>この 2 つのレベルは、一意の識別子で紐付けられています。Kobo のデータセットの場合、識別子は世帯レベルの “_index” という変数の値であり、各個人レベルの “_parent_index” という変数名の値と一致します。<code>left_join()</code> による結合操作で、識別子が一致する個人ごとに世帯の新しい行が作成されます。詳細はハンドブックの<a href="joining_matching.jp.html">データの結合</a>の章を参照してください。</p>
@@ -905,9 +929,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">uid =</span> <span class="fu">str_glue</span>(<span class="st">"{index}_{index_y}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="観察期間" class="level2" data-number="26.4">
-<h2 data-number="26.4" class="anchored" data-anchor-id="観察期間"><span class="header-section-number">26.4</span> 観察期間</h2>
+</section><section id="観察期間" class="level2" data-number="26.4"><h2 data-number="26.4" class="anchored" data-anchor-id="観察期間">
+<span class="header-section-number">26.4</span> 観察期間</h2>
 <p>死亡率調査において、対象期間における適切な死亡率を算出するために、各個人が対象地域にどのくらいの期間、居住したかという情報が必要です。この居住に関する情報は、すべての調査に当てはまるわけではありませんが、特に死亡率調査の場合は重要です。なぜなら、移動人口や避難民人口を含んだ状況で頻繁に行われる調査だからです。</p>
 <p>死亡率調査を行うためには、まず、対象期間を設定する必要があります。対象期間の設定は、想起期間（リコール期間、質問に答える際に参加者にその期間の健康状態を考慮して回答を求める期間）としても知られています。例えば、この対象期間を利用して、対象期間外の死亡報告などは、不適切な日付として欠損値を設定できます。</p>
 <div class="cell">
@@ -986,9 +1009,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obstime =</span> <span class="fu">as.numeric</span>(enddate <span class="sc">-</span> startdate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="調査の重み付け" class="level2" data-number="26.5">
-<h2 data-number="26.5" class="anchored" data-anchor-id="調査の重み付け"><span class="header-section-number">26.5</span> 調査の重み付け</h2>
+</section><section id="調査の重み付け" class="level2" data-number="26.5"><h2 data-number="26.5" class="anchored" data-anchor-id="調査の重み付け">
+<span class="header-section-number">26.5</span> 調査の重み付け</h2>
 <p>調査の重み付けを実行する前に、誤った観測値の除外が必要です。例えば、負の観察期間が入力されている観察値がある場合、その詳細を確認する必要があります（<strong>sitrep</strong> パッケージの <code>assert_positive_timespan()</code> で負の観察期間の記録を一覧できます）。他に必要な前処理は、空行の除外や（例えば <code>drop_na(uid)</code> を使用して）、重複した行の除外です（詳細はハンドブックの <a href="deduplication.jp.html">重複データの排除</a>の章を参照してください）。同意（インフォームド・コンセント）が取れていない記録（“concent” 変数（列）が false）も除外する必要があります。</p>
 <p>下記例では、除外したいケースを抽出して、別のデータフレーム（dropped）に保存します。この抽出操作により、調査分析から除外された症例を明示できます。次に、<strong>dplyr</strong> パッケージの <code>anti_join()</code> 関数を使用して、調査データ（survey_data）オブジェクトからこれらの除外された症例を削除します。</p>
 <p><span style="color: red;"><strong><u>危険：</u></strong> 体重の変数や、調査デザインに関連する変数（年齢、性別、層やクラスターの変数など）に欠損値があってはいけません。</span></p>
@@ -1040,15 +1062,14 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surv_weight_cluster_strata =</span> surv_weight_strata <span class="sc">*</span> surv_weight_cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="調査デザインオブジェクト" class="level2" data-number="26.6">
-<h2 data-number="26.6" class="anchored" data-anchor-id="調査デザインオブジェクト"><span class="header-section-number">26.6</span> 調査デザインオブジェクト</h2>
+</section><section id="調査デザインオブジェクト" class="level2" data-number="26.6"><h2 data-number="26.6" class="anchored" data-anchor-id="調査デザインオブジェクト">
+<span class="header-section-number">26.6</span> 調査デザインオブジェクト</h2>
 <p>研究デザイン（抽出法）に合わせて調査デザインオブジェクト（survey design object）を作成します。データフレーム（survey_data）と同様に、重み付け人口比率などの計算に使用します。必要な変数（列）がすべて作成されていることを確認してから行います。</p>
 <p>抽出法の設定には下記の 4 つの選択肢がありますが、使用しない抽出法に関するコードはコメントアウトしてください。 - 単純無作為抽出法 - 層化抽出法 - クラスター抽出法 - 層化クラスター抽出法</p>
 <p>このテンプレートでは、2 つの異なる層（担当保健所 A と B）で標本調査をクラスター化したと仮定します。したがって、全体の推定値を得るためには、クラスターと層の重みを組み合わせる必要があります。</p>
 <p>前述したように、抽出法に沿った分析を行うために 2 つのパッケージが用意されています。古典的なものは <strong>survey</strong> パッケージで、それから tidyverse コーディングに適したオブジェクトや関数を作る <strong>srvyr</strong> パッケージというラッパーがあります。両方ともデモを行いますが、本章のコードのほとんどは <strong>srvyr</strong> パッケージベースのオブジェクトを使用することに注意してください。1 つの例外は、<strong>gtsummary</strong> パッケージが <strong>survey</strong> パッケージのオブジェクトしか受け付けないことです。</p>
-<section id="survey-パッケージ" class="level3" data-number="26.6.1">
-<h3 data-number="26.6.1" class="anchored" data-anchor-id="survey-パッケージ"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> パッケージ</h3>
+<section id="survey-パッケージ" class="level3" data-number="26.6.1"><h3 data-number="26.6.1" class="anchored" data-anchor-id="survey-パッケージ">
+<span class="header-section-number">26.6.1</span> <strong>Survey</strong> パッケージ</h3>
 <p><strong>survey</strong> パッケージの構文は、<strong>base</strong> R の構文を効果的に使用するため、パイプ （<code>%&gt;%</code>） やその他の <strong>dplyr</strong> パッケージの構文を使用することはできません。<strong>survey</strong> パッケージでは、<code>svydesign()</code> 関数を使用して、適切なクラスタ、重み、層を持つ調査オブジェクト（survey object）を定義します。</p>
 <p><span style="color: black;"><strong><u>注釈：</u></strong><code>svydesign()</code> の引数に指定する変数の前にチルダ記号（<code>~</code>）を記述しなければいけません。なぜなら、<strong>survey</strong> パッケージは、formula オブジェクトに基づいて関数の引数に変数を割り当てる <strong>base</strong> R の構文を使用しているためです。</span></p>
 <div class="cell">
@@ -1080,9 +1101,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> survey_data                     <span class="co"># データセットを指定する必要あり</span></span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="srvyr-パッケージ" class="level3" data-number="26.6.2">
-<h3 data-number="26.6.2" class="anchored" data-anchor-id="srvyr-パッケージ"><span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> パッケージ</h3>
+</section><section id="srvyr-パッケージ" class="level3" data-number="26.6.2"><h3 data-number="26.6.2" class="anchored" data-anchor-id="srvyr-パッケージ">
+<span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> パッケージ</h3>
 <p><strong>Srvyr</strong> パッケージでは、<code>as_survey_design()</code> 関数を使うことができます。<code>as_survey_design()</code> は、<code>svydesign()</code> と同じ引数を取りますが、パイプ演算子（<code>%&gt;%</code>）を使えるので、チルダ記号（<code>~</code>）を使う必要はありません。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 単純無作為抽出法 ------------------------------------------------------------------</span></span>
@@ -1112,10 +1132,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="記述的分析" class="level2" data-number="26.7">
-<h2 data-number="26.7" class="anchored" data-anchor-id="記述的分析"><span class="header-section-number">26.7</span> 記述的分析</h2>
+</section></section><section id="記述的分析" class="level2" data-number="26.7"><h2 data-number="26.7" class="anchored" data-anchor-id="記述的分析">
+<span class="header-section-number">26.7</span> 記述的分析</h2>
 <p>基本的な記述的分析と視覚化は、ハンドブックの他の章で広範囲にカバーされているので、ここでは触れません。詳細は、<a href="tables_descriptive.jp.html">記述統計表の作り方</a>、<a href="stat_tests.jp.html">簡単な統計的検定</a>、<a href="tables_presentation.jp.html">見やすい表の作り方</a>、<a href="ggplot_basics.jp.html">ggplot の基礎</a>、<a href="rmarkdown.jp.html">R Markdown で作るレポート</a>の章を参照してください。</p>
 <p>このセクションでは、標本の偏りを調査し、その偏りの程度を視覚化する方法に焦点を当てます。また、沖積図・サンキーダイアグラムを使って、調査環境における人口の流れを視覚化することも検討します。</p>
 <p>一般的には、以下のような記述的な分析を含めることを検討すべきです。</p>
@@ -1124,8 +1142,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <li>分析から除外された人の数とその理由</li>
 <li>クラスターあたりの世帯数と世帯あたりの人数の中央値（範囲）</li>
 </ul>
-<section id="標本抽出のバイアス" class="level3" data-number="26.7.1">
-<h3 data-number="26.7.1" class="anchored" data-anchor-id="標本抽出のバイアス"><span class="header-section-number">26.7.1</span> 標本抽出のバイアス</h3>
+<section id="標本抽出のバイアス" class="level3" data-number="26.7.1"><h3 data-number="26.7.1" class="anchored" data-anchor-id="標本抽出のバイアス">
+<span class="header-section-number">26.7.1</span> 標本抽出のバイアス</h3>
 <p>各年齢層の割合を、標本と母集団の間で比較します。これは、潜在的な標本抽出のバイアスを明らかにするために重要です。同様の操作を性別に対して適用して分布を調べられます。</p>
 <p>標本と母集団の比較（二項検定）で設定される p 値は単なる指標であり、母集団と比較した標本集団の分布の記述的な議論（または次のセクションの年齢ピラミッドによる視覚化）は、二項検定自体よりも重要であることに注意してください。なぜなら、標本サイズを大きくすると、データを重み付けした後では、p 値は無関係な差になることが多いからです。</p>
 <div class="cell">
@@ -1175,9 +1193,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P-value"</span> <span class="ot">=</span> p.value</span>
 <span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="人口統計ピラミッド" class="level3" data-number="26.7.2">
-<h3 data-number="26.7.2" class="anchored" data-anchor-id="人口統計ピラミッド"><span class="header-section-number">26.7.2</span> 人口統計ピラミッド</h3>
+</section><section id="人口統計ピラミッド" class="level3" data-number="26.7.2"><h3 data-number="26.7.2" class="anchored" data-anchor-id="人口統計ピラミッド">
+<span class="header-section-number">26.7.2</span> 人口統計ピラミッド</h3>
 <p>人口統計（または年齢-性別）ピラミッドは、母集団の分布を視覚化する簡単な方法です。また、調査の層別に年齢と性別の<a href="tables_descriptive.jp.html">記述統計表</a>を作成することも検討する価値があります。ここでは、上記で作成した調査デザインオブジェクト（study design object）を使用して、加重比例が可能な <strong>apyramid</strong> パッケージを使用して説明します。<a href="age_pyramid.jp.html">人口ピラミッドとリッカート尺度</a> の章で、人口統計ピラミッドを作成するための他の選択肢について詳しく説明しています。また、<strong>apyramid</strong> パッケージの <code>age_pyramid()</code> ラッパー関数を使用して、人口比率のプロットを作成するためのコーディングを省きます。</p>
 <p>前述の標本抽出のバイアスのセクションで例示した母集団と標本の人口比率の差の二項検定のように、このセクションでは、我々の標本抽出した集団が元の母集団と実質的に異なるかどうか、そして重み付けがこの差を修正するかどうかを可視化を扱います。コードを実行するために、<strong>ggplot</strong> パッケージの出力を並べて表示するために <strong>patchwork</strong> パッケージを使用します。詳細はハンドブックの <a href="ggplot_tips.jp.html">ggplot のヒント</a> の章の「図の中に図を挿入する」のセクションを参照してください。このセクションでは、「母集団」、「重み付けされていない標本集団」、「重み付けされた標本集団」を視覚化します。また、調査の各層ごとに視覚化も可能です。ここでの例では、<code>stack_by = "health_district"</code> という引数を使用します（詳細は <code>?plot_age_pyramid</code> を参照してください）。</p>
 <p><span style="color: black;"><strong><u>注釈：</u></strong>人口ピラミッドのプロットでは、x 軸と y 軸が反転します。</span></p>
@@ -1286,15 +1303,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="survey_analysis.jp_files/figure-html/weighted_age_pyramid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="survey_analysis.jp_files/figure-html/weighted_age_pyramid-1.png" class="img-fluid figure-img" width="1440"></a></p>
+<figure class="figure"><p><a href="survey_analysis.jp_files/figure-html/weighted_age_pyramid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="survey_analysis.jp_files/figure-html/weighted_age_pyramid-1.png" class="img-fluid figure-img" width="1440"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="沖積図サンキーダイアグラム" class="level3" data-number="26.7.3">
-<h3 data-number="26.7.3" class="anchored" data-anchor-id="沖積図サンキーダイアグラム"><span class="header-section-number">26.7.3</span> 沖積図・サンキーダイアグラム</h3>
+</section><section id="沖積図サンキーダイアグラム" class="level3" data-number="26.7.3"><h3 data-number="26.7.3" class="anchored" data-anchor-id="沖積図サンキーダイアグラム">
+<span class="header-section-number">26.7.3</span> 沖積図・サンキーダイアグラム</h3>
 <p>個人個人の観測開始とアウトカムを視覚化することは、概要を把握するのに非常に役立ちます。移動人口比率を考慮する非常に分かりやすいグラフ描画方法があります。また、コホートや、個人の状態に遷移があるその他の状況などを描画する数多くのグラフがあります。これらのグラフには、沖積図、サンキー、パラレルセットなど、いくつかの異なる表現があり、詳細はハンドブックの<a href="diagrams.jp.html">フローチャート・サンキー図・タイムライン</a>の章に記載されています。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 標本調査データの要約</span></span>
@@ -1321,20 +1336,17 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="survey_analysis.jp_files/figure-html/visualise_population_flow-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="survey_analysis.jp_files/figure-html/visualise_population_flow-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="survey_analysis.jp_files/figure-html/visualise_population_flow-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="survey_analysis.jp_files/figure-html/visualise_population_flow-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="重み付けされた人口比率" class="level2" data-number="26.8">
-<h2 data-number="26.8" class="anchored" data-anchor-id="重み付けされた人口比率"><span class="header-section-number">26.8</span> 重み付けされた人口比率</h2>
+</section></section><section id="重み付けされた人口比率" class="level2" data-number="26.8"><h2 data-number="26.8" class="anchored" data-anchor-id="重み付けされた人口比率">
+<span class="header-section-number">26.8</span> 重み付けされた人口比率</h2>
 <p>このセクションでは、重み付けされた人口数と人口比率の表を、関連する信頼区間とデザイン効果（標本の分散の、同じ要素数の単純無作為標本の分散に対する比）とともに作成する方法を詳しく説明します。<strong>survey</strong> パッケージ、<strong>srvyr</strong> パッケージ、<strong>sitrep</strong> パッケージ、<strong>gtsummary</strong> パッケージの関数を使った 4 つの異なる方法があります。標準的な疫学スタイルの表を作成するための最小限のコーディングには、<strong>srvyr</strong> パッケージのラッパーである <strong>sitrep</strong> 関数をお勧めしますが、これはまだ CRAN に掲載されておらず、将来変更される可能性があることに注意してください。それ以外では、<strong>srvyr</strong> パッケージが tidyverse のワークフローに最もうまく適合するのに対し、<strong>survey</strong> パッケージのコードは長期的に最も安定していると思われます。<strong>gtsummary</strong> パッケージの関数群は多くの可能性を秘めていますが、この記事を書いている時点では実験的で不完全なもののようです。</p>
-<section id="survey-パッケージ-1" class="level3" data-number="26.8.1">
-<h3 data-number="26.8.1" class="anchored" data-anchor-id="survey-パッケージ-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> パッケージ</h3>
+<section id="survey-パッケージ-1" class="level3" data-number="26.8.1"><h3 data-number="26.8.1" class="anchored" data-anchor-id="survey-パッケージ-1">
+<span class="header-section-number">26.8.1</span> <strong>Survey</strong> パッケージ</h3>
 <p><strong>survey</strong> パッケージから <code>svyciprop()</code> 関数を使用して、重み付けされた人口比率とそれに伴う 95% 信頼区間を得ることができます。適切なデザイン効果は、<code>svyprop()</code> ではなく、<code>svymean()</code> を使用して抽出できます。<code>svyprop()</code>は、0 から 1 の間の値（または TRUE/FALSE）しか受け付けませんので、カテゴリー変数は使えないことに注意する必要があります。</p>
 <p><span style="color: black;"><strong><u>注釈：</u></strong> <strong>survey</strong> パッケージ由来の関数は、<strong>srvyr</strong> パッケージデザイン・オブジェクトも受け入れますが、ここでは一貫性を保つために <strong>survey</strong> パッケージデザイン・オブジェクトを使用しています。</span></p>
 <div class="cell">
@@ -1416,9 +1428,8 @@ died 0.0514 0.0208  0.12</code></pre>
 3  arrived 761799.0       51.4  40.9   61.7           3.9</code></pre>
 </div>
 </div>
-</section>
-<section id="srvyr-パッケージ-1" class="level3" data-number="26.8.2">
-<h3 data-number="26.8.2" class="anchored" data-anchor-id="srvyr-パッケージ-1"><span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> パッケージ</h3>
+</section><section id="srvyr-パッケージ-1" class="level3" data-number="26.8.2"><h3 data-number="26.8.2" class="anchored" data-anchor-id="srvyr-パッケージ-1">
+<span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> パッケージ</h3>
 <p><strong>srvyr</strong> パッケージでは、<strong>dplyr</strong> パッケージの構文を使って表を作成できます。<code>survey_mean()</code> が使用され、割合引数が指定されていること、また、デザイン効果の計算にも同じ関数が使用されていることに注意してください。これは、<strong>srvyr</strong> パッケージが、前述のセクションで使われている <strong>survey</strong> パッケージ関数群の <code>svyciprop()</code> と <code>svymean()</code> の両方を内包しているからです。</p>
 <p><span style="color: black;"><strong><u>注釈：</u></strong> <strong>srvyr</strong> パッケージを使ってカテゴリカル変数から人口比率を求めることはできないようです。もしこの操作が必要であれば、<strong>sitrep</strong> パッケージを使用する以降のセクションをチェックしてください。 </span></p>
 <div class="cell">
@@ -1491,9 +1502,8 @@ died 0.0514 0.0208  0.12</code></pre>
 3 arrived  761799. 51.4      40.9       61.7      3.93</code></pre>
 </div>
 </div>
-</section>
-<section id="sitrep-パッケージ" class="level3" data-number="26.8.3">
-<h3 data-number="26.8.3" class="anchored" data-anchor-id="sitrep-パッケージ"><span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> パッケージ</h3>
+</section><section id="sitrep-パッケージ" class="level3" data-number="26.8.3"><h3 data-number="26.8.3" class="anchored" data-anchor-id="sitrep-パッケージ">
+<span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> パッケージ</h3>
 <p><strong>sitrep</strong> パッケージの <code>tab_survey()</code> は、<strong>srvyr</strong> パッケージのラッパーであり、最小限のコーディングで重み付けされた表を作成できます。また、カテゴリカル変数の加重割合を計算することもできます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## survey_design オブジェクトを使用する</span></span>
@@ -1521,9 +1531,8 @@ died 0.0514 0.0208  0.12</code></pre>
 9 education_level secondary  130201.  6.68 32.2% (16.5-53.3)</code></pre>
 </div>
 </div>
-</section>
-<section id="gtsummary-パッケージ" class="level3" data-number="26.8.4">
-<h3 data-number="26.8.4" class="anchored" data-anchor-id="gtsummary-パッケージ"><span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> パッケージ</h3>
+</section><section id="gtsummary-パッケージ" class="level3" data-number="26.8.4"><h3 data-number="26.8.4" class="anchored" data-anchor-id="gtsummary-パッケージ">
+<span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> パッケージ</h3>
 <p><strong>gtsummary</strong> パッケージには、信頼区間やデザイン効果を追加するための組み込み関数がまだないようです。ここでは、信頼区間を追加するための関数を定義し、<code>tbl_svysummary()</code> を使って作成した <strong>gtsummary</strong> パッケージのテーブルに信頼区間を追加する方法を示します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>confidence_intervals <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable, by, ...) {</span>
@@ -1554,24 +1563,23 @@ died 0.0514 0.0208  0.12</code></pre>
 <span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<div id="ijcoxsdgxo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ijcoxsdgxo table {
+<div id="tmowzaicma" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tmowzaicma table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ijcoxsdgxo thead, #ijcoxsdgxo tbody, #ijcoxsdgxo tfoot, #ijcoxsdgxo tr, #ijcoxsdgxo td, #ijcoxsdgxo th {
+#tmowzaicma thead, #tmowzaicma tbody, #tmowzaicma tfoot, #tmowzaicma tr, #tmowzaicma td, #tmowzaicma th {
   border-style: none;
 }
 
-#ijcoxsdgxo p {
+#tmowzaicma p {
   margin: 0;
   padding: 0;
 }
 
-#ijcoxsdgxo .gt_table {
+#tmowzaicma .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1597,12 +1605,12 @@ died 0.0514 0.0208  0.12</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_caption {
+#tmowzaicma .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ijcoxsdgxo .gt_title {
+#tmowzaicma .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1614,7 +1622,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-width: 0;
 }
 
-#ijcoxsdgxo .gt_subtitle {
+#tmowzaicma .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1626,7 +1634,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-top-width: 0;
 }
 
-#ijcoxsdgxo .gt_heading {
+#tmowzaicma .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1638,13 +1646,13 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_bottom_border {
+#tmowzaicma .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_col_headings {
+#tmowzaicma .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1659,7 +1667,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_col_heading {
+#tmowzaicma .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1679,7 +1687,7 @@ died 0.0514 0.0208  0.12</code></pre>
   overflow-x: hidden;
 }
 
-#ijcoxsdgxo .gt_column_spanner_outer {
+#tmowzaicma .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1691,15 +1699,15 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 4px;
 }
 
-#ijcoxsdgxo .gt_column_spanner_outer:first-child {
+#tmowzaicma .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ijcoxsdgxo .gt_column_spanner_outer:last-child {
+#tmowzaicma .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ijcoxsdgxo .gt_column_spanner {
+#tmowzaicma .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1711,11 +1719,11 @@ died 0.0514 0.0208  0.12</code></pre>
   width: 100%;
 }
 
-#ijcoxsdgxo .gt_spanner_row {
+#tmowzaicma .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ijcoxsdgxo .gt_group_heading {
+#tmowzaicma .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1741,7 +1749,7 @@ died 0.0514 0.0208  0.12</code></pre>
   text-align: left;
 }
 
-#ijcoxsdgxo .gt_empty_group_heading {
+#tmowzaicma .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1756,15 +1764,15 @@ died 0.0514 0.0208  0.12</code></pre>
   vertical-align: middle;
 }
 
-#ijcoxsdgxo .gt_from_md > :first-child {
+#tmowzaicma .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ijcoxsdgxo .gt_from_md > :last-child {
+#tmowzaicma .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ijcoxsdgxo .gt_row {
+#tmowzaicma .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1783,7 +1791,7 @@ died 0.0514 0.0208  0.12</code></pre>
   overflow-x: hidden;
 }
 
-#ijcoxsdgxo .gt_stub {
+#tmowzaicma .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1796,7 +1804,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#ijcoxsdgxo .gt_stub_row_group {
+#tmowzaicma .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1810,15 +1818,15 @@ died 0.0514 0.0208  0.12</code></pre>
   vertical-align: top;
 }
 
-#ijcoxsdgxo .gt_row_group_first td {
+#tmowzaicma .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ijcoxsdgxo .gt_row_group_first th {
+#tmowzaicma .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ijcoxsdgxo .gt_summary_row {
+#tmowzaicma .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1828,16 +1836,16 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#ijcoxsdgxo .gt_first_summary_row {
+#tmowzaicma .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_first_summary_row.thick {
+#tmowzaicma .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ijcoxsdgxo .gt_last_summary_row {
+#tmowzaicma .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1847,7 +1855,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_grand_summary_row {
+#tmowzaicma .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1857,7 +1865,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#ijcoxsdgxo .gt_first_grand_summary_row {
+#tmowzaicma .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1867,7 +1875,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_last_grand_summary_row_top {
+#tmowzaicma .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1877,11 +1885,11 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_striped {
+#tmowzaicma .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ijcoxsdgxo .gt_table_body {
+#tmowzaicma .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1890,7 +1898,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_footnotes {
+#tmowzaicma .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1904,7 +1912,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_footnote {
+#tmowzaicma .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1913,7 +1921,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#ijcoxsdgxo .gt_sourcenotes {
+#tmowzaicma .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1927,7 +1935,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ijcoxsdgxo .gt_sourcenote {
+#tmowzaicma .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1935,76 +1943,95 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#ijcoxsdgxo .gt_left {
+#tmowzaicma .gt_left {
   text-align: left;
 }
 
-#ijcoxsdgxo .gt_center {
+#tmowzaicma .gt_center {
   text-align: center;
 }
 
-#ijcoxsdgxo .gt_right {
+#tmowzaicma .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ijcoxsdgxo .gt_font_normal {
+#tmowzaicma .gt_font_normal {
   font-weight: normal;
 }
 
-#ijcoxsdgxo .gt_font_bold {
+#tmowzaicma .gt_font_bold {
   font-weight: bold;
 }
 
-#ijcoxsdgxo .gt_font_italic {
+#tmowzaicma .gt_font_italic {
   font-style: italic;
 }
 
-#ijcoxsdgxo .gt_super {
+#tmowzaicma .gt_super {
   font-size: 65%;
 }
 
-#ijcoxsdgxo .gt_footnote_marks {
+#tmowzaicma .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ijcoxsdgxo .gt_asterisk {
+#tmowzaicma .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ijcoxsdgxo .gt_indent_1 {
+#tmowzaicma .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ijcoxsdgxo .gt_indent_2 {
+#tmowzaicma .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ijcoxsdgxo .gt_indent_3 {
+#tmowzaicma .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ijcoxsdgxo .gt_indent_4 {
+#tmowzaicma .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ijcoxsdgxo .gt_indent_5 {
+#tmowzaicma .gt_indent_5 {
   text-indent: 25px;
 }
-</style>
 
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_col_headings">
-<th id="<strong>Characteristic</strong>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
-<th id="<strong>Weighted total (N)</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Weighted total (N)</strong></th>
-<th id="<strong>Weighted Count</strong><span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Weighted Count</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-<th id="<strong>95%CI</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95%CI</strong></th>
-</tr>
-</thead>
+#tmowzaicma .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tmowzaicma div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead><tr class="header gt_col_headings">
+<th id="&lt;div data-qmd-base64=&quot;KipDaGFyYWN0ZXJpc3RpYyoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><p><strong>Characteristic</strong></p></th>
+<th id="&lt;div data-qmd-base64=&quot;KipXZWlnaHRlZCB0b3RhbCAoTikqKg==&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Weighted total (N)&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><p><strong>Weighted total (N)</strong></p></th>
+<th id="&lt;div data-qmd-base64=&quot;KipXZWlnaHRlZCBDb3VudCoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Weighted Count&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
+<p><strong>Weighted Count</strong></p>
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
+</th>
+<th id="&lt;div data-qmd-base64=&quot;Kio5NSVDSSoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;95%CI&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><p><strong>95%CI</strong></p></th>
+</tr></thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">arrived</td>
@@ -2024,26 +2051,23 @@ died 0.0514 0.0208  0.12</code></pre>
 <td class="gt_row gt_center" headers="stat_0">76,213 (5.1%)</td>
 <td class="gt_row gt_center" headers="add_stat_1">2.1-12.1</td>
 </tr>
-</tbody><tfoot class="gt_footnotes">
-<tr class="even">
-<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
-</tr>
-</tfoot>
-
+</tbody>
+<tfoot class="gt_footnotes"><tr class="even">
+<td colspan="4" class="gt_footnote">
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
+<p>n (%)</p>
+</td>
+</tr></tfoot>
 </table>
-
-</div>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="重み付けされた比率" class="level2" data-number="26.9">
-<h2 data-number="26.9" class="anchored" data-anchor-id="重み付けされた比率"><span class="header-section-number">26.9</span> 重み付けされた比率</h2>
+</section></section><section id="重み付けされた比率" class="level2" data-number="26.9"><h2 data-number="26.9" class="anchored" data-anchor-id="重み付けされた比率">
+<span class="header-section-number">26.9</span> 重み付けされた比率</h2>
 <p>重み付けされた比率（例えば死亡率のような）については同様に、<strong>survey</strong> パッケージや <strong>srvyr</strong> パッケージを使うことができます。さらに、複数の変数を反復処理する関数（前のセクションのものと同様）を書くこともできます。上記のように <strong>gtsummary</strong> パッケージのための関数を作れますが、現在のところ相当の処理を行う関数はパッケージにありません。</p>
-<section id="survey-パッケージ-2" class="level3" data-number="26.9.1">
-<h3 data-number="26.9.1" class="anchored" data-anchor-id="survey-パッケージ-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> パッケージ</h3>
+<section id="survey-パッケージ-2" class="level3" data-number="26.9.1"><h3 data-number="26.9.1" class="anchored" data-anchor-id="survey-パッケージ-2">
+<span class="header-section-number">26.9.1</span> <strong>Survey</strong> パッケージ</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ratio <span class="ot">&lt;-</span> <span class="fu">svyratio</span>(<span class="sc">~</span>died, </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">denominator =</span> <span class="sc">~</span>obstime, </span>
@@ -2060,9 +2084,8 @@ died 0.0514 0.0208  0.12</code></pre>
 died 5.981922 1.194294 10.76955</code></pre>
 </div>
 </div>
-</section>
-<section id="srvyr-パッケージ-2" class="level3" data-number="26.9.2">
-<h3 data-number="26.9.2" class="anchored" data-anchor-id="srvyr-パッケージ-2"><span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> パッケージ</h3>
+</section><section id="srvyr-パッケージ-2" class="level3" data-number="26.9.2"><h3 data-number="26.9.2" class="anchored" data-anchor-id="srvyr-パッケージ-2">
+<span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> パッケージ</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## 観察期間を考慮した死亡率</span></span>
@@ -2080,10 +2103,8 @@ died 5.981922 1.194294 10.76955</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="参考資料" class="level2" data-number="26.10">
-<h2 data-number="26.10" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">26.10</span> 参考資料</h2>
+</section></section><section id="参考資料" class="level2" data-number="26.10"><h2 data-number="26.10" class="anchored" data-anchor-id="参考資料">
+<span class="header-section-number">26.10</span> 参考資料</h2>
 <p><a href="https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/">UCLA 統計ページ</a></p>
 <p><a href="http://asdfree.com/">アンケートデータを無料で分析</a></p>
 <p><a href="http://gdfe.co/srvyr/">srvyr パッケージ</a></p>
@@ -2091,10 +2112,7 @@ died 5.981922 1.194294 10.76955</code></pre>
 <p><a href="https://github.com/EPIET/RapidAssessmentSurveys">EPIET 調査のケーススタディ</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2273,18 +2291,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2316,7 +2323,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2351,7 +2398,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2624,60 +2675,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/contact_tracing.jp.html" class="pagination-link" aria-label="接触者の追跡{#contact-tracing}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/survival_analysis.jp.html" class="pagination-link" aria-label="生存時間解析">
-        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

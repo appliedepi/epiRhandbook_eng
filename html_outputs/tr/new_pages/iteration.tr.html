@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Epidemiyologun R Rehberi - 16&nbsp; Yineleme, döngüler ve listeler</title>
+<title>16  Yineleme, döngüler ve listeler – Epidemiyologun R Rehberi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/tables_descriptive.tr.html" rel="next">
 <link href="../new_pages/deduplication.tr.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Göndermek",
     "search-label": "Aramak"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"tr"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.tr.html">Veri Yönetimi</a></li><li class="breadcrumb-item"><a href="../new_pages/iteration.tr.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.tr.html">Veri Yönetimi</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/iteration.tr.html"><span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Aramak" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Epidemiyologun R Rehberi</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Karanlık modu değiştir"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,20 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Aramak"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/iteration.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/iteration.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/iteration.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/iteration.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/iteration.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/iteration.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/ru/new_pages/iteration.ru.html" id="language-link-ru">Русский</a>
+<a class="dropdown-item" href="/ar/new_pages/iteration.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.tr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hoş geldin</span></a>
@@ -284,431 +310,440 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Bu kitap hakkında</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Temel Bilgiler</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R’ın Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R’ın Temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R’a geçiş</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">R’a geçiş</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Önerilen paketler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Önerilen paketler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projeleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projeleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">İçe ve dışa aktar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">İçe ve dışa aktar</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Yönetimi</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Tarihlerle çalışma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Tarihlerle çalışma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Karakterler ve dizeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Karakterler ve dizeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faktörler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Faktörler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Verilerin pivotlanması</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Verilerin pivotlanması</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verileri Gruplama</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Verileri Gruplama</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Veri Birleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Veri Birleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tekilleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Tekilleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.tr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analiz</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basit istatistiksel testler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Basit istatistiksel testler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Eksik Veri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Eksik Veri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hareketli ortalamalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Hareketli ortalamalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Salgın Modelleme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Salgın Modelleme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Temaslı izlemi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Temaslı izlemi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Anket analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Anket analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sağkalım Analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Sağkalım Analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Görselleştirme</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Sunum için tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Sunum için tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplot ipuçları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplot ipuçları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Salgın eğrileri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Salgın eğrileri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Isı grafikleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Isı grafikleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Kombinasyon analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Kombinasyon analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">İletim Zincirleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">İletim Zincirleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">İnteraktif grafikler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">İnteraktif grafikler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Raporlar ve gösterge panoları</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Çeşitli</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Yazma fonksiyonları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Yazma fonksiyonları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Dizin etkileşimleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Dizin etkileşimleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Yaygın hatalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Yaygın hatalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Yardım alma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Yardım alma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Veri tablosu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Veri tablosu</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Ekler</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Içindekiler</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Içindekiler</h2>
    
   <ul>
-  <li><a href="#hazırlık" id="toc-hazırlık" class="nav-link active" data-scroll-target="#hazırlık"><span class="header-section-number">16.1</span> Hazırlık</a>
+<li>
+<a href="#haz%C4%B1rl%C4%B1k" id="toc-hazırlık" class="nav-link active" data-scroll-target="#hazırlık"><span class="header-section-number">16.1</span> Hazırlık</a>
   <ul class="collapse">
-  <li><a href="#paketleri-yükleme" id="toc-paketleri-yükleme" class="nav-link" data-scroll-target="#paketleri-yükleme">Paketleri yükleme</a></li>
-  <li><a href="#verileri-içe-aktarma" id="toc-verileri-içe-aktarma" class="nav-link" data-scroll-target="#verileri-içe-aktarma">Verileri içe aktarma</a></li>
-  </ul></li>
-  <li><a href="#for-döngüleri" id="toc-for-döngüleri" class="nav-link" data-scroll-target="#for-döngüleri"><span class="header-section-number">16.2</span> <em>for döngüleri</em></a>
-  <ul class="collapse">
-  <li><a href="#iter_loops" id="toc-iter_loops" class="nav-link" data-scroll-target="#iter_loops">R’daki for döngüleri*</a></li>
-  <li><a href="#temel-bileşenler" id="toc-temel-bileşenler" class="nav-link" data-scroll-target="#temel-bileşenler">Temel bileşenler</a></li>
-  <li><a href="#sıralama" id="toc-sıralama" class="nav-link" data-scroll-target="#sıralama">Sıralama</a></li>
-  <li><a href="#operasyonlar" id="toc-operasyonlar" class="nav-link" data-scroll-target="#operasyonlar">Operasyonlar</a></li>
-  <li><a href="#kapsayıcı" id="toc-kapsayıcı" class="nav-link" data-scroll-target="#kapsayıcı">Kapsayıcı</a></li>
-  <li><a href="#yazdırma" id="toc-yazdırma" class="nav-link" data-scroll-target="#yazdırma">Yazdırma</a></li>
-  <li><a href="#for-döngüsünü-test-etme" id="toc-for-döngüsünü-test-etme" class="nav-link" data-scroll-target="#for-döngüsünü-test-etme">For döngüsünü test etme</a></li>
-  <li><a href="#döngü-grafikleri" id="toc-döngü-grafikleri" class="nav-link" data-scroll-target="#döngü-grafikleri">Döngü grafikleri</a></li>
-  <li><a href="#bir-döngünün-ilerlemesini-izleme" id="toc-bir-döngünün-ilerlemesini-izleme" class="nav-link" data-scroll-target="#bir-döngünün-ilerlemesini-izleme">Bir döngünün ilerlemesini izleme</a></li>
-  </ul></li>
-  <li><a href="#iter_purrr" id="toc-iter_purrr" class="nav-link" data-scroll-target="#iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> ve listeler</a>
-  <ul class="collapse">
-  <li><a href="#paketleri-yükleme-1" id="toc-paketleri-yükleme-1" class="nav-link" data-scroll-target="#paketleri-yükleme-1">Paketleri yükleme</a></li>
-  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><code>map()</code></a></li>
-  <li><a href="#veri-kümesini-bölme-ve-dışa-aktarma" id="toc-veri-kümesini-bölme-ve-dışa-aktarma" class="nav-link" data-scroll-target="#veri-kümesini-bölme-ve-dışa-aktarma">Veri kümesini bölme ve dışa aktarma</a></li>
-  <li><a href="#özel-işlevler" id="toc-özel-işlevler" class="nav-link" data-scroll-target="#özel-işlevler">Özel işlevler</a></li>
-  <li><a href="#sütunlar-arasında-bir-fonksiyonu-eşleme" id="toc-sütunlar-arasında-bir-fonksiyonu-eşleme" class="nav-link" data-scroll-target="#sütunlar-arasında-bir-fonksiyonu-eşleme">Sütunlar arasında bir fonksiyonu eşleme</a></li>
-  <li><a href="#listeden-çıkarma" id="toc-listeden-çıkarma" class="nav-link" data-scroll-target="#listeden-çıkarma">Listeden çıkarma</a></li>
-  <li><a href="#listeyi-veri-çerçevesine-dönüştür" id="toc-listeyi-veri-çerçevesine-dönüştür" class="nav-link" data-scroll-target="#listeyi-veri-çerçevesine-dönüştür">Listeyi veri çerçevesine dönüştür</a></li>
-  <li><a href="#listeleri-atma-saklama-ve-sıkıştırma" id="toc-listeleri-atma-saklama-ve-sıkıştırma" class="nav-link" data-scroll-target="#listeleri-atma-saklama-ve-sıkıştırma">Listeleri atma, saklama ve sıkıştırma</a></li>
-  <li><a href="#pmap" id="toc-pmap" class="nav-link" data-scroll-target="#pmap"><code>pmap()</code></a></li>
-  </ul></li>
-  <li><a href="#fonksiyonları-uygulama" id="toc-fonksiyonları-uygulama" class="nav-link" data-scroll-target="#fonksiyonları-uygulama"><span class="header-section-number">16.4</span> Fonksiyonları uygulama</a></li>
-  <li><a href="#kaynaklar" id="toc-kaynaklar" class="nav-link" data-scroll-target="#kaynaklar"><span class="header-section-number">16.5</span> Kaynaklar</a></li>
+<li><a href="#paketleri-y%C3%BCkleme" id="toc-paketleri-yükleme" class="nav-link" data-scroll-target="#paketleri-yükleme">Paketleri yükleme</a></li>
+  <li><a href="#verileri-i%C3%A7e-aktarma" id="toc-verileri-içe-aktarma" class="nav-link" data-scroll-target="#verileri-içe-aktarma">Verileri içe aktarma</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#for-d%C3%B6ng%C3%BCleri" id="toc-for-döngüleri" class="nav-link" data-scroll-target="#for-döngüleri"><span class="header-section-number">16.2</span> <em>for döngüleri</em></a>
+  <ul class="collapse">
+<li><a href="#iter_loops" id="toc-iter_loops" class="nav-link" data-scroll-target="#iter_loops">R’daki for döngüleri*</a></li>
+  <li><a href="#temel-bile%C5%9Fenler" id="toc-temel-bileşenler" class="nav-link" data-scroll-target="#temel-bileşenler">Temel bileşenler</a></li>
+  <li><a href="#s%C4%B1ralama" id="toc-sıralama" class="nav-link" data-scroll-target="#sıralama">Sıralama</a></li>
+  <li><a href="#operasyonlar" id="toc-operasyonlar" class="nav-link" data-scroll-target="#operasyonlar">Operasyonlar</a></li>
+  <li><a href="#kapsay%C4%B1c%C4%B1" id="toc-kapsayıcı" class="nav-link" data-scroll-target="#kapsayıcı">Kapsayıcı</a></li>
+  <li><a href="#yazd%C4%B1rma" id="toc-yazdırma" class="nav-link" data-scroll-target="#yazdırma">Yazdırma</a></li>
+  <li><a href="#for-d%C3%B6ng%C3%BCs%C3%BCn%C3%BC-test-etme" id="toc-for-döngüsünü-test-etme" class="nav-link" data-scroll-target="#for-döngüsünü-test-etme">For döngüsünü test etme</a></li>
+  <li><a href="#d%C3%B6ng%C3%BC-grafikleri" id="toc-döngü-grafikleri" class="nav-link" data-scroll-target="#döngü-grafikleri">Döngü grafikleri</a></li>
+  <li><a href="#bir-d%C3%B6ng%C3%BCn%C3%BCn-ilerlemesini-izleme" id="toc-bir-döngünün-ilerlemesini-izleme" class="nav-link" data-scroll-target="#bir-döngünün-ilerlemesini-izleme">Bir döngünün ilerlemesini izleme</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#iter_purrr" id="toc-iter_purrr" class="nav-link" data-scroll-target="#iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> ve listeler</a>
+  <ul class="collapse">
+<li><a href="#paketleri-y%C3%BCkleme-1" id="toc-paketleri-yükleme-1" class="nav-link" data-scroll-target="#paketleri-yükleme-1">Paketleri yükleme</a></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><code>map()</code></a></li>
+  <li><a href="#veri-k%C3%BCmesini-b%C3%B6lme-ve-d%C4%B1%C5%9Fa-aktarma" id="toc-veri-kümesini-bölme-ve-dışa-aktarma" class="nav-link" data-scroll-target="#veri-kümesini-bölme-ve-dışa-aktarma">Veri kümesini bölme ve dışa aktarma</a></li>
+  <li><a href="#%C3%B6zel-i%C5%9Flevler" id="toc-özel-işlevler" class="nav-link" data-scroll-target="#özel-işlevler">Özel işlevler</a></li>
+  <li><a href="#s%C3%BCtunlar-aras%C4%B1nda-bir-fonksiyonu-e%C5%9Fleme" id="toc-sütunlar-arasında-bir-fonksiyonu-eşleme" class="nav-link" data-scroll-target="#sütunlar-arasında-bir-fonksiyonu-eşleme">Sütunlar arasında bir fonksiyonu eşleme</a></li>
+  <li><a href="#listeden-%C3%A7%C4%B1karma" id="toc-listeden-çıkarma" class="nav-link" data-scroll-target="#listeden-çıkarma">Listeden çıkarma</a></li>
+  <li><a href="#listeyi-veri-%C3%A7er%C3%A7evesine-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr" id="toc-listeyi-veri-çerçevesine-dönüştür" class="nav-link" data-scroll-target="#listeyi-veri-çerçevesine-dönüştür">Listeyi veri çerçevesine dönüştür</a></li>
+  <li><a href="#listeleri-atma-saklama-ve-s%C4%B1k%C4%B1%C5%9Ft%C4%B1rma" id="toc-listeleri-atma-saklama-ve-sıkıştırma" class="nav-link" data-scroll-target="#listeleri-atma-saklama-ve-sıkıştırma">Listeleri atma, saklama ve sıkıştırma</a></li>
+  <li><a href="#pmap" id="toc-pmap" class="nav-link" data-scroll-target="#pmap"><code>pmap()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#fonksiyonlar%C4%B1-uygulama" id="toc-fonksiyonları-uygulama" class="nav-link" data-scroll-target="#fonksiyonları-uygulama"><span class="header-section-number">16.4</span> Fonksiyonları uygulama</a></li>
+  <li><a href="#kaynaklar" id="toc-kaynaklar" class="nav-link" data-scroll-target="#kaynaklar"><span class="header-section-number">16.5</span> Kaynaklar</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.tr.html">Veri Yönetimi</a></li><li class="breadcrumb-item"><a href="../new_pages/iteration.tr.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.tr.html">Veri Yönetimi</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/iteration.tr.html"><span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span>
+</h1>
 </div>
 
 
@@ -722,14 +757,13 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<p>Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar <em>yinelemeyi</em> içeren birçok durumdan sadece birkaçıdır. Aşağıdaki yaklaşımları kullanarak yinelemeli işlemlerinizi kodlamak, bu tür tekrarlayan görevleri daha hızlı gerçekleştirmenize, hata olasılığını azaltmanıza ve kod uzunluğunu azaltmanıza yardımcı olacaktır.</p>
+</header><p>Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar <em>yinelemeyi</em> içeren birçok durumdan sadece birkaçıdır. Aşağıdaki yaklaşımları kullanarak yinelemeli işlemlerinizi kodlamak, bu tür tekrarlayan görevleri daha hızlı gerçekleştirmenize, hata olasılığını azaltmanıza ve kod uzunluğunu azaltmanıza yardımcı olacaktır.</p>
 <p>Bu sayfa, yinelemeli işlemlere iki yaklaşım sunacaktır - <em>for döngülerini</em> ve <em>purrr</em> paketini kullanmak.</p>
 <ol type="1">
-<li><em>for döngüleri</em>, bir dizi giriş boyunca kodu yineler, ancak R’da diğer programlama dillerinden daha az yaygındır. Yine de, onları burada bir öğrenme aracı ve referans olarak tanıtıyoruz.</li>
-<li><strong>purrr</strong> paketi, yinelemeli işlemlere <strong>tidyverse</strong> yaklaşımdır - bir işlevi birçok girdi arasında “eşleyerek” çalışır (değerler, sütunlar, veri kümeleri vb.)</li>
+<li>
+<em>for döngüleri</em>, bir dizi giriş boyunca kodu yineler, ancak R’da diğer programlama dillerinden daha az yaygındır. Yine de, onları burada bir öğrenme aracı ve referans olarak tanıtıyoruz.</li>
+<li>
+<strong>purrr</strong> paketi, yinelemeli işlemlere <strong>tidyverse</strong> yaklaşımdır - bir işlevi birçok girdi arasında “eşleyerek” çalışır (değerler, sütunlar, veri kümeleri vb.)</li>
 </ol>
 <p>Yol boyunca, aşağıdaki gibi örnekler göstereceğiz:</p>
 <ul>
@@ -740,10 +774,9 @@ cookieconsent.run({
 <li>Bir veri çerçevesindeki birkaç sütun için T testleri çalıştırma</li>
 </ul>
 <p><strong>purrr</strong><a href="#iter_purrr">section</a> bölümünde, listeleri - <code>lists</code> oluşturma ve işlemeye ilişkin birkaç örnek de sunacağız.</p>
-<section id="hazırlık" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="hazırlık"><span class="header-section-number">16.1</span> Hazırlık</h2>
-<section id="paketleri-yükleme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme">Paketleri yükleme</h3>
+<section id="hazırlık" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="hazırlık">
+<span class="header-section-number">16.1</span> Hazırlık</h2>
+<section id="paketleri-yükleme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme">Paketleri yükleme</h3>
 <p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekli olursa paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’ın <code>p_load()</code> fonksiyonunu vurguluyoruz. Ayrıca, R tabanından <code>library()</code> ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R temelleri] sayfasına bakın.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -754,9 +787,7 @@ cookieconsent.run({
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     tidyverse    <span class="co"># veri yönetimi ve görselleştirme</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="verileri-içe-aktarma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="verileri-içe-aktarma">Verileri içe aktarma</h3>
+</section><section id="verileri-içe-aktarma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="verileri-içe-aktarma">Verileri içe aktarma</h3>
 <p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Devam etmek isterseniz, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“temiz” satır listesini indirmek için tıklayın</a> (.rds dosyası olarak). Verileri <strong>rio</strong> paketinden <code>import()</code> fonksiyonuyla içe aktarın (.xlsx, .csv, .rds gibi birçok dosya türünü işler - ayrıntılar için [İçe ve Dışa Aktarma] sayfasına bakın).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># satır listesini içe aktar</span></span>
@@ -765,27 +796,24 @@ cookieconsent.run({
 <p>Çizgi listesinin ilk 50 satırı aşağıda görüntülenir.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-82167b76f1098afe4946" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-82167b76f1098afe4946">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d424b791658620c4b56e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d424b791658620c4b56e">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="for-döngüleri" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="for-döngüleri"><span class="header-section-number">16.2</span> <em>for döngüleri</em></h2>
-<section id="iter_loops" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="iter_loops">R’daki for döngüleri*</h3>
+</section></section><section id="for-döngüleri" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="for-döngüleri">
+<span class="header-section-number">16.2</span> <em>for döngüleri</em>
+</h2>
+<section id="iter_loops" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="iter_loops">R’daki for döngüleri*</h3>
 <p><em>for döngüleri</em> R’de vurgulanmaz, ancak diğer programlama dillerinde yaygındır. Yeni başlayan olarak, “keşfetmek”te , “hata ayıklamak”ta daha kolay oldukları için öğrenmek ve pratik yapmak için yardımcı olabilirler ve aksi takdirde, özellikle kendi işlevlerinizi yazarken henüz rahat değilseniz, her yinelemenin tam olarak ne olduğunu anlamalısınız.</p>
 <p><strong>purrr</strong> ile eşlenmiş işlevlerle yinelemek için <em>for döngüleri</em> sayesinde hızla ilerleyebilirsiniz (<a href="#iter_purrr">aşağıdaki bölüme bakın</a>).</p>
-</section>
-<section id="temel-bileşenler" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="temel-bileşenler">Temel bileşenler</h3>
+</section><section id="temel-bileşenler" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="temel-bileşenler">Temel bileşenler</h3>
 <p>Bir <em>for döngüsünün</em> üç temel parçası vardır:</p>
 <ol type="1">
 <li>Yinelenecek öğelerin <strong>sırası</strong><br>
 </li>
-<li>Sıradaki her öğe başına yapılacak <strong>işlemler</strong></li>
+<li>Sıradaki her öğe başına yapılacak <strong>işlemler</strong>
+</li>
 <li>Sonuçlar için <strong>kapsayıcı</strong> (isteğe bağlı)</li>
 </ol>
 <p>Temel sözdizimi şudur: <code>for (sıradaki öğe) {öğeyi kullanarak işlemler yapın}</code>. Parantezlere ve küme parantezlerine dikkat edin. Sonuçlar konsola yazdırılabilir veya bir kapsayıcı R nesnesinde saklanabilir.</p>
@@ -803,14 +831,13 @@ cookieconsent.run({
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># Bu örnekte "kapsayıcı" yok</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="sıralama" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="sıralama">Sıralama</h3>
+</section><section id="sıralama" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="sıralama">Sıralama</h3>
 <p>Bu, <em>for döngüsünün</em> “for” kısmıdır - işlemler dizideki her öğe için “for” çalışır. Sıra, bir dizi değer (ör. yetki alanlarının adları, hastalıklar, sütun adları, liste öğeleri, vb.) olabilir veya bir dizi ardışık sayı (ör. 1,2,3,4,5) olabilir. Her yaklaşımın aşağıda açıklanan kendi araçları vardır.</p>
 <p>Bir dizi ifadesinin temel yapısı <code>vektördeki öğedir</code>.</p>
 <ul>
 <li>“Öğe” yerine herhangi bir karakter veya kelime yazabilirsiniz (örn. “i”, “num”, “hosp”, “bölge” vb.). Bu “öğenin” değeri, vektördeki her değerden geçerek döngünün her yinelemesinde değişir.</li>
-<li><em>Vektör</em>, karakter değerleri, sütun adları veya belki bir dizi sayı olabilir - bunlar her yinelemede değişecek olan değerlerdir. Bunları “item” terimini kullanarak <em>for döngüsü</em> işlemleri içinde kullanabilirsiniz.</li>
+<li>
+<em>Vektör</em>, karakter değerleri, sütun adları veya belki bir dizi sayı olabilir - bunlar her yinelemede değişecek olan değerlerdir. Bunları “item” terimini kullanarak <em>for döngüsü</em> işlemleri içinde kullanabilirsiniz.</li>
 </ul>
 <p><strong>Örnek: karakter değerleri dizisi</strong></p>
 <p>Bu örnekte, hastane adlarının önceden tanımlanmış bir karakter vektöründeki her bir değer için bir döngü gerçekleştirilir.</p>
@@ -900,9 +927,7 @@ cookieconsent.run({
 </div>
 </div>
 <p>Dizide sayıları kullanmanın bir avantajı, döngü çıktılarını depolayan bir <em>kapsayıcıyı</em> indekslemek için <code>i</code> numarasını kullanmanın da kolay olmasıdır. Aşağıdaki İşlemler bölümünde bunun bir örneği var.</p>
-</section>
-<section id="operasyonlar" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="operasyonlar">Operasyonlar</h3>
+</section><section id="operasyonlar" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="operasyonlar">Operasyonlar</h3>
 <p>Bu, <em>for döngüsünün</em> küme parantezleri <code>{ }</code> içindeki koddur. Bu kodun <em>sıradaki</em> her “öğe” için çalışmasını istiyorsunuz. Bu nedenle, kodunuzun “öğe” ile değişen her parçasının gerçekten değişeceği şekilde doğru kodlanmış olmasına dikkat edin! Örneğin, indeksleme için <code>[[ ]]</code> kullanmayı unutmayın.</p>
 <p>Aşağıdaki örnekte, <code>satır listesindeki</code> her bir satırı yineliyoruz. Her satırın cinsiyet - <code>gender</code> ve yaş - <code>age</code> değerleri birbirine yapıştırılır ve <code>cases_demographics</code> kapsayıcı karakter vektöründe saklanır. Döngü çıktısını “kapsayıcı” vektöründe doğru konuma kaydetmek için indekslemeyi <code>[[i]]</code> nasıl kullandığımıza dikkat edin.</p>
 <div class="cell">
@@ -929,9 +954,7 @@ cookieconsent.run({
 <pre><code> [1] "m,2"  "f,3"  "m,56" "f,18" "m,3"  "f,16" "f,16" "f,0"  "m,61" "f,27"</code></pre>
 </div>
 </div>
-</section>
-<section id="kapsayıcı" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="kapsayıcı">Kapsayıcı</h3>
+</section><section id="kapsayıcı" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="kapsayıcı">Kapsayıcı</h3>
 <p>Bazen <em>for döngüsünün</em> sonuçları konsola veya RStudio Plots bölmesine yazdırılır. Diğer zamanlarda, çıktıları daha sonra kullanmak üzere bir “kapsayıcı”da saklamak isteyeceksiniz. Böyle bir kapsayıcı, bir vektör, bir veri çerçevesi ve hatta bir liste olabilir.</p>
 <p><em>For döngüsüne</em> başlamadan <em>önce</em> bile sonuçlar için kapsayıcı oluşturmak en verimli yöntemdir. Pratikte bu, boş bir vektör, veri çerçevesi veya liste oluşturmak anlamına gelir. Bunlar, vektörler veya listeler için <code>vector()</code> işlevleriyle veya bir veri çerçevesi için <code>matrix()</code> ve <code>data.frame()</code> işlevleriyle oluşturulabilir.</p>
 <p><strong>Boş vektör</strong></p>
@@ -953,9 +976,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">"list"</span>, <span class="at">length =</span> <span class="dv">16</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="yazdırma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="yazdırma">Yazdırma</h3>
+</section><section id="yazdırma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="yazdırma">Yazdırma</h3>
 <p>Bir <em>for döngüsü</em> içinden yazdırmak için büyük olasılıkla <code>print()</code> işleviyle açıkça sarmanız gerekeceğini unutmayın.</p>
 <p>Aşağıdaki bu örnekte dizi, hastane tarafından satır listesinin alt kümesi için kullanılan açık bir karakter vektörüdür. Sonuçlar bir kapsayıcıda saklanmaz, bunun yerine <code>print()</code> işleviyle konsola yazdırılır.</p>
 <div class="cell">
@@ -972,13 +993,9 @@ cookieconsent.run({
 [1] 454</code></pre>
 </div>
 </div>
-</section>
-<section id="for-döngüsünü-test-etme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="for-döngüsünü-test-etme">For döngüsünü test etme</h3>
+</section><section id="for-döngüsünü-test-etme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="for-döngüsünü-test-etme">For döngüsünü test etme</h3>
 <p>Döngünüzü test etmek için, <code>i &lt;- 10</code> veya <code>hosp &lt;- "Central Hospital"</code> gibi “öğe”nin geçici bir atamasını yapmak için bir komut çalıştırabilirsiniz. Bunu <em>döngünün dışında</em> yapın ve ardından beklenen sonuçların üretilip üretilmediğini görmek için yalnızca işlem kodunuzu (kıvrımlı parantez içindeki kod) çalıştırın.</p>
-</section>
-<section id="döngü-grafikleri" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="döngü-grafikleri">Döngü grafikleri</h3>
+</section><section id="döngü-grafikleri" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="döngü-grafikleri">Döngü grafikleri</h3>
 <p>Üç bileşeni (kapsayıcı, sıralama ve operasyonlar) bir araya getirmek için her hastane için bir epi eğrisi çizmeye çalışalım ([Salgın eğrileri] sayfasına bakın).</p>
 <p>Aşağıdaki gibi <strong>incidence2</strong> paketini kullanarak <em>tüm</em> vakaların cinsiyete göre güzel bir epik eğrisini yapabiliriz:</p>
 <div class="cell">
@@ -1007,8 +1024,7 @@ cookieconsent.run({
 <span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"Gender"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="iteration.tr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="iteration.tr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1069,50 +1085,42 @@ cookieconsent.run({
 <span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>} <span class="co"># hospital_names içindeki her hastane için çalıştırıldığında for döngüsünü sonlandırın </span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-17-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="iteration.tr_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="bir-döngünün-ilerlemesini-izleme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bir-döngünün-ilerlemesini-izleme">Bir döngünün ilerlemesini izleme</h3>
+</section><section id="bir-döngünün-ilerlemesini-izleme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="bir-döngünün-ilerlemesini-izleme">Bir döngünün ilerlemesini izleme</h3>
 <p>Birçok yinelemeli bir döngü, dakikalarca hatta saatlerce çalışabilir. Bu nedenle, ilerlemeyi R konsoluna yazdırmak yararlı olabilir. Aşağıdaki <code>if</code> ifadesi, her 100. sayıyı yazdırmak için döngü fonksiyonlarının <em>içine</em> yerleştirilebilir. Döngünüzdeki “öğe” <code>i</code> olacak şekilde ayarlayın.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># her 100 yinelemede ilerlemeyi yazdırmak için kodlu döngü</span></span>
@@ -1125,17 +1133,14 @@ cookieconsent.run({
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="iter_purrr" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> ve listeler</h2>
+</section></section><section id="iter_purrr" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="iter_purrr">
+<span class="header-section-number">16.3</span> <strong>purrr</strong> ve listeler</h2>
 <p>Yinelemeli işlemlere başka bir yaklaşım da <strong>purrr</strong> paketidir - yineleme için <strong>tidyverse</strong> yaklaşımdır.</p>
 <p>Aynı görevi birkaç kez yapmakla karşı karşıya kalırsanız, muhtemelen birçok girdide kullanabileceğiniz genelleştirilmiş bir çözüm oluşturmaya değer. Örneğin, birden fazla yetki alanları için grafikler oluşturmak veya birçok dosyayı içe aktarmak ve birleştirmek.</p>
 <p>Ayrıca <strong>purrr</strong>’ın birkaç avantajı daha vardır - <code>%&gt;%</code> tünelleriyle kullanabilirsiniz, <em>for döngülerine</em> kıyasla normalden daha iyi hataları ele alır ve sözdizimi oldukça temiz ve basittir! Bir <em>for döngüsü</em> kullanıyorsanız, muhtemelen <strong>purrr</strong> ile daha net ve özlü bir şekilde yapabilirsiniz!</p>
 <p><strong>purrr</strong>’ın <em>fonksiyonel programlama</em> aracı olduğunu unutmayın. Yani, yinelemeli olarak uygulanacak işlemler <em>fonksiyonlara</em> sarılır. Kendi işlevlerinizi nasıl yazacağınızı öğrenmek için [Yazma işlevleri] sayfasına bakın.</p>
 <p><strong>purrr</strong> ayrıca neredeyse tamamen <em>listeler</em> ve <em>vektörler</em> üzerine kuruludur - bu yüzden bunu o listenin/vektörün her bir öğesine bir işlev uygulamak olarak düşünün!</p>
-<section id="paketleri-yükleme-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme-1">Paketleri yükleme</h3>
+<section id="paketleri-yükleme-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme-1">Paketleri yükleme</h3>
 <p><strong>purrr</strong> <strong>tidyverse</strong>’in bir parçasıdır, bu nedenle ayrı bir paket kurmaya/yüklemeye gerek yoktur.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -1146,14 +1151,14 @@ cookieconsent.run({
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>     readxl          <span class="co"># Excel'i birden çok sayfayla içe aktar</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="map" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="map"><code>map()</code></h3>
+</section><section id="map" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="map"><code>map()</code></h3>
 <p><strong>purrr</strong>’un temel bir işlevi, sağladığınız bir listenin/vektörün her giriş öğesine bir işlevi “eşleyen” (uygulayan) <code>map()</code> işlevidir.</p>
 <p>Temel sözdizimi <code>map(.x = SEQUENCE, .f = FUNCTION, OTHER ARGUMENTS)</code>. Biraz daha ayrıntılı olarak:</p>
 <ul>
-<li><code>.x =</code>, <code>.f</code> işlevinin yinelemeli olarak uygulanacağı <em>girdilerdir</em> - ör. yetki alanları adları vektörü, veri çerçevesindeki sütunlar veya veri çerçeveleri listesi.</li>
-<li><code>.f =</code>, <code>.x</code> girişinin her bir öğesine uygulanacak <em>fonksiyondur</em> - zaten var olan <code>print()</code> gibi bir işlev veya tanımladığınız özel bir işlev olabilir. İşlev genellikle yaklaşık işaretinden sonra yazılır <code>~</code> (ayrıntılar aşağıdadır).</li>
+<li>
+<code>.x =</code>, <code>.f</code> işlevinin yinelemeli olarak uygulanacağı <em>girdilerdir</em> - ör. yetki alanları adları vektörü, veri çerçevesindeki sütunlar veya veri çerçeveleri listesi.</li>
+<li>
+<code>.f =</code>, <code>.x</code> girişinin her bir öğesine uygulanacak <em>fonksiyondur</em> - zaten var olan <code>print()</code> gibi bir işlev veya tanımladığınız özel bir işlev olabilir. İşlev genellikle yaklaşık işaretinden sonra yazılır <code>~</code> (ayrıntılar aşağıdadır).</li>
 </ul>
 <p>Sözdizimi hakkında birkaç not daha:</p>
 <ul>
@@ -1162,23 +1167,23 @@ cookieconsent.run({
 <li>Fonksiyon üzerinde daha fazla kontrole sahip olmak için yaklaşık sözdizimini (<code>~</code>) kullanın - fonksiyonu parantez içinde normal olarak yazın, örneğin: <code>map(.x = my_list, .f = ~mean(., na.rm = T))</code>. Bu söz dizimini özellikle bir bağımsız değişkenin değeri her yinelemeyi değiştirecekse veya <code>.x</code> değerinin kendisiyse kullanın (aşağıdaki örneklere bakın)</li>
 </ul>
 <p><strong><code>map()</code> kullanımının çıktısı bir listedir</strong> - liste, vektör gibi bir nesne sınıfıdır, ancak öğeleri farklı sınıflardan olabilir. Bu nedenle, <code>map()</code> tarafından üretilen bir liste birçok veri çerçevesi veya birçok vektör, birçok tek değer ve hatta birçok liste içerebilir! Aşağıda açıklanan ve diğer çıktı türlerini üreten alternatif <code>map()</code> sürümleri vardır (örneğin, bir veri çerçevesi oluşturmak için <code>.map_dfr()</code>, karakter vektörleri üretmek için <code>map_chr()</code> ve sayısal vektörler üretmek için <code>map_dbl()</code>).</p>
-<section id="iter_combined" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="iter_combined">Örnek - Excel sayfalarını içe aktarın ve birleştirin</h4>
+<section id="iter_combined" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="iter_combined">Örnek - Excel sayfalarını içe aktarın ve birleştirin</h4>
 <p><strong>Yaygın bir epidemiyolog göreviyle gösterelim:</strong> - <em>aka verileri içeren bir Excel çalışma kitabını içe aktarmak istiyorsunuz, ancak veriler çalışma kitabındaki farklı adlandırılmış sayfalara bölünüyor. Sayfaları tek bir veri çerçevesinde nasıl verimli bir şekilde içe aktarır ve birleştirirsiniz?</em></p>
 <p>Diyelim ki aşağıdaki Excel çalışma kitabı bize gönderildi. Her sayfa belirli bir hastaneden vakaları içerir.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/hospital_linelists_excel_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/hospital_linelists_excel_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="615"></a></p>
+<figure class="figure"><p><a href="../images/hospital_linelists_excel_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/hospital_linelists_excel_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="615"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>İşte <code>map()</code> kullanan bir yaklaşım:</p>
 <ol type="1">
-<li><code>map()</code> <code>import()</code> işlevi, böylece her Excel sayfası için çalışır</li>
-<li><code>bind_rows()</code> kullanarak içe aktarılan veri çerçevelerini bir araya getirin</li>
+<li>
+<code>map()</code> <code>import()</code> işlevi, böylece her Excel sayfası için çalışır</li>
+<li>
+<code>bind_rows()</code> kullanarak içe aktarılan veri çerçevelerini bir araya getirin</li>
 <li>Yol boyunca, her satır için orijinal sayfa adını koruyarak bu bilgiyi son veri çerçevesinde yeni bir sütunda saklayın</li>
 </ol>
 <p>İlk olarak, sayfa adlarını çıkarmamız ve kaydetmemiz gerekiyor. Excel çalışma kitabının dosya yolunu, sayfa adlarını ayıklayan <strong>readxl</strong> paketinden <code>excel_sheets()</code> işlevine sağlıyoruz. Bunları <code>sheet_names</code> adlı bir karakter vektöründe saklarız.</p>
@@ -1207,8 +1212,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/sheets_as_list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/sheets_as_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="544"></a></p>
+<figure class="figure"><p><a href="../images/sheets_as_list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/sheets_as_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="544"></a></p>
 </figure>
 </div>
 </div>
@@ -1227,8 +1231,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/sheets_as_df.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../images/sheets_as_df.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="543"></a></p>
+<figure class="figure"><p><a href="../images/sheets_as_df.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../images/sheets_as_df.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="543"></a></p>
 </figure>
 </div>
 </div>
@@ -1247,13 +1250,9 @@ cookieconsent.run({
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>İlk sayfa adının yine de çıktı listesinin bir öğesi olarak görüneceğini unutmayın - ancak bu yalnızca tek bir karakter adıdır (veri çerçevesi değil). Satırları bağlamadan önce bu öğeyi kaldırmanız gerekir. Liste öğelerinin nasıl kaldırılacağını ve değiştirileceğini daha sonraki bir bölümde ele alacağız.</p>
-</section>
-</section>
-<section id="veri-kümesini-bölme-ve-dışa-aktarma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="veri-kümesini-bölme-ve-dışa-aktarma">Veri kümesini bölme ve dışa aktarma</h3>
+</section></section><section id="veri-kümesini-bölme-ve-dışa-aktarma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="veri-kümesini-bölme-ve-dışa-aktarma">Veri kümesini bölme ve dışa aktarma</h3>
 <p>Aşağıda, bir veri kümesinin parçalara nasıl bölüneceğine ve ardından her bir parçayı ayrı bir Excel sayfası veya ayrı bir CSV dosyası olarak dışa aktarmak için <code>map()</code> yinelemesinin nasıl kullanılacağına ilişkin bir örnek veriyoruz.</p>
-<section id="bölünmüş-veri-seti" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="bölünmüş-veri-seti">Bölünmüş veri seti</h4>
+<section id="bölünmüş-veri-seti" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="bölünmüş-veri-seti">Bölünmüş veri seti</h4>
 <p>Veri çerçevesi olarak tam vaka <code>satır listesine</code> sahip olduğumuzu ve şimdi her hastane için ayrı bir satır listesi oluşturmak ve her birini ayrı bir CSV dosyası olarak dışa aktarmak istediğimizi varsayalım. Aşağıda, izleyen adımları yapıyoruz:</p>
 <p><code>hospital</code> sütunundaki benzersiz değerlere göre <code>satır listesi</code> veri çerçevesini bölmek için <code>group_split()</code> (<strong>dplyr</strong>’den) kullanın. Çıktı, her hastane alt kümesi başına bir veri çerçevesi içeren bir listedir.</p>
 <div class="cell">
@@ -1264,8 +1263,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_linelist_split.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../images/purrr_linelist_split.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="574"></a></p>
+<figure class="figure"><p><a href="../images/purrr_linelist_split.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../images/purrr_linelist_split.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="574"></a></p>
 </figure>
 </div>
 </div>
@@ -1283,8 +1281,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_linelist_split_named.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../images/purrr_linelist_split_named.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="575"></a></p>
+<figure class="figure"><p><a href="../images/purrr_linelist_split_named.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../images/purrr_linelist_split_named.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="575"></a></p>
 </figure>
 </div>
 </div>
@@ -1300,8 +1297,7 @@ cookieconsent.run({
 [6] "St. Mark's Maternity Hospital (SMMH)"</code></pre>
 </div>
 </div>
-<section id="birden-fazla-group_split-sütunu" class="level5 unnumbered">
-<h5 class="unnumbered anchored" data-anchor-id="birden-fazla-group_split-sütunu">Birden fazla <code>group_split()</code> sütunu</h5>
+<section id="birden-fazla-group_split-sütunu" class="level5 unnumbered"><h5 class="unnumbered anchored" data-anchor-id="birden-fazla-group_split-sütunu">Birden fazla <code>group_split()</code> sütunu</h5>
 <p>Hastane VE cinsiyetin kesişimine göre alt küme satır listesi üretmek gibi, satır listesini <em>birden fazla gruplama sütununa</em> bölmek istiyorsanız, liste öğelerini adlandırmak için farklı bir yaklaşıma ihtiyacınız olacaktır. Bu, <strong>dplyr</strong>’den <code>group_keys()</code> kullanarak benzersiz “grup anahtarları”nın toplanmasını içerir - bunlar bir veri çerçevesine döndürülür. Ardından, aşağıda gösterildiği gibi <code>unite()</code> ile grup anahtarlarını değerler halinde birleştirebilir ve bu grup adlarını <code>linelist_split</code>’e atayabilirsiniz.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># benzersiz hastane-cinsiyet kombinasyonlarına göre bölünmüş satır listesi</span></span>
@@ -1348,10 +1344,7 @@ cookieconsent.run({
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as_vector</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as.list</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="excel-sayfaları-olarak-dışa-aktar" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="excel-sayfaları-olarak-dışa-aktar">Excel sayfaları olarak dışa aktar</h4>
+</section></section><section id="excel-sayfaları-olarak-dışa-aktar" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="excel-sayfaları-olarak-dışa-aktar">Excel sayfaları olarak dışa aktar</h4>
 <p>Hastane satır listelerini, <em>sayfa başına bir satır listesi ile bir Excel çalışma kitabı olacak şekilde</em> dışa aktarmak için, <code>writexl</code> paketinden <code>write_xlsx()</code> işlevine yalnızca <code>linelist_split</code> adlı listeyi sağlayabiliriz. Bu, birden çok sayfa içeren bir Excel çalışma kitabını kaydetme özelliğine sahiptir. Liste öğesi adları, sayfa adları olarak otomatik olarak uygulanır.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>linelist_split <span class="sc">%&gt;%</span> </span>
@@ -1361,27 +1354,31 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_export_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../images/purrr_export_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="652"></a></p>
+<figure class="figure"><p><a href="../images/purrr_export_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../images/purrr_export_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="652"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="export-as-csv-files" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="export-as-csv-files">Export as CSV files</h4>
+</section><section id="export-as-csv-files" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="export-as-csv-files">Export as CSV files</h4>
 <p>Bu biraz daha karmaşık bir komuttur, ancak hastaneye özel her bir satır listesini hastaneye özel bir dosya adıyla ayrı bir CSV dosyası olarak da dışa aktarabilirsiniz.</p>
 <p>Yine <code>map()</code> kullanıyoruz: liste öğesi adlarının (yukarıda gösterilen) vektörünü alıyoruz ve bunlar arasında yineleme yapmak için <code>map()</code> kullanıyoruz, bu adı taşıyan <code>linelist_split</code> listesindeki veri çerçevesine <code>export()</code> (<strong>rio</strong> paketinden, [İçe ve dışa aktarma] sayfasına bakın) uyguluyoruz. Adı benzersiz bir dosya adı oluşturmak için de kullanırız. İşte nasıl çalıştığı:</p>
 <ul>
-<li><code>map()</code>’e <code>.x</code> olarak iletilen karakter adlarının vektörüyle başlıyoruz.</li>
-<li><code>.f</code> fonksiyonu, bir veri çerçevesi ve yazmak için bir dosya yolu gerektiren <code>export()</code> işlevidir.</li>
-<li><code>.x</code> girişi (hastane adı), <code>linelist_split</code> listesinin o belirli öğesini çıkarmak/indekslemek için <code>.f</code> <em>içinde</em> kullanılır. Bu, <code>export()</code> işlevine aynı anda yalnızca bir veri çerçevesinin sağlanmasıyla sonuçlanır.</li>
+<li>
+<code>map()</code>’e <code>.x</code> olarak iletilen karakter adlarının vektörüyle başlıyoruz.</li>
+<li>
+<code>.f</code> fonksiyonu, bir veri çerçevesi ve yazmak için bir dosya yolu gerektiren <code>export()</code> işlevidir.</li>
+<li>
+<code>.x</code> girişi (hastane adı), <code>linelist_split</code> listesinin o belirli öğesini çıkarmak/indekslemek için <code>.f</code> <em>içinde</em> kullanılır. Bu, <code>export()</code> işlevine aynı anda yalnızca bir veri çerçevesinin sağlanmasıyla sonuçlanır.</li>
 <li>Örneğin, <code>map()</code> “Askeri Hastane” için yinelendiğinde, <code>linelist_split[[.x]]</code> aslında <code>linelist_split[["Military Hospital"]]</code> olur, bu nedenle <code>linelist_split</code> öğesinin ikinci öğesini döndürür - ki bu, Askeri Hastanedeki tüm vakalardır.</li>
-<li><code>export()</code> için sağlanan dosya yolu, <code>str_glue()</code> kullanımı yoluyla dinamiktir (bkz. Karakterler ve dizeler sayfası):
+<li>
+<code>export()</code> için sağlanan dosya yolu, <code>str_glue()</code> kullanımı yoluyla dinamiktir (bkz. Karakterler ve dizeler sayfası):
 <ul>
-<li><code>here()</code> dosya yolunun temelini almak ve “data” klasörünü belirtmek için kullanılır (<code>str_glue()</code> çift tırnak işaretini kesmemek için tek tırnak işaretlerini not edin)</li>
-</ul></li>
-<li>Ardından bir eğik çizgi <code>/</code> ve ardından tekrar dosyanın tanımlanabilmesi için mevcut hastane adını yazdıran<code>.x</code></li>
+<li>
+<code>here()</code> dosya yolunun temelini almak ve “data” klasörünü belirtmek için kullanılır (<code>str_glue()</code> çift tırnak işaretini kesmemek için tek tırnak işaretlerini not edin)</li>
+</ul>
+</li>
+<li>Ardından bir eğik çizgi <code>/</code> ve ardından tekrar dosyanın tanımlanabilmesi için mevcut hastane adını yazdıran<code>.x</code>
+</li>
 <li>Son olarak, <code>export()</code> öğesinin bir CSV dosyası oluşturmak için kullandığı “.csv” uzantısı</li>
 </ul>
 <div class="cell">
@@ -1392,16 +1389,12 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_export_csv.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../images/purrr_export_csv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="632"></a></p>
+<figure class="figure"><p><a href="../images/purrr_export_csv.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../images/purrr_export_csv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="632"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="özel-işlevler" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="özel-işlevler">Özel işlevler</h3>
+</section></section><section id="özel-işlevler" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="özel-işlevler">Özel işlevler</h3>
 <p><code>map()</code> sağlamak için kendi işlevinizi oluşturmak isteyebilirsiniz.</p>
 <p>Her hastanenin vakası için salgın eğrileri oluşturmak istediğimizi varsayalım. Bunu <strong>purrr</strong> kullanarak yapmak için, <code>.f</code> işlevimiz her zamanki gibi <code>ggplot()</code> ve + ile uzantılar olabilir. <code>map()</code> çıktısı her zaman bir liste olduğundan, grafikler bir listede saklanır. Grafikler oldukları için, <strong>ggpubr</strong> paketinden <code>ggarrange()</code> fonksiyonuyla çıkarılabilir ve grafiklendirilebilir. (<a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">dokümantasyon</a>)</p>
 <div class="cell">
@@ -1424,8 +1417,7 @@ cookieconsent.run({
 <span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> my_plots, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.tr_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="iteration.tr_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="iteration.tr_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="iteration.tr_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1449,21 +1441,24 @@ cookieconsent.run({
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot'ları yazdırın (bir listede saklanırlar)</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> my_plots, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="sütunlar-arasında-bir-fonksiyonu-eşleme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="sütunlar-arasında-bir-fonksiyonu-eşleme">Sütunlar arasında bir fonksiyonu eşleme</h3>
+</section><section id="sütunlar-arasında-bir-fonksiyonu-eşleme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="sütunlar-arasında-bir-fonksiyonu-eşleme">Sütunlar arasında bir fonksiyonu eşleme</h3>
 <p>Diğer bir yaygın kullanım durumu, bir işlevi birçok sütun arasında eşlemektir. Aşağıda, <code>t.test()</code> fonksiyonunu, sayısal değerleri cinsiyete göre karşılaştırarak, veri çerçevesi <code>satır listesindeki</code> sayısal sütunlar arasında eşliyoruz / <code>map()</code>.</p>
 <p>[Basit istatistiksel testler] sayfasından <code>t.test()</code>’in <code>t.test(numeric column ~ binary column)</code> gibi bir formül biçiminde girdiler alabileceğini hatırlayın. Bu örnekte aşağıdakileri yapıyoruz:</p>
 <ul>
 <li>İlgilenilen sayısal sütunlar <code>satır listesinden</code> seçilir - bunlar <code>map()</code> için <code>.x</code> girdileri olur</li>
-<li><code>t.test()</code> metodu, her sayısal sütuna uygulanan <code>.f</code> fonksiyonu olarak sağlanır</li>
-<li><code>t.test()</code> parantezleri içinde:
+<li>
+<code>t.test()</code> metodu, her sayısal sütuna uygulanan <code>.f</code> fonksiyonu olarak sağlanır</li>
+<li>
+<code>t.test()</code> parantezleri içinde:
 <ul>
 <li>ilk <code>~</code> , <code>map()</code>’in <code>.x</code> üzerinde yineleneceği <code>.f</code>’den önce gelir</li>
-<li><code>.x</code>, <code>t.test()</code> işlevine sağlanan geçerli sütunu temsil eder</li>
+<li>
+<code>.x</code>, <code>t.test()</code> işlevine sağlanan geçerli sütunu temsil eder</li>
 <li>ikinci <code>~</code> yukarıda açıklanan t testi denkleminin bir parçasıdır</li>
-<li><code>t.test()</code> işlevi, denklemin sağ tarafında bir ikili sütun bekler. <code>linelist$gender</code> vektörünü bağımsız ve statik olarak sağlıyoruz (<code>select()</code>’e dahil edilmediğine dikkat edin).</li>
-</ul></li>
+<li>
+<code>t.test()</code> işlevi, denklemin sağ tarafında bir ikili sütun bekler. <code>linelist$gender</code> vektörünü bağımsız ve statik olarak sağlıyoruz (<code>select()</code>’e dahil edilmediğine dikkat edin).</li>
+</ul>
+</li>
 </ul>
 <p><code>map()</code> bir liste döndürür, bu nedenle çıktı t-test sonuçlarının bir listesidir - analiz edilen her sayısal sütun için bir liste öğesi.</p>
 <div class="cell">
@@ -1480,8 +1475,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/purrr_ttest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../images/purrr_ttest.png" style="height:150.0%" width="286" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/purrr_ttest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../images/purrr_ttest.png" style="height:150.0%" width="286" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1492,12 +1486,9 @@ cookieconsent.run({
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">"age"</span>), <span class="at">.fns =</span> as.character))  </span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="listeden-çıkarma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="listeden-çıkarma">Listeden çıkarma</h3>
+</section><section id="listeden-çıkarma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="listeden-çıkarma">Listeden çıkarma</h3>
 <p><code>map()</code> List sınıfının bir çıktısını ürettiği için, eşlik eden <strong>purrr</strong> fonksiyonlarını kullanarak listelerden nasıl veri çıkarılacağını tartışmak için biraz zaman harcayacağız. Bunu göstermek için önceki bölümdeki <code>t.test_results</code> listesini kullanacağız. Bu 5 listeden oluşan bir listedir - 5 listenin her biri, <code>linelist</code> veri çerçevesinden bir sütun ile ikili sütun cinsiyeti - <code>gender</code> arasındaki bir t-testinin sonuçlarını içerir. Liste yapısının görseli için yukarıdaki bölümdeki resme bakın.</p>
-<section id="elementlerin-isimleri" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="elementlerin-isimleri">Elementlerin isimleri</h4>
+<section id="elementlerin-isimleri" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="elementlerin-isimleri">Elementlerin isimleri</h4>
 <p>Öğelerin adlarını çıkarmak için, yalnızca <strong>R tabanından</strong> <code>names()</code> fonksiyonunu kullanın. Bu durumda, t-testleri gerçekleştirilen 5 değişkenin adları olan her bir alt listenin adını döndürmek için <code>t.test_results</code> üzerinde <code>names()</code> kullanırız.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(t.test_results)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1505,9 +1496,7 @@ cookieconsent.run({
 <pre><code>[1] "age"      "wt_kg"    "ht_cm"    "ct_blood" "temp"    </code></pre>
 </div>
 </div>
-</section>
-<section id="ada-veya-konuma-göre-öğeler" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="ada-veya-konuma-göre-öğeler">Ada veya konuma göre öğeler</h4>
+</section><section id="ada-veya-konuma-göre-öğeler" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="ada-veya-konuma-göre-öğeler">Ada veya konuma göre öğeler</h4>
 <p>Liste öğelerini ada veya konuma göre çıkarmak için, R temelleri sayfasında açıklandığı gibi köşeli ayraçları <code>[[ ]]</code> kullanabilirsiniz. Aşağıda, <code>t.tests_results</code> listesini indekslemek için çift parantez kullanıyoruz ve t-testinin yaşa - <code>age</code> göre sonuçları olan ilk öğeyi gösteriyoruz.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>t.test_results[[<span class="dv">1</span>]] <span class="co"># pozisyona göre ilk eleman</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1531,9 +1520,7 @@ mean in group f mean in group m
 </div>
 </div>
 <p>Bununla birlikte, aşağıda aynı sonuçları elde etmek için basit ve esnek <strong>purrr</strong> fonksiyonları <code>map()</code> ve <code>pluck()</code> kullanımını göstereceğiz.</p>
-</section>
-<section id="pluck" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="pluck"><code>pluck()</code></h4>
+</section><section id="pluck" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="pluck"><code>pluck()</code></h4>
 <p><code>pluck()</code>, elemanları ada veya konuma göre çeker. Örneğin - yaş için t testi sonuçlarını çıkarmak için <code>pluck()</code> işlevini şu şekilde kullanabilirsiniz:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>t.test_results <span class="sc">%&gt;%</span> </span>
@@ -1591,23 +1578,25 @@ $temp
 </div>
 </div>
 <p><strong>purrr</strong> <a href="https://purrr.tidyverse.org/reference/pluck.html">belgelerinde</a> <code>pluck()</code> hakkında daha fazla bilgi edinebilirsiniz. Bir öğe yoksa NULL yerine bir hata döndüren <code>chuck()</code> kardeş işlevine sahiptir.</p>
-</section>
-</section>
-<section id="listeyi-veri-çerçevesine-dönüştür" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="listeyi-veri-çerçevesine-dönüştür">Listeyi veri çerçevesine dönüştür</h3>
+</section></section><section id="listeyi-veri-çerçevesine-dönüştür" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="listeyi-veri-çerçevesine-dönüştür">Listeyi veri çerçevesine dönüştür</h3>
 <p>Bu karmaşık bir konudur - daha eksiksiz öğreticiler için Kaynaklar bölümüne bakın. Yine de, t-testi sonuçlarının listesini bir veri çerçevesine dönüştürmeyi göstereceğiz. Değişken, p değeri ve iki gruptan (erkek ve kadın) ortalamalar için sütunlar içeren bir veri çerçevesi oluşturacağız.</p>
 <p>Kullanılacak bazı yeni yaklaşımlar ve işlevler şunlardır:</p>
 <ul>
-<li><code>tibble()</code> fonksiyonu, bir tibble (veri çerçevesi gibi) oluşturmak için kullanılacaktır
+<li>
+<code>tibble()</code> fonksiyonu, bir tibble (veri çerçevesi gibi) oluşturmak için kullanılacaktır
 <ul>
 <li>Tüm <code>t.test_results</code>’un ilk tibble sütunu olarak depolanmasını önlemek için <code>tibble()</code> fonksiyonunu küme parantezleri <code>{ }</code> ile çevreliyoruz</li>
-</ul></li>
-<li><code>tibble()</code> içinde her sütun, <code>mutate()</code> sözdizimine benzer şekilde açıkça oluşturulur:
+</ul>
+</li>
+<li>
+<code>tibble()</code> içinde her sütun, <code>mutate()</code> sözdizimine benzer şekilde açıkça oluşturulur:
 <ul>
-<li><code>.</code>, <code>t.test_results</code>’u temsil eder</li>
+<li>
+<code>.</code>, <code>t.test_results</code>’u temsil eder</li>
 <li>t-test değişken adlarıyla (her liste öğesinin adı) bir sütun oluşturmak için yukarıda açıklandığı gibi <code>names()</code>i kullanırız</li>
 <li>p değerleriyle bir sütun oluşturmak için, <code>p.value</code> öğelerini çekmek ve bunları sayısal bir vektöre dönüştürmek için yukarıda açıklandığı gibi <code>map_dbl()</code> kullanırız</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>t.test_results <span class="sc">%&gt;%</span> {</span>
@@ -1647,9 +1636,12 @@ $temp
 </div>
 <p>Bu liste sütununa sahip olduğunuzda, bu “iç içe liste” sütunlarını “dikdörtgenleştirmenize” veya “iç içeden çıkarmanıza” yardımcı olan birkaç <strong>tidyr</strong> fonksiyonu (<strong>tidyverse</strong>’nin bir parçası) vardır. Onlar hakkında daha fazla bilgiyi buradan veya <code>vignette("rectangle")</code> çalıştırarak okuyun. Kısaca:</p>
 <ul>
-<li><code>unnest_wider()</code> - bir liste sütununun her elemanına kendi sütununu verir</li>
-<li><code>unnest_longer()</code> - bir liste sütununun her elemanına kendi satırını verir</li>
-<li><code>hoist()</code> - <code>unnest_wider()</code> gibi davranır, ancak hangi öğelerin yuvalanacağını siz belirlersiniz</li>
+<li>
+<code>unnest_wider()</code> - bir liste sütununun her elemanına kendi sütununu verir</li>
+<li>
+<code>unnest_longer()</code> - bir liste sütununun her elemanına kendi satırını verir</li>
+<li>
+<code>hoist()</code> - <code>unnest_wider()</code> gibi davranır, ancak hangi öğelerin yuvalanacağını siz belirlersiniz</li>
 </ul>
 <p>Aşağıda, tibble’ın ortalama - <code>means</code> sütununu (iç içe bir liste olan) belirterek tibble’ı <code>unnest_wider()</code> öğesine iletiyoruz. Sonuç, <code>ortalamaların</code> her biri daha önce her bir <code>means</code> hücresinde bulunan iki öğeyi yansıtan iki yeni sütunla değiştirilmesidir.</p>
 <div class="cell">
@@ -1671,15 +1663,17 @@ $temp
 5 temp      5.74e-  1              38.6              38.6</code></pre>
 </div>
 </div>
-</section>
-<section id="listeleri-atma-saklama-ve-sıkıştırma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="listeleri-atma-saklama-ve-sıkıştırma">Listeleri atma, saklama ve sıkıştırma</h3>
+</section><section id="listeleri-atma-saklama-ve-sıkıştırma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="listeleri-atma-saklama-ve-sıkıştırma">Listeleri atma, saklama ve sıkıştırma</h3>
 <p><strong>purrr</strong> ile çalışmak genellikle listeler içerdiğinden, listeleri değiştirmek için bazı <strong>purrr</strong> fonksiyonlarını kısaca inceleyeceğiz. <strong>purrr</strong> fonksiyonlarıyla ilgili daha eksiksiz eğitimler için Kaynaklar bölümüne bakın.</p>
 <ul>
-<li><code>list_modify()</code> birçok kullanıma sahiptir, bunlardan biri bir liste öğesini kaldırmak olabilir</li>
-<li><code>keep()</code>, <code>.p =</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde tutar</li>
-<li><code>discard()</code>, <code>.p</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde kaldırır</li>
-<li><code>compact()</code> tüm boş öğeleri kaldırır</li>
+<li>
+<code>list_modify()</code> birçok kullanıma sahiptir, bunlardan biri bir liste öğesini kaldırmak olabilir</li>
+<li>
+<code>keep()</code>, <code>.p =</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde tutar</li>
+<li>
+<code>discard()</code>, <code>.p</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde kaldırır</li>
+<li>
+<code>compact()</code> tüm boş öğeleri kaldırır</li>
 </ul>
 <p><a href="#iter_combined">Birden çok dosyayı içe aktarmak ve birleştirmek</a> için <code>map()</code> kullanımıyla ilgili yukarıdaki bölümde oluşturulan birleşik listeyi kullanan bazı örnekler (6 vaka sıra listesi veri çerçevesi içerir):</p>
 <p>Öğeler, <code>list_modify()</code> ile adlarına göre ve adı <code>NULL</code>’a eşitlenerek kaldırılabilir.</p>
@@ -1711,19 +1705,14 @@ $temp
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">%&gt;%</span> </span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compact</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="pmap" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="pmap"><code>pmap()</code></h3>
+</section><section id="pmap" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="pmap"><code>pmap()</code></h3>
 <p>BU BÖLÜM YAPIM AŞAMASINDADIR.</p>
-</section>
-</section>
-<section id="fonksiyonları-uygulama" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="fonksiyonları-uygulama"><span class="header-section-number">16.4</span> Fonksiyonları uygulama</h2>
+</section></section><section id="fonksiyonları-uygulama" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="fonksiyonları-uygulama">
+<span class="header-section-number">16.4</span> Fonksiyonları uygulama</h2>
 <p>“Uygula” fonksiyon ailesi, yinelemeli işlemler için <strong>purrr</strong>’a R tabanı alternatifidir. Onlar hakkında daha fazlasını <a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family">buradan</a> okuyabilirsiniz.</p>
 <!-- ======================================================= -->
-</section>
-<section id="kaynaklar" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="kaynaklar"><span class="header-section-number">16.5</span> Kaynaklar</h2>
+</section><section id="kaynaklar" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="kaynaklar">
+<span class="header-section-number">16.5</span> Kaynaklar</h2>
 <p><a href="https://datacarpentry.org/semester-biology/materials/for-loops-R/">Data Carpentry ile for döngüleri</a></p>
 <p><a href="https://r4ds.had.co.nz/iteration.html#iteration">Yinelemede Veri Bilimi için R sayfası</a></p>
 <p><a href="https://martinctc.github.io/blog/vignette-write-and-read-multiple-excel-files-with-purrr/">Excel dosyaları yazma/okuma üzerine skeç</a></p>
@@ -1735,10 +1724,7 @@ $temp
 <p><a href="https://hookedondata.org/going-off-the-map/#keep-and-discard">sakla ve at</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1917,18 +1903,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1960,7 +1935,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1995,7 +2010,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2268,60 +2287,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/deduplication.tr.html" class="pagination-link" aria-label="Tekilleştirme">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tekilleştirme</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>  <span class="chapter-title">Tekilleştirme</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/tables_descriptive.tr.html" class="pagination-link" aria-label="Tanımlayıcı tablolar">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tanımlayıcı tablolar</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tanımlayıcı tablolar</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false,"descPosition":"bottom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

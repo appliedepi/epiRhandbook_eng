@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="vn" xml:lang="vn"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vn" xml:lang="vn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Cẩm nang dịch tễ học với R - 23&nbsp; Chuỗi thời gian và phát hiện ổ dịch</title>
+<title>23  Chuỗi thời gian và phát hiện ổ dịch – Cẩm nang dịch tễ học với R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/epidemic_models.vn.html" rel="next">
 <link href="../new_pages/moving_average.vn.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,83 +112,127 @@ cookieconsent.run({
 "language":"vn"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -235,65 +257,54 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.vn.html">Phân tích dữ liệu</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.vn.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.vn.html">Phân tích dữ liệu</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/time_series.vn.html"><span class="chapter-number">23</span>  <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cẩm nang dịch tễ học với R</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -303,9 +314,20 @@ window.Quarto = {
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/time_series.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/time_series.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/time_series.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/jp/new_pages/time_series.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/time_series.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/time_series.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/time_series.ru.html" id="language-link-ru">Русский</a>
+<a class="dropdown-item" href="/ar/new_pages/time_series.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.vn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chào mừng</span></a>
@@ -313,441 +335,454 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Về cuốn sách này</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Biên tập và ghi chú kỹ thuật</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Biên tập và ghi chú kỹ thuật</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tải sách và dữ liệu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Tải sách và dữ liệu</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Nhập môn về R</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Cơ bản</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R Cơ bản</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Chuyển đổi sang R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Chuyển đổi sang R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Package đề xuất</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Package đề xuất</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dự án R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Dự án R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Nhập xuất dữ liệu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Nhập xuất dữ liệu</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Quản lý dữ liệu</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Làm sạch số liệu và các hàm quan trọng</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Làm sạch số liệu và các hàm quan trọng</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Làm việc với ngày tháng</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Làm việc với ngày tháng</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Ký tự và chuỗi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Ký tự và chuỗi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Kiểu dữ liệu danh mục - Factors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Kiểu dữ liệu danh mục - Factors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Xoay trục dữ liệu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Xoay trục dữ liệu</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Nhóm dữ liệu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Nhóm dữ liệu</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Nối dữ liệu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Nối dữ liệu</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Loại bỏ trùng lặp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Loại bỏ trùng lặp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lặp, vòng lặp, và danh sách</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Lặp, vòng lặp, và danh sách</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Phân tích dữ liệu</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Bảng mô tả</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Bảng mô tả</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Các kiểm định thống kê cơ bản</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Các kiểm định thống kê cơ bản</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Hồi quy đơn và đa biến</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Hồi quy đơn và đa biến</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Dữ liệu Missing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Dữ liệu Missing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Tỷ suất chuẩn hóa</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Tỷ suất chuẩn hóa</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Đường trung bình động</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Đường trung bình động</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.vn.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mô hình hóa dịch bệnh</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Mô hình hóa dịch bệnh</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Truy vết tiếp xúc</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Truy vết tiếp xúc</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Phân tích khảo sát</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Phân tích khảo sát</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Phân tích sống còn</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Phân tích sống còn</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS cơ bản</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS cơ bản</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Trực quan hóa dữ liệu</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Trình bày bảng</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Trình bày bảng</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot cơ bản</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot cơ bản</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Các mẹo với ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">Các mẹo với ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Đường cong dịch bệnh</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Đường cong dịch bệnh</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Tháp dân số và thang đo Likert</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Tháp dân số và thang đo Likert</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Biểu đồ nhiệt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Biểu đồ nhiệt</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Sơ đồ và biểu đồ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Sơ đồ và biểu đồ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Biểu đồ kết hợp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Biểu đồ kết hợp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Chuỗi lây nhiễm</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Chuỗi lây nhiễm</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Cây phả hệ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Cây phả hệ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Biểu đồ tương tác</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Biểu đồ tương tác</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Báo cáo và dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Báo cáo với R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Báo cáo với R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Tổ chức báo cáo định kỳ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Tổ chức báo cáo định kỳ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Dashboards với R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Dashboards với R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards với Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Dashboards với Shiny</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Các chủ điểm khác</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Viết hàm</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Viết hàm</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Tương tác với thư mục làm việc</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Tương tác với thư mục làm việc</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control với Git và Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Version control với Git và Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Các lỗi thường gặp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Các lỗi thường gặp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Nhờ sự trợ giúp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Nhờ sự trợ giúp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R trên ổ cứng mạng</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R trên ổ cứng mạng</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.vn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tổng-quan" id="toc-tổng-quan" class="nav-link active" data-scroll-target="#tổng-quan"><span class="header-section-number">23.1</span> Tổng quan</a></li>
-  <li><a href="#chuẩn-bị" id="toc-chuẩn-bị" class="nav-link" data-scroll-target="#chuẩn-bị"><span class="header-section-number">23.2</span> Chuẩn bị</a>
+<li><a href="#t%E1%BB%95ng-quan" id="toc-tổng-quan" class="nav-link active" data-scroll-target="#tổng-quan"><span class="header-section-number">23.1</span> Tổng quan</a></li>
+  <li>
+<a href="#chu%E1%BA%A9n-b%E1%BB%8B" id="toc-chuẩn-bị" class="nav-link" data-scroll-target="#chuẩn-bị"><span class="header-section-number">23.2</span> Chuẩn bị</a>
   <ul class="collapse">
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#nhập-dữ-liệu" id="toc-nhập-dữ-liệu" class="nav-link" data-scroll-target="#nhập-dữ-liệu">Nhập dữ liệu</a></li>
-  <li><a href="#làm-sạch-dữ-liệu" id="toc-làm-sạch-dữ-liệu" class="nav-link" data-scroll-target="#làm-sạch-dữ-liệu">Làm sạch dữ liệu</a></li>
-  <li><a href="#tải-xuống-dữ-liệu-khí-hậu" id="toc-tải-xuống-dữ-liệu-khí-hậu" class="nav-link" data-scroll-target="#tải-xuống-dữ-liệu-khí-hậu">Tải xuống dữ liệu khí hậu</a></li>
-  <li><a href="#nhập-dữ-liệu-khí-hậu" id="toc-nhập-dữ-liệu-khí-hậu" class="nav-link" data-scroll-target="#nhập-dữ-liệu-khí-hậu">Nhập dữ liệu khí hậu</a></li>
-  </ul></li>
-  <li><a href="#dữ-liệu-chuỗi-thời-gian" id="toc-dữ-liệu-chuỗi-thời-gian" class="nav-link" data-scroll-target="#dữ-liệu-chuỗi-thời-gian"><span class="header-section-number">23.3</span> Dữ liệu chuỗi thời gian</a>
-  <ul class="collapse">
-  <li><a href="#trùng-lặp" id="toc-trùng-lặp" class="nav-link" data-scroll-target="#trùng-lặp">Trùng lặp</a></li>
-  <li><a href="#bản-ghi-bị-thiếu" id="toc-bản-ghi-bị-thiếu" class="nav-link" data-scroll-target="#bản-ghi-bị-thiếu">Bản ghi bị thiếu</a></li>
-  </ul></li>
-  <li><a href="#phân-tích-mô-tả" id="toc-phân-tích-mô-tả" class="nav-link" data-scroll-target="#phân-tích-mô-tả"><span class="header-section-number">23.4</span> Phân tích mô tả</a>
-  <ul class="collapse">
-  <li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">Đường trung bình động</a></li>
-  <li><a href="#tính-chu-kỳ" id="toc-tính-chu-kỳ" class="nav-link" data-scroll-target="#tính-chu-kỳ">Tính chu kỳ</a></li>
-  <li><a href="#tách-nhỏ-chuỗi-thời-gian" id="toc-tách-nhỏ-chuỗi-thời-gian" class="nav-link" data-scroll-target="#tách-nhỏ-chuỗi-thời-gian">Tách nhỏ chuỗi thời gian</a></li>
-  <li><a href="#tự-tương-quan" id="toc-tự-tương-quan" class="nav-link" data-scroll-target="#tự-tương-quan">Tự tương quan</a></li>
-  </ul></li>
-  <li><a href="#fit-mô-hình-hồi-quy" id="toc-fit-mô-hình-hồi-quy" class="nav-link" data-scroll-target="#fit-mô-hình-hồi-quy"><span class="header-section-number">23.5</span> Fit mô hình hồi quy</a>
-  <ul class="collapse">
-  <li><a href="#chu-kỳ-fourier" id="toc-chu-kỳ-fourier" class="nav-link" data-scroll-target="#chu-kỳ-fourier">Chu kỳ Fourier</a></li>
-  <li><a href="#hồi-quy-nhị-thức-âm" id="toc-hồi-quy-nhị-thức-âm" class="nav-link" data-scroll-target="#hồi-quy-nhị-thức-âm">Hồi quy nhị thức âm</a></li>
-  <li><a href="#phần-dư" id="toc-phần-dư" class="nav-link" data-scroll-target="#phần-dư">Phần dư</a></li>
-  </ul></li>
-  <li><a href="#mối-quan-hệ-của-hai-chuỗi-thời-gian" id="toc-mối-quan-hệ-của-hai-chuỗi-thời-gian" class="nav-link" data-scroll-target="#mối-quan-hệ-của-hai-chuỗi-thời-gian"><span class="header-section-number">23.6</span> Mối quan hệ của hai chuỗi thời gian</a>
-  <ul class="collapse">
-  <li><a href="#nối-hai-bộ-dữ-liệu" id="toc-nối-hai-bộ-dữ-liệu" class="nav-link" data-scroll-target="#nối-hai-bộ-dữ-liệu">Nối hai bộ dữ liệu</a></li>
-  <li><a href="#phân-tích-mô-tả-1" id="toc-phân-tích-mô-tả-1" class="nav-link" data-scroll-target="#phân-tích-mô-tả-1">Phân tích mô tả</a></li>
-  <li><a href="#lags-và-tương-quan-chéo" id="toc-lags-và-tương-quan-chéo" class="nav-link" data-scroll-target="#lags-và-tương-quan-chéo">Lags và tương quan chéo</a></li>
-  <li><a href="#hồi-quy-nhị-thức-âm-với-hai-biến-số" id="toc-hồi-quy-nhị-thức-âm-với-hai-biến-số" class="nav-link" data-scroll-target="#hồi-quy-nhị-thức-âm-với-hai-biến-số">Hồi quy nhị thức âm với hai biến số</a></li>
-  </ul></li>
-  <li><a href="#phát-hiện-ổ-dịch" id="toc-phát-hiện-ổ-dịch" class="nav-link" data-scroll-target="#phát-hiện-ổ-dịch"><span class="header-section-number">23.7</span> Phát hiện ổ dịch</a>
-  <ul class="collapse">
-  <li><a href="#package-trending" id="toc-package-trending" class="nav-link" data-scroll-target="#package-trending">Package <strong>trending</strong></a></li>
-  <li><a href="#package-surveillance" id="toc-package-surveillance" class="nav-link" data-scroll-target="#package-surveillance">package <strong>surveillance</strong></a></li>
-  </ul></li>
-  <li><a href="#chuỗi-thời-gian-bị-gián-đoạn" id="toc-chuỗi-thời-gian-bị-gián-đoạn" class="nav-link" data-scroll-target="#chuỗi-thời-gian-bị-gián-đoạn"><span class="header-section-number">23.8</span> Chuỗi thời gian bị gián đoạn</a></li>
-  <li><a href="#nguồn-tham-khảo" id="toc-nguồn-tham-khảo" class="nav-link" data-scroll-target="#nguồn-tham-khảo"><span class="header-section-number">23.9</span> Nguồn tham khảo</a></li>
+<li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#nh%E1%BA%ADp-d%E1%BB%AF-li%E1%BB%87u" id="toc-nhập-dữ-liệu" class="nav-link" data-scroll-target="#nhập-dữ-liệu">Nhập dữ liệu</a></li>
+  <li><a href="#l%C3%A0m-s%E1%BA%A1ch-d%E1%BB%AF-li%E1%BB%87u" id="toc-làm-sạch-dữ-liệu" class="nav-link" data-scroll-target="#làm-sạch-dữ-liệu">Làm sạch dữ liệu</a></li>
+  <li><a href="#t%E1%BA%A3i-xu%E1%BB%91ng-d%E1%BB%AF-li%E1%BB%87u-kh%C3%AD-h%E1%BA%ADu" id="toc-tải-xuống-dữ-liệu-khí-hậu" class="nav-link" data-scroll-target="#tải-xuống-dữ-liệu-khí-hậu">Tải xuống dữ liệu khí hậu</a></li>
+  <li><a href="#nh%E1%BA%ADp-d%E1%BB%AF-li%E1%BB%87u-kh%C3%AD-h%E1%BA%ADu" id="toc-nhập-dữ-liệu-khí-hậu" class="nav-link" data-scroll-target="#nhập-dữ-liệu-khí-hậu">Nhập dữ liệu khí hậu</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#d%E1%BB%AF-li%E1%BB%87u-chu%E1%BB%97i-th%E1%BB%9Di-gian" id="toc-dữ-liệu-chuỗi-thời-gian" class="nav-link" data-scroll-target="#dữ-liệu-chuỗi-thời-gian"><span class="header-section-number">23.3</span> Dữ liệu chuỗi thời gian</a>
+  <ul class="collapse">
+<li><a href="#tr%C3%B9ng-l%E1%BA%B7p" id="toc-trùng-lặp" class="nav-link" data-scroll-target="#trùng-lặp">Trùng lặp</a></li>
+  <li><a href="#b%E1%BA%A3n-ghi-b%E1%BB%8B-thi%E1%BA%BFu" id="toc-bản-ghi-bị-thiếu" class="nav-link" data-scroll-target="#bản-ghi-bị-thiếu">Bản ghi bị thiếu</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#ph%C3%A2n-t%C3%ADch-m%C3%B4-t%E1%BA%A3" id="toc-phân-tích-mô-tả" class="nav-link" data-scroll-target="#phân-tích-mô-tả"><span class="header-section-number">23.4</span> Phân tích mô tả</a>
+  <ul class="collapse">
+<li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">Đường trung bình động</a></li>
+  <li><a href="#t%C3%ADnh-chu-k%E1%BB%B3" id="toc-tính-chu-kỳ" class="nav-link" data-scroll-target="#tính-chu-kỳ">Tính chu kỳ</a></li>
+  <li><a href="#t%C3%A1ch-nh%E1%BB%8F-chu%E1%BB%97i-th%E1%BB%9Di-gian" id="toc-tách-nhỏ-chuỗi-thời-gian" class="nav-link" data-scroll-target="#tách-nhỏ-chuỗi-thời-gian">Tách nhỏ chuỗi thời gian</a></li>
+  <li><a href="#t%E1%BB%B1-t%C6%B0%C6%A1ng-quan" id="toc-tự-tương-quan" class="nav-link" data-scroll-target="#tự-tương-quan">Tự tương quan</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#fit-m%C3%B4-h%C3%ACnh-h%E1%BB%93i-quy" id="toc-fit-mô-hình-hồi-quy" class="nav-link" data-scroll-target="#fit-mô-hình-hồi-quy"><span class="header-section-number">23.5</span> Fit mô hình hồi quy</a>
+  <ul class="collapse">
+<li><a href="#chu-k%E1%BB%B3-fourier" id="toc-chu-kỳ-fourier" class="nav-link" data-scroll-target="#chu-kỳ-fourier">Chu kỳ Fourier</a></li>
+  <li><a href="#h%E1%BB%93i-quy-nh%E1%BB%8B-th%E1%BB%A9c-%C3%A2m" id="toc-hồi-quy-nhị-thức-âm" class="nav-link" data-scroll-target="#hồi-quy-nhị-thức-âm">Hồi quy nhị thức âm</a></li>
+  <li><a href="#ph%E1%BA%A7n-d%C6%B0" id="toc-phần-dư" class="nav-link" data-scroll-target="#phần-dư">Phần dư</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#m%E1%BB%91i-quan-h%E1%BB%87-c%E1%BB%A7a-hai-chu%E1%BB%97i-th%E1%BB%9Di-gian" id="toc-mối-quan-hệ-của-hai-chuỗi-thời-gian" class="nav-link" data-scroll-target="#mối-quan-hệ-của-hai-chuỗi-thời-gian"><span class="header-section-number">23.6</span> Mối quan hệ của hai chuỗi thời gian</a>
+  <ul class="collapse">
+<li><a href="#n%E1%BB%91i-hai-b%E1%BB%99-d%E1%BB%AF-li%E1%BB%87u" id="toc-nối-hai-bộ-dữ-liệu" class="nav-link" data-scroll-target="#nối-hai-bộ-dữ-liệu">Nối hai bộ dữ liệu</a></li>
+  <li><a href="#ph%C3%A2n-t%C3%ADch-m%C3%B4-t%E1%BA%A3-1" id="toc-phân-tích-mô-tả-1" class="nav-link" data-scroll-target="#phân-tích-mô-tả-1">Phân tích mô tả</a></li>
+  <li><a href="#lags-v%C3%A0-t%C6%B0%C6%A1ng-quan-ch%C3%A9o" id="toc-lags-và-tương-quan-chéo" class="nav-link" data-scroll-target="#lags-và-tương-quan-chéo">Lags và tương quan chéo</a></li>
+  <li><a href="#h%E1%BB%93i-quy-nh%E1%BB%8B-th%E1%BB%A9c-%C3%A2m-v%E1%BB%9Bi-hai-bi%E1%BA%BFn-s%E1%BB%91" id="toc-hồi-quy-nhị-thức-âm-với-hai-biến-số" class="nav-link" data-scroll-target="#hồi-quy-nhị-thức-âm-với-hai-biến-số">Hồi quy nhị thức âm với hai biến số</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#ph%C3%A1t-hi%E1%BB%87n-%E1%BB%95-d%E1%BB%8Bch" id="toc-phát-hiện-ổ-dịch" class="nav-link" data-scroll-target="#phát-hiện-ổ-dịch"><span class="header-section-number">23.7</span> Phát hiện ổ dịch</a>
+  <ul class="collapse">
+<li><a href="#package-trending" id="toc-package-trending" class="nav-link" data-scroll-target="#package-trending">Package <strong>trending</strong></a></li>
+  <li><a href="#package-surveillance" id="toc-package-surveillance" class="nav-link" data-scroll-target="#package-surveillance">package <strong>surveillance</strong></a></li>
+  </ul>
+</li>
+  <li><a href="#chu%E1%BB%97i-th%E1%BB%9Di-gian-b%E1%BB%8B-gi%C3%A1n-%C4%91o%E1%BA%A1n" id="toc-chuỗi-thời-gian-bị-gián-đoạn" class="nav-link" data-scroll-target="#chuỗi-thời-gian-bị-gián-đoạn"><span class="header-section-number">23.8</span> Chuỗi thời gian bị gián đoạn</a></li>
+  <li><a href="#ngu%E1%BB%93n-tham-kh%E1%BA%A3o" id="toc-nguồn-tham-khảo" class="nav-link" data-scroll-target="#nguồn-tham-khảo"><span class="header-section-number">23.9</span> Nguồn tham khảo</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.vn.html">Phân tích dữ liệu</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.vn.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span id="time-series" class="quarto-section-identifier"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.vn.html">Phân tích dữ liệu</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/time_series.vn.html"><span class="chapter-number">23</span>  <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title"><span id="time-series" class="quarto-section-identifier"><span class="chapter-number">23</span>  <span class="chapter-title">Chuỗi thời gian và phát hiện ổ dịch</span></span></h1>
 </div>
 
 
@@ -761,12 +796,8 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<!-- ======================================================= -->
-<section id="tổng-quan" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="tổng-quan"><span class="header-section-number">23.1</span> Tổng quan</h2>
+</header><!-- ======================================================= --><section id="tổng-quan" class="level2" data-number="23.1"><h2 data-number="23.1" class="anchored" data-anchor-id="tổng-quan">
+<span class="header-section-number">23.1</span> Tổng quan</h2>
 <p>Chương này minh họa cách sử dụng của một số packages cho phân tích chuỗi thời gian. Các packages chủ yếu đến từ hệ sinh thái <a href="https://tidyverts.org/"><strong>tidyverts</strong></a>, ngoài ra cũng sử dụng RECON <a href="https://github.com/reconhub/trending"><strong>trending</strong></a> package để fit các mô hình dịch tễ học bệnh truyền nhiễm.</p>
 <p>VÍ dụ dưới đây chúng ta sẽ sử dụng bộ dữ liệu về Campylobacter ở Đức thuộc package <strong>surveillance</strong> (xem chương <a href="../new_pages/data_used.vn.html">Tải sách và dữ liệu</a> để biết thêm chi tiết). Tuy nhiên, nếu bạn muốn thử chạy code này trên bộ dữ liệu lớn hơn (nhiều quốc gia hoặc tầng), bạn có thể tham khảo code mẫu tại <a href="https://github.com/R4EPI/epitsa">repo github của r4epis</a>.</p>
 <p>Các chủ đề được đề cập bao gồm:</p>
@@ -778,12 +809,9 @@ window.Quarto = {
 <li>Phát hiện dịch bệnh</li>
 <li>Chuỗi thời gian bị gián đoạn</li>
 </ol>
-<!-- ======================================================= -->
-</section>
-<section id="chuẩn-bị" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="chuẩn-bị"><span class="header-section-number">23.2</span> Chuẩn bị</h2>
-<section id="packages" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="packages">Packages</h3>
+<!-- ======================================================= --></section><section id="chuẩn-bị" class="level2" data-number="23.2"><h2 data-number="23.2" class="anchored" data-anchor-id="chuẩn-bị">
+<span class="header-section-number">23.2</span> Chuẩn bị</h2>
+<section id="packages" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="packages">Packages</h3>
 <p>Đoạn code này hiển thị việc gọi các package cần thiết cho các phân tích. Trong cuốn sách này, chúng tôi nhấn mạnh việc sử dụng hàm <code>p_load()</code> từ package <strong>pacman</strong>, giúp cài đặt các package cần thiết <em>và</em> gọi chúng ra để sử dụng. Bạn cũng có thể gọi các packages đã cài đặt với hàm <code>library()</code> của <strong>base</strong> R. Xem thêm chương <a href="../new_pages/basics.vn.html">R cơ bản</a> để có thêm thông tin về các packages trong R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rio,          <span class="co"># File import</span></span>
@@ -803,9 +831,7 @@ window.Quarto = {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               surveillance  <span class="co"># for aberration detection</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="nhập-dữ-liệu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="nhập-dữ-liệu">Nhập dữ liệu</h3>
+</section><section id="nhập-dữ-liệu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="nhập-dữ-liệu">Nhập dữ liệu</h3>
 <p>Bạn có thể tải xuống tất cả dữ liệu được sử dụng trong sổ tay này thông qua các hướng dẫn trong chương <a href="../new_pages/data_used.vn.html">Tải sách và dữ liệu</a>.</p>
 <p>Bộ dữ liệu minh họa được sử dụng trong phần này là số lượng các trường hợp campylobacter hàng tuần được báo cáo ở Đức từ năm 2001 đến 2011. <a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button">Bạn có thể bấm vào đây để tải xuống<span> bộ dữ liệu này (.xlsx).</span></a></p>
 <p>Bộ dữ liệu này là một phiên bản rút gọn của bộ dữ liệu có sẵn trong package <a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a>. (để biết chi tiết, hãy gọi surveillance package ra sau đó nhập <code>?campyDE</code>)</p>
@@ -817,13 +843,11 @@ window.Quarto = {
 <p>10 hàng đầu tiên được hiển thị như bên dưới.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-cea0970d838b2b48a048" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cea0970d838b2b48a048">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-08c49e0e108596671428" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-08c49e0e108596671428">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="làm-sạch-dữ-liệu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="làm-sạch-dữ-liệu">Làm sạch dữ liệu</h3>
+</section><section id="làm-sạch-dữ-liệu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="làm-sạch-dữ-liệu">Làm sạch dữ liệu</h3>
 <p>Code dưới đây đảm bảo rằng cột ngày thág đã ở đúng định dạng. Trong chương này chúng ta sẽ sử dụng package <strong>tsibble</strong> và hàm <code>yearweek</code> sẽ được sử dụng để tạp biến lịch theo tuần. Có một số cách để thực hiện việc này (Xem chương <a href="../new_pages/dates.vn.html">Làm việc với ngày tháng</a> để biết thêm chi tiết), tuy nhiên đối với dữ liệu chuỗi thời gian thì tốt nhất nên sử dụng thống nhất một framework (<strong>tsibble</strong>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ensure the date column is in the appropriate format</span></span>
@@ -834,9 +858,7 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts <span class="sc">%&gt;%</span> </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">epiweek =</span> <span class="fu">yearweek</span>(date, <span class="at">week_start =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="tải-xuống-dữ-liệu-khí-hậu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tải-xuống-dữ-liệu-khí-hậu">Tải xuống dữ liệu khí hậu</h3>
+</section><section id="tải-xuống-dữ-liệu-khí-hậu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tải-xuống-dữ-liệu-khí-hậu">Tải xuống dữ liệu khí hậu</h3>
 <p>Trong mục <em>mối tương quan của hai chuỗi thời gian</em> trong chương này, chúng ta sẽ so sánh số lượng trường hợp campylobacter với dữ liệu khí hậu. Dữ liệu khí hậu tại bất kỳ đâu trên thế giới đều có thể được tải xuống từ EU’s Copernicus Satellite. Đây không phải là các phép đo chính xác, mà dựa trên một mô hình (tương tự như phép nội suy), tuy nhiên lợi ích là mức độ bao phủ toàn cầu hàng giờ cũng như các dự báo.</p>
 <p>Bạn có thể tải xuống từng tệp dữ liệu khí hậu này từ chương <a href="../new_pages/data_used.vn.html">Tải sách và dữ liệu</a>.</p>
 <p>Với mục đích minh họa ở đây, chúng tôi sẽ trình bày code để sử dụng package <strong>ecmwfr</strong> để lấy những dữ liệu này từ kho dữ liệu khí hậu Copernicus. Bạn sẽ cần tạo một tài khoản miễn phí để thực hiện. Trang web của package có một <a href="https://github.com/bluegreen-labs/ecmwfr#use-copernicus-climate-data-store-cds">hướng dẫn</a> hữu ích về cách thực hiện việc này. Dưới đây là code minh họa về cách thực hiện việc này, khi bạn có các khóa API thích hợp. Bạn phải thay thế X bên dưới bằng ID tài khoản của mình. Bạn sẽ cần tải xuống một năm dữ liệu cùng một lúc nếu không máy chủ sẽ hết thời gian chờ.</p>
@@ -890,9 +912,7 @@ window.Quarto = {
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path     =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Weather"</span>)) <span class="do">## path to save the data</span></span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="nhập-dữ-liệu-khí-hậu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="nhập-dữ-liệu-khí-hậu">Nhập dữ liệu khí hậu</h3>
+</section><section id="nhập-dữ-liệu-khí-hậu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="nhập-dữ-liệu-khí-hậu">Nhập dữ liệu khí hậu</h3>
 <p>Cho dù bạn đã tải xuống dữ liệu khí hậu thông qua sổ tay này hay sử dụng code ở trên, thì bạn cần phải các tệp dữ liệu khí hậu trong 10 năm có phần mở rộng là “.nc”, được lưu trữ trong cùng một thư mục trong máy tính của bạn.</p>
 <p>Sử dụng mã bên dưới để nhập các tệp này vào R với package <strong>stars</strong>.</p>
 <div class="cell">
@@ -944,10 +964,8 @@ t2m, tp, </code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="dữ-liệu-chuỗi-thời-gian" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="dữ-liệu-chuỗi-thời-gian"><span class="header-section-number">23.3</span> Dữ liệu chuỗi thời gian</h2>
+</section></section><section id="dữ-liệu-chuỗi-thời-gian" class="level2" data-number="23.3"><h2 data-number="23.3" class="anchored" data-anchor-id="dữ-liệu-chuỗi-thời-gian">
+<span class="header-section-number">23.3</span> Dữ liệu chuỗi thời gian</h2>
 <p>Có một số package khác nhau để cấu trúc và xử lý dữ liệu chuỗi thời gian. Như đã nói, chúng ta sẽ tập trung vào họ các package thuộc <strong>tidyverts</strong> và sẽ sử dụng package <strong>tsibble</strong> để xác định đối tượng chuỗi thời gian. Việc có một tập dữ liệu được xác định là một đối tượng chuỗi thời gian có nghĩa là việc cấu trúc phân tích của chúng ta sẽ trở nên dễ dàng hơn nhiều.</p>
 <p>Để thực hiện, chúng ta sử dụng hàm <code>tsibble()</code> và cụ thể “chỉ mục (index)”, vd: biến số cụ thể đơn vị thời gian quan tâm. Trong trường hợp của chúng ta, biến số này có tên <code>epiweek</code>.</p>
 <p>Ví dụ: nếu chúng ta có một tập dữ liệu với số lượng hàng tuần theo tỉnh, chúng ta cũng có thể cụ thể biến nhóm bằng cách cụ sử dụng đối số <code>key =</code>. Điều này sẽ cho phép chúng ta thực hiện phân tích cho từng nhóm.</p>
@@ -963,16 +981,14 @@ t2m, tp, </code></pre>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.vn_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.vn_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span style="color: red;"><strong><em>NGUY HIỂM:</em></strong> Không giống như ví dụ này, phần lớn các bộ dữ liệu sẽ chưa được làm sạch. Bạn sẽ cần phải kiểm tra các bản ghi trùng lặp và bản ghi bị thiếu như bên dưới.</span></p>
 <!-- ======================================================= -->
-<section id="trùng-lặp" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="trùng-lặp">Trùng lặp</h3>
+<section id="trùng-lặp" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="trùng-lặp">Trùng lặp</h3>
 <p><strong>tsibble</strong> không cho phép các quan sát trùng lặp. Vì vậy, mỗi hàng sẽ cần phải là duy nhất, hoặc duy nhất trong nhóm (biến <code>key</code>). Package này có một số hàm để xác định các bản ghi trùng lặp. Chúng bao gồm các hàm: <code>are_duplicated()</code> trả về một vectơ có giá trị TRUE/FALSE vector, truy vấn xem hàng có là duy nhất không; và hàm <code>duplicates()</code> sẽ cung cấp cho bạn một data frame chứa các hàng trùng lặp.</p>
 <p>Xem chương <a href="../new_pages/deduplication.vn.html">Loại bỏ trùng lặp</a> để biết thêm chi tiết về cách lựa chọn các hàng bạn muốn.</p>
 <div class="cell">
@@ -983,9 +999,7 @@ t2m, tp, </code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">duplicates</span>(counts, <span class="at">index =</span> epiweek) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="bản-ghi-bị-thiếu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bản-ghi-bị-thiếu">Bản ghi bị thiếu</h3>
+</section><section id="bản-ghi-bị-thiếu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="bản-ghi-bị-thiếu">Bản ghi bị thiếu</h3>
 <p>Chúng ta đã thấy từ cuộc khảo sát tóm tắt bên trên, không có bất kỳ giá trị missing nào được phát hiện, nhưng chúng ta cũng đã thấy rằng dường như có vấn đề với việc báo cáo chậm trễ vào khoảng năm mới. Một cách để giải quyết vấn đề này có thể là đặt các giá trị này thành missing và sau đó impute các giá trị. Dạng đơn giản nhất của khi impute chuỗi thời gian là vẽ một đường thẳng giữa giá trị không bị thiếu cuối cùng và giá trị không bị thiếu tiếp theo. Để làm điều này, chúng ta sẽ sử dụng hàm <code>na_interpolation()</code> từ package <strong>imputeTS</strong> .</p>
 <p>Xem chương <a href="../new_pages/missing_data.vn.html">Dữ liệu Missing</a> để biết các tùy chọn khác của imputation.</p>
 <p>Một giải pháp thay thế khác sẽ là tính toán đường trung bình động, để thử và giải quyết các vấn đề báo cáo rõ ràng này (xem phần tiếp theo và chương <a href="../new_pages/moving_average.vn.html">Đường trung bình động</a>.</p>
@@ -1013,20 +1027,16 @@ t2m, tp, </code></pre>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.vn_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.vn_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="phân-tích-mô-tả" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="phân-tích-mô-tả"><span class="header-section-number">23.4</span> Phân tích mô tả</h2>
+</section></section><section id="phân-tích-mô-tả" class="level2" data-number="23.4"><h2 data-number="23.4" class="anchored" data-anchor-id="phân-tích-mô-tả">
+<span class="header-section-number">23.4</span> Phân tích mô tả</h2>
 <!-- ======================================================= -->
-<section id="timeseries_moving" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">Đường trung bình động</h3>
+<section id="timeseries_moving" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">Đường trung bình động</h3>
 <p>Nếu dữ liệu rất nhiễu (dao động lên và xuống), việc tính toán đường trung bình động có thể sẽ hữu ích. Trong ví dụ dưới đây, với mỗi tuần chúng ta sẽ tính toán số trường hợp trung bình từ bốn tuần trước đó. Việc này sẽ giúp dữ liệu dễ diễn giải hơn. Trong trường hợp của chúng ta, điều này không thực sự bổ sung nhiều, vì vậy chúng ta sẽ bám vào dữ liệu nội suy để phân tích thêm. Xem chương <a href="../new_pages/moving_average.vn.html">Đường trung bình động</a> để biết thêm chi tiết.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create a moving average variable (deals with missings)</span></span>
@@ -1045,16 +1055,13 @@ t2m, tp, </code></pre>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma_4wk), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.vn_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.vn_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="tính-chu-kỳ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tính-chu-kỳ">Tính chu kỳ</h3>
+</section><section id="tính-chu-kỳ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tính-chu-kỳ">Tính chu kỳ</h3>
 <p>Sau đây chúng ta sẽ định nghĩa một hàm để tạo một biểu đồ chu kỳ. Xem chương <a href="../new_pages/writing_functions.vn.html">Viết hàm</a> để biết cách tạo một hàm trong R.</p>
 <p>Đầu tiên, hàm được định nghĩa. Các đối số của nó bao gồm một bộ dữ liệu với cột <code>counts</code>, <code>start_week =</code> là tuần đầu tiên của bộ dữ liệu, một con số để cho biết có bao nhiêu chu kỳ mỗi năm (ví dụ: 52, 12), và cuối cùng là kiểu đầu ra (xem chi tiết trong đoạn mã bên dưới).</p>
 <div class="cell">
@@ -1116,8 +1123,7 @@ t2m, tp, </code></pre>
 <span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Period (Weeks)"</span>, <span class="at">y =</span> <span class="st">"Log(density)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.vn_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.vn_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1129,9 +1135,7 @@ t2m, tp, </code></pre>
 </div>
 <p><span style="color: black;"><strong><em>LƯU Ý:</em></strong> Có thể sử dụng các tuần ở trên để thêm chúng vào các chu kỳ sin và cosin, tuy nhiên chúng ta sẽ sử dụng một hàm để tạo ra các chu kỳ này (xem phần hồi quy bên dưới) </span></p>
 <!-- ======================================================= -->
-</section>
-<section id="tách-nhỏ-chuỗi-thời-gian" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tách-nhỏ-chuỗi-thời-gian">Tách nhỏ chuỗi thời gian</h3>
+</section><section id="tách-nhỏ-chuỗi-thời-gian" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tách-nhỏ-chuỗi-thời-gian">Tách nhỏ chuỗi thời gian</h3>
 <p>Phân tách cổ điển được sử dụng để chia nhỏ một chuỗi thời gian thành một số phần, khi kết hợp lại với nhau sẽ tạo nên xu hướng mà bạn nhìn thấy. Các phần khác nhau này là:</p>
 <ul>
 <li>Chu kỳ xu hướng (hướng dài hạn của dữ liệu)<br>
@@ -1151,16 +1155,13 @@ t2m, tp, </code></pre>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.vn_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.vn_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="tự-tương-quan" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tự-tương-quan">Tự tương quan</h3>
+</section><section id="tự-tương-quan" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tự-tương-quan">Tự tương quan</h3>
 <p>Tự tương quan cho bạn biết về mối quan hệ giữa số lượng của mỗi tuần và các tuần trước đó (được gọi là trễ).</p>
 <p>Sử dụng hàm <code>ACF()</code>, chúng ta có thể tạo ra một biểu đồ cho chúng ta thấy số lượng đường có mối quan hệ ở các độ trễ khác nhau. Khi độ trễ bằng 0 (x = 0), đường này sẽ luôn là 1 vì nó cho thấy mối quan hệ giữa một quan sát và chính nó (không được hiển thị). Đường đầu tiên hiển thị ở đây (x = 1) cho thấy mối quan hệ giữa mỗi quan sát và quan sát trước nó (độ trễ bằng 1), đường thứ hai cho thấy mối quan hệ giữa mỗi quan sát và quan sát trước quan sát cuối cùng (độ trễ là 2) và cứ như thế cho đến khi độ trễ là 52, cho thấy mối quan hệ giữa mỗi quan sát và quan sát từ 1 năm (52 tuần trước đó).</p>
 <p>Sử dụng hàm <code>ACF()</code> (cho tự tương quan một phần) hiển thị cùng một loại quan hệ nhưng được hiệu chỉnh cho tất cả các tuần khác nằm giữa. Nó sẽ ít thông tin hơn để xác định tính chu kỳ.</p>
@@ -1173,8 +1174,7 @@ t2m, tp, </code></pre>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.vn_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.vn_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1186,8 +1186,7 @@ t2m, tp, </code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.vn_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.vn_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1205,14 +1204,11 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="fit-mô-hình-hồi-quy" class="level2" data-number="23.5">
-<h2 data-number="23.5" class="anchored" data-anchor-id="fit-mô-hình-hồi-quy"><span class="header-section-number">23.5</span> Fit mô hình hồi quy</h2>
+</section></section><section id="fit-mô-hình-hồi-quy" class="level2" data-number="23.5"><h2 data-number="23.5" class="anchored" data-anchor-id="fit-mô-hình-hồi-quy">
+<span class="header-section-number">23.5</span> Fit mô hình hồi quy</h2>
 <p>Có thể fit một số lượng lớn các hồi quy khác nhau vào một chuỗi thời gian, tuy nhiên ở đây chúng tôi sẽ trình bày cách để fit một hồi quy nhị thức âm - vì nó thường phù hợp nhất cho dữ liệu về trường hợp bệnh trong các bệnh truyền nhiễm.</p>
 <!-- ======================================================= -->
-<section id="chu-kỳ-fourier" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="chu-kỳ-fourier">Chu kỳ Fourier</h3>
+<section id="chu-kỳ-fourier" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="chu-kỳ-fourier">Chu kỳ Fourier</h3>
 <p>Chu kỳ Fourier tương đương với các đường cong sin và cosin. Sự khác biệt là chúng được dựa trên việc tìm ra sự kết hợp thích hợp nhất của các đường cong để giải thích dữ liệu của bạn.</p>
 <p>If only fitting một chu kỳ Fourier, điều này sẽ tương đương với việc fitting một đường sin và cosin cho độ trễ xảy ra thường xuyên nhất được thấy trong biểu đồ chu kỳ của bạn (trong trường hợp của chúng ta là 52 tuần). Chúng ta sử dụng hàm <code>fourier()</code> từ package <strong>forecast</strong>.</p>
 <p>Trong code dưới đây, chúng ta gán bằng cách sử dụng <code>$</code>, vì hàm <code>fourier()</code> trả về hai cột (một cho sin và một cho cosin) và vì vậy chúng được thêm vào tập dữ liệu dưới dạng danh sách, được gọi là “fourier” - nhưng danh sách này sau đó có thể được sử dụng như một biến bình thường trong hồi quy.</p>
@@ -1222,9 +1218,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fourier</span>(<span class="at">K =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="hồi-quy-nhị-thức-âm" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="hồi-quy-nhị-thức-âm">Hồi quy nhị thức âm</h3>
+</section><section id="hồi-quy-nhị-thức-âm" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="hồi-quy-nhị-thức-âm">Hồi quy nhị thức âm</h3>
 <p>Bạn có thể fit các mô hình hồi quy sử dụng các hàm từ package <strong>stats</strong> hoặc <strong>MASS</strong> trong base R (vd: <code>lm()</code>, <code>glm()</code> và <code>glm.nb()</code>). Tuy nhiên, chúng ta sẽ sử dụng các hàm từ package <strong>trending</strong>, vì nó cho phép tính khoảng tin cậy và khoảng tiên lượng phù hợp (các hàm khác không có sẵn). Cú pháp vẫn như vậy, bạn cụ thể biến đầu ra và theo sau bởi dấu ngã (~), sau đó thêm các biến giải thích vào, phân cách nhau bởi dấu cộng (+).</p>
 <p>Sự khác biệt là đầu tiên chúng ta phải xác định model trước, và sau đó <code>fit()</code> nó vào dữ liệu. Điều này rất hữu ích vì nó cho phép so sánh nhiều mô hình khác nhau với cùng một cú pháp..</p>
 <p><span style="color: darkgreen;"><strong><em>MẸO:</em></strong> Nếu bạn muốn sử dụng tỷ suất hơn là số lượng, bạn có thể bao gồm biến dân số dưới dạng thuật ngữ bù logarit, bằng cách thêm <code>offset(log(population)</code>. Sau đó, bạn sẽ cần đặt dân số là 1, trước khi sử dụng hàm <code>predict()</code> để tạo ra tỷ suất. </span></p>
@@ -1263,16 +1257,13 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.vn_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.vn_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="phần-dư" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="phần-dư">Phần dư</h3>
+</section><section id="phần-dư" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="phần-dư">Phần dư</h3>
 <p>Để xem mô hình của chúng ta phù hợp với dữ liệu quan sát như thế nào, chúng ta cần xem xét phần dư. Phần dư là sự khác biệt giữa số lượng được quan sát và số lượng được ước tính từ mô hình. Chúng ta có thể tính toán nó một cách đơn giản bằng cách dùng hàm <code>case_int - estimate</code>, nhưng hàm <code>residuals()</code> trích xuất nó trực tiếp từ mô hình hồi quy cho chúng ta.</p>
 <p>Những gì chúng ta thấy dưới đây là chúng ta không giải thích tất cả các sự dao động mà chúng ta có thể có với mô hình. Có thể chúng ta cần fit nhiều chu kỳ fourier hơn, và gủau quyết biên độ. Tuy nhiên đối với ví dụ này, chúng ta sẽ để nguyên như vậy. Các biểu đồ cho thấy mô hình của chúng ta hoạt động kém hơn ở các đỉnh và đáy (khi số lượng ở mức cao nhất và thấp nhất) và có nhiều khả năng ước tính không đầy đủ các số lượng quan sát được.</p>
 <div class="cell">
@@ -1288,8 +1279,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1300,8 +1290,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1313,8 +1302,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1326,8 +1314,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.vn_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1345,14 +1332,11 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="mối-quan-hệ-của-hai-chuỗi-thời-gian" class="level2" data-number="23.6">
-<h2 data-number="23.6" class="anchored" data-anchor-id="mối-quan-hệ-của-hai-chuỗi-thời-gian"><span class="header-section-number">23.6</span> Mối quan hệ của hai chuỗi thời gian</h2>
+</section></section><section id="mối-quan-hệ-của-hai-chuỗi-thời-gian" class="level2" data-number="23.6"><h2 data-number="23.6" class="anchored" data-anchor-id="mối-quan-hệ-của-hai-chuỗi-thời-gian">
+<span class="header-section-number">23.6</span> Mối quan hệ của hai chuỗi thời gian</h2>
 <p>Ở đây chúng ta xem xét việc sử dụng dữ liệu thời tiết (đặc biệt là nhiệt độ) để giải thích số lượng trường hợp campylobacter.</p>
 <!-- ======================================================= -->
-<section id="nối-hai-bộ-dữ-liệu" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="nối-hai-bộ-dữ-liệu">Nối hai bộ dữ liệu</h3>
+<section id="nối-hai-bộ-dữ-liệu" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="nối-hai-bộ-dữ-liệu">Nối hai bộ dữ liệu</h3>
 <p>Bạn có thể nối các tập dữ liệu của mình sử dụng biến tuần. Để biết thêm về nối dữ liệu, xem chương <a href="../new_pages/joining_matching.vn.html">Nối dữ liệu</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## left join so that we only have the rows already existing in counts</span></span>
@@ -1362,9 +1346,7 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">by =</span> <span class="st">"epiweek"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="phân-tích-mô-tả-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="phân-tích-mô-tả-1">Phân tích mô tả</h3>
+</section><section id="phân-tích-mô-tả-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="phân-tích-mô-tả-1">Phân tích mô tả</h3>
 <p>Đầu tiên hãy trực quan hóa dữ liệu của bạn để kiểm tra xem có bất kỳ mối tương quan rõ ràng nào không. Biểu đồ dưới đây cho thấy một mối quan hệ rõ ràng về tính mùa vụ của các biến, và nhiệt độ có thể đạt đỉnh vài tuần trước khi các trường hợp xảy ra. Để biết thêm về xoay trục dữ liệu, xem chương <a href="../new_pages/pivoting.vn.html">Xoay trục dữ liệu</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">%&gt;%</span> </span>
@@ -1388,16 +1370,13 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.vn_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.vn_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="lags-và-tương-quan-chéo" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="lags-và-tương-quan-chéo">Lags và tương quan chéo</h3>
+</section><section id="lags-và-tương-quan-chéo" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lags-và-tương-quan-chéo">Lags và tương quan chéo</h3>
 <p>Để kiểm định xem những tuần nào có tương quan nhiều nhất tới các trường hợp và nhiệt độ, bạn có thể sử dụng hàm tương quan chéo (<code>CCF()</code>) từ package <strong>feasts</strong>. Bạn cũng có thể trực quan hóa (hơn là sử dụng <code>arrange</code>) sử dụng hàm <code>autoplot()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">%&gt;%</span> </span>
@@ -1436,9 +1415,7 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t2m_lag4 =</span> <span class="fu">lag</span>(t2m, <span class="at">n =</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="hồi-quy-nhị-thức-âm-với-hai-biến-số" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="hồi-quy-nhị-thức-âm-với-hai-biến-số">Hồi quy nhị thức âm với hai biến số</h3>
+</section><section id="hồi-quy-nhị-thức-âm-với-hai-biến-số" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="hồi-quy-nhị-thức-âm-với-hai-biến-số">Hồi quy nhị thức âm với hai biến số</h3>
 <p>Chúng ta sẽ fit một mô hình hồi quy nhị thức âm như đã thực hiện trước đó. Lần này chúng ta thêm biến nhiệt độ có độ trễ là bốn tuần.</p>
 <p><span style="color: orange;"><strong><em>CẨN TRỌNG:</em></strong> Lưu ý cách sử dụng của đối số <code>simulate_pi = FALSE</code> bên trong hàm <code>predict()</code>. Điều này là bởi hành vi mặc định của <strong>trending</strong> là sử dụng package <strong>ciTools</strong> để ước tính khoảng tiên lượng. Nó sẽ không hoạt động nếu có giá trị <code>NA</code>, cũng như tạo ra nhiều khoảng chi tiết hơn. Xem <code>?trending::predict.trending_model_fit</code> để biết thêm chi tiết. </span></p>
 <div class="cell">
@@ -1505,14 +1482,12 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.vn_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.vn_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="phần-dư-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="phần-dư-1">Phần dư</h4>
+<section id="phần-dư-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="phần-dư-1">Phần dư</h4>
 <p>Chúng ta một lần nữa lại khảo sát phần dư để xem mô hình của chúng ta phù hợp với dữ liệu quan sát như thế nào. Các kết quả và phiên giải ở đây tương tự như kết quả của hồi quy trước đó, vì vậy sẽ khả thi hơn khi chọn mô hình đơn giản hơn mà không có nhiệt độ.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate the residuals </span></span>
@@ -1527,8 +1502,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1539,8 +1513,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1552,8 +1525,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1565,8 +1537,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.vn_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1584,20 +1555,16 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-</section>
-<section id="phát-hiện-ổ-dịch" class="level2" data-number="23.7">
-<h2 data-number="23.7" class="anchored" data-anchor-id="phát-hiện-ổ-dịch"><span class="header-section-number">23.7</span> Phát hiện ổ dịch</h2>
+</section></section></section><section id="phát-hiện-ổ-dịch" class="level2" data-number="23.7"><h2 data-number="23.7" class="anchored" data-anchor-id="phát-hiện-ổ-dịch">
+<span class="header-section-number">23.7</span> Phát hiện ổ dịch</h2>
 <p>Chúng tôi sẽ trình bày hai phương pháp (tương tự) để phát hiện các ổ dịch ở đây. Cách đầu tiên được xây dựng dựa vào phần bên trên. Chúng ta sử dụng package <strong>trending</strong> để fit các mô hình hồi quy cho các năm trước đó, sau đó dự báo cho các năm tiếp theo. Nếu số lượng quan sát được cao hơn những gì chúng tôi dự báo, thì khả năng là đã có một đợt bùng phát. Phương pháp thứ hai dựa trên nguyên tắc tương tự nhưng sử dụng package <strong>surveillance</strong>, cung cấp nhiều thuật toán khác nhau để phát hiện các thay đổi bất thường.</p>
 <p><span style="color: orange;"><strong><em>CẨN TRỌNG:</em></strong> Thông thường, bạn quan tâm đến năm hiện tại (do bạn chỉ biết số ca bệnh đến tuần hiện tại). Vì vậy, trong ví dụ này, chúng tôi đang giả định là tuần 39 của năm 2011.</span></p>
 <!-- ======================================================= -->
-<section id="package-trending" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="package-trending">Package <strong>trending</strong></h3>
+<section id="package-trending" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="package-trending">Package <strong>trending</strong>
+</h3>
 <p>Đối với phương pháp này, chúng ta xác định một mốc (baseline) (thường là khoảng 5 năm dữ liệu). Chúng ta fit một mô hình hồi quy tới dữ liệu baseline, và sau đó sử dụng nó để ước tính cho năm sau.</p>
 <!-- ======================================================= -->
-<section id="điểm-cắt-ngày" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="điểm-cắt-ngày">Điểm cắt ngày</h4>
+<section id="điểm-cắt-ngày" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="điểm-cắt-ngày">Điểm cắt ngày</h4>
 <p>Sẽ dễ dàng hơn khi xác định ngày của bạn ở một nơi và sau đó sử dụng những ngày này trong suốt phần còn lại trong của bạn.</p>
 <p>Ở đây chúng ta xác định ngày bắt đầu (khi các quan sát của chúng ta bắt đầu) và ngày làm điểm cắt (cut-off date) (kết thúc giai đoạn baseline - và giai đoạn chúng ta muốn dự đoán cho sự bắt đầu). ~Chúng ta cũng xác định có bao nhiêu tuần trong năm mà chúng tôi sẽ dự đoán)~. Chúng ta cũng xác định có bao nhiêu tuần mà chúng ta đang muốn dự báo nằm giữa điểm cắt baseline và ngày kết thúc.</p>
 <p><span style="color: black;"><strong><em>LƯU Ý:</em></strong> Trong ví dụ này, chúng tôi giả sử hiện đang ở cuối tháng 9 năm 2011 (“2011 W39”).</span></p>
@@ -1615,9 +1582,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>num_weeks <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(end_date <span class="sc">-</span> cut_off)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="thêm-hàng" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="thêm-hàng">Thêm hàng</h4>
+</section><section id="thêm-hàng" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="thêm-hàng">Thêm hàng</h4>
 <p>Để có thể dự báo ở định dạng tidyverse, chúng ta cần có số hàng phù hợp trong tập dữ liệu của mình, tức là một hàng cho mỗi tuần cho tới ngày kết thúc <code>end_date</code> đã được xác định bên trên. Đoạn mã bên dưới cho phép bạn thêm các hàng này theo một biến nhóm - ví dụ: nếu chúng ta có nhiều quốc gia trong một tập dữ liệu, chúng ta có thể nhóm theo quốc gia và sau đó thêm các hàng một cách thích hợp cho từng quốc gia. Hàm <code>group_by_key()</code> trong package <strong>tsibble</strong> cho phép chúng ta thực hiện điều này và sau đó chuyển dữ liệu đã nhóm tới các hàm <strong>dplyr</strong> như <code>group_modify()</code> và <code>add_row()</code>. Sau đó, chúng ta cụ thể trình tự các tuần giữa một tuần sau tuần tối đa hiện có trong dữ liệu và tuần kết thúc.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add in missing weeks till end of year </span></span>
@@ -1631,9 +1596,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">by =</span> <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="chu-kỳ-fourier-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="chu-kỳ-fourier-1">Chu kỳ Fourier</h4>
+</section><section id="chu-kỳ-fourier-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="chu-kỳ-fourier-1">Chu kỳ Fourier</h4>
 <p>Chúng ta phải định nghĩa lại chu kỳ Fourier - bởi vì chúng ta chỉ muốn fit chúng tới ngày baseline và sau đó dự báo (ngoại suy) các chu kỳ này cho năm sau. Để làm điều này, chúng ta cần kết hợp hai danh sách đầu ra từ hàm <code>fourier()</code> lại với nhau; cái đầu tiên dành cho dữ liệu baseline, và cái thứ hai dự đoán cho năm quan tâm (bằng cách xác định đối số <code>h</code>).</p>
 <p><em>Lưu ý</em> để nối dòng chúng ta phải sử dụng hàm <code>rbind()</code> (thay vì hàm tidyverse <code>bind_rows</code>) bởi vì các cột fourier ở định dạng danh sách (vì vậy không được đặt tên riêng lẻ).</p>
 <div class="cell">
@@ -1665,9 +1628,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="chia-dữ-liệu-và-fit-mô-hình-hồi-quy" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="chia-dữ-liệu-và-fit-mô-hình-hồi-quy">Chia dữ liệu và fit mô hình hồi quy</h4>
+</section><section id="chia-dữ-liệu-và-fit-mô-hình-hồi-quy" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="chia-dữ-liệu-và-fit-mô-hình-hồi-quy">Chia dữ liệu và fit mô hình hồi quy</h4>
 <p>Chúng ta bây giờ cần phải chia dữ liệu của mình thành 2 giai đoạn: giai đoạn baseline và giai đoạn dự báo. Nó có thể thực hiện được với hàm <strong>dplyr</strong> <code>group_split()</code> sau khi nhóm bởi <code>group_by()</code>, và sẽ tạo ra một danh sách gồm hai data frame, một trước thời điểm cut-off và một cái ở thời điểm sau cut-off.</p>
 <p>Chúng ta sau đó sử dụng hàm <code>pluck()</code> từ package <strong>purrr</strong> để kéo tập dữ liệu ra khỏi danh sách (tương đương với việc sử dụng ngoặc vuông, vd: <code>dat[[1]]</code>), và sau đó có thể fit mô hình của chúng ta tới dữ liệu nền,và sau đó sử dụng hàm <code>predict()</code> cho dữ liệu mà chúng ta quan tâm sau cut-off.</p>
 <p>Xem chương <a href="../new_pages/iteration.vn.html">Lặp, vòng lặp, và danh sách</a> để biết thêm về <strong>purrr</strong>.</p>
@@ -1746,23 +1707,20 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.vn_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.vn_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="đánh-giá-dự-báo" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="đánh-giá-dự-báo">Đánh giá dự báo</h4>
+</section><section id="đánh-giá-dự-báo" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="đánh-giá-dự-báo">Đánh giá dự báo</h4>
 <p>Ngoài việc kiểm tra các phần dư, cũng quan trọng khi đánh giá xem mô hình của bạn tốt như thế nào trong việc dự đoán các trường hợp trong tương lai. Điều này cung cấp cho bạn ý tưởng về mức độ đáng tin cậy của các ngưỡng cảnh báo của bạn.</p>
 <p>Cách kiểm định truyền thống là xem bạn có thể dự đoán năm gần nhất trước năm hiện tại tốt như thế nào (bởi vì bạn chưa biết số lượng cho “năm hiện tại”). Ví dụ: trong tập dữ liệu của chúng ta, chúng ta sẽ sử dụng dữ liệu từ năm 2002 đến năm 2009 để dự đoán năm 2010 và sau đó xem mức độ chính xác của những dự đoán đó. Sau đó, fit lại mô hình có bao gồm dữ liệu năm 2010 và sử dụng dữ liệu đó để dự đoán cho năm 2011.</p>
 <p>Bạn có thể xem ảnh minh họa bên dưới bởi <em>Hyndman và cộng sự</em> trong cuốn <a href="https://otexts.com/fpp3/">“Các nguyên tắc dự báo và thực hành”</a>.</p>
-<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"> <em>hình sử dụng lại với sự cho phép của các tác giả</em></p>
+<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"><em>hình sử dụng lại với sự cho phép của các tác giả</em></p>
 <p>Nhược điểm của cách này là bạn không sử dụng tất cả dữ liệu có sẵn và nó không phải là mô hình cuối cùng mà bạn đang sử dụng để dự đoán.</p>
 <p>Một giải pháp thay thế là sử dụng một phương pháp được gọi là xác thực chéo (cross-validation). Trong trường hợp này, bạn cuộn qua tất cả dữ liệu có sẵn để fit nhiều mô hình để dự đoán một năm tới. Bạn sẽ sử dụng nhiều dữ liệu hơn trong các mô hình, như được trình bày dưới đây từ cùng <a href="https://otexts.com/fpp3/"><em>cuốn sách của Hyndman và cộng sự</em></a>. Ví dụ, mô hình đầu tiên sử dụng 2002 để dự đoán năm 2003, mô hình thứ hai sử dụng 2002 và 2003 để dự đoán năm 2004, v.v.</p>
-<p><img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png" class="img-fluid"> <em>hình sử dụng lại với sự cho phép của các tác giả</em></p>
+<p><img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png" class="img-fluid"><em>hình sử dụng lại với sự cho phép của các tác giả</em></p>
 <p>Dưới đây chúng ta sử dụng hàm <code>map()</code> từ package <strong>purrr</strong> để chạy vòng lặp trên từng tập dữ liệu. Sau đó, chúng ta đặt các ước tính vào một tập dữ liệu và hợp nhất với số lượng trường hợp ban đầu để sử dụng package <strong>yardstick</strong> để tính toán các đo lường về độ chính xác. Chúng ta sẽ tính toán bốn giá trị bao gồm: Root mean squared error (RMSE), Mean absolute error (MAE), Mean absolute scaled error (MASE), Mean absolute percent error (MAPE).</p>
 <p><span style="color: orange;"><strong><em>CẨN TRỌNG:</em></strong> Lưu ý cách sử dụng của đối số <code>simulate_pi = FALSE</code> bên trong hàm <code>predict()</code>. Điều này là bởi hành vi mặc định của <strong>trending</strong> là sử dụng package <strong>ciTools</strong> để ước tính khoảng tiên lượng. Nó sẽ không hoạt động nếu có giá trị <code>NA</code>, cũng như tạo ra nhiều khoảng chi tiết hơn. Xem <code>?trending::predict.trending_model_fit</code> để biết thêm chi tiết. </span></p>
 <div class="cell">
@@ -1924,10 +1882,8 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="package-surveillance" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="package-surveillance">package <strong>surveillance</strong></h3>
+</section></section><section id="package-surveillance" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="package-surveillance">package <strong>surveillance</strong>
+</h3>
 <p>Trong phần này chúng ta sẽ sử dụng package <strong>surveillance</strong> để tạo các ngưỡng cảnh báo dựa trên thuật toán phát hiện ổ dịch. Có một số phương pháp khác có sẵn trong package, tuy nhiên chúng ta sẽ tập trung vào hai tùy chọn ở đây. Để biết chi tiết, xem các bài báo sau về <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/monitoringCounts.pdf">sự ứng dụng</a> và <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">lý thuyết</a> về các thuật toán được sử dụng.</p>
 <p>Lựa chọn đầu tiên là sử dụng phương pháp Farrington cải tiến. Nó fit một mô hình nhị thức âm tổng quát (bao gồm xu hướng) và down-weights các đợt bùng phát trong quá khứ (giá trị ngoại lai) để tạo một mức ngưỡng.</p>
 <p>Lựa chọn thứ hai là dùng phương pháp glrnb. Nó cũng fit một mô hình nhị thức âm tổng quát nhưng bao gồm cả xu hướng và chu kỳ fourier (vì vậy được ưu ái ở đây). Mô hình hồi quy được sử dụng để tính toán “control mean” (~fitted values) - nó sau đó sử dụng một phép thống kê tính toán likelihood ratio statistic tổng quát hóa để đánh giá nếu có sự thay đổi trung bình cho mỗi tuần. Lưu ý rằng ngưỡng cho mỗi tuần sẽ tính đến các tuần trước, vì vậy nếu có sự thay đổi liên tục, một cảnh báo sẽ được kích hoạt. (Cũng lưu ý rằng sau mỗi lần cảnh báo, thuật toán sẽ được đặt lại)</p>
@@ -1950,8 +1906,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>weekrange <span class="ot">&lt;-</span> cut_off <span class="sc">-</span> start_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-<section id="phương-pháp-farrington" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="phương-pháp-farrington">Phương pháp Farrington</h4>
+<section id="phương-pháp-farrington" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="phương-pháp-farrington">Phương pháp Farrington</h4>
 <p>Sau đó chúng ta xác định từng tham số cho phương pháp Farrington trong một danh sách <code>list</code>. Sau đó, chúng ta chạy thuật toán bằng cách sử dụng hàm <code>farringtonFlexible()</code> và sau đó chúng ta có thể trích xuất ngưỡng cảnh báo bằng hàm <code>farringtonmethod@upperbound</code> để thêm vào tệp dữ liệu của chúng ta. Bạn cũng có thể trích xuất giá trị TRUE/FALSE cho từng tuần nếu nó kích hoạt một cảnh báo (cao hơn ngưỡng) bằng cách sử dụng <code>farringtonmethod@alarm</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## define control</span></span>
@@ -1996,16 +1951,13 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.vn_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.vn_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="phương-pháp-glrnb" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="phương-pháp-glrnb">Phương pháp GLRNB</h4>
+</section><section id="phương-pháp-glrnb" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="phương-pháp-glrnb">Phương pháp GLRNB</h4>
 <p>Tương tự với phương pháp GLRNB, chúng ta xác định từng tham số vào một danh sách <code>list</code>, sau đó fit thuật toán và trích xuất các giới hạn trên.</p>
 <p><span style="color: orange;"><strong><em>CẨN TRỌNG:</em></strong> Phương pháp này sử dụng “brute force” (tương tự như bootstrapping) để tính toán các ngưỡng, vì vậy có thể mất nhiều thời gian!</span></p>
 <p>Xem <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">GLRNB vignette</a> để biết thêm chi tiết.</p>
@@ -2053,18 +2005,14 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.vn_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.vn_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-</section>
-<section id="chuỗi-thời-gian-bị-gián-đoạn" class="level2" data-number="23.8">
-<h2 data-number="23.8" class="anchored" data-anchor-id="chuỗi-thời-gian-bị-gián-đoạn"><span class="header-section-number">23.8</span> Chuỗi thời gian bị gián đoạn</h2>
+</section></section></section><section id="chuỗi-thời-gian-bị-gián-đoạn" class="level2" data-number="23.8"><h2 data-number="23.8" class="anchored" data-anchor-id="chuỗi-thời-gian-bị-gián-đoạn">
+<span class="header-section-number">23.8</span> Chuỗi thời gian bị gián đoạn</h2>
 <p>Chuỗi thời gian bị gián đoạn (còn được gọi là hồi quy phân đoạn hoặc phân tích can thiệp), thường được sử dụng để đánh giá tác động của vắc-xin đối với tỷ lệ mắc mới của bệnh. Nhưng nó có thể được sử dụng để đánh giá tác động của một loạt các can thiệp hoặc sự giới thiệu. Ví dụ như những thay đổi trong quy trình của bệnh viện hoặc sự xuất hiện của chủng bệnh mới vào quần thể. Trong ví dụ này, chúng ta sẽ giả định rằng một chủng mới của Campylobacter đã xuất hiện ở Đức vào cuối năm 2008, và xem liệu điều đó có ảnh hưởng đến số lượng trường hợp. Chúng ta sẽ sử dụng hồi quy nhị thức âm một lần nữa. Sự hồi quy lần này sẽ được chia thành hai phần, một phần trước khi can thiệp (hoặc sự xuất hiện của chủng mới) và một phần sau (trước và sau giai đoạn). Điều này cho phép chúng ta tính toán tỷ số tỷ lệ mới mắc giữa hai khoảng thời gian. Giải thích phương trình có thể làm cho điều này rõ ràng hơn (nếu không thì chỉ cần bỏ qua!).</p>
 <p>Hồi quy nhị thức âm có thể được định nghĩa như sau:</p>
 <p><span class="math display">\[\log(Y_t)= β_0 + β_1 \times t+ β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+ + log(pop_t) + e_t\]</span></p>
@@ -2191,25 +2139,18 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.vn_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.vn_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.vn_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.vn_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="nguồn-tham-khảo" class="level2" data-number="23.9">
-<h2 data-number="23.9" class="anchored" data-anchor-id="nguồn-tham-khảo"><span class="header-section-number">23.9</span> Nguồn tham khảo</h2>
-<p><a href="https://otexts.com/fpp3/">forecasting: principles and practice textbook</a><br>
-<a href="https://github.com/EPIET/TimeSeriesAnalysis">EPIET timeseries analysis case studies</a><br>
-<a href="https://online.stat.psu.edu/stat510/lesson/1">Penn State course</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Surveillance package manuscript</a></p>
+</section><section id="nguồn-tham-khảo" class="level2" data-number="23.9"><h2 data-number="23.9" class="anchored" data-anchor-id="nguồn-tham-khảo">
+<span class="header-section-number">23.9</span> Nguồn tham khảo</h2>
+<p><a href="https://otexts.com/fpp3/">forecasting: principles and practice textbook</a><br><a href="https://github.com/EPIET/TimeSeriesAnalysis">EPIET timeseries analysis case studies</a><br><a href="https://online.stat.psu.edu/stat510/lesson/1">Penn State course</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Surveillance package manuscript</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2388,18 +2329,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2431,7 +2361,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2466,7 +2436,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2739,60 +2713,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/moving_average.vn.html" class="pagination-link" aria-label="Đường trung bình động">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Đường trung bình động</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>  <span class="chapter-title">Đường trung bình động</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/epidemic_models.vn.html" class="pagination-link" aria-label="Mô hình hóa dịch bệnh">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mô hình hóa dịch bệnh</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">24</span>  <span class="chapter-title">Mô hình hóa dịch bệnh</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","loop":false,"closeEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

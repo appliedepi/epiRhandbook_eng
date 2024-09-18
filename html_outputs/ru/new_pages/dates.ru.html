@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Справочник эпидемиолога R - 9&nbsp; Работа с датами</title>
+<title>9  Работа с датами – Справочник эпидемиолога R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/characters_strings.ru.html" rel="next">
 <link href="../new_pages/cleaning.ru.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Найти",
     "search-label": "Поиск"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"ru"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.ru.html">Управление данными</a></li><li class="breadcrumb-item"><a href="../new_pages/dates.ru.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Работа с датами</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.ru.html">Управление данными</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/dates.ru.html"><span class="chapter-number">9</span>  <span class="chapter-title">Работа с датами</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Справочник эпидемиолога R</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Исходный код" class="quarto-navigation-tool px-1" aria-label="Исходный код"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Исходный код" class="quarto-navigation-tool px-1" aria-label="Исходный код"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Переключить темный режим"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,20 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Поиск"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/dates.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/dates.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/dates.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/dates.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/dates.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/dates.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/dates.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ar/new_pages/dates.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.ru.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Добро пожаловать</span></a>
@@ -284,440 +310,455 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Об этой книге</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Редакционные и технические замечания</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Редакционные и технические замечания</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Скачивание руководства и данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Скачивание руководства и данных</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Основы</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Основы R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Основы R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Переход к R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Переход к R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Рекомендованные пакеты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Рекомендованные пакеты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Проекты R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Проекты R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Импорт и экспорт</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Импорт и экспорт</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Управление данными</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Вычистка данных и ключевые функции</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Вычистка данных и ключевые функции</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.ru.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Работа с датами</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Работа с датами</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Текст и последовательности</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Текст и последовательности</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Факторы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Факторы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Поворот данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Поворот данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Группирование данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Группирование данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Соединение данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Соединение данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Дедупликация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Дедупликация</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Итерации, циклы и списки</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Итерации, циклы и списки</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Анализ</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Описательные таблицы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Описательные таблицы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Простые статистические тесты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Простые статистические тесты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Однофакторная и многофакторная регрессия</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Однофакторная и многофакторная регрессия</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Отсутствующие данные</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Отсутствующие данные</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Стандартизированные коэффициенты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Стандартизированные коэффициенты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Скользящие средние значения</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Скользящие средние значения</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Временные ряды и обнаружение вспышек</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Временные ряды и обнаружение вспышек</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Моделирование эпидемий</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Моделирование эпидемий</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Отслеживание контактов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Отслеживание контактов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Анализ опросов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Анализ опросов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Анализ выживаемости</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Анализ выживаемости</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Основы ГИС</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Основы ГИС</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Визуализация данных</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Таблицы для презентации</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Таблицы для презентации</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Основы ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">Основы ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Советы по использованию ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">Советы по использованию ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Эпидемические кривые</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Эпидемические кривые</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Демографические пирамиды и шкалы Лайкерта</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Демографические пирамиды и шкалы Лайкерта</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Тепловые диаграммы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Тепловые диаграммы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Диаграммы и схемы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Диаграммы и схемы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Анализ комбинаций</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Анализ комбинаций</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Цепочки передачи</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Цепочки передачи</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Филогенетические деревья</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Филогенетические деревья</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Интерактивные графики</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Интерактивные графики</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Отчеты и информационные панели</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Отчеты с помощью R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Отчеты с помощью R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Структурирование рутинных отчетов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Структурирование рутинных отчетов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Информационные панели с R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Информационные панели с R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Информационные панели с Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Информационные панели с Shiny</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Разное</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Написание функций</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Написание функций</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Взаимодействие директорий</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Взаимодействие директорий</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Контроль версий и совместная работа с помощью Git и Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Контроль версий и совместная работа с помощью Git и Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Частые ошибки</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Частые ошибки</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Получение помощи</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Получение помощи</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R на сетевых дисках</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R на сетевых дисках</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Таблица данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Таблица данных</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Приложения</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Содержание</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Содержание</h2>
    
   <ul>
-  <li><a href="#подготовка" id="toc-подготовка" class="nav-link active" data-scroll-target="#подготовка"><span class="header-section-number">9.1</span> Подготовка</a>
+<li>
+<a href="#%D0%BF%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0" id="toc-подготовка" class="nav-link active" data-scroll-target="#подготовка"><span class="header-section-number">9.1</span> Подготовка</a>
   <ul class="collapse">
-  <li><a href="#загрузка-пакетов" id="toc-загрузка-пакетов" class="nav-link" data-scroll-target="#загрузка-пакетов">Загрузка пакетов</a></li>
-  <li><a href="#импорт-данных" id="toc-импорт-данных" class="nav-link" data-scroll-target="#импорт-данных">Импорт данных</a></li>
-  </ul></li>
-  <li><a href="#текущая-дата" id="toc-текущая-дата" class="nav-link" data-scroll-target="#текущая-дата"><span class="header-section-number">9.2</span> Текущая дата</a></li>
-  <li><a href="#конвертация-в-дату" id="toc-конвертация-в-дату" class="nav-link" data-scroll-target="#конвертация-в-дату"><span class="header-section-number">9.3</span> Конвертация в дату</a>
-  <ul class="collapse">
-  <li><a href="#базовый-r" id="toc-базовый-r" class="nav-link" data-scroll-target="#базовый-r"><strong>базовый</strong> R</a></li>
-  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate"><strong>lubridate</strong></a></li>
-  <li><a href="#объединение-столбцов" id="toc-объединение-столбцов" class="nav-link" data-scroll-target="#объединение-столбцов">Объединение столбцов</a></li>
-  </ul></li>
-  <li><a href="#даты-excel" id="toc-даты-excel" class="nav-link" data-scroll-target="#даты-excel"><span class="header-section-number">9.4</span> Даты Excel</a></li>
-  <li><a href="#хаотичные-даты" id="toc-хаотичные-даты" class="nav-link" data-scroll-target="#хаотичные-даты"><span class="header-section-number">9.5</span> Хаотичные даты</a></li>
-  <li><a href="#работа-с-классом-дата-время" id="toc-работа-с-классом-дата-время" class="nav-link" data-scroll-target="#работа-с-классом-дата-время"><span class="header-section-number">9.6</span> Работа с классом дата-время</a>
-  <ul class="collapse">
-  <li><a href="#конвертация-дат-со-временем" id="toc-конвертация-дат-со-временем" class="nav-link" data-scroll-target="#конвертация-дат-со-временем">Конвертация дат со временем</a></li>
-  <li><a href="#конвертация-только-времени" id="toc-конвертация-только-времени" class="nav-link" data-scroll-target="#конвертация-только-времени">Конвертация только времени</a></li>
-  <li><a href="#извлечение-времени" id="toc-извлечение-времени" class="nav-link" data-scroll-target="#извлечение-времени">Извлечение времени</a></li>
-  </ul></li>
-  <li><a href="#работа-с-датами" id="toc-работа-с-датами" class="nav-link" data-scroll-target="#работа-с-датами"><span class="header-section-number">9.7</span> Работа с датами</a>
-  <ul class="collapse">
-  <li><a href="#извлекаем-компоненты-даты" id="toc-извлекаем-компоненты-даты" class="nav-link" data-scroll-target="#извлекаем-компоненты-даты">Извлекаем компоненты даты</a></li>
-  <li><a href="#вычисления-с-датами" id="toc-вычисления-с-датами" class="nav-link" data-scroll-target="#вычисления-с-датами">Вычисления с датами</a></li>
-  <li><a href="#интервалы-дат" id="toc-интервалы-дат" class="nav-link" data-scroll-target="#интервалы-дат">Интервалы дат</a></li>
-  </ul></li>
-  <li><a href="#отображение-даты" id="toc-отображение-даты" class="nav-link" data-scroll-target="#отображение-даты"><span class="header-section-number">9.8</span> Отображение даты</a>
-  <ul class="collapse">
-  <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format"><code>format()</code></a></li>
-  <li><a href="#месяц-год" id="toc-месяц-год" class="nav-link" data-scroll-target="#месяц-год">Месяц-Год</a></li>
-  </ul></li>
-  <li><a href="#dates_epi_wks" id="toc-dates_epi_wks" class="nav-link" data-scroll-target="#dates_epi_wks"><span class="header-section-number">9.9</span> Эпидемиологические недели</a>
-  <ul class="collapse">
-  <li><a href="#lubridate-1" id="toc-lubridate-1" class="nav-link" data-scroll-target="#lubridate-1"><strong>lubridate</strong></a></li>
-  <li><a href="#еженедельное-количество" id="toc-еженедельное-количество" class="nav-link" data-scroll-target="#еженедельное-количество">Еженедельное количество</a></li>
-  <li><a href="#альтернативы-для-эпиднедель" id="toc-альтернативы-для-эпиднедель" class="nav-link" data-scroll-target="#альтернативы-для-эпиднедель">Альтернативы для эпиднедель</a></li>
-  </ul></li>
-  <li><a href="#конвертация-датчасовых-поясов" id="toc-конвертация-датчасовых-поясов" class="nav-link" data-scroll-target="#конвертация-датчасовых-поясов"><span class="header-section-number">9.10</span> Конвертация дат/часовых поясов</a></li>
-  <li><a href="#отстающие-и-опережающие-расчеты" id="toc-отстающие-и-опережающие-расчеты" class="nav-link" data-scroll-target="#отстающие-и-опережающие-расчеты"><span class="header-section-number">9.11</span> Отстающие и опережающие расчеты</a></li>
-  <li><a href="#ресурсы" id="toc-ресурсы" class="nav-link" data-scroll-target="#ресурсы"><span class="header-section-number">9.12</span> Ресурсы</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%B2" id="toc-загрузка-пакетов" class="nav-link" data-scroll-target="#загрузка-пакетов">Загрузка пакетов</a></li>
+  <li><a href="#%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85" id="toc-импорт-данных" class="nav-link" data-scroll-target="#импорт-данных">Импорт данных</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li><a href="#%D1%82%D0%B5%D0%BA%D1%83%D1%89%D0%B0%D1%8F-%D0%B4%D0%B0%D1%82%D0%B0" id="toc-текущая-дата" class="nav-link" data-scroll-target="#текущая-дата"><span class="header-section-number">9.2</span> Текущая дата</a></li>
+  <li>
+<a href="#%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B0%D1%86%D0%B8%D1%8F-%D0%B2-%D0%B4%D0%B0%D1%82%D1%83" id="toc-конвертация-в-дату" class="nav-link" data-scroll-target="#конвертация-в-дату"><span class="header-section-number">9.3</span> Конвертация в дату</a>
+  <ul class="collapse">
+<li><a href="#%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B9-r" id="toc-базовый-r" class="nav-link" data-scroll-target="#базовый-r"><strong>базовый</strong> R</a></li>
+  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate"><strong>lubridate</strong></a></li>
+  <li><a href="#%D0%BE%D0%B1%D1%8A%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D0%BE%D0%BB%D0%B1%D1%86%D0%BE%D0%B2" id="toc-объединение-столбцов" class="nav-link" data-scroll-target="#объединение-столбцов">Объединение столбцов</a></li>
+  </ul>
+</li>
+  <li><a href="#%D0%B4%D0%B0%D1%82%D1%8B-excel" id="toc-даты-excel" class="nav-link" data-scroll-target="#даты-excel"><span class="header-section-number">9.4</span> Даты Excel</a></li>
+  <li><a href="#%D1%85%D0%B0%D0%BE%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D0%B5-%D0%B4%D0%B0%D1%82%D1%8B" id="toc-хаотичные-даты" class="nav-link" data-scroll-target="#хаотичные-даты"><span class="header-section-number">9.5</span> Хаотичные даты</a></li>
+  <li>
+<a href="#%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%BC-%D0%B4%D0%B0%D1%82%D0%B0-%D0%B2%D1%80%D0%B5%D0%BC%D1%8F" id="toc-работа-с-классом-дата-время" class="nav-link" data-scroll-target="#работа-с-классом-дата-время"><span class="header-section-number">9.6</span> Работа с классом дата-время</a>
+  <ul class="collapse">
+<li><a href="#%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B0%D1%86%D0%B8%D1%8F-%D0%B4%D0%B0%D1%82-%D1%81%D0%BE-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B5%D0%BC" id="toc-конвертация-дат-со-временем" class="nav-link" data-scroll-target="#конвертация-дат-со-временем">Конвертация дат со временем</a></li>
+  <li><a href="#%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B0%D1%86%D0%B8%D1%8F-%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8" id="toc-конвертация-только-времени" class="nav-link" data-scroll-target="#конвертация-только-времени">Конвертация только времени</a></li>
+  <li><a href="#%D0%B8%D0%B7%D0%B2%D0%BB%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8" id="toc-извлечение-времени" class="nav-link" data-scroll-target="#извлечение-времени">Извлечение времени</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B4%D0%B0%D1%82%D0%B0%D0%BC%D0%B8" id="toc-работа-с-датами" class="nav-link" data-scroll-target="#работа-с-датами"><span class="header-section-number">9.7</span> Работа с датами</a>
+  <ul class="collapse">
+<li><a href="#%D0%B8%D0%B7%D0%B2%D0%BB%D0%B5%D0%BA%D0%B0%D0%B5%D0%BC-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D1%8B-%D0%B4%D0%B0%D1%82%D1%8B" id="toc-извлекаем-компоненты-даты" class="nav-link" data-scroll-target="#извлекаем-компоненты-даты">Извлекаем компоненты даты</a></li>
+  <li><a href="#%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D1%81-%D0%B4%D0%B0%D1%82%D0%B0%D0%BC%D0%B8" id="toc-вычисления-с-датами" class="nav-link" data-scroll-target="#вычисления-с-датами">Вычисления с датами</a></li>
+  <li><a href="#%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB%D1%8B-%D0%B4%D0%B0%D1%82" id="toc-интервалы-дат" class="nav-link" data-scroll-target="#интервалы-дат">Интервалы дат</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%D0%BE%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%B0%D1%82%D1%8B" id="toc-отображение-даты" class="nav-link" data-scroll-target="#отображение-даты"><span class="header-section-number">9.8</span> Отображение даты</a>
+  <ul class="collapse">
+<li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format"><code>format()</code></a></li>
+  <li><a href="#%D0%BC%D0%B5%D1%81%D1%8F%D1%86-%D0%B3%D0%BE%D0%B4" id="toc-месяц-год" class="nav-link" data-scroll-target="#месяц-год">Месяц-Год</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#dates_epi_wks" id="toc-dates_epi_wks" class="nav-link" data-scroll-target="#dates_epi_wks"><span class="header-section-number">9.9</span> Эпидемиологические недели</a>
+  <ul class="collapse">
+<li><a href="#lubridate-1" id="toc-lubridate-1" class="nav-link" data-scroll-target="#lubridate-1"><strong>lubridate</strong></a></li>
+  <li><a href="#%D0%B5%D0%B6%D0%B5%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE" id="toc-еженедельное-количество" class="nav-link" data-scroll-target="#еженедельное-количество">Еженедельное количество</a></li>
+  <li><a href="#%D0%B0%D0%BB%D1%8C%D1%82%D0%B5%D1%80%D0%BD%D0%B0%D1%82%D0%B8%D0%B2%D1%8B-%D0%B4%D0%BB%D1%8F-%D1%8D%D0%BF%D0%B8%D0%B4%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D1%8C" id="toc-альтернативы-для-эпиднедель" class="nav-link" data-scroll-target="#альтернативы-для-эпиднедель">Альтернативы для эпиднедель</a></li>
+  </ul>
+</li>
+  <li><a href="#%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B0%D1%86%D0%B8%D1%8F-%D0%B4%D0%B0%D1%82%D1%87%D0%B0%D1%81%D0%BE%D0%B2%D1%8B%D1%85-%D0%BF%D0%BE%D1%8F%D1%81%D0%BE%D0%B2" id="toc-конвертация-датчасовых-поясов" class="nav-link" data-scroll-target="#конвертация-датчасовых-поясов"><span class="header-section-number">9.10</span> Конвертация дат/часовых поясов</a></li>
+  <li><a href="#%D0%BE%D1%82%D1%81%D1%82%D0%B0%D1%8E%D1%89%D0%B8%D0%B5-%D0%B8-%D0%BE%D0%BF%D0%B5%D1%80%D0%B5%D0%B6%D0%B0%D1%8E%D1%89%D0%B8%D0%B5-%D1%80%D0%B0%D1%81%D1%87%D0%B5%D1%82%D1%8B" id="toc-отстающие-и-опережающие-расчеты" class="nav-link" data-scroll-target="#отстающие-и-опережающие-расчеты"><span class="header-section-number">9.11</span> Отстающие и опережающие расчеты</a></li>
+  <li><a href="#%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D1%8B" id="toc-ресурсы" class="nav-link" data-scroll-target="#ресурсы"><span class="header-section-number">9.12</span> Ресурсы</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.ru.html">Управление данными</a></li><li class="breadcrumb-item"><a href="../new_pages/dates.ru.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Работа с датами</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Работа с датами</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.ru.html">Управление данными</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/dates.ru.html"><span class="chapter-number">9</span>  <span class="chapter-title">Работа с датами</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">9</span>  <span class="chapter-title">Работа с датами</span>
+</h1>
 </div>
 
 
@@ -731,14 +772,10 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<div class="cell" data-layout-align="center">
+</header><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/Dates_500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Dates_500x500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="../images/Dates_500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Dates_500x500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -753,11 +790,9 @@ cookieconsent.run({
 </li>
 <li>Здесь мы представим несколько способов конвертации столбцов с датой в класс Дата.</li>
 </ul>
-<!-- ======================================================= -->
-<section id="подготовка" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="подготовка"><span class="header-section-number">9.1</span> Подготовка</h2>
-<section id="загрузка-пакетов" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="загрузка-пакетов">Загрузка пакетов</h3>
+<!-- ======================================================= --><section id="подготовка" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="подготовка">
+<span class="header-section-number">9.1</span> Подготовка</h2>
+<section id="загрузка-пакетов" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="загрузка-пакетов">Загрузка пакетов</h3>
 <p>Этот фрагмент кода показывает загрузку пакетов, необходимых для данной страницы. В этом руководстве мы подчеркиваем использование <code>p_load()</code> из пакета <strong>pacman</strong>, которая устанавливает пакет, если необходимо, <em>и</em> загружает его для использования. Вы можете также загрузить установленные пакеты с помощью <code>library()</code> из <strong>базового</strong> R. См. страницу <a href="../new_pages/basics.ru.html">Основы R</a> для получения более подробной информации о пакетах R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Проверяет, установлен ли пакет, устанавливает, если необходимо, и загружает пакет для текущей сессии</span></span>
@@ -771,43 +806,38 @@ cookieconsent.run({
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  tidyverse,  <span class="co"># управление данными и визуализация  </span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  rio)        <span class="co"># импорт/экспорт данных</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="импорт-данных" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="импорт-данных">Импорт данных</h3>
+</section><section id="импорт-данных" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="импорт-данных">Импорт данных</h3>
 <p>Мы импортируем набор данных по случаям из имитационной эпидемии Эболы. Если вы хотите скачать эти данные и повторять все шаги, см. инструкции на странице <a href="../new_pages/data_used.ru.html">Скачивание руководства и данных</a>. Мы предполагаем, что файл находится в рабочей директории, поэтому в пути к файлу не указаны подпапки.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.xlsx"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="текущая-дата" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="текущая-дата"><span class="header-section-number">9.2</span> Текущая дата</h2>
+</section></section><section id="текущая-дата" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="текущая-дата">
+<span class="header-section-number">9.2</span> Текущая дата</h2>
 <p>Вы можете получить текущую “системную” дату или системное датувремя вашего компьютера, выполнив следующую команду из <strong>базового</strong> R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># получить системную дату - это класс ДАТА</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19"</code></pre>
+<pre><code>[1] "2024-09-18"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># получить системное время - это класс ДАТАВРЕМЯ</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19 15:01:34 CEST"</code></pre>
+<pre><code>[1] "2024-09-18 19:46:22 +07"</code></pre>
 </div>
 </div>
 <p>При использовании пакета <strong>lubridate</strong> эти же сведения вы можете получить через <code>today()</code> и <code>now()</code>, соответственно. <code>date()</code> даст вам текущую дату и время с указанием дня недели и названием месяца.</p>
 <!-- ======================================================= -->
-</section>
-<section id="конвертация-в-дату" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="конвертация-в-дату"><span class="header-section-number">9.3</span> Конвертация в дату</h2>
+</section><section id="конвертация-в-дату" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="конвертация-в-дату">
+<span class="header-section-number">9.3</span> Конвертация в дату</h2>
 <p>После импорта набора данных в R, значения столбца даты могут выглядеть как “1989/12/30”, “05/06/2014”, или “13 Jan 2020”. В таких случаях R, вероятно, все еще рассматривает эти значения как текстовый класс. R нужно <em>указать</em>, что эти значения являются датами… и каков формат даты (какая часть означает день, какая - месяц, какая - год и т.п.).</p>
 <p>Как только это будет задано, R конвертирует эти значения в класс Дата. Фоново R сохранит даты как числа (количество дней с даты отсчета 1 января 1970). Вы не часто будете видеть это число даты, но это позволяет R рассматривать даты как непрерывные переменные, а также позволяет проводить специальные операции, такие как расчет дистанции между датами.</p>
 <p>По умолчанию значения класса Дата в R отображаются в формате ГГГГ-ММ-ДД. Позднее в этом разделе мы обсудим, как менять отображение значений даты.</p>
 <p>Ниже мы представляем два подхода к конвертации столбцы из текстового класса в Дату.</p>
 <p><span style="color: darkgreen;"><strong><em>СОВЕТ:</em></strong> Вы можете проверить текущий класс столбца с функцией из <strong>базового</strong> R <code>class()</code>, например, <code>class(linelist$date_onset)</code>.</span></p>
-<section id="базовый-r" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="базовый-r"><strong>базовый</strong> R</h3>
+<section id="базовый-r" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="базовый-r">
+<strong>базовый</strong> R</h3>
 <p><code>as.Date()</code> является стандартной функцией <strong>базового</strong> R для конвертации объекта или столбца в класс Date (Дата) (обратите внимание на заглаувную “D”).</p>
 <p>Использование <code>as.Date()</code> требует, чтобы:</p>
 <ul>
@@ -843,9 +873,7 @@ cookieconsent.run({
 <p><span style="color: darkgreen;"><strong><em>СОВЕТ:</em></strong> Аргумент <code>format =</code> в функции <code>as.Date()</code> <em>не</em> говорит R, в каком формате вы хотите, чтобы была дата, а скорее показывает, как определить части даты <em>до</em> выполнения команды.</span></p>
 <p><span style="color: darkgreen;"><strong><em>СОВЕТ:</em></strong> Убедитесь, что в аргументе <code>format =</code> вы используете <em>разделитель частей даты</em> (например, /, -, или пробел), который используется в ваших датах.</span></p>
 <p>Как только значения будут в классе Дата, R по умолчанию отобразит их в стандартном формате, а именно ГГГГ-ММ-ДД.</p>
-</section>
-<section id="lubridate" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="lubridate"><strong>lubridate</strong></h3>
+</section><section id="lubridate" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lubridate"><strong>lubridate</strong></h3>
 <p>Конвертация текстовых объектов в даты может быть упрощена с пакетом <strong>lubridate</strong>. Это пакет из <strong>tidyverse</strong>, разработанный для облегчения и более последовательной работы с датами и временем, чем в <strong>базовом</strong> R. По этим причинам <strong>lubridate</strong> часто считается золотым стандартом для использования для даты и времени и всегда рекомендуется при работе с ними.</p>
 <p>Пакет <strong>lubridate</strong> предоставляет несколько функций-помощников, разработанных для конвертации текстовых объектов в даты интуитивно понятным и удобным образом, чем указание формата через <code>as.Date()</code>. Эти функции специфичны для приблизительного формата даты, но распознают ряд разделителей и синонимов дат (например, 01 или Jan или January) - они названы по аббревиатурам форматов даты.</p>
 <div class="cell">
@@ -915,19 +943,15 @@ cookieconsent.run({
 2017</code></pre>
 </div>
 </div>
-</section>
-<section id="объединение-столбцов" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="объединение-столбцов">Объединение столбцов</h3>
+</section><section id="объединение-столбцов" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="объединение-столбцов">Объединение столбцов</h3>
 <p>Вы можете использовать функции <strong>lubridate</strong> <code>make_date()</code> и <code>make_datetime()</code> для объединения нескольких числовых столбцов в один столбец даты. Например, у вас могут быть числовые столбцы <code>onset_day</code> (день заболевания), <code>onset_month</code> (месяц заболевания) и <code>onset_year</code> (год заболевания) в датафрейме <code>linelist</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">onset_date =</span> <span class="fu">make_date</span>(<span class="at">year =</span> onset_year, <span class="at">month =</span> onset_month, <span class="at">day =</span> onset_day))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="даты-excel" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="даты-excel"><span class="header-section-number">9.4</span> Даты Excel</h2>
+</section></section><section id="даты-excel" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="даты-excel">
+<span class="header-section-number">9.4</span> Даты Excel</h2>
 <p>Фоново большинство программ хранят даты как числа. R хранит даты с точки отсчета 1го января 1970 года. Таким образом, если вы выполните <code>as.numeric(as.Date("1970-01-01))</code> вы получите <code>0</code>.</p>
 <p>Microsoft Excel хранит даты с точкой отсчета либо 30 декабря 1899 (Windows) или 1 января 1904 (Mac), в зависимости от вашей операционной системы. См. это <a href="https://docs.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system">руководство Microsoft</a> для получения более детальной информации.</p>
 <p>Даты Excel часто импортируются в R как эти числовые значения, а не текст. Если набор данных, который вы импортировали из Excel, показывает даты как числа или знаки в формате “41369”… используйте <code>as.Date()</code> (или функцию <code>as_date()</code> из <strong>lubridate</strong>) для конвертации, но <strong>вместо указания “формата”, как мы это делали выше, укажите дату отсчета Excel</strong> в аргументе <code>origin =</code>.</p>
@@ -940,9 +964,8 @@ cookieconsent.run({
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_onset =</span> <span class="fu">as.Date</span>(date_onset, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)) <span class="co"># Конвертируйте в дату, используя точку отсчета Excel</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="хаотичные-даты" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="хаотичные-даты"><span class="header-section-number">9.5</span> Хаотичные даты</h2>
+</section><section id="хаотичные-даты" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="хаотичные-даты">
+<span class="header-section-number">9.5</span> Хаотичные даты</h2>
 <p>Функция <code>parse_date()</code> из пакета <strong>parsedate</strong> попытается прочитать столбец с “хаотичными” датами, содержащий даты в разных форматах, и конвертировать даты в стандартный формат. Вы можете <a href="https://readr.tidyverse.org/reference/parse_datetime.html">прочитать больше деталей о <code>parse_date()</code> онлайн</a>.</p>
 <p>Например, <code>parse_date()</code> увидит вектор следующих текстовых дат “03 Jan 2018”, “07/03/1982” и “08/20/85” и конвертирует их в класс Дата в виде: <code>2018-01-03</code>, <code>1982-03-07</code> и <code>1985-08-20</code>.</p>
 <div class="cell">
@@ -959,12 +982,10 @@ cookieconsent.run({
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_onset =</span> <span class="fu">parse_date</span>(date_onset))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="работа-с-классом-дата-время" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="работа-с-классом-дата-время"><span class="header-section-number">9.6</span> Работа с классом дата-время</h2>
+</section><section id="работа-с-классом-дата-время" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="работа-с-классом-дата-время">
+<span class="header-section-number">9.6</span> Работа с классом дата-время</h2>
 <p>Как указывалось ранее, R также поддерживает класс <code>datetime</code> - столбец, который содержит информацию о дате <strong>и</strong> времени. Как и в случае с классом <code>Date</code>, их часто нужно конвертировать из текстовых объектов <code>character</code> в объекты датывремени <code>datetime</code>.</p>
-<section id="конвертация-дат-со-временем" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="конвертация-дат-со-временем">Конвертация дат со временем</h3>
+<section id="конвертация-дат-со-временем" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="конвертация-дат-со-временем">Конвертация дат со временем</h3>
 <p>Стандартный объект <code>datetime</code> форматируется с указанием сначала даты, а затем компонента времени - например, <em>01 Jan 2020, 16:30</em>. Как и в случае с датами, существует много способов форматирования, а также существует ряд уровней точности (часы, минуты, секунды).</p>
 <p>К счастью, также существуют функции-помощники <strong>lubridate</strong> для конвертации этих последовательностей в объекты <code>datetime</code>. Эти функции являются расширениями функций-помощников по дате, с добавлением <code>_h</code> (указаны только часы), <code>_hm</code> (указаны часы и минуты) или <code>_hms</code> (указаны часы, минуты и секунды) в конце (например, <code>dmy_hms()</code>). Их можно использовать следующим образом:</p>
 <p>Конвертация датывремени только с часами в объект датывремени</p>
@@ -1026,9 +1047,7 @@ cookieconsent.run({
 <span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ymd_hm</span>()</span>
 <span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="конвертация-только-времени" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="конвертация-только-времени">Конвертация только времени</h3>
+</section><section id="конвертация-только-времени" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="конвертация-только-времени">Конвертация только времени</h3>
 <p>Если ваши данные содержат только текстовое время (часы и минуты), вы можете их конвертировать и манипулировать как временем, используя <code>strptime()</code> из <strong>базового</strong> R. Например, чтобы получить разницу между двумя значениями времени:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># сырое текстовое время</span></span>
@@ -1047,9 +1066,7 @@ cookieconsent.run({
 </div>
 <p>Обратите внимание, что без указания значения даты, система предполагает, что эта дата - сегодня. Чтобы объединить последовательность даты и последовательность времени, см. раздел <strong>stringr</strong> выше. Дополнительную информацию о <code>strptime()</code> можно получить <a href="https://rdrr.io/r/base/strptime.html">тут</a>.</p>
 <p>Чтобы конвертировать однозначные цифры в двухзначные (например, добавить нули к часам или минутам, чтобы получить два знака), см. раздел <a href="characters_strings.ru.html#str_pad">“Наращивание длины” страницы Текст и последовательности</a>.</p>
-</section>
-<section id="извлечение-времени" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="извлечение-времени">Извлечение времени</h3>
+</section><section id="извлечение-времени" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="извлечение-времени">Извлечение времени</h3>
 <p>Вы можете извлечь элементы времени с помощью <code>hour()</code>, <code>minute()</code> или <code>second()</code> из <strong>lubridate</strong>.</p>
 <p>Ниже приведен пример извлечения часа и затем классификации по времени суток. Мы начинаем со столбца <code>time_admission</code>, который относится к текстовому классу в формате “ЧЧ:ММ”. Сначала используется <code>strptime()</code>, как описано выше, чтобы конвертировать текст в класс датывремени. Затем извлекаем час с помощью <code>hour()</code>, что даст нам число от 0-24. Наконец, создается столбец <code>time_period</code>, используя логику с помощью <code>case_when()</code> для классификации строк на утро/день/вечер/ночь в зависимости от часа госпитализации.</p>
 <div class="cell">
@@ -1063,18 +1080,15 @@ cookieconsent.run({
 </div>
 <p>Чтобы получить дополнительную информацию о фукнции <code>case_when()</code>, см. страницу <a href="../new_pages/cleaning.ru.html">Вычистка данных и ключевые функции</a>.</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="работа-с-датами" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="работа-с-датами"><span class="header-section-number">9.7</span> Работа с датами</h2>
+</section></section><section id="работа-с-датами" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="работа-с-датами">
+<span class="header-section-number">9.7</span> Работа с датами</h2>
 <p>Можно также использовать <code>lubridate</code> для ряда других функций, например, для <strong>извлечения определенных аспектов даты/времени</strong>, <strong>проведения арифметических расчетов с датой</strong>, либо <strong>расчета интервала дат</strong></p>
 <p>Ниже мы определяем дату для использования в данном примере:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># создаем объект в классе Дата</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>example_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-03-01"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="извлекаем-компоненты-даты" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="извлекаем-компоненты-даты">Извлекаем компоненты даты</h3>
+<section id="извлекаем-компоненты-даты" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="извлекаем-компоненты-даты">Извлекаем компоненты даты</h3>
 <p>Можно извлечь общие аспекты, такие как месяц, день, день недели:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(example_date)  <span class="co"># номер месяца</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1100,9 +1114,7 @@ cookieconsent.run({
 </div>
 <p>Существует ряд вариантов для извлечения недель. См. раздел Эпидемиологические недели ниже.</p>
 <p>Обратите внимание, что если вы стремитесь <em>отобразить</em> дату определенным образом (например, “Jan 2020” или “Thursday 20 March” или “Week 20, 1977”), вы можете это более гибко сделать в соответствии с описанием в разделе Отображение даты.</p>
-</section>
-<section id="вычисления-с-датами" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="вычисления-с-датами">Вычисления с датами</h3>
+</section><section id="вычисления-с-датами" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="вычисления-с-датами">Вычисления с датами</h3>
 <p>Вы можете добавить определенное количество дней или недель, используя соответствующую функцию из <strong>lubridate</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># добавляем 3 дня к этой дате</span></span>
@@ -1116,9 +1128,7 @@ cookieconsent.run({
 <pre><code>[1] "2020-04-17"</code></pre>
 </div>
 </div>
-</section>
-<section id="интервалы-дат" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="интервалы-дат">Интервалы дат</h3>
+</section><section id="интервалы-дат" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="интервалы-дат">Интервалы дат</h3>
 <p>Разницу между датами можно рассчитать следующим образом:</p>
 <ol type="1">
 <li>Убедитесь, что обе даты относятся к классу дата<br>
@@ -1163,13 +1173,10 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(linelist_delay<span class="sc">$</span>days_onset_to_hosp, <span class="at">na.rm =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="отображение-даты" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="отображение-даты"><span class="header-section-number">9.8</span> Отображение даты</h2>
+</section></section><section id="отображение-даты" class="level2" data-number="9.8"><h2 data-number="9.8" class="anchored" data-anchor-id="отображение-даты">
+<span class="header-section-number">9.8</span> Отображение даты</h2>
 <p>Как только даты относятся к правильному классу, часто вам их нужно отобразить в другом виде, например, “Monday 05 January” вместо “2018-01-05”. Вам может быть также необходимо откорректировать отображение, чтобы потом сгруппировать строки по отображенным элементам даты - например, по месяцу-году.</p>
-<section id="format" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="format"><code>format()</code></h3>
+<section id="format" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="format"><code>format()</code></h3>
 <p>Корректируйте отображение даты с помощью функции из <strong>базового</strong> R <code>format()</code>. Эта функция принимает последовательность знаков (в кавычках), указывающую <em>желаемый</em> формат на выходе в виде сокращений “%” strptime (тот же синтаксис используется для <code>as.Date()</code>). Ниже приведены наиболее частые сокращения.</p>
 <p>Примечание: использование <code>format()</code> конвертирует значения в текстовый класс, поэтому, как правило, эта операция проводится в конце анализа и только для целей отображения! Полный список вы можете увидеть, выполнив команду <code>?strptime</code>.</p>
 <p>%d = номер дня месяца (5, 17, 28, и т.п.)<br>
@@ -1195,28 +1202,26 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># сегодняшняя дата с форматированием</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="at">format =</span> <span class="st">"%d %B %Y"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "19 June 2024"</code></pre>
+<pre><code>[1] "18 September 2024"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># легкий способ получения полной даты и времени (форматирование по умолчанию)</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Wed Jun 19 15:01:36 2024"</code></pre>
+<pre><code>[1] "Wed Sep 18 19:46:24 2024"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># отформатированные комбинированные дата, время и часовой пояс, используя функцию str_glue()</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_glue</span>(<span class="st">"{format(Sys.Date(), format = '%A, %B %d %Y, %z  %Z, ')}{format(Sys.time(), format = '%H:%M:%S')}"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Wednesday, June 19 2024, +0000  UTC, 15:01:36</code></pre>
+<pre><code>Wednesday, September 18 2024, +0000  UTC, 19:46:24</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Использование формата для отображения недель</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y Week %W"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024 Week 25"</code></pre>
+<pre><code>[1] "2024 Week 38"</code></pre>
 </div>
 </div>
 <p>Обратите внимание, что при использовании <code>str_glue()</code> необходимо помнить, что внутри ожидаемых двойных кавычек ” вы должны использовать одинарные кавычки (как показано выше).</p>
-</section>
-<section id="месяц-год" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="месяц-год">Месяц-Год</h3>
+</section><section id="месяц-год" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="месяц-год">Месяц-Год</h3>
 <p>Чтобы конвертировать столбец даты в формат месяц-год, мы предлагаем использовать функцию <code>as.yearmon()</code> из пакета <strong>zoo</strong>. Она конвертирует дату в класс “yearmon” и сохраняет правильный порядок. Для сравнения, использование <code>format(column, "%Y %B")</code> конвертирует в текстовый класс и упорядочит значения алфавитно (неправильно).</p>
 <p>Ниже создается новый столбец <code>yearmonth</code> из столбца <code>date_onset</code>, используя функцию <code>as.yearmon()</code>. Упорядочивание по умолчанию (правильное) полученных в результате значений показано в таблице.</p>
 <div class="cell">
@@ -1253,19 +1258,14 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <p>Примечание: Если вы работаете в рамках <code>ggplot()</code> и хотите откорректировать только то, как <em>отображаются</em> даты, может быть достаточно просто задать формат в аргументе <code>date_labels =</code> в <code>scale_x_date()</code> - вы можете использовать <code>"%b %Y"</code> или <code>"%Y %b"</code>. См. страницу <a href="../new_pages/ggplot_tips.ru.html">советы по использованию ggplot</a>.</p>
 <p><strong>zoo</strong> также предлагает функцию <code>as.yearqtr()</code>, и вы можете использовать <code>scale_x_yearmon()</code> при использовании <code>ggplot()</code>.</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="dates_epi_wks" class="level2" data-number="9.9">
-<h2 data-number="9.9" class="anchored" data-anchor-id="dates_epi_wks"><span class="header-section-number">9.9</span> Эпидемиологические недели</h2>
-<section id="lubridate-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="lubridate-1"><strong>lubridate</strong></h3>
+</section></section><section id="dates_epi_wks" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="dates_epi_wks">
+<span class="header-section-number">9.9</span> Эпидемиологические недели</h2>
+<section id="lubridate-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lubridate-1"><strong>lubridate</strong></h3>
 <p>См. страницу [Группирование данных] для получения более подробных примеров по группированию данных по дате. Ниже мы кратко рассказываем о группировании данных по неделям.</p>
 <p>Мы, как правило, рекомендуем использовать функцию <code>floor_date()</code> из <strong>lubridate</strong> с аргументом <code>unit = "week"</code>. Это округляет дату в меньшую сторону до “начала” недели, которое задано аргументом <code>week_start =</code>. По умолчанию неделя начинается на 1 (для понедельников), но вы можете уточнить любой день недели, как ее начало (например, 7 для воскресенья). <code>floor_date()</code> является очень гибкой и может использоваться для округления в нижнюю сторону других единиц времени, установив <code>unit =</code> на “second” (секунда), “minute” (минута), “hour” (час), “day” (день), “month” (месяц), или “year” (год).</p>
 <p>Полученное значение - дата начала недели в классе Дата. Класс Дата полезен при построении графика данных, поскольку его легко сможет распознать и упорядочить <code>ggplot()</code>.</p>
 <p>Если вас интересует только корректировка дат для <em>отображения</em> по неделям на графике, см. раздел на этой странице по Отображению данных. Например, при построении эпидкривой вы можете отформатировать отображение даты путем указания необходимой вам номенклатуры strptime “%”. Например, используйте “%Y-%W” или “%Y-%U”, чтобы получить год и номер недели (с началом недели в понедельник или воскресенье, соответственно).</p>
-</section>
-<section id="еженедельное-количество" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="еженедельное-количество">Еженедельное количество</h3>
+</section><section id="еженедельное-количество" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="еженедельное-количество">Еженедельное количество</h3>
 <p>См. страницу [Группирование данных], где приводится детальное объяснение группирования данных с помощью <code>count()</code>, <code>group_by()</code> и <code>summarise()</code>. Краткий пример представлен ниже.</p>
 <ol type="1">
 <li>Создайте новый столбец ‘week’ с помощью <code>mutate()</code>, используя <code>floor_date()</code> с <code>unit = "week"</code><br>
@@ -1292,21 +1292,17 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <p>Здесь вы видите первые строки получившегося датафрейма:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-fe09d29729e523ca0776" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fe09d29729e523ca0776">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"weekly_cases","targets":0},{"name":"n","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d6de968870b5dc05b89d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d6de968870b5dc05b89d">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"weekly_cases","targets":0},{"name":"n","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="альтернативы-для-эпиднедель" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="альтернативы-для-эпиднедель">Альтернативы для эпиднедель</h3>
+</section><section id="альтернативы-для-эпиднедель" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="альтернативы-для-эпиднедель">Альтернативы для эпиднедель</h3>
 <p>Обратите внимание, что в <strong>lubridate</strong> также есть функции <code>week()</code>, <code>epiweek()</code> и <code>isoweek()</code>, у каждой из которых немного разные даты начала и другие нюансы. В целом, вам должно быть достаточно <code>floor_date()</code>. Детальную информацию об этих функциях можно прочитать, введя <code>?week</code> в консоль, либо вы можете прочитать документацию <a href="https://www.rdocumentation.org/packages/lubridate/versions/1.7.4/topics/week">тут</a>.</p>
 <p>Вы можете рассмотреть возможность использования пакета <strong>aweek</strong>, чтобы задать эпидемиологические недели. Более детально вы можете почитать о нем <a href="https://www.repidemicsconsortium.org/aweek/">на сайте RECON</a>. В нем есть функции <code>date2week()</code> и <code>week2date()</code>, в которых вы можете установить день начала недели с помощью <code>week_start = "Monday"</code>. Этот пакет самый простой, если вам нужны выходные данные в неделях (например, “2020-W12”). Еще одним преимуществом <strong>aweek</strong> является то, что когда применяется <code>date2week()</code> к столбцу даты, полученный в результате столбец (формат недели) автоматически классифицируется как фактор и включает уровни для всех недель во временном диапазоне (это позволяет избежать дополнительного шага с <code>complete()</code>, который описывался выше). Однако <strong>aweek</strong> не имеет функционала по округлению дат до других единиц времени, таких как месяцы, годы и т.п.</p>
 <p>Еще одной альтернативой для временных рядов, которая также хорошо работает, является демонстрация формата “недель” (“2020 W12”) с помощью <code>yearweek()</code> из пакета <strong>tsibble</strong>, что демонстрируется на странице [Временные ряды и обнаружение вспышек].</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="конвертация-датчасовых-поясов" class="level2" data-number="9.10">
-<h2 data-number="9.10" class="anchored" data-anchor-id="конвертация-датчасовых-поясов"><span class="header-section-number">9.10</span> Конвертация дат/часовых поясов</h2>
+</section></section><section id="конвертация-датчасовых-поясов" class="level2" data-number="9.10"><h2 data-number="9.10" class="anchored" data-anchor-id="конвертация-датчасовых-поясов">
+<span class="header-section-number">9.10</span> Конвертация дат/часовых поясов</h2>
 <p>Когда данные представлены в разных часовых поясах, часто важной будет стандартизация этих данных в едином часовом поясе. Это может стать дополнительной проблемой, поскольку компонент часового пояса в данных нужно кодировать вручную в большинстве случаев.</p>
 <p>В R каждый объект <em>датывремени</em> имеет компонент часового пояса. По умолчанию все объекты датывремени будут относиться к местному часовому поясу, в котором работает компьютер, как правило, это устанавливается по <em>локали</em>, а не по именованному часовому поясу, так как время в локали может меняться на зимнее/летнее время. Невозможно провести правильную компенсацию часовых поясов без компонента времени для даты, поскольку событие, которое представляет столбец даты, не может быть отнесено к конкретному времени, следовательно, невозможно правильно учесть промежутки времени в часах.</p>
 <p>Для работы с часовыми поясами существует ряд функций-помощников в lubridate, которые можно использовать для изменения часового пояса объекта датывремени с местного на другой часовой пояс. Часовые пояса устанавливаются путем присваивания действительного часового пояса из базы данных tz объекту датафрейма. Этот список можно найти здесь - если локаль, из которой вы используете данные, не включена в этот список, доступны соседние крупные города в том же часовом поясе, которые могут быть использованы для этих целей.</p>
@@ -1316,7 +1312,7 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>time_now <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>time_now</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19 15:01:36 CEST"</code></pre>
+<pre><code>[1] "2024-09-18 19:46:25 +07"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># используем with_tz(), чтобы присвоить столбцу новый часовой пояс, при этом МЕНЯЯ время на часах</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>time_london_real <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(time_now, <span class="st">"Europe/London"</span>)</span>
@@ -1330,20 +1326,19 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (количество часов разницы между часовым поясом компьютера и Лондоном)</span></span>
 <span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>time_london_real <span class="sc">-</span> time_london_local</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of -1 hours</code></pre>
+<pre><code>Time difference of -6 hours</code></pre>
 </div>
 </div>
 <p>Это может показаться абстрактной концепцией, и часто она даже вам не нужна, кроме случаев, когда вы работаете с разными часовыми поясами.</p>
 <!-- ======================================================= -->
-</section>
-<section id="отстающие-и-опережающие-расчеты" class="level2" data-number="9.11">
-<h2 data-number="9.11" class="anchored" data-anchor-id="отстающие-и-опережающие-расчеты"><span class="header-section-number">9.11</span> Отстающие и опережающие расчеты</h2>
+</section><section id="отстающие-и-опережающие-расчеты" class="level2" data-number="9.11"><h2 data-number="9.11" class="anchored" data-anchor-id="отстающие-и-опережающие-расчеты">
+<span class="header-section-number">9.11</span> Отстающие и опережающие расчеты</h2>
 <p><code>lead()</code> и <code>lag()</code> - функции из пакета <strong>dplyr</strong>, которые помогают найти предыдущее (отстающее) или последующее (опережающее) значение вектора - как правило, числового вектора или вектора даты. Это полезно при проведении расчетов изменения/разницы между единицами времени.</p>
 <p>Представим, что вам нужно рассчитать разницу случаев между текущей неделей и предыдущей. Данные изначально представлены в количестве в неделю, как показано ниже.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4362ddfdc4d6cc355daa" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4362ddfdc4d6cc355daa">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0d144be8a62c6bb71c68" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0d144be8a62c6bb71c68">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><strong>При использовании <code>lag()</code> или <code>lead()</code> очень важен порядок строк в датафрейме! - обращайте внимание на то, ваши даты/числа находятся в возрастающем или убывающем порядке</strong></p>
@@ -1361,8 +1356,8 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-6bce0c53c1ec2253b72e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6bce0c53c1ec2253b72e">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b9086f11f18634b81251" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b9086f11f18634b81251">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Далее создаем новый столбец, который является разницей между двумя столбцами случаев:</p>
@@ -1373,25 +1368,19 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a2215c19286ece78ce9e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a2215c19286ece78ce9e">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2},{"name":"case_diff","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6ae5385a619fe7c96547" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6ae5385a619fe7c96547">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2},{"name":"case_diff","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Вы можете более подробно прочитать о <code>lead()</code> и <code>lag()</code> в документации <a href="https://dplyr.tidyverse.org/reference/lead-lag.html">тут</a>, либо введя в консоли <code>?lag</code>.</p>
 <!-- ======================================================= -->
-</section>
-<section id="ресурсы" class="level2" data-number="9.12">
-<h2 data-number="9.12" class="anchored" data-anchor-id="ресурсы"><span class="header-section-number">9.12</span> Ресурсы</h2>
-<p><strong>lubridate</strong> <a href="https://lubridate.tidyverse.org/">страница tidyverse</a><br>
-<strong>lubridate</strong> RStudio <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf">шпаргалка</a><br>
-R for Data Science страница <a href="https://r4ds.had.co.nz/dates-and-times.html">даты и время</a><br>
-<a href="https://www.statmethods.net/input/dates.html">Онлайн самоучитель</a> <a href="https://www.r-bloggers.com/2013/08/date-formats-in-r/">Форматы даты</a></p>
+</section><section id="ресурсы" class="level2" data-number="9.12"><h2 data-number="9.12" class="anchored" data-anchor-id="ресурсы">
+<span class="header-section-number">9.12</span> Ресурсы</h2>
+<p><strong>lubridate</strong> <a href="https://lubridate.tidyverse.org/">страница tidyverse</a><br><strong>lubridate</strong> RStudio <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf">шпаргалка</a><br>
+R for Data Science страница <a href="https://r4ds.had.co.nz/dates-and-times.html">даты и время</a><br><a href="https://www.statmethods.net/input/dates.html">Онлайн самоучитель</a> <a href="https://www.r-bloggers.com/2013/08/date-formats-in-r/">Форматы даты</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1570,18 +1559,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1613,7 +1591,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1648,7 +1666,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1921,60 +1943,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/cleaning.ru.html" class="pagination-link" aria-label="Вычистка данных и ключевые функции">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Вычистка данных и ключевые функции</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>  <span class="chapter-title">Вычистка данных и ключевые функции</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/characters_strings.ru.html" class="pagination-link" aria-label="Текст и последовательности">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Текст и последовательности</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>  <span class="chapter-title">Текст и последовательности</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>疫学のための R ハンドブック - 16&nbsp; ループと反復処理・リストの操作</title>
+<title>16  ループと反復処理・リストの操作 – 疫学のための R ハンドブック</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/tables_descriptive.jp.html" rel="next">
 <link href="../new_pages/deduplication.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li><li class="breadcrumb-item"><a href="../new_pages/iteration.jp.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/iteration.jp.html"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,20 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/iteration.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/iteration.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/iteration.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/iteration.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/pt/new_pages/iteration.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/iteration.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/iteration.ru.html" id="language-link-ru">Русский</a>
+<a class="dropdown-item" href="/ar/new_pages/iteration.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -284,431 +310,438 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#準備" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">16.1</span> 準備</a>
+<li>
+<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">16.1</span> 準備</a>
   <ul class="collapse">
-  <li><a href="#パッケージを読み込む" id="toc-パッケージを読み込む" class="nav-link" data-scroll-target="#パッケージを読み込む">パッケージを読み込む</a></li>
-  <li><a href="#データをインポートする" id="toc-データをインポートする" class="nav-link" data-scroll-target="#データをインポートする">データをインポートする</a></li>
-  </ul></li>
-  <li><a href="#for-ループ" id="toc-for-ループ" class="nav-link" data-scroll-target="#for-ループ"><span class="header-section-number">16.2</span> <u>for ループ</u></a>
-  <ul class="collapse">
-  <li><a href="#iter_loops" id="toc-iter_loops" class="nav-link" data-scroll-target="#iter_loops">R における <u>for ループ</u></a></li>
-  <li><a href="#中心となる要素" id="toc-中心となる要素" class="nav-link" data-scroll-target="#中心となる要素">中心となる要素</a></li>
-  <li><a href="#シーケンス" id="toc-シーケンス" class="nav-link" data-scroll-target="#シーケンス">シーケンス</a></li>
-  <li><a href="#オペレーション" id="toc-オペレーション" class="nav-link" data-scroll-target="#オペレーション">オペレーション</a></li>
-  <li><a href="#コンテナ" id="toc-コンテナ" class="nav-link" data-scroll-target="#コンテナ">コンテナ</a></li>
-  <li><a href="#コンテナを使用せず結果を表示する" id="toc-コンテナを使用せず結果を表示する" class="nav-link" data-scroll-target="#コンテナを使用せず結果を表示する">コンテナを使用せず結果を表示する</a></li>
-  <li><a href="#for-ループの動作確認を行う" id="toc-for-ループの動作確認を行う" class="nav-link" data-scroll-target="#for-ループの動作確認を行う">for ループの動作確認を行う</a></li>
-  <li><a href="#プロットをループする" id="toc-プロットをループする" class="nav-link" data-scroll-target="#プロットをループする">プロットをループする</a></li>
-  <li><a href="#ループの進捗状況を確認する" id="toc-ループの進捗状況を確認する" class="nav-link" data-scroll-target="#ループの進捗状況を確認する">ループの進捗状況を確認する</a></li>
-  </ul></li>
-  <li><a href="#iter_purrr" id="toc-iter_purrr" class="nav-link" data-scroll-target="#iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> とリスト</a>
-  <ul class="collapse">
-  <li><a href="#パッケージを読み込む-1" id="toc-パッケージを読み込む-1" class="nav-link" data-scroll-target="#パッケージを読み込む-1">パッケージを読み込む</a></li>
-  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><code>map()</code></a></li>
-  <li><a href="#データセットを分割しエクスポートする" id="toc-データセットを分割しエクスポートする" class="nav-link" data-scroll-target="#データセットを分割しエクスポートする">データセットを分割しエクスポートする</a></li>
-  <li><a href="#カスタム関数" id="toc-カスタム関数" class="nav-link" data-scroll-target="#カスタム関数">カスタム関数</a></li>
-  <li><a href="#複数列に対して関数をマッピングする" id="toc-複数列に対して関数をマッピングする" class="nav-link" data-scroll-target="#複数列に対して関数をマッピングする">複数列に対して関数をマッピングする</a></li>
-  <li><a href="#リストから抽出する" id="toc-リストから抽出する" class="nav-link" data-scroll-target="#リストから抽出する">リストから抽出する</a></li>
-  <li><a href="#リストをデータフレームに変換する" id="toc-リストをデータフレームに変換する" class="nav-link" data-scroll-target="#リストをデータフレームに変換する">リストをデータフレームに変換する</a></li>
-  <li><a href="#リストを捨てる保持するコンパクトにする" id="toc-リストを捨てる保持するコンパクトにする" class="nav-link" data-scroll-target="#リストを捨てる保持するコンパクトにする">リストを捨てる・保持する・コンパクトにする</a></li>
-  <li><a href="#pmap" id="toc-pmap" class="nav-link" data-scroll-target="#pmap"><code>pmap()</code></a></li>
-  </ul></li>
-  <li><a href="#apply-関数" id="toc-apply-関数" class="nav-link" data-scroll-target="#apply-関数"><span class="header-section-number">16.4</span> Apply 関数</a></li>
-  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">16.5</span> 参考資料</a></li>
+<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80" id="toc-パッケージを読み込む" class="nav-link" data-scroll-target="#パッケージを読み込む">パッケージを読み込む</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B" id="toc-データをインポートする" class="nav-link" data-scroll-target="#データをインポートする">データをインポートする</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#for-%E3%83%AB%E3%83%BC%E3%83%97" id="toc-for-ループ" class="nav-link" data-scroll-target="#for-ループ"><span class="header-section-number">16.2</span> <u>for ループ</u></a>
+  <ul class="collapse">
+<li><a href="#iter_loops" id="toc-iter_loops" class="nav-link" data-scroll-target="#iter_loops">R における <u>for ループ</u></a></li>
+  <li><a href="#%E4%B8%AD%E5%BF%83%E3%81%A8%E3%81%AA%E3%82%8B%E8%A6%81%E7%B4%A0" id="toc-中心となる要素" class="nav-link" data-scroll-target="#中心となる要素">中心となる要素</a></li>
+  <li><a href="#%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9" id="toc-シーケンス" class="nav-link" data-scroll-target="#シーケンス">シーケンス</a></li>
+  <li><a href="#%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3" id="toc-オペレーション" class="nav-link" data-scroll-target="#オペレーション">オペレーション</a></li>
+  <li><a href="#%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A" id="toc-コンテナ" class="nav-link" data-scroll-target="#コンテナ">コンテナ</a></li>
+  <li><a href="#%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%9B%E3%81%9A%E7%B5%90%E6%9E%9C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B" id="toc-コンテナを使用せず結果を表示する" class="nav-link" data-scroll-target="#コンテナを使用せず結果を表示する">コンテナを使用せず結果を表示する</a></li>
+  <li><a href="#for-%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AE%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%82%92%E8%A1%8C%E3%81%86" id="toc-for-ループの動作確認を行う" class="nav-link" data-scroll-target="#for-ループの動作確認を行う">for ループの動作確認を行う</a></li>
+  <li><a href="#%E3%83%97%E3%83%AD%E3%83%83%E3%83%88%E3%82%92%E3%83%AB%E3%83%BC%E3%83%97%E3%81%99%E3%82%8B" id="toc-プロットをループする" class="nav-link" data-scroll-target="#プロットをループする">プロットをループする</a></li>
+  <li><a href="#%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AE%E9%80%B2%E6%8D%97%E7%8A%B6%E6%B3%81%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B" id="toc-ループの進捗状況を確認する" class="nav-link" data-scroll-target="#ループの進捗状況を確認する">ループの進捗状況を確認する</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#iter_purrr" id="toc-iter_purrr" class="nav-link" data-scroll-target="#iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> とリスト</a>
+  <ul class="collapse">
+<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80-1" id="toc-パッケージを読み込む-1" class="nav-link" data-scroll-target="#パッケージを読み込む-1">パッケージを読み込む</a></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><code>map()</code></a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E3%82%92%E5%88%86%E5%89%B2%E3%81%97%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B" id="toc-データセットを分割しエクスポートする" class="nav-link" data-scroll-target="#データセットを分割しエクスポートする">データセットを分割しエクスポートする</a></li>
+  <li><a href="#%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E9%96%A2%E6%95%B0" id="toc-カスタム関数" class="nav-link" data-scroll-target="#カスタム関数">カスタム関数</a></li>
+  <li><a href="#%E8%A4%87%E6%95%B0%E5%88%97%E3%81%AB%E5%AF%BE%E3%81%97%E3%81%A6%E9%96%A2%E6%95%B0%E3%82%92%E3%83%9E%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B" id="toc-複数列に対して関数をマッピングする" class="nav-link" data-scroll-target="#複数列に対して関数をマッピングする">複数列に対して関数をマッピングする</a></li>
+  <li><a href="#%E3%83%AA%E3%82%B9%E3%83%88%E3%81%8B%E3%82%89%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B" id="toc-リストから抽出する" class="nav-link" data-scroll-target="#リストから抽出する">リストから抽出する</a></li>
+  <li><a href="#%E3%83%AA%E3%82%B9%E3%83%88%E3%82%92%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B" id="toc-リストをデータフレームに変換する" class="nav-link" data-scroll-target="#リストをデータフレームに変換する">リストをデータフレームに変換する</a></li>
+  <li><a href="#%E3%83%AA%E3%82%B9%E3%83%88%E3%82%92%E6%8D%A8%E3%81%A6%E3%82%8B%E4%BF%9D%E6%8C%81%E3%81%99%E3%82%8B%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%E3%81%AB%E3%81%99%E3%82%8B" id="toc-リストを捨てる保持するコンパクトにする" class="nav-link" data-scroll-target="#リストを捨てる保持するコンパクトにする">リストを捨てる・保持する・コンパクトにする</a></li>
+  <li><a href="#pmap" id="toc-pmap" class="nav-link" data-scroll-target="#pmap"><code>pmap()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#apply-%E9%96%A2%E6%95%B0" id="toc-apply-関数" class="nav-link" data-scroll-target="#apply-関数"><span class="header-section-number">16.4</span> Apply 関数</a></li>
+  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">16.5</span> 参考資料</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li><li class="breadcrumb-item"><a href="../new_pages/iteration.jp.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span id="iteration" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/iteration.jp.html"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title"><span id="iteration" class="quarto-section-identifier"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></h1>
 </div>
 
 
@@ -722,10 +755,7 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<p>疫学業務担当者は、国、地域、年齢などによって層別化されたグループを対象に、同じ分析を繰り返し行う必要があります。他にも、非常に多くの場面で<u>反復処理</u>が必要となります。この章では、このような反復処理をより速く、より正確に、そしてより短いコードで行う方法を解説します。</p>
+</header><p>疫学業務担当者は、国、地域、年齢などによって層別化されたグループを対象に、同じ分析を繰り返し行う必要があります。他にも、非常に多くの場面で<u>反復処理</u>が必要となります。この章では、このような反復処理をより速く、より正確に、そしてより短いコードで行う方法を解説します。</p>
 <p>本章では、反復処理を行うための2つの方法、すなわち、<u>for ループ</u>を使用する方法と <strong>purrr</strong> パッケージを使用する方法を紹介します。</p>
 <ol type="1">
 <li><p>一連の入力されたデータ（本章では、インプット（input）と呼ぶ）に対してコードを反復する <u>for ループ</u>は、他のプログラミング言語に比べて R ではあまり一般的ではありませんが、ここでは学習の一貫として参考までに紹介します。</p></li>
@@ -738,10 +768,9 @@ cookieconsent.run({
 <li>データフレーム内の複数の列に対する t 検定の実行</li>
 </ul>
 <p>また、<a href="#iter_purrr">16.3 purrr とリスト</a> では、<code>リスト（list）</code> の作成と処理の例をいくつか紹介します。</p>
-<section id="準備" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="準備"><span class="header-section-number">16.1</span> 準備</h2>
-<section id="パッケージを読み込む" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="パッケージを読み込む">パッケージを読み込む</h3>
+<section id="準備" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="準備">
+<span class="header-section-number">16.1</span> 準備</h2>
+<section id="パッケージを読み込む" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージを読み込む">パッケージを読み込む</h3>
 <p>以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、pacman パッケージの p_load() を主に使用しています。p_load() は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである base （以下、base R）の library() を使用して読み込むこともできます。R のパッケージに関する詳細は <a href="basics.jp.html">R の基礎</a> の章をご覧ください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -752,9 +781,7 @@ cookieconsent.run({
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     tidyverse    <span class="co"># データ管理と視覚化のためのパッケージ</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="データをインポートする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データをインポートする">データをインポートする</h3>
+</section><section id="データをインポートする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データをインポートする">データをインポートする</h3>
 <p>エボラ出血熱の流行をシミュレートしたデータセットをインポートします。お手元の環境でこの章の内容を実行したい方は、 <a href="https://github.com/appliedepi/epiRhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">クリック</a>して「前処理された」ラインリスト（linelist）データをダウンロードしてください&gt;（.rds 形式で取得できます）。データは <em>rio</em> パッケージの import() を利用してインポートしましょう（<em>rio</em> パッケージは、.xlsx、.csv、.rds など様々な種類のファイルを取り扱うことができます。詳細は、<a href="importing.jp.html">インポートとエクスポート</a> の章をご覧ください。）</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ラインリストをインポートする</span></span>
@@ -763,26 +790,25 @@ cookieconsent.run({
 <p>ラインリストの始めの 50 行は、以下の通りです。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f9ee18ec83ec40ef08e5" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f9ee18ec83ec40ef08e5">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4dfff1de2889e7237c26" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4dfff1de2889e7237c26">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="for-ループ" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="for-ループ"><span class="header-section-number">16.2</span> <u>for ループ</u></h2>
-<section id="iter_loops" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="iter_loops">R における <u>for ループ</u></h3>
+</section></section><section id="for-ループ" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="for-ループ">
+<span class="header-section-number">16.2</span> <u>for ループ</u>
+</h2>
+<section id="iter_loops" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="iter_loops">R における <u>for ループ</u>
+</h3>
 <p><u>for ループ</u>は R ではあまり一般的ではありませんが、他のプログラミング言語では頻繁に使用されています。初心者の方にとって、for ループは反復処理ごとに何が起こっているのかを正確に把握しやすく、コードの確認やデバッグがしやすいため、反復処理の学習や練習に役立ちます。</p>
 <p><u>for ループ</u>を扱うこのセクションを飛ばして、<strong>purrr</strong> パッケージでマッピングした関数を使用し反復処理を行う方法を紹介する <a href="#iter_purrr">16.3 purrr とリスト</a> に移動しても構いません。</p>
-</section>
-<section id="中心となる要素" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="中心となる要素">中心となる要素</h3>
+</section><section id="中心となる要素" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="中心となる要素">中心となる要素</h3>
 <p><u>for ループ</u>は以下の 3 つの主要な部分から成り立っています。</p>
 <ol type="1">
-<li>繰り返し実行するアイテムの<strong>シーケンス</strong></li>
-<li>シーケンス内の各アイテムに対して実行される<strong>オペレーション</strong></li>
+<li>繰り返し実行するアイテムの<strong>シーケンス</strong>
+</li>
+<li>シーケンス内の各アイテムに対して実行される<strong>オペレーション</strong>
+</li>
 <li>結果を格納する<strong>コンテナ</strong> （必須ではなく、必要な場合のみ作成する）</li>
 </ol>
 <p>以下に示しているように、基本的な構文は <code>for (アイテム in シーケンス) {アイテムを用いたオペレーションの指示}</code>です。括弧と波括弧の違いに注意してください。結果は、コンソールに出力したり、コンテナに格納したりすることができます。</p>
@@ -800,14 +826,13 @@ cookieconsent.run({
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># この例では、結果をコンテナに格納していない</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="シーケンス" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="シーケンス">シーケンス</h3>
+</section><section id="シーケンス" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="シーケンス">シーケンス</h3>
 <p>これは、<u>for ループ</u>において “for” で示されている部分です。オペレーションはシーケンス内の各アイテムに対して（“for” each item）実行されます。シーケンスには、一連の値（管轄区名、疾患名、列名、リスト要素など）や、一連の連続した数値（1, 2, 3, 4, 5 など）を指定することができます。以下で説明するように、それぞれに実用性があります。</p>
 <p>シーケンス文の基本構造は、<code>アイテム in ベクトル</code>です．</p>
 <ul>
 <li>「アイテム」の部分には任意の文字や単語を書くことができます（例：“i”, “num”, “hosp”, “district” など）。この「アイテム」の値は、ループを繰り返すたびにベクトル内の各値に、指定された順番で変化していきます。</li>
-<li><u>ベクトル</u>には、文字列や列名、あるいは数字列などを用いることが出来ます。ループを繰り返すたびに変化していく値であり、これらの値は、「アイテム」を用いたオペレーションの指示により、「for ループ」 の中で使用されます。</li>
+<li>
+<u>ベクトル</u>には、文字列や列名、あるいは数字列などを用いることが出来ます。ループを繰り返すたびに変化していく値であり、これらの値は、「アイテム」を用いたオペレーションの指示により、「for ループ」 の中で使用されます。</li>
 </ul>
 <p><strong>例：文字列のシーケンス</strong></p>
 <p>この例では、あらかじめ病院名の文字ベクトルを定義し、その各値に対してループを実行します。</p>
@@ -897,9 +922,7 @@ cookieconsent.run({
 </div>
 </div>
 <p>シーケンスに添字を使うと、ループの出力結果を格納する<u>コンテナ</u>のインデックスとして、<code>i</code> 番号を簡単に使用できるという利点があります。詳しくは、次のオペレーションのセクションで例を示して説明します。</p>
-</section>
-<section id="オペレーション" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="オペレーション">オペレーション</h3>
+</section><section id="オペレーション" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="オペレーション">オペレーション</h3>
 <p>オペレーションは、<u>for ループ</u>の中の波括弧 <code>{ }</code> の中に記述されているコードのことです。オペレーションコードは、<u>シーケンス</u>内の各「アイテム」ごとに実行される必要があります。したがって、「アイテム」によって変化するコードの各部分が、実際に変化するように正しくコードされているか注意する必要があります。例えば、インデックスには <code>[[ ]]</code> を使うことを忘れないでください。</p>
 <p>以下の例では、<code>linelist</code> データフレームの各行に対して反復処理を実行します。各行の <code>gender</code> と <code>age</code> の値を結合し、文字ベクトルのコンテナである <code>cases_demographics</code> に格納する作業を行います。また、<code>[[i]]</code> を使ってインデックスすることで、ループの出力結果を「コンテナ」のベクトルの正しい位置に保存しているところもポイントです。</p>
 <div class="cell">
@@ -926,9 +949,7 @@ cookieconsent.run({
 <pre><code> [1] "m,2"  "f,3"  "m,56" "f,18" "m,3"  "f,16" "f,16" "f,0"  "m,61" "f,27"</code></pre>
 </div>
 </div>
-</section>
-<section id="コンテナ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="コンテナ">コンテナ</h3>
+</section><section id="コンテナ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="コンテナ">コンテナ</h3>
 <p><u>for ループ</u>の結果はコンソールに表示したり、RStudio プロットペインに出力したりすることができます。また、後で使用するためにループの実行結果を「コンテナ」に保存しておきたい場合もあります。出力を保存するコンテナとして、ベクトル、データフレーム、あるいはリストなどを使用することが出来ます。</p>
 <p>出力結果を保存するコンテナは、<u>for ループ</u>を開始する<u>前に</u>、データが何も入っていない空のベクトル、データフレーム、またはリストを作成するのが最も効率的です。空のコンテナは、ベクトルやリストの場合は <code>vector()</code> で、データフレームの場合は <code>matrix()</code> や <code>data.frame()</code> を使用して作成することができます。</p>
 <p><strong>空のベクトルを作成する</strong></p>
@@ -950,9 +971,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">"list"</span>, <span class="at">length =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="コンテナを使用せず結果を表示する" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="コンテナを使用せず結果を表示する">コンテナを使用せず結果を表示する</h3>
+</section><section id="コンテナを使用せず結果を表示する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="コンテナを使用せず結果を表示する">コンテナを使用せず結果を表示する</h3>
 <p>なお、<u>for ループ</u>内で出力結果を表示する場合は、<code>print()</code> で指示する必要があります。</p>
 <p>以下の例では、シーケンスは文字ベクトルであり、これを使用して病院ごとにラインリストをサブセットしています。結果はコンテナには保存されず、<code>print()</code> によってコンソールに出力されています。</p>
 <div class="cell">
@@ -969,13 +988,9 @@ cookieconsent.run({
 [1] 454</code></pre>
 </div>
 </div>
-</section>
-<section id="for-ループの動作確認を行う" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="for-ループの動作確認を行う">for ループの動作確認を行う</h3>
+</section><section id="for-ループの動作確認を行う" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="for-ループの動作確認を行う">for ループの動作確認を行う</h3>
 <p>意図したようにループが動作するか確認するために、<code>i &lt;- 10</code> や <code>hosp &lt;- "Central Hospital"</code> など、「アイテム」を一時的に代入するコマンドを実行します。これを<u>ループの外</u>で行い、その後、オペレーションコードのみ（波括弧内のコード）を実行し、期待通りの結果が得られるかを確認します。</p>
-</section>
-<section id="プロットをループする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="プロットをループする">プロットをループする</h3>
+</section><section id="プロットをループする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="プロットをループする">プロットをループする</h3>
 <p>前述した 3 つの要素（コンテナ、シーケンス、オペレーション）をすべて使用し、各病院の流行曲線（エピカーブ）を作成してみましょう（流行曲線についての詳細は、<a href="epicurves.jp.html">流行曲線（エピカーブ）</a> の章をご覧ください）。</p>
 <p>まず、<strong>incidence2</strong> パッケージを使用し、<u>すべて</u>の症例を性別ごとに色分けした流行曲線を作成します。</p>
 <div class="cell">
@@ -1004,8 +1019,7 @@ cookieconsent.run({
 <span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"Gender"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="iteration.jp_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="iteration.jp_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1067,50 +1081,42 @@ cookieconsent.run({
 <span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>} <span class="co"># hospital_names 内の全ての病院名に対してオペレーションが行われた後、for ループを終了する </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-17-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="iteration.jp_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="ループの進捗状況を確認する" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ループの進捗状況を確認する">ループの進捗状況を確認する</h3>
+</section><section id="ループの進捗状況を確認する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ループの進捗状況を確認する">ループの進捗状況を確認する</h3>
 <p>反復回数の多いループは、実行終了までに何分、何時間もかかることがあるため、進捗状況を R のコンソールに表示すると便利です。以下の <code>if</code> 文をループのオペレーションの<u>中に</u>配置することで、100 番目の数字ごとに結果を表示することができます。コード内で用いる際には、<code>i</code> が自分の作成したループ内の「アイテム」となるように適宜変更してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 進捗を 100 回の反復処理のたびに示すループ</span></span>
@@ -1123,17 +1129,14 @@ cookieconsent.run({
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="iter_purrr" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="iter_purrr"><span class="header-section-number">16.3</span> <strong>purrr</strong> とリスト</h2>
+</section></section><section id="iter_purrr" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="iter_purrr">
+<span class="header-section-number">16.3</span> <strong>purrr</strong> とリスト</h2>
 <p>反復処理のもう一つの方法として、<strong>purrr</strong> パッケージを使用する方法があります。<strong>purrr</strong> パッケージは <strong>tidyverse</strong> パッケージに含まれている反復処理を行うパッケージです。</p>
 <p>同じタスクを何度も実行する必要がある場合、汎用性の高い方法を習得していると非常に便利です。この方法は、複数の管轄区域のプロットを作成する際や、多くのファイルをインポートして結合する際などに多くの場面で用いることができます。</p>
 <p><strong>purrr</strong> パッケージには他にもいくつか利点があり、パイプ <code>%&gt;%</code> と一緒に使用できること、通常の <u>for ループ</u>よりもエラー処理に優れていること、そして構文が非常にすっきりとしてシンプルであること、などが挙げられます。もし <u>for ループ</u>を使っているのであれば、<strong>purrr</strong> パッケージを使うことでより明確で簡潔にコードを書くことができるでしょう。</p>
 <p>コードを書く際は、<strong>purrr</strong> パッケージが<u>関数型のプログラミングツール</u>であることを念頭に置いて進める必要があり、繰り返し適用されるオペレーションは、<u>関数</u>内に示す必要があります。関数を書く方法について詳細を知りたい方は、<a href="writing_functions.jp.html">関数の作成</a> の章をご覧ください。</p>
 <p>また、<strong>purrr</strong> パッケージに含まれる関数は、多くの場合<u>リスト</u>と<u>ベクトル</u>に対して働くので、リストやベクトルの各要素に関数を適用すると考えてください！</p>
-<section id="パッケージを読み込む-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="パッケージを読み込む-1">パッケージを読み込む</h3>
+<section id="パッケージを読み込む-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージを読み込む-1">パッケージを読み込む</h3>
 <p><strong>purrr</strong> パッケージは <strong>tidyverse</strong> パッケージの一部なので、別々にパッケージをインストールする・読み込む必要はありません。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -1144,38 +1147,38 @@ cookieconsent.run({
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>     readxl          <span class="co"># 複数のシートを含むExcelファイルをインポート</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="map" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="map"><code>map()</code></h3>
+</section><section id="map" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="map"><code>map()</code></h3>
 <p><strong>purrr</strong> パッケージの中核となる関数の一つが <code>map()</code> です。<code>map()</code>は、与えられたリストやベクトルの各インプット要素に関数を「マッピング（mapping）」する（適用する）関数です。</p>
 <p>基本的な構文は <code>map(.x = シーケンス, .f = 関数, その他の引数)</code> です。もう少し詳しく説明すると、</p>
 <ul>
-<li><code>.x =</code> は、<code>.f</code> 関数が繰り返し適用される<u>インプット</u>であり、例えば、管轄区名のベクトル、データフレームの列、またはデータフレームのリストです。</li>
-<li><code>.f =</code> は、入力 <code>.x</code> の各要素に対して適用される<u>関数</u>です。これは、すでに存在する <code>print()</code> のような関数でも、自分で定義したカスタム関数でも構いません。関数は、チルダ（<code>~</code>）の後に書かれることが多いです（詳細は後述します）。</li>
+<li>
+<code>.x =</code> は、<code>.f</code> 関数が繰り返し適用される<u>インプット</u>であり、例えば、管轄区名のベクトル、データフレームの列、またはデータフレームのリストです。</li>
+<li>
+<code>.f =</code> は、入力 <code>.x</code> の各要素に対して適用される<u>関数</u>です。これは、すでに存在する <code>print()</code> のような関数でも、自分で定義したカスタム関数でも構いません。関数は、チルダ（<code>~</code>）の後に書かれることが多いです（詳細は後述します）。</li>
 </ul>
 <p>構文を作成する際は、以下の点についてご注意ください。</p>
 <ul>
 <li>関数がそれ以上引数を指定する必要がない場合は、括弧やチルダを使わずに書くことができます（例：<code>.f = mean</code>）。全ての反復処理において同じ値になる引数がある場合、<code>map()</code> の中、かつ <code>.f =</code> の外で指定します（例：<code>map(.x = my_list, .f = mean, na.rm = T)</code> の <code>na.rm = T</code>）。</li>
-<li><code>.x</code>（または単に<code>.</code>）は、反復処理の <code>.x</code> 値の代用値として、<code>.f =</code> 関数<u>の中</u>で使用することができます。</li>
+<li>
+<code>.x</code>（または単に<code>.</code>）は、反復処理の <code>.x</code> 値の代用値として、<code>.f =</code> 関数<u>の中</u>で使用することができます。</li>
 <li>関数をより細かく設定するには、チルダ構文（<code>~</code>）を使用してください。関数を、括弧を用いて通常通り書いてください（例: <code>map(.x = my_list, .f = ~mean(., na.rm = T))</code>）。特に、引数の値が反復処理ごとに変化する場合や、値が <code>.x</code> 自体である場合には、この構文を使用してください（以下の例を参照ください）。</li>
 </ul>
 <p><strong><code>map()</code> を用いた際の出力は<u>リスト</u>になります。</strong>リストはベクトルに似ていますが、構成要素が異なります。リストには、多くのデータフレーム、多くのベクトル、多くの単一の値、あるいは多くのリストが含まれる可能性があります。以下に説明するように、他のタイプの出力を生成する <code>map()</code> の代替関数があります（例えば、データフレームを生成する <code>map_dfr()</code>、文字ベクトルを生成する <code>map_chr()</code>、数字ベクトルを生成する <code>map_dbl()</code> など）。</p>
-<section id="iter_combined" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="iter_combined">例：エクセルシートをインポートし、結合する</h4>
+<section id="iter_combined" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="iter_combined">例：エクセルシートをインポートし、結合する</h4>
 <p><strong>疫学業務担当者の一般的なタスクを用いて説明します。</strong>例えば、症例データの入った Excel ファイルをインポートしたいが、ファイルには異なる名前シートが複数含まれており、その複数のシートに分かれて症例データが保存されている場合です。どうすれば複数のシートを効率的にインポートして 1 つのデータフレームにまとめることができるでしょうか？</p>
 <p>以下のような Excel ファイルが送られてきたとします。病院ごとにシートが分かれており、各シートにはそれぞれの病院の症例が含まれています。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/hospital_linelists_excel_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/hospital_linelists_excel_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="615"></a></p>
+<figure class="figure"><p><a href="../images/hospital_linelists_excel_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/hospital_linelists_excel_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="615"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>ここでは、<code>map()</code> を使った方法を紹介します。</p>
 <ol type="1">
-<li><code>import()</code> を、各エクセルシートごとに実行するように <code>map()</code> する。</li>
+<li>
+<code>import()</code> を、各エクセルシートごとに実行するように <code>map()</code> する。</li>
 <li>インポートされた複数のデータフレームを <code>bind_rows()</code> を使用して結合し、一つのデータフレームにまとめる。</li>
 <li>一つにまとめる際、元の Excel シートの名前を新しい列に保存する。最終的なデータフレームで、各行の症例が、元々はどの Excel シートに保存されていたのか（どの病院で報告されたのか）をわかるようにする。</li>
 </ol>
@@ -1205,8 +1208,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/sheets_as_list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/sheets_as_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="544"></a></p>
+<figure class="figure"><p><a href="../images/sheets_as_list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/sheets_as_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="544"></a></p>
 </figure>
 </div>
 </div>
@@ -1225,8 +1227,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/sheets_as_df.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../images/sheets_as_df.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="543"></a></p>
+<figure class="figure"><p><a href="../images/sheets_as_df.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../images/sheets_as_df.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="543"></a></p>
 </figure>
 </div>
 </div>
@@ -1245,13 +1246,9 @@ cookieconsent.run({
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>1 枚目のシート名が出力リストの要素として表示されますが、これは単なる文字名（データフレームではない）になっています。行を結合する前には、この要素を削除する必要があります。リストの要素を削除したり変更したりする方法については、本章で後述します。</p>
-</section>
-</section>
-<section id="データセットを分割しエクスポートする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データセットを分割しエクスポートする">データセットを分割しエクスポートする</h3>
+</section></section><section id="データセットを分割しエクスポートする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データセットを分割しエクスポートする">データセットを分割しエクスポートする</h3>
 <p>以下では、一つのデータセットを複数のデータセットに分割し、分割されたデータセットを <code>map()</code> の反復処理を使用してそれぞれ別々の Excel シートまたは CSV ファイルとしてエクスポートする方法を例示します。</p>
-<section id="データを分割する" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="データを分割する">データを分割する</h4>
+<section id="データを分割する" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="データを分割する">データを分割する</h4>
 <p>例えば、複数の病院から報告された症例を含んだデータフレーム <code>linelist</code> があり、報告元の病院ごとに個別のラインリストを作成し、それぞれを個別の CSV ファイルとしてエクスポートしたい場合、次のような手順で行います。</p>
 <p><strong>dplyr</strong> パッケージの <code>group_split()</code> を使用して、データフレーム <code>linelist</code> を <code>hospital</code> 列内の値で分割します。これにより、病院別のデータフレームからなるリストが出力されます。</p>
 <div class="cell">
@@ -1262,8 +1259,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_linelist_split.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../images/purrr_linelist_split.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="574"></a></p>
+<figure class="figure"><p><a href="../images/purrr_linelist_split.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../images/purrr_linelist_split.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="574"></a></p>
 </figure>
 </div>
 </div>
@@ -1281,8 +1277,7 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_linelist_split_named.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../images/purrr_linelist_split_named.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="575"></a></p>
+<figure class="figure"><p><a href="../images/purrr_linelist_split_named.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../images/purrr_linelist_split_named.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="575"></a></p>
 </figure>
 </div>
 </div>
@@ -1298,8 +1293,8 @@ cookieconsent.run({
 [6] "St. Mark's Maternity Hospital (SMMH)"</code></pre>
 </div>
 </div>
-<section id="つ以上の列を用いた-group_split" class="level5 unnumbered">
-<h5 class="unnumbered anchored" data-anchor-id="つ以上の列を用いた-group_split">2 つ以上の列を用いた <code>group_split()</code></h5>
+<section id="つ以上の列を用いた-group_split" class="level5 unnumbered"><h5 class="unnumbered anchored" data-anchor-id="つ以上の列を用いた-group_split">2 つ以上の列を用いた <code>group_split()</code>
+</h5>
 <p>例えば、病院と性別の組み合わせでラインリストを分割するなど、<u>複数の列（変数）によって</u>ラインリストを分割したい場合は、リストの要素に名前を付ける方法が異なります。この場合は、まず、<strong>dplyr</strong> パッケージの <code>group_keys()</code> を使用し、病院と性別の組み合わせすべてに対して「グループキー」を作成します（グループキーは、データフレームとして作成されます）。そして、二列に渡って作成されたグループキーを、以下のように <code>unite()</code> を使用して一つの値に結合し、結合した組み合わせ名を <code>linelist_split</code> に割り当てます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ラインリストを病院と性別のすべての組み合わせによって分割する</span></span>
@@ -1346,10 +1341,7 @@ cookieconsent.run({
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as_vector</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as.list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="excel-シートとして出力する" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="excel-シートとして出力する">Excel シートとして出力する</h4>
+</section></section><section id="excel-シートとして出力する" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="excel-シートとして出力する">Excel シートとして出力する</h4>
 <p><strong>writexl</strong> パッケージの <code>write_xlsx()</code> に各リスト要素に名前が付いた <code>linelist_split</code> を渡すことで、<u>シートごとに 1 つの病院の</u>ラインリストを含んだ Excel ファイルとして出力することができます。<code>write_xlsx()</code> は、複数のシートからなる Excel ファイルをエクスポートする機能があり、リスト要素の名前が各シートの名前として自動的に適用されます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>linelist_split <span class="sc">%&gt;%</span> </span>
@@ -1359,15 +1351,12 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_export_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../images/purrr_export_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="652"></a></p>
+<figure class="figure"><p><a href="../images/purrr_export_sheets.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../images/purrr_export_sheets.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="652"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="csvファイルとして出力する" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="csvファイルとして出力する">CSVファイルとして出力する</h4>
+</section><section id="csvファイルとして出力する" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="csvファイルとして出力する">CSVファイルとして出力する</h4>
 <p>少し複雑になりますが、それぞれの病院個別のラインリストを、CSV ファイルとして出力することもできます。ファイルの名前をそれぞれの病院の名前として出力します。</p>
 <p>今回も <code>map()</code> を使用します。前述したように、リスト要素の名前（病院名）が含まれたベクトルを <code>map()</code> に渡し、<code>linelist_split</code> リスト内の要素（データフレーム）に <strong>rio</strong> パッケージの <code>export()</code> を繰り返し適用します（<code>export()</code> についての詳細は、<a href="importing.jp.html">インポートとエクスポート</a> の章をご覧ください）。また、リスト要素の名前は、エクスポートする各 CSV ファイルのファイル名として使用します。以下に、CSV ファイルとして出力する方法を示します。</p>
 <ul>
@@ -1375,10 +1364,12 @@ cookieconsent.run({
 <li><p><code>.f</code> 関数を <code>export()</code> とし、エクスポートするデータフレームとエクスポート先となるファイルパスを指定します</p></li>
 <li><p>入力された <code>.x</code>（病院名）は <code>.f</code> <u>の中において</u>、<code>linelist_split</code> リスト内のインデックスとなります。反復処理が繰り返すたびに一つのデータフレームが <code>export()</code> に渡されます。</p></li>
 <li><p>例えば、“Military Hospital” の症例データに対して <code>map()</code> が適用されている時は、<code>linelist_split[[.x]]</code> は実際には <code>linelist_split[["Military Hospital"]]</code> となり、 <code>linelist_split</code> の 2 番目のリスト要素（“Military Hospital” の全章例を含むデータフレーム）が返されます。</p></li>
-<li><p><code>export()</code> で指定するファイルパスには、 <code>str_glue()</code> を使用して各病院名を適用します（<code>str_glue()</code> に関する詳細は、<a href="characters_strings.jp.html">文字型・文字列型データ</a> の章を参照ください）。</p>
+<li>
+<p><code>export()</code> で指定するファイルパスには、 <code>str_glue()</code> を使用して各病院名を適用します（<code>str_glue()</code> に関する詳細は、<a href="characters_strings.jp.html">文字型・文字列型データ</a> の章を参照ください）。</p>
 <ul>
 <li>ファイルパスの起点、および “data” フォルダを特定するために <code>here()</code> を用います（<code>str_glue()</code> 内で使用されている二重引用符に影響がないように、一重引用符を使用していることに注意してください）。</li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>export()</code> で指定するファイルパス内には、<code>here()</code> を使用した後に <code>/</code> と <code>.x</code> を記載し、各病院名がファイル名になるようにします</p></li>
 <li><p>最後に、<code>export()</code> によって CSV ファイルが作成されるように拡張子 “.csv” を記します</p></li>
 </ul>
@@ -1390,16 +1381,12 @@ cookieconsent.run({
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/purrr_export_csv.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../images/purrr_export_csv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="632"></a></p>
+<figure class="figure"><p><a href="../images/purrr_export_csv.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../images/purrr_export_csv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="632"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="カスタム関数" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="カスタム関数">カスタム関数</h3>
+</section></section><section id="カスタム関数" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="カスタム関数">カスタム関数</h3>
 <p><code>map()</code> に渡す関数を自分で作成したい場合はどうするのでしょうか。</p>
 <p>例えば、それぞれの病院ごとに、その病院の全症例を含む流行曲線を作成したいとします。これを <strong>purrr</strong> パッケージを用いて行うには、<code>.f</code> 関数を <code>ggplot()</code> にし、<code>+</code> を使用して通常通り拡張することができます。<code>map()</code> は常にリストを出力するため、作成されたプロットもリストとして保存されます。リストに保存されたプロットは、 <strong>ggpubr</strong> パッケージの <code>ggarrange()</code> を使用して抽出し、プロットすることができます（<strong>ggpubr</strong> パッケージの公式ドキュメントは、<a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">こちら</a> をご覧ください）。</p>
 <div class="cell">
@@ -1423,8 +1410,7 @@ cookieconsent.run({
 <span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> my_plots, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="iteration.jp_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="iteration.jp_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="iteration.jp_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="iteration.jp_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1448,21 +1434,23 @@ cookieconsent.run({
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># リストとして保存されている ggplots を表示する</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> my_plots, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="複数列に対して関数をマッピングする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="複数列に対して関数をマッピングする">複数列に対して関数をマッピングする</h3>
+</section><section id="複数列に対して関数をマッピングする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="複数列に対して関数をマッピングする">複数列に対して関数をマッピングする</h3>
 <p>その他に頻繁に用いられる例としては、複数の列に対して同じ関数をマッピングする場合、が挙げられます。以下では、<code>linelist</code> データフレーム内の数値列に対して <code>t.test()</code> を <code>map()</code> し、性別で数値を比較していきます。</p>
 <p><a href="stat_tests.jp.html">簡単な統計的検定</a> の章で学んだことを思い出してください。<code>t.test()</code> は、 <code>t.test(文字列 ~ バイナリ変数の列)</code> のような数式形式のインプットを扱うことができることを学びましたね。この例では、以下のことを行います。</p>
 <ul>
 <li><p>比較したい数値列を、<code>linelist</code> から選びます。これらは、<code>map()</code> に対してのインプット <code>.x</code> になります</p></li>
 <li><p><code>t.test()</code> は、<code>.f</code> 関数として、選択されたそれぞれの数値列に対して適用されます</p></li>
-<li><p><code>t.test()</code> のカッコ内は、</p>
+<li>
+<p><code>t.test()</code> のカッコ内は、</p>
 <ul>
 <li>最初の チルダ（<code>~</code> ）は <code>.f</code> に先行し、<code>.x</code> に対して <code>map()</code> が反復処理を行うことを意味します</li>
-<li><code>.x</code> は反復処理の繰り返しの際に <code>t.test()</code> に適用される列を表します</li>
+<li>
+<code>.x</code> は反復処理の繰り返しの際に <code>t.test()</code> に適用される列を表します</li>
 <li>2つ目のチルダ（<code>~</code>）は、上で説明した通り、t 検定の数式の一部です</li>
-<li><code>t.test()</code> は、チルダ（<code>~</code>）の右側にバイナリ変数の列をあてます。ここでは <code>linelist$gender</code> というベクトルをあてています（<code>select()</code> に gender を含まないように注意してください）</li>
-</ul></li>
+<li>
+<code>t.test()</code> は、チルダ（<code>~</code>）の右側にバイナリ変数の列をあてます。ここでは <code>linelist$gender</code> というベクトルをあてています（<code>select()</code> に gender を含まないように注意してください）</li>
+</ul>
+</li>
 <li><p><code>map()</code> はリストを返すので、反復処理の終了後、t 検定の結果を示すリストが出力され、一つのリスト要素がそれぞれの数値列の結果を表します。</p></li>
 </ul>
 <div class="cell">
@@ -1480,8 +1468,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/purrr_ttest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../images/purrr_ttest.png" style="height:150.0%" width="286" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/purrr_ttest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../images/purrr_ttest.png" style="height:150.0%" width="286" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1492,12 +1479,9 @@ cookieconsent.run({
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">"age"</span>), <span class="at">.fns =</span> as.character))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="リストから抽出する" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="リストから抽出する">リストから抽出する</h3>
+</section><section id="リストから抽出する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="リストから抽出する">リストから抽出する</h3>
 <p><code>map()</code> はアウトプットをリストとして出力するので、<strong>purrr</strong> パッケージに含まれる関数を用いてリストからデータを抽出する方法について少し説明します。前のセクションで作成した <code>t.test_results</code> リストを例として使用します。<code>t.test_results</code> リストは、5 つのリストからなるリストです。5 つのリストには、<code>linelist</code> データフレームのいくつかの変数とバイナリ変数である <code>gender</code> との間の t 検定の結果がそれぞれ保存されています。リスト構造の図は前のセクションをご覧ください。</p>
-<section id="要素の名前を抽出する" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="要素の名前を抽出する">要素の名前を抽出する</h4>
+<section id="要素の名前を抽出する" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="要素の名前を抽出する">要素の名前を抽出する</h4>
 <p>リスト内の要素の名前を抽出するには、<strong>base R</strong> の <code>names()</code> を使うと簡単にできます。今回は、<code>names()</code> を <code>t.test_results</code> に適用することでそれぞれのサブリスト名（t 検定に用いられた変数の名前）を抽出します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(t.test_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1505,9 +1489,7 @@ cookieconsent.run({
 <pre><code>[1] "age"      "wt_kg"    "ht_cm"    "ct_blood" "temp"    </code></pre>
 </div>
 </div>
-</section>
-<section id="名前または位置によって要素を特定する" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="名前または位置によって要素を特定する">名前または位置によって要素を特定する</h4>
+</section><section id="名前または位置によって要素を特定する" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="名前または位置によって要素を特定する">名前または位置によって要素を特定する</h4>
 <p><a href="basics.jp.html">R の基礎</a> の章で説明したように、 <code>[[ ]]</code> を用いると、リストの要素を名前、または位置で抽出することができます。以下では、二重括弧を <code>t.tests_results</code> リストに用いてインデックスし、<code>age</code> に対する t 検定の結果（リストの最初の要素）を表示しています。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>t.test_results[[<span class="dv">1</span>]] <span class="co"># 位置で最初の要素を特定</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1531,9 +1513,7 @@ mean in group f mean in group m
 </div>
 </div>
 <p>さらに、より簡単で柔軟性の高い方法として、<strong>purrr</strong> パッケージの <code>map()</code> と <code>pluck()</code> を使用し、同様の結果を抽出する方法を以下で説明していきます。</p>
-</section>
-<section id="pluck" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="pluck"><code>pluck()</code></h4>
+</section><section id="pluck" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="pluck"><code>pluck()</code></h4>
 <p><code>pluck()</code> はリスト内の要素を名前もしくは位置で抽出することができます。例えば、年齢に対する t 検定の結果を抽出するには <code>pluck()</code> を以下のように使用します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>t.test_results <span class="sc">%&gt;%</span> </span>
@@ -1591,23 +1571,25 @@ $temp
 </div>
 </div>
 <p><code>pluck()</code> の詳細は、<strong>purrr</strong> パッケージの <a href="https://purrr.tidyverse.org/reference/pluck.html">公式ドキュメント</a> をご覧ください。<code>chuck()</code> という関数もあり、<code>chuck()</code> は要素が存在しなければ NULL ではなくエラーを返します。</p>
-</section>
-</section>
-<section id="リストをデータフレームに変換する" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="リストをデータフレームに変換する">リストをデータフレームに変換する</h3>
+</section></section><section id="リストをデータフレームに変換する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="リストをデータフレームに変換する">リストをデータフレームに変換する</h3>
 <p>これは少し複雑な内容のため、より網羅的に学びたい方は、本章の最後に記載されている参考資料を参照してください。ここでは、前のセクションでリストとして出力された t 検定の結果（<code>t.test_results</code>）をデータフレームに変換する方法を説明します。p 値の列と 2 つのグループ（男性と女性）それぞれの平均値の列を含むデータフレームを作成していきます。</p>
 <p>方法と使用する関数を示します：</p>
 <ul>
-<li><p>tibble （データフレームのようなもの）を作成するため、<code>tibble()</code> を使います</p>
+<li>
+<p>tibble （データフレームのようなもの）を作成するため、<code>tibble()</code> を使います</p>
 <ul>
-<li><code>t.test_results</code> 全体が tibble の最初の列として保存されないように、<code>tibble()</code> を波括弧でくくります</li>
-</ul></li>
-<li><p><code>tibble()</code> 内では、それぞれの列が明示的に作成されるので、<code>mutate()</code> で列を作成する方法に似ています。</p>
+<li>
+<code>t.test_results</code> 全体が tibble の最初の列として保存されないように、<code>tibble()</code> を波括弧でくくります</li>
+</ul>
+</li>
+<li>
+<p><code>tibble()</code> 内では、それぞれの列が明示的に作成されるので、<code>mutate()</code> で列を作成する方法に似ています。</p>
 <ul>
 <li>以下のコードでは、<code>.</code> は <code>t.test_results</code> を表しています</li>
 <li>列名を t 検定で用いた変数名（それぞれのリスト要素の名前）にしたい場合は、前述したように <code>names()</code> を使用します</li>
 <li>列名を p 値にしたい場合は、前述したように <code>map_dbl()</code> を用いて <code>p.value</code> の要素を抽出し、数字ベクトルに変換します</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>t.test_results <span class="sc">%&gt;%</span> {</span>
@@ -1647,9 +1629,12 @@ $temp
 </div>
 <p>リスト要素の列が一度できると、このような「入れ子構造内のリスト要素の列」を「外に取り出す（“rectangle” または “un-nest”）」のに役立つ <strong>tidyr</strong> パッケージの関数がいくつかあります（<strong>tidyr</strong> パッケージは <strong>tidyverse</strong> パッケージに含まれている）。詳しくは、<a href="https://www.epirhandbook.com/en/iteration-loops-and-lists.html">このページ</a> を参照するか、<code>vignette("rectangle")</code> を実行してください。簡単に述べると、</p>
 <ul>
-<li><code>unnest_wider()</code>：リスト要素の列のそれぞれの要素を、列として外に出します</li>
-<li><code>unnest_longer()</code>：リスト要素の列のそれぞれの要素を、行として外に出します</li>
-<li><code>hoist()</code>：<code>unnest_wider()</code> と似ていますが、どの要素を入れ子構造の外に出すか指定する必要があります</li>
+<li>
+<code>unnest_wider()</code>：リスト要素の列のそれぞれの要素を、列として外に出します</li>
+<li>
+<code>unnest_longer()</code>：リスト要素の列のそれぞれの要素を、行として外に出します</li>
+<li>
+<code>hoist()</code>：<code>unnest_wider()</code> と似ていますが、どの要素を入れ子構造の外に出すか指定する必要があります</li>
 </ul>
 <p>以下では、<code>unnest_wider()</code> に <code>t.test_results</code> という tibble を渡し、tibble 内の入れ子になっているリスト要素である <code>means</code> 列を指定しています。その結果、<code>means</code> はもともとそれぞれの <code>means</code> のセル内の値であった要素からなる 2 つの列に変換されました。</p>
 <div class="cell">
@@ -1671,18 +1656,20 @@ $temp
 5 temp      5.74e-  1              38.6              38.6</code></pre>
 </div>
 </div>
-</section>
-<section id="リストを捨てる保持するコンパクトにする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="リストを捨てる保持するコンパクトにする">リストを捨てる・保持する・コンパクトにする</h3>
+</section><section id="リストを捨てる保持するコンパクトにする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="リストを捨てる保持するコンパクトにする">リストを捨てる・保持する・コンパクトにする</h3>
 <p><strong>purrr</strong> パッケージの関数はリストを扱うことが多いため、リストを変換するのに用いられる <strong>purrr</strong> パッケージの関数をいくつか簡単に説明します。<strong>purrr</strong> パッケージに含まれる関数について、より詳しい内容を知りたい方は、本章の最後に記載されている参考資料をご覧ください。</p>
 <ul>
-<li><code>list_modify()</code> にはいくつか用途がありますが、例えばリストの要素を取り除く、といった場合に使用されます<br>
+<li>
+<code>list_modify()</code> にはいくつか用途がありますが、例えばリストの要素を取り除く、といった場合に使用されます<br>
 </li>
-<li><code>keep()</code> は、引数 <code>.p =</code> で指定された要素、もしくは <code>.p =</code> に与えられた関数が TRUE となる要素を保持（キープ）します<br>
+<li>
+<code>keep()</code> は、引数 <code>.p =</code> で指定された要素、もしくは <code>.p =</code> に与えられた関数が TRUE となる要素を保持（キープ）します<br>
 </li>
-<li><code>discard()</code> は、引数 <code>.p =</code> で指定された要素、もしくは <code>.p =</code> に与えられた関数が TRUE となる要素を取り除きます<br>
+<li>
+<code>discard()</code> は、引数 <code>.p =</code> で指定された要素、もしくは <code>.p =</code> に与えられた関数が TRUE となる要素を取り除きます<br>
 </li>
-<li><code>compact()</code> は、全ての空の要素を取り除きます</li>
+<li>
+<code>compact()</code> は、全ての空の要素を取り除きます</li>
 </ul>
 <p>それでは、<code>map()</code> を使用して複数のファイルをインポートし結合した <a href="#iter_combined">例：エクセルシートをインポートし、結合する</a> で作成したリストである <code>combined</code>（6 つのデータフレームを含むリスト）を用いて例を示します。</p>
 <p>リスト内の要素を要素名の名前で取り除きたい場合は、<code>list_modify()</code> で取り除きたい要素名を <code>NULL</code> に指定することで取り除くことができます。</p>
@@ -1714,19 +1701,14 @@ $temp
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">%&gt;%</span> </span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compact</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="pmap" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="pmap"><code>pmap()</code></h3>
+</section><section id="pmap" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="pmap"><code>pmap()</code></h3>
 <p>このセクションは、作成中です。</p>
-</section>
-</section>
-<section id="apply-関数" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="apply-関数"><span class="header-section-number">16.4</span> Apply 関数</h2>
+</section></section><section id="apply-関数" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="apply-関数">
+<span class="header-section-number">16.4</span> Apply 関数</h2>
 <p><strong>purrr</strong> パッケージの代わりに、<strong>base R</strong> に含まれている種々の “apply” 系の関数を使用して反復処理を行うこともできます。詳しくは、<a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family">こちら</a> をご覧ください。</p>
 <!-- ======================================================= -->
-</section>
-<section id="参考資料" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">16.5</span> 参考資料</h2>
+</section><section id="参考資料" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="参考資料">
+<span class="header-section-number">16.5</span> 参考資料</h2>
 <p><a href="https://datacarpentry.org/semester-biology/materials/for-loops-R/">Data Carpentry の for loops に関するページ</a></p>
 <p><a href="https://r4ds.had.co.nz/iteration.html#iteration">The R for Data Science の iteration に関するページ</a></p>
 <p><a href="https://martinctc.github.io/blog/vignette-write-and-read-multiple-excel-files-with-purrr/">Excel ファイルのインポート・エクスポートについて</a></p>
@@ -1738,10 +1720,7 @@ $temp
 <p><a href="https://hookedondata.org/going-off-the-map/#keep-and-discard">keep と discard 関数について</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1920,18 +1899,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1963,7 +1931,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1998,7 +2006,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2271,60 +2283,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/deduplication.jp.html" class="pagination-link" aria-label="重複データの排除">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/tables_descriptive.jp.html" class="pagination-link" aria-label="記述統計表の作り方">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

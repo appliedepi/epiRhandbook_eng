@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Epidemiyologun R Rehberi - 43&nbsp; Shiny ile Gösterge Panelleri</title>
+<title>43  Shiny ile Gösterge Panelleri – Epidemiyologun R Rehberi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/writing_functions.tr.html" rel="next">
 <link href="../new_pages/flexdashboard.tr.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Göndermek",
     "search-label": "Aramak"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,73 +112,122 @@ cookieconsent.run({
 "language":"tr"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -225,65 +252,54 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.tr.html">Raporlar ve gösterge panoları</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.tr.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.tr.html">Raporlar ve gösterge panoları</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.tr.html"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Aramak" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Epidemiyologun R Rehberi</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Karanlık modu değiştir"><i class="bi"></i></a>
 </div>
     </div>
@@ -293,9 +309,20 @@ window.Quarto = {
         <div id="quarto-search" class="" title="Aramak"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/shiny_basics.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/shiny_basics.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/shiny_basics.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/shiny_basics.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/shiny_basics.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/shiny_basics.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/ru/new_pages/shiny_basics.ru.html" id="language-link-ru">Русский</a>
+<a class="dropdown-item" href="/ar/new_pages/shiny_basics.ar.html" id="language-link-ar">write something</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.tr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hoş geldin</span></a>
@@ -303,425 +330,434 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Bu kitap hakkında</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Temel Bilgiler</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R’ın Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R’ın Temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R’a geçiş</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">R’a geçiş</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Önerilen paketler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Önerilen paketler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projeleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projeleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">İçe ve dışa aktar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">İçe ve dışa aktar</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Yönetimi</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Tarihlerle çalışma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Tarihlerle çalışma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Karakterler ve dizeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Karakterler ve dizeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faktörler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Faktörler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Verilerin pivotlanması</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Verilerin pivotlanması</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verileri Gruplama</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Verileri Gruplama</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Veri Birleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Veri Birleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tekilleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Tekilleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analiz</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basit istatistiksel testler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Basit istatistiksel testler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Eksik Veri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Eksik Veri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hareketli ortalamalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Hareketli ortalamalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Salgın Modelleme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Salgın Modelleme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Temaslı izlemi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Temaslı izlemi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Anket analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Anket analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sağkalım Analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Sağkalım Analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Görselleştirme</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Sunum için tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Sunum için tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplot ipuçları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplot ipuçları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Salgın eğrileri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Salgın eğrileri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Isı grafikleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Isı grafikleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Kombinasyon analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Kombinasyon analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">İletim Zincirleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">İletim Zincirleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">İnteraktif grafikler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">İnteraktif grafikler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Raporlar ve gösterge panoları</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.tr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Çeşitli</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Yazma fonksiyonları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Yazma fonksiyonları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Dizin etkileşimleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Dizin etkileşimleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Yaygın hatalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Yaygın hatalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Yardım alma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Yardım alma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Veri tablosu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Veri tablosu</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Ekler</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Içindekiler</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Içindekiler</h2>
    
   <ul>
-  <li><a href="#hazırlık" id="toc-hazırlık" class="nav-link active" data-scroll-target="#hazırlık"><span class="header-section-number">43.1</span> Hazırlık</a>
+<li>
+<a href="#haz%C4%B1rl%C4%B1k" id="toc-hazırlık" class="nav-link active" data-scroll-target="#hazırlık"><span class="header-section-number">43.1</span> Hazırlık</a>
   <ul class="collapse">
-  <li><a href="#paketleri-yükleme" id="toc-paketleri-yükleme" class="nav-link" data-scroll-target="#paketleri-yükleme">Paketleri yükleme</a></li>
-  <li><a href="#verileri-içe-aktarma" id="toc-verileri-içe-aktarma" class="nav-link" data-scroll-target="#verileri-içe-aktarma">Verileri içe aktarma</a></li>
-  </ul></li>
-  <li><a href="#shiny-uygulamasının-yapısı" id="toc-shiny-uygulamasının-yapısı" class="nav-link" data-scroll-target="#shiny-uygulamasının-yapısı"><span class="header-section-number">43.2</span> Shiny uygulamasının yapısı</a>
-  <ul class="collapse">
-  <li><a href="#temel-dosya-yapıları" id="toc-temel-dosya-yapıları" class="nav-link" data-scroll-target="#temel-dosya-yapıları">Temel dosya yapıları</a></li>
-  <li><a href="#sunucu-ve-kullanıcı-arayüzü-ui" id="toc-sunucu-ve-kullanıcı-arayüzü-ui" class="nav-link" data-scroll-target="#sunucu-ve-kullanıcı-arayüzü-ui">Sunucu ve kullanıcı arayüzü (ui)</a></li>
-  <li><a href="#bir-uygulama-oluşturmadan-önce" id="toc-bir-uygulama-oluşturmadan-önce" class="nav-link" data-scroll-target="#bir-uygulama-oluşturmadan-önce">Bir uygulama oluşturmadan önce</a></li>
-  </ul></li>
-  <li><a href="#kullanıcı-arayüzü-iu-oluşturmak" id="toc-kullanıcı-arayüzü-iu-oluşturmak" class="nav-link" data-scroll-target="#kullanıcı-arayüzü-iu-oluşturmak"><span class="header-section-number">43.3</span> Kullanıcı Arayüzü (IU) Oluşturmak</a></li>
-  <li><a href="#verinin-uygulamamıza-yüklenmesi" id="toc-verinin-uygulamamıza-yüklenmesi" class="nav-link" data-scroll-target="#verinin-uygulamamıza-yüklenmesi"><span class="header-section-number">43.4</span> Verinin uygulamamıza yüklenmesi</a></li>
-  <li><a href="#bir-uygulama-sunucusu-geliştirme" id="toc-bir-uygulama-sunucusu-geliştirme" class="nav-link" data-scroll-target="#bir-uygulama-sunucusu-geliştirme"><span class="header-section-number">43.5</span> Bir uygulama sunucusu geliştirme</a></li>
-  <li><a href="#daha-fazla-işlevsellik-eklemek" id="toc-daha-fazla-işlevsellik-eklemek" class="nav-link" data-scroll-target="#daha-fazla-işlevsellik-eklemek"><span class="header-section-number">43.6</span> Daha fazla işlevsellik eklemek</a>
-  <ul class="collapse">
-  <li><a href="#statik-metin-eklemek" id="toc-statik-metin-eklemek" class="nav-link" data-scroll-target="#statik-metin-eklemek">Statik metin eklemek</a></li>
-  <li><a href="#bir-link-köprü-eklemek" id="toc-bir-link-köprü-eklemek" class="nav-link" data-scroll-target="#bir-link-köprü-eklemek">Bir link (köprü) eklemek</a></li>
-  <li><a href="#indirme-düğmesi-eklemek" id="toc-indirme-düğmesi-eklemek" class="nav-link" data-scroll-target="#indirme-düğmesi-eklemek">İndirme düğmesi eklemek</a></li>
-  <li><a href="#tesis-seçici-eklemek" id="toc-tesis-seçici-eklemek" class="nav-link" data-scroll-target="#tesis-seçici-eklemek">Tesis seçici eklemek</a></li>
-  <li><a href="#tabloya-yeni-bir-sekme-eklemek" id="toc-tabloya-yeni-bir-sekme-eklemek" class="nav-link" data-scroll-target="#tabloya-yeni-bir-sekme-eklemek">Tabloya yeni bir sekme eklemek</a></li>
-  </ul></li>
-  <li><a href="#shiny-uygulamalarının-paylaşılması" id="toc-shiny-uygulamalarının-paylaşılması" class="nav-link" data-scroll-target="#shiny-uygulamalarının-paylaşılması"><span class="header-section-number">43.7</span> Shiny Uygulamalarının Paylaşılması</a></li>
-  <li><a href="#ileri-okuma" id="toc-ileri-okuma" class="nav-link" data-scroll-target="#ileri-okuma"><span class="header-section-number">43.8</span> İleri okuma</a></li>
-  <li><a href="#önerilen-shiny-uzantıları" id="toc-önerilen-shiny-uzantıları" class="nav-link" data-scroll-target="#önerilen-shiny-uzantıları"><span class="header-section-number">43.9</span> Önerilen shiny uzantıları</a></li>
+<li><a href="#paketleri-y%C3%BCkleme" id="toc-paketleri-yükleme" class="nav-link" data-scroll-target="#paketleri-yükleme">Paketleri yükleme</a></li>
+  <li><a href="#verileri-i%C3%A7e-aktarma" id="toc-verileri-içe-aktarma" class="nav-link" data-scroll-target="#verileri-içe-aktarma">Verileri içe aktarma</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#shiny-uygulamas%C4%B1n%C4%B1n-yap%C4%B1s%C4%B1" id="toc-shiny-uygulamasının-yapısı" class="nav-link" data-scroll-target="#shiny-uygulamasının-yapısı"><span class="header-section-number">43.2</span> Shiny uygulamasının yapısı</a>
+  <ul class="collapse">
+<li><a href="#temel-dosya-yap%C4%B1lar%C4%B1" id="toc-temel-dosya-yapıları" class="nav-link" data-scroll-target="#temel-dosya-yapıları">Temel dosya yapıları</a></li>
+  <li><a href="#sunucu-ve-kullan%C4%B1c%C4%B1-aray%C3%BCz%C3%BC-ui" id="toc-sunucu-ve-kullanıcı-arayüzü-ui" class="nav-link" data-scroll-target="#sunucu-ve-kullanıcı-arayüzü-ui">Sunucu ve kullanıcı arayüzü (ui)</a></li>
+  <li><a href="#bir-uygulama-olu%C5%9Fturmadan-%C3%B6nce" id="toc-bir-uygulama-oluşturmadan-önce" class="nav-link" data-scroll-target="#bir-uygulama-oluşturmadan-önce">Bir uygulama oluşturmadan önce</a></li>
+  </ul>
+</li>
+  <li><a href="#kullan%C4%B1c%C4%B1-aray%C3%BCz%C3%BC-iu-olu%C5%9Fturmak" id="toc-kullanıcı-arayüzü-iu-oluşturmak" class="nav-link" data-scroll-target="#kullanıcı-arayüzü-iu-oluşturmak"><span class="header-section-number">43.3</span> Kullanıcı Arayüzü (IU) Oluşturmak</a></li>
+  <li><a href="#verinin-uygulamam%C4%B1za-y%C3%BCklenmesi" id="toc-verinin-uygulamamıza-yüklenmesi" class="nav-link" data-scroll-target="#verinin-uygulamamıza-yüklenmesi"><span class="header-section-number">43.4</span> Verinin uygulamamıza yüklenmesi</a></li>
+  <li><a href="#bir-uygulama-sunucusu-geli%C5%9Ftirme" id="toc-bir-uygulama-sunucusu-geliştirme" class="nav-link" data-scroll-target="#bir-uygulama-sunucusu-geliştirme"><span class="header-section-number">43.5</span> Bir uygulama sunucusu geliştirme</a></li>
+  <li>
+<a href="#daha-fazla-i%C5%9Flevsellik-eklemek" id="toc-daha-fazla-işlevsellik-eklemek" class="nav-link" data-scroll-target="#daha-fazla-işlevsellik-eklemek"><span class="header-section-number">43.6</span> Daha fazla işlevsellik eklemek</a>
+  <ul class="collapse">
+<li><a href="#statik-metin-eklemek" id="toc-statik-metin-eklemek" class="nav-link" data-scroll-target="#statik-metin-eklemek">Statik metin eklemek</a></li>
+  <li><a href="#bir-link-k%C3%B6pr%C3%BC-eklemek" id="toc-bir-link-köprü-eklemek" class="nav-link" data-scroll-target="#bir-link-köprü-eklemek">Bir link (köprü) eklemek</a></li>
+  <li><a href="#indirme-d%C3%BC%C4%9Fmesi-eklemek" id="toc-indirme-düğmesi-eklemek" class="nav-link" data-scroll-target="#indirme-düğmesi-eklemek">İndirme düğmesi eklemek</a></li>
+  <li><a href="#tesis-se%C3%A7ici-eklemek" id="toc-tesis-seçici-eklemek" class="nav-link" data-scroll-target="#tesis-seçici-eklemek">Tesis seçici eklemek</a></li>
+  <li><a href="#tabloya-yeni-bir-sekme-eklemek" id="toc-tabloya-yeni-bir-sekme-eklemek" class="nav-link" data-scroll-target="#tabloya-yeni-bir-sekme-eklemek">Tabloya yeni bir sekme eklemek</a></li>
+  </ul>
+</li>
+  <li><a href="#shiny-uygulamalar%C4%B1n%C4%B1n-payla%C5%9F%C4%B1lmas%C4%B1" id="toc-shiny-uygulamalarının-paylaşılması" class="nav-link" data-scroll-target="#shiny-uygulamalarının-paylaşılması"><span class="header-section-number">43.7</span> Shiny Uygulamalarının Paylaşılması</a></li>
+  <li><a href="#ileri-okuma" id="toc-ileri-okuma" class="nav-link" data-scroll-target="#ileri-okuma"><span class="header-section-number">43.8</span> İleri okuma</a></li>
+  <li><a href="#%C3%B6nerilen-shiny-uzant%C4%B1lar%C4%B1" id="toc-önerilen-shiny-uzantıları" class="nav-link" data-scroll-target="#önerilen-shiny-uzantıları"><span class="header-section-number">43.9</span> Önerilen shiny uzantıları</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.tr.html">Raporlar ve gösterge panoları</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.tr.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.tr.html">Raporlar ve gösterge panoları</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.tr.html"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span>
+</h1>
 </div>
 
 
@@ -735,38 +771,30 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<p>Gösterge paneli, genellikle analizlerden elde edilen sonuçları başkalarıyla paylaşmanın iyi bir yoludur. Kaliteli bir gösterge paneli üretmek, nispeten ileri düzeyde R dili bilgisi gerektirir, ancak inanılmaz özelleştirme seçenekleri sunar.</p>
+</header><p>Gösterge paneli, genellikle analizlerden elde edilen sonuçları başkalarıyla paylaşmanın iyi bir yoludur. Kaliteli bir gösterge paneli üretmek, nispeten ileri düzeyde R dili bilgisi gerektirir, ancak inanılmaz özelleştirme seçenekleri sunar.</p>
 <!-- One of the largest drawbacks of `R` is its usability for people who are new to or have no experience with programming languages. While these skills are very valuable, most people will find that this represents a barrier to sharing analyses, especially in multidisciplinary environments. It requires some work to maintain an `R` installation, and not everyone will be comfortable running shared code, even if it's well documented and easy to read. This is *especially* true when users have to change parameters of code!  -->
 <!-- R based dashboards are also advantageous in that they centralise how code is run - when the same code is run on different machines, often people will have to deal with differing file paths, different R versions, and different package installations. For this reason, dashboards are a great way to share code with others in a user friendly way! -->
 <p>Shiny ile gösterge tablolarını öğrenen birinin, veri dönüştürme ve görselleştirme konusunda iyi bilgiye sahip olması ve kod hatalarını ayıklama ve kod işlevleri konularında bilgili olması önerilir. Gösterge panelleriyle çalışmak, başladığınızda sezgisel değildir ve bazen anlaşılması zordur, ancak öğrenmesi harika bir beceridir ve pratikle çok daha kolay hale gelir!</p>
 <p>Bu sayfa, shiny ve uzantıları olan panellerin nasıl oluşturulacağına dair kısa bir genel bakış sağlayacaktır. Panelleri daha hızlı, daha kolay, ancak daha az özelleştirilebilir hale getirmenin alternatif bir yöntemi için, flextable [R Markdown ile gösterge panelleri] sayfasına bakabilirsiniz.</p>
-<section id="hazırlık" class="level2" data-number="43.1">
-<h2 data-number="43.1" class="anchored" data-anchor-id="hazırlık"><span class="header-section-number">43.1</span> Hazırlık</h2>
-<section id="paketleri-yükleme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme">Paketleri yükleme</h3>
+<section id="hazırlık" class="level2" data-number="43.1"><h2 data-number="43.1" class="anchored" data-anchor-id="hazırlık">
+<span class="header-section-number">43.1</span> Hazırlık</h2>
+<section id="paketleri-yükleme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="paketleri-yükleme">Paketleri yükleme</h3>
 <p>Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonkisyonunu vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri sayfasına bakın.</p>
 <p><strong>shiny</strong> R paketini kurarak başlıyoruz:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"shiny"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="verileri-içe-aktarma" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="verileri-içe-aktarma">Verileri içe aktarma</h3>
+</section><section id="verileri-içe-aktarma" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="verileri-içe-aktarma">Verileri içe aktarma</h3>
 <p>Bu sayfayı takip etmek isterseniz, <a href="data_used.tr.html#data_shiny">el kitabının ve verilerin indirilmesi</a> bölümüne bakabilirsiniz. Güncel Shiny uygulamasını oluşturan R komut dosyalarını ve veri dosyalarını indirmek için bağlantılar burada mevcuttur.Uygulamayı bu dosyaları kullanarak yeniden oluşturmaya çalışırsanız, lütfen kurs için oluşturulan R projesi klasör yapısının (örneğin, “veri” ve “işlevler” için klasörler) farkında olun.</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="shiny-uygulamasının-yapısı" class="level2" data-number="43.2">
-<h2 data-number="43.2" class="anchored" data-anchor-id="shiny-uygulamasının-yapısı"><span class="header-section-number">43.2</span> Shiny uygulamasının yapısı</h2>
-<section id="temel-dosya-yapıları" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="temel-dosya-yapıları">Temel dosya yapıları</h3>
+</section></section><section id="shiny-uygulamasının-yapısı" class="level2" data-number="43.2"><h2 data-number="43.2" class="anchored" data-anchor-id="shiny-uygulamasının-yapısı">
+<span class="header-section-number">43.2</span> Shiny uygulamasının yapısı</h2>
+<section id="temel-dosya-yapıları" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="temel-dosya-yapıları">Temel dosya yapıları</h3>
 <p>Shiny’yi anlamak için önce uygulamanın dosya yapısının nasıl çalıştığını anlamamız gerekir! Başlamadan önce yepyeni bir dizin oluşturmalıyız. Bu aslında <em>Rstudio’da</em> <em>yeni projeden</em> <em>Shiny Web Application</em> seçilerek daha kolay hale getirilebilir. Bu, sizin için shiny uygulamasının temel yapısını oluşturacaktır.</p>
 <p>Bu projeyi açarken, zaten <em>app.R</em> adında bir .R dosyası olduğunu fark edeceksiniz. İki temel dosya yapısından birine sahip olmamız önemlidir:</p>
 <ol type="1">
-<li><em>app.R</em> adında bir dosya veya</li>
+<li>
+<em>app.R</em> adında bir dosya veya</li>
 <li>Biri <em>ui.R</em> ve diğeri <em>server.R</em> olarak adlandırılan iki dosya</li>
 </ol>
 <p>Bu sayfada, <em>app.R</em> adında bir dosyaya sahip olduğunuz ilk yaklaşımı kullanacağız. İşte örnek bir komut dosyası:</p>
@@ -810,27 +838,21 @@ window.Quarto = {
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Bu dosyayı açarsanız, biri kullanıcı arayüzü ve diğeri sunucu olarak adlandırılan iki nesnenin tanımlandığını fark edeceksiniz. Bu nesneler shiny uygulamasında tanımlanmalıdır ve uygulamanın kendi yapısının merkezinde yer alırlar! Aslında, yukarıda açıklanan iki dosya yapısı arasındaki tek fark, yapı 1’de hem kullanıcı arayüzünün hem de sunucunun tek bir dosyada tanımlanması, yapı 2’de ise ayrı dosyalarda tanımlanmalarıdır. Not: Ayrıca, uygulamamızda source() fonksiyonunu uygulayabileceğimiz başka .R dosyalarına da sahip olabiliriz (Daha büyük bir uygulamamız varsa bu şekilde yapmalıyız).</p>
-</section>
-<section id="sunucu-ve-kullanıcı-arayüzü-ui" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="sunucu-ve-kullanıcı-arayüzü-ui">Sunucu ve kullanıcı arayüzü (ui)</h3>
+</section><section id="sunucu-ve-kullanıcı-arayüzü-ui" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="sunucu-ve-kullanıcı-arayüzü-ui">Sunucu ve kullanıcı arayüzü (ui)</h3>
 <p>Daha sonra sunucu ve ‘ui’ nesnelerinin gerçekte ne yaptığını anlamamız gerekiyor. Basitçe söylemek gerekirse, bunlar, kullanıcı shiny uygulamasıyla etkileşime girdiğinde birbirleriyle etkileşime giren iki nesnedir.</p>
 <p>Shiny bir uygulamasının UI öğesi, temel düzeyde bir HTML arayüzü oluşturan R kodudur. Bu, bir uygulamanın kullanıcı arayüzünde görüntülenen her şey anlamına gelir. Bu genellikle şunları içerir:</p>
 <p>• “Widget’lar” - kullanıcı tarafından etkileşime geçilebilecek açılır menüler, onay kutuları, kaydırıcılar vb. • Grafikler, tablolar, vb - R koduyla oluşturulan çıktılar • Bir uygulamanın gezinme yönleri - sekmeler, bölmeler, vb. • Genel metin, köprüler vb. • HTML ve CSS öğeleri (daha sonra ele alınacaktır)</p>
 <p>UI hakkında anlaşılması gereken en önemli şey, kullanıcıdan girdi alması ve sunucudan kaynaklanan çıktıları göstermesidir. Kullanıcı arabiriminde herhangi bir zamanda çalışan aktif kod yoktur - kullanıcı arabiriminde görülen tüm değişiklikler (az ya da çok) sunucudan geçirilir. Bu yüzden grafiklerimizi, dosya indirmelerimizi vb. sunucuda gerçekleştirmeliyiz.</p>
 <p>Shiny uygulamasının sunucusu, uygulama başlatıldığında tüm kodun çalıştırıldığı yerdir. Sunucunun çalışma şekli biraz kafa karıştırıcı. Sunucu işlevi, kullanıcı arayüzüyle etkileşen kullanıcıya etkin bir şekilde tepki verir ve yanıt olarak kod parçalarını çalıştırır. Sunucuda bir şeyler değişirse, bunlar değişikliklerin görülebileceği kullanıcı arayüzüne geri iletilecektir. Daha da önemlisi, sunucudaki kod ardışık olmayan bir şekilde yürütülecektir (veya bu şekilde düşünmek en iyisidir). Temel olarak, kullanıcı arayüzünden veri girişi sunucudaki bir kod parçasını etkilediğinde, otomatik olarak çalışır ve bu çıktı üretilir ve görüntülenir.</p>
 <p>Bunların hepsi muhtemelen şimdilik çok soyut geliyor, bu yüzden bunun gerçekte nasıl çalıştığına dair net bir fikir edinmek için bazı örnekler üzerinden anlatacağız.</p>
-</section>
-<section id="bir-uygulama-oluşturmadan-önce" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bir-uygulama-oluşturmadan-önce">Bir uygulama oluşturmadan önce</h3>
+</section><section id="bir-uygulama-oluşturmadan-önce" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="bir-uygulama-oluşturmadan-önce">Bir uygulama oluşturmadan önce</h3>
 <p>Bir uygulama oluşturmaya başlamadan önce, ne oluşturmak istediğinizi bilmek son derece yararlıdır. Kullanıcı arayüzünüz kodla yazılacağından, ne inşa ettiğinizi görselleştiremezsiniz önemlidir. Bu nedenle, neler yapabileceğiniz hakkında bir fikir edinmek için önceden shiny uygulama örneklerine bakmak son derece yararlıdır - bu uygulamaların arkasındaki kaynak koduna bakabilirseniz daha da iyi olur! Bunun için bazı harika kaynaklar şunlardır:</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/">Rstudio uygulama galerisi</a></li>
 </ul>
 <p>Neyin mümkün olduğuna dair bir fikir edindikten sonra, sizinkinin nasıl görünmesini istediğinizi haritalamak da yararlıdır - bunu kağıt üzerinde veya herhangi bir çizim yazılımında (PowerPoint, MS paint, vb.) yapabilirsiniz. İlk uygulamanız için basit bir başlangıç yapmanız faydalı olacaktır! Ayrıca internette bulduğunuz güzel bir uygulamanın kodunu işiniz için şablon olarak kullanmaktan çekinmeyin- sıfırdan uygulama oluşturmaktan çok daha kolaydır!</p>
-</section>
-</section>
-<section id="kullanıcı-arayüzü-iu-oluşturmak" class="level2" data-number="43.3">
-<h2 data-number="43.3" class="anchored" data-anchor-id="kullanıcı-arayüzü-iu-oluşturmak"><span class="header-section-number">43.3</span> Kullanıcı Arayüzü (IU) Oluşturmak</h2>
+</section></section><section id="kullanıcı-arayüzü-iu-oluşturmak" class="level2" data-number="43.3"><h2 data-number="43.3" class="anchored" data-anchor-id="kullanıcı-arayüzü-iu-oluşturmak">
+<span class="header-section-number">43.3</span> Kullanıcı Arayüzü (IU) Oluşturmak</h2>
 <p>Uygulamamızı oluştururken, ne yaptığımızı görebilmemiz ve herhangi bir sunucu hatası nedeniyle uygulamanın başarısız olma riskini almamamız için önce kullanıcı arayüzü üzerinde çalışmak daha kolaydır. Daha önce de belirtildiği gibi, kullanıcı arayüzü üzerinde çalışırken bir şablon kullanmak genellikle iyidir. Temel shiny paketinde bulunan ve shiny ile kullanılabilecek bir dizi standart şablon vardır, ancak shinydashboard gibi bir dizi paket uzantısının da bulunduğunu belirtmekte fayda var. Başlangıç için temel shiny’den bir örnek kullanacağız.</p>
 <p>Shiny kullanıcı arayüzü genellikle aşağıdaki sırayla bir dizi iç içe fonksiyon olarak tanımlanır.</p>
 <ol type="1">
@@ -897,8 +919,7 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -912,10 +933,8 @@ window.Quarto = {
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/widget-gallery.html">temel shiny widget galerisi</a></li>
 <li><a href="https://github.com/dreamRs/shinyWidgets">shinyWidgets galerisi</a></li>
-</ul>
-</section>
-<section id="verinin-uygulamamıza-yüklenmesi" class="level2" data-number="43.4">
-<h2 data-number="43.4" class="anchored" data-anchor-id="verinin-uygulamamıza-yüklenmesi"><span class="header-section-number">43.4</span> Verinin uygulamamıza yüklenmesi</h2>
+</ul></section><section id="verinin-uygulamamıza-yüklenmesi" class="level2" data-number="43.4"><h2 data-number="43.4" class="anchored" data-anchor-id="verinin-uygulamamıza-yüklenmesi">
+<span class="header-section-number">43.4</span> Verinin uygulamamıza yüklenmesi</h2>
 <p>Uygulama geliştirmemizdeki bir sonraki adım, sunucuyu çalışır duruma getirmektir. Ancak bunu yapmak için uygulamamıza bazı veriler aktarmamız ve yapacağımız tüm hesaplamaları bulmamız gerekiyor. Shiny uygulamasının hatalarını ayıklamak kolay değildir, çünkü hataların nereden geldiği genellikle net değildir, bu nedenle sunucunun kendisini yapmaya başlamadan önce tüm veri işleme ve görselleştirme kodumuzu çalışır duruma getirmek idealdir.</p>
 <p>Kullanıcı girdisine göre değişen salgın eğrileri gösteren bir uygulama yapmak istediğimize göre, bunu normal bir R betiğinde çalıştırmak için hangi koda ihtiyacımız olacağını düşünmeliyiz. Şunlara ihtiyacımız olacak: 1. Paketlerimizi yükleyin 2. Verilerimizi yükleyin 3. Verilerimizi dönüştürün 4. Kullanıcı girdilerine dayalı olarak verilerimizi görselleştirmek için bir fonksiyon geliştirin</p>
 <p>Bu liste oldukça basittir ve yapılması çok zor olmamalıdır. Artık bu sürecin hangi bölümlerinin yalnızca bir kez yapılması gerektiğini ve hangi bölümlerin kullanıcı girdilerine yanıt olarak çalıştırılması gerektiğini düşünmek önemlidir. Bunun nedeni, shiny uygulamalarının genellikle kullanımdan önce yalnızca bir kez çalıştırılan bazı kodları çalıştırmasıdır. Kodumuzun çoğu bu bölüme taşınabilirse, uygulamamızın performansına yardımcı olacaktır. Bu örnek için, sadece verilerimizi/paketlerimizi yüklememiz ve temel dönüşümleri bir kez yapmamız gerekiyor, böylece kodu sunucunun dışına yerleştirebiliriz. Bu, sunucuda ihtiyacımız olan tek kodun verilerimizi görselleştirecek kod olduğu anlamına gelir. Önce tüm bu bileşenleri bir komut dosyasında geliştirelim. Ancak verilerimizi bir fonksiyon ile görselleştirdiğimiz için, fonksiyonun kodunu sunucunun dışına da koyabiliriz, böylece uygulama çalıştığında fonksiyonumuz ortamda olur!</p>
@@ -1038,8 +1057,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Bolo"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.tr_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.tr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.tr_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.tr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1125,9 +1143,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Uygulama bir sunucuda yayınlandığında kaynak bulmayı etkileyeceğinden, shiny uygulamalarında her zaman local argümanını ‘local= TRUE’ belirtmeniz gerektiğini unutmayın.</p>
-</section>
-<section id="bir-uygulama-sunucusu-geliştirme" class="level2" data-number="43.5">
-<h2 data-number="43.5" class="anchored" data-anchor-id="bir-uygulama-sunucusu-geliştirme"><span class="header-section-number">43.5</span> Bir uygulama sunucusu geliştirme</h2>
+</section><section id="bir-uygulama-sunucusu-geliştirme" class="level2" data-number="43.5"><h2 data-number="43.5" class="anchored" data-anchor-id="bir-uygulama-sunucusu-geliştirme">
+<span class="header-section-number">43.5</span> Bir uygulama sunucusu geliştirme</h2>
 <p>Artık kodumuzun çoğunu yazdığımıza göre, sadece sunucumuzu geliştirmemiz gerekiyor. Bu, uygulamamızın son parçasıdır ve muhtemelen anlaşılması en zor olanıdır. Sunucu büyük bir R işlevidir, ancak onu bir dizi daha küçük işlev veya uygulamanın gerçekleştirebileceği görevler olarak düşünmek yararlıdır. Bu işlevlerin doğrusal bir sırada yürütülmediğini anlamak önemlidir. Onlara verilen bir emir vardır ancak shiny’de başlangıç seviyesinde bu süreci tam olarak anlamak gerekli değildir. Çok temel düzeyde, bu görevler veya işlevler, geliştirici farklı davranacak şekilde ayarlamadıkça, sadece kullanıcı girdilerinde kendilerini etkileyen bir değişiklik olduğunda etkinleşir. Yine, bunların hepsi oldukça soyut kavramlardır. Ama önce üç temel shiny nesne türünü inceleyelim.</p>
 <ol type="1">
 <li><p>Reaktif kaynaklar - bu, kullanıcı girdileri için başka bir terimdir. Shiny sunucusu, programladığımız widget’lar aracılığıyla UI’den (kullanıcı arayüzünden) gelen çıktılara erişebilir. Değerleri her değiştirildiğinde, bu bilgi sunucuya iletilir.</p></li>
@@ -1196,16 +1213,17 @@ window.Quarto = {
 <p>Bunun gibi basit bir uygulamanın sunucusu aslında oldukça basittir! Sunucunun üç parametreli bir fonksiyon olduğunu fark edeceksiniz - giriş, çıkış ve oturum - bunu anlamak bu basamakta o kadar önemli değildir , ancak bu kuruluma bağlı kalmak önemlidir! Sunucumuzda sadece bir görevimiz mevcuttur – bu da daha önce oluşturduğumuz fonksiyonumuza ve sunucudan gelen girdilere dayalı bir grafik oluşturmaktır. Giriş ve çıkış nesnelerinin adlarının, kullanıcı arabirimindekilere tam olarak nasıl karşılık geldiğine dikkat edin.</p>
 <p>Sunucunun kullanıcı girdilerine nasıl tepki verdiğinin temellerini anlamak için, girdiler değiştiğinde çıktının (altta yatan paket aracılığıyla) da değişeceğin ve her değişimle bir grafik oluşturmak için bu fonksiyonu yeniden çalıştıracağını unutmamalısınız. Burada renderPlot() fonksiyonunu da kullandığımızı unutmayın – bu fonksiyon, nesneleri bir kullanıcı arabirimi çıktısına ileten sınıfa özgü fonkisyonlar ailesindendir. Benzer şekilde davranan birkaç fonksiyon vardır, ancak kullanılan fonksiyonun kullanıcı arayüzüne ilettiğiniz nesnenin sınıfıyla eşleştiğinden emin olmanız gerekir! Örneğin:</p>
 <ul>
-<li><code>renderText()</code> - kullanıcı arayüzüne metin gönderir</li>
-<li><code>renderDataTable</code> - kullanıcı arayüzüne etkileşimli bir tablo gönderir.</li>
+<li>
+<code>renderText()</code> - kullanıcı arayüzüne metin gönderir</li>
+<li>
+<code>renderDataTable</code> - kullanıcı arayüzüne etkileşimli bir tablo gönderir.</li>
 </ul>
 <p>Bunların da kullanıcı arayüzünde kullanılan çıktı işleviyle eşleşmesi gerektiğini unutmayın - bu nedenle renderPlot(), plotOutput() ile eşleştirilir ve renderText(), textOutput() ile eşleştirilir.</p>
 <p>Sonunda çalışan bir uygulama yaptık! Bunu Rstudio’da komut dosyası penceresinin sağ üst kısmındaki Uygulamayı Çalıştır düğmesine basarak çalıştırabiliriz. Uygulamanızı, diğer kullanıcılar için uygulamanın nasıl görüneceğini daha doğru bir şekilde yansıtacak olan varsayılan tarayıcınızda (Rstudio yerine) çalıştırmayı seçebileceğinizi unutmayın.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1214,16 +1232,14 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
+<figure class="figure"><p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- TO DO: *ADD SOMETHING ON DOWNLOADING A ZIP FILE OF THE APP?*  -->
-</section>
-<section id="daha-fazla-işlevsellik-eklemek" class="level2" data-number="43.6">
-<h2 data-number="43.6" class="anchored" data-anchor-id="daha-fazla-işlevsellik-eklemek"><span class="header-section-number">43.6</span> Daha fazla işlevsellik eklemek</h2>
+</section><section id="daha-fazla-işlevsellik-eklemek" class="level2" data-number="43.6"><h2 data-number="43.6" class="anchored" data-anchor-id="daha-fazla-işlevsellik-eklemek">
+<span class="header-section-number">43.6</span> Daha fazla işlevsellik eklemek</h2>
 <p>Bu noktada nihayet çalışan bir uygulamamız var, ancak işlevsellik düzeyi düşüktür. Ayrıca, shine paketiyle yapabileceklerin henüz çok az kısımını gördük, bu yüzden öğrenecek daha çok şey var! Bazı ekstra özellikler ekleyerek mevcut uygulamamızı oluşturmaya devam edelim. Eklemenin uygun olacağı bazı seçenekler şunlar olabilir:</p>
 <ol type="1">
 <li>Açıklayıcı metinler</li>
@@ -1232,19 +1248,22 @@ window.Quarto = {
 <li>Başka bir gösterge paneli sayfası - bu, verilerimizin bir tablosunu gösterebilir.</li>
 </ol>
 <p>Bu şekilde eklenebilecek çok şey vardır, bu şekilde bir sürü farklı shiny özelliği hakkında bilgi edinebiliriz. Shiny hakkında öğrenilecek çok şey var (çok gelişmiş olabilir, ancak umarız ki kullanıcılar shiny’yi nasıl kullanacakları konusunda daha iyi bir fikre sahip olduklarında, harici öğrenme kaynaklarını kullanarak da daha rahat olabilirler).</p>
-<section id="statik-metin-eklemek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="statik-metin-eklemek">Statik metin eklemek</h3>
+<section id="statik-metin-eklemek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="statik-metin-eklemek">Statik metin eklemek</h3>
 <p>Önce shiny uygulamamıza statik metin eklemeyi tartışalım. İşin temellerini bildikten sonra, uygulamamıza metin eklemek son derece kolaydır. Shiny uygulamasında statik metin değişmediğinden (Değişmesini isterseniz, sunucudaki metin oluşturma fonkisyonlarını kullanabilirsiniz!), shiny’nin tüm statik metinleri genellikle uygulamanın kullanıcı arayüzüne eklenir. Bunu çok ayrıntılı olarak ele almayacağız, ancak R’ı HTML ve css ile arayüz olarak kullanarak; kullanıcı arayüzünüze (ve hatta özelleştirilmiş olanlara) bir dizi farklı öğe ekleyebilirsiniz.</p>
 <p>HTML ve css, kullanıcı arayüzü tasarımında açıkça yer alan dillerdir. Bunları çok iyi anlamamıza gerek yok, ancak HTML, UI’de nesneler oluşturur (metin kutusu veya tablo gibi) ve css genellikle bu nesnelerin stilini ve estetiğini değiştirmek için kullanılır. Shiny’nin çok sayıda HTML etiketine erişimi vardır – bunların arasında başlıklar, metin paragrafları, satır sonları, tablolar vb. gibi belirli bir şekilde davranan nesneler için bulunur. Bu örneklerden bazılarını şu şekilde kullanabiliriz:</p>
 <ul>
-<li><p><code>h1()</code> - bu, ekteki metni otomatik olarak büyütecek ve yazı tipi yüzü, rengi vb. ile ilgili varsayılanları değiştirecek bir başlık etiketidir (uygulamanızın ana temasına bağlı olarak). h2() ile h6()’ya kadar daha küçük ve daha küçük alt başlıklara da erişebilirsiniz. Kullanım şuna benzer:</p>
+<li>
+<p><code>h1()</code> - bu, ekteki metni otomatik olarak büyütecek ve yazı tipi yüzü, rengi vb. ile ilgili varsayılanları değiştirecek bir başlık etiketidir (uygulamanızın ana temasına bağlı olarak). h2() ile h6()’ya kadar daha küçük ve daha küçük alt başlıklara da erişebilirsiniz. Kullanım şuna benzer:</p>
 <ul>
 <li><code>h1("my header - section 1")</code></li>
-</ul></li>
-<li><p><code>p()</code> - bu, içine alınmış metni bir metin gövdesindeki metne benzer hale getiren bir paragraf etiketidir. Bu metin otomatik olarak sarılır ve nispeten küçük bir boyutta olur (örneğin alt bilgiler daha küçük olabilir.) Bunu bir word belgesinin metin gövdesi olarak düşünün. Kullanım şuna benzer:</p>
+</ul>
+</li>
+<li>
+<p><code>p()</code> - bu, içine alınmış metni bir metin gövdesindeki metne benzer hale getiren bir paragraf etiketidir. Bu metin otomatik olarak sarılır ve nispeten küçük bir boyutta olur (örneğin alt bilgiler daha küçük olabilir.) Bunu bir word belgesinin metin gövdesi olarak düşünün. Kullanım şuna benzer:</p>
 <ul>
 <li><code>p("Bu, uygulamamın işlevini açıkladığım daha büyük bir metindir")</code></li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>tags$b()</code> ve <code>tags$i()</code> - bunlar kalın etiketler tags<span class="math inline">\(b() ve italik etiketler tags\)</span>i() oluşturmak için kullanılır.</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> ve <code>tags$li()</code> - bunlar, listelerin oluşturulmasında kullanılan etiketlerdir. Bunların tümü aşağıdaki sintaks içinde kullanılır ve kullanıcının sıralı bir liste (tags<span class="math inline">\(ol(); yani numaralandırılmış) veya sırasız liste (tags\)</span>ul(), yani madde işareti noktaları) oluşturmasına izin verir. Tags$li(), kullanılan liste türünden bağımsız olarak listedeki öğeleri belirtmek için kullanılır. Örneğin.:</p></li>
 </ul>
@@ -1327,22 +1346,17 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="bir-link-köprü-eklemek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bir-link-köprü-eklemek">Bir link (köprü) eklemek</h3>
+</section><section id="bir-link-köprü-eklemek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="bir-link-köprü-eklemek">Bir link (köprü) eklemek</h3>
 <p>Bir web sitesine link eklemek için, bağlantıyla birlikte tags<span class="math inline">\(a() kullanın ve metni aşağıda gösterildiği gibi görüntüleyin. Bağımsız bir paragrafa için metni p() içine koyun. Bir cümlenin sadece birkaç kelimesini linke bağlamak için, cümleyi parçalara ayırın ve köprülü kısım için tag\)</span>a() kullanın. Bağlantının yeni bir tarayıcı penceresinde açılmasını sağlamak için argüman olarak target = “_blank” ekleyin.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">a</span>(<span class="at">href =</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="indirme-düğmesi-eklemek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="indirme-düğmesi-eklemek">İndirme düğmesi eklemek</h3>
+</section><section id="indirme-düğmesi-eklemek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="indirme-düğmesi-eklemek">İndirme düğmesi eklemek</h3>
 <p>Üç özellikten ikincisine geçelim. İndirme düğmesini uygulamaya eklemek oldukça yaygındır ve yapılması oldukça kolaydır. Kullanıcı arayüzümüze başka bir widget eklememiz gerekiyor ve bunun için sunucumuza başka bir çıktı eklememiz gerekiyor. Bu örnekte reaktif iletkenleri de tanıtabiliriz!</p>
 <p>Önce kullanıcı arabirimimizi güncelleyelim - bu kolay çünkü shiny, downloadButton() adlı bir widget ile birlikte gelir - ona bir inputId ve bir etiket verelim.</p>
 <div class="cell">
@@ -1491,15 +1505,12 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
+<figure class="figure"><p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="tesis-seçici-eklemek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tesis-seçici-eklemek">Tesis seçici eklemek</h3>
+</section><section id="tesis-seçici-eklemek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tesis-seçici-eklemek">Tesis seçici eklemek</h3>
 <p>Bir sonraki özelliğimize geçelim - belirli tesisler için bir seçici. Fonksiyonumuza kodumuzdan bir argüman olarak iletebileceğimiz başka bir parametre uygulayacağız. İlk önce bunu yapmaya odaklanalım. – Yeni parametre diğer parametrelerle aynı ilkelere göre çalışır. Fonksiyonumuzu güncelleyip test edelim.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_epicurve <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">district =</span> <span class="st">"All"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_tot"</span>, <span class="at">facility =</span> <span class="st">"All"</span>) {</span>
@@ -1577,8 +1588,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Spring"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>, <span class="at">facility =</span> <span class="st">"Facility 1"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.tr_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.tr_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.tr_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.tr_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1767,15 +1777,12 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="tabloya-yeni-bir-sekme-eklemek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tabloya-yeni-bir-sekme-eklemek">Tabloya yeni bir sekme eklemek</h3>
+</section><section id="tabloya-yeni-bir-sekme-eklemek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="tabloya-yeni-bir-sekme-eklemek">Tabloya yeni bir sekme eklemek</h3>
 <p>Şimdi uygulamamıza eklemek istediğimiz son bileşene geçeceğiz. Kullanıcı arayüzünü iki sekmeye ayırmak isteyeceğiz, bunlardan biri, kullanıcının salgın eğrisini oluşturdukları verileri görebileceği etkileşimli bir tabloya sahip olacak. Bunu yapmak için, sekmelerle ilgili shiny ile birlikte gelen paket dahili kullanıcı arabirimi öğelerini kullanabiliriz. Temel düzeyde, ana panelimizin çoğunu bu genel yapıya dahil edebiliriz:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... kullanıcı arayüzünden geri kalan</span></span>
@@ -1929,16 +1936,13 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="shiny-uygulamalarının-paylaşılması" class="level2" data-number="43.7">
-<h2 data-number="43.7" class="anchored" data-anchor-id="shiny-uygulamalarının-paylaşılması"><span class="header-section-number">43.7</span> Shiny Uygulamalarının Paylaşılması</h2>
+</section></section><section id="shiny-uygulamalarının-paylaşılması" class="level2" data-number="43.7"><h2 data-number="43.7" class="anchored" data-anchor-id="shiny-uygulamalarının-paylaşılması">
+<span class="header-section-number">43.7</span> Shiny Uygulamalarının Paylaşılması</h2>
 <p>Artık uygulamanızı geliştirdiğinize göre, muhtemelen başkalarıyla paylaşmak istersiniz - bu, ne de olsa shiny’nin esas avantajıdır! Paylaşımı doğrudan kodu paylaşarak yapabiliriz veya bir sunucuda yayınlayabiliriz. Kodu paylaşırsak, başkaları ne yaptığınızı görebilir ve üzerine inşa edebilir, ancak bu, shiny’nin esas avantajlarından birini ortadan kaldıracaktır - son kullanıcıların bir R yükleme zorunluluğunu ortadan kaldırabilir. Bu nedenle, uygulamanızı R kullanmayan kullanıcılarla paylaşıyorsanız, sunucuda yayınlanan bir uygulamayı paylaşmak çok daha kolaydır.</p>
 <p>Kodu paylaşmayı tercih ederseniz, uygulamanın bir .zip dosyası oluşturabilir veya daha iyisi uygulamanızı github’da yayınlayabilir ve ortak çalışanlar ekleyebilirsiniz. Daha fazla bilgi için burada github ile ilgili bölüme başvurabilirsiniz.</p>
 <p>Ancak, uygulamayı çevrimiçi yayınlıyorsak, biraz daha çalışmamız gerekiyor. Sonuç olarak, başkalarının hızlı ve kolay bir şekilde erişebilmesi için uygulamanıza bir web URL’si aracılığıyla erişilebilmesini istiyoruz. Ne yazık ki, uygulamanızı bir sunucuda yayınlamak için, bir sunucuya erişiminiz olması gerekir! Bu söz konusu olduğunda bir dizi barındırma seçeneği vardır:</p>
@@ -1947,13 +1951,11 @@ window.Quarto = {
 <p>Öncelikle uygulamamızın bir sunucuda yayınlanmaya uygun olduğundan emin olmalıyız. Uygulamanızda, R oturumunuzu yeniden başlatmalı ve herhangi bir ekstra kod çalıştırmadan çalıştığından emin olmalısınız. Bu önemlidir, çünkü paket yükleme gerektiren bir uygulama veya uygulama kodunuzda tanımlanmayan veri olması durumunda sunucuda çalışmayacaktır. Ayrıca, uygulamanızda herhangi bir açık dosya yoluna sahip olamayacağınızı unutmayın - bunlar sunucu ayarında geçersiz olacaktır - buradaki paketi kullanmak bu sorunu çok iyi çözer. Son olarak, kuruluşunuzun sunucuları gibi kullanıcı kimlik doğrulaması gerektiren bir kaynaktan veri okuyorsanız, bu genellikle bir sunucuda çalışmaz. Shiny sunucusunu beyaz listeye nasıl ekleyeceğinizi öğrenmek için bilgi işlem departmanınızla bağlantı kurmanız gerekecek.</p>
 <p>Hesabınızı aldıktan sonra, Hesaplar altındaki belirteçler (tokens) sayfasına gidebilirsiniz. Burada yeni bir belirteç eklemek isteyeceksiniz – bu belirteç, uygulamanızı dağıtmak için kullanılacaktır. Buradan, hesabınızın url’sinin uygulamanızın adını yansıtacağını unutmamalısınız - bu nedenle uygulamanızın adı my_app ise, url xxx.io/my_app/ olarak eklenecektir. Uygulamanızın adını akıllıca seçin! Artık hazır olduğunuza göre, dağıt’a (deploy) tıklayın - başarılı olursa, bu uygulamanızı seçtiğiniz web url’sinde çalıştıracaktır!</p>
 <p><em>belgelerde uygulama yapma konusunda ek bir şey var mı?</em></p>
-</section>
-<section id="ileri-okuma" class="level2" data-number="43.8">
-<h2 data-number="43.8" class="anchored" data-anchor-id="ileri-okuma"><span class="header-section-number">43.8</span> İleri okuma</h2>
+</section><section id="ileri-okuma" class="level2" data-number="43.8"><h2 data-number="43.8" class="anchored" data-anchor-id="ileri-okuma">
+<span class="header-section-number">43.8</span> İleri okuma</h2>
 <p>Şimdiye kadar, shiny’nin birçok yönünü ele aldık ancak tüm bilgiler göz önünde bulundurulursa shiny’yi ancak yüzeyel olarak gözden geçirdik. Bu kılavuz bir giriş niteliğinde olsa da, shiny’yi tam olarak anlamak için öğrenilecek daha çok şey var. Uygulamalar oluşturmaya başlamalı ve giderek daha fazla işlevsellik eklemelisiniz.</p>
-</section>
-<section id="önerilen-shiny-uzantıları" class="level2" data-number="43.9">
-<h2 data-number="43.9" class="anchored" data-anchor-id="önerilen-shiny-uzantıları"><span class="header-section-number">43.9</span> Önerilen shiny uzantıları</h2>
+</section><section id="önerilen-shiny-uzantıları" class="level2" data-number="43.9"><h2 data-number="43.9" class="anchored" data-anchor-id="önerilen-shiny-uzantıları">
+<span class="header-section-number">43.9</span> Önerilen shiny uzantıları</h2>
 <p>Aşağıdakiler, shiny’den çok daha fazlasını elde etmenize yardımcı olabilecek yüksek kalitede shiny uzantıların bir seçimini temsil etmektedir. Bu uzantılar belirli bir sırada değildir:</p>
 <p>• brightWidgets - bu paket size uygulamanızda kullanabileceğiniz çok daha fazla widget sunar. Bu pakette mevcut widgetların bir seçimini görmek için shinyWidgets::shinyWidgetsGallery()’yi çalıştırın. <a href="https://github.com/dreamRs/shinyWidgets">buradaki</a> örneklere bakabilirsiniz.</p>
 <p>• shinyjs – bu uzantı, kullanıcıya bir dizi javascript aracılığıyla shiny’ye büyük ölçüde genişletme yeteneği veren mükemmel bir pakettir. Bu paketin uygulamaları çok basitten son derece gelişmişe kadar değişir, ancak ilk önce kullanıcı arabirimini öğeleri gizleme/gösterme veya düğmeleri etkinleştirme/devre dışı bırakma gibi basit yollarla değiştirmek için kullanmak isteyebilirsiniz. Daha fazlasını buradan öğrenin:</p>
@@ -1971,10 +1973,7 @@ window.Quarto = {
 <p>Shiny uyumlu etkileşimli çıktılar oluşturmak için kullanılabilecek bir dizi paket de vardır. • <strong>DT</strong>, temel shiny’ye yarı entegredir, ancak etkileşimli tablolar oluşturmak için harika bir dizi fonksiyon sağlar. • <strong>plotly</strong>, kullanıcının uygulamada değiştirebileceği etkileşimli grafikler oluşturmaya yönelik bir pakettir. Ayrıca plotly::ggplotly() yoluyla grafiğinizi etkileşimli sürümlere dönüştürebilirsiniz! Alternatif olarak, <strong>dygraphs</strong> ve <strong>highcharter</strong> da mükemmeldir.</p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2153,18 +2152,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2196,7 +2184,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2231,7 +2259,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2504,60 +2536,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/flexdashboard.tr.html" class="pagination-link" aria-label="R Markdown ile gösterge panelleri">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdown ile gösterge panelleri</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdown ile gösterge panelleri</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/writing_functions.tr.html" class="pagination-link" aria-label="Yazma fonksiyonları">
-        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Yazma fonksiyonları</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">44</span>  <span class="chapter-title">Yazma fonksiyonları</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>
