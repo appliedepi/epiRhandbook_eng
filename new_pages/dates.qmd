@@ -262,8 +262,40 @@ linelist <- linelist %>%
   mutate(date_onset = parse_date(date_onset))
 ```
 
+Another function we can use is `fix_date_df` from the [**datefixR** package](https://docs.ropensci.org/datefixR/). This package can take in a wide variety of different, messy, date formats at the same time and set them to a standard format!
+
+```{r}
+
+pacman::p_load(
+     datefixR
+)
+
+#Set up messy dates
+messy_data_table <- data.frame(
+     case = 1:6,
+     onset_date = c("2014-01-01",
+                    "05 9 14",
+                    "2014 july",
+                    "1st Apr 2014",
+                    "15 le avril 2014",
+                    2015
+                    )
+     )
+
+messy_data_table
+
+#Fix the dates
+fix_date_df(
+     df = messy_data_table,
+     col.names = c("onset_date")
+)
 
 
+```
+
+You can see that even with this range of different formats (and languages!) it has managed to format all of our dates in the same way. Note that for dates missing a "month" it uses the default of 7 (July) and those missing a day it defaults to 1 (1st day of the month). These can be customised using the arguments `day.impute = ` and `month.impute = `.
+
+For a list of the languages that can be used, and additional functions and limitations, please see the [website](https://docs.ropensci.org/datefixR/).
 
 <!-- ======================================================= -->
 ## Working with date-time class  

@@ -1,8 +1,10 @@
 # R Basics {#rbasics}
 
+
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "basics_header_close.png"))
 ```
+
 
 Welcome!
 
@@ -12,11 +14,13 @@ Parts of this page have been adapted with permission from the [R4Epis project](h
 
 See the page on [Transition to R](transition_to_R.qmd) for tips on switching to R from STATA, SAS, or Excel.
 
+
 ```{r, echo=F}
 # import the cleaned ebola linelist
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 pacman::p_load(apyramid)
 ```
+
 
 <!-- ======================================================= -->
 
@@ -148,11 +152,13 @@ See <https://yihui.org/tinytex/> for more informaton.
 
 To install TinyTex from R:
 
+
 ```{r, eval=F}
 install.packages('tinytex')
 tinytex::install_tinytex()
 # to uninstall TinyTeX, run tinytex::uninstall_tinytex()
 ```
+
 
 #### Pandoc {.unnumbered}
 
@@ -184,9 +190,11 @@ For RStudio to work you must also have R installed on the computer (see above fo
 
 By default RStudio displays four rectangle panes.
 
+
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "RStudio_overview.png"))
 ```
+
 
 [***TIP:*** If your RStudio displays only one left pane it is because you have no scripts open yet.]{style="color: black;"}
 
@@ -217,11 +225,13 @@ This pane contains the Stata equivalents of the Plots Manager and Project Manage
 
 Change RStudio settings and appearance in the *Tools* drop-down menu, by selecting *Global Options*. There you can change the default settings, including appearance/background color.
 
+
 ```{r out.width = c('50%'), fig.show='hold', echo=F}
 knitr::include_graphics(here::here("images", "RStudio_tools_options_1.png"))
 
 knitr::include_graphics(here::here("images", "RStudio_tools_options.png"))
 ```
+
 
 **Restart**
 
@@ -298,16 +308,20 @@ This basics section on functions explains:
 
 **Functions typically operate upon some object placed within the function's parentheses**. For example, the function `sqrt()` calculates the square root of a number:
 
+
 ```{r basics_function_sqrt}
 sqrt(49)
 ```
 
+
 The object provided to a function also can be a column in a dataset (see the [Objects](#objects) section for detail on all the kinds of objects). Because R can store multiple datasets, you will need to specify both the dataset and the column. One way to do this is using the `$` notation to link the name of the dataset and the name of the column (`dataset$column`). In the example below, the function `summary()` is applied to the numeric column `age` in the dataset `linelist`, and the output is a summary of the column's numeric and missing values.
+
 
 ```{r basics_functions_summary}
 # Print summary statistics of column 'age' in the dataset 'linelist'
 summary(linelist$age)
 ```
+
 
 [***NOTE:*** Behind the scenes, a function represents complex additional code that has been wrapped up for the user into one easy command.]{style="color: black;"}
 
@@ -323,11 +337,14 @@ Functions often ask for several inputs, called ***arguments***, located within t
 
 Here is a fun fictional function, called `oven_bake()`, as an example of a typical function. It takes an input object (e.g. a dataset, or in this example "dough") and performs operations on it as specified by additional arguments (`minutes =` and `temperature =`). The output can be printed to the console, or saved as an object using the assignment operator `<-`.
 
+
 ```{r basics_functions_image, echo=F, out.width = "75%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "Function_Bread_Example.png"))
 ```
 
+
 **In a more realistic example**, the `age_pyramid()` command below produces an age pyramid plot based on defined age groups and a binary split column, such as `gender`. The function is given three arguments within the parentheses, separated by commas. The values supplied to the arguments establish `linelist` as the data frame to use, `age_cat5` as the column to count, and `gender` as the binary column to use for splitting the pyramid by color.
+
 
 ```{r basics_functions_arguments, include=FALSE, results='hide', message=FALSE, warning=FALSE,}
 ## create an age group variable by specifying categorical breaks
@@ -339,7 +356,9 @@ linelist$age_group <- cut(linelist$age, breaks = c(0, 5, 10, 15, 20, 30, 45, 60)
 age_pyramid(data = linelist, age_group = "age_cat5", split_by = "gender")
 ```
 
+
 The above command can be equivalently written as below, in a longer style with a new line for each argument. This style can be easier to read, and easier to write "comments" with `#` to explain each part (commenting extensively is good practice!). To run this longer command you can highlight the entire command and click "Run", or just place your cursor in the first line and then press the Ctrl and Enter keys simultaneously.
+
 
 ```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
 # Create an age pyramid
@@ -350,12 +369,15 @@ age_pyramid(
   )
 ```
 
+
 The first half of an argument assignment (e.g. `data =`) does not need to be specified if the arguments are written in a specific order (specified in the function's documentation). The below code produces the exact same pyramid as above, because the function expects the argument order: data frame, `age_group` variable, `split_by` variable.
+
 
 ```{r, basics_functions_pyramid2, eval = FALSE, warning=FALSE, message=FALSE, , out.width = "75%", out.height="75%", eval=F}
 # This command will produce the exact same graphic as above
 age_pyramid(linelist, "age_cat5", "gender")
 ```
+
 
 **A more complex `age_pyramid()` command might include the *optional* arguments to:**
 
@@ -363,6 +385,7 @@ age_pyramid(linelist, "age_cat5", "gender")
 -   Specify the two colors to use (`pal =` is short for "palette" and is supplied with a vector of two color names. See the [objects](https://epirhandbook.com/new_pages/basics.html#objects) page for how the function `c()` makes a vector)
 
 [***NOTE:*** For arguments that you specify with both parts of the argument (e.g. `proportional = TRUE`), their order among all the arguments does not matter.]{style="color: black;"}
+
 
 ```{r message=FALSE, warning=FALSE, out.width = "75%", out.height="75%"}
 age_pyramid(
@@ -373,6 +396,7 @@ age_pyramid(
   pal = c("orange", "purple")  # colors
   )
 ```
+
 ***TIP:*** Remember that you can put `?` before a function to see what arguments the function can take, and which arguments are needed and which arguments have default values. For example `?age_pyramid'.
 
 <!-- ======================================================= -->
@@ -389,9 +413,11 @@ How to write a function is covered in-depth in the [Writing functions](writing_f
 
 <!-- A function is given a name and defined with the assignment operator `<-` to a special **base** R function called `function()`. Within the parentheses, the arguments that the function will accept are defined. This is followed by curly brackets `{ }`, within which the actual code of the function is written.     -->
 
+
 ```{r, eval=F, echo=F}
 my_function <- function( ARGUMENTS HERE ){ CODE HERE }
 ```
+
 
 <!-- The arguments should be provided in the syntax `argument = default`, separated by commas.   -->
 
@@ -437,6 +463,7 @@ my_function <- function( ARGUMENTS HERE ){ CODE HERE }
 
 <!-- Once this code is run, the function will be defined and will appear in the R Environment. We can run the function. Below all the default values are used and the `daily_cases = ` is set to 150.   -->
 
+
 ```{r eval=F, echo=F, message=FALSE, warning=FALSE, out.width = "75%", out.height="75%"}
 staff_calc(daily_cases = 150)
 ```
@@ -452,6 +479,7 @@ ggplot(case_incidence, aes(x = dates))+
   geom_line(aes(y = projected_incidence))+
   geom_line(aes(y = staff_needed))
 ```
+
 
 <!-- There are many other nuances to understand when writing functions, as discussed in the page [Writing functions].   -->
 
@@ -498,16 +526,19 @@ The syntax quite simple. Just list the names of the packages within the `p_load(
 
 Note that package names are case-sensitive.
 
+
 ```{r}
 # Install (if necessary) and load packages for use
 pacman::p_load(rio, tidyverse, here)
 ```
+
 
 Here we have used the syntax `pacman::p_load()` which explicitly writes the package name (**pacman**) prior to the function name (`p_load()`), connected by two colons `::`. This syntax is useful because it also loads the **pacman** package (assuming it is already installed).
 
 There are alternative **base** R functions that you will see often. The **base** R function for installing a package is `install.packages()`. The name of the package to install must be provided in the parentheses *in quotes*. If you want to install multiple packages in one command, they must be listed within a character vector `c()`.
 
 Note: this command *installs* a package, but does *not* load it for use in the current session.
+
 
 ```{r, eval=F}
 # install a single package with base R
@@ -517,9 +548,11 @@ install.packages("tidyverse")
 install.packages(c("tidyverse", "rio", "here"))
 ```
 
+
 Installation can also be accomplished point-and-click by going to the RStudio "Packages" pane and clicking "Install" and searching for the desired package name.
 
 The **base** R function to **load** a package for use (after it has been installed) is `library()`. It can load only one package at a time (another reason to use `p_load()`). You can provide the package name with or without quotes.
+
 
 ```{r, eval=F}
 # load packages for use, with base R
@@ -527,6 +560,7 @@ library(tidyverse)
 library(rio)
 library(here)
 ```
+
 
 To check whether a package in installed or loaded, you can view the Packages pane in RStudio. If the package is installed, it is shown there with version number. If its box is checked, it is loaded for the current session.
 
@@ -544,17 +578,21 @@ To install from Github, you have to provide more information. You must provide:
 
 In the examples below, the first word in the quotation marks is the Github ID of the repository owner, after the slash is the name of the repository (the name of the package).
 
+
 ```{r, eval=F}
 # install/load the epicontacts package from its Github repository
 p_load_gh("reconhub/epicontacts")
 ```
 
+
 If you want to install from a "branch" (version) other than the main branch, add the branch name after an "\@", after the repository name.
+
 
 ```{r, eval=F}
 # install the "timeline" branch of the epicontacts package from Github
 p_load_gh("reconhub/epicontacts@timeline")
 ```
+
 
 If there is no difference between the Github version and the version on your computer, no action will be taken. You can "force" a re-install by instead using `p_load_current_gh()` with the argument `update = TRUE`. Read more about **pacman** in this [online vignette](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html)
 
@@ -562,24 +600,30 @@ If there is no difference between the Github version and the version on your com
 
 You could install the package from a URL:
 
+
 ```{r, eval=F}
 packageurl <- "https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"
 install.packages(packageurl, repos=NULL, type="source")
 ```
 
+
 Or, download it to your computer in a zipped file:
 
 Option 1: using `install_local()` from the **remotes** package
+
 
 ```{r, eval=F}
 remotes::install_local("~/Downloads/dplyr-master.zip")
 ```
 
+
 Option 2: using `install.packages()` from **base** R, providing the file path to the ZIP file and setting `type = "source` and `repos = NULL`.
+
 
 ```{r, eval=F}
 install.packages("~/Downloads/dplyr-master.zip", repos=NULL, type="source")
 ```
+
 
 ### Code syntax {.unnumbered}
 
@@ -587,10 +631,12 @@ For clarity in this handbook, functions are sometimes preceded by the name of th
 
 Once a package is loaded for a session, this explicit style is not necessary. One can just use `function_name()`. However writing the package name is useful when a function name is common and may exist in multiple packages (e.g. `plot()`). Writing the package name will also load the package if it is not already loaded.
 
+
 ```{r eval=FALSE}
 # This command uses the package "rio" and its function "import()" to import a dataset
 linelist <- rio::import("linelist.xlsx", which = "Sheet1")
 ```
+
 
 ### Function help {.unnumbered}
 
@@ -616,9 +662,11 @@ It is not uncommon that two or more packages contain the same function name. For
 
 You can check the order in your Environment pane of R Studio - click the drop-down for "Global Environment" and see the order of the packages. Functions from packages *lower* on that drop-down list will mask functions of the same name in packages that appear higher in the drop-down list. When first loading a package, R will warn you in the console if masking is occurring, but this can be easy to miss.
 
+
 ```{r out.width = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "masking_functions.png"))
 ```
+
 
 Here are ways you can fix masking:
 
@@ -629,9 +677,11 @@ Here are ways you can fix masking:
 
 To detach (unload) a package, use this command, with the correct package name and only one colon. Note that this may not resolve masking.
 
+
 ```{r, eval=F}
 detach(package:PACKAGE_NAME_HERE, unload=TRUE)
 ```
+
 
 ### Install older version {.unnumbered}
 
@@ -658,6 +708,7 @@ In a script you can also annotate ("comment") around your R code. Commenting is 
 
 Any code written after the \# will not be run. Therefore, placing a \# before code is also a useful way to temporarily block a line of code ("comment out") if you do not want to delete it. You can comment out/in multiple lines at once by highlighting them and pressing Ctrl+Shift+c (Cmd+Shift+c in Mac).
 
+
 ```{r, eval = F}
 # A comment can be on a line by itself
 # import data
@@ -666,6 +717,7 @@ linelist <- import("linelist_raw.xlsx") %>%   # a comment can also come after co
   count()
 
 ```
+
 
 There are a few general ideas to follow when writing your scripts in order to make them accessible.
 -   Add comments on *what* you are doing *and on **why** you are doing it*.\
@@ -684,9 +736,11 @@ A few very basic points to make your code readable to others:\
 
 Below is an example of a short R script. Remember, the better you succinctly explain your code in comments, the more your colleagues will like you!
 
+
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "example_script.png"))
 ```
+
 
 <!-- ======================================================= -->
 
@@ -730,10 +784,12 @@ By creating headers with \#, you will also activate the Table of Contents at the
 
 Below are two versions of an example script. On the left is the original with commented headers. On the right, four dashes have been written after each header, making them collapsible. Two of them have been collapsed, and you can see that the Table of Contents at the bottom now shows each section.
 
+
 ```{r, out.width = c('50%'), fig.show='hold', echo=F}
 knitr::include_graphics(here::here("images", "code_folding1.png"))
 knitr::include_graphics(here::here("images", "code_folding2.png"))
 ```
+
 
 Other areas of code that are automatically eligible for folding include "braced" regions with brackets `{ }` such as function definitions or conditional blocks (if else statements). You can read more about code folding at the RStudio [site](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
 
@@ -749,9 +805,11 @@ The working directory is the root folder location used by R for your work - wher
 
 The working directory appears in grey text at the top of the RStudio Console pane. You can also print the current working directory by running `getwd()` (leave the parentheses empty).
 
+
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "working_directory_1.png"))
 ```
+
 
 ### Recommended approach {.unnumbered}
 
@@ -775,9 +833,11 @@ In brief, your work becomes specific to your computer. This means that file path
 
 As noted above, although we do not recommend this approach in most circumstances, you can use the command `setwd()` with the desired folder file path in quotations, for example:
 
+
 ```{r, eval=F}
 setwd("C:/Documents/R Files/My analysis")
 ```
+
 
 [***DANGER:*** Setting a working directory with `setwd()` *can* be "brittle" if the file path is specific to one computer. Instead, use file paths relative to an R Project root directory, such as with the [**here** package]. ]{style="color: red;"}
 
@@ -801,9 +861,11 @@ In an R markdown script, the default working directory is the folder the Rmarkdo
 
 If you want to change the working directory of a stand-alone R markdown (not in an R project), if you use `setwd()` this will only apply to that specific code chunk. To make the change for all code chunks in an R markdown, edit the setup chunk to add the `root.dir =` parameter, such as below:
 
+
 ```{r, eval=F}
 knitr::opts_knit$set(root.dir = 'desired/directorypath')
 ```
+
 
 It is much easier to just use the R markdown within an R project and use the **here** package.
 
@@ -829,10 +891,12 @@ Use *forward slashes* (`/`) to separate the components ("data/provincial.csv"). 
 
 We generally recommend providing "relative" filepaths instead - that is, the path *relative to* the root of your R Project. You can do this using the **here** package as explained in the [R projects](r_projects.qmd) page. A relativel filepath might look like this:
 
+
 ```{r, eval=F}
 # Import csv linelist from the data/linelist/clean/ sub-folders of an R project
 linelist <- import(here("data", "clean", "linelists", "marin_country.csv"))
 ```
+
 
 Even if using relative file paths within an R project, you can still use absolute paths to import and export data outside your R project.
 
@@ -870,10 +934,12 @@ For example, you may want to record the current epidemiological reporting week a
 
 See the R commands and their output in the boxes below.
 
+
 ```{r basics_objects_assignment}
 current_week <- "2018-W10"   # this command creates the object current_week by assigning it a value
 current_week                 # this command prints the current value of current_week object in the console
 ```
+
 
 [***NOTE:*** Note the `[1]` in the R console output is simply indicating that you are viewing the first item of the output]{style="color: black;"}
 
@@ -881,10 +947,12 @@ current_week                 # this command prints the current value of current_
 
 The following command will re-define the value of `current_week`:
 
+
 ```{r basics_objects_reassignment}
 current_week <- "2018-W51"   # assigns a NEW value to the object current_week
 current_week                 # prints the current value of current_week in the console
 ```
+
 
 **Equals signs `=`**
 
@@ -898,10 +966,12 @@ You will also see equals signs in R code:
 
 Datasets are also objects (typically "data frames") and must be assigned names when they are imported. In the code below, the object `linelist` is created and assigned the value of a CSV file imported with the **rio** package and its `import()` function.
 
+
 ```{r basics_objects_data frames, eval=FALSE}
 # linelist is created and assigned the value of the imported CSV file
 linelist <- import("my_linelist.csv")
 ```
+
 
 You can read more about importing and exporting datasets with the section on [Import and export](importing.qmd).
 
@@ -915,12 +985,15 @@ You can read more about importing and exporting datasets with the section on [Im
 
 Outputs like tables and plots provide an example of how outputs can be saved as objects, or just be printed without being saved. A cross-tabulation of gender and outcome using the **base** R function `table()` can be printed directly to the R console (*without* being saved).
 
+
 ```{r}
 # printed to R console only
 table(linelist$gender, linelist$outcome)
 ```
 
+
 But the same table can be saved as a named object. Then, optionally, it can be printed.
+
 
 ```{r}
 # save
@@ -930,24 +1003,29 @@ gen_out_table <- table(linelist$gender, linelist$outcome)
 gen_out_table
 ```
 
+
 **Columns**
 
 Columns in a dataset are also objects and can be defined, over-written, and created as described below in the section on [Columns](https://epirhandbook.com/new_pages/basics.html#columnsvariables).
 
 You can use the assignment operator from **base** R to create a new column. Below, the new column `bmi` (Body Mass Index) is created, and for each row the new value is result of a mathematical operation on the row's value in the `wt_kg` and `ht_cm` columns.
 
+
 ```{r, eval=F}
 # create new "bmi" column using base R syntax
 linelist$bmi <- linelist$wt_kg / (linelist$ht_cm/100)^2
 ```
 
+
 However, in this handbook, we emphasize a different approach to defining columns, which uses the function `mutate()` from the **dplyr** package and *piping* with the pipe operator (`%>%`). The syntax is easier to read and there are other advantages explained in the page on [Cleaning data and core functions](cleaning.qmd). You can read more about *piping* in the Piping section below.
+
 
 ```{r, eval=F}
 # create new "bmi" column using dplyr syntax
 linelist <- linelist %>% 
   mutate(bmi = wt_kg / (ht_cm/100)^2)
 ```
+
 
 <!-- ======================================================= -->
 
@@ -957,9 +1035,11 @@ linelist <- linelist %>%
 
 The graphic below is borrowed from [this online R tutorial](http://venus.ifca.unican.es/Rintro/dataStruct.html). It shows some common data structures and their names. Not included in this image is spatial data, which is discussed in the [GIS basics](gis.qmd) page.
 
+
 ```{r basics_objects_structures, echo=F, out.width = "75%", out.height="50%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "R_data_structures.png"))
 ```
+
 
 In epidemiology (and particularly field epidemiology), you will *most commonly* encounter data frames and vectors:
 
@@ -1004,6 +1084,7 @@ All the objects stored in R have a *class* which tells R how to handle the objec
 
 **You can test the class of an object by providing its name to the function `class()`**. Note: you can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column.
 
+
 ```{r, echo=TRUE,}
 class(linelist)         # class should be a data frame or tibble
 
@@ -1012,7 +1093,9 @@ class(linelist$age)     # class should be numeric
 class(linelist$gender)  # class should be character
 ```
 
+
 Sometimes, a column will be converted to a different class automatically by R. Watch out for this! For example, if you have a vector or column of numbers, but a character value is inserted... the entire column will change to class character.
+
 
 ```{r}
 num_vector <- c(1, 2 , 3, 4, 5) # define vector as all numbers
@@ -1020,6 +1103,7 @@ class(num_vector)          # vector is numeric class
 num_vector[3] <- "three"   # convert the third element to a character
 class(num_vector)          # vector is now character class
 ```
+
 
 One common example of this is when manipulating a data frame in order to print a table - if you make a total row and try to paste/glue together percents in the same cell as numbers (e.g. `23 (40%)`), the entire numeric column above will convert to character and can no longer be used for mathematical calculations.**Sometimes, you will need to convert objects or columns to another class.**
 
@@ -1049,6 +1133,7 @@ Here is [more online material on classes and data structures in R](https://swcar
 
 A vector can exist independent of a data frame, for example a vector of column names that you want to include as explanatory variables in a model. To create a "stand alone" vector, use the `c()` function as below:
 
+
 ```{r, warning=F, message=F}
 # define the stand-alone vector of character values
 explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
@@ -1057,7 +1142,9 @@ explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
 explanatory_vars
 ```
 
+
 **Columns in a data frame are also vectors and can be called, referenced, extracted, or created using the `$` symbol.** The `$` symbol connects the name of the column to the name of its data frame. In this handbook, we try to use the word "column" instead of "variable".
+
 
 ```{r basics_objects_call, eval=F}
 # Retrieve the length of the vector age_years
@@ -1065,11 +1152,14 @@ length(linelist$age) # (age is a column in the linelist data frame)
 
 ```
 
+
 By typing the name of the data frame followed by `$` you will also see a drop-down menu of all columns in the data frame. You can scroll through them using your arrow key, select one with your Enter key, and avoid spelling mistakes!
+
 
 ```{r echo=F, out.width = "100%", fig.align = "center"}
 knitr::include_graphics(here::here("images", "Calling_Names.gif"))
 ```
+
 
 [***ADVANCED TIP:*** Some more complex objects (e.g. a list, or an `epicontacts` object) may have multiple levels which can be accessed through multiple dollar signs. For example `epicontacts$linelist$date_onset`]{style="color: darkgreen;"}
 
@@ -1079,12 +1169,15 @@ knitr::include_graphics(here::here("images", "Calling_Names.gif"))
 
 You may need to view parts of objects, also called "indexing", which is often done using the square brackets `[ ]`. Using `$` on a data frame to access a column is also a type of indexing.
 
+
 ```{r}
 my_vector <- c("a", "b", "c", "d", "e", "f")  # define the vector
 my_vector[5]                                  # print the 5th element
 ```
 
+
 Square brackets also work to return specific parts of an returned output, such as the output of a `summary()` function:
+
 
 ```{r}
 # All of the summary
@@ -1101,7 +1194,9 @@ summary(linelist$age)[["Median"]]
 
 ```
 
+
 Brackets also work on data frames to view specific rows and columns. You can do this using the syntax `data frame[rows, columns]`:
+
 
 ```{r basics_objects_access, eval=F}
 # View a specific row (2) from dataset, with all columns (don't forget the comma!)
@@ -1131,9 +1226,11 @@ View(linelist[2:20, "date_onset"])
 new_table <- linelist[2:20, c("date_onset")] 
 ```
 
+
 Note that you can also achieve the above row/column indexing on data frames and tibbles using **dplyr** syntax (functions `filter()` for rows, and `select()` for columns). Read more about these core functions in the [Cleaning data and core functions](cleaning.qmd) page.
 
 To filter based on "row number", you can use the **dplyr** function `row_number()` with open parentheses as part of a logical filtering statement. Often you will use the `%in%` operator and a range of numbers as part of that logical statement, as shown below. To see the *first* N rows, you can also use the special **dplyr** function `head()`. Note, there is a function `head()` from **base** R, but this is overwritten by the **dplyr** function when you load **tidyverse**.
+
 
 ```{r, eval=F}
 # View first 100 rows
@@ -1148,9 +1245,11 @@ linelist %>%
      select(date_onset, outcome, age)
 ```
 
+
 When indexing an object of class **list**, single brackets always return with class list, even if only a single object is returned. Double brackets, however, can be used to access a single element and return a different class than list. Brackets can also be written after one another, as demonstrated below.
 
 This [visual explanation of lists indexing, with pepper shakers](https://r4ds.had.co.nz/vectors.html#lists-of-condiments) is humorous and helpful.
+
 
 ```{r}
 # define demo list
@@ -1166,16 +1265,20 @@ my_list <- list(
   )
 ```
 
+
 Here is how the list looks when printed to the console. See how there are two named elements:
 
 -   `hospitals`, a character vector\
 -   `addresses`, a data frame of addresses
 
+
 ```{r}
 my_list
 ```
 
+
 Now we extract, using various methods:
+
 
 ```{r}
 my_list[1] # this returns the element in class "list" - the element name is still displayed
@@ -1190,21 +1293,26 @@ my_list[[2]][1] # This returns the first column ("street") of the address data f
 
 ```
 
+
 <!-- ======================================================= -->
 
 ### Remove objects {.unnumbered}
 
 You can remove individual objects from your R environment by putting the name in the `rm()` function (no quote marks):
 
+
 ```{r, eval=F}
 rm(object_name)
 ```
 
+
 You can remove all objects (clear your workspace) by running:
+
 
 ```{r, eval=F}
 rm(list = ls(all = TRUE))
 ```
+
 
 <!-- ======================================================= -->
 
@@ -1242,6 +1350,7 @@ To read more about the differences between base R and tidyverse (magrittr) pipes
 
 Here is a fake example for comparison, using fictional functions to "bake a cake". First, the pipe method:
 
+
 ```{r piping_example_pipe, eval=F}
 # A fake example of how to bake a cake using piping syntax
 
@@ -1258,7 +1367,9 @@ cake <- flour %>%       # to define cake, start with flour, and then...
   let_cool()            # let it cool down
 ```
 
+
 Note that just like other R commands, pipes can be used to just display the result, or to save/re-save an object, depending on whether the assignment operator `<-` is involved. See both below:
+
 
 ```{r, eval=F}
 # Create or overwrite object, defining as aggregate counts by age category (not printed)
@@ -1272,8 +1383,10 @@ linelist %>%
   count(age_cat)
 ```
 
+
 **`%<>%`**\
 This is an "assignment pipe" from the **magrittr** package, which *pipes an object forward and also re-defines the object*. It must be the first pipe operator in the chain. It is shorthand. The below two commands are equivalent:
+
 
 ```{r, eval=F}
 linelist <- linelist %>%
@@ -1281,6 +1394,7 @@ linelist <- linelist %>%
 
 linelist %<>% filter(age > 50)
 ```
+
 
 <!-- ======================================================= -->
 
@@ -1301,6 +1415,7 @@ Either name each intermediate object, or overwrite the original, or combine all 
 
 Below is the same fake "cake" example as above, but using this style:
 
+
 ```{r piping_example_redefine, eval=F}
 # a fake example of how to bake a cake using this method (defining intermediate objects)
 batter_1 <- left_join(flour, eggs)
@@ -1314,12 +1429,15 @@ cake <- bake(batter_4, degrees = 350, system = "fahrenheit", minutes = 35)
 cake <- let_cool(cake)
 ```
 
+
 Combine all functions together - this is difficult to read:
+
 
 ```{r eval=F}
 # an example of combining/nesting mutliple functions together - difficult to read
 cake <- let_cool(bake(mix_together(batter_3, utensil = spoon, minutes = 2), degrees = 350, system = "fahrenheit", minutes = 35))
 ```
+
 
 <!-- ======================================================= -->
 
@@ -1351,16 +1469,20 @@ If [Writing functions](writing_functions.qmd), or using R in an interactive way 
 
 This is an "assignment pipe" from the **magrittr** package, which pipes an object forward and *also re-defines the object*. It must be the first pipe operator in the chain. It is shorthand, as shown below in two equivalent examples:
 
+
 ```{r, eval=F}
 linelist <- linelist %>% 
   mutate(age_months = age_years * 12)
 ```
 
+
 The above is equivalent to the below:
+
 
 ```{r, eval=F}
 linelist %<>% mutate(age_months = age_years * 12)
 ```
+
 
 **`%<+%`**
 
@@ -1406,6 +1528,7 @@ Logical operators, such as AND and OR, are often used to connect relational oper
 
 For example, below, we have a linelist with two variables we want to use to create our case definition, `hep_e_rdt`, a test result and `other_cases_in_hh`, which will tell us if there are other cases in the household. The command below uses the function `case_when()` to create the new variable `case_def` such that:
 
+
 ```{r eval=FALSE}
 linelist_cleaned <- linelist %>%
   mutate(case_def = case_when(
@@ -1415,6 +1538,7 @@ linelist_cleaned <- linelist %>%
     TRUE                                                     ~ "Suspected"
   ))
 ```
+
 
 +------------------------------------------------------------------------------------------------+--------------------------------------------+
 | Criteria in example above                                                                      | Resulting value in new variable "case_def" |
@@ -1438,10 +1562,12 @@ In R, missing values are represented by the special value `NA` (a "reserved" val
 
 **To test whether a value is `NA`, use the special function `is.na()`**, which returns `TRUE` or `FALSE`.
 
+
 ```{r basics_operators_missing}
 rdt_result <- c("Positive", "Suspected", "Positive", NA)   # two positive cases, one suspected, and one unknown
 is.na(rdt_result)  # Tests whether the value of rdt_result is NA
 ```
+
 
 Read more about missing, infinite, `NULL`, and impossible values in the page on [Missing data](missing_data.qmd). Learn how to convert missing values when importing data in the page on [Import and export](importing.qmd).
 
@@ -1489,28 +1615,25 @@ From the documentation of `?options`: scipen is a penalty to be applied when dec
 
 If it is set to a low number (e.g. 0) it will be "turned on" always. To "turn off" scientific notation in your R session, set it to a very high number, for example:
 
+
 ```{r, eval=F}
 # turn off scientific notation
 options(scipen = 999)
 ```
 
+
 #### Rounding {.unnumbered}
 
 [***DANGER:*** `round()` uses "banker's rounding" which rounds up from a .5 only if the upper number is even. Use `round_half_up()` from **janitor** to consistently round halves up to the nearest whole number. See [this explanation](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#explore-records-with-duplicated-values-for-specific-combinations-of-variables-with-get_dupes) ]{style="color: red;"}
+
 
 ```{r}
 # use the appropriate rounding function for your work
 round(c(2.5, 3.5))
 
 janitor::round_half_up(c(2.5, 3.5))
-
 ```
 
-For rounding from proportion to percentages, you can use the function `percent()` from the **scales** package.
-
-```{r}
-scales::percent(c(0.25, 0.35), accuracy = 0.1)
-```
 
 #### Statistical functions {.unnumbered}
 
@@ -1535,12 +1658,14 @@ Notes:
 
 [***DANGER:*** If providing a vector of numbers to one of the above functions, be sure to wrap the numbers within `c()` .]{style="color: red;"}
 
+
 ```{r}
 # If supplying raw numbers to a function, wrap them in c()
 mean(1, 6, 12, 10, 5, 0)    # !!! INCORRECT !!!  
 
 mean(c(1, 6, 12, 10, 5, 0)) # CORRECT
 ```
+
 
 #### Other useful functions {.unnumbered}
 
@@ -1562,6 +1687,7 @@ mean(c(1, 6, 12, 10, 5, 0)) # CORRECT
 
 A very useful operator for matching values, and for quickly assessing if a value is within a vector or data frame.
 
+
 ```{r}
 my_vector <- c("a", "b", "c", "d")
 ```
@@ -1571,7 +1697,9 @@ my_vector <- c("a", "b", "c", "d")
 "h" %in% my_vector
 ```
 
+
 To ask if a value is **not** `%in%` a vector, put an exclamation mark (!) **in front** of the logic statement:
+
 
 ```{r}
 # to negate, put an exclamation in front
@@ -1579,7 +1707,9 @@ To ask if a value is **not** `%in%` a vector, put an exclamation mark (!) **in f
 !"h" %in% my_vector
 ```
 
+
 `%in%` is very useful when using the **dplyr** function `case_when()`. You can define a vector previously, and then reference it later. For example:
+
 
 ```{r eval=F}
 affirmative <- c("1", "Yes", "YES", "yes", "y", "Y", "oui", "Oui", "Si")
@@ -1590,9 +1720,11 @@ linelist <- linelist %>%
     TRUE                                      ~ "Not"))
 ```
 
+
 Note: If you want to detect a partial string, perhaps using `str_detect()` from **stringr**, it will not accept a character vector like `c("1", "Yes", "yes", "y")`. Instead, it must be given a *regular expression* - one condensed string with OR bars, such as "1\|Yes\|yes\|y". For example, `str_detect(hospitalized, "1|Yes|yes|y")`. See the page on [Characters and strings](characters_strings.qmd) for more information.
 
 You can convert a character vector to a named regular expression with this command:
+
 
 ```{r}
 affirmative <- c("1", "Yes", "YES", "yes", "y", "Y", "oui", "Oui", "Si")
@@ -1604,6 +1736,7 @@ affirmative_str_search <- str_c(affirmative, collapse = "|")   # option with str
 
 affirmative_str_search
 ```
+
 
 <!-- ======================================================= -->
 
@@ -1655,3 +1788,4 @@ A few things to remember when writing commands in R, to avoid errors and warning
 ### Code assists {.unnumbered}
 
 Any script (RMarkdown or otherwise) will give clues when you have made a mistake. For example, if you forgot to write a comma where it is needed, or to close a parentheses, RStudio will raise a flag on that line, on the left hand side of the script, to warn you.
+
