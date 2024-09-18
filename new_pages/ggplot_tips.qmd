@@ -700,7 +700,7 @@ This also works well with faceting functions - it allows the user to produce fac
 
 ```{r, , warning=F, message=F}
 
-# produce a histogram of all cases by age
+# produce a linegraph of all cases by age
 linelist %>% 
   count(week = lubridate::floor_date(date_hospitalisation, "week"),
         hospital) %>% 
@@ -710,7 +710,8 @@ linelist %>%
                           color = hospital)) +
   theme_minimal() +
   gghighlight::gghighlight() +                      # highlight instances where the patient has died
-  facet_wrap(~hospital)                              # make facets by outcome
+  facet_wrap(~hospital) +                        # make facets by outcome
+     scale_x_date(labels = date_format("%m/%y"))
 
 ```
 
