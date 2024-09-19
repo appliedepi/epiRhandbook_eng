@@ -761,16 +761,16 @@ cookieconsent.run({
 <!-- ======================================================= -->
 <section id="intro-to-data-tables" class="level2" data-number="50.1">
 <h2 data-number="50.1" class="anchored" data-anchor-id="intro-to-data-tables"><span class="header-section-number">50.1</span> Intro to data tables</h2>
-<p>A data table is a 2-dimensional data structure like a data frame that allows complex grouping operations to be performed. The data.table syntax is structured so that operations can be performed on rows, columns and groups.</p>
+<p>A data table is a 2-dimensional data structure like a data frame that allows complex grouping operations to be performed. The <strong>data.table</strong> syntax is structured so that operations can be performed on rows, columns and groups.</p>
 <p>The structure is <strong>DT[i, j, by]</strong>, separated by 3 parts; the <strong>i, j</strong> and <strong>by</strong> arguments. The <strong>i</strong> argument allows for subsetting of required rows, the <strong>j</strong> argument allows you to operate on columns and the <strong>by</strong> argument allows you operate on columns by groups.</p>
 <p>This page will address the following topics:</p>
 <ul>
-<li>Importing data and use of <code>fread()</code> and <code>fwrite()</code></li>
-<li>Selecting and filtering rows using the <strong>i</strong> argument</li>
-<li>Using helper functions <code>%like%</code>, <code>%chin%</code>, <code>%between%</code></li>
-<li>Selecting and computing on columns using the <strong>j</strong> argument</li>
-<li>Computing by groups using the <strong>by</strong> argument</li>
-<li>Adding and updating data to data tables using <code>:=</code></li>
+<li>Importing data and use of <code>fread()</code> and <code>fwrite()</code>.</li>
+<li>Selecting and filtering rows using the <strong>i</strong> argument.</li>
+<li>Using helper functions <code>%like%</code>, <code>%chin%</code>, <code>%between%</code>.</li>
+<li>Selecting and computing on columns using the <strong>j</strong> argument.</li>
+<li>Computing by groups using the <strong>by</strong> argument.</li>
+<li>Adding and updating data to data tables using <code>:=</code>.</li>
 </ul>
 <!-- ======================================================= -->
 </section>
@@ -823,8 +823,13 @@ cookieconsent.run({
 </div>
 <section id="using-helper-functions-for-filtering" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="using-helper-functions-for-filtering">Using helper functions for filtering</h3>
-<p>Data table uses helper functions that make subsetting rows easy. The <code>%like%</code> function is used to match a pattern in a column, <code>%chin%</code> is used to match a specific character, and the <code>%between%</code> helper function is used to match numeric columns within a prespecified range.</p>
-<p>In the following examples we: * filter rows where the hospital variable contains “Hospital” * filter rows where the outcome is “Recover” or “Death” * filter rows in the age range 40-60</p>
+<p>Data table uses helper functions that make subsetting rows easy. The <code>%like%</code> function is used to match a pattern in a column, <code>%chin%</code> is used to match a specific character, and the <code>%between%</code> helper function is used to match numeric columns within a specified range.</p>
+<p>In the following examples we:</p>
+<ul>
+<li>filter rows where the hospital variable contains “Hospital”.</li>
+<li>filter rows where the outcome is “Recover” or “Death”.</li>
+<li>filter rows in the age range 40-60.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>linelist[hospital <span class="sc">%like%</span> <span class="st">"Hospital"</span>] <span class="co">#filter rows where the hospital variable contains “Hospital”</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>linelist[outcome <span class="sc">%chin%</span> <span class="fu">c</span>(<span class="st">"Recover"</span>, <span class="st">"Death"</span>)] <span class="co">#filter rows where the outcome is “Recover” or “Death”</span></span>
@@ -877,8 +882,12 @@ cookieconsent.run({
 <section id="the-by-argument-computing-by-groups" class="level2" data-number="50.5">
 <h2 data-number="50.5" class="anchored" data-anchor-id="the-by-argument-computing-by-groups"><span class="header-section-number">50.5</span> The by argument: computing by groups</h2>
 <p>The <strong>by</strong> argument is the third argument in the <strong>DT[i, j, by]</strong> structure. The <strong>by</strong> argument accepts both a character vector and the <code>list()</code> or <code>.()</code> syntax. Using the <code>.()</code> syntax in the <strong>by</strong> argument allows column renaming on the fly.</p>
-<p>In the following examples we:<br>
-* group the number of cases by hospital * in cases 18 years old or over, calculate the mean height and weight of cases according to gender and whether they recovered or died * in admissions that lasted over 7 days, count the number of cases according to the month they were admitted and the hospital they were admitted to</p>
+<p>In the following examples we:</p>
+<ul>
+<li>group the number of cases by hospital.</li>
+<li>in cases 18 years old or over, calculate the mean height and weight of cases according to gender and whether they recovered or died.</li>
+<li>in admissions that lasted over 7 days, count the number of cases according to the month they were admitted and the hospital they were admitted to.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>linelist[, .N, .(hospital)] <span class="co">#the number of cases by hospital</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1015,8 +1024,14 @@ cookieconsent.run({
 </section>
 <section id="resources" class="level2" data-number="50.7">
 <h2 data-number="50.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">50.7</span> Resources</h2>
-<p>Here are some useful resources for more information: * https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html * https://github.com/Rdatatable/data.table * https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf * https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/ * https://www.datacamp.com/community/tutorials/data-table-r-tutorial</p>
-<p>You can perform any summary function on grouped data; see the Cheat Sheet here for more info: https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf</p>
+<p>Here are some useful resources for more information:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">data.table vignette</a></li>
+<li><a href="https://github.com/Rdatatable/data.table">data.table github</a></li>
+<li><a href="https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf">data.table cheatsheet</a></li>
+<li><a href="https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/">Guide to data.table</a></li>
+<li><a href="https://www.datacamp.com/community/tutorials/data-table-r-tutorial">data.table tutorial</a></li>
+</ul>
 
 
 </section>
