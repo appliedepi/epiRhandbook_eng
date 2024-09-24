@@ -5,20 +5,20 @@
 knitr::include_graphics(here::here("images", "flexdashboard_output.png"))
 ```
 
-This page will cover the basic use of the **flexdashboard** package. This package allows you to easily format R Markdown output as a dashboard with panels and pages. The dashboard content can be text, static figures/tables or interactive graphics.  
+This page will cover the basic use of the [**flexdashboard** package](https://pkgs.rstudio.com/flexdashboard/). This package allows you to easily format R Markdown output as a dashboard with panels and pages. The dashboard content can be text, static figures/tables or interactive graphics.  
 
 Advantages of **flexdashboard**:  
 
-* It requires minimal non-standard R coding - with very little practice you can quickly create a dashboard  
-* The dashboard can usually be emailed to colleagues as a self-contained HTML file - no server required  
-* You can combine **flexdashboard** with **shiny**, **ggplotly**, and other *"html widgets"* to add interactivity  
+* It requires minimal non-standard R coding - with very little practice you can quickly create a dashboard.  
+* The dashboard can usually be emailed to colleagues as a self-contained HTML file - no server required.  
+* You can combine **flexdashboard** with [**shiny**](shiny_basics.qmd), [**ggplotly**](interactive_plots.qmd), and other *"html widgets"* to add interactivity.  
 
 Disadvantages of **flexdashboard**:  
 
-* Less customization as compared to using **shiny** alone to create a dashboard  
+* Less customization as compared to using **shiny** alone to create a dashboard.  
 
 
-Very comprehensive tutorials on using **flexdashboard** that informed this page can be found in the Resources section. Below we describe the core features and give an example of building a dashboard to explore an outbreak, using the case `linelist` data.  
+Very comprehensive tutorials on using **flexdashboard** that informed this page can be found in the [Resources](flexdashboard.qmd#resources) section. Below we describe the core features and give an example of building a dashboard to explore an outbreak, using the case `linelist` data.  
 
 
 ## Preparation
@@ -159,8 +159,8 @@ Section attributes specific to **flexdashboard** include:
 * `{data-orientation=}` Set to either `rows` or `columns`. If your dashboard has multiple pages, add this attribute to each page to indicate orientation (further explained in [layout section](#layout)).  
 * `{data-width=}` and `{data-height=}` set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical). Absolute sizes are adjusted to best fill the space on any display device thanks to the [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) engine.  
      * Height of charts also depends on whether you set the YAML parameter `vertical_layout: fill` or `vertical_layout: scroll`. If set to scroll, figure height will reflect the traditional `fig.height = ` option in the R code chunk.  
-     * See complete size documentation at the [flexdashboard website](https://rmarkdown.rstudio.com/flexdashboard/using.html#sizing)  
-* `{.hidden}` Use this to exclude a specific page from the navigation bar  
+     * See complete size documentation at the [flexdashboard website](https://pkgs.rstudio.com/flexdashboard/articles/using.html#sizing)  
+* `{.hidden}` Use this to exclude a specific page from the navigation bar.  
 * `{data-navbar=}` Use this in a page-level heading to nest it within a navigation bar drop-down menu. Provide the name (in quotes) of the drop-down menu. See example below.  
 
 
@@ -168,10 +168,10 @@ Section attributes specific to **flexdashboard** include:
 
 Adjust the layout of your dashboard in the following ways:  
 
-* Add pages, columns/rows, and charts with R Markdown headings (e.g. #, ##, or ###)  
-* Adjust the YAML parameter `orientation:` to either `rows` or `columns`  
-* Specify whether the layout fills the browser or allows scrolling  
-* Add tabs to a particular section heading  
+* Add pages, columns/rows, and charts with R Markdown headings (e.g. #, ##, or ###).  
+* Adjust the YAML parameter `orientation:` to either `rows` or `columns`.  
+* Specify whether the layout fills the browser or allows scrolling.  
+* Add tabs to a particular section heading.  
 
 
 ### Pages {.unnumbered}  
@@ -314,7 +314,7 @@ DT::datatable(linelist,
 
 ### Plots {.unnumbered}  
 
-You can print plots to a dashboard pane as you would in an R script. In our example, we use the **incidence2** package to create an "epicurve" by age group with two simple commands (see [Epidemic curves](epicurves.qmd) page). However, you could use `ggplot()` and print a plot in the same manner.  
+You can print plots to a dashboard pane as you would in an R script. In our example, we use the **incidence2** package to create an "epicurve" by age group with two simple commands (see [An Introduction to incidence2](https://www.reconverse.org/incidence2/articles/incidence2.html) page). However, you could use `ggplot()` and print a plot in the same manner.  
 
 ```{r, out.width = c('100%'), out.height = c('100%'), echo=F}
 knitr::include_graphics(here::here("images", "flexdashboard_plots_script.png"))
@@ -349,11 +349,11 @@ knitr::include_graphics(here::here("images", "flexdashboard_ggplotly.gif"))
 
 Some common examples of these widgets include:  
 
-* Plotly (used in this handbook page and in the [Interative plots](interactive_plots.qmd) page)
-* visNetwork (used in the [Transmission Chains](transmission_chains.qmd) page of this handbook)  
-* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook)  
-* dygraphs (useful for interactively showing time series data)  
-* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.)  
+* Plotly (used in this handbook page and in the [Interative plots](interactive_plots.qmd) page).
+* visNetwork (used in the [Transmission Chains](transmission_chains.qmd) page of this handbook). 
+* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook).  
+* dygraphs (useful for interactively showing time series data).  
+* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.).  
 
 Below we demonstrate adding an epidemic transmission chain which uses visNetwork to the dashboard. The script shows only the new code added to the "Column 2" section of the R Markdown script. You can find the code in the [Transmission chains](transmission_chains.qmd)  page of this handbook.  
 
@@ -385,7 +385,7 @@ Embedding **shiny** in **flexdashboard** is however, a fundamental change to you
 Sharing your dashboard will now require that you either:  
 
 * Send the Rmd script to the viewer, they open it in R on their computer, and run the app, or  
-* The app/dashboard is hosted on a server accessible to the viewer  
+* the app/dashboard is hosted on a server accessible to the viewer.  
 
 Thus, there are benefits to integrating **shiny**, but also complications. If easy sharing by email is a priority and you don't need **shiny** reactive capabilities, consider the reduced interactivity offered by `ggplotly()` as demonstrated above.    
 
@@ -417,14 +417,14 @@ If your app/dashboard is hosted on a server and may have multiple simultaneous u
 
 Here we adapt the flexdashboard script "outbreak_dashboard.Rmd" to include **shiny**. We will add the capability for the user to select a hospital from a drop-down menu, and have the epidemic curve reflect only cases from that hospital, with a dynamic plot title. We do the following:  
 
-* Add `runtime: shiny` to the YAML  
-* Re-name the setup chunk as `global`  
+* Add `runtime: shiny` to the YAML.  
+* Re-name the setup chunk as `global`.  
 * Create a sidebar containing:  
-  * Code to create a vector of unique hospital names  
-  * A `selectInput()` command (**shiny** drop-down menu) with the choice of hospital names. The selection is saved as `hospital_choice`, which can be referenced in later code as `input$hospital_choice`  
+  * Code to create a vector of unique hospital names.  
+  * A `selectInput()` command (**shiny** drop-down menu) with the choice of hospital names. The selection is saved as `hospital_choice`, which can be referenced in later code as `input$hospital_choice`.  
 * The epidemic curve code (column 2) is wrapped within `renderPlot({ })`, including:  
-  * A filter on the dataset restricting the column `hospital` to the current value of `input$hospital_choice`  
-  * A dynamic plot title that incorporates `input$hospital_choice`  
+  * A filter on the dataset restricting the column `hospital` to the current value of `input$hospital_choice`.  
+  * A dynamic plot title that incorporates `input$hospital_choice`.  
   
 Note that any code referencing an `input$` value must be within a `render({})` function (to be reactive).  
 
@@ -467,10 +467,8 @@ If you have embedded **shiny**, you will not be able to send an output by email,
 
 Excellent tutorials that informed this page can be found below. If you review these, most likely within an hour you can have your own dashboard.  
 
-https://bookdown.org/yihui/rmarkdown/dashboards.html
+[Rmarkdown and Dashboards](https://bookdown.org/yihui/rmarkdown/dashboards.html)
 
-https://rmarkdown.rstudio.com/flexdashboard/
+[Flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/)
 
-https://rmarkdown.rstudio.com/flexdashboard/using.html
-
-https://rmarkdown.rstudio.com/flexdashboard/examples.html
+[Flexdashboard gallery](https://rmarkdown.rstudio.com/flexdashboard/examples.html)
