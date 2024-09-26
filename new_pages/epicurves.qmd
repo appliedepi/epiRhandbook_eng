@@ -10,7 +10,7 @@ An epidemic curve (also known as an "epi curve") is a core epidemiological chart
 
 Analysis of the epicurve can reveal temporal trends, outliers, the magnitude of the outbreak, the most likely time period of exposure, time intervals between case generations, and can even help identify the mode of transmission of an unidentified disease (e.g. point source, continuous common source, person-to-person propagation). One online lesson on interpretation of epi curves can be found at the website of the [US CDC](https://www.cdc.gov/training/quicklearns/epimode/index.html).    
 
-In this page we demonstrate making epidemic curves with the **ggplot2** package, which allows for advanced customizability.
+In this page we demonstrate making epidemic curves with the **ggplot2** package, which allows for advanced customizability, and **incidence2** which allows for rapid creation of epidemic curves with pre-specified functions.
 
 Also addressed are specific use-cases such as:  
 
@@ -19,6 +19,7 @@ Also addressed are specific use-cases such as:
 * Applying moving averages.  
 * Showing which data are "tentative" or subject to reporting delays.  
 * Overlaying cumulative case incidence using a second axis.  
+
 
 <!-- ======================================================= -->
 ## Preparation
@@ -31,6 +32,7 @@ This code chunk shows the loading of packages required for the analyses. In this
 ```{r message=F, warning=F}
 pacman::p_load(
   rio,          # file import/export
+  tidyquant,    # for moving averages
   here,         # relative filepaths 
   lubridate,    # working with dates/epiweeks
   aweek,        # alternative package for working with dates/epiweeks
@@ -1525,10 +1527,227 @@ plot_cumulative
 
 It can also be overlaid onto the epicurve, with dual-axis using the method described above and in the [ggplot tips](ggplot_tips.qmd) page.
 
-<!-- ======================================================= -->
+## **incidence2**
+
+Below we demonstrate how to make epicurves using the **incidence2** package. The authors of this package have tried to allow the user to create and modify epicurves without needing to know **ggplot2** syntax. Much of this page is adapted from the package vignettes, which can be found at the **incidence2** [github page](https://www.reconverse.org/incidence2/articles/incidence2.html).   
+
+To create an epicurve with **incidence2** you need to have a column with a date value (it does not need to be of the class `Date`, but it should have ordering) and a column with a count variable (what is being counted). It should also *not* have any duplicated rows.
+
+To create this, we can use the function `incidence()` which will summarise our data in a format that can be used to create epicurves. There are a number of different arguments to `incidence()`, type `?incidence` in your R console to learn more.
+
+```{r}
+#Load package
+pacman::p_load(
+     incidence2
+)
+
+#Create the incidence object
+epi_day <- linelist %>%
+     incidence(date_index = "date_onset",
+               interval = "day")
+
+epi_day
+```
+
+The object created by the function `incidence()` looks like a data frame, but has its own class of `incidence2`.
+
+```{r}
+class(epi_day)
+```
+
+To plot the epicurve, you use the function `plot()`. To read the **incidence2** specific documentation on plotting, type `?plot.incidence2`.
+
+```{r}
+plot(epi_day)
+```
+If you notice lots of tiny white vertical lines, try to adjust the size of your image. For example, if you export your plot with `ggsave()`, you can provide numbers to `width = ` and `height = `. If you widen the plot those lines may disappear.    
+
+
+### Change time interval of case aggregation {.unnumbered}
+The `interval = ` argument of `incidence()` defines how the observations are grouped into vertical bars. 
+
+**Specify interval**  
+
+**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument. You can write any of the below as plural (e.g. "week**s**"), and you can add numbers before (e.g. "3 months").  
+Argument option | Further explanation 
+
+------------------- | ------------------------------------ |
+Number (1, 7, 13, 14, etc.) | Number of days per interval  
+"week" | note: Monday start day is default
+"2 weeks" | or 3, 4, 5...
+"Sunday week" | weeks beginning on Sundays (could also use Thursday, etc.)
+"2 Sunday weeks" | or 3, 4, 5...
+"MMWRweek" | week starts on Sundays - see US CDC
+"month" | 1st of month
+"quarter" | 1st of month of quarter
+"2 months" | or 3, 4, 5...
+"year" | 1st day of calendar year
+
+Below are examples of how different intervals look when applied to the linelist. Note how the default format and frequency of the date *labels* on the x-axis change as the date interval changes.  
+
+```{r incidence, out.width=c('50%', '50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
+
+# Create the incidence objects (with different intervals)
+epi_epiweek <- incidence(linelist, "date_onset", interval = "epiweek")    # epiweek 
+epi_month <- incidence(linelist, "date_onset", interval = "month")        # Monthly
+epi_quarter <- incidence(linelist, "date_onset", interval = "quarter")    # Quarterly
+epi_year <- incidence(linelist, "date_onset", interval = "year")          # Years
+
+# Plot the incidence objects (+ titles for clarity)
+############################
+plot(epi_epiweek) + labs(title = "2 (Monday) weeks")
+plot(epi_month) + labs(title = "Months")
+plot(epi_quarter) + labs(title = "Quarters")
+plot(epi_year) + labs(title = "Years")
+```
+**First date**
+
+You can optionally specify a value of class Date (e.g. `as.Date("2016-05-01")`) to `firstdate = ` in the `incidence()` command. If given, the data will be trimmed to this range and the intervals will begin on this date. 
+
+### Groups {.unnumbered}
+
+Groups are specified in the `incidence()` command, and can be used to color the bars or to facet the data. To specify groups in your data provide the column name(s) to the `groups =` argument in the `incidence()` command (no quotes around the column name). If specifying multiple columns, put their names within `c()`.
+
+You can specify that cases with missing values in the grouping columns be listed as a distinct `NA` group by setting `na_as_group = TRUE`. Otherwise, they will be excluded from the plot.   
+
+* To *color the bars by a grouping column*, you must again provide the column name to `fill = ` in the `plot()` command.  
+* To *facet based on a grouping column*, see the section below on facets with **incidence2**.  
+
+In the example below, the cases in the whole outbreak are grouped by their age category. Missing values are included as a group. The epicurve interval is weeks.  
+
+```{r, message=F, warning=F}
+
+# Create incidence object, with data grouped by age category
+age_outbreak <- incidence(
+  linelist,                  # dataset
+  date_index = "date_onset", # date column
+  interval = "week",         # Monday weekly aggregation of cases
+  groups = "age_cat"         # age_cat is set as a group
+)
+
+# plot the grouped incidence object
+plot(
+  age_outbreak,                # incidence object with age_cat as group
+  fill = "age_cat") +          # age_cat is used for bar fill color (must have been set as a groups column above)
+labs(fill = "Age Category")    # change legend title from default "age_cat" (this is a ggplot2 modification)
+```
+<span style="color: darkgreen;">**_TIP:_** Change the title of the legend by adding `+` the **ggplot2** command `labs(fill = "your title")` to your **incidence2** plot.</span>  
+
+You can also have the grouped bars display side-by-side by setting `stack = FALSE` in `plot()`, as shown below:  
+```{r, warning=F, message=F}
+
+# Make incidence object of monthly counts. 
+monthly_gender <- incidence(
+ linelist,
+ date_index = "date_onset",
+ interval = "month",
+ groups = "gender"            # set gender as grouping column
+)
+
+plot(
+  monthly_gender,   # incidence object
+  fill = "gender",  # display bars colored by gender
+  stack = FALSE)    # side-by-side (not stacked)
+``` 
+You can set the `na_as_group = ` argument to FALSE in the `incidence()` command to remove rows with missing values from the plot.  
+
+### Filtered data {.unnumbered}
+
+To plot the epicurve of a subset of data:  
+
+1) Filter the linelist data  
+2) Provide the filtered data to the `incidence()` command  
+3) Plot the incidence object
+
+The example below uses data filtered to show only cases at Central Hospital.  
+
+```{r, warning=F, message=F}
+# filter the linelist
+central_data <- linelist %>% 
+  filter(hospital == "Central Hospital")
+
+# create incidence object using filtered data
+central_outbreak <- incidence(central_data, date_index = "date_onset", interval = "week")
+
+# plot the incidence object
+plot(central_outbreak, title = "Weekly case incidence at Central Hospital")
+```
+### Aggregated counts {.unnumbered}
+
+If your original data are aggregated (counts), provide the name of the column that contains the case counts to the `count = ` argument when creating the incidence object with `incidence()`.  
+
+For example, this data frame `count_data` is the linelist aggregated into daily counts by hospital. The first 50 rows look like this: 
+
+```{r message=FALSE, echo=F}
+DT::datatable(head(count_data, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+```
+
+If you are beginning your analysis with daily count data like the dataset above, your `incidence()` command to convert this to a weekly epicurve by hospital would look like this:  
+
+```{r}
+
+epi_counts <- incidence(              # create weekly incidence object
+  count_data,                         # dataset with counts aggregated by day
+  date_index = "date_hospitalisation",  # column with dates
+  counts = "n_cases",                    # column with counts
+  interval = "week",                  # aggregate daily counts up to weeks
+  groups = "hospital"                   # group by hospital
+  )
+
+# plot the weekly incidence epi curve, with stacked bars by hospital
+plot(epi_counts,                      # incidence object
+     fill = "hospital")                 # color the bars by hospital
+```
+### Facets/small multiples {.unnumbered}  
+
+Below, we set both columns `hospital` and `outcome` as grouping columns in the `incidence()` command. For grouped data, the plot method will create a faceted plot across groups unless a fill variable is specified.
+ 
+```{r, warning=F, message=F}
+epi_wks_hosp_out <- incidence(
+  linelist,                      # dataset
+  date_index = "date_onset",       # date column
+  interval = "month",            # monthly bars  
+  groups = c("outcome", "hospital")  # both outcome and hospital are given as grouping columns
+  )
+
+# plot
+plot(epi_wks_hosp_out)
+
+```
+Note that the package **ggtree** (used for displaying phylogenetic trees) also has a function `facet_plot()` - this is why we specified `incidence2::facet_plot()` above.  
+
+### Modifications with `plot()` and using **ggplot2** {.unnumbered} 
+
+To see further examples of plot modification, please see the **incidence2** vignette on [customizing incidence plots](https://ftp.eenet.ee/pub/cran/web/packages/incidence2/vignettes/customizing_incidence_plots.html).
+
+Additionally, you can use **ggplot2()** commands after calling `plot(incidence)` to fully customise your plots.
+
+For example here we are going to change the theme, axis labels, and add a trend line (as specified in the chapter on [Moving averages](moving_average.qmd)) of the first plot we created with the object `epi_day`.
+
+```{r}
+
+plot(epi_day) +
+     # plot moving average
+     tidyquant::geom_ma(       
+          mapping = aes(x = date_index,
+                        y = count), 
+      n = 7,           
+      size = 1,
+      color = "red",
+      linetype = "solid") +
+     labs(x = "Onset date",
+          y = "Daily cases",
+          title = "Epicurve of Ebola cases",
+          fill = "") +
+     theme_dark() +
+     theme(legend.position = "none")
+     
+```
+
+
 ## Resources { }
 
-
+[incidence2](https://www.reconverse.org/incidence2/index.html)
 
 
 
