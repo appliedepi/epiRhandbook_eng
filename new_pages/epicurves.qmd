@@ -1527,7 +1527,7 @@ plot_cumulative
 
 It can also be overlaid onto the epicurve, with dual-axis using the method described above and in the [ggplot tips](ggplot_tips.qmd) page.
 
-## **incidence2**
+## incidence2
 
 Below we demonstrate how to make epicurves using the **incidence2** package. The authors of this package have tried to allow the user to create and modify epicurves without needing to know **ggplot2** syntax. Much of this page is adapted from the package vignettes, which can be found at the **incidence2** [github page](https://www.reconverse.org/incidence2/articles/incidence2.html).   
 
@@ -1568,22 +1568,7 @@ The `interval = ` argument of `incidence()` defines how the observations are gro
 
 **Specify interval**  
 
-**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument. You can write any of the below as plural (e.g. "week**s**"), and you can add numbers before (e.g. "3 months").  
-Argument option | Further explanation 
-
-------------------- | ------------------------------------ |
-Number (1, 7, 13, 14, etc.) | Number of days per interval  
-"week" | note: Monday start day is default
-"2 weeks" | or 3, 4, 5...
-"Sunday week" | weeks beginning on Sundays (could also use Thursday, etc.)
-"2 Sunday weeks" | or 3, 4, 5...
-"MMWRweek" | week starts on Sundays - see US CDC
-"month" | 1st of month
-"quarter" | 1st of month of quarter
-"2 months" | or 3, 4, 5...
-"year" | 1st day of calendar year
-
-Below are examples of how different intervals look when applied to the linelist. Note how the default format and frequency of the date *labels* on the x-axis change as the date interval changes.  
+**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument. Below are examples of how different intervals look when applied to the linelist. Note how the default format and frequency of the date *labels* on the x-axis change as the date interval changes.  
 
 ```{r incidence, out.width=c('50%', '50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
 
@@ -1655,9 +1640,9 @@ You can set the `na_as_group = ` argument to FALSE in the `incidence()` command 
 
 To plot the epicurve of a subset of data:  
 
-1) Filter the linelist data  
-2) Provide the filtered data to the `incidence()` command  
-3) Plot the incidence object
+1) Filter the linelist data.  
+2) Provide the filtered data to the `incidence()` command.  
+3) Plot the incidence object.
 
 The example below uses data filtered to show only cases at Central Hospital.  
 
@@ -1682,6 +1667,7 @@ For example, this data frame `count_data` is the linelist aggregated into daily 
 DT::datatable(head(count_data, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
+
 If you are beginning your analysis with daily count data like the dataset above, your `incidence()` command to convert this to a weekly epicurve by hospital would look like this:  
 
 ```{r}
@@ -1700,14 +1686,18 @@ plot(epi_counts,                      # incidence object
 ```
 ### Facets/small multiples {.unnumbered}  
 
-Below, we set both columns `hospital` and `outcome` as grouping columns in the `incidence()` command. For grouped data, the plot method will create a faceted plot across groups unless a fill variable is specified.
+Below, we set both columns `hospital` and `outcome` as grouping columns in the `incidence()` command. For grouped data, the plot method will create a faceted plot across groups unless a fill variable is specified. Note we are dropping `NA` values only for visualisation purposes.
  
 ```{r, warning=F, message=F}
 epi_wks_hosp_out <- incidence(
-  linelist,                      # dataset
+  linelist %>%
+       select(date_onset,
+              outcome,
+              gender) %>%
+       drop_na(),                   # dataset
   date_index = "date_onset",       # date column
-  interval = "month",            # monthly bars  
-  groups = c("outcome", "hospital")  # both outcome and hospital are given as grouping columns
+  interval = "quarter",            # monthly bars  
+  groups = c("outcome", "gender")  # both outcome and hospital are given as grouping columns
   )
 
 # plot
@@ -1716,7 +1706,7 @@ plot(epi_wks_hosp_out)
 ```
 Note that the package **ggtree** (used for displaying phylogenetic trees) also has a function `facet_plot()` - this is why we specified `incidence2::facet_plot()` above.  
 
-### Modifications with `plot()` and using **ggplot2** {.unnumbered} 
+### Modifications with `plot()` and using ggplot2 {.unnumbered} 
 
 To see further examples of plot modification, please see the **incidence2** vignette on [customizing incidence plots](https://ftp.eenet.ee/pub/cran/web/packages/incidence2/vignettes/customizing_incidence_plots.html).
 
