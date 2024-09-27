@@ -263,7 +263,6 @@ Currently, the values of the column `age_cat5` from the `standard_pop_data` data
 ```{r}
 # Remove specific string from column values
 standard_pop_clean <- standard_pop_data %>%
-     rename(age_cat5 = AgeGroup) %>%                 #Change name of age group column to match that in our population data and death counts
      mutate(
           age_cat5 = str_replace_all(age_cat5, "years", ""),   # remove "year"
           age_cat5 = str_replace_all(age_cat5, "plus", ""),    # remove "plus"
@@ -279,7 +278,9 @@ standard_pop_clean <- standard_pop_data %>%
 Finally, the package **PHEindicatormethods**, detailed [below](#standard_phe), expects the standard populations joined to the country event and population counts. So, we will create a dataset `all_data` for that purpose.  
 
 ```{r}
-all_data <- left_join(country_data, standard_pop_clean, by=c("age_cat5", "Sex"))
+all_data <- left_join(country_data, 
+                      standard_pop_clean, 
+                      by = c("age_cat5", "Sex"))
 ```
 
 This complete dataset looks like this:  
