@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Epidemiologist R Handbook - 46&nbsp; Version control and collaboration with Git and Github</title>
+<title>46&nbsp; Version control and collaboration with Git and Github – The Epidemiologist R Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -137,63 +137,122 @@ cookieconsent.run({
 </script> 
   
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
 <script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
+
+
   gtag('config', 'G-QXDW878QLX');
+
 </script>
 
+
+
 </head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
+
+
 
 </script>
 
@@ -206,13 +265,13 @@ cookieconsent.run({
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/writing_functions.html">Miscellaneous</a></li><li class="breadcrumb-item"><a href="../new_pages/collaboration.html"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -233,23 +292,23 @@ cookieconsent.run({
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -274,9 +333,9 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">About this book</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -297,9 +356,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -338,9 +397,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Management</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -403,9 +462,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -486,9 +545,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Visualization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -563,9 +622,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Reports and dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -598,9 +657,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Miscellaneous</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -752,7 +811,7 @@ cookieconsent.run({
 <section id="what-is-git" class="level2" data-number="46.1">
 <h2 data-number="46.1" class="anchored" data-anchor-id="what-is-git"><span class="header-section-number">46.1</span> What is Git?</h2>
 <p>Git is a <strong>version control</strong> software that allows tracking changes in a folder. It can be used like the “track change” option in Word, LibreOffice or Google docs, but for all types of files. It is one of the most powerful and most used options for version control.</p>
-<p><strong>Why have I never heard of it? -</strong> While people with a developer background routinely learn to use version control software (Git, Mercurial, Subversion or others), few of us from quantitative disciplines are taught these skills. Consequently, most epidemiologists never hear of it during their studies, and have to learn it on the fly.</p>
+<p><strong>Why have I never heard of it? -</strong> While people with a developer background routinely learn to use version control software (Git, Mercurial, Subversion or others), few of us from quantitative disciplines are taught these skills. Consequently, most epidemiologists never hear of it during their studies, and have to learn it on the job.</p>
 <p><strong>Wait, I heard of Github, is it the same?</strong> - Not exactly, but you often use them together, and we will show you how to. In short:</p>
 <ul>
 <li><p><strong>Git</strong> is the version control system, a piece of software. You can use it locally on your computer or to synchronize a folder with a host <strong>website</strong>. By default, one uses a terminal to give Git instructions in command-line.</p></li>
@@ -765,26 +824,26 @@ cookieconsent.run({
 <h2 data-number="46.2" class="anchored" data-anchor-id="why-use-the-combo-git-and-github"><span class="header-section-number">46.2</span> Why use the combo Git and Github?</h2>
 <p>Using <strong>Git</strong> facilitates:</p>
 <ol type="1">
-<li>Archiving documented versions with incremental changes so that you can easily revert backwards to any previous state</li>
-<li>Having parallel <em>branches</em>, i.e.&nbsp;developing/“working” versions with structured ways to integrate the changes after review</li>
+<li>Archiving documented versions with incremental changes so that you can easily revert backwards to any previous state.</li>
+<li>Having parallel <em>branches</em>, i.e.&nbsp;developing/“working” versions with structured ways to integrate the changes after review.</li>
 </ol>
 <p>This can be done locally on your computer, even if you don’t collaborate with other people. Have you ever:</p>
 <ul>
-<li><p>regretted having deleted a section of code, only to realize two months later that you actually needed it?</p></li>
-<li><p>come back on a project that had been on pause and attempted to remember whether you had made that tricky modification in one of the models?</p></li>
-<li><p>had a <em>file model_1.R</em> and another file <em>model_1_test.R</em> and a file <em>model_1_not_working.R</em> to try things out?</p></li>
-<li><p>had a file <em>report.Rmd</em>, a file <em>report_full.Rmd</em>, a file <em>report_true_final.Rmd</em>, a file <em>report_final_20210304.Rmd</em>, a file <em>report_final_20210402.Rmd</em> and cursed your archiving skills?</p></li>
+<li><p>Regretted having deleted a section of code, only to realize two months later that you actually needed it?</p></li>
+<li><p>Come back on a project that had been on pause and attempted to remember whether you had made that tricky modification in one of the models?</p></li>
+<li><p>Had a <em>file model_1.R</em> and another file <em>model_1_test.R</em> and a file <em>model_1_not_working.R</em> to try things out?</p></li>
+<li><p>Had a file <em>report.Rmd</em>, a file <em>report_full.Rmd</em>, a file <em>report_true_final.Rmd</em>, a file <em>report_final_20210304.Rmd</em>, a file <em>report_final_20210402.Rmd</em> and cursed your archiving skills?</p></li>
 </ul>
 <p>Git will help with all that, and is worth to learn for that alone.</p>
 <p>However, it becomes even more powerful when used with a online repository such as Github to support <strong>collaborative projects</strong>. This facilitates:</p>
 <ul>
-<li><p>Collaboration: others can review, comment on, and accept/decline changes</p></li>
-<li><p>Sharing your code, data, and outputs, and invite feedback from the public (or privately, with your team)</p></li>
+<li><p>Collaboration: others can review, comment on, and accept/decline changes.</p></li>
+<li><p>Sharing your code, data, and outputs, and invite feedback from the public (or privately, with your team).</p></li>
 </ul>
 <p>and avoids:</p>
 <ul>
-<li><p>“Oops, I forgot to send the last version and now you need to redo two days worth of work on this new file”</p></li>
-<li><p>Mina, Henry and Oumar all worked at the same time on one script and need to manually merge their changes</p></li>
+<li><p>“Oops, I forgot to send the last version and now you need to redo two days worth of work on this new file”.</p></li>
+<li><p>Mina, Henry and Oumar all worked at the same time on one script and need to manually merge their changes.</p></li>
 <li><p>Two people try to modify the same file on Dropbox and Sharepoint and this creates a synchronization error.</p></li>
 </ul>
 <section id="this-sounds-complicated-i-am-not-a-programmer" class="level3 unnumbered">
@@ -803,20 +862,20 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="install-an-interface-optional-but-recommended">Install an interface (optional but recommended)</h3>
 <p>Git has its own language of commands, which can be typed into a command line terminal. However, there are many clients/interfaces and as non-developpers, in your day-to-day use, you will rarely <em>need</em> to interact with Git directly and interface usually provide nice visualisation tools for file modifications or branches.</p>
 <p>Many options exist, on all OS, from beginner friendly to more complex ones. Good options for beginners include the RStudio Git pane and <a href="https://desktop.github.com/">Github Desktop</a>, which we will showcase in this chapter. Intermediate (more powerfull, but more complex) options include Source Tree, Gitkracken, Smart Git and others.</p>
-<p>Quick explanation on <a href="https:/happygitwithr.com/git-client.html#git-client">Git clients</a>.</p>
+<p>Quick explanation on <a href="https://happygitwithr.com/git-client">Git clients</a>.</p>
 <p><em>Note: since interfaces actually all use Git internally, you can try several of them, switch from one to another on a given project, use the console punctually for an action your interface does not support, or even perform any number of actions online on Github.</em></p>
 <p>As noted below, you may occasionally have to write Git commands into a terminal such as the RStudio terminal pane (a tab adjacent to the R Console) or the Git Bash terminal.</p>
 </section>
 <section id="github-account" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="github-account">Github account</h3>
-<p>Sign-up for a free account at <a href="github.com">github.com</a>.</p>
+<p>Sign-up for a free account at <a href="https://github.com/">github.com</a>.</p>
 <p>You may be offered to set-up two-factor authentication with an app on your phone. Read more in the Github <a href="https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa">help documents</a>.</p>
 <p>If you use Github Desktop, you can enter your Gitub credentials after installation following these <a href="https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/authenticating-to-github">steps</a>. If you don’t do it know, credentials will be asked later when you try to clone a project from Github.</p>
 </section>
 </section>
 <section id="vocabulary-concepts-and-basic-functions" class="level2" data-number="46.4">
 <h2 data-number="46.4" class="anchored" data-anchor-id="vocabulary-concepts-and-basic-functions"><span class="header-section-number">46.4</span> Vocabulary, concepts and basic functions</h2>
-<p>As when learning R, there is a bit of vocabulary to remember to understand Git. Here are the <a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/">basics to get you going</a> / <a href="learngitbranching.js.org">interactive tutorial</a>. In the next sections, we will show how to use interfaces, but it is good to have the vocabulary and concepts in mind, to build your mental model, and as you’ll need them when using interfaces anyway.</p>
+<p>As when learning R, there is a bit of vocabulary to remember to understand Git. Here are the <a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/">basics to get you going</a> / <a href="https://learngitbranching.js.org/">interactive tutorial</a>. In the next sections, we will show how to use interfaces, but it is good to have the vocabulary and concepts in mind, to build your mental model, and as you’ll need them when using interfaces anyway.</p>
 <section id="repository" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="repository">Repository</h3>
 <p>A Git <em>repository</em> (“<em>repo</em>”) is a folder that contains all the sub-folders and files for your project (data, code, images, etc.) and their revision histories. When you begin tracking changes in the repository with it, Git will create a hidden folder that contains all tracking information. A typical Git repository is your <em>R Project</em> folder (see handbook page on <a href="../new_pages/r_projects.html">R projects</a>).</p>
@@ -856,8 +915,8 @@ cookieconsent.run({
 <p>There are many ways to create new repositories. You can do it from the console, from Github, from an interface.</p>
 <p>Two general approaches to set-up are:</p>
 <ul>
-<li>Create a new R Project from an existing or new Github repository (<em>preferred for beginners</em>), or</li>
-<li>Create a Github repository for an existing R project</li>
+<li>Create a new R Project from an existing or new Github repository (<em>preferred for beginners</em>), or,</li>
+<li>Create a Github repository for an existing R project.</li>
 </ul>
 <section id="start-up-files" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="start-up-files">Start-up files</h3>
@@ -900,26 +959,26 @@ cookieconsent.run({
 <p>The next step can be performed in any interface. We will illustrate with Rstudio and Github desktop.</p>
 <section id="in-rstudio" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="in-rstudio">In Rstudio</h4>
-<p>In RStudio, start a new R project by clicking <em>File &gt; New Project &gt; Version Control &gt; Git</em></p>
+<p>In RStudio, start a new R project by clicking <em>File &gt; New Project &gt; Version Control &gt; Git</em>.</p>
 <ul>
-<li>When prompted for the “Repository URL”, paste the HTTPS URL from Github<br>
+<li>When prompted for the “Repository URL”, paste the HTTPS URL from Github.<br>
 </li>
-<li>Assign the R project a short, informative name<br>
+<li>Assign the R project a short, informative name.<br>
 </li>
-<li>Choose where the new R Project will be saved locally<br>
+<li>Choose where the new R Project will be saved locally.<br>
 </li>
-<li>Check “Open in new session” and click “Create project”</li>
+<li>Check “Open in new session” and click “Create project”.</li>
 </ul>
 <p>You are now in a new, local, RStudio project that is a clone of the Github repository. This local project and the Github repository are now linked.</p>
 </section>
 <section id="in-github-desktop" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="in-github-desktop">In Github Desktop</h4>
 <ul>
-<li><p>Click on <em>File &gt; Clone a repository</em></p></li>
-<li><p>Select the URL tab</p></li>
-<li><p>Paste the HTTPS URL from Github in the first box</p></li>
-<li><p>Select the folder in which you want to have your local repository</p></li>
-<li><p>Click “CLONE”</p></li>
+<li><p>Click on <em>File &gt; Clone a repository</em>.</p></li>
+<li><p>Select the URL tab.</p></li>
+<li><p>Paste the HTTPS URL from Github in the first box.</p></li>
+<li><p>Select the folder in which you want to have your local repository.</p></li>
+<li><p>Click “CLONE”.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -936,9 +995,9 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="new-github-repo-from-existing-r-project">New Github repo from existing R project</h3>
 <p>An alternative setup scenario is that you have an existing R project with content, and you want to create a Github repository for it.</p>
 <ol type="1">
-<li>Create a new, empty Github repository for the project (see instructions above)<br>
+<li>Create a new, empty Github repository for the project (see instructions above).<br>
 </li>
-<li>Clone this repository locally (see HTTPS instructions above)<br>
+<li>Clone this repository locally (see HTTPS instructions above).<br>
 </li>
 <li>Copy all the content from your pre-existing R project (codes, data, etc.) into this new empty, local, repository (e.g.&nbsp;use copy and paste).<br>
 </li>
@@ -962,13 +1021,13 @@ cookieconsent.run({
 </div>
 <p>Please note the buttons circled in the image above, as they will be referenced later (from left to right):</p>
 <ul>
-<li>Button to <em>commit</em> the saved file changes to the local branch (this will open a new window)</li>
-<li>Blue arrow to <em>pull</em> (update your local version of the branch with any changes made on the remote/Github version of that branch)</li>
+<li>Button to <em>commit</em> the saved file changes to the local branch (this will open a new window).</li>
+<li>Blue arrow to <em>pull</em> (update your local version of the branch with any changes made on the remote/Github version of that branch).</li>
 <li>Green arrow to <em>push</em> (send any commits/changes for your local version of the branch to the remote/Github version of that branch)</li>
-<li>The Git tab in RStudio</li>
-<li>Button to create a NEW branch using whichever local branch is shown to the right as the base. <em>You almost always want to branch off from the main branch (after you first pull to update the main branch)</em></li>
-<li>The branch you are currently working in</li>
-<li>Changes you made to code or other files will appear below</li>
+<li>The Git tab in RStudio.</li>
+<li>Button to create a NEW branch using whichever local branch is shown to the right as the base. <em>You almost always want to branch off from the main branch (after you first pull to update the main branch)</em>.</li>
+<li>The branch you are currently working in.</li>
+<li>Changes you made to code or other files will appear below.</li>
 </ul>
 </section>
 <section id="in-github-desktop-1" class="level4 unnumbered">
@@ -993,11 +1052,11 @@ cookieconsent.run({
 <p>Once you have completed the setup (described above), you will have a Github repo that is connected (<em>cloned</em>) to a local R project. The <em>main</em> branch (created by default) is the so-called “live” version of <em>all</em> the files. When you want to make modifications, it is a good practice to create a <em>new branch</em> from the <em>main</em> branch (like “Make a Copy”). This is a typical workflow in Git because creating a branch is easy and fast.</p>
 <p>A typical workflow is as follow:</p>
 <ol type="1">
-<li><p>Make sure that your local repository is up-to-date, update it if not</p></li>
-<li><p>Go to the branch you were working on previously, or create a new branch to try out some things</p></li>
-<li><p>Work on the files locally on your computer, make one or several commits to this branch</p></li>
-<li><p>Update the remote version of the branch with your changes (push)</p></li>
-<li><p>When you are satisfied with your branch, you can merge the online version of the working branch into the online “main” branch to transfer the changes</p></li>
+<li><p>Make sure that your local repository is up-to-date, update it if not.</p></li>
+<li><p>Go to the branch you were working on previously, or create a new branch to try out some things.</p></li>
+<li><p>Work on the files locally on your computer, make one or several commits to this branch.</p></li>
+<li><p>Update the remote version of the branch with your changes (push).</p></li>
+<li><p>When you are satisfied with your branch, you can merge the online version of the working branch into the online “main” branch to transfer the changes.</p></li>
 </ol>
 <p>Other team members may be doing the same thing with their own branches, or perhaps contributing commits into your working branch as well.</p>
 <p>We go through the above process step-by-step in more detail below. Here is a schematic we’ve developed - it’s in the format of a two-way table so it should help epidemiologists understand.</p>
@@ -1021,7 +1080,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>Image <a href="https://build5nines.com/introduction-to-git-version-control-workflow/">source</a></p>
+<p>Image <a href="https://build5nines.com/introduction-to-git-version-control-workflow/">source</a>.</p>
 </section>
 </section>
 <section id="create-a-new-branch" class="level2" data-number="46.7">
@@ -1088,7 +1147,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>You might be wondering what the yellow, blue, green, and red squares next to the file names represent. Here is a snapshot from the <a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">RStudio cheatsheet</a> that explains their meaning. Note that changes with yellow “?” can still be staged, committed, and pushed.</p>
+<p>You might be wondering what the yellow, blue, green, and red squares next to the file names represent. Here is a snapshot from the <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/refs/heads/main/pngs/rstudio-ide.png">RStudio cheatsheet</a> that explains their meaning. Note that changes with yellow “?” can still be staged, committed, and pushed.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1099,11 +1158,11 @@ cookieconsent.run({
 </div>
 </div>
 <ul>
-<li><p>Press the “Commit” button in the Git tab, which will open a new window (shown below)</p></li>
-<li><p>Click on a file name in the upper-left box</p></li>
-<li><p>Review the changes you made to that file (highlighted below in green or red)</p></li>
-<li><p>“Stage” the file, which will include those changes in the commit. Do this by checking the box next to the file name. Alternatively, you can highlight multiple file names and then click “Stage”</p></li>
-<li><p>Write a commit message that is short but descriptive (required)</p></li>
+<li><p>Press the “Commit” button in the Git tab, which will open a new window (shown below).</p></li>
+<li><p>Click on a file name in the upper-left box.</p></li>
+<li><p>Review the changes you made to that file (highlighted below in green or red).</p></li>
+<li><p>“Stage” the file, which will include those changes in the commit. Do this by checking the box next to the file name. Alternatively, you can highlight multiple file names and then click “Stage”.</p></li>
+<li><p>Write a commit message that is short but descriptive (required).</p></li>
 <li><p>Press the “Commit” button. A pop-up box will appear showing success or an error message.</p></li>
 </ul>
 <p>Now you can make more changes and more commits, as many times as you would like</p>
@@ -1178,7 +1237,7 @@ cookieconsent.run({
 <li><strong>git config –global user.name “Your Github username”</strong></li>
 </ul>
 <p>To learn more about how to enter these commands, see the section below on Git commands.</p>
-<p><strong><em>TIP:</em></strong> Asked to provide your password too often? See these chapters 10 &amp; 11 of this <a href="https://happygitwithr.com/credential-caching.html#credential-caching">tutorial</a> to connect to a repository using a SSH key (more complicated)</p>
+<p><strong><em>TIP:</em></strong> Asked to provide your password too often? See these chapters 10 &amp; 11 of this <a href="https://happygitwithr.com/ssh-keys">tutorial</a> to connect to a repository using a SSH key (more complicated) .</p>
 </section>
 <section id="in-github-desktop-4" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="in-github-desktop-4">In Github Desktop</h4>
@@ -1280,9 +1339,9 @@ cookieconsent.run({
 <p>A pull request (a “PR”) is a request to merge one branch into another (in other words, a request that <em>your working branch be pulled into the “main” branch</em>). A pull request typically involves multiple commits. A pull request usually begins a conversation and review process before it is accepted and the branch is merged. For example, you can read pull request discussions on <a href="https://github.com/tidyverse/dplyr/pulls">dplyr’s github</a>.</p>
 <p>You can submit a pull request (PR) directly form the website (as illustrated bellow) or from Github Desktop.</p>
 <ul>
-<li>Go to Github repository (online)</li>
-<li>View the tab “Pull Requests” and click the “New pull request” button</li>
-<li>Select from the drop-down menu to merge your branch into main</li>
+<li>Go to Github repository (online).</li>
+<li>View the tab “Pull Requests” and click the “New pull request” button.</li>
+<li>Select from the drop-down menu to merge your branch into main.</li>
 <li>Write a detailed Pull Request comment and click “Create Pull Request”.</li>
 </ul>
 <p>In the image below, the branch “forests” has been selected to be merged into “main”:</p>
@@ -1352,9 +1411,9 @@ cookieconsent.run({
 <p>Go to the repository on Github and click the button to view all the branches (next to the drop-down to select branches). Now find your branch and click the trash icon next to it. Read more detail on deleting a branch <a href="https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#deleting-a-branch">here</a>.</p>
 <p>Be sure to also delete the branch locally on your computer. This will not happen automatically.</p>
 <ul>
-<li>From RStudio, make sure you are in the Main branch</li>
-<li>Switch to typing Git commands in the RStudio “Terminal” (the tab adjacent to the R console), and type: <strong>git branch -d branch_name</strong>, where “branch_name” is the name of your branch to be deleted</li>
-<li>Refresh your Git tab and the branch should be gone</li>
+<li>From RStudio, make sure you are in the Main branch.</li>
+<li>Switch to typing Git commands in the RStudio “Terminal” (the tab adjacent to the R console), and type: <strong>git branch -d branch_name</strong>, where “branch_name” is the name of your branch to be deleted.</li>
+<li>Refresh your Git tab and the branch should be gone.</li>
 </ul>
 </section>
 <section id="in-github-desktop-5" class="level4" data-number="46.10.0.2">
@@ -1456,7 +1515,7 @@ cookieconsent.run({
 <section id="where-to-enter-commands" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="where-to-enter-commands">Where to enter commands</h3>
 <p>You enter commands in a Git shell.</p>
-<p><em>Option 1</em> You can open a new Terminal in RStudio. This tab is next to the R Console. If you cannot type any text in it, click on the drop-down menu below “Terminal” and select “New terminal”. Type the commands at the blinking space in front of the dollar sign “$”.</p>
+<p><em>Option 1</em>: You can open a new Terminal in RStudio. This tab is next to the R Console. If you cannot type any text in it, click on the drop-down menu below “Terminal” and select “New terminal”. Type the commands at the blinking space in front of the dollar sign “$”.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1466,14 +1525,14 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p><em>Option 2</em> You can also open a <em>shell</em> (a terminal to enter commands) by clicking the blue “gears” icon in the Git tab (near the RStudio Environment). Select “Shell” from the drop-down menu. A new window will open where you can type the commands after the dollar sign “$”.</p>
-<p><em>Option 3</em> Right click to open “Git Bash here” which will open the same sort of terminal, or open <em>Git Bash</em> form your application list. <a href="https://happygitwithr.com/shell.html">More beginner-friendly informations on Git Bash</a>, how to find it and some bash commands you will need.</p>
+<p><em>Option 2</em>: You can also open a <em>shell</em> (a terminal to enter commands) by clicking the blue “gears” icon in the Git tab (near the RStudio Environment). Select “Shell” from the drop-down menu. A new window will open where you can type the commands after the dollar sign “$”.</p>
+<p><em>Option 3</em>: Right click to open “Git Bash here” which will open the same sort of terminal, or open <em>Git Bash</em> form your application list. <a href="https://happygitwithr.com/shell.html">More beginner-friendly informations on Git Bash</a>, how to find it and some bash commands you will need.</p>
 </section>
 <section id="sample-commands" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="sample-commands">Sample commands</h3>
 <p>Below we present a few common git commands. When you use them, keep in mind which branch is active (checked-out), as that will change the action!</p>
 <p>In the commands below, <name> represents a branch name. <commit_hash> represents the hash ID of a specific commit. <num> represents a number. Do not type the &lt; or &gt; symbols.</num></commit_hash></name></p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 74%">
@@ -1542,15 +1601,17 @@ cookieconsent.run({
 <h2 data-number="46.13" class="anchored" data-anchor-id="resources"><span class="header-section-number">46.13</span> Resources</h2>
 <p>Much of this page was informed by <a href="https://happygitwithr.com/">this “Happy Git with R” website</a> by Jenny Bryan. There is a very helpful section of this website that helps you troubleshoot common Git and R-related errors.</p>
 <p>The <a href="https://docs.github.com/en/github">Github.com documentation and start guide</a>.</p>
-<p>The RStudio <a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">“IDE” cheatsheet</a> which includes tips on Git with RStudio.</p>
-<p><a href="https://ohi-science.org/news/github-going-back-in-time" class="uri">https://ohi-science.org/news/github-going-back-in-time</a></p>
+<p>The RStudio <a href="https://rstudio.github.io/cheatsheets/html/rstudio-ide.html">“IDE” cheatsheet</a> which includes tips on Git with RStudio.</p>
+<p><a href="https://ohi-science.org/news/github-going-back-in-time">GitHub: A beginner’s guide to going back in time (aka fixing mistakes)</a></p>
 <p><strong>Git commands for beginners</strong></p>
-<p>An <a href="learngitbranching.js.org">interactive tutorial</a> to learn Git commands.</p>
-<p><a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/" class="uri">https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/</a>: good for learning the absolute basics to track changes in one folder on you own computer.</p>
-<p>Nice schematics to understand branches: <a href="https://speakerdeck.com/alicebartlett/git-for-humans" class="uri">https://speakerdeck.com/alicebartlett/git-for-humans</a></p>
+<p>An <a href="https://learngitbranching.js.org/">interactive tutorial</a> to learn Git commands.</p>
+<p><a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71">Git for Absolute Beginners</a> good for learning the absolute basics to track changes in one folder on you own computer.</p>
+<p>Nice schematics to <a href="https://speakerdeck.com/alicebartlett/git-for-humans">understand branches</a></p>
 <p><strong>Tutorials covering both basic and more advanced subjects</strong></p>
-<p><a href="https://tutorialzine.com/2016/06/learn-git-in-30-minutes" class="uri">https://tutorialzine.com/2016/06/learn-git-in-30-minutes</a></p>
-<p><a href="https://dzone.com/articles/git-tutorial-commands-and-operations-in-git" class="uri">https://dzone.com/articles/git-tutorial-commands-and-operations-in-git</a> <a href="https://swcarpentry.github.io/git-novice/" class="uri">https://swcarpentry.github.io/git-novice/</a> (short course) <a href="https://rsjakob.gitbooks.io/git/content/chapter1.html" class="uri">https://rsjakob.gitbooks.io/git/content/chapter1.html</a></p>
+<p><a href="https://tutorialzine.com/2016/06/learn-git-in-30-minutes">Learn Git in 30 Minutes</a></p>
+<p><a href="https://dzone.com/articles/git-tutorial-commands-and-operations-in-git">Commands and Operations in Git</a></p>
+<p><a href="https://swcarpentry.github.io/git-novice/">Version Control with Git (short course)</a></p>
+<p><a href="https://rsjakob.gitbooks.io/git/content/chapter1.html">Introduction to Git (book)</a></p>
 <p>The <a href="https://git-scm.com/book/en/v2">Pro Git book</a> is considered an official reference. While some chapters are ok, it is usually a bit <em>technical</em>. It is probably a good resource once you have used Git a bit and want to learn a bit more precisely what happens and how to go further.</p>
 
 
@@ -1736,18 +1797,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1779,7 +1829,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1814,7 +1904,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2114,30 +2208,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":false,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
 
 
