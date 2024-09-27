@@ -33,22 +33,23 @@ Topics covered include:
 This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load packages with `library()` from **base** R. See the page on [R basics](basics.qmd) for more information on R packages.  
 
 ```{r load_packages}
-pacman::p_load(rio,          # File import
-               here,         # File locator
-               tsibble,      # handle time series datasets
-               slider,       # for calculating moving averages
-               imputeTS,     # for filling in missing values
-               feasts,       # for time series decomposition and autocorrelation
-               forecast,     # fit sin and cosin terms to data (note: must load after feasts)
-               trending,     # fit and assess models 
-               tmaptools,    # for getting geocoordinates (lon/lat) based on place names
-               ecmwfr,       # for interacting with copernicus sateliate CDS API
-               stars,        # for reading in .nc (climate data) files
-               units,        # for defining units of measurement (climate data)
-               yardstick,    # for looking at model accuracy
-               surveillance,  # for aberration detection
-               tidyverse     # data management + ggplot2 graphics
-               )
+pacman::p_load(
+     rio,          # File import
+     here,         # File locator
+     tsibble,      # handle time series datasets
+     slider,       # for calculating moving averages
+     imputeTS,     # for filling in missing values
+     feasts,       # for time series decomposition and autocorrelation
+     forecast,     # fit sin and cosin terms to data (note: must load after feasts)
+     trending,     # fit and assess models 
+     tmaptools,    # for getting geocoordinates (lon/lat) based on place names
+     ecmwfr,       # for interacting with copernicus sateliate CDS API
+     stars,        # for reading in .nc (climate data) files
+     units,        # for defining units of measurement (climate data)
+     yardstick,    # for looking at model accuracy
+     surveillance,  # for aberration detection
+     tidyverse     # data management + ggplot2 graphics
+     )
 ``` 
 
 ### Load data {.unnumbered}
@@ -1555,10 +1556,8 @@ observed <- predict(fitted_model, simulate_pi = FALSE)
 
 ```{r table_regression, eval = FALSE, echo = TRUE}
 
-## show estimates and percentage change in a table
-model %>% 
-  ## extract original negative binomial regression
-  get_model() %>%
+## extract original negative binomial regression
+fitted_model$result[[1]] %>%
   ## get a tidy dataframe of results
   tidy(exponentiate = TRUE, 
        conf.int = TRUE) %>% 
