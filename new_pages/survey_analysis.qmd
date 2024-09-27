@@ -964,27 +964,31 @@ purrr::map(
 
 ```
 
-
-
 ### **Sitrep** package 
 
 The `tab_survey()` function from **sitrep** is a wrapper for **srvyr**, allowing 
 you to create weighted tables with minimal coding. It also allows you to calculate
 weighted proportions for categorical variables. 
 
-```{r sitrep_props}
+```{r eval = F, sitrep_props}
 
 ## using the survey design object
 survey_design %>% 
   ## pass the names of variables of interest unquoted
-  tab_survey(arrived, left, died, education_level,
-             deff = TRUE,   # calculate the design effect
-             pretty = TRUE  # merge the proportion and 95%CI
-             )
+  tab_survey(
+       "arrived", 
+       "left", 
+       "died", 
+       "education_level",
+       deff = TRUE,   # calculate the design effect
+       pretty = TRUE  # merge the proportion and 95%CI
+       )
 
 ```
 
-
+```{r, echo = F, warning = F, message=FALSE}
+import(here("data", "surveys", "tab_survey_output.rds"))
+```
 
 ### **Gtsummary** package
 
@@ -1037,7 +1041,7 @@ cbind(
 
 ### **Srvyr** package 
 
-```{r srvyr_ratio}
+```{r srvyr_ratio, warning=FALSE, message=F}
 
 survey_design %>% 
   ## survey ratio used to account for observation time 
