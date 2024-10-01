@@ -69,7 +69,7 @@ This page explores survival analyses using the linelist used in most of the prev
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r echo=F}
+```{r echo=F, message=F, warning=F}
 # import linelist
 linelist_case_data <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -92,7 +92,7 @@ Thus, we will create different variables needed to respect that structure and ru
 We define:
 
 - A new data frame `linelist_surv` for this analysis.  
-- Iur event of interest as being "death" (hence our survival probability will be the probability of being alive after a certain time after the time of origin),
+- The event of interest as being "death" (hence our survival probability will be the probability of being alive after a certain time after the time of origin),
 - the follow-up time (`futime`) as the time between the time of onset and the time of outcome *in days*,
 - censored patients as those who recovered or for whom the final outcome is not known ie the event "death" was not observed (`event=0`).
 

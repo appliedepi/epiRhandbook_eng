@@ -35,14 +35,15 @@ pacman::p_load(
   zoo,        # additional date/time functions
   here,       # file management
   rio,        # data import/export
-  tidyverse)  # data management and visualization  
+  tidyverse   # data management and visualization
+  )    
 ```
 
 ### Import data {.unnumbered}  
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow along step-by-step, see instruction in the [Download handbook and data](data_used.qmd) page. We assume the file is in the working directory so no sub-folders are specified in this file path.  
 
-```{r,  echo=F}
+```{r,  echo=F, warning=F, message=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -214,7 +215,12 @@ You can use the **lubridate** functions `make_date()` and `make_datetime()` to c
 
 ```{r, eval=F}
 linelist <- linelist %>% 
-  mutate(onset_date = make_date(year = onset_year, month = onset_month, day = onset_day))
+  mutate(
+       onset_date = make_date(
+            year = onset_year, 
+            month = onset_month, 
+            day = onset_day)
+         )
 ```
 
 
