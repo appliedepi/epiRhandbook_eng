@@ -17,7 +17,7 @@ You can read more about the Go.Data project on the [Github Documentation site](h
 
 This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics](basics.qmd) for more information on R packages.  
 
-```{r, message = F}
+```{r, message = F, warning=F}
 pacman::p_load(
   rio,          # importing data  
   here,         # relative file pathways  
@@ -69,7 +69,7 @@ Below, the datasets are imported using the `import()` function from the **rio** 
 
 These data are a table of the cases, and information about them.  
 
-```{r}
+```{r, warning=F, message=F}
 cases <- import(here("data", "godata", "cases_clean.rds")) %>% 
   select(case_id, firstName, lastName, gender, age, age_class,
          occupation, classification, was_contact, hospitalization_typeid)
@@ -90,7 +90,7 @@ These data are a table of all the contacts and information about them. Again, pr
 * Artificially assign rows with missing admin level 2 to "Djembe", to improve clarity of some example visualisations.  
 
 
-```{r}
+```{r, warning=F, message=F}
 contacts <- import(here("data", "godata", "contacts_clean.rds")) %>% 
   mutate(age_class = forcats::fct_rev(age_class)) %>% 
   select(contact_id, contact_status, firstName, lastName, gender, age,
@@ -112,7 +112,7 @@ These data are records of the "follow-up" interactions with the contacts. Each c
 
 We import and perform a few cleaning steps. We select certain columns, and also convert a character column to all lowercase values.  
 
-```{r}
+```{r, warning=F, message=F}
 followups <- rio::import(here::here("data", "godata", "followups_clean.rds")) %>% 
   select(contact_id, followup_status, followup_number,
          date_of_followup, admin_2_name, admin_1_name) %>% 
@@ -610,4 +610,5 @@ ggplot(data = long_prop) +       # use long data, with proportions as Freq
 ## Resources  
 
 [Go.Data](https://worldhealthorganization.github.io/godata/)
+
 [Automated R Reporting using Go.Data API](https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting)
