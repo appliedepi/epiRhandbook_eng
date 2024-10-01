@@ -45,8 +45,9 @@ This page will explore some of the core functions of **data.table** using the ca
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data](data_used.qmd) page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](importing.qmd) for various ways to import data. From here we use `data.table()` to convert the data frame to a data table.
 
-```{r}
-linelist <- rio::import(here("data", "linelist_cleaned.xlsx")) %>% data.table()
+```{r, warning=F, message=F}
+linelist <- rio::import(here("data", "linelist_cleaned.xlsx")) %>% 
+     data.table()
 ```
 
 The `fread()` function is used to directly import regular delimited files, such as .csv files, directly to a data table format. This function, and its counterpart, `fwrite()`, used for writing data.tables as regular delimited files are very fast and computationally efficient options for large databases.
@@ -94,9 +95,9 @@ Data table uses helper functions that make subsetting rows easy. The `%like%` fu
 
 In the following examples we:
 
-*  filter rows where the hospital variable contains “Hospital”.
-*  filter rows where the outcome is “Recover” or “Death”.
-*  filter rows in the age range 40-60.
+*  Filter rows where the hospital variable contains “Hospital”.
+*  Filter rows where the outcome is “Recover” or “Death”.
+*  Filter rows in the age range 40-60.
 
 ```{r, eval=F}
 linelist[hospital %like% "Hospital"] #filter rows where the hospital variable contains “Hospital”
