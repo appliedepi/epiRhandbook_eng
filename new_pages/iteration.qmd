@@ -40,7 +40,7 @@ pacman::p_load(
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F}
+```{r, echo=F, message=F, warning=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -84,7 +84,7 @@ The basic syntax is: `for (item in sequence) {do operations using item}`. Note t
 A simple *for loop* example is below.   
 
 ```{r}
-for (num in c(1,2,3,4,5)) {  # the SEQUENCE is defined (numbers 1 to 5) and loop is opened with "{"
+for (num in c(1, 2, 3, 4, 5)) {  # the SEQUENCE is defined (numbers 1 to 5) and loop is opened with "{"
   print(num + 2)             # The OPERATIONS (add two to each sequence number and print)
 }                            # The loop is closed with "}"                            
                              # There is no "container" in this example
@@ -94,7 +94,7 @@ for (num in c(1,2,3,4,5)) {  # the SEQUENCE is defined (numbers 1 to 5) and loop
 
 ### Sequence {.unnumbered}  
 
-This is the "for" part of a *for loop* - the operations will run "for" each item in the sequence. The sequence can be a series of values (e.g. names of jurisdictions, diseases, column names, list elements, etc), or it can be a series of consecutive numbers (e.g. 1,2,3,4,5). Each approach has their own utilities, described below.  
+This is the "for" part of a *for loop* - the operations will run "for" each item in the sequence. The sequence can be a series of values (e.g. names of jurisdictions, diseases, column names, list elements, etc), or it can be a series of consecutive numbers (e.g. 1, 2, 3, 4, 5). Each approach has their own utilities, described below.  
 
 The basic structure of a sequence statement is `item in vector`.  
 
@@ -213,8 +213,9 @@ Say you want to store the median delay-to-admission for each hospital. You would
 
 ```{r}
 delays <- vector(
-  mode = "double",                            # we expect to store numbers
-  length = length(unique(linelist$hospital))) # the number of unique hospitals in the dataset
+  mode = "double",                           # we expect to store numbers
+  length = length(unique(linelist$hospital)) # the number of unique hospitals in the dataset
+  )
 ```
 
 **Empty data frame**  
@@ -269,15 +270,16 @@ We can make a nice epicurve of *all* the cases by gender using the **incidence2*
 ```{r, warning=F, message=F}
 # create 'incidence' object
 outbreak <- incidence2::incidence(   
-     x = linelist,                   # dataframe - complete linelist
-     date_index = "date_onset",        # date column
-     interval = "week",              # aggregate counts weekly
-     groups = "gender")               # group values by gender
-     #na_as_group = TRUE)             # missing gender is own group
+     x = linelist,                  # dataframe - complete linelist
+     date_index = "date_onset",     # date column
+     interval = "week",             # aggregate counts weekly
+     groups = "gender"              # group values by gender
+     )               
+     #na_as_group = TRUE)           # missing gender is own group
 
-# tracer la courbe d'épidémie
-ggplot(outbreak, # nom de l'objet d'incidence
-        aes(x = date_index, #aesthetiques et axes
+# plot
+ggplot(outbreak, 
+        aes(x = date_index, 
             y = count, 
             fill = gender), # Fill colour of bars by gender
        color = "black"      # Contour colour of bars
@@ -289,8 +291,11 @@ ggplot(outbreak, # nom de l'objet d'incidence
           x = "Counts", 
           y = "Date", 
           fill = "Gender", 
-          color = "Gender")
-
+          color = "Gender") +
+       theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+     
 
 ```
 
@@ -306,7 +311,7 @@ Within the loop operations, you can write R code as normal, but use the "item" (
 * The plot for the current hospital is temporarily saved and then printed.  
 * The loop then moves onward to repeat with the next hospital in `hospital_names`.  
 
-```{r, out.width='50%', message = F}
+```{r, out.width='75%', message = F}
 # make vector of the hospital names
 hospital_names <- unique(linelist$hospital)
 
@@ -336,14 +341,6 @@ for (hosp in hospital_names) {
                y = "Date", 
                fill = "Gender", 
                color = "Gender")
-     
-     # With older versions of R, remove the # before na_as_group and use this plot command instead.
-    # plot_hosp <- plot(
-#       outbreak_hosp,
-#       fill = "gender",
-#       color = "black",
-#       title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
-#     )
      
      #print the plot for hospitals
      print(plot_hosp)
