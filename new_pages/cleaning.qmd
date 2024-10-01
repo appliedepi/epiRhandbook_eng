@@ -1007,17 +1007,17 @@ linelist <- linelist %>%
 ```
 
 
-**fct_explicit_na()**  
+**fct_na_value_to_level()**  
 
 This is a function from the **forcats** package. The **forcats** package handles columns of class Factor. Factors are R's way to handle *ordered* values such as `c("First", "Second", "Third")` or to set the order that values (e.g. hospitals) appear in tables and plots. See the page on [Factors](factors.qmd).  
 
 If your data are class Factor and you try to convert `NA` to "Missing" by using `replace_na()`, you will get this error: `invalid factor level, NA generated`. You have tried to add "Missing" as a value, when it was not defined as a possible level of the factor, and it was rejected.  
 
-The easiest way to solve this is to use the **forcats** function `fct_explicit_na()` which converts a column to class factor, and converts `NA` values to the character "(Missing)".  
+The easiest way to solve this is to use the **forcats** function `fct_na_value_to_level()` which converts a column to class factor, and converts `NA` values to the character "(Missing)".  
 
 ```{r, eval=F}
 linelist %>% 
-  mutate(hospital = fct_explicit_na(hospital))
+  mutate(hospital = fct_na_value_to_level(hospital))
 ```
 
 A slower alternative would be to add the factor level using `fct_expand()` and then convert the missing values.  
@@ -1342,7 +1342,7 @@ table("Numeric Values" = linelist$age_years,   # names specified in table for cl
 
 **Re-labeling `NA` values**
 
-You may want to assign `NA` values a label such as "Missing". Because the new column is class Factor (restricted values), you cannot simply mutate it with `replace_na()`, as this value will be rejected. Instead, use `fct_explicit_na()` from **forcats** as explained in the [Factors](factors.qmd) page.   
+You may want to assign `NA` values a label such as "Missing". Because the new column is class Factor (restricted values), you cannot simply mutate it with `replace_na()`, as this value will be rejected. Instead, use `fct_na_value_to_level()` from **forcats** as explained in the [Factors](factors.qmd) page.   
 
 ```{r}
 linelist <- linelist %>% 
@@ -1356,9 +1356,9 @@ linelist <- linelist %>%
     labels = c("0-4", "5-9", "10-14", "15-19", "20-29", "30-49", "50-69", "70-100")),
          
     # make missing values explicit
-    age_cat = fct_explicit_na(
+    age_cat = fct_na_value_to_level(
       age_cat,
-      na_level = "Missing age")  # you can specify the label
+      level = "Missing age")  # you can specify the label
   )    
 
 # table to view counts

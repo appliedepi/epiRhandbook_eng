@@ -9,9 +9,9 @@ There exists a growing body of tools for epidemic modelling that lets us conduct
 fairly complex analyses with minimal effort. This section will provide an
 overview on how to use these tools to:
 
-* estimate the effective reproduction number R<sub>t</sub> and related statistics
+* Estimate the effective reproduction number R<sub>t</sub> and related statistics
   such as the doubling time.
-* produce short-term projections of future incidence.
+* Produce short-term projections of future incidence.
 
 It is *not* intended as an overview of the methodologies and statistical methods
 underlying these tools, so please refer to the Resources tab for links to some
@@ -139,7 +139,7 @@ pacman::p_load(
 	
 We will use the cleaned case linelist for all analyses in this section. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). See the [Download handbook and data](data_used.qmd) page to download all example data used in this handbook.  
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -473,7 +473,8 @@ cases <- incidence2::incidence(linelist, date_index = "date_onset") %>% # get ca
     by = "day"),
     fill = list(count = 0)) %>%                                       # convert NA counts to 0
   rename(I = count,                                                   # rename to names expected by estimateR
-         dates = date_index)
+         dates = date_index
+         )
 ```
 
 The package provides several options for specifying the serial interval, the
