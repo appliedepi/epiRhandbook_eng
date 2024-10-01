@@ -31,7 +31,7 @@ pacman::p_load(
 
 For this page, we import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r,  echo=F}
+```{r,  echo=F, warning=F, message=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -892,8 +892,6 @@ To demonstrate this technique we will overlay the epidemic curve with a line of 
 * The epicurve and the line are aggregated into weeks prior to plotting *and* the `date_breaks` and `date_labels` are identical - we do this so that the x-axes of the two plots are the same when they are overlaid.  
 * The y-axis is created to the right-side for plot 2 with the `sec_axis = ` argument of `scale_y_continuous()`.
 
-Note there is another example of this technique in the [Epidemic curves](epicurves.qmd) page - overlaying cumulative incidence on top of the epicurve.  
-
 **Make the datasets for the plot**  
 Here we will transform `linelist` into two different datasets `linelist_primary_axis` and `linelist_secondary_axis` in order to then create the scaling factor that will allow us to attach a second axis at the correct scale. 
 
@@ -932,16 +930,17 @@ scaling_factor <- linelist_secondary_axis_max/linelist_primary_axis_max
 
 ```
 
-And now we are ready to plot! We will be using the argument `` to create our epicurve, and `` to create our line graph. **Note** that we are not specifying a `data = ` argument in our first `ggplot()`, this is because we are using two separate datasets to create this plot.
+And now we are ready to plot! We will be using the argument `geom_histogram()` to create our epicurve, and `geom_line()` to create our line graph. **Note** that we are not specifying a `data = ` argument in our first `ggplot()`, this is because we are using two separate datasets to create this plot.
 
 ```{r, warning=F, message=F}
 
 ggplot() +
      #First create the epicurve
-     geom_area(data = linelist_primary_axis,
+     geom_histogram(data = linelist_primary_axis,
                mapping = aes(x = epiweek, 
                              y = n), 
-               fill = "grey"
+               fill = "grey",
+               stat = "identity"
                ) +
      #Now create the linegraph
      geom_line(data = linelist_secondary_axis,
