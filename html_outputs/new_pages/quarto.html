@@ -255,7 +255,7 @@ cookieconsent.run({
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
-    <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.linkedin.com/company/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
@@ -690,7 +690,10 @@ cookieconsent.run({
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#why-quarto-over-r-markdown" id="toc-why-quarto-over-r-markdown" class="nav-link active" data-scroll-target="#why-quarto-over-r-markdown"><span class="header-section-number">44.1</span> Why Quarto over R Markdown?</a></li>
+  <li><a href="#why-quarto-over-r-markdown" id="toc-why-quarto-over-r-markdown" class="nav-link active" data-scroll-target="#why-quarto-over-r-markdown"><span class="header-section-number">44.1</span> Why Quarto over R Markdown?</a>
+  <ul class="collapse">
+  <li><a href="#limitations-of-quarto" id="toc-limitations-of-quarto" class="nav-link" data-scroll-target="#limitations-of-quarto">Limitations of Quarto</a></li>
+  </ul></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="header-section-number">44.2</span> Getting started</a></li>
   <li><a href="#moving-beyond-simple-reports" id="toc-moving-beyond-simple-reports" class="nav-link" data-scroll-target="#moving-beyond-simple-reports"><span class="header-section-number">44.3</span> Moving beyond simple reports</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">44.4</span> Resources</a></li>
@@ -728,7 +731,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>Quarto is an alternative approach to R Markdown for creating automated, reproducible reports, presentations and interactive dashboards. Quarto was developed by the team behind R Studio, to take the functionality of R Markdown, with other approaches, and combine them into a single consistent system.</p>
+<p>Quarto is an alternative approach to R Markdown for creating automated, reproducible reports, presentations and interactive dashboards. Quarto was developed by the team behind RStudio, to take the functionality of R Markdown, with other approaches, and combine them into a single consistent system.</p>
 <p>As the overall philosophy and syntax of Quarto is nearly identical to that of R Markdown, this chapter will not focus on these, and instead refer you to the <a href="../new_pages/rmarkdown.html">R Markdown chapter</a> for instructions on syntax and application. We will approach the following topics:</p>
 <ol type="1">
 <li>Why Quarto over R Markdown?</li>
@@ -752,6 +755,22 @@ cookieconsent.run({
 </div>
 </div>
 <p><a href="https://quarto.org/docs/faq/rmarkdown.html">Source</a></p>
+<section id="limitations-of-quarto" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="limitations-of-quarto">Limitations of Quarto</h3>
+<p>There is one substantial limitation of Quarto, compared to R Markdown, when it is used to generate multiple different reports using the same dataset.</p>
+<p>In R Markdown, you can load in a dataset, run your analyses, and then generate multiple different reports from this dataset in your R environment. This means that you <em>do not need to individually import the dataset for each report</em>.</p>
+<p>However, because of the way that Quarto works, every single report needs to be self contained. That is to say that you would need to import the dataset <em>every time you want a new report</em>.</p>
+<p>This is not a problem if you are only running a single report, or a handful. But if you have a large dataset, and need to make a large number of reports, this can quickly become a real problem.</p>
+<p>Imagine a scenario where you are conducting a national outbreak response. You have a dataset which takes 5 minutes to import, and then you need to generate a report for each of the 50 provinces in the country.</p>
+<ul>
+<li><p>For R Markdown, you would only need to read in the data once, and then run your reports. This would take a minimum of 5 minutes (5 minutes to read in the data + time to run the script for the reports).</p></li>
+<li><p>For Quarto, you would need to read in the dataset each time. This would mean you would need at least 250 minutes (5 minutes for each of the 50 provinces).</p></li>
+</ul>
+<p>This quickly increasing time burden means that if you are generating multiple reports based on a large dataset, you may want to use R Markdown over Quarto!</p>
+<p>For further explanation, please see these forum posts:</p>
+<p><a href="https://forum.posit.co/t/quarto-cant-find-r-objects/156848">Quarto can’t find R-objects</a></p>
+<p><a href="https://github.com/quarto-dev/quarto-cli/discussions/1773">How to quarto_render into console environment</a></p>
+</section>
 </section>
 <section id="getting-started" class="level2" data-number="44.2">
 <h2 data-number="44.2" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">44.2</span> Getting started</h2>
@@ -779,7 +798,7 @@ cookieconsent.run({
 </div>
 <p>This will create your new Quarto script. <em>Note: While the R Markdown scripts ended with .Rmd, Quarto scripts end with .qmd</em></p>
 <p>While R Markdown scripts set the working directory to wherever the file is located, Quarto documents retain the original working directory. This is especially useful when you are working with an <a href="../new_pages/r_projects.html">R Project</a>.</p>
-<p>Your first view of the Quarto document may look different to what you are use to with an R Markdown document. This is because Quarto has the additional functionality of allow you to see what the rendered document will look like after it has been knit. To switch between the “Visual” and “Source” mode (which is what you see when you create an R Markdown document), click the “Visual” button in the top left side of the script.</p>
+<p>Like for R Markdown, Quarto used in RStudio allows you to see what the rendered document will look like after it has been knit. To switch between the “Visual” and “Source” mode, click the “Visual” button in the top left side of the script.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1417,7 +1436,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom"});
+<script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
