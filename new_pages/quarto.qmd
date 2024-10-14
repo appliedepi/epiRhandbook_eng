@@ -40,10 +40,29 @@ knitr::include_graphics(here::here("images", "quarto/rstudio-qmd-how-it-works.pn
 ```
 [Source](https://quarto.org/docs/faq/rmarkdown.html)
 
+### Limitations of Quarto {.unnumbered}
 
+There is one substantial limitation of Quarto, compared to R Markdown, when it is used to generate multiple different reports using the same dataset.
 
+In R Markdown, you can load in a dataset, run your analyses, and then generate multiple different reports from this dataset in your R environment. This means that you *do not need to individually import the dataset for each report*. 
 
+However, because of the way that Quarto works, every single report needs to be self contained. That is to say that you would need to import the dataset *every time you want a new report*.
 
+This is not a problem if you are only running a single report, or a handful. But if you have a large dataset, and need to make a large number of reports, this can quickly become a real problem.
+
+Imagine a scenario where you are conducting a national outbreak response. You have a dataset which takes 5 minutes to import, and then you need to generate a report for each of the 50 provinces in the country.
+
+* For R Markdown, you would only need to read in the data once, and then run your reports. This would take a minimum of 5 minutes (5 minutes to read in the data + time to run the script for the reports).
+
+* For Quarto, you would need to read in the dataset each time. This would mean you would need at least 250 minutes (5 minutes for each of the 50 provinces). 
+
+This quickly increasing time burden means that if you are generating multiple reports based on a large dataset, you may want to use R Markdown over Quarto!
+
+For further explanation, please see these forum posts:
+
+[Quarto can't find R-objects](https://forum.posit.co/t/quarto-cant-find-r-objects/156848)
+
+[How to quarto_render into console environment](https://github.com/quarto-dev/quarto-cli/discussions/1773)
 
 ## Getting started
 

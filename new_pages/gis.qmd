@@ -133,6 +133,8 @@ pacman::p_load(
   tmap,          # to produce simple maps, works for both interactive and static maps
   janitor,       # to clean column names
   OpenStreetMap, # to add OSM basemap in ggplot map
+  maptiles,      # for creating basemaps
+  tidyterra,     # for plotting basemaps
   spdep          # spatial statistics
   )
 ```
@@ -711,59 +713,47 @@ Below we describe how to achieve a basemap for a **ggplot2** map using OpenStree
 
 [**OpenStreetMap**](https://en.wikipedia.org/wiki/OpenStreetMap) is a collaborative project to create a free editable map of the world. The underlying geolocation data (e.g. locations of cities, roads, natural features, airports, schools, hospitals, roads etc) are considered the primary output of the project.
 
-First we load the **OpenStreetMap** package, from which we will get our basemap.  
+To do this, first we load in the packages we'll need. These are the **maptiles** package, which we will use to get the OpenStreetMap base layer, and the **tidyterra** package for plotting the maptiles object.
 
-Then, we create the object `map`, which we define using the function `openmap()` from **OpenStreetMap** package ([documentation](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/openmap)). We provide the following:  
+The function `get_tiles()` from the **maptiles** package can accept a variety of different inputs. These include shapefiles, as an sf object, bbox objects and SpatExtent objects. For a full list, type `?get_tiles` into your console.
 
-* `upperLeft` and `lowerRight` Two coordinate pairs specifying the limits of the basemap tile: 
-  * In this case we've put in the max and min from the linelist rows, so the map will respond dynamically to the data.  
-* `zoom = ` (if null it is determined automatically).  
-* `type =` which type of basemap - we have listed several possibilities here and the code is currently using the first one (`[1]`) "osm".  
-* `mergeTiles = ` we chose TRUE so the basetiles are all merged into one.
+There are a number of different ways to customise the output of `get_tiles()`, including changing the map provider, and saving the output so it can be accessed offline (by specifying a folder location in the `cachedir = ` argument). 
 
+Here we are going to create a map using the coordinates of the area we are interested in. To provide these in a format that can be used by `get_tiles()` we will wrap the coordinates with the function `ext()` from the **terra** package, which should be loaded with **tidyterra**. Then we will use the function `geom_spatraster_rgb()` to display the map.
+
+**Note: If you right click on [Google Maps](https://www.google.com/maps) it will display the coordinates of the point**.
 
 ```{r, message=FALSE, warning=FALSE}
 # load package
-pacman::p_load(OpenStreetMap)
+pacman::p_load(
+     maptiles,
+     tidyterra
+)
 
-# Fit basemap by range of lat/long coordinates. Choose tile type
-map <- OpenStreetMap::openmap(
-  upperLeft = c(max(linelist$lat, na.rm=T), max(linelist$lon, na.rm=T)),   # limits of basemap tile
-  lowerRight = c(min(linelist$lat, na.rm=T), min(linelist$lon, na.rm=T)),
-  zoom = NULL,
-  type = c("osm", "stamen-toner", "stamen-terrain", "stamen-watercolor", "esri","esri-topo")[1])
+#The coordinate extent of the area we are looking at, by taking the range of longditude and latitudes
+#Values correspond as xmin, xmax, ymin, ymax
+coordinates <- c(min(linelist$lon), 
+                 max(linelist$lon), 
+                 min(linelist$lat), 
+                 max(linelist$lat))
+
+#Get the basemap
+basemap <- get_tiles(terra::ext(coordinates),
+                     crop = T, project = T)
+
+# Plot the tile
+ggplot() +
+     geom_spatraster_rgb(
+          data = basemap
+     )
+
 ```
-
-If we plot this basemap right now, using `autoplot.OpenStreetMap()` from **OpenStreetMap** package, you see that the units on the axes are not latitude/longitude coordinates. It is using a different coordinate system. To correctly display the case residences (which are stored in lat/long), this must be changed.  
-
-```{r, warning=F, message=F}
-autoplot.OpenStreetMap(map)
-```
-Thus, we want to convert the map to latitude/longitude with the `openproj()` function from **OpenStreetMap** package. We provide the basemap `map` and also provide the Coordinate Reference System (CRS) we want. We do this by providing the "proj.4" character string for the WGS 1984 projection, but you can provide the CRS in other ways as well. (see [this page](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/) to better understand what a proj.4 string is). 
-
-```{r, warning=F, message=F}
-# Projection WGS84
-map_latlon <- openproj(map, projection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
-```
-
-Now when we create the plot we see that along the axes are latitude and longitude coordinate. The coordinate system has been converted. Now our cases will plot correctly if overlaid!  
-
-```{r, warning=F, message=F}
-# Plot map. Must use "autoplot" in order to work with ggplot
-autoplot.OpenStreetMap(map_latlon)
-```
-
-See the tutorials [here](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/autoplot.OpenStreetMap) for more info.  
-
-
-
-
 
 ## Contoured density heatmaps {}
 
 Below we describe how to achieve a contoured density heatmap of cases, over a basemap, beginning with a linelist (one row per case).  
 
-1) Create basemap tile from OpenStreetMap, as described above.  
+1) Create basemap tile, as described above.  
 2) Plot the cases from `linelist` using the latitude and longitude columns.  
 3) Convert the points to a density heatmap with `stat_density_2d()` from **ggplot2**. 
 
@@ -774,8 +764,11 @@ Building on the function `autoplot.OpenStreetMap()` to create the basemap, **ggp
 
 ```{r, warning=F, message=F}
 # Plot map. Must be autoplotted to work with ggplot
-autoplot.OpenStreetMap(map_latlon) +                 # begin with the basemap
-  geom_point(                                       # add xy points from linelist lon and lat columns 
+ggplot() +
+     geom_spatraster_rgb(
+          data = basemap
+     ) + 
+     geom_point(                                       # add xy points from linelist lon and lat columns 
     data = linelist,                                
     aes(x = lon, y = lat),
     size = 1, 
@@ -791,8 +784,10 @@ The map above might be difficult to interpret, especially with the points overla
 
 ```{r, warning=F, message=F}
 # begin with the basemap
-autoplot.OpenStreetMap(map_latlon) +
-  
+ggplot() +
+     geom_spatraster_rgb(
+          data = basemap
+     ) +
   # add the density plot
   ggplot2::stat_density_2d(
         data = linelist,
@@ -840,12 +835,12 @@ Now, we simply introduce facetting via **ggplot2** to the density heatmap. `face
 
 
 ```{r, warning=F, message=F}
-# packages
-pacman::p_load(OpenStreetMap, tidyverse)
 
 # begin with the basemap
-autoplot.OpenStreetMap(map_latlon) +
-  
+ggplot() +
+     geom_spatraster_rgb(
+          data = basemap
+     ) +  
   # add the density plot
   ggplot2::stat_density_2d(
         data = linelist,
