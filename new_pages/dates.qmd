@@ -321,6 +321,15 @@ ymd_h("2020-01-01 16hrs")
 ymd_h("2020-01-01 4PM")
 ```
 
+If you are missing the time, for example when the datetime object is created by combining columns in a dataset where some of the information is unavailable, you may want to include the argument `truncated = `. This will allow incomplete data to be converted given the available information, rather than defaulting to `NA`. The value you input into `truncated = `, will depend on how many formats can be missing.
+
+```{r}
+ymd_h("2020-01-01")
+
+ymd_h("2020-01-01", truncated = 2)
+
+```
+
 Convert datetime with hours and minutes to datetime object  
 
 ```{r}
@@ -348,7 +357,11 @@ In this example, the `linelist` data frame has a column in format "hours:minutes
 
 ```{r, eval = FALSE}
 # packages
-pacman::p_load(tidyverse, lubridate, stringr)
+pacman::p_load(
+     tidyverse, 
+     lubridate, 
+     stringr
+     )
 
 # time_admission is a column in hours:minutes
 linelist <- linelist %>%
@@ -357,9 +370,9 @@ linelist <- linelist %>%
   mutate(
     time_admission_clean = ifelse(
       is.na(time_admission),         # if time is missing
-      median(time_admission),        # assign the median
+      median(time_admission, na.rm = T),        # assign the median
       time_admission                 # if not missing keep as is
-  ) %>%
+  )) %>%
   
     # use str_glue() to combine date and time columns to create one character column
     # and then use ymd_hm() to convert it to datetime
@@ -367,6 +380,7 @@ linelist <- linelist %>%
     date_time_of_admission = str_glue("{date_hospitalisation} {time_admission_clean}") %>% 
       ymd_hm()
   )
+  
 
 ```
 
