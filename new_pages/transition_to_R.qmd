@@ -6,7 +6,7 @@
 
 Below, we provide some advice and resources if you are transitioning to R.  
 
-R was introduced in the late 1990s and has since grown dramatically in scope. Its capabilities are so extensive that commercial alternatives have reacted to R developments in order to stay competitive! ([read this article comparing R, SPSS, SAS, STATA, and Python](https://www.inwt-statistics.com/read-blog/comparison-of-r-python-sas-spss-and-stata.html)).  
+R was introduced in the late 1990s and has since grown dramatically in scope. Its capabilities are so extensive that commercial alternatives have reacted to R developments in order to stay competitive! ([read this article comparing R, SPSS, SAS, Stata, and Python](https://www.inwt-statistics.com/read-blog/comparison-of-r-python-sas-spss-and-stata.html)).  
 
 Moreover, R is much easier to learn than it was 10 years ago. Previously, R had a reputation of being difficult for beginners. It is now much easier with friendly user-interfaces like RStudio, intuitive code like the **tidyverse**, and many tutorial resources.  
 
@@ -137,10 +137,12 @@ Many epidemiologists are first taught how to use Stata, and it can seem daunting
 
 Below are some key translations between Stata and R, which may be handy as your review this guide.
 
+Please also see this cheatsheet for [Stata to R](https://raw.githubusercontent.com/rstudio/cheatsheets/master/stata2r.pdf).
+
 
 **General notes**
 
-**STATA**                    | **R**  
+**Stata**                    | **R**  
 ---------------------------- | ---------------------------------------------    
 You can only view and manipulate one dataset at a time | You can view and manipulate multiple datasets at the same time, therefore you will frequently have to specify your dataset within the code
 Online community available through [https://www.statalist.org/](https://www.statalist.org/) | Online community available through [RStudio](https://community.rstudio.com/), [StackOverFlow](https://stackoverflow.com/questions/tagged/r), and [R-bloggers](https://www.r-bloggers.com/)
@@ -153,7 +155,7 @@ Analysis is usually written in a **do** file | Analysis written in an R script i
 
 **Working directory**  
 
-**STATA**                        | **R**  
+**Stata**                        | **R**  
 -------------------------------- | ---------------------------------------------
 Working directories involve absolute filepaths (e.g. "C:/usename/documents/projects/data/")| Working directories can be either absolute, or relative to a project root folder by using the **here** package (see [Import and export](importing.qmd)) 
 See current working directory with **pwd** | Use `getwd()` or `here()` (if using the **here** package), with empty parentheses 
@@ -161,7 +163,7 @@ Set working directory with **cd** “folder location” | Use `setwd(“folder l
 
 **Importing and viewing data**  
 
-**STATA**                    | **R**  
+**Stata**                    | **R**  
 -------------------------------- | ---------------------------------------------
 Specific commands per file type | Use `import()` from **rio** package for almost all filetypes. Specific functions exist as alternatives (see [Import and export](importing.qmd))
 Reading in csv files is done by **import delimited** “filename.csv” | Use `import("filename.csv")`
@@ -171,7 +173,7 @@ Get a high-level overview of your dataset using **summarize**, which provides th
 
 **Basic data manipulation**  
 
-**STATA**                    | **R**  
+**Stata**                    | **R**  
 -------------------------------- | ---------------------------------------------
 Dataset columns are often referred to as "variables" | More often referred to as "columns" or sometimes as "vectors" or "variables"
 No need to specify the dataset | In each of the below commands, you need to specify the dataset - see the page on [Cleaning data and core functions](cleaning.qmd) for examples
@@ -182,7 +184,7 @@ Factor variables can be labeled using a series of commands such as **label defin
 
 **Descriptive analysis**  
 
-**STATA**                    | **R**  
+**Stata**                    | **R**  
 -------------------------------- | ---------------------------------------------
 Tabulate counts of a variable using **tab** *varname* | Provide the dataset and column name to `table()` such as `table(dataset$colname)`. Alternatively, use `count(varname)` from the **dplyr** package, as explained in [Grouping data](grouping.qmd)
 Cross-tabulaton of two variables in a 2x2 table is done with **tab** *varname1 varname2* | Use `table(dataset$varname1, dataset$varname2` or `count(varname1, varname2)`
@@ -268,7 +270,7 @@ Cross-tabulation of two variables in a 2x2 table is done with `proc freq data=Da
 ## Data interoperability  
 <!-- ======================================================= -->
 
-See the [Import and export](importing.qmd) page for details on how the R package **rio** can import and export files such as STATA .dta files, SAS .xpt and.sas7bdat files, SPSS .por and.sav files, and many others.  
+See the [Import and export](importing.qmd) page for details on how the R package **rio** can import and export files such as Stata .dta files, SAS .xpt and.sas7bdat files, SPSS .por and.sav files, and many others.  
 
 
 
