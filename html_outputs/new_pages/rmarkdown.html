@@ -289,7 +289,7 @@ cookieconsent.run({
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
-    <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.linkedin.com/company/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
@@ -739,6 +739,7 @@ cookieconsent.run({
   <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images">Images</a></li>
   <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
   <li><a href="#tabbed-sections" id="toc-tabbed-sections" class="nav-link" data-scroll-target="#tabbed-sections">Tabbed sections</a></li>
+  <li><a href="#remedy" id="toc-remedy" class="nav-link" data-scroll-target="#remedy"><strong>remedy</strong></a></li>
   </ul></li>
   <li><a href="#file-structure" id="toc-file-structure" class="nav-link" data-scroll-target="#file-structure"><span class="header-section-number">40.4</span> File structure</a>
   <ul class="collapse">
@@ -929,7 +930,7 @@ cookieconsent.run({
 <p>The YAML should begin with metadata for the document. The order of these primary YAML parameters (not indented) does not matter. For example:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-10-01"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-10-14"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can use R code in YAML values by writing it as in-line code (preceded by <code>r</code> within back-ticks) but also within quotes (see above example for <code>date:</code>).</p>
 <p>In the image above, because we clicked that our default output would be an html file, we can see that the YAML says <code>output: html_document</code>. However we can also change this to say <code>powerpoint_presentation</code> or <code>word_document</code> or even <code>pdf_document</code>.</p>
 </section>
@@ -1129,6 +1130,16 @@ cookieconsent.run({
 </div>
 </div>
 <p>You can add an additional option <code>.tabset-pills</code> after <code>.tabset</code> to give the tabs themselves a “pilled” appearance. Be aware that when viewing the tabbed HTML output, the Ctrl+f search functionality will only search “active” tabs, not hidden tabs.</p>
+</section>
+<section id="remedy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="remedy"><strong>remedy</strong></h3>
+<p>remedy is an addin for R-Studio which helps with writing R Markdown scripts. It provides a user interface and series of keyboard shortcuts to format your text.</p>
+<p>This package is installed directly from GitHub.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ThinkR-open/remedy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once installed, the package does not need to be re-loaded. It will automatically load when you start RStudio.</p>
+<p>For a full list of features and updates, please see <a href="https://thinkr-open.github.io/remedy/">https://thinkr-open.github.io/remedy/</a></p>
 <!-- ======================================================= -->
 </section>
 </section>
@@ -1168,8 +1179,8 @@ cookieconsent.run({
 <p>One variation of the “self-contained” approach is to have R Markdown code chunks “source” (run) other R scripts. This can make your R Markdown script less cluttered, more simple, and easier to organize. It can also help if you want to display final figures at the beginning of the report. In this approach, the final R Markdown script simply combines pre-processed outputs into a document.</p>
 <p>One way to do this is by providing the R scripts (file path and name with extension) to the <strong>base</strong> R command <code>source()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"your-script.R"</span>, <span class="at">local =</span> knitr<span class="sc">::</span><span class="fu">knit_global</span>())</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or sys.source("your-script.R", envir = knitr::knit_global())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"your-script.R"</span>, <span class="at">local =</span> knitr<span class="sc">::</span><span class="fu">knit_global</span>())</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or sys.source("your-script.R", envir = knitr::knit_global())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that when using <code>source()</code> <em>within</em> the R Markdown, the external files will still be run <em>during the course of rendering your Rmd file</em>. Therefore, each script is run every time you render the report. Thus, having these <code>source()</code> commands <em>within</em> the R Markdown does not speed up your run time, nor does it greatly assist with de-bugging, as error produced will still be printed when producing the R Markdown.</p>
 <p>An alternative is to utilize the <code>child =</code> <strong>knitr</strong> option.</p>
@@ -1227,10 +1238,10 @@ cookieconsent.run({
 </ul>
 <p>In the example below, we have a separate R script in which we pre-process a <code>data</code> object into the R Environment and then render the “create_output.Rmd” using <code>render()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"datafile.csv"</span>) <span class="sc">%&gt;%</span>       <span class="co"># Load data and save to environment</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age, hospital, weight)          <span class="co"># Select limited columns</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"create_output.Rmd"</span>)   <span class="co"># Create Rmd file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"datafile.csv"</span>) <span class="sc">%&gt;%</span>       <span class="co"># Load data and save to environment</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age, hospital, weight)          <span class="co"># Select limited columns</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"create_output.Rmd"</span>)   <span class="co"># Create Rmd file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="folder-strucutre" class="level3 unnumbered">
@@ -1266,7 +1277,7 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="option-2-render-command">Option 2: <code>render()</code> command</h3>
 <p>Another way to produce your R Markdown output is to run the <code>render()</code> function (from the <strong>rmarkdown</strong> package). You must execute this command <em>outside</em> the R Markdown script - so either in a separate R script (often called a “run file”), or as a stand-alone command in the R Console.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"my_report.Rmd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"my_report.Rmd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As with “knit”, the default settings will save the Rmd output to the same folder as the Rmd script, with the same file name (aside from the file extension). For instance “my_report.Rmd” when knitted will create “my_report.docx” if you are knitting to a word document. However, by using <code>render()</code> you have the option to use different settings. <code>render()</code> can accept arguments including:</p>
 <ul>
@@ -1285,9 +1296,9 @@ cookieconsent.run({
 </ul>
 <p>As one example, to improve version control, the following command will save the output file within an ‘outputs’ sub-folder, with the current date in the file name. To create the file name, the function <code>str_glue()</code> from the <strong>stringr</strong> package is use to ‘glue’ together static strings (written plainly) with dynamic R code (written in curly brackets). For instance if it is April 10th 2021, the file name from below will be “Report_2021-04-10.docx”. See the page on <a href="../new_pages/characters_strings.html">Characters and strings</a> for more details on <code>str_glue()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"create_output.Rmd"</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"create_output.Rmd"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As the file renders, the RStudio Console will show you the rendering progress up to 100%, and a final message to indicate that the rendering is complete.</p>
 </section>
@@ -1309,13 +1320,13 @@ cookieconsent.run({
 <section id="option-1-set-parameters-within-yaml" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="option-1-set-parameters-within-yaml">Option 1: Set parameters within YAML</h4>
 <p>Edit the YAML to include a <code>params:</code> option, with indented statements for each parameter you want to define. In this example we create parameters <code>date</code> and <code>hospital</code>, for which we specify values. These values are subject to change each time the report is run. If you use the “Knit” button to produce the output, the parameters will have these default values. Likewise, if you use <code>render()</code> the parameters will have these default values unless otherwise specified in the <code>render()</code> command.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the background, these parameter values are contained within a read-only list called <code>params</code>. Thus, you can insert the parameter values in R code as you would another R object/value in your environment. Simply type <code>params$</code> followed by the parameter name. For example <code>params$hospital</code> to represent the hospital name (“Central Hospital” by default).</p>
 <p>Note that parameters can also hold values <code>true</code> or <code>false</code>, and so these can be included in your <strong>knitr</strong> options for a R chunk. For example, you can set <code>{r, eval=params$run}</code> instead of <code>{r, eval=FALSE}</code>, and now whether the chunk runs or not depends on the value of a parameter <code>run:</code>.</p>
 <p>Note that for parameters that are dates, they will be input as a string. So for <code>params$date</code> to be interpreted in R code it will likely need to be wrapped with <code>as.Date()</code> or a similar function to convert to class Date.</p>
@@ -1326,10 +1337,10 @@ cookieconsent.run({
 <p>Note than any parameter values provided here will <em>overwrite</em> their default values if written within the YAML. We write the values in quotation marks as in this case they should be defined as character/string values.</p>
 <p>The below command renders “surveillance_report.Rmd”, specifies a dynamic output file name and folder, and provides a <code>list()</code> of two parameters and their values to the argument <code>params =</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="at">date =</span> <span class="st">"2021-04-10"</span>, <span class="at">hospital  =</span> <span class="st">"Central Hospital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="at">date =</span> <span class="st">"2021-04-10"</span>, <span class="at">hospital  =</span> <span class="st">"Central Hospital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="option-3-set-parameters-using-a-graphical-user-interface" class="level4 unnumbered">
@@ -1347,10 +1358,10 @@ cookieconsent.run({
 </div>
 <p>You can achieve the same through a <code>render()</code> command by specifying <code>params = "ask"</code>, as demonstrated below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, typing values into this pop-up window is subject to error and spelling mistakes. You may prefer to add restrictions to the values that can be entered through drop-down menus. You can do this by adding in the YAML several specifications for each <code>params:</code> entry.</p>
 <ul>
@@ -1363,17 +1374,17 @@ cookieconsent.run({
 <li><code>choices:</code> provide the eligible values in the drop-down menu.</li>
 </ul>
 <p>Below, these specifications are written for the <code>hospital</code> parameter.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When knitting (either via the ‘knit with parameters’ button or by <code>render()</code>), the pop-up window will have drop-down options to select from.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1415,14 +1426,14 @@ cookieconsent.run({
 <p>If you are rendering a R Markdown file with <code>render()</code> from a separate script, you can actually create the impact of parameterization without using the <code>params:</code> functionality.</p>
 <p>For instance, in the <em>R script</em> that contains the <code>render()</code> command, you can simply define <code>hospital</code> and <code>date</code> as two R objects (values) before the <code>render()</code> command. In the R Markdown, you would not need to have a <code>params:</code> section in the YAML, and we would refer to the <code>date</code> object rather than <code>params$date</code> and <code>hospital</code> rather than <code>params$hospital</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a R script that is separate from the R Markdown</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define R objects</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>hospital <span class="ot">&lt;-</span> <span class="st">"Central Hospital"</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="st">"2021-04-10"</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the R markdown</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"create_output.Rmd"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a R script that is separate from the R Markdown</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define R objects</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>hospital <span class="ot">&lt;-</span> <span class="st">"Central Hospital"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="st">"2021-04-10"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the R markdown</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="at">input =</span> <span class="st">"create_output.Rmd"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Following this approach means means you can not “knit with parameters”, use the GUI, or include knitting options within the parameters. However it allows for simpler code, which may be advantageous.</p>
 <!-- ======================================================= -->
@@ -1433,10 +1444,10 @@ cookieconsent.run({
 <p>We may want to run a report multiple times, varying the input parameters, to produce a report for each jurisdictions/unit. This can be done using tools for <em>iteration</em>, which are explained in detail in the page on <a href="../new_pages/iteration.html">Iteration, loops, and lists</a>. Options include the <strong>purrr</strong> package, or use of a <em>for loop</em> as explained below.</p>
 <p>Below, we use a simple <em>for loop</em> to generate a surveillance report for all hospitals of interest. This is done with one command (instead of manually changing the hospital parameter one-at-a-time). The command to render the reports must exist in a separate script <em>outside</em> the report Rmd. This script will also contain defined objects to “loop through” - today’s date, and a vector of hospital names to loop through.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Central Hospital"</span>,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Military Hospital"</span>, </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Port Hospital"</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Central Hospital"</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Military Hospital"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Port Hospital"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then feed these values one-at-a-time into the <code>render()</code> command using a loop, which runs the command once for each value in the <code>hospitals</code> vector. The letter <code>i</code> represents the index position (1 through 4) of the hospital currently being used in that iteration, such that <code>hospital_list[1]</code> would be “Central Hospital”. This information is supplied in two places in the <code>render()</code> command:</p>
 <ol type="1">
@@ -1445,12 +1456,12 @@ cookieconsent.run({
 <li>To <code>params =</code> such that the Rmd uses the hospital name internally whenever the <code>params$hospital</code> value is called (e.g.&nbsp;to filter the dataset to the particular hospital only). In this example, four files would be created - one for each hospital.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(hospitals)){</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_file =</span> <span class="fu">str_glue</span>(<span class="st">"output/Report_{hospitals[i]}_{Sys.Date()}.docx"</span>),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> <span class="fu">list</span>(<span class="at">hospital  =</span> hospitals[i]))</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>}       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(hospitals)){</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_file =</span> <span class="fu">str_glue</span>(<span class="st">"output/Report_{hospitals[i]}_{Sys.Date()}.docx"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> <span class="fu">list</span>(<span class="at">hospital  =</span> hospitals[i]))</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>}       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- In the scenario where you are f not using this strict form of parameterisation but saving objects to the environment, as discussed at the end of the parameterisation section, the render function would look like this: -->
 <!-- ```md -->
@@ -1502,17 +1513,17 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="integrating-templates-into-the-yaml">Integrating templates into the YAML</h3>
 <p>Once a template is prepared, the detail of this can be added in the YAML of the Rmd underneath the ‘output’ line and underneath where the document type is specified (which goes to a separate line itself). Note <code>reference_doc</code> can be used for powerpoint slide templates.</p>
 <p>It is easiest to save the template in the same folder as where the Rmd file is (as in the example below), or in a subfolder within.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="formatting-html-files" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="formatting-html-files">Formatting HTML files</h3>
@@ -1523,16 +1534,16 @@ cookieconsent.run({
 <li><p>Highlight: Configuring this changes the look of highlighted text (e.g.&nbsp;code within chunks that are shown). Supported styles include default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark, and textmate.</p></li>
 </ul>
 <p>Here is an example of how to integrate the above options into the YAML.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Below are two examples of HTML outputs which both have floating tables of contents, but different theme and highlight styles selected:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2184,7 +2195,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
