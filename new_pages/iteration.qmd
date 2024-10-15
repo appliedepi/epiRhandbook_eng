@@ -682,6 +682,24 @@ my_plots <- map(
 ggarrange(plotlist = my_plots, ncol = 2, nrow = 3)
 ```
 
+You can also use `map()` with `ggsave()` to loop through and save plots.
+
+```{r, echo = T, eval = F}
+
+map(
+     .x = hospital_names,
+     .f = ~ggsave(
+          filename = here::here(
+               str_glue("epicurve_{.x}.png")),
+          ggplot(data = linelist %>% 
+                      filter(hospital == .x)) +
+               geom_histogram(aes(x = date_onset)) +
+               labs(title = .x)
+     )
+)
+
+```
+
 If this `map()` code looks too messy, you can achieve the same result by saving your specific `ggplot()` command as a custom user-defined function, for example we can name it `make_epicurve())`. This function is then used within the `map()`. `.x` will be iteratively replaced by the hospital name, and used as `hosp_name` in the `make_epicurve()` function. See the page on [Writing functions](writing_functions.qmd).
 
 ```{r, eval=F}
