@@ -14,15 +14,15 @@ Grouping data is a core component of data management and analysis. Grouped data 
 
 This page will address the following topics:  
 
-* Group data with the `group_by()` function.  
-* Un-group data.  
-* `summarise()` grouped data with statistics.  
-* The difference between `count()` and `tally()`.  
-* `arrange()` applied to grouped data.  
-* `filter()` applied to grouped data.  
-* `mutate()` applied to grouped data.  
-* `select()` applied to grouped data.  
-* The **base** R `aggregate()` command as an alternative.  
+* Group data with the `group_by()` function  
+* Un-group data  
+* `summarise()` grouped data with statistics  
+* The difference between `count()` and `tally()`  
+* `arrange()` applied to grouped data  
+* `filter()` applied to grouped data  
+* `mutate()` applied to grouped data  
+* `select()` applied to grouped data  
+* The **base** R `aggregate()` command as an alternative  
 
 
 
@@ -235,9 +235,9 @@ linelist %>%
 
 In contrast, `count()` does the following:  
 
-1) applies `group_by()` on the specified column(s).  
-2) applies `summarise()` and returns column `n` with the number of rows per group.  
-3) applies `ungroup()`.  
+1) applies `group_by()` on the specified column(s)  
+2) applies `summarise()` and returns column `n` with the number of rows per group
+3) applies `ungroup()`
 
 ```{r}
 linelist %>% 
@@ -425,9 +425,9 @@ The **dplyr** function `slice()`, which [filters rows based on their position](h
 
 For example, to retrieve only the latest 5 admissions from each hospital:  
 
-1) Group the linelist by column `hospital`.  
-2) Arrange the records from latest to earliest `date_hospitalisation` *within each hospital group*.  
-3) Slice to retrieve the first 5 rows from each hospital.  
+1) Group the linelist by column `hospital` 
+2) Arrange the records from latest to earliest `date_hospitalisation` *within each hospital group* 
+3) Slice to retrieve the first 5 rows from each hospital
 
 ```{r,}
 linelist %>%
@@ -438,11 +438,11 @@ linelist %>%
   select(case_id, hospital, date_hospitalisation)  # for display
 ```
 
-`slice_head()` - selects n rows from the top.  
-`slice_tail()` - selects n rows from the end.  
-`slice_sample()` - randomly selects n rows.  
-`slice_min()` - selects n rows with highest values in `order_by = ` column, use `with_ties = TRUE` to keep ties.  
-`slice_max()` - selects n rows with lowest values in `order_by = ` column, use `with_ties = TRUE` to keep ties.  
+`slice_head()` - selects n rows from the top  
+`slice_tail()` - selects n rows from the end  
+`slice_sample()` - randomly selects n rows  
+`slice_min()` - selects n rows with highest values in `order_by = ` column, use `with_ties = TRUE` to keep ties  
+`slice_max()` - selects n rows with lowest values in `order_by = ` column, use `with_ties = TRUE` to keep ties  
 
 See the [De-duplication](deduplication.qmd) page for more examples and detail on `slice()`.  
 
@@ -483,9 +483,9 @@ This is useful if you want group statistics in the original dataset *with all ot
 
 For example, this code below calculates the difference between a row's delay-to-admission and the median delay for their hospital. The steps are:  
 
-1) Group the data by hospital.  
-2) Use the column `days_onset_hosp` (delay to hospitalisation) to create a new column containing the mean delay at the hospital of *that row*.  
-3) Calculate the difference between the two columns.  
+1) Group the data by hospital
+2) Use the column `days_onset_hosp` (delay to hospitalisation) to create a new column containing the mean delay at the hospital of *that row*
+3) Calculate the difference between the two columns
 
 We `select()` only certain columns to display, for demonstration purposes.  
 
