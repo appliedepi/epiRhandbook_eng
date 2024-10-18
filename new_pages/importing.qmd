@@ -7,7 +7,7 @@ knitr::include_graphics(here::here("images", "Import_Export_1500x500.png"))
 
 In this page we describe ways to locate, import, and export files:  
 
-* Use of the **rio** package to flexibly `import()` and `export()` many types of files.
+* Use of the **rio** package to flexibly `import()` and `export()` many types of files
 * Use of R projects to store your data files, and locate them easily from any computer by using *relative file paths*  
 * Use of the **here** package to create the file paths  
 * Specific import scenarios, such as:  
@@ -40,8 +40,8 @@ You can import/export many types of files, including those created by other stat
 
 R even has its own data formats:  
 
-* An RDS file (.rds) stores a single R object such as a data frame. These are useful to store cleaned data, as they maintain R column classes. Read more in [this section](#import_rds).    
-* An RData file (.Rdata) can be used to store multiple objects, or even a complete R workspace. Read more in [this section](#import_rdata).  
+* An RDS file (.rds) stores a single R object such as a data frame. These are useful to store cleaned data, as they maintain R column classes. Read more in [this section](#import_rds)    
+* An RData file (.Rdata) can be used to store multiple objects, or even a complete R workspace. Read more in [this section](#import_rdata)
 
 
 
@@ -92,10 +92,10 @@ linelist <- import("C:/Users/Laura/Documents/analysis/data/linelists/linelist_ra
 
 A few things to note about absolute file paths:  
 
-* **Avoid using absolute file paths** as they will not work if the script is run on a different computer.
-* Provide the file path within quotation marks. It is a "string" (character) value.  
-* Use *forward* slashes (`/`), as in the example above (note: this is *NOT* the default for Windows file paths).  
-* File paths that begin with double slashes (e.g. "//...") will likely **not be recognized by R** and will produce an error. Consider moving your work to a "named" or "lettered" drive that begins with a letter (e.g. "J:" or "C:"). See the page on [Directory interactions](directories.qmd) for more details on this issue.  
+* **Avoid using absolute file paths** as they will not work if the script is run on a different computer
+* Provide the file path within quotation marks. It is a "string" (character) value
+* Use *forward* slashes (`/`), as in the example above (note: this is *NOT* the default for Windows file paths) 
+* File paths that begin with double slashes (e.g. "//...") will likely **not be recognized by R** and will produce an error. Consider moving your work to a "named" or "lettered" drive that begins with a letter (e.g. "J:" or "C:"). See the page on [Directory interactions](directories.qmd) for more details on this issue
 
 One scenario where absolute file paths may be appropriate is when you want to import a file from a shared drive that has the same full file path for all users.  
 
@@ -173,8 +173,8 @@ Read more about the **here** package [at this link](https://here.r-lib.org/).
 
 You can import data manually via one of these methods:  
 
-1) Environment RStudio Pane, click "Import Dataset", and select the type of data. 
-2) Click File / Import Dataset / (select the type of data).  
+1) Environment RStudio Pane, click "Import Dataset", and select the type of data
+2) Click File / Import Dataset / (select the type of data)
 3) To hard-code manual selection, use the *base R* command `file.choose()` (leaving the parentheses empty) to trigger appearance of a **pop-up window** that allows the user to manually select the file from their computer. For example:  
 
 ```{r import_choose, eval=F}
@@ -459,10 +459,10 @@ Importing data directly from Github into R can be very easy or can require a few
 
 It can be easy to import a .csv file directly from Github into R with an R command.  
 
-1) Go to the Github repo, locate the file of interest, and click on it.  
-3) Click on the "Raw" button (you will then see the "raw" csv data, as shown below).  
-4) Copy the URL (web address).  
-5) Place the URL in quotes within the `import()` R command. 
+1) Go to the Github repo, locate the file of interest, and click on it 
+3) Click on the "Raw" button (you will then see the "raw" csv data, as shown below)
+4) Copy the URL (web address)
+5) Place the URL in quotes within the `import()` R command
 
 ```{r, out.width=c('100%', '100%'), fig.align = "left", echo=F}
 knitr::include_graphics(here::here("images", "download_csv_raw.png"))
@@ -585,17 +585,17 @@ df_from_clipboard <- read.table(
 
 Often you may receive daily updates to your datasets. In this case you will want to write code that imports the most recent file. Below we present two ways to approach this:  
 
-* Selecting the file based on the date in the file name.  
-* Selecting the file based on file metadata (last modification).
+* Selecting the file based on the date in the file name  
+* Selecting the file based on file metadata (last modification)
 
 
 ### Dates in file name {.unnumbered}  
 
 This approach depends on three premises:  
 
-1) You trust the dates in the file names.  
-2) The dates are numeric and appear in *generally* the same format (e.g. year then month then day).  
-3) There are no other numbers in the file name.  
+1) You trust the dates in the file names
+2) The dates are numeric and appear in *generally* the same format (e.g. year then month then day)
+3) There are no other numbers in the file name
 
 We will explain each step, and then show you them combined at the end.  
 
@@ -704,10 +704,10 @@ The API exchange is most commonly done through an HTTP request. HTTP is Hypertex
 
 Here are a few components of an *HTTP request*:  
 
-* The URL of the API endpoint.  
-* The "Method" (or "Verb").  
-* Headers.  
-* Body.  
+* The URL of the API endpoint
+* The "Method" (or "Verb") 
+* Headers
+* Body
 
 The HTTP request "method" is the action your want to perform. The two most common HTTP methods are `GET` and `POST` but others could include `PUT`, `DELETE`, `PATCH`, etc. When importing data into R it is most likely that you will use `GET`.  
 
@@ -732,12 +732,12 @@ Scenario: We want to import a list of fast food outlets in the city of Trafford,
 
 Here are the parameters for our request:  
 
-* HTTP verb: GET.
-* API endpoint URL: [http://api.ratings.food.gov.uk/Establishments](http://api.ratings.food.gov.uk/Establishments).  
-* Selected parameters: name, address, longitude, latitude, businessTypeId, ratingKey, localAuthorityId.
-* Headers: “x-api-version”.
-* Data format(s): JSON, XML.
-* Documentation: [http://api.ratings.food.gov.uk/help](http://api.ratings.food.gov.uk/help).  
+* HTTP verb: GET
+* API endpoint URL: [http://api.ratings.food.gov.uk/Establishments](http://api.ratings.food.gov.uk/Establishments)  
+* Selected parameters: name, address, longitude, latitude, businessTypeId, ratingKey, localAuthorityId
+* Headers: “x-api-version”
+* Data format(s): JSON, XML
+* Documentation: [http://api.ratings.food.gov.uk/help](http://api.ratings.food.gov.uk/help)
 
 The R code would be as follows:  
 
