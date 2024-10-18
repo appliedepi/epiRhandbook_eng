@@ -115,8 +115,8 @@ Once you map a column to a plot aesthetic (e.g. `x = `, `y = `, `fill = `, `colo
 You can control the scales with the appropriate `scales_()` function. The scale functions of **ggplot()** have 3 parts that are written like this: `scale_AESTHETIC_METHOD()`.  
 
 1) The first part, `scale_()`, is fixed.  
-2) The second part, the AESTHETIC, should be the aesthetic that you want to adjust the scale for (`_fill_`, `_shape_`, `_color_`, `_size_`, `_alpha_`...) - the options here also include `_x_` and `_y_`.  
-3) The third part, the METHOD, will be either `_discrete()`, `continuous()`, `_date()`, `_gradient()`, or `_manual()` depending on the class of the column and *how* you want to control it. There are others, but these are the most-often used.  
+2) The second part, the AESTHETIC, should be the aesthetic that you want to adjust the scale for (`_fill_`, `_shape_`, `_color_`, `_size_`, `_alpha_`...) - the options here also include `_x_` and `_y_`
+3) The third part, the METHOD, will be either `_discrete()`, `continuous()`, `_date()`, `_gradient()`, or `_manual()` depending on the class of the column and *how* you want to control it. There are others, but these are the most-often used
 
 Be sure that you use the correct function for the scale! Otherwise your scale command will not appear to change anything. If you have multiple scales, you may use multiple scale functions to adjust them! For example:  
 
@@ -135,10 +135,10 @@ The nuances of date scales are covered more extensively in the [Epidemic curves]
 
 One of the most useful tricks is using "manual" scaling functions to explicitly assign colors as you desire. These are functions with the syntax `scale_xxx_manual()` (e.g. `scale_colour_manual()` or `scale_fill_manual()`). Each of the below arguments are demonstrated in the code example below.  
 
-* Assign colors to data values with the `values = ` argument.  
-* Specify a color for `NA` with `na.value = `.  
-* Change how the values are *written* in the legend with the `labels = ` argument.  
-* Change the legend title with `name = `.  
+* Assign colors to data values with the `values = ` argument 
+* Specify a color for `NA` with `na.value = `
+* Change how the values are *written* in the legend with the `labels = ` argument
+* Change the legend title with `name = `
 
 
 Below, we create a bar plot and show how it appears by default, and then with three scales adjusted - the continuous y-axis scale, the discrete x-axis scale, and manual adjustment of the fill (interior bar color).  
@@ -328,9 +328,9 @@ trans_matrix + scale_fill_viridis_c(option = "plasma")
 
 Now we show some examples of actually adjusting the break points of the scale:  
 
-* `scale_fill_gradient()` accepts two colors (high/low).  
-* `scale_fill_gradientn()` accepts a vector of any length of colors to `values = ` (intermediate values will be interpolated).  
-* Use [`scales::rescale()`](https://www.rdocumentation.org/packages/scales/versions/0.4.1/topics/rescale) to adjust how colors are positioned along the gradient; it rescales your vector of positions to be between 0 and 1.  
+* `scale_fill_gradient()` accepts two colors (high/low) 
+* `scale_fill_gradientn()` accepts a vector of any length of colors to `values = ` (intermediate values will be interpolated)
+* Use [`scales::rescale()`](https://www.rdocumentation.org/packages/scales/versions/0.4.1/topics/rescale) to adjust how colors are positioned along the gradient; it rescales your vector of positions to be between 0 and 1 
 
 
 ```{r, out.width=c('50%', '50%'), fig.show='hold', warning=F, message=F}
@@ -453,9 +453,9 @@ ggplot(
 
 One great thing about R is the wealth of packages out there. This is no different for color palettes. For example:
 
-* The [**ggsci package**](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html), which contains a wealth of scientific journal, and scifi tv show, color schemes. 
-* The [**wesanderson package**](https://github.com/karthik/wesanderson) which lists a series of color schemes around the films of Wes Anderson. 
-* The **ggthemr** package. You can download this package from Github using the instructions [here](https://github.com/Mikata-Project/ggthemr). It offers palettes that are very aesthetically pleasing, but be aware that these typically have a maximum number of values that can be limiting if you want more than 7 or 8 colors.  
+* The [**ggsci package**](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html), which contains a wealth of scientific journal, and scifi tv show, color schemes 
+* The [**wesanderson package**](https://github.com/karthik/wesanderson) which lists a series of color schemes around the films of Wes Anderson
+* The **ggthemr** package. You can download this package from Github using the instructions [here](https://github.com/Mikata-Project/ggthemr). It offers palettes that are very aesthetically pleasing, but be aware that these typically have a maximum number of values that can be limiting if you want more than 7 or 8 colors  
 
 These are just a few examples, there are many more out there for you to find and try out!
 
@@ -490,10 +490,10 @@ case_source_relationships %>%
 
 To show the distributions on the edges of a `geom_point()` scatterplot, you can use the **ggExtra** package and its function `ggMarginal()`. Save your original ggplot as an object, then pass it to `ggMarginal()` as shown below. Here are the key arguments:  
 
-* You must specify the `type = ` as either "histogram", "density" "boxplot", "violin", or "densigram".  
-* By default, marginal plots will appear for both axes. You can set `margins = ` to "x" or "y" if you only want one.  
-* Other optional arguments include `fill = ` (bar color), `color = ` (line color), `size = ` (plot size relative to margin size, so larger number makes the marginal plot smaller).  
-* You can provide other axis-specific arguments to `xparams = ` and `yparams = `. For example, to have different histogram bin sizes, as shown below.  
+* You must specify the `type = ` as either "histogram", "density" "boxplot", "violin", or "densigram"
+* By default, marginal plots will appear for both axes. You can set `margins = ` to "x" or "y" if you only want one  
+* Other optional arguments include `fill = ` (bar color), `color = ` (line color), `size = ` (plot size relative to margin size, so larger number makes the marginal plot smaller)
+* You can provide other axis-specific arguments to `xparams = ` and `yparams = `. For example, to have different histogram bin sizes, as shown below
 
 You can have the marginal plots reflect groups (columns that have been assigned to `color = ` in your `ggplot()` mapped aesthetics). If this is the case, set the `ggMarginal()` argument `groupColour = ` or `groupFill = ` to `TRUE`, as shown below.  
 
@@ -556,11 +556,11 @@ The **ggrepel** package provides two new functions, `geom_label_repel()` and `ge
 
 A few tips:  
 
-* Use `min.segment.length = 0` to always draw line segments, or `min.segment.length = Inf` to never draw them.  
-* Use `size = ` outside of `aes()` to set text size.  
-* Use `force = ` to change the degree of repulsion between labels and their respective points (default is 1).  
-* Include `fill = ` within `aes()` to have label colored by value . 
-  * A letter "a" may appear in the legend - add `guides(fill = guide_legend(override.aes = aes(color = NA))) +` to remove it. 
+* Use `min.segment.length = 0` to always draw line segments, or `min.segment.length = Inf` to never draw them
+* Use `size = ` outside of `aes()` to set text size
+* Use `force = ` to change the degree of repulsion between labels and their respective points (default is 1)  
+* Include `fill = ` within `aes()` to have label colored by value 
+  * A letter "a" may appear in the legend - add `guides(fill = guide_legend(override.aes = aes(color = NA))) +` to remove it
 
 See this is very in-depth [tutorial](https://ggrepel.slowkow.com/articles/examples.html) for more.  
 
@@ -637,9 +637,9 @@ Working with time axes in ggplot can seem daunting, but is made very easy with a
 
 The single most useful set of functions for working with dates in `ggplot2` are the scale functions (`scale_x_date()`, `scale_x_datetime()`, and their cognate y-axis functions). These functions let you define how often you have axis labels, and how to format axis labels. To find out how to format dates, see the _working with dates_ section again! You can use the `date_breaks` and `date_labels` arguments to specify how dates should look:
 
-  1. `date_breaks` allows you to specify how often axis breaks occur - you can pass a string here (e.g. `"3 months"`, or "`2 days"`).
+  1. `date_breaks` allows you to specify how often axis breaks occur - you can pass a string here (e.g. `"3 months"`, or "`2 days"`)
   
-  2. `date_labels` allows you to define the format dates are shown in. You can pass a date format string to these arguments (e.g. `"%b-%d-%Y"`).
+  2. `date_labels` allows you to define the format dates are shown in. You can pass a date format string to these arguments (e.g. `"%b-%d-%Y"`)
 
 
 ```{r, , warning=F, message=F}
@@ -660,7 +660,7 @@ ggplot(linelist,
 
 One easy solution to efficient date labels on the x-axis is to to assign the `labels = ` argument in `scale_x_date()` to the function `label_date_short()` from the package **scales**. This function will automatically construct efficient date labels (read more [here](https://scales.r-lib.org/reference/label_date.html)). An additional benefit of this function is that the labels will automatically adjust as your data expands over time, from days, to weeks, to months and years.
 
-See a complete example in the Epicurves page section on [multi-level date labels](https://epirhandbook.com/en/new_pages/epicurves.html#multi-level-date-labels), but a quick example is shown below for reference:  
+See a complete example in the Epicurves page section on [multi-level date labels](epicurves.qmd#multi-level-date-labels), but a quick example is shown below for reference:  
 
 ```{r, eval=T, warning=F}
 ggplot(linelist, aes(x = date_onset)) +
@@ -794,6 +794,20 @@ And if we wanted to put `p1` above `p2` we would use `/`
 ```{r, warning=F, message=F}
 p1 / p2
 ```
+There is also a large amount of flexibility in customising how the plots are arranged and sized. To do this we use the function `plot_layout()`.
+
+This allows us to customise things like the number of columns and rows we want our plots arranged on, and the widths and heights.
+
+For instance if we wanted to put two plots on-top of each other, and make the bottom one smaller, we could this.
+
+```{r}
+
+p1 + p2 + 
+     plot_layout(heights = c(3, 1))
+
+```
+
+
 ### Combine legends {.unnumbered}  
 
 If your plots have the same legend, with the same scale, combining them is relatively straight-forward. Simple use the **patchwork** approach above to combine the plots, but remove the legend from one of them (de-duplicate by setting `theme(legend.position = "none"`)).
@@ -841,11 +855,11 @@ A much better use of space!
 
 You can inset one plot in another using **patchwork**. This is done by using the function `inset_element()` which takes a few main arguments.
 
-* p = the plot you want to insert.
-* left = the proportion along the plot you want the left side of the plot to be.
-* bottom = the proportion along the plot you want the bottom side of the plot to be.
-* right = the proportion along the plot you want the right side of the plot to be.
-* top = the proportion along the plot you want the right side of the plot to be.
+* p = the plot you want to insert
+* left = the proportion along the plot you want the left side of the plot to be
+* bottom = the proportion along the plot you want the bottom side of the plot to be
+* right = the proportion along the plot you want the right side of the plot to be
+* top = the proportion along the plot you want the right side of the plot to be
 
 ```{r, out.width=c('100%'), fig.show='hold', warning=F, message=F}
 
