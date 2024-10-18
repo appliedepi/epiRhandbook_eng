@@ -194,9 +194,9 @@ In advance, we have downloaded all administrative boundaries for Sierra Leone fr
 
 Now we are going to do the following to save the Admin Level 3 shapefile in R:  
 
-1) Import the shapefile.  
-2) Clean the column names.  
-3) Filter rows to keep only areas of interest.  
+1) Import the shapefile
+2) Clean the column names
+3) Filter rows to keep only areas of interest
 
 To import a shapefile we use the `read_sf()` function from **sf**. It is provided the filepath via `here()`. - in our case the file is within our R project in the "data", "gis", and "shp" subfolders, with filename "sle_adm3.shp" (see pages on [Import and export](importing.qmd) and [R projects](r_projects.qmd) for more information). You will need to provide your own file path.  
 
@@ -355,9 +355,9 @@ Here is an interesting conundrum: the case linelist does not contain any informa
 
 Below, we will spatially intersect our case locations (points) with the ADM3 boundaries (polygons):  
 
-1) Begin with the linelist (points).  
-2) Spatial join to the boundaries, setting the type of join at "st_intersects".  
-3) Use `select()` to keep only certain of the new administrative boundary columns.  
+1) Begin with the linelist (points)
+2) Spatial join to the boundaries, setting the type of join at "st_intersects"
+3) Use `select()` to keep only certain of the new administrative boundary columns
 
 ```{r, warning=F, message=F}
 linelist_adm <- linelist_sf %>%
@@ -426,8 +426,8 @@ It might be useful to know where the health facilities are located in relation t
 
 We can use the *st_nearest_feature* join method from the `st_join()` function (**sf** package) to visualize the closest health facility to individual cases.  
 
-1) We begin with the shapefile linelist `linelist_sf`.  
-2) We spatially join with `sle_hf`, which is the locations of health facilities and clinics (points).  
+1) We begin with the shapefile linelist `linelist_sf` 
+2) We spatially join with `sle_hf`, which is the locations of health facilities and clinics (points)
 
 ```{r, warning=F, message=F}
 # Closest health facility to each case
@@ -586,9 +586,9 @@ Since we also have population data by ADM3, we can add this information to the *
 
 We begin with the dataframe created in the previous step `case_adm3`, which is a summary table of each administrative unit and its number of cases.  
 
-1) The population data `sle_adm3_pop` are joined using a `left_join()` from **dplyr** on the basis of common values across column `admin3pcod` in the `case_adm3` dataframe, and column `adm_pcode` in the `sle_adm3_pop` dataframe. See page on [Joining data](joining_matching.qmd)).  
-2) `select()` is applied to the new dataframe, to keep only the useful columns - `total` is total population.  
-3) Cases per 10,000 populaton is calculated as a new column with `mutate()`. 
+1) The population data `sle_adm3_pop` are joined using a `left_join()` from **dplyr** on the basis of common values across column `admin3pcod` in the `case_adm3` dataframe, and column `adm_pcode` in the `sle_adm3_pop` dataframe. See page on [Joining data](joining_matching.qmd))
+2) `select()` is applied to the new dataframe, to keep only the useful columns - `total` is total population
+3) Cases per 10,000 populaton is calculated as a new column with `mutate()`
 
 
 ```{r}
@@ -753,9 +753,9 @@ ggplot() +
 
 Below we describe how to achieve a contoured density heatmap of cases, over a basemap, beginning with a linelist (one row per case).  
 
-1) Create basemap tile, as described above.  
-2) Plot the cases from `linelist` using the latitude and longitude columns.  
-3) Convert the points to a density heatmap with `stat_density_2d()` from **ggplot2**. 
+1) Create basemap tile, as described above
+2) Plot the cases from `linelist` using the latitude and longitude columns
+3) Convert the points to a density heatmap with `stat_density_2d()` from **ggplot2**
 
 
 When we have a basemap with lat/long coordinates, we can plot our cases on top using the lat/long coordinates of their residence. 
@@ -898,9 +898,9 @@ plot(sle_adm3_dat$geometry) +                                           # plot r
 
 We have used an adjacency approach to identify neighboring polygons; the neighbors we identified are also sometimes called **contiguity-based neighbors**. But this is just one way of choosing which regions are expected to have a geographic relationship. The most common alternative approaches for identifying geographic relationships generate **distance-based neighbors**; briefly, these are:
   
-  * **K-nearest neighbors** - Based on the distance between centroids (the geographically-weighted center of each polygon region), select the *n* closest regions as neighbors. A maximum-distance proximity threshold may also be specified. In **spdep**, you can use `knearneigh()` (see [documentation](https://r-spatial.github.io/spdep/reference/knearneigh.html)).
+  * **K-nearest neighbors** - Based on the distance between centroids (the geographically-weighted center of each polygon region), select the *n* closest regions as neighbors. A maximum-distance proximity threshold may also be specified. In **spdep**, you can use `knearneigh()` (see [documentation](https://r-spatial.github.io/spdep/reference/knearneigh.html))
   
-  * **Distance threshold neighbors** - Select all neighbors within a distance threshold. In **spdep**, these neighbor relationships can be identified using `dnearneigh()` (see [documentation](https://www.rdocumentation.org/packages/spdep/versions/1.1-7/topics/dnearneigh)).
+  * **Distance threshold neighbors** - Select all neighbors within a distance threshold. In **spdep**, these neighbor relationships can be identified using `dnearneigh()` (see [documentation](https://www.rdocumentation.org/packages/spdep/versions/1.1-7/topics/dnearneigh))
 
 ### Spatial autocorrelation {.unnumbered}  
 

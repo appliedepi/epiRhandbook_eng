@@ -7,9 +7,9 @@ knitr::include_graphics(here::here("images", "deduplication.png"))
 
 This page covers the following de-duplication techniques:  
 
-1. Identifying and removing duplicate rows.  
-2. "Slicing" rows to keep only certain rows (e.g. min or max) from each group of rows.  
-3. "Rolling-up", or combining values from multiple rows into one row.  
+1. Identifying and removing duplicate rows
+2. "Slicing" rows to keep only certain rows (e.g. min or max) from each group of rows  
+3. "Rolling-up", or combining values from multiple rows into one row
 
 
 <!-- ======================================================= -->
@@ -272,17 +272,23 @@ obs %>%
 
 ```{r}
 obs %>% 
-     slice(c(2,4))  # return rows 2 and 4
+     slice(c(2, 4))  # return rows 2 and 4
 ```
+
+```{r}
+obs %>% 
+     slice(c(2:4))  # return rows 2 through 4
+```
+
 
 
 See the [original data](#dedup_data). 
 
 There are several variations:  These should be provided with a column and a number of rows to return (to `n = `).  
 
-* `slice_min()` and `slice_max()`  keep only the row(s) with the minimium or maximum value(s) of the specified column. This also works to return the "min" and "max" of ordered factors.    
-* `slice_head()` and `slice_tail()` - keep only the *first* or *last* row(s).  
-* `slice_sample()`  - keep only a random sample of the rows.  
+* `slice_min()` and `slice_max()`  keep only the row(s) with the minimium or maximum value(s) of the specified column. This also works to return the "min" and "max" of ordered factors    
+* `slice_head()` and `slice_tail()` - keep only the *first* or *last* row(s)  
+* `slice_sample()`  - keep only a random sample of the rows
 
 
 ```{r}
@@ -294,10 +300,10 @@ Use arguments `n = ` or `prop = ` to specify the number or proportion of rows to
 
 Other arguments:  
 
-* `.order_by = ` used in `slice_min()` and `slice_max()` this is a column to order by before slicing.  
-* `with_ties = ` TRUE by default, meaning ties are kept.  
-* `.preserve = ` FALSE by default. If TRUE then the grouping structure is re-calculated after slicing.  
-* `weight_by = ` Optional, numeric column to weight by (bigger number more likely to get sampled).  Also * `replace = ` for whether sampling is done with/without replacement.  
+* `.order_by = ` used in `slice_min()` and `slice_max()` this is a column to order by before slicing 
+* `with_ties = ` TRUE by default, meaning ties are kept
+* `.preserve = ` FALSE by default. If TRUE then the grouping structure is re-calculated after slicing
+* `weight_by = ` Optional, numeric column to weight by (bigger number more likely to get sampled).  Also * `replace = ` for whether sampling is done with/without replacement
 
 <span style="color: darkgreen;">**_TIP:_** When using `slice_max()` and `slice_min()`, be sure to specify/write the `n = `  (e.g. `n = 2`, not just `2`). Otherwise you may get an error `Error: `...` is not empty.` </span>
 
@@ -467,8 +473,8 @@ See the [original data](#dedup_data).
 
 This section describes:  
 
-1) How to "roll-up" values from multiple rows into just one row, with some variations.  
-2) Once you have "rolled-up" values, how to overwrite/prioritize the values in each cell.  
+1) How to "roll-up" values from multiple rows into just one row, with some variations
+2) Once you have "rolled-up" values, how to overwrite/prioritize the values in each cell  
 
 This tab uses the example dataset from the Preparation tab.  
 
@@ -479,9 +485,9 @@ This tab uses the example dataset from the Preparation tab.
 
 The code example below uses `group_by()` and `summarise()` to group rows by person, and then paste together all unique values within the grouped rows. Thus, you get one summary row per person. A few notes:  
 
-* A suffix is appended to all new columns ("_roll" in this example).  
-* If you want to show only unique values per cell, then wrap the `na.omit()` with `unique()`.  
-* `na.omit()` removes `NA` values, but if this is not desired it can be removed `paste0(.x)`.  
+* A suffix is appended to all new columns ("_roll" in this example)
+* If you want to show only unique values per cell, then wrap the `na.omit()` with `unique()`
+* `na.omit()` removes `NA` values, but if this is not desired it can be removed `paste0(.x)`  
 
 
 

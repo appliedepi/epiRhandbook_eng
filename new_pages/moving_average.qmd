@@ -8,8 +8,8 @@ knitr::include_graphics(here::here("images", "moving_avg_epicurve.png"))
 
 This page will cover two methods to calculate and visualize moving averages:  
 
-1) Calculate with the **slider** package.  
-2) Calculate *within* a `ggplot()` command with the **tidyquant** package.  
+1) Calculate with the **slider** package 
+2) Calculate *within* a `ggplot()` command with the **tidyquant** package 
 
 
 
@@ -62,22 +62,22 @@ The **slider** package provides several "sliding window" functions to compute ro
 
 Here are some of the common functions:  
 
-* `slide_dbl()` - iterates through a *numeric* (hence "_dbl") column performing an operation using a sliding window.  
-  * `slide_sum()` - rolling sum shortcut function for `slide_dbl()`.  
-  * `slide_mean()` - rolling average shortcut function for `slide_dbl()`. 
-* `slide_index_dbl()` - applies the rolling window on a numeric column using a separate column to *index* the window progression (useful if rolling by date with some dates absent).  
-  * `slide_index_sum()` - rolling sum shortcut function with indexing.  
-  * `slide_index_mean()` - rolling mean shortcut function with indexing.  
+* `slide_dbl()` - iterates through a *numeric* (hence "_dbl") column performing an operation using a sliding window  
+  * `slide_sum()` - rolling sum shortcut function for `slide_dbl()`  
+  * `slide_mean()` - rolling average shortcut function for `slide_dbl()` 
+* `slide_index_dbl()` - applies the rolling window on a numeric column using a separate column to *index* the window progression (useful if rolling by date with some dates absent)  
+  * `slide_index_sum()` - rolling sum shortcut function with indexing  
+  * `slide_index_mean()` - rolling mean shortcut function with indexing  
   
 The **slider** package has many other functions that are covered in the Resources section of this page. We briefly touch upon the most common.  
 
 **Core arguments**  
 
-* `.x`, the first argument by default, is the vector to iterate over and to apply the function to.  
-* `.i = ` for the "index" versions of the **slider** functions - provide a column to "index" the roll on (see section [below](#roll_index)).  
-* `.f = `, the second argument by default, either:  
+* `x`, the first argument by default, is the vector to iterate over and to apply the function to  
+* `i = ` for the "index" versions of the **slider** functions - provide a column to "index" the roll on (see section [below](#roll_index))  
+* `f = `, the second argument by default, either:  
   * A function, written without parentheses, like `mean`, or, 
-  * A formula, which will be converted into a function. For example `~ .x - mean(.x)` will return the result of the current value minus the mean of the window's value.  
+  * A formula, which will be converted into a function For example `~ x - mean(x)` will return the result of the current value minus the mean of the window's value  
   
 * For more details see this [reference material](https://cran.r-project.org/web/packages/slider/vignettes/slider.html)
 
@@ -87,9 +87,9 @@ The **slider** package has many other functions that are covered in the Resource
 
 Specify the size of the window by using either `.before`, `.after`, or both arguments:   
 
-* `.before = ` - Provide an integer.  
-* `.after = ` - Provide an integer.  
-* `.complete = ` - Set this to `TRUE` if you only want calculation performed on complete windows.  
+* `before = ` - Provide an integer  
+* `after = ` - Provide an integer  
+* `complete = ` - Set this to `TRUE` if you only want calculation performed on complete windows  
 
 For example, to achieve a 7-day window including the current value and the six previous, use `.before = 6`. To achieve a "centered" window provide the same number to both `.before = ` and `.after = `.    
 
@@ -330,9 +330,9 @@ Below the `linelist` data are counted by date of onset, and this is plotted as a
 
 By default `geom_ma()` uses a simple moving average (`ma_fun = "SMA"`), but other types can be specified, such as:  
 
-* "EMA" - exponential moving average (more weight to recent observations).  
-* "WMA" - weighted moving average (`wts` are used to weight observations in the moving average).  
-* Others can be found in the function documentation.  
+* "EMA" - exponential moving average (more weight to recent observations) 
+* "WMA" - weighted moving average (`wts` are used to weight observations in the moving average)
+* Others can be found in the function documentation
 
 ```{r}
 linelist %>% 

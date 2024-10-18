@@ -8,11 +8,11 @@ knitr::include_graphics(here::here("images", "missingness_overview.png"))
 
 This page will cover how to:  
 
-1) Assess missingness.  
-2) Filter out rows by missingness.  
-3) Plot missingness over time.  
-4) Handle how `NA` is displayed in plots.  
-5) Perform missing value imputation: MCAR, MAR, MNAR.  
+1) Assess missingness  
+2) Filter out rows by missingness  
+3) Plot missingness over time  
+4) Handle how `NA` is displayed in plots  
+5) Perform missing value imputation: MCAR, MAR, MNAR  
 
 
 
@@ -265,9 +265,9 @@ pct_complete_case(linelist) # use n_complete() for counts
 
 The `gg_miss_var()` function will show you the number (or %) of missing values in each column. A few nuances:  
 
-* You can add a column name (not in quote) to the argument `facet = ` to see the plot by groups.  
-* By default, counts are shown instead of percents, change this with `show_pct = TRUE`.  
-* You can add axis and title labels as for a normal `ggplot()` with `+ labs(...)`.  
+* You can add a column name (not in quote) to the argument `facet = ` to see the plot by groups  
+* By default, counts are shown instead of percents, change this with `show_pct = TRUE`
+* You can add axis and title labels as for a normal `ggplot()` with `+ labs(...)`
 
 
 ```{r}
@@ -367,8 +367,8 @@ linelist %>%
 
 An alternative way to plot the proportion of a column's values that are missing over time is shown below. It does *not* involve **naniar**. This example shows percent of weekly observations that are missing).  
 
-1) Aggregate the data into a useful time unit (days, weeks, etc.), summarizing the proportion of observations with `NA` (and any other values of interest).  
-2) Plot the proportion missing as a line using `ggplot()`.  
+1) Aggregate the data into a useful time unit (days, weeks, etc.), summarizing the proportion of observations with `NA` (and any other values of interest)
+2) Plot the proportion missing as a line using `ggplot()`
 
 Below, we take the linelist, add a new column for week, group the data by week, and then calculate the percent of that week's records where the value is missing. (note: if you want % of 7 days the calculation would be slightly different).  
 
@@ -453,8 +453,8 @@ It is often wise to report the number of values excluded from a plot in a captio
 
 In `ggplot()`, you can add `labs()` and within it a `caption = `. In the caption, you can use `str_glue()` from **stringr** package to paste values together into a sentence dynamically so they will adjust to the data. An example is below:  
 
-* Note the use of `\n` for a new line.  
-* Note that if multiple column would contribute to values not being plotted (e.g. age or sex if those are reflected in the plot), then you must filter on those columns as well to correctly calculate the number not shown.  
+* Note the use of `\n` for a new line
+* Note that if multiple column would contribute to values not being plotted (e.g. age or sex if those are reflected in the plot), then you must filter on those columns as well to correctly calculate the number not shown
 
 ```{r, eval=F}
 labs(

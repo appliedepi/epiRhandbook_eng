@@ -4,8 +4,8 @@
 
 Heat plots, also known as "heat maps" or "heat tiles", can be useful visualizations when trying to display 3 variables (x-axis, y-axis, and fill). Below we demonstrate two examples:  
 
-* A visual matrix of transmission events by age ("who infected whom").  
-* Tracking reporting metrics across many facilities/jurisdictions over time.  
+* A visual matrix of transmission events by age ("who infected whom")
+* Tracking reporting metrics across many facilities/jurisdictions over time 
 
 
 ```{r, out.width = c('50%', '50%'), fig.show='hold', warning=F, message=F, echo=F}
@@ -69,8 +69,8 @@ linelist <- import("linelist_cleaned.rds")
 
 In this linelist:  
 
-* There is one row per case, as identified by `case_id`.  
-* There is a later column `infector` that contains the `case_id` of the *infector*, who is also a case in the linelist.  
+* There is one row per case, as identified by `case_id`
+* There is a later column `infector` that contains the `case_id` of the *infector*, who is also a case in the linelist  
 
 
 ```{r message=FALSE, echo=F}
@@ -194,7 +194,7 @@ DT::datatable(head(long_prop, 50), rownames = FALSE, options = list(pageLength =
 
 Now finally we can create the heat plot with **ggplot2** package, using the `geom_tile()` function. See the [ggplot tips](ggplot_tips.qmd) page to learn more extensively about color/fill scales, especially the `scale_fill_gradient()` function.  
 
-* In the aesthetics `aes()` of `geom_tile()` set the x and y as the case age and infector age.  
+* In the aesthetics `aes()` of `geom_tile()` set the x and y as the case age and infector age. 
 * Also in `aes()` set the argument `fill = ` to the `Freq` column - this is the value that will be converted to a tile color.  
 * Set a scale color with `scale_fill_gradient()` - you can specify the high/low colors.  
   * Note that `scale_color_gradient()` is different! In this case you want the fill.  
@@ -259,11 +259,11 @@ To achieve this we will do the following data management steps:
     + This function returns the start-date of a given date's week, using a specified start date of each week (e.g. "Mondays").  
 3) The data are grouped by columns "location" and "week" to create analysis units of "facility-week".  
 4) The function `summarise()` creates new columns to reflecting summary statistics per facility-week group:  
-    + Number of days per week (7 - a static value).  
-    + Number of reports received from the facility-week (could be more than 7!). 
-    + Sum of malaria cases reported by the facility-week (just for interest).  
-    + Number of *unique* days in the facility-week for which there is data reported.  
-    + **Percent of the 7 days per facility-week for which data was reported**.  
+    + Number of days per week (7 - a static value)
+    + Number of reports received from the facility-week (could be more than 7!)
+    + Sum of malaria cases reported by the facility-week (just for interest) 
+    + Number of *unique* days in the facility-week for which there is data reported 
+    + **Percent of the 7 days per facility-week for which data was reported**
 5) The data frame is joined with `right_join()` to a comprehensive list of all possible facility-week combinations, to make the dataset complete. The matrix of all possible combinations is created by applying `expand()` to those two columns of the data frame as it is at that moment in the pipe chain (represented by `.`). Because a `right_join()` is used, all rows in the `expand()` data frame are kept, and added to `agg_weeks` if necessary. These new rows appear with `NA` (missing) summarized values.  
 
 
@@ -357,12 +357,12 @@ After running this code, `agg_weeks` contains ` nrow(agg_weeks)` rows.
 
 The `ggplot()` is made using `geom_tile()` from the **ggplot2** package:  
 
-* Weeks on the x-axis is transformed to dates, allowing use of `scale_x_date()`.  
-* `location_name` on the y-axis will show all facility names.  
-* The `fill` is `p_days_reported`, the performance for that facility-week (numeric).  
-* `scale_fill_gradient()` is used on the numeric fill, specifying colors for high, low, and `NA`.  
-* `scale_x_date()` is used on the x-axis specifying labels every 2 weeks and their format.  
-* Display themes and labels can be adjusted as necessary.
+* Weeks on the x-axis is transformed to dates, allowing use of `scale_x_date()`
+* `location_name` on the y-axis will show all facility names
+* The `fill` is `p_days_reported`, the performance for that facility-week (numeric)
+* `scale_fill_gradient()` is used on the numeric fill, specifying colors for high, low, and `NA` 
+* `scale_x_date()` is used on the x-axis specifying labels every 2 weeks and their format
+* Display themes and labels can be adjusted as necessary
 
 
 
@@ -468,9 +468,15 @@ Now use a column from the above data frame (`facility_order$location_name`) to b
 pacman::p_load(forcats)
 
 # create factor and define levels manually
+numerical_order <- gsub("Facility ", "", facility_order$location_name) %>% 
+     as.numeric() %>%
+     sort() 
+
+facilities_in_order <- str_c("Facility ", numerical_order, sep = "")
+
 agg_weeks <- agg_weeks %>% 
   mutate(location_name = fct_relevel(
-    location_name, facility_order$location_name)
+    location_name, facilities_in_order)
     )
 ```
 
