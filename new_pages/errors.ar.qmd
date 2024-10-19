@@ -1,137 +1,118 @@
+# الأخطاء الشائعة  
 
-# Common errors  
-
-This page includes a running list of common errors and suggests solutions for troubleshooting them.  
-
-
-## Interpreting error messages  
-
-R errors can be cryptic at times, so Google is your friend. Search the error message with "R" and look for recent posts in [StackExchange.com](StackExchange.com), [stackoverflow.com](stackoverflow.com), [community.rstudio.com](community.rstudio.com), twitter (#rstats), and other forums used by programmers to filed questions and answers. Try to find recent posts that have solved similar problems.  
-
-If after much searching you cannot find an answer to your problem, consider creating a *reproducible example* ("reprex") and posting the question yourself. See the page on [Getting help](help.qmd) for tips on how to create and post a reproducible example to forums. 
+تتضمن هذه الصفحة قائمة مستمرة للأخطاء الشائعة وتقترح حلولًا لحلها.  
 
 
-## Common errors  
+## تفسير رسائل الخطأ  
 
-Below, we list some common errors and potential explanations/solutions. Some of these are borrowed from Noam Ross who analyzed the most common forum posts on Stack Overflow about R error messages (see analysis [here](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md))  
+يمكن أن تكون رسائل الخطأ في R غامضة في بعض الأحيان، لذا جوجل هو صديقك. ابحث عن رسالة الخطأ باستخدام "R" وابحث عن المشاركات الأخيرة في [StackExchange.com](StackExchange.com), [stackoverflow.com](stackoverflow.com), [community.rstudio.com](community.rstudio.com), تويتر (#rstats)، ومنتديات أخرى تستخدمها المبرمجون لطرح الأسئلة والإجابات. حاول العثور على مشاركات حديثة قد حلت مشاكل مماثلة.  
+
+إذا لم تتمكن من العثور على إجابة لمشكلتك بعد البحث الكثير، فكر في إنشاء *مثال قابل لإعادة الإنتاج* ("reprex") ونشر السؤال بنفسك. انظر الصفحة حول [الحصول على مساعدة](help.qmd) للحصول على نصائح حول كيفية إنشاء ونشر مثال قابل لإعادة الإنتاج إلى المنتديات.  
 
 
-### Typo errors {.unnumbered}  
+## الأخطاء الشائعة  
 
-```
+أدناه، نقدم بعض الأخطاء الشائعة والتفسيرات/الحلول المحتملة. بعضها مأخوذ من Noam Ross الذي قام بتحليل أكثر المشاركات شيوعًا على Stack Overflow حول رسائل الخطأ في R (انظر التحليل [هنا](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md))  
+
+
+### أخطاء الطباعة {.unnumbered}  
+
+```  
 Error: unexpected symbol in:
-"  geom_histogram(stat = "identity")+
-  tidyquant::geom_ma(n=7, size = 2, color = "red" lty"
-```
-If you see "unexpected symbol", check for missing commas  
+"  geom_histogram(stat = "identity")+  
+  tidyquant::geom_ma(n=7, size = 2, color = "red" lty"  
+```  
+إذا رأيت "unexpected symbol"، تحقق من وجود الفواصل المفقودة  
 
 
+### أخطاء الحزمة {.unnumbered}  
 
-### Package errors {.unnumbered}  
-
-```
-could not find function "x"...
-```
-This likely means that you typed the function name incorrectly, or forgot to install or load a package.
-
-
-```
-Error in select(data, var) : unused argument (var)
-```
-You think you are using `dplyr::select()` but the `select()` function has been masked by `MASS::select()` - specify `dplyr::` or re-order your package loading so that dplyr is after all the others.
-
-Other common masking errors stem from: `plyr::summarise()` and `stats::filter()`. Consider using the [**conflicted** package](https://www.tidyverse.org/blog/2018/06/conflicted/).
+```  
+could not find function "x"...  
+```  
+هذا يعني على الأرجح أنك كتبت اسم الدالة بشكل غير صحيح، أو نسيت تثبيت أو تحميل حزمة.  
 
 
+```  
+Error in select(data, var) : unused argument (var)  
+```  
+تعتقد أنك تستخدم `dplyr::select()` ولكن الدالة `select()` قد تم حجبها بواسطة `MASS::select()` - حدد `dplyr::` أو أعد ترتيب تحميل الحزم بحيث يكون dplyr بعد جميع الآخرين.
 
+تنبع أخطاء الحجب الشائعة الأخرى من: `plyr::summarise()` و `stats::filter()`. افكر في استخدام [**حزمة conflicted**](https://www.tidyverse.org/blog/2018/06/conflicted/).  
 
 ```
-Error in install.packages : ERROR: failed to lock directory ‘C:\Users\Name\Documents\R\win-library\4.0’ for modifying
-Try removing ‘C:\Users\Name\Documents\R\win-library\4.0/00LOCK’
+خطأ في install.packages: ERROR: فشل قفل الدليل 'C:\Users\Name\Documents\R\win-library\4.0' للتعديل
+حاول إزالة 'C:\Users\Name\Documents\R\win-library\4.0/00LOCK'
 ```
 
-If you get an error saying you need to remove an "00LOCK" file, go to your "R" library in your computer directory (e.g. R/win-library/) and look for a folder called "00LOCK". Delete this manually, and try installing the package again. A previous install process was probably interrupted, which led to this.  
+إذا حصلت على خطأ يطلب منك إزالة ملف "00LOCK"، انتقل إلى مكتبة "R" في دليل الكمبيوتر الخاص بك (على سبيل المثال R/win-library/) وابحث عن مجلد يسمى "00LOCK". احذف هذا يدوياً، وحاول تثبيت الحزمة مرة أخرى. ربما تم إيقاف عملية التثبيت السابقة بشكل غير صحيح، مما أدى إلى ذلك.
 
-
-
-
-### Object errors {.unnumbered}  
+### أخطاء الكائنات {.unnumbered}
 
 ```
-No such file or directory:
+لا يوجد ملف أو دليل:
 ```
-If you see an error like this when you try to export or import: Check the spelling of the file and filepath, and if the path contains slashes make sure they are forward `/` and not backward `\`. Also make sure you used the correct file extension (e.g. .csv, .xlsx).  
-
-
-```
-object 'x' not found 
-```
-This means that an object you are referencing does not exist. Perhaps code above did not run properly?  
-
+إذا رأيت خطأ مثل هذا عند محاولة التصدير أو الاستيراد: تحقق من إملاء اسم الملف ومساره، وإذا كان المسار يحتوي على شرطات تأكد من أنها مائلة `/` وليس عكسية `\`. تأكد أيضاً من استخدام امتداد الملف الصحيح (على سبيل المثال .csv، .xlsx).
 
 ```
-Error in 'x': subscript out of bounds
+الكائن 'x' غير موجود
 ```
-This means you tried to access something (an element of a vector or a list) that was not there.  
-
-
-
-
-### Function syntax errors {.unnumbered}
+هذا يعني أن الكائن الذي تشير إليه لا يوجد. ربما لم يتم تشغيل الكود بشكل صحيح؟
 
 ```
-# ran recode without re-stating the x variable in mutate(x = recode(x, OLD = NEW)
-Error: Problem with `mutate()` input `hospital`.
-x argument ".x" is missing, with no default
-i Input `hospital` is `recode(...)`.
+خطأ في 'x': الفهرس خارج الحدود
 ```
-This error above (`argument .x is missing, with no default`) is common in `mutate()` if you are supplying a function like `recode()` or `replace_na()` where it expects you to provide the column name as the first argument. This is easy to forget.  
+هذا يعني أنك حاولت الوصول إلى شيء (عنصر من متجه أو قائمة) لم يكن موجوداً.
 
-
-
-### Logic errors {.unnumbered}  
+### أخطاء بناء الدوال {.unnumbered}
 
 ```
-Error in if
+# تم تشغيل recode بدون إعادة تعريف المتغير x في mutate(x = recode(x, OLD = NEW)
+خطأ: مشكلة في مدخل `mutate()` `hospital`.
+المدخل .x مفقود، بدون قيمة افتراضية
+المدخل `hospital` هو `recode(...)`.
 ```
+هذا الخطأ أعلاه (`المدخل .x مفقود، بدون قيمة افتراضية`) شائع في `mutate()` إذا كنت تزوّد بدالة مثل `recode()` أو `replace_na()` حيث يتوقع منك توفير اسم العمود كالمدخل الأول. من السهل نسيان ذلك.
 
-This likely means an `if` statement was applied to something that was not TRUE or FALSE.  
-
-
-### Factor errors {.unnumbered}  
-
-```
-#Tried to add a value ("Missing") to a factor (with replace_na operating on a factor)
-Problem with `mutate()` input `age_cat`.
-i invalid factor level, NA generated
-i Input `age_cat` is `replace_na(age_cat, "Missing")`.invalid factor level, NA generated
-```
-If you see this error about invalid factor levels, you likely have a column of class Factor (which contains pre-defined levels) and tried to add a new value to it. Convert it to class Character before adding a new value.  
-
-
-### Plotting errors {.unnumbered}  
-
-`Error: Insufficient values in manual scale. 3 needed but only 2 provided.`
-ggplot() scale_fill_manual() values = c("orange", "purple") ... insufficient for number of factor levels ... consider whether NA is now a factor level...
+### أخطاء المنطق {.unnumbered}
 
 ```
-Can't add x object
+خطأ في if
 ```
-You probably have an extra `+` at the end of a ggplot command that you need to delete.
+هذا يعني على الأرجح تم تطبيق بيان `if` على شيء لم يكن TRUE أو FALSE.
+
+### أخطاء العوامل {.unnumbered}
+
+```
+# حاولت إضافة قيمة ("مفقود") إلى عامل (مع replace_na يعمل على عامل)
+مشكلة في مدخل `mutate()` `age_cat`.
+مستوى عامل غير صالح، تم إنشاء NA
+المدخل `age_cat` هو `replace_na(age_cat, "مفقود")`. مستوى عامل غير صالح، تم إنشاء NA
+```
+إذا رأيت هذا الخطأ حول مستويات العوامل غير الصالحة، فمن المحتمل أن يكون لديك عمود من النوع Factor (الذي يحتوي على مستويات محددة مسبقًا) وحاولت إضافة قيمة جديدة إليه. قم بتحويله إلى نوع Character قبل إضافة قيمة جديدة.  
+
+### رسم الأخطاء {.unnumbered}  
+
+`خطأ: قيم غير كافية في مقياس يدوي. 3 مطلوبة ولكن تم توفير 2 فقط.`
+ggplot() scale_fill_manual() values = c("orange", "purple") ... غير كافٍ لعدد مستويات العامل ... انظر ما إذا كانت NA الآن مستوى عامل...
+
+```
+لا يمكن إضافة كائن x
+```
+ربما لديك `+` إضافي في نهاية أمر ggplot يجب عليك حذفه.
 
 
-### R Markdown errors {.unnumbered}  
+### أخطاء R Markdown {.unnumbered}  
 
-If the error message contains something like `Error in options[[sprintf("fig.%s", i)]]`, check that your knitr options at the top of each chunk correctly use the `out.width = ` or `out.height = ` and *not* `fig.width=` and `fig.height=`.
+إذا كانت رسالة الخطأ تحتوي على شيء مثل `Error in options[[sprintf("fig.%s", i)]]`، تحقق من أن خيارات knitr في أعلى كل قطعة تستخدم بشكل صحيح `out.width = ` أو `out.height = ` و *ليس* `fig.width=` و `fig.height=`.
 
-### Miscellaneous {.unnumbered}  
+### متنوعات {.unnumbered}  
 
-Consider whether you re-arranged piped **dplyr** verbs and didn't replace a pipe in the middle, or didn't remove a pipe from the end after re-arranging.
+انظر ما إذا قمت بإعادة ترتيب أفعال **dplyr** المنقولة بالأنابيب ولم تقم بتبديل الأنبوب في الوسط، أو لم تقم بإزالة الأنبوب من النهاية بعد إعادة الترتيب.
 
- 
 
 
 <!-- ======================================================= -->
-## Resources { }
+## الموارد { }
 
-This is another blog post that lists common [R programming errors faced by beginners](https://www.r-bloggers.com/2016/06/common-r-programming-errors-faced-by-beginners/)
+هذه مقالة أخرى تقوم بسرد [أخطاء برمجة R الشائعة التي يواجهها المبتدئون](https://www.r-bloggers.com/2016/06/common-r-programming-errors-faced-by-beginners/)
