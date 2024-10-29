@@ -97,30 +97,29 @@ jobs:
             echo "Pull Request Number: $PR_NUMBER"
 
             #! Initialize new PR body
-            new_pr_body="# Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}"
+            new_pr_body="# Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}"$'\n\n'
+
+            #! Mention a user in the PR description
+            case "$lang" in
+              "vn") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
+              "fr") new_pr_body+="@oliviabboyd, please review changes and check the box when you finish"$'\n' ;;
+              "es") new_pr_body+="@amateo250, please review changes and check the box when you finish"$'\n' ;;
+              "jp") new_pr_body+="@hitomik723, please review changes and check the box when you finish"$'\n' ;;
+              "tr") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
+              "pt") new_pr_body+="@Luccan97, please review changes and check the box when you finish"$'\n' ;;
+              "ru") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
+            esac
             
             #! Add new commits as checkboxes to the PR description
             IFS=$'\n' # Change the Internal Field Separator to newline for correct iteration over lines
             checkboxes=""
             for file in $changed_files; do
               #! List only new commits compared with the main branch, tail -n +2 to skip the first line of output from git log, the latest commit will not be added into the message
-              list_commits=$(git log origin/master..${TRANSLATION_BRANCH} --follow --pretty=format:"%H" -- $file | tail -n +2 | paste -sd, - | sed 's/,/, /g')
+              list_commits=$(git log origin/main..${TRANSLATION_BRANCH} --follow --pretty=format:"%H" -- $file | tail -n +2 | paste -sd, - | sed 's/,/, /g')
               for commit in $latest_commit_en_branch; do
-                checkboxes="$checkboxes- [ ] Chapter [\`$file\`](https://github.com/${{ github.repository }}/pull/$PR_NUMBER/files?file-filters%5B%5D=.qmd&show-viewed-files=true) has new changes in the following commit(s): $list_commits. "
-
-                #! Mention a user in the PR description
-                case "$lang" in
-                  "vn") checkboxes="$checkboxes @ntluong95, please review changes and check the box when you finish" ;;
-                  "fr") checkboxes="$checkboxes @oliviabboyd, please review changes and check the box when you finish" ;;
-                  "es") checkboxes="$checkboxes @amateo250, please review changes and check the box when you finish" ;;
-                  "jp") checkboxes="$checkboxes @hitomik723, please review changes and check the box when you finish" ;;
-                  "tr") checkboxes="$checkboxes @ntluong95, please review changes and check the box when you finish" ;;
-                  "pt") checkboxes="$checkboxes @Luccan97, please review changes and check the box when you finish" ;;
-                  "ru") checkboxes="$checkboxes @ntluong95, please review changes and check the box when you finish" ;;
-                esac
-
+                checkboxes="$checkboxes- [ ] Chapter [\`$file\`](https://github.com/${{ github.repository }}/pull/$PR_NUMBER/files?file-filters%5B%5D=.qmd&show-viewed-files=true) has changes in the following commit(s): $list_commits. "
                 checkboxes="$checkboxes"$'\n'"$checkbox"
-
+                
               done
             done
 
