@@ -45,8 +45,8 @@ knitr::include_graphics(here::here("images", "markdown/0_rmd.png"))
 
 To create a R Markdown output, you need to have the following installed:
 
-* The **rmarkdown** package (**knitr** will also be installed automatically).  
-* Pandoc, which should come installed with RStudio. If you are not using RStudio, you can download Pandoc here: http://pandoc.org. 
+* The **rmarkdown** package (**knitr** will also be installed automatically)
+* Pandoc, which should come installed with RStudio. If you are not using RStudio, you can download Pandoc [here](http://pandoc.org).
 * If you want to generate PDF output (a bit trickier), you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, we recommend that you install [TinyTeX](https://yihui.name/tinytex/). You can use the following commands: 
 
 ```{r, eval=F, warning=F, message=F}
@@ -152,9 +152,9 @@ Uniquely in R Markdown, to initiate a new line, enter *two spaces* at the end of
 
 Surround your normal text with these character to change how it appears in the output.  
 
-* Underscores (`_text_`) or single asterisk (`*text*`) to _italicise_.
-* Double asterisks (`**text**`) for **bold text**.
-* Back-ticks (````text````) to display text as code.  
+* Underscores (`_text_`) or single asterisk (`*text*`) to _italicise_
+* Double asterisks (`**text**`) for **bold text**
+* Back-ticks (````text````) to display text as code
 
 The actual appearance of the font can be set by using specific templates (specified in the YAML metadata; see example tabs).  
 
@@ -221,19 +221,19 @@ You can create a new chunk by typing it out yourself, by using the keyboard shor
 
 Some notes about the contents of the curly brackets `{ }`:
 
-*	They start with ‘r’ to indicate that the language name within the chunk is R.
-*	After the r you can optionally write a chunk "name" – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will complain when you try to render.  
+*	They start with ‘r’ to indicate that the language name within the chunk is R
+*	After the r you can optionally write a chunk "name" – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will complain when you try to render  
 *	The curly brackets can include other options too, written as `tag=value`, such as:  
-  * `eval = FALSE` to not run the R code.  
-  * `echo = FALSE` to not print the chunk's R source code in the output document.  
-  * `warning = FALSE` to not print warnings produced by the R code.  
-  * `message = FALSE` to not print any messages produced by the R code.  
-  * `include =` either TRUE/FALSE whether to include chunk outputs (e.g. plots) in the document.
-  * `out.width = ` and `out.height =` - provide in style `out.width = "75%"`.  
-  * `fig.align = "center"` adjust how a figure is aligned across the page.  
-  * `fig.show='hold'` if your chunk prints multiple figures and you want them printed next to each other (pair with `out.width = c("33%", "67%")`. Can also set as `fig.show='asis'` to show them below the code that generates them, `'hide'` to hide, or `'animate'` to concatenate multiple into an animation.  
-* A chunk header must be written in *one line*. 
-* Try to avoid periods, underscores, and spaces. Use hyphens ( - ) instead if you need a separator.  
+  * `eval = FALSE` to not run the R code
+  * `echo = FALSE` to not print the chunk's R source code in the output document 
+  * `warning = FALSE` to not print warnings produced by the R code
+  * `message = FALSE` to not print any messages produced by the R code
+  * `include =` either TRUE/FALSE whether to include chunk outputs (e.g. plots) in the document
+  * `out.width = ` and `out.height =` - provide in style `out.width = "75%"`
+  * `fig.align = "center"` adjust how a figure is aligned across the page
+  * `fig.show='hold'` if your chunk prints multiple figures and you want them printed next to each other (pair with `out.width = c("33%", "67%")`. Can also set as `fig.show='asis'` to show them below the code that generates them, `'hide'` to hide, or `'animate'` to concatenate multiple into an animation
+* A chunk header must be written in *one line*
+* Try to avoid periods, underscores, and spaces. Use hyphens ( - ) instead if you need a separator
 
 Read more extensively about the **knitr** options [here](https://yihui.org/knitr/options/).  
 
@@ -333,9 +333,19 @@ knitr::include_graphics(here::here("images", "markdown/tabbed_view.gif"))
 
 You can add an additional option `.tabset-pills` after `.tabset` to give the tabs themselves a "pilled" appearance. Be aware that when viewing the tabbed HTML output, the Ctrl+f search functionality will only search "active" tabs, not hidden tabs.  
 
+### **remedy** {.unnumbered}   
 
+remedy is an addin for R-Studio which helps with writing R Markdown scripts. It provides a user interface and series of keyboard shortcuts to format your text. 
 
+This package is installed directly from GitHub.
 
+```{r, eval = F}
+remotes::install_github("ThinkR-open/remedy")
+```
+
+Once installed, the package does not need to be re-loaded. It will automatically load when you start RStudio.
+
+For a full list of features and updates, please see [https://thinkr-open.github.io/remedy/](https://thinkr-open.github.io/remedy/)
 
 <!-- ======================================================= -->
 ## File structure {}
@@ -356,12 +366,12 @@ Everything you need to run the R markdown is imported or created within the Rmd 
 
 In this scenario, one logical organization of the R Markdown script might be:  
 
-1) Set global **knitr** options.  
-2) Load packages.  
-3) Import data.  
-4) Process data.  
-5) Produce outputs (tables, plots, etc.).  
-6) Save outputs, if applicable (.csv, .png, etc.). 
+1) Set global **knitr** options
+2) Load packages
+3) Import data
+4) Process data
+5) Produce outputs (tables, plots, etc.)
+6) Save outputs, if applicable (.csv, .png, etc.)
 
 #### Source other files {.unnumbered}
 
@@ -421,8 +431,8 @@ For instance, you can load the packages, load and clean the data, and even creat
 
 This approach is helpful for the following reasons:  
 
-* More informative error messages - these messages will be generated from the R script, not the R Markdown. R Markdown errors tend to tell you which chunk had a problem, but will not tell you which line.  
-* If applicable, you can run long processing steps in advance of the `render()` command - they will run only once. 
+* More informative error messages - these messages will be generated from the R script, not the R Markdown. R Markdown errors tend to tell you which chunk had a problem, but will not tell you which line
+* If applicable, you can run long processing steps in advance of the `render()` command - they will run only once
 
 
 In the example below, we have a separate R script in which we pre-process a `data` object into the R Environment and then render the "create_output.Rmd" using `render()`.  
@@ -482,9 +492,9 @@ rmarkdown::render(input = "my_report.Rmd")
 
 As with "knit", the default settings will save the Rmd output to the same folder as the Rmd script, with the same file name (aside from the file extension). For instance “my_report.Rmd” when knitted will create “my_report.docx” if you are knitting to a word document. However, by using `render()` you have the option to use different settings. `render()` can accept arguments including:  
 
-* `output_format = ` This is the output format to convert to (e.g. `"html_document"`, `"pdf_document"`, `"word_document"`, or `"all"`). You can also specify this in the YAML inside the R Markdown script.  
-* `output_file = ` This is the name of the output file (and file path). This can be created via R functions like `here()` or `str_glue()` as demonstrated below.  
-* `output_dir = ` This is an output directory (folder) to save the file. This allows you to chose an alternative other than the directory the Rmd file is saved to.  
+* `output_format = ` This is the output format to convert to (e.g. `"html_document"`, `"pdf_document"`, `"word_document"`, or `"all"`). You can also specify this in the YAML inside the R Markdown script
+* `output_file = ` This is the name of the output file (and file path). This can be created via R functions like `here()` or `str_glue()` as demonstrated below
+* `output_dir = ` This is an output directory (folder) to save the file. This allows you to chose an alternative other than the directory the Rmd file is saved to
 * `output_options = ` You can provide a list of options that will override those in the script YAML (e.g. )
 * `output_yaml = ` You can provide path to a .yml file that contains YAML specifications  
 * `params = ` See the section on parameters below  
@@ -587,10 +597,10 @@ rmarkdown::render(
 
 However, typing values into this pop-up window is subject to error and spelling mistakes. You may prefer to add restrictions to the values that can be entered through drop-down menus. You can do this by adding in the YAML several specifications for each `params: ` entry. 
 
-* `label: ` is the title for that particular drop-down menu.  
-* `value: ` is the default (starting) value.  
-* `input: ` set to `select` for drop-down menu.  
-* `choices: ` provide the eligible values in the drop-down menu.  
+* `label: ` is the title for that particular drop-down menu
+* `value: ` is the default (starting) value
+* `input: ` set to `select` for drop-down menu
+* `choices: ` provide the eligible values in the drop-down menu
 
 Below, these specifications are written for the `hospital` parameter.  
 
@@ -726,8 +736,8 @@ knitr::include_graphics(here::here("images", "markdown/8_ppttemplate.png"))
 Unfortunately, editing powerpoint files is slightly less flexible:
 
 * A first level header (`# Header 1`) will automatically become the title of a new slide,
-* A `## Header 2` text will not come up as a subtitle but text within the slide's main textbox (unless you find a way to maniuplate the Master view). 
-* Outputted plots and tables will automatically go into new slides. You will need to combine them, for instance the the **patchwork** function to combine ggplots, so that they show up on the same page. See this [blog post](https://mattherman.info/blog/ppt-patchwork/) about using the **patchwork** package to put multiple images on one slide.  
+* A `## Header 2` text will not come up as a subtitle but text within the slide's main textbox (unless you find a way to maniuplate the Master view)
+* Outputted plots and tables will automatically go into new slides. You will need to combine them, for instance the the **patchwork** function to combine ggplots, so that they show up on the same page. See this [blog post](https://mattherman.info/blog/ppt-patchwork/) about using the **patchwork** package to put multiple images on one slide
 
 See the [**officer** package](https://davidgohel.github.io/officer/) for a tool to work more in-depth with powerpoint presentations.  
 
@@ -812,11 +822,11 @@ If your dataset is very large, consider only showing the top X rows by wrapping 
 
 Some common examples of these widgets include:  
 
-* Plotly (used in this handbook page and in the [Interative plots](interactive_plots.qmd) page).
-* visNetwork (used in the [Transmission Chains](transmission_chains.qmd) page of this handbook).  
-* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook).  
-* dygraphs (useful for interactively showing time series data).  
-* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.).  
+* Plotly (used in this handbook page and in the [Interative plots](interactive_plots.qmd) page)
+* visNetwork (used in the [Transmission Chains](transmission_chains.qmd) page of this handbook)  
+* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook)
+* dygraphs (useful for interactively showing time series data)
+* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.)
 
 The `ggplotly()` function from **plotly** is particularly easy to use. See the [Interactive plots](interactive_plots.qmd) page. 
 

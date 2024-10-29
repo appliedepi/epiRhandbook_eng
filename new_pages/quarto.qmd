@@ -14,7 +14,8 @@ library(here)
 linelist <- import(here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
-Quarto is an alternative approach to R Markdown for creating automated, reproducible reports, presentations and interactive dashboards. Quarto was developed by the team behind R Studio, to take the functionality of R Markdown, with other approaches, and combine them into a single consistent system.
+
+Quarto is an alternative approach to R Markdown for creating automated, reproducible reports, presentations and interactive dashboards. Quarto was developed by the team behind RStudio, to take the functionality of R Markdown, with other approaches, and combine them into a single consistent system.
 
 As the overall philosophy and syntax of Quarto is nearly identical to that of R Markdown, this chapter will not focus on these, and instead refer you to the [R Markdown chapter](rmarkdown.qmd) for instructions on syntax and application. We will approach the following topics:
 
@@ -24,7 +25,7 @@ As the overall philosophy and syntax of Quarto is nearly identical to that of R 
 
 ## Why Quarto over R Markdown?
 
-Quarto provides the flexibility and automation that R Markdown pioneered, with a more powerful underlying flexibility that streamlines a lot of the sharing and publishing processes of your work! While R Markdown is tied to R, Quarto documents allow you to use a number of different programming languages such as R, Python, Javascript and Julia. This means that if you are working with people writing in several different coding languages, they can all use the same document to carry out their analysis.
+Quarto provides the flexibility and automation that R Markdown pioneered, with a more powerful underlying flexibility that streamlines a lot of the sharing and publishing processes of your work! While R Markdown is tied to R, Quarto documents allow you to use a number of different programming languages such as R, Python, Javascript and Julia. While R Markdown [can do this](https://bookdown.org/yihui/rmarkdown/language-engines.html), the approach is less straightforward. By streamlining the inclusion of multiple programming languages, it makes collaborating across different people and groups, easier if multiple approaches are used.
 
 Even if you are only working in R, Quarto has several advantages. Rather than relying on individual packages to create different outputs, Quarto handles this all internally. To produce a website, PowerPoint slides, or a html report, rather than using external packages, Quarto has this functionality inbuilt. This means you have fewer packages to update, and if one of the packages is no longer maintained, you don't need to change your approach to maintain the same output.
 
@@ -38,6 +39,30 @@ Below is the pipeline through which Quarto documents are created, as you can see
 knitr::include_graphics(here::here("images", "quarto/rstudio-qmd-how-it-works.png"))
 ```
 [Source](https://quarto.org/docs/faq/rmarkdown.html)
+
+### Limitations of Quarto {.unnumbered}
+
+There is one substantial limitation of Quarto, compared to R Markdown, when it is used to generate multiple different reports using the same dataset.
+
+In R Markdown, you can load in a dataset, run your analyses, and then generate multiple different reports from this dataset in your R environment. This means that you *do not need to individually import the dataset for each report*. 
+
+However, because of the way that Quarto works, every single report needs to be self contained. That is to say that you would need to import the dataset *every time you want a new report*.
+
+This is not a problem if you are only running a single report, or a handful. But if you have a large dataset, and need to make a large number of reports, this can quickly become a real problem.
+
+Imagine a scenario where you are conducting a national outbreak response. You have a dataset which takes 5 minutes to import, and then you need to generate a report for each of the 50 provinces in the country.
+
+* For R Markdown, you would only need to read in the data once, and then run your reports. This would take a minimum of 5 minutes (5 minutes to read in the data + time to run the script for the reports).
+
+* For Quarto, you would need to read in the dataset each time. This would mean you would need at least 250 minutes (5 minutes for each of the 50 provinces). 
+
+This quickly increasing time burden means that if you are generating multiple reports based on a large dataset, you may want to use R Markdown over Quarto!
+
+For further explanation, please see these forum posts:
+
+[Quarto can't find R-objects](https://forum.posit.co/t/quarto-cant-find-r-objects/156848)
+
+[How to quarto_render into console environment](https://github.com/quarto-dev/quarto-cli/discussions/1773)
 
 ## Getting started
 
@@ -61,7 +86,7 @@ This will create your new Quarto script. *Note: While the R Markdown scripts end
 
 While R Markdown scripts set the working directory to wherever the file is located, Quarto documents retain the original working directory. This is especially useful when you are working with an [R Project](r_projects.qmd).
 
-Your first view of the Quarto document may look different to what you are use to with an R Markdown document. This is because Quarto has the additional functionality of allow you to see what the rendered document will look like after it has been knit. To switch between the "Visual" and "Source" mode (which is what you see when you create an R Markdown document), click the "Visual" button in the top left side of the script.
+Like for R Markdown, Quarto used in RStudio allows you to see what the rendered document will look like after it has been knit. To switch between the "Visual" and "Source" mode, click the "Visual" button in the top left side of the script.
 
 ```{r out.width = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "quarto/3_quartovisual.PNG"))
@@ -81,9 +106,19 @@ And here is what the output looks like.
 knitr::include_graphics(here::here("images", "quarto/5_quarto_report.png"))
 ```
 
+
+
+
+
+
 ## Moving beyond simple reports
 
 You may want to move beyond creating simple, static, reports to interactive dashboards and outputs, like you can in [R Markdown](flexdashboard.qmd). Luckily you can do all of this in Quarto, using inbuilt functionality, and other packages like [Shiny](shiny_basics.qmd)! For an example of how far you can take your Quarto scripts, see this [Quarto Gallery](https://quarto.org/docs/gallery/).
+
+
+
+
+
 
 ## Resources
 

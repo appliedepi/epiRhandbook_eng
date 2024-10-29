@@ -360,7 +360,7 @@ age_pyramid(linelist, "age_cat5", "gender")
 **A more complex `age_pyramid()` command might include the *optional* arguments to:**
 
 -   Show proportions instead of counts (set `proportional = TRUE` when the default is `FALSE`)\
--   Specify the two colors to use (`pal =` is short for "palette" and is supplied with a vector of two color names. See the [objects](https://epirhandbook.com/new_pages/basics.html#objects) page for how the function `c()` makes a vector)
+-   Specify the two colors to use (`pal =` is short for "palette" and is supplied with a vector of two color names. See the [objects](basics.qmd#objects) page for how the function `c()` makes a vector)
 
 [***NOTE:*** For arguments that you specify with both parts of the argument (e.g. `proportional = TRUE`), their order among all the arguments does not matter.]{style="color: black;"}
 
@@ -471,7 +471,7 @@ On installation, R contains **"base"** packages and functions that perform commo
 
 *Functions* are contained within **packages** which can be downloaded ("installed") to your computer from the internet. Once a package is downloaded, it is stored in your "library". You can then access the functions it contains during your current R session by "loading" the package.
 
-*Think of R as your personal library*: When you download a package, your library gains a new book of functions, but each time you want to use a function in that book, you must borrow,"load", that book from your library.
+*Think of R as your personal library*: When you download a package, your library gains a new book of functions, but each time you want to use a function in that book, you must borrow, "load", that book from your library.
 
 In summary: to use the functions available in an R package, 2 steps must be implemented:
 
@@ -480,7 +480,7 @@ In summary: to use the functions available in an R package, 2 steps must be impl
 
 #### Your library {.unnumbered}
 
-Your "library" is actually a folder on your computer, containing a folder for each package that has been installed. Find out where R is installed in your computer, and look for a folder called "win-library". For example: `R\win-library\4.4.1` (the 4.4.1 is the R version - you'll have a different library for each R version you've downloaded).
+Your "library" is actually a folder on your computer, containing a folder for each package that has been installed. Find out where R is installed in your computer, and look for a folder called "library". For example: `R\4.4.1\library` (the 4.4.1 is the R version - you'll have a different library for each R version you've downloaded).
 
 You can print the file path to your library by entering `.libPaths()` (empty parentheses). This becomes especially important if working with [R on network drives](network_drives.qmd).
 
@@ -528,11 +528,11 @@ library(rio)
 library(here)
 ```
 
-To check whether a package in installed or loaded, you can view the Packages pane in RStudio. If the package is installed, it is shown there with version number. If its box is checked, it is loaded for the current session.
+To check whether a package is installed or loaded, you can view the Packages pane in RStudio. If the package is installed, it is shown there with version number. If its box is checked, it is loaded for the current session.
 
 **Install from Github**
 
-Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the *development version* with new features not yet offered in the more stable published CRAN version. These are often hosted on the website [github.com](https://github.com/) in a free, public-facing code "repository". Read more about Github in the handbook page on [Version control and collaboration with Git and Github](https://epirhandbook.com/new_pages/collaboration.html).
+Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the *development version* with new features not yet offered in the more stable published CRAN version. These are often hosted on the website [github.com](https://github.com/) in a free, public-facing code "repository". Read more about Github in the handbook page on [Version control and collaboration with Git and Github](collaboration.qmd).
 
 To download R packages from Github, you can use the function `p_load_gh()` from **pacman**, which will install the package if necessary, and load it for use in your current R session. Alternatives to install include using the **remotes** or **devtools** packages. Read more about all the **pacman** functions in the [package documentation](https://cran.r-project.org/web/packages/pacman/pacman.pdf).
 
@@ -932,7 +932,7 @@ gen_out_table
 
 **Columns**
 
-Columns in a dataset are also objects and can be defined, over-written, and created as described below in the section on [Columns](https://epirhandbook.com/new_pages/basics.html#columnsvariables).
+Columns in a dataset are also objects and can be defined, over-written, and created as described below in the section on [Columns](basics.qmd#columnsvariables).
 
 You can use the assignment operator from **base** R to create a new column. Below, the new column `bmi` (Body Mass Index) is created, and for each row the new value is result of a mathematical operation on the row's value in the `wt_kg` and `ht_cm` columns.
 
@@ -1015,7 +1015,7 @@ class(linelist$gender)  # class should be character
 Sometimes, a column will be converted to a different class automatically by R. Watch out for this! For example, if you have a vector or column of numbers, but a character value is inserted... the entire column will change to class character.
 
 ```{r}
-num_vector <- c(1, 2 , 3, 4, 5) # define vector as all numbers
+num_vector <- c(1, 2, 3, 4, 5) # define vector as all numbers
 class(num_vector)          # vector is numeric class
 num_vector[3] <- "three"   # convert the third element to a character
 class(num_vector)          # vector is now character class
@@ -1233,7 +1233,7 @@ You can think of it as saying "and then". Many functions can be linked together 
 Pipe operators were first introduced through the [magrittr package](https://magrittr.tidyverse.org/), which is part of tidyverse, and were specified as `%>%`. In R 4.1.0, they introduced a **base** R pipe which is specified through `|>`. The behaviour of the two pipes is the same, and they can be used somewhat interchangeably. However, there are a few key differences.
 
 * The `%>%` pipe allows you to pass multiple arguments.
-* The `%>%` pipe lets you drop parenthesis when calling a function with no other arguments (i.e. drop vs drop()).
+* The `%>%` pipe lets you drop parentheses when calling a function with no other arguments (i.e. `drop` vs `drop()`).
 * The `%>%` pipe allows you to start a pipe with `.` to create a function in your linking of code.
 
 For these reasons, we recommend the **magrittr** pipe, `%>%`, over the **base** R pipe, `|>`.
