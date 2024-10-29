@@ -53,7 +53,7 @@ jobs:
             git push origin "${TRANSLATION_BRANCH}" --force
 
             #! Get the list of changed .qmd files: COMPARED WITH main branch
-            changed_files=$(git diff --name-only origin/master "${TRANSLATION_BRANCH}" | grep '\.qmd$')
+            changed_files=$(git diff --name-only origin/main "${TRANSLATION_BRANCH}" | grep -E '\.qmd$' | grep -Ev '\.[a-z]{2}\.qmd$')
 
             if [ -z "$changed_files" ]; then
               echo "No .qmd file changes to include in PR for ${TRANSLATION_BRANCH}"
