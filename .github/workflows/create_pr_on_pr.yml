@@ -104,7 +104,7 @@ jobs:
             checkboxes=""
             for file in $changed_files; do
               #! List only new commits compared with the main branch, tail -n +2 to skip the first line of output from git log, the latest commit will not be added into the message
-              list_commits=$(git log origin/main..${TRANSLATION_BRANCH} --follow --pretty=format:"%H" -- $file | tail -n +2 | paste -sd, - | sed 's/,/, /g')
+              list_commits=$(git log origin/master..${TRANSLATION_BRANCH} --follow --pretty=format:"%H" -- $file | tail -n +2 | paste -sd, - | sed 's/,/, /g')
               for commit in $latest_commit_en_branch; do
                 checkboxes="$checkboxes- [ ] Chapter [\`$file\`](https://github.com/${{ github.repository }}/pull/$PR_NUMBER/files?file-filters%5B%5D=.qmd&show-viewed-files=true) has new changes in the following commit(s): $list_commits. "
 
@@ -120,7 +120,7 @@ jobs:
                 esac
 
                 checkboxes="$checkboxes"$'\n'"$checkbox"
-                
+
               done
             done
 
