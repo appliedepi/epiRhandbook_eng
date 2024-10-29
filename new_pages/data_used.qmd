@@ -10,28 +10,32 @@
 
 You can download the offline version of this handbook as an HTML file so that you can view the file in your web browser even if you no longer have internet access. If you are considering offline use of the Epi R Handbook here are a few things to consider:  
 
-* When you open the file it may take a minute or two for the images and the Table of Contents to load  
-* The offline handbook has a slightly different layout - one very long page with Table of Contents on the left. To search for specific terms use Ctrl+f (Cmd-f)  
-* See the [Suggested packages](packages_suggested.qmd) page to assist you with installing appropriate R packages before you lose internet connectivity  
-* Install our R package **epirhandbook** that contains all the example data (install process described below)  
+* When you open the file it may take a minute or two for the images and the 'Table of Contents' to load.  
+* The offline handbook has a slightly different layout - one very long page with Table of Contents on the left. To search for specific terms use Ctrl+f (Cmd-f).  
+* See the [Suggested packages](packages_suggested.qmd) page to assist you with installing appropriate R packages before you lose internet connectivity. You will not be able to install new packages without internet access.  
+* Install our R package **epirhandbook** that contains all the example data (install process described below).  
 
 **There are two ways you can download the handbook:**  
 
 
 
-### Use download link {.unnumbered}  
+### Option 1: Use download link {.unnumbered}  
 
-For quick access, **right-click** [this link](https://github.com/appliedepi/epirhandbook_eng/raw/master/offline_long/index.html) **and select "Save link as"**.  
+For quick access, **right-click** [this link](https://github.com/appliedepi/epiRhandbook_eng/raw/master/offline_long/index.en.html) **and select "Save link as"**.  
 
 If on a Mac, use Cmd+click. If on a mobile, press and hold the link and select "Save link". The handbook will download to your device. If a screen with raw HTML code appears, ensure you have followed the above instructions or try Option 2.  
 
 
 
+### Option 2: Use our R package {.unnumbered}  
 
-### Use our R package {.unnumbered}  
+We offer an R package called **epirhandbook**. It includes a function `download_book()` that downloads the handbook file from our Github repository to your computer. If you wish to download the book in a language other than English, you can specify this by specifying the language.
 
-We offer an R package called **epirhandbook**. It includes a function `download_book()` that downloads the handbook file from our Github repository to your computer.  
+```{eval = F}
+download_book(fr)
+```
 
+Currently we support French (fr), German (de), Spanish (es), Portuguese (pt), Vietnamese (vn), Japanese (jp), Turkish (tr), and Russian (ru).
 
 This package also contains a function `get_data()` that downloads all the example data to your computer.  
 
@@ -86,7 +90,7 @@ pacman::p_load(epirhandbook)
 
 Next, use the package's function `get_data()` to download the example data to your computer. Run `get_data("all")` to get *all* the example data, or provide a specific file name and extension within the quotes to retrieve only one file.  
 
-The data have already been downloaded with the package, and simply need to be transferred out to a folder on your computer. A pop-up window will appear, allowing you to select a save folder location. We suggest you create a new "data" folder as there are about 30 files (including example data and example outputs).  
+The data have already been downloaded with the package, and simply need to be transferred out to a folder on your computer. A pop-up window will appear, allowing you to select a save folder location. We suggest you create a new "data" folder as there are almost 80 files (including example data and example outputs).  
 
 ```{r, eval=F}
 # download all the example data into a folder on your computer
@@ -184,20 +188,24 @@ The [Contact Tracing](contact_tracing.qmd) page demonstrated analysis of contact
 	<span>the contact follow-up data (.rds file)</span>
 </a>
 
+<a href='https://github.com/appliedepi/epiRhandbook_eng/blob/master/data/contact_tracing.rds?raw=true' class='download-button'>
+	Click to download
+	<span>the contact follow-up data (.rds file)</span>
+</a>
 
 
-<span style="color: black;">**_NOTE:_** Structured contact tracing data from other software (e.g. KoBo, DHIS2 Tracker, CommCare) may look different. If you would like to contribute alternative sample data or content for this page, please [contact us](#contact_us).</span> 
+<span style="color: black;">**_NOTE:_** Structured contact tracing data from other software (e.g. KoBo, DHIS2 Tracker, CommCare) may look different. If you would like to contribute alternative sample data or content for this page, please [contact us](index.qmd).</span> 
 
-<span style="color: darkgreen;">**_TIP:_** If you are deploying Go.Data and want to connect to your instance's API, see the Import and export page [(API section)](#import_api) and the [Go.Data Community of Practice](https://community-godata.who.int/).</span>
+<span style="color: darkgreen;">**_TIP:_** If you are deploying Go.Data and want to connect to your instance's API, see the Import and export page [(API section)](#import_api) and the [Go.Data Community of Practice](https://worldhealthorganization.github.io/godata/).</span>
 
 
 #### GIS {.unnumbered}  
 
-Shapefiles have many sub-component files, each with a different file extention. One file will have the ".shp" extension, but others may have ".dbf", ".prj", etc.  
+Shapefiles have many sub-component files, each with a different file extention. One file will have the ".shp" extension, but others may have ".dbf", ".prj", etc. You will need to have all of these different files within the same folder to use the shapefile. 
 
 The [GIS basics](gis.qmd) page provides links to the *Humanitarian Data Exchange* website where you can download the shapefiles directly as zipped files.  
 
-For example, the health facility points data can be downloaded [here](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities). Download "hotosm_sierra_leone_health_facilities_points_shp.zip". Once saved to your computer, "unzip" the folder. You will see several files with different extensions (e.g. ".shp", ".prj", ".shx") - all these must be saved to the same folder on your computer. Then to import into R, provide the file path and name of the ".shp" file to `st_read()` from the **sf** package (as described in the [GIS basics](gis.qmd) page).  
+For example, the health facility points data can be downloaded [here](https://data.humdata.org/dataset/hotosm_sle_health_facilities). Download "hotosm_sierra_leone_health_facilities_points_shp.zip". Once saved to your computer, "unzip" the folder. You will see several files with different extensions (e.g. ".shp", ".prj", ".shx") - all these must be saved to the same folder on your computer. Then to import into R, provide the file path and name of the ".shp" file to `st_read()` from the **sf** package (as described in the [GIS basics](gis.qmd) page).  
 
 If you follow Option 1 to download all the example data (via our R package **epirhandbook**), all the shapefiles are included.  
 
@@ -211,7 +219,7 @@ knitr::include_graphics(here::here("images", "download_shp.png"))
 
 #### Phylogenetic trees {.unnumbered}  
 
-See the page on [Phylogenetic trees](phylogenetic_trees.qmd). Newick file of phylogenetic tree constructed from whole genome sequencing of 299 Shigella sonnei samples and corresponding sample data (converted to a text file). The Belgian samples and resulting data are kindly provided by the Belgian NRC for Salmonella and Shigella in the scope of a project conducted by an ECDC EUPHEM Fellow, and will also be published in a manuscript. The international data are openly available on public databases (ncbi) and have been previously published.  
+See the page on [Phylogenetic trees](phylogenetic_trees.qmd). Newick file of phylogenetic tree constructed from whole genome sequencing of 299 Shigella sonnei samples and corresponding sample data (converted to a text file). The Belgian samples and resulting data are kindly provided by the Belgian NRC for Salmonella and Shigella in the scope of a project conducted by an [ECDC EUPHEM Fellow](https://www.ecdc.europa.eu/en/epiet-euphem), and are published [here](https://www.mdpi.com/2076-2607/9/4/767) with the sequences found [here](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA698782). The international data are openly available on public databases ([National Center for Biotechnology Information, NCBI](https://www.ncbi.nlm.nih.gov/)) and have been previously published.  
 
 * To download the "Shigella_tree.txt" phylogenetic tree file, right-click this [link](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/phylo/Shigella_tree.txt) (Cmd+click for Mac) and select "Save link as".  
 * To download the "sample_data_Shigella_tree.csv" with additional information on each sample, right-click this [link](https://github.com/appliedepi/epirhandbook_eng/raw/master/data/phylo/sample_data_Shigella_tree.csv) (Cmd+click for Mac) and select "Save link as".  
@@ -264,7 +272,7 @@ standard_pop_data <- import("https://github.com/appliedepi/epirhandbook_eng/raw/
 
 #### Time series and outbreak detection {#data_outbreak .unnumbered}  
 
-See the page on [Time series and outbreak detection](epidemic_models.qmd). We use campylobacter cases reported in Germany 2002-2011, as available from the **surveillance** R package. (*nb.* this dataset has been adapted from the original, in that 3 months of data have been deleted from the end of 2011 for demonstration purposes)
+See the page on [Time series and outbreak detection](epidemic_models.qmd). We use campylobacter cases reported in Germany 2002-2011, as available from the **surveillance** R package. This dataset has been adapted from the original, in that 3 months of data have been deleted from the end of 2011 for demonstration purposes.
 
 <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/campylobacter_germany.xlsx' class='download-button'>
 	Click to download
@@ -327,7 +335,7 @@ We also use climate data from Germany 2002-2011 (temperature in degrees celsius 
 
 #### Survey analysis {#data_survey .unnumbered}  
 
-For the [survey analysis](https://epirhandbook.com/survey-analysis.html) page we use fictional mortality survey data based off MSF OCA survey templates. This fictional data was generated as part of the ["R4Epis" project](https://r4epis.netlify.app/).
+For the [survey analysis](https://epirhandbook.com/new_pages/survey_analysis.html) page we use fictional mortality survey data based off MSF OCA survey templates. This fictional data was generated as part of the ["R4Epis" project](https://r4epis.netlify.app/).
 
 <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/surveys/survey_data.xlsx' class='download-button'>
 	Click to download
@@ -357,12 +365,12 @@ You can <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/
 	click here to download the app.R file<span> that contains both the UI and Server code for the Shiny app.</span></a>
 
 You can <a href='https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/data/facility_count_data.rds' class='download-button'>
-	click here to download the facility_count_data.rds file<span></a> that contains malaria data for the Shiny app. Note that you may need to store it within a "data" folder for the here() file paths to work correctly.  
+	click here to download the facility_count_data.rds file<span></a> that contains malaria data for the Shiny app. Note that you may need to store it within a "data" folder for the `here()` file paths to work correctly.  
 
 You can <a href='https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/global.R' class='download-button'>
 	click here to download the global.R file<span></a> that should run prior to the app opening, as explained in the page.
 	
 You can <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/funcs/plot_epicurve.R' class='download-button'>
-	click here to download the plot_epicurve.R file<span></a> that is sourced by global.R. Note that you may need to store it within a "funcs" folder for the here() file paths to work correctly.
+	click here to download the plot_epicurve.R file<span></a> that is sourced by global.R. Note that you may need to store it within a "funcs" folder for the `here()` file paths to work correctly.
 
 
