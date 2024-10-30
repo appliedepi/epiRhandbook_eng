@@ -40,6 +40,7 @@ pacman::p_load(
   i2extras,     # supplement to incidence2
   stringr,      # search and manipulate character strings
   forcats,      # working with factors
+  cowplot,      # for dual axes
   RColorBrewer, # Color palettes from colorbrewer2.org
   tidyverse     # data management + ggplot2 graphics
 ) 
@@ -1429,65 +1430,87 @@ The above technique for faceting was adapted from [this](https://stackoverflow.c
 <!-- ======================================================= -->
 ## Dual-axis { }  
 
-Although there are fierce discussions about the validity of dual axes within the data visualization community, many epi supervisors still want to see an epicurve or similar chart with a percent overlaid with a second axis. This is discussed more extensively in the [ggplot tips](ggplot_tips.qmd) page, but one example using the argument `sec_axis = ` of the function `scale_y_continuous()`.
+Although there are fierce discussions about the validity of dual axes within the data visualization community, many epi supervisors still want to see an epicurve or similar chart with a percent overlaid with a second axis. This is discussed more extensively in the [ggplot tips](ggplot_tips.qmd) page, but one example using the **cowplot** method is shown below:  
 
-This walkthrough can be found in more detail in [ggplot tips](ggplot_tips.qmd).
+* Two distinct plots are made, and then combined with **cowplot** package.  
+* The plots must have the exact same x-axis (set limits) or else the data and labels will not align  
+* Each uses `theme_cowplot()` and one has the y-axis moved to the right side of the plot  
 
 ```{r, warning=F, message=F}
+#load package
+pacman::p_load(cowplot)
 
-#Set up linelist for primary axis - the weekly cases epicurve
-linelist_primary_axis <- linelist %>%                
-     count(epiweek = lubridate::floor_date(date_onset, "week"))
+# Make first plot of epicurve histogram
+#######################################
+plot_cases <- linelist %>% 
+  
+  # plot cases per week
+  ggplot()+
+  
+  # create histogram  
+  geom_histogram(
+    
+    mapping = aes(x = date_onset),
+    
+    # bin breaks every week beginning monday before first case, going to monday after last case
+    breaks = weekly_breaks_all)+  # pre-defined vector of weekly dates (see top of ggplot section)
+        
+  # specify beginning and end of date axis to align with other plot
+  scale_x_date(
+    limits = c(min(weekly_breaks_all), max(weekly_breaks_all)))+  # min/max of the pre-defined weekly breaks of histogram
+  
+  # labels
+  labs(
+      y = "Daily cases",
+      x = "Date of symptom onset"
+    )+
+  theme_cowplot()
 
-#Set up linelist for secondary axis - the line graph of the weekly percent of deaths
-linelist_secondary_axis <- linelist %>%         
-     group_by(
-          epiweek = lubridate::floor_date(date_onset, "week")) %>% 
-     summarise(
-          n = n(),
-          pct_death = 100*sum(outcome == "Death", na.rm = T) / n)
 
-#Set up scaling factor to transform secondary axis
-linelist_primary_axis_max <- linelist_primary_axis %>%
-     pull(n) %>%
-     max()
-
-linelist_secondary_axis_max <- linelist_secondary_axis %>%
-     pull(pct_death) %>%
-     max()
-
-#Create our scaling factor, how much the secondary axis value must be divided by to create values on the same scale as the primary axis
-scaling_factor <- linelist_secondary_axis_max/linelist_primary_axis_max
-
-ggplot() +
-     #First create the epicurve
-     geom_area(data = linelist_primary_axis,
-               mapping = aes(x = epiweek, 
-                             y = n), 
-               fill = "grey"
-               ) +
-     #Now create the linegraph
-     geom_line(data = linelist_secondary_axis,
-               mapping = aes(x = epiweek, 
-                             y = pct_death / scaling_factor)
-               )  +
-     #Now we specify the second axis, and note that we are going to be multiplying the values of the second axis by the scaling factor in order to get the axis to display the correct values
-     scale_y_continuous(
-          sec.axis = sec_axis(~.*scaling_factor, 
-                              name = "Weekly percent of deaths")
-     ) +
-     scale_x_date(
-          date_breaks = "month",
-          date_labels = "%b"
-          ) +
-     labs(
-          x = "Epiweek of symptom onset",
-          y = "Weekly cases",
-          title = "Weekly case incidence and percent deaths"
-     ) +
-     theme_bw()
-
+# make second plot of percent died per week
+###########################################
+plot_deaths <- linelist %>%                        # begin with linelist
+  group_by(week = floor_date(date_onset, "week")) %>%  # create week column
+  
+  # summarise to get weekly percent of cases who died
+  summarise(n_cases = n(),
+            died = sum(outcome == "Death", na.rm=T),
+            pct_died = 100*died/n_cases) %>% 
+  
+  # begin plot
+  ggplot()+
+  
+  # line of weekly percent who died
+  geom_line(                                # create line of percent died
+    mapping = aes(x = week, y = pct_died),  # specify y-height as pct_died column
+    stat = "identity",                      # set line height to the value in pct_death column, not the number of rows (which is default)
+    size = 2,
+    color = "black")+
+  
+  # Same date-axis limits as the other plot - perfect alignment
+  scale_x_date(
+    limits = c(min(weekly_breaks_all), max(weekly_breaks_all)))+  # min/max of the pre-defined weekly breaks of histogram
+  
+  
+  # y-axis adjustments
+  scale_y_continuous(                # adjust y-axis
+    breaks = seq(0,100, 10),         # set break intervals of percent axis
+    limits = c(0, 100),              # set extent of percent axis
+    position = "right")+             # move percent axis to the right
+  
+  # Y-axis label, no x-axis label
+  labs(x = "",
+       y = "Percent deceased")+      # percent axis label
+  
+  theme_cowplot()                   # add this to make the two plots merge together nicely
 ```
+
+Now use **cowplot** to overlay the two plots. Attention has been paid to the x-axis alignment, side of the y-axis, and use of `theme_cowplot()`.  
+```{r, warning=F, message=F}
+aligned_plots <- cowplot::align_plots(plot_cases, plot_deaths, align="hv", axis="tblr")
+ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])
+```
+
 
 
 ## Cumulative Incidence {}
@@ -1530,6 +1553,8 @@ It can also be overlaid onto the epicurve, with dual-axis using the method descr
 ## incidence2
 
 Below we demonstrate how to make epicurves using the **incidence2** package. The authors of this package have tried to allow the user to create and modify epicurves without needing to know **ggplot2** syntax. Much of this page is adapted from the package vignettes, which can be found at the **incidence2** [github page](https://www.reconverse.org/incidence2/articles/incidence2.html).   
+
+While **incidence2** can be very useful for quickly generating figures, the package is much less flexible than approaches described using **ggplot2**. While this may not be an issue for some users, those who want to have a greater control in creating and adapting their figures, should use **ggplot2**.
 
 To create an epicurve with **incidence2** you need to have a column with a date value (it does not need to be of the class `Date`, but it should have a numeric or logical order to it (i.e. "Week1", "Week2", etc)) and a column with a count variable (what is being counted). It should also *not* have any duplicated rows.
 
