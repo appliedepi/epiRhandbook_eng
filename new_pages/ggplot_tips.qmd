@@ -21,6 +21,7 @@ pacman::p_load(
   here,           # file locator
   stringr,        # working with characters   
   scales,         # transform numbers
+  cowplot,        # for dual axes
   ggrepel,        # smartly-placed labels
   gghighlight,    # highlight one part of plot
   RColorBrewer    # color scales
@@ -895,87 +896,76 @@ Further details on insetting plots is found [here](https://patchwork.data-imagin
 <!-- ======================================================= -->
 ## Dual axes {}
 
-A secondary y-axis is often a requested addition to a `ggplot2` graph. While there is a robust debate about the validity of such graphs in the data visualization community, and they are often not recommended, your manager may still want them. Below, we present one method to achieve them.
+A secondary y-axis is often a requested addition to a `ggplot2` graph. While there is a robust debate about the validity of such graphs in the data visualization community, and they are often not recommended, your manager may still want them. Below, we present one method to achieve them: using the **cowplot** package to combine two separate plots.  
 
-This approach involves creating two separate datasets, one for each of the different plots we want to achieve, and then calculating a "scaling factor" required to transform the values onto the same scale.
-
-This is because the function we are going to use to add a second y-axis, `sec_axis()` requires the second axis be directly proportional to the first axis.
+This approach involves creating two separate plots - one with a y-axis on the left, and the other with y-axis on the right. Both will use a specific `theme_cowplot()` and must have the same x-axis. Then in a third command the two plots are aligned and overlaid on top of each other. The functionalities of **cowplot**, of which this is only one, are described in depth at this [site](https://wilkelab.org/cowplot/articles/aligning_plots.html).  
 
 To demonstrate this technique we will overlay the epidemic curve with a line of the weekly percent of patients who died. We use this example because the alignment of dates on the x-axis is more complex than say, aligning a bar chart with another plot. Some things to note:  
 
 * The epicurve and the line are aggregated into weeks prior to plotting *and* the `date_breaks` and `date_labels` are identical - we do this so that the x-axes of the two plots are the same when they are overlaid.  
-* The y-axis is created to the right-side for plot 2 with the `sec_axis = ` argument of `scale_y_continuous()`.
+* The y-axis is moved to the right-side for plot 2 with the `position = ` argument of `scale_y_continuous()`.  
+* Both plots make use of `theme_cowplot()`  
 
-**Make the datasets for the plot**  
-Here we will transform `linelist` into two different datasets `linelist_primary_axis` and `linelist_secondary_axis` in order to then create the scaling factor that will allow us to attach a second axis at the correct scale. 
+Note there is another example of this technique in the [Epidemic curves](epicurves.qmd) page - overlaying cumulative incidence on top of the epicurve.  
 
-```{r, warning=F, message=F}
-
-#Set up linelist for primary axis - the weekly cases epicurve
-linelist_primary_axis <- linelist %>%                
-     count(epiweek = lubridate::floor_date(date_onset, "week"))
-
-#Set up linelist for secondary axis - the line graph of the weekly percent of deaths
-linelist_secondary_axis <- linelist %>%         
-     group_by(
-          epiweek = lubridate::floor_date(date_onset, "week")) %>% 
-     summarise(
-          n = n(),
-          pct_death = 100*sum(outcome == "Death", na.rm = T) / n)
-
-```
-
-**Calculate the scaling factor**  
-Now that we have created the datasets with our variables of interest, we want to extract the columns and calculate the maximum value in each in order to set our scale. We will then divide the secondary axis value by the first axis value in order to create our scaling factor.
+**Make plot 1**  
+This is essentially the epicurve. We use `geom_area()` just to demonstrate its use (area under a line, by default)  
 
 ```{r, warning=F, message=F}
+pacman::p_load(cowplot)            # load/install cowplot
 
-#Set up scaling factor to transform secondary axis
-linelist_primary_axis_max <- linelist_primary_axis %>%
-     pull(n) %>%
-     max()
-
-linelist_secondary_axis_max <- linelist_secondary_axis %>%
-     pull(pct_death) %>%
-     max()
-
-#Create our scaling factor, how much the secondary axis value must be divided by to create values on the same scale as the primary axis
-scaling_factor <- linelist_secondary_axis_max/linelist_primary_axis_max
-
-```
-
-And now we are ready to plot! We will be using the argument `geom_histogram()` to create our epicurve, and `geom_line()` to create our line graph. **Note** that we are not specifying a `data = ` argument in our first `ggplot()`, this is because we are using two separate datasets to create this plot.
-
-```{r, warning=F, message=F}
-
-ggplot() +
-     #First create the epicurve
-     geom_histogram(data = linelist_primary_axis,
-               mapping = aes(x = epiweek, 
-                             y = n), 
-               fill = "grey",
-               stat = "identity"
-               ) +
-     #Now create the linegraph
-     geom_line(data = linelist_secondary_axis,
-               mapping = aes(x = epiweek, 
-                             y = pct_death / scaling_factor)
-               )  +
-     #Now we specify the second axis, and note that we are going to be multiplying the values of the second axis by the scaling factor in order to get the axis to display the correct values
-     scale_y_continuous(
-          sec.axis = sec_axis(~.*scaling_factor, 
-                              name = "Weekly percent of deaths")
-     ) +
-     scale_x_date(
-          date_breaks = "month",
-          date_labels = "%b"
-          ) +
+p1 <- linelist %>%                 # save plot as object
+     count(
+       epiweek = lubridate::floor_date(date_onset, "week")) %>% 
+     ggplot()+
+          geom_area(aes(x = epiweek, y = n), fill = "grey")+
+          scale_x_date(
+               date_breaks = "month",
+               date_labels = "%b")+
+     theme_cowplot()+
      labs(
-          x = "Epiweek of symptom onset",
-          y = "Weekly cases",
-          title = "Weekly case incidence and percent deaths"
-     ) +
-     theme_bw()
+       y = "Weekly cases"
+     )
+
+p1                                      # view plot 
+```
+
+**Make plot 2**  
+Create the second plot showing a line of the weekly percent of cases who died.  
+
+```{r, warning=F, message=F}
+
+p2 <- linelist %>%         # save plot as object
+     group_by(
+       epiweek = lubridate::floor_date(date_onset, "week")) %>% 
+     summarise(
+       n = n(),
+       pct_death = 100*sum(outcome == "Death", na.rm=T) / n) %>% 
+     ggplot(aes(x = epiweek, y = pct_death))+
+          geom_line()+
+          scale_x_date(
+               date_breaks = "month",
+               date_labels = "%b")+
+          scale_y_continuous(
+               position = "right")+
+          theme_cowplot()+
+          labs(
+            x = "Epiweek of symptom onset",
+            y = "Weekly percent of deaths",
+            title = "Weekly case incidence and percent deaths"
+          )
+
+p2     # view plot
+```
+
+Now we align the plot using the function `align_plots()`, specifying horizontal and vertical alignment ("hv", could also be "h", "v", "none"). We specify alignment of all axes as well (top, bottom, left, and right) with "tblr". The output is of class list (2 elements).    
+
+Then we draw the two plots together using `ggdraw()` (from **cowplot**) and referencing the two parts of the `aligned_plots` object.  
+
+```{r, warning=F, message=F}
+aligned_plots <- cowplot::align_plots(p1, p2, align="hv", axis="tblr")         # align the two plots and save them as list
+aligned_plotted <- ggdraw(aligned_plots[[1]]) + draw_plot(aligned_plots[[2]])  # overlay them and save the visual plot
+aligned_plotted                                                                # print the overlayed plots
 
 ```
 
