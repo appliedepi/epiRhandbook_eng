@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Epidemiologist R Handbook - 34&nbsp; Heat plots</title>
+<title>34&nbsp; Heat plots – The Epidemiologist R Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -137,75 +137,144 @@ cookieconsent.run({
 </script> 
   
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
 <script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
+
+
   gtag('config', 'G-QXDW878QLX');
+
 </script>
 
+
+
 </head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
+
+
 </script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
 <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+
+<script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
+
 <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
 <script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
 <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
 <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
 
 
 
@@ -216,13 +285,13 @@ cookieconsent.run({
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_presentation.html">Data Visualization</a></li><li class="breadcrumb-item"><a href="../new_pages/heatmaps.html"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Heat plots</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -240,26 +309,26 @@ cookieconsent.run({
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
-    <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.linkedin.com/company/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -284,9 +353,9 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">About this book</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -307,9 +376,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -348,9 +417,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Management</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -413,9 +482,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -496,9 +565,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Visualization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -573,9 +642,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Reports and dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -604,13 +673,19 @@ cookieconsent.run({
  <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../new_pages/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Miscellaneous</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -618,43 +693,43 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
@@ -715,8 +790,7 @@ cookieconsent.run({
 
 <p>Heat plots, also known as “heat maps” or “heat tiles”, can be useful visualizations when trying to display 3 variables (x-axis, y-axis, and fill). Below we demonstrate two examples:</p>
 <ul>
-<li>A visual matrix of transmission events by age (“who infected whom”)<br>
-</li>
+<li>A visual matrix of transmission events by age (“who infected whom”)</li>
 <li>Tracking reporting metrics across many facilities/jurisdictions over time</li>
 </ul>
 <div class="cell">
@@ -755,7 +829,7 @@ cookieconsent.run({
 <section id="transmission-matrix" class="level2" data-number="34.2">
 <h2 data-number="34.2" class="anchored" data-anchor-id="transmission-matrix"><span class="header-section-number">34.2</span> Transmission matrix</h2>
 <p>Heat tiles can be useful to visualize matrices. One example is to display “who-infected-whom” in an outbreak. This assumes that you have information on transmission events.</p>
-<p>Note that the [Contact tracing] page contains another example of making a heat tile contact matrix, using a different (perhaps more simple) dataset where the ages of cases and their sources are neatly aligned in the same row of the data frame. This same data is used to make a <em>density</em> map in the [ggplot tips] page. This example below begins from a case linelist and so involves considerable data manipulation prior to achieving a plotable data frame. So there are many scenarios to chose from…</p>
+<p>Note that the <a href="../new_pages/contact_tracing.html">Contact tracing</a> page contains another example of making a heat tile contact matrix, using a different (perhaps more simple) dataset where the ages of cases and their sources are neatly aligned in the same row of the data frame. This same data is used to make a <em>density</em> map in the <a href="../new_pages/ggplot_tips.html">ggplot tips</a> page. This example below begins from a case linelist and so involves considerable data manipulation prior to achieving a plottable data frame. So there are many scenarios to chose from.</p>
 <p>We begin from the case linelist of a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file). Import your data with the <code>import()</code> function from the <strong>rio</strong> package (it accepts many file types like .xlsx, .rds, .csv - see the <a href="../new_pages/importing.html">Import and export</a> page for details).</p>
 <p>The first 50 rows of the linelist are shown below for demonstration:</p>
 <div class="cell">
@@ -763,14 +837,13 @@ cookieconsent.run({
 </div>
 <p>In this linelist:</p>
 <ul>
-<li>There is one row per case, as identified by <code>case_id</code><br>
-</li>
+<li>There is one row per case, as identified by <code>case_id</code></li>
 <li>There is a later column <code>infector</code> that contains the <code>case_id</code> of the <em>infector</em>, who is also a case in the linelist</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-d1f4915ef242a215d06d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d1f4915ef242a215d06d">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6cde8697cce828b9543b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6cde8697cce828b9543b">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="data-preparation" class="level3 unnumbered">
@@ -787,8 +860,8 @@ cookieconsent.run({
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-175c156ef7ba3839a536" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-175c156ef7ba3839a536">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>infector<\/th>\n      <th>case_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"infector","targets":1},{"name":"case_age_cat","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1dbdbc2a9747d6aab7f4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1dbdbc2a9747d6aab7f4">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>infector<\/th>\n      <th>case_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"infector","targets":1},{"name":"case_age_cat","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -802,8 +875,8 @@ cookieconsent.run({
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-fd38047ddf497e54f1e4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fd38047ddf497e54f1e4">{"x":{"filter":"none","vertical":false,"data":[["f547d6","f90f5f","11f8ea","aec8ec","893f25","133ee7","996f3a","133ee7","37a6f6","9f6884","4802b1","a75c7f","8e104d","ab634e","b799eb","5d9e4d","a15e13","ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277","d6584f","312ecf","52ea64","cfd79c","d145b7","174288","53608c","3b096b","f5c142","d05405","700448","a2e5cc","7fd086","4e08f2","3789ee","c2595d","b7641e","ce4ec6","09f7ab","4b501e","006775","1f8797","2b36fa","068c6a","535760"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>infector<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"infector","targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d50e99b34f329a6f3ea3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d50e99b34f329a6f3ea3">{"x":{"filter":"none","vertical":false,"data":[["f547d6","f90f5f","11f8ea","aec8ec","893f25","133ee7","996f3a","133ee7","37a6f6","9f6884","4802b1","a75c7f","8e104d","ab634e","b799eb","5d9e4d","a15e13","ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277","d6584f","312ecf","52ea64","cfd79c","d145b7","174288","53608c","3b096b","f5c142","d05405","700448","a2e5cc","7fd086","4e08f2","3789ee","c2595d","b7641e","ce4ec6","09f7ab","4b501e","006775","1f8797","2b36fa","068c6a","535760"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>infector<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"infector","targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Next, we use joins to procure the ages of the infectors. This is not simple, because in the <code>linelist</code>, the infector’s ages are not listed as such. We achieve this result by joining the case <code>linelist</code> to the infectors. We begin with the infectors, and <code>left_join()</code> (add) the case <code>linelist</code> such that the <code>infector</code> id column left-side “baseline” data frame joins to the <code>case_id</code> column in the right-side <code>linelist</code> data frame.</p>
@@ -818,8 +891,8 @@ cookieconsent.run({
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-03aa42e4329625ca66bb" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-03aa42e4329625ca66bb">{"x":{"filter":"none","vertical":false,"data":[["f547d6","f90f5f","11f8ea","aec8ec","893f25","133ee7","996f3a","133ee7","37a6f6","9f6884","4802b1","a75c7f","8e104d","ab634e","b799eb","5d9e4d","a15e13","ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277","d6584f","312ecf","52ea64","cfd79c","d145b7","174288","53608c","3b096b","f5c142","d05405","700448","a2e5cc","7fd086","4e08f2","3789ee","c2595d","b7641e","ce4ec6","09f7ab","4b501e","006775","1f8797","2b36fa","068c6a","535760"],["15-19",null,"50-69",null,"0-4","20-29",null,"20-29",null,"15-19",null,null,"10-14",null,"10-14",null,null,null,null,"50-69",null,null,null,null,null,"5-9",null,"10-14","10-14","0-4","20-29",null,null,"20-29",null,"5-9",null,"10-14",null,"20-29","10-14","5-9","0-4",null,null,null,"5-9","15-19",null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>infector<\/th>\n      <th>infector_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"infector","targets":0},{"name":"infector_age_cat","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-596bb2653373da971b25" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-596bb2653373da971b25">{"x":{"filter":"none","vertical":false,"data":[["f547d6","f90f5f","11f8ea","aec8ec","893f25","133ee7","996f3a","133ee7","37a6f6","9f6884","4802b1","a75c7f","8e104d","ab634e","b799eb","5d9e4d","a15e13","ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277","d6584f","312ecf","52ea64","cfd79c","d145b7","174288","53608c","3b096b","f5c142","d05405","700448","a2e5cc","7fd086","4e08f2","3789ee","c2595d","b7641e","ce4ec6","09f7ab","4b501e","006775","1f8797","2b36fa","068c6a","535760"],["15-19",null,"50-69",null,"0-4","20-29",null,"20-29",null,"15-19",null,null,"10-14",null,"10-14",null,null,null,null,"50-69",null,null,null,null,null,"5-9",null,"10-14","10-14","0-4","20-29",null,null,"20-29",null,"5-9",null,"10-14",null,"20-29","10-14","5-9","0-4",null,null,null,"5-9","15-19",null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>infector<\/th>\n      <th>infector_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"infector","targets":0},{"name":"infector_age_cat","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Then, we combine the cases and their ages with the infectors and their ages. Each of these data frame has the column <code>infector</code>, so it is used for the join. The first rows are displayed below:</p>
@@ -839,8 +912,8 @@ cookieconsent.run({
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4a046782d05d8ff2c5e6" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4a046782d05d8ff2c5e6">{"x":{"filter":"none","vertical":false,"data":[["5fe599","5fe599","5fe599","893f25","893f25","893f25","893f25","893f25","07e3e8","369449","369449","57a565","57a565","2eaa9a","ddddee","bc2adf","bc2adf","8ebf6e","f5c142","062638","c76676","c76676","c76676","baacc1","497372","c71dcd","c71dcd","422831","2b36fa","2b36fa","2b36fa","4ade58","9f0c37","f97626","7d99f2","7d99f2","babc2d","d5f3c0","d5f3c0","8b4b24","bd5a25","564652","564652","890de4","890de4","890de4","890de4","cc71ea","cc71ea","3c0ca7"],["f547d6","f547d6","f547d6","11f8ea","11f8ea","11f8ea","11f8ea","11f8ea","893f25","133ee7","133ee7","133ee7","133ee7","9f6884","8e104d","b799eb","b799eb","567136","d6584f","52ea64","cfd79c","cfd79c","cfd79c","d145b7","174288","f5c142","f5c142","700448","7fd086","7fd086","7fd086","3789ee","c2595d","b7641e","ce4ec6","ce4ec6","1f8797","2b36fa","2b36fa","108b95","5b2dd9","92e129","92e129","9a9a84","9a9a84","9a9a84","9a9a84","68623f","68623f","088b66"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","15-19","0-4","0-4","30-49","30-49","5-9","10-14","20-29","20-29","10-14","20-29","10-14","10-14","10-14","10-14","0-4","10-14","20-29","20-29","10-14","15-19","15-19","15-19","30-49","10-14","5-9","5-9","5-9","20-29","5-9","5-9","15-19","20-29","15-19","15-19","30-49","30-49","30-49","30-49","30-49","30-49","5-9"],["15-19","15-19","15-19","50-69","50-69","50-69","50-69","50-69","0-4","20-29","20-29","20-29","20-29","15-19","10-14","10-14","10-14","50-69","5-9","10-14","10-14","10-14","10-14","0-4","20-29","20-29","20-29","5-9","10-14","10-14","10-14","20-29","10-14","5-9","0-4","0-4","5-9","15-19","15-19","15-19","30-49","10-14","10-14","70+","70+","70+","70+","30-49","30-49","30-49"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>infector<\/th>\n      <th>case_age_cat<\/th>\n      <th>infector_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"infector","targets":1},{"name":"case_age_cat","targets":2},{"name":"infector_age_cat","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7ed6315a821ac68c1533" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7ed6315a821ac68c1533">{"x":{"filter":"none","vertical":false,"data":[["5fe599","5fe599","5fe599","893f25","893f25","893f25","893f25","893f25","07e3e8","369449","369449","57a565","57a565","2eaa9a","ddddee","bc2adf","bc2adf","8ebf6e","f5c142","062638","c76676","c76676","c76676","baacc1","497372","c71dcd","c71dcd","422831","2b36fa","2b36fa","2b36fa","4ade58","9f0c37","f97626","7d99f2","7d99f2","babc2d","d5f3c0","d5f3c0","8b4b24","bd5a25","564652","564652","890de4","890de4","890de4","890de4","cc71ea","cc71ea","3c0ca7"],["f547d6","f547d6","f547d6","11f8ea","11f8ea","11f8ea","11f8ea","11f8ea","893f25","133ee7","133ee7","133ee7","133ee7","9f6884","8e104d","b799eb","b799eb","567136","d6584f","52ea64","cfd79c","cfd79c","cfd79c","d145b7","174288","f5c142","f5c142","700448","7fd086","7fd086","7fd086","3789ee","c2595d","b7641e","ce4ec6","ce4ec6","1f8797","2b36fa","2b36fa","108b95","5b2dd9","92e129","92e129","9a9a84","9a9a84","9a9a84","9a9a84","68623f","68623f","088b66"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","15-19","0-4","0-4","30-49","30-49","5-9","10-14","20-29","20-29","10-14","20-29","10-14","10-14","10-14","10-14","0-4","10-14","20-29","20-29","10-14","15-19","15-19","15-19","30-49","10-14","5-9","5-9","5-9","20-29","5-9","5-9","15-19","20-29","15-19","15-19","30-49","30-49","30-49","30-49","30-49","30-49","5-9"],["15-19","15-19","15-19","50-69","50-69","50-69","50-69","50-69","0-4","20-29","20-29","20-29","20-29","15-19","10-14","10-14","10-14","50-69","5-9","10-14","10-14","10-14","10-14","0-4","20-29","20-29","20-29","5-9","10-14","10-14","10-14","20-29","10-14","5-9","0-4","0-4","5-9","15-19","15-19","15-19","30-49","10-14","10-14","70+","70+","70+","70+","30-49","30-49","30-49"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>infector<\/th>\n      <th>case_age_cat<\/th>\n      <th>infector_age_cat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"infector","targets":1},{"name":"case_age_cat","targets":2},{"name":"infector_age_cat","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Below, a simple cross-tabulation of counts between the case and infector age groups. Labels added for clarity.</p>
@@ -868,8 +941,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-e4437fde44dc19d95195" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e4437fde44dc19d95195">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","5-9","5-9","5-9","5-9","5-9","5-9","5-9","5-9","10-14","10-14","10-14","10-14","10-14","10-14","10-14","10-14","15-19","15-19","15-19","15-19","15-19","15-19","15-19","15-19","20-29","20-29","20-29","20-29","20-29","20-29","20-29","20-29","30-49","30-49","30-49","30-49","30-49","30-49","30-49","30-49","50-69","50-69"],[105,102,104,85,101,72,5,1,156,132,109,105,127,97,6,0,105,110,91,82,109,56,15,2,114,102,79,39,80,54,9,0,143,117,120,75,143,98,7,0,117,96,80,69,107,61,5,0,13,12]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>infectors<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"cases","targets":0},{"name":"infectors","targets":1},{"name":"Freq","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-de6c21ae253b006c30cd" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-de6c21ae253b006c30cd">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","5-9","5-9","5-9","5-9","5-9","5-9","5-9","5-9","10-14","10-14","10-14","10-14","10-14","10-14","10-14","10-14","15-19","15-19","15-19","15-19","15-19","15-19","15-19","15-19","20-29","20-29","20-29","20-29","20-29","20-29","20-29","20-29","30-49","30-49","30-49","30-49","30-49","30-49","30-49","30-49","50-69","50-69"],[105,102,104,85,101,72,5,1,156,132,109,105,127,97,6,0,105,110,91,82,109,56,15,2,114,102,79,39,80,54,9,0,143,117,120,75,143,98,7,0,117,96,80,69,107,61,5,0,13,12]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>infectors<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"cases","targets":0},{"name":"infectors","targets":1},{"name":"Freq","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now we do the same, but apply <code>prop.table()</code> from <strong>base</strong> R to the table so instead of counts we get proportions of the total. The first 50 rows are shown below.</p>
@@ -880,8 +953,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4dd1542879c4136cad72" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4dd1542879c4136cad72">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","5-9","5-9","5-9","5-9","5-9","5-9","5-9","5-9","10-14","10-14","10-14","10-14","10-14","10-14","10-14","10-14","15-19","15-19","15-19","15-19","15-19","15-19","15-19","15-19","20-29","20-29","20-29","20-29","20-29","20-29","20-29","20-29","30-49","30-49","30-49","30-49","30-49","30-49","30-49","30-49","50-69","50-69"],[0.02847843775427177,0.02766476810414972,0.02820721453756441,0.02305397342012476,0.02739354488744236,0.01952807160292921,0.001356116083536751,0.0002712232167073502,0.04231082180634662,0.03580146460537022,0.02956333062110117,0.02847843775427177,0.03444534852183347,0.02630865202061296,0.001627339300244101,0,0.02847843775427177,0.02983455383780852,0.02468131272036886,0.02224030377000271,0.02956333062110117,0.01518850013561161,0.004068348250610252,0.0005424464334147003,0.03091944670463792,0.02766476810414972,0.02142663411988066,0.01057770545158665,0.02169785733658801,0.01464605370219691,0.002441008950366151,0,0.03878491998915107,0.03173311635475997,0.03254678600488202,0.02034174125305126,0.03878491998915107,0.02657987523732032,0.001898562516951451,0,0.03173311635475997,0.02603742880390561,0.02169785733658801,0.01871440195280716,0.02902088418768647,0.01654461621914836,0.001356116083536751,0,0.003525901817195552,0.003254678600488202]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>infectors<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"cases","targets":0},{"name":"infectors","targets":1},{"name":"Freq","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-3a8bad826e33a3ccddbe" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3a8bad826e33a3ccddbe">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+","0-4","5-9"],["0-4","0-4","0-4","0-4","0-4","0-4","0-4","0-4","5-9","5-9","5-9","5-9","5-9","5-9","5-9","5-9","10-14","10-14","10-14","10-14","10-14","10-14","10-14","10-14","15-19","15-19","15-19","15-19","15-19","15-19","15-19","15-19","20-29","20-29","20-29","20-29","20-29","20-29","20-29","20-29","30-49","30-49","30-49","30-49","30-49","30-49","30-49","30-49","50-69","50-69"],[0.02847843775427177,0.02766476810414972,0.02820721453756441,0.02305397342012476,0.02739354488744236,0.01952807160292921,0.001356116083536751,0.0002712232167073502,0.04231082180634662,0.03580146460537022,0.02956333062110117,0.02847843775427177,0.03444534852183347,0.02630865202061296,0.001627339300244101,0,0.02847843775427177,0.02983455383780852,0.02468131272036886,0.02224030377000271,0.02956333062110117,0.01518850013561161,0.004068348250610252,0.0005424464334147003,0.03091944670463792,0.02766476810414972,0.02142663411988066,0.01057770545158665,0.02169785733658801,0.01464605370219691,0.002441008950366151,0,0.03878491998915107,0.03173311635475997,0.03254678600488202,0.02034174125305126,0.03878491998915107,0.02657987523732032,0.001898562516951451,0,0.03173311635475997,0.02603742880390561,0.02169785733658801,0.01871440195280716,0.02902088418768647,0.01654461621914836,0.001356116083536751,0,0.003525901817195552,0.003254678600488202]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>infectors<\/th>\n      <th>Freq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"cases","targets":0},{"name":"infectors","targets":1},{"name":"Freq","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -890,27 +963,26 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <h3 class="unnumbered anchored" data-anchor-id="create-heat-plot">Create heat plot</h3>
 <p>Now finally we can create the heat plot with <strong>ggplot2</strong> package, using the <code>geom_tile()</code> function. See the <a href="../new_pages/ggplot_tips.html">ggplot tips</a> page to learn more extensively about color/fill scales, especially the <code>scale_fill_gradient()</code> function.</p>
 <ul>
-<li>In the aesthetics <code>aes()</code> of <code>geom_tile()</code> set the x and y as the case age and infector age<br>
+<li>In the aesthetics <code>aes()</code> of <code>geom_tile()</code> set the x and y as the case age and infector age.</li>
+<li>Also in <code>aes()</code> set the argument <code>fill =</code> to the <code>Freq</code> column - this is the value that will be converted to a tile color.<br>
 </li>
-<li>Also in <code>aes()</code> set the argument <code>fill =</code> to the <code>Freq</code> column - this is the value that will be converted to a tile color<br>
-</li>
-<li>Set a scale color with <code>scale_fill_gradient()</code> - you can specify the high/low colors
+<li>Set a scale color with <code>scale_fill_gradient()</code> - you can specify the high/low colors.
 <ul>
-<li>Note that <code>scale_color_gradient()</code> is different! In this case you want the fill<br>
+<li>Note that <code>scale_color_gradient()</code> is different! In this case you want the fill.<br>
 </li>
 </ul></li>
-<li>Because the color is made via “fill”, you can use the <code>fill =</code> argument in <code>labs()</code> to change the legend title</li>
+<li>Because the color is made via “fill”, you can use the <code>fill =</code> argument in <code>labs()</code> to change the legend title.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> long_prop)<span class="sc">+</span>       <span class="co"># use long data, with proportions as Freq</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> long_prop) <span class="sc">+</span>       <span class="co"># use long data, with proportions as Freq</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(                    <span class="co"># visualize it in tiles</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> cases,         <span class="co"># x-axis is case age</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> infectors,     <span class="co"># y-axis is infector age</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> Freq))<span class="sc">+</span>            <span class="co"># color of the tile is the Freq column in the data</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> Freq)) <span class="sc">+</span>            <span class="co"># color of the tile is the Freq column in the data</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(          <span class="co"># adjust the fill color of the tiles</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"blue"</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"orange"</span>)<span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"orange"</span>) <span class="sc">+</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(                         <span class="co"># labels</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Case age"</span>,</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Infector age"</span>,</span>
@@ -940,8 +1012,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-31d1d3f278d2cbad488f" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-31d1d3f278d2cbad488f">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 2","Facility 3","Facility 4","Facility 5","Facility 6","Facility 6","Facility 5","Facility 5","Facility 5","Facility 7","Facility 8","Facility 9","Facility 10","Facility 11","Facility 12","Facility 13","Facility 14","Facility 15","Facility 16","Facility 17","Facility 18","Facility 19","Facility 19","Facility 20","Facility 21","Facility 19","Facility 22","Facility 23","Facility 23"],["2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-10","2020-08-10","2020-08-09","2020-08-08","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-10","2020-08-11","2020-08-11","2020-08-09","2020-08-11","2020-08-11","2020-08-12"],["Spring","Bolo","Dingo","Bolo","Bolo","Dingo","Dingo","Bolo","Bolo","Bolo","Spring","Bolo","Spring","Bolo","Spring","Dingo","Bolo","Dingo","Barnard","Barnard","Barnard","Bolo","Bolo","Bolo","Barnard","Bolo","Bolo","Bolo","Dingo","Dingo"],[46,26,18,49,17,8,7,42,35,49,32,28,53,34,60,134,0,16,11,34,9,13,32,52,37,51,32,28,31,31]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>data_date<\/th>\n      <th>District<\/th>\n      <th>malaria_tot<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"location_name","targets":0},{"name":"data_date","targets":1},{"name":"District","targets":2},{"name":"malaria_tot","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-ddfbfcad7ad434a72a4d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ddfbfcad7ad434a72a4d">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 2","Facility 3","Facility 4","Facility 5","Facility 6","Facility 6","Facility 5","Facility 5","Facility 5","Facility 7","Facility 8","Facility 9","Facility 10","Facility 11","Facility 12","Facility 13","Facility 14","Facility 15","Facility 16","Facility 17","Facility 18","Facility 19","Facility 19","Facility 20","Facility 21","Facility 19","Facility 22","Facility 23","Facility 23"],["2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-10","2020-08-10","2020-08-09","2020-08-08","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-11","2020-08-10","2020-08-11","2020-08-11","2020-08-09","2020-08-11","2020-08-11","2020-08-12"],["Spring","Bolo","Dingo","Bolo","Bolo","Dingo","Dingo","Bolo","Bolo","Bolo","Spring","Bolo","Spring","Bolo","Spring","Dingo","Bolo","Dingo","Barnard","Barnard","Barnard","Bolo","Bolo","Bolo","Barnard","Bolo","Bolo","Bolo","Dingo","Dingo"],[46,26,18,49,17,8,7,42,35,49,32,28,53,34,60,134,0,16,11,34,9,13,32,52,37,51,32,28,31,31]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>data_date<\/th>\n      <th>District<\/th>\n      <th>malaria_tot<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"location_name","targets":0},{"name":"data_date","targets":1},{"name":"District","targets":2},{"name":"malaria_tot","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="aggregate-and-summarize" class="level4 unnumbered">
@@ -949,27 +1021,22 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <p><strong>The objective in this example</strong> is to transform the daily facility <em>total</em> malaria case counts (seen in previous tab) into <em>weekly</em> summary statistics of facility reporting performance - in this case <em>the proportion of days per week that the facility reported any data</em>. For this example we will show data only for <strong>Spring District</strong>.</p>
 <p>To achieve this we will do the following data management steps:</p>
 <ol type="1">
-<li>Filter the data as appropriate (by place, date)<br>
+<li>Filter the data as appropriate (by place, date).<br>
 </li>
-<li>Create a week column using <code>floor_date()</code> from package <strong>lubridate</strong>
+<li>Create a week column using <code>floor_date()</code> from package <strong>lubridate</strong>.
 <ul>
-<li>This function returns the start-date of a given date’s week, using a specified start date of each week (e.g.&nbsp;“Mondays”)<br>
+<li>This function returns the start-date of a given date’s week, using a specified start date of each week (e.g.&nbsp;“Mondays”).<br>
 </li>
 </ul></li>
-<li>The data are grouped by columns “location” and “week” to create analysis units of “facility-week”<br>
+<li>The data are grouped by columns “location” and “week” to create analysis units of “facility-week”.<br>
 </li>
 <li>The function <code>summarise()</code> creates new columns to reflecting summary statistics per facility-week group:
 <ul>
-<li>Number of days per week (7 - a static value)<br>
-</li>
-<li>Number of reports received from the facility-week (could be more than 7!)<br>
-</li>
-<li>Sum of malaria cases reported by the facility-week (just for interest)<br>
-</li>
-<li>Number of <em>unique</em> days in the facility-week for which there is data reported<br>
-</li>
-<li><strong>Percent of the 7 days per facility-week for which data was reported</strong><br>
-</li>
+<li>Number of days per week (7 - a static value)</li>
+<li>Number of reports received from the facility-week (could be more than 7!)</li>
+<li>Sum of malaria cases reported by the facility-week (just for interest)</li>
+<li>Number of <em>unique</em> days in the facility-week for which there is data reported</li>
+<li><strong>Percent of the 7 days per facility-week for which data was reported</strong></li>
 </ul></li>
 <li>The data frame is joined with <code>right_join()</code> to a comprehensive list of all possible facility-week combinations, to make the dataset complete. The matrix of all possible combinations is created by applying <code>expand()</code> to those two columns of the data frame as it is at that moment in the pipe chain (represented by <code>.</code>). Because a <code>right_join()</code> is used, all rows in the <code>expand()</code> data frame are kept, and added to <code>agg_weeks</code> if necessary. These new rows appear with <code>NA</code> (missing) summarized values.</li>
 </ol>
@@ -977,11 +1044,10 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create weekly summary dataset</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>agg_weeks <span class="ot">&lt;-</span> facility_count_data <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter the data as appropriate</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    District <span class="sc">==</span> <span class="st">"Spring"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    data_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-01"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter the data as appropriate</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    District <span class="sc">==</span> <span class="st">"Spring"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    data_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-01"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now the dataset has <code>nrow(agg_weeks)</code> rows, when it previously had <code>nrow(facility_count_data)</code>.</p>
 <p>Next we create a <code>week</code> column reflecting the start date of the week for each record. This is achieved with the <strong>lubridate</strong> package and the function <code>floor_date()</code>, which is set to “week” and for the weeks to begin on Mondays (day 1 of the week - Sundays would be 7). The top rows are shown below.</p>
@@ -997,8 +1063,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <p>The new week column can be seen on the far right of the data frame</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-1f234bd723c6d2aa716b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1f234bd723c6d2aa716b">{"x":{"filter":"none","vertical":false,"data":[["Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 51","Facility 51","Facility 51","Facility 56","Facility 7","Facility 7","Facility 7","Facility 11","Facility 35","Facility 35","Facility 28","Facility 28","Facility 28","Facility 28"],["2020-07-31","2020-07-30","2020-07-29","2020-07-28","2020-07-27","2020-07-31","2020-07-30","2020-07-29","2020-07-28","2020-07-27","2020-07-26","2020-07-25","2020-07-24","2020-07-23","2020-07-22","2020-07-21","2020-07-30","2020-07-29","2020-07-28","2020-06-25","2020-07-31","2020-07-30","2020-07-29","2020-07-31","2020-07-30","2020-07-29","2020-07-30","2020-07-29","2020-07-28","2020-07-27"],["Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring"],[13,14,74,75,91,80,39,44,44,43,28,41,61,40,33,66,32,32,32,200,0,0,21,21,43,179,1,35,31,45],["2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-27","2020-07-27","2020-07-27","2020-06-22","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>data_date<\/th>\n      <th>District<\/th>\n      <th>malaria_tot<\/th>\n      <th>week<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"location_name","targets":0},{"name":"data_date","targets":1},{"name":"District","targets":2},{"name":"malaria_tot","targets":3},{"name":"week","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-a50f0d04f81082a7f8b0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a50f0d04f81082a7f8b0">{"x":{"filter":"none","vertical":false,"data":[["Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 51","Facility 51","Facility 51","Facility 56","Facility 7","Facility 7","Facility 7","Facility 11","Facility 35","Facility 35","Facility 28","Facility 28","Facility 28","Facility 28"],["2020-07-31","2020-07-30","2020-07-29","2020-07-28","2020-07-27","2020-07-31","2020-07-30","2020-07-29","2020-07-28","2020-07-27","2020-07-26","2020-07-25","2020-07-24","2020-07-23","2020-07-22","2020-07-21","2020-07-30","2020-07-29","2020-07-28","2020-06-25","2020-07-31","2020-07-30","2020-07-29","2020-07-31","2020-07-30","2020-07-29","2020-07-30","2020-07-29","2020-07-28","2020-07-27"],["Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring","Spring"],[13,14,74,75,91,80,39,44,44,43,28,41,61,40,33,66,32,32,32,200,0,0,21,21,43,179,1,35,31,45],["2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-20","2020-07-27","2020-07-27","2020-07-27","2020-06-22","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27","2020-07-27"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>data_date<\/th>\n      <th>District<\/th>\n      <th>malaria_tot<\/th>\n      <th>week<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"location_name","targets":0},{"name":"data_date","targets":1},{"name":"District","targets":2},{"name":"malaria_tot","targets":3},{"name":"week","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now we group the data into facility-weeks and summarise them to produce statistics per facility-week. See the page on <a href="../new_pages/tables_descriptive.html">Descriptive tables</a> for tips. The grouping itself doesn’t change the data frame, but it impacts how the subsequent summary statistics are calculated.</p>
@@ -1021,8 +1087,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4701512c096e1ded9e2a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4701512c096e1ded9e2a">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28"],["2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29"],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7],[2,7,7,7,7,7,7,4,2,8,6,2,3,1,5,2,7,6,5,7,6,5,2,7,7,7,7,7,9,7],[0,0,0,101,402,570,378,131,354,853,502,317,245,0,0,0,17,147,136,118,88,86,26,216,155,120,319,256,475,352],[2,7,7,7,7,7,7,4,2,7,6,2,3,1,5,2,5,6,5,7,6,5,2,7,7,7,7,7,7,7],[29,100,100,100,100,100,100,57,29,100,86,29,43,14,71,29,71,86,71,100,86,71,29,100,100,100,100,100,100,100]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>week<\/th>\n      <th>n_days<\/th>\n      <th>n_reports<\/th>\n      <th>malaria_tot<\/th>\n      <th>n_days_reported<\/th>\n      <th>p_days_reported<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"name":"location_name","targets":0},{"name":"week","targets":1},{"name":"n_days","targets":2},{"name":"n_reports","targets":3},{"name":"malaria_tot","targets":4},{"name":"n_days_reported","targets":5},{"name":"p_days_reported","targets":6}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f13731405a689ac60990" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f13731405a689ac60990">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28"],["2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29"],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7],[2,7,7,7,7,7,7,4,2,8,6,2,3,1,5,2,7,6,5,7,6,5,2,7,7,7,7,7,9,7],[0,0,0,101,402,570,378,131,354,853,502,317,245,0,0,0,17,147,136,118,88,86,26,216,155,120,319,256,475,352],[2,7,7,7,7,7,7,4,2,7,6,2,3,1,5,2,5,6,5,7,6,5,2,7,7,7,7,7,7,7],[29,100,100,100,100,100,100,57,29,100,86,29,43,14,71,29,71,86,71,100,86,71,29,100,100,100,100,100,100,100]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>week<\/th>\n      <th>n_days<\/th>\n      <th>n_reports<\/th>\n      <th>malaria_tot<\/th>\n      <th>n_days_reported<\/th>\n      <th>p_days_reported<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"name":"location_name","targets":0},{"name":"week","targets":1},{"name":"n_days","targets":2},{"name":"n_reports","targets":3},{"name":"malaria_tot","targets":4},{"name":"n_days_reported","targets":5},{"name":"p_days_reported","targets":6}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Finally, we run the command below to ensure that ALL possible facility-weeks are present in the data, even if they were missing before.</p>
@@ -1035,8 +1101,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <p>Here is <code>expanded_weeks</code>, with 180 rows:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-12373ad93dc34c38886f" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-12373ad93dc34c38886f">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9"],["2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>week<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"location_name","targets":0},{"name":"week","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-18fc7cf313c8f735f903" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-18fc7cf313c8f735f903">{"x":{"filter":"none","vertical":false,"data":[["Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 1","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 11","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 27","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 28","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 32","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 35","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 39","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 50","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 51","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 56","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 58","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 59","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 65","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 7","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9","Facility 9"],["2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>week<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"name":"location_name","targets":0},{"name":"week","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Before running this code, <code>agg_weeks</code> contains 107 rows.</p>
@@ -1057,16 +1123,11 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <h3 class="unnumbered anchored" data-anchor-id="create-heat-plot-1">Create heat plot</h3>
 <p>The <code>ggplot()</code> is made using <code>geom_tile()</code> from the <strong>ggplot2</strong> package:</p>
 <ul>
-<li>Weeks on the x-axis is transformed to dates, allowing use of <code>scale_x_date()</code><br>
-</li>
-<li><code>location_name</code> on the y-axis will show all facility names<br>
-</li>
-<li>The <code>fill</code> is <code>p_days_reported</code>, the performance for that facility-week (numeric)<br>
-</li>
-<li><code>scale_fill_gradient()</code> is used on the numeric fill, specifying colors for high, low, and <code>NA</code><br>
-</li>
-<li><code>scale_x_date()</code> is used on the x-axis specifying labels every 2 weeks and their format<br>
-</li>
+<li>Weeks on the x-axis is transformed to dates, allowing use of <code>scale_x_date()</code></li>
+<li><code>location_name</code> on the y-axis will show all facility names</li>
+<li>The <code>fill</code> is <code>p_days_reported</code>, the performance for that facility-week (numeric)</li>
+<li><code>scale_fill_gradient()</code> is used on the numeric fill, specifying colors for high, low, and <code>NA</code></li>
+<li><code>scale_x_date()</code> is used on the x-axis specifying labels every 2 weeks and their format</li>
 <li>Display themes and labels can be adjusted as necessary</li>
 </ul>
 <!-- ======================================================= -->
@@ -1075,7 +1136,7 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <h3 class="unnumbered anchored" data-anchor-id="basic">Basic</h3>
 <p>A basic heat plot is produced below, using the default colors, scales, etc. As explained above, within the <code>aes()</code> for <code>geom_tile()</code> you must provide an x-axis column, y-axis column, <strong>and</strong> a column for the the <code>fill =</code>. The fill is the numeric value that presents as tile color.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks)<span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> week,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> location_name,</span>
@@ -1093,28 +1154,28 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <h3 class="unnumbered anchored" data-anchor-id="cleaned-plot">Cleaned plot</h3>
 <p>We can make this plot look better by adding additional <strong>ggplot2</strong> functions, as shown below. See the page on <a href="../new_pages/ggplot_tips.html">ggplot tips</a> for details.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks)<span class="sc">+</span> </span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks) <span class="sc">+</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show data as tiles</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> week,</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> location_name,</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> p_days_reported),      </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"orange"</span>,</span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>)<span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># date axis</span></span>
 <span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(</span>
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),             <span class="co"># remove extra space on sides</span></span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_breaks =</span> <span class="st">"2 weeks"</span>,     <span class="co"># labels every 2 weeks</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>)<span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>) <span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic themes</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span>                                  <span class="co"># simplify background</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                  <span class="co"># simplify background</span></span>
 <span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>),</span>
@@ -1129,7 +1190,7 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">size=</span><span class="dv">14</span>,<span class="at">face=</span><span class="st">"bold"</span>),  <span class="co"># title right-aligned, large, bold</span></span>
 <span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"italic"</span>)  <span class="co"># caption right-aligned and italic</span></span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot labels</span></span>
 <span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Week"</span>,</span>
@@ -1162,8 +1223,8 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <p>See the data frame below:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-dd293e5aa11eb4f2a1b3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-dd293e5aa11eb4f2a1b3">{"x":{"filter":"none","vertical":false,"data":[["Facility 56","Facility 65","Facility 11","Facility 39","Facility 59","Facility 27","Facility 51","Facility 32","Facility 7","Facility 1","Facility 9","Facility 35","Facility 50","Facility 58","Facility 28"],[1,6,20,33,35,42,42,43,44,48,50,52,53,55,77]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>tot_reports<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"location_name","targets":0},{"name":"tot_reports","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-ed045b515370d6af7a4a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ed045b515370d6af7a4a">{"x":{"filter":"none","vertical":false,"data":[["Facility 56","Facility 65","Facility 11","Facility 39","Facility 59","Facility 27","Facility 51","Facility 32","Facility 7","Facility 1","Facility 9","Facility 35","Facility 50","Facility 58","Facility 28"],[1,6,20,33,35,42,42,43,44,48,50,52,53,55,77]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>location_name<\/th>\n      <th>tot_reports<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"location_name","targets":0},{"name":"tot_reports","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now use a column from the above data frame (<code>facility_order$location_name</code>) to be the order of the factor levels of <code>location_name</code> in the data frame <code>agg_weeks</code>:</p>
@@ -1172,50 +1233,56 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(forcats)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create factor and define levels manually</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>agg_weeks <span class="ot">&lt;-</span> agg_weeks <span class="sc">%&gt;%</span> </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">location_name =</span> <span class="fu">fct_relevel</span>(</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    location_name, facility_order<span class="sc">$</span>location_name)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>numerical_order <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"Facility "</span>, <span class="st">""</span>, facility_order<span class="sc">$</span>location_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sort</span>() </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>facilities_in_order <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"Facility "</span>, numerical_order, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>agg_weeks <span class="ot">&lt;-</span> agg_weeks <span class="sc">%&gt;%</span> </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">location_name =</span> <span class="fu">fct_relevel</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    location_name, facilities_in_order)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now the data are re-plotted, with location_name being an ordered factor:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks)<span class="sc">+</span> </span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks) <span class="sc">+</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show data as tiles</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> week,</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> location_name,</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> p_days_reported),      </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"orange"</span>,</span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>)<span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># date axis</span></span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(</span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),             <span class="co"># remove extra space on sides</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_breaks =</span> <span class="st">"2 weeks"</span>,     <span class="co"># labels every 2 weeks</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>)<span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>) <span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic themes</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span>                                  <span class="co"># simplify background</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                  <span class="co"># simplify background</span></span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>),</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text  =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>, <span class="at">face=</span><span class="st">"bold"</span>),</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
 <span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.height =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">1</span>,<span class="st">"cm"</span>),           <span class="co"># height of legend key</span></span>
 <span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.width  =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.6</span>,<span class="st">"cm"</span>),         <span class="co"># width of legend key</span></span>
 <span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),              <span class="co"># axis text size</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="fl">0.2</span>),            <span class="co"># axis text alignment</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size=</span><span class="fl">0.4</span>),               </span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>),  <span class="co"># axis title size and bold</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),              <span class="co"># axis text size</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.2</span>),            <span class="co"># axis text alignment</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.4</span>),               </span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># axis title size and bold</span></span>
 <span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">size=</span><span class="dv">14</span>,<span class="at">face=</span><span class="st">"bold"</span>),  <span class="co"># title right-aligned, large, bold</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># title right-aligned, large, bold</span></span>
 <span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"italic"</span>)  <span class="co"># caption right-aligned and italic</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot labels</span></span>
 <span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Week"</span>,</span>
@@ -1239,51 +1306,51 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <p>You can add a <code>geom_text()</code> layer on top of the tiles, to display the actual numbers of each tile. Be aware this may not look pretty if you have many small tiles!</p>
 <p>The following code has been added: <code>geom_text(aes(label = p_days_reported))</code>. This adds text onto every tile. The text displayed is the value assigned to the argument <code>label =</code>, which in this case has been set to the same numeric column <code>p_days_reported</code> that is also used to create the color gradient.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks)<span class="sc">+</span> </span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> agg_weeks) <span class="sc">+</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show data as tiles</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> week,</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> location_name,</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> p_days_reported),      </span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span>                 <span class="co"># white gridlines</span></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># text</span></span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> week,</span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> location_name,</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> p_days_reported))<span class="sc">+</span>      <span class="co"># add text on top of tile</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> p_days_reported)) <span class="sc">+</span>      <span class="co"># add text on top of tile</span></span>
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fill scale</span></span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"orange"</span>,</span>
 <span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>)<span class="sc">+</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
 <span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># date axis</span></span>
 <span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(</span>
 <span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),             <span class="co"># remove extra space on sides</span></span>
 <span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_breaks =</span> <span class="st">"2 weeks"</span>,     <span class="co"># labels every 2 weeks</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>)<span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%d</span><span class="sc">\n</span><span class="st">%b"</span>) <span class="sc">+</span>     <span class="co"># format is day over month (\n in newline)</span></span>
 <span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic themes</span></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span>                                    <span class="co"># simplify background</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>                                    <span class="co"># simplify background</span></span>
 <span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>),</span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text  =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>, <span class="at">face=</span><span class="st">"bold"</span>),</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
 <span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.height =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">1</span>,<span class="st">"cm"</span>),           <span class="co"># height of legend key</span></span>
 <span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.width  =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.6</span>,<span class="st">"cm"</span>),         <span class="co"># width of legend key</span></span>
 <span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),              <span class="co"># axis text size</span></span>
-<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="fl">0.2</span>),            <span class="co"># axis text alignment</span></span>
-<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size=</span><span class="fl">0.4</span>),               </span>
-<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>),  <span class="co"># axis title size and bold</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),              <span class="co"># axis text size</span></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.2</span>),            <span class="co"># axis text alignment</span></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.4</span>),               </span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># axis title size and bold</span></span>
 <span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">size=</span><span class="dv">14</span>,<span class="at">face=</span><span class="st">"bold"</span>),  <span class="co"># title right-aligned, large, bold</span></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>,<span class="at">size =</span> <span class="dv">14</span>,<span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># title right-aligned, large, bold</span></span>
 <span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"italic"</span>)  <span class="co"># caption right-aligned and italic</span></span>
-<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot labels</span></span>
 <span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Week"</span>,</span>
@@ -1306,7 +1373,7 @@ cases   0-4 5-9 10-14 15-19 20-29 30-49 50-69 70+
 <section id="resources" class="level2" data-number="34.4">
 <h2 data-number="34.4" class="anchored" data-anchor-id="resources"><span class="header-section-number">34.4</span> Resources</h2>
 <p><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient()</a></p>
-<p><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">R graph gallery - heatmap</a></p>
+<p><a href="https://r-graph-gallery.com/heatmap">R graph gallery - heatmap</a></p>
 
 
 </section>
@@ -1491,18 +1558,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1534,7 +1590,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1569,7 +1665,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1869,30 +1969,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":false,"closeEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+<script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
 
 
