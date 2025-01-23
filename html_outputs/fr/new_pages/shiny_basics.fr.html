@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Le Epi R Handbook - 43&nbsp; Tableaux de bord avec Shiny</title>
+<title>43  Tableaux de bord avec Shiny – Le Epi R Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/writing_functions.fr.html" rel="next">
 <link href="../new_pages/flexdashboard.fr.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Envoyer",
     "search-label": "Recherche"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,127 +112,169 @@ cookieconsent.run({
 "language":"fr"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
 
 
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.fr.html">Rapports et tableaux de bord</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.fr.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Tableaux de bord avec Shiny</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.fr.html">Rapports et tableaux de bord</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.fr.html"><span class="chapter-number">43</span>  <span class="chapter-title">Tableaux de bord avec Shiny</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Le Epi R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Code source" class="quarto-navigation-tool px-1" aria-label="Code source"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Code source" class="quarto-navigation-tool px-1" aria-label="Code source"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Basculer le mode sombre"><i class="bi"></i></a>
 </div>
     </div>
@@ -264,9 +284,19 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Recherche"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/shiny_basics.html" id="language-link-en">English</a><a class="dropdown-item" href="/es/new_pages/shiny_basics.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/shiny_basics.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/shiny_basics.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/shiny_basics.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/shiny_basics.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/shiny_basics.ru.html" id="language-link-ru">Русский</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.fr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bienvenue</span></a>
@@ -274,426 +304,433 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">À propos de ce livre</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Notes techniques et choix éditoriaux</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Notes techniques et choix éditoriaux</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Télécharger le manuel et les données</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Télécharger le manuel et les données</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Les bases de R</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R - les bases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R - les bases</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transition vers R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Transition vers R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Paquets conseillés</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Paquets conseillés</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Projets R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Projets R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Importer et exporter des données</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Importer et exporter des données</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Gestion des données</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Nettoyage de données et fonctions essentielles</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Nettoyage de données et fonctions essentielles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Manipuler les dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Manipuler les dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Caractères et chaînes de caractères</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Caractères et chaînes de caractères</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Facteurs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Facteurs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Restructurer les données</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Restructurer les données</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Travailler sur des données groupées</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Travailler sur des données groupées</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Joindre des données</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Joindre des données</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">De-duplication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">De-duplication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Itération, boucles et listes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Itération, boucles et listes</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tableaux descriptifs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tableaux descriptifs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tests statistiques simples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Tests statistiques simples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Régression univariée et multivariable</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Régression univariée et multivariable</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Données manquantes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Données manquantes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Taux standardisés</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Taux standardisés</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Moyennes mobiles</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Moyennes mobiles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Série temporelle et détection des épidémies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Série temporelle et détection des épidémies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Modélisation des épidémies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Modélisation des épidémies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Suivi des contacts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Suivi des contacts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Analyse d’enquête</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Analyse d’enquête</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Analyse de survie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Analyse de survie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS basics</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Visualisation des données</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Présenter avec des tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Présenter avec des tables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Les bases de ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">Les bases de ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Trucs et Astuces avec ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">Trucs et Astuces avec ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Courbes épidémiques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Courbes épidémiques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Pyramides démographiques et échelles de Likert</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Pyramides démographiques et échelles de Likert</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Graphiques thermiques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Graphiques thermiques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diagrammes et schémas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diagrammes et schémas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Analyse des combinaisons</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Analyse des combinaisons</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Chaînes de transmission</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Chaînes de transmission</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Les arbres phylogénétiques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Les arbres phylogénétiques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Graphiques interactifs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Graphiques interactifs</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Rapports et tableaux de bord</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Production de rapports avec R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Production de rapports avec R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Organisation des rapports de routine</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Organisation des rapports de routine</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Tableaux de bord avec R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Tableaux de bord avec R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.fr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Tableaux de bord avec Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Tableaux de bord avec Shiny</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Autres sujets</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Fonctions d’écriture</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Fonctions d’écriture</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Interactions avec les répertoires</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Interactions avec les répertoires</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Contrôle de version et collaboration avec Git et Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Contrôle de version et collaboration avec Git et Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Erreurs fréquentes{#errors}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Erreurs fréquentes{#errors}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Obtenir de l’aide{#help}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Obtenir de l’aide{#help}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R sur les lecteurs réseau</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R sur les lecteurs réseau</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.fr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Tableau de données</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Tableau de données</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Annexes</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table des matières</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table des matières</h2>
    
   <ul>
-  <li><a href="#préparation" id="toc-préparation" class="nav-link active" data-scroll-target="#préparation"><span class="header-section-number">43.1</span> Préparation</a>
+<li>
+<a href="#pr%C3%A9paration" id="toc-préparation" class="nav-link active" data-scroll-target="#préparation"><span class="header-section-number">43.1</span> Préparation</a>
   <ul class="collapse">
-  <li><a href="#chargement-des-packages" id="toc-chargement-des-packages" class="nav-link" data-scroll-target="#chargement-des-packages">Chargement des packages</a></li>
-  <li><a href="#importer-des-données" id="toc-importer-des-données" class="nav-link" data-scroll-target="#importer-des-données">Importer des données</a></li>
-  </ul></li>
-  <li><a href="#la-structure-dune-application-shiny" id="toc-la-structure-dune-application-shiny" class="nav-link" data-scroll-target="#la-structure-dune-application-shiny"><span class="header-section-number">43.2</span> La structure d’une application shiny</a>
-  <ul class="collapse">
-  <li><a href="#structures-de-fichiers-de-base" id="toc-structures-de-fichiers-de-base" class="nav-link" data-scroll-target="#structures-de-fichiers-de-base">Structures de fichiers de base</a></li>
-  <li><a href="#le-serveur-et-linterface-utilisateur" id="toc-le-serveur-et-linterface-utilisateur" class="nav-link" data-scroll-target="#le-serveur-et-linterface-utilisateur">Le serveur et l’interface utilisateur</a></li>
-  <li><a href="#avant-de-commencer-à-construire-une-application" id="toc-avant-de-commencer-à-construire-une-application" class="nav-link" data-scroll-target="#avant-de-commencer-à-construire-une-application">Avant de commencer à construire une application</a></li>
-  </ul></li>
-  <li><a href="#construire-une-interface-utilisateur" id="toc-construire-une-interface-utilisateur" class="nav-link" data-scroll-target="#construire-une-interface-utilisateur"><span class="header-section-number">43.3</span> Construire une interface utilisateur</a></li>
-  <li><a href="#chargement-des-données-dans-notre-application" id="toc-chargement-des-données-dans-notre-application" class="nav-link" data-scroll-target="#chargement-des-données-dans-notre-application"><span class="header-section-number">43.4</span> Chargement des données dans notre application</a></li>
-  <li><a href="#développer-un-serveur-dapplications" id="toc-développer-un-serveur-dapplications" class="nav-link" data-scroll-target="#développer-un-serveur-dapplications"><span class="header-section-number">43.5</span> Développer un serveur d’applications</a></li>
-  <li><a href="#ajout-de-fonctionnalités-supplémentaires" id="toc-ajout-de-fonctionnalités-supplémentaires" class="nav-link" data-scroll-target="#ajout-de-fonctionnalités-supplémentaires"><span class="header-section-number">43.6</span> Ajout de fonctionnalités supplémentaires</a>
-  <ul class="collapse">
-  <li><a href="#ajouter-du-texte-statique" id="toc-ajouter-du-texte-statique" class="nav-link" data-scroll-target="#ajouter-du-texte-statique">Ajouter du texte statique</a></li>
-  <li><a href="#ajouter-un-lien" id="toc-ajouter-un-lien" class="nav-link" data-scroll-target="#ajouter-un-lien">Ajouter un lien</a></li>
-  <li><a href="#ajout-dun-bouton-de-téléchargement" id="toc-ajout-dun-bouton-de-téléchargement" class="nav-link" data-scroll-target="#ajout-dun-bouton-de-téléchargement">Ajout d’un bouton de téléchargement</a></li>
-  <li><a href="#ajout-dun-sélecteur-dequipements" id="toc-ajout-dun-sélecteur-dequipements" class="nav-link" data-scroll-target="#ajout-dun-sélecteur-dequipements">Ajout d’un sélecteur d’equipements</a></li>
-  <li><a href="#ajout-dun-autre-onglet-avec-une-table" id="toc-ajout-dun-autre-onglet-avec-une-table" class="nav-link" data-scroll-target="#ajout-dun-autre-onglet-avec-une-table">Ajout d’un autre onglet avec une table</a></li>
-  </ul></li>
-  <li><a href="#partager-les-applications-shiny" id="toc-partager-les-applications-shiny" class="nav-link" data-scroll-target="#partager-les-applications-shiny"><span class="header-section-number">43.7</span> Partager les applications shiny</a></li>
-  <li><a href="#lecture-complémentaire" id="toc-lecture-complémentaire" class="nav-link" data-scroll-target="#lecture-complémentaire"><span class="header-section-number">43.8</span> Lecture complémentaire</a></li>
-  <li><a href="#packages-dextension-recommandés" id="toc-packages-dextension-recommandés" class="nav-link" data-scroll-target="#packages-dextension-recommandés"><span class="header-section-number">43.9</span> packages d’extension recommandés</a></li>
-  <li><a href="#ressources-recommandées" id="toc-ressources-recommandées" class="nav-link" data-scroll-target="#ressources-recommandées"><span class="header-section-number">43.10</span> Ressources recommandées</a></li>
+<li><a href="#chargement-des-packages" id="toc-chargement-des-packages" class="nav-link" data-scroll-target="#chargement-des-packages">Chargement des packages</a></li>
+  <li><a href="#importer-des-donn%C3%A9es" id="toc-importer-des-données" class="nav-link" data-scroll-target="#importer-des-données">Importer des données</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#la-structure-dune-application-shiny" id="toc-la-structure-dune-application-shiny" class="nav-link" data-scroll-target="#la-structure-dune-application-shiny"><span class="header-section-number">43.2</span> La structure d’une application shiny</a>
+  <ul class="collapse">
+<li><a href="#structures-de-fichiers-de-base" id="toc-structures-de-fichiers-de-base" class="nav-link" data-scroll-target="#structures-de-fichiers-de-base">Structures de fichiers de base</a></li>
+  <li><a href="#le-serveur-et-linterface-utilisateur" id="toc-le-serveur-et-linterface-utilisateur" class="nav-link" data-scroll-target="#le-serveur-et-linterface-utilisateur">Le serveur et l’interface utilisateur</a></li>
+  <li><a href="#avant-de-commencer-%C3%A0-construire-une-application" id="toc-avant-de-commencer-à-construire-une-application" class="nav-link" data-scroll-target="#avant-de-commencer-à-construire-une-application">Avant de commencer à construire une application</a></li>
+  </ul>
+</li>
+  <li><a href="#construire-une-interface-utilisateur" id="toc-construire-une-interface-utilisateur" class="nav-link" data-scroll-target="#construire-une-interface-utilisateur"><span class="header-section-number">43.3</span> Construire une interface utilisateur</a></li>
+  <li><a href="#chargement-des-donn%C3%A9es-dans-notre-application" id="toc-chargement-des-données-dans-notre-application" class="nav-link" data-scroll-target="#chargement-des-données-dans-notre-application"><span class="header-section-number">43.4</span> Chargement des données dans notre application</a></li>
+  <li><a href="#d%C3%A9velopper-un-serveur-dapplications" id="toc-développer-un-serveur-dapplications" class="nav-link" data-scroll-target="#développer-un-serveur-dapplications"><span class="header-section-number">43.5</span> Développer un serveur d’applications</a></li>
+  <li>
+<a href="#ajout-de-fonctionnalit%C3%A9s-suppl%C3%A9mentaires" id="toc-ajout-de-fonctionnalités-supplémentaires" class="nav-link" data-scroll-target="#ajout-de-fonctionnalités-supplémentaires"><span class="header-section-number">43.6</span> Ajout de fonctionnalités supplémentaires</a>
+  <ul class="collapse">
+<li><a href="#ajouter-du-texte-statique" id="toc-ajouter-du-texte-statique" class="nav-link" data-scroll-target="#ajouter-du-texte-statique">Ajouter du texte statique</a></li>
+  <li><a href="#ajouter-un-lien" id="toc-ajouter-un-lien" class="nav-link" data-scroll-target="#ajouter-un-lien">Ajouter un lien</a></li>
+  <li><a href="#ajout-dun-bouton-de-t%C3%A9l%C3%A9chargement" id="toc-ajout-dun-bouton-de-téléchargement" class="nav-link" data-scroll-target="#ajout-dun-bouton-de-téléchargement">Ajout d’un bouton de téléchargement</a></li>
+  <li><a href="#ajout-dun-s%C3%A9lecteur-dequipements" id="toc-ajout-dun-sélecteur-dequipements" class="nav-link" data-scroll-target="#ajout-dun-sélecteur-dequipements">Ajout d’un sélecteur d’equipements</a></li>
+  <li><a href="#ajout-dun-autre-onglet-avec-une-table" id="toc-ajout-dun-autre-onglet-avec-une-table" class="nav-link" data-scroll-target="#ajout-dun-autre-onglet-avec-une-table">Ajout d’un autre onglet avec une table</a></li>
+  </ul>
+</li>
+  <li><a href="#partager-les-applications-shiny" id="toc-partager-les-applications-shiny" class="nav-link" data-scroll-target="#partager-les-applications-shiny"><span class="header-section-number">43.7</span> Partager les applications shiny</a></li>
+  <li><a href="#lecture-compl%C3%A9mentaire" id="toc-lecture-complémentaire" class="nav-link" data-scroll-target="#lecture-complémentaire"><span class="header-section-number">43.8</span> Lecture complémentaire</a></li>
+  <li><a href="#packages-dextension-recommand%C3%A9s" id="toc-packages-dextension-recommandés" class="nav-link" data-scroll-target="#packages-dextension-recommandés"><span class="header-section-number">43.9</span> packages d’extension recommandés</a></li>
+  <li><a href="#ressources-recommand%C3%A9es" id="toc-ressources-recommandées" class="nav-link" data-scroll-target="#ressources-recommandées"><span class="header-section-number">43.10</span> Ressources recommandées</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.fr.html">Rapports et tableaux de bord</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.fr.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Tableaux de bord avec Shiny</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span id="shiny" class="quarto-section-identifier"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Tableaux de bord avec Shiny</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.fr.html">Rapports et tableaux de bord</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.fr.html"><span class="chapter-number">43</span>  <span class="chapter-title">Tableaux de bord avec Shiny</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title"><span id="shiny" class="quarto-section-identifier"><span class="chapter-number">43</span>  <span class="chapter-title">Tableaux de bord avec Shiny</span></span></h1>
 </div>
 
 
@@ -707,40 +744,33 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<p>Les tableaux de bord sont souvent une excellente méthode de partager les résultats d’analyses avec d’autres personnes. Produire un tableau de bord avec <strong>shiny</strong> nécessite une connaissance relativement avancée du langage R, mais vous offrez la personnalisation des tableaux et des possibilités incroyables.</p>
+</header><p>Les tableaux de bord sont souvent une excellente méthode de partager les résultats d’analyses avec d’autres personnes. Produire un tableau de bord avec <strong>shiny</strong> nécessite une connaissance relativement avancée du langage R, mais vous offrez la personnalisation des tableaux et des possibilités incroyables.</p>
 <!-- L'un des plus grands inconvénients de `R` est sa facilité d'utilisation pour les personnes qui sont nouvelles ou qui n'ont aucune expérience des langages de programmation. Bien que ces compétences soient très précieuses, la plupart des gens trouveront que cela représente un obstacle au partage des analyses, en particulier dans les environnements multidisciplinaires. Maintenir une installation `R` demande un certain travail, et tout le monde ne sera pas à l'aise pour exécuter du code partagé, même s'il est bien documenté et facile à lire. Ceci est *surtout* vrai lorsque les utilisateurs doivent modifier les paramètres du code!  -->
 <!-- Les tableaux de bord basés sur R sont également avantageux en ce qu'ils centralisent la façon dont le code est exécuté - lorsque le même code est exécuté sur différentes machines, souvent les gens devront faire face à différents chemins de fichiers, différentes versions de R, et différentes installations de packages. Pour cette raison, les tableaux de bord sont un excellent moyen de partager du code avec d'autres personnes de manière facile ! -->
 <p>Il est recommandé qu’une personne apprenant les tableaux de bord avec <strong>shiny</strong> ait une bonne connaissance de la transformation et de la visualisation des données, et soit à l’aise pour déboguer du code et écrire des fonctions. Le travail avec les tableaux de bord n’est pas intuitif au début et est parfois difficile à comprendre, mais il s’agit d’une excellente compétence à apprendre qui devient beaucoup plus facile avec la pratique !</p>
 <p>Cette page donne un bref aperçu de la façon de créer des tableaux de bord avec <strong>shiny</strong> et ses extensions. Pour une méthode alternative de création de tableaux de bord qui est plus rapide, plus facile, mais peut-être moins personnalisable, voir la page sur <strong>flextable</strong> (<a href="rmarkdown.fr.html">Rapports avec R Markdown</a>).</p>
-<section id="préparation" class="level2" data-number="43.1">
-<h2 data-number="43.1" class="anchored" data-anchor-id="préparation"><span class="header-section-number">43.1</span> Préparation</h2>
-<section id="chargement-des-packages" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="chargement-des-packages">Chargement des packages</h3>
+<section id="préparation" class="level2" data-number="43.1"><h2 data-number="43.1" class="anchored" data-anchor-id="préparation">
+<span class="header-section-number">43.1</span> Préparation</h2>
+<section id="chargement-des-packages" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="chargement-des-packages">Chargement des packages</h3>
 <p>Dans ce manuel, nous mettons l’accent sur <code>p_load()</code> de <strong>pacman</strong>, qui installe le package si nécessaire <em>et</em> le charge pour l’utiliser. Vous pouvez aussi charger les packages installés avec <code>library()</code> de <strong>base</strong> R. Voir la page sur <a href="basics.fr.html">bases de R</a> pour plus d’informations sur les packages R.</p>
 <p>Nous commençons par installer le package R <strong>shiny</strong> :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"shiny"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="importer-des-données" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="importer-des-données">Importer des données</h3>
+</section><section id="importer-des-données" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="importer-des-données">Importer des données</h3>
 <p>Si vous souhaitez suivre cette page, consultez la section du <a href="data_used.fr.html">manuel pour le téléchargement des données</a>. Il y a des liens pour télécharger les scripts R et les fichiers de données qui produisent l’application Shiny finale.</p>
 <p>Si vous essayez de reconstruire l’application à l’aide de ces fichiers, veuillez tenir compte de la structure des dossiers du projet R qui est créée au cours de la démonstration (par exemple, des dossiers pour “data” et pour “funcs”).</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="la-structure-dune-application-shiny" class="level2" data-number="43.2">
-<h2 data-number="43.2" class="anchored" data-anchor-id="la-structure-dune-application-shiny"><span class="header-section-number">43.2</span> La structure d’une application shiny</h2>
-<section id="structures-de-fichiers-de-base" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="structures-de-fichiers-de-base">Structures de fichiers de base</h3>
+</section></section><section id="la-structure-dune-application-shiny" class="level2" data-number="43.2"><h2 data-number="43.2" class="anchored" data-anchor-id="la-structure-dune-application-shiny">
+<span class="header-section-number">43.2</span> La structure d’une application shiny</h2>
+<section id="structures-de-fichiers-de-base" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="structures-de-fichiers-de-base">Structures de fichiers de base</h3>
 <p>Pour comprendre <code>shiny</code>, nous devons d’abord comprendre comment fonctionne la structure des fichiers d’une application ! Nous devrions créer un tout nouveau répertoire avant de commencer. Cela peut être rendu plus facile en choisissant <em>New project</em> dans <em>Rstudio</em>, et en choisissant <em>Shiny Web Application</em>. Cela créera la structure de base d’une application shiny pour vous.</p>
 <p>En ouvrant ce projet, vous remarquerez qu’il y a déjà un fichier <code>.R</code> appelé <em>app.R</em>. Il est <em>essentiel</em> que nous ayons une des deux structures de fichiers de base :</p>
 <ol type="1">
-<li>Un seul fichier appelé <em>app.R</em>, <em>ou</em></li>
-<li>Deux fichiers, l’un appelé <em>ui.R</em> et l’autre <em>server.R</em></li>
+<li>Un seul fichier appelé <em>app.R</em>, <em>ou</em>
+</li>
+<li>Deux fichiers, l’un appelé <em>ui.R</em> et l’autre <em>server.R</em>
+</li>
 </ol>
 <p>Dans cette page, nous utiliserons la première approche qui consiste à avoir un seul fichier appelé <em>app.R</em>. Voici un exemple de script :</p>
 <div class="cell">
@@ -785,9 +815,7 @@ cookieconsent.run({
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si vous ouvrez ce fichier, vous remarquerez que deux objets sont définis, un appelé <code>ui</code> et l’autre appelé <code>server</code>. Ces objets <em>doivent</em> être définis dans <em>toutes</em> les applications shiny et sont essentiels à la structure de l’application elle-même ! En fait, la seule différence entre les deux structures de fichiers décrites ci-dessus est que dans la structure 1, <code>ui</code> et <code>server</code> sont définis dans un seul fichier, alors que dans la structure 2, ils sont définis dans des fichiers séparés. Note : nous pouvons aussi (et nous devrions si nous avons une application plus grande) avoir d’autres fichiers .R dans notre structure que nous pouvons sourcer avec <code>source()</code> dans notre application.</p>
-</section>
-<section id="le-serveur-et-linterface-utilisateur" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="le-serveur-et-linterface-utilisateur">Le serveur et l’interface utilisateur</h3>
+</section><section id="le-serveur-et-linterface-utilisateur" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="le-serveur-et-linterface-utilisateur">Le serveur et l’interface utilisateur</h3>
 <p>Nous devons maintenant comprendre ce que les objets <code>server</code> et <code>ui</code> font réellement. <em>Pour faire simple, ce sont deux objets qui interagissent l’un avec l’autre à chaque fois que l’utilisateur interagit avec l’application shiny.</em></p>
 <p>L’élément UI d’une shiny app est, à la base, le code R qui crée une interface HTML. Cela signifie que tout ce qui est <em>affiché</em> dans l’interface utilisateur d’une application. Cela inclut généralement :</p>
 <ul>
@@ -800,18 +828,15 @@ cookieconsent.run({
 <p>La chose la plus importante à comprendre au sujet de l’interface utilisateur est qu’elle <em>reçoit des entrées</em> de l’utilisateur et <em>affiche des sorties</em> du serveur. Aucun code <em>actif</em> n’est exécuté dans l’interface utilisateur <em>à tout moment</em>. Tous les changements vus dans l’interface utilisateur sont transmis au serveur (plus ou moins). Nous devons donc effectuer tous nos tracés, téléchargements, etc. dans le serveur.</p>
 <p>Le serveur de l’application shiny est l’endroit où tout le code est exécuté une fois que l’application démarre. La façon dont cela fonctionne est un peu complique. Le serveur va effectivement <em>réagir</em> à l’interface utilisateur et exécuter des bout de code en réponse. Si les choses changent dans le serveur, elles seront transmises à l’interface utilisateur, où les changements seront visibles. Il est important de noter que le code dans le serveur sera exécuté <em>non consécutivement</em> (ou il est préférable d’y penser de cette façon). En gros, chaque fois qu’une entrée de l’interface utilisateur affecte un bout de code dans le serveur, celui-ci s’exécutera automatiquement, et la sortie sera produite et affichée.</p>
 <p>Tout cela semble probablement très abstrait pour l’instant, nous allons donc travailler avec quelques exemples pour avoir une idée claire de la façon dont cela fonctionne réellement.</p>
-</section>
-<section id="avant-de-commencer-à-construire-une-application" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="avant-de-commencer-à-construire-une-application">Avant de commencer à construire une application</h3>
+</section><section id="avant-de-commencer-à-construire-une-application" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="avant-de-commencer-à-construire-une-application">Avant de commencer à construire une application</h3>
 <p>Avant de commencer à construire une application, il est extrêmement utile de savoir <em>ce que</em> vous voulez construire. Puisque votre interface utilisateur sera écrite en code, vous ne pouvez pas vraiment visualiser ce que vous construisez, sauf si vous visez quelque chose de spécifique. Pour cette raison, il est extrêmement utile de regarder de nombreux exemples d’applications shinys pour avoir une idée de ce que vous pouvez faire. Encore mieux, si vous pouvez regarder le code source derrière ces applications ! Voici quelques bonnes ressources pour cela :</p>
 <ul>
-<li>La <a href="https://shiny.rstudio.com/gallery/">galerie d’applications Rstudio</a></li>
+<li>La <a href="https://shiny.rstudio.com/gallery/">galerie d’applications Rstudio</a>
+</li>
 </ul>
 <p>Une fois que vous avez une idée de ce qui est possible, il est également utile de dessiner ce à quoi vous voulez que votre application ressemble. Vous pouvez faire un dessin soit sur du papier ou dans un logiciel de dessin (PowerPoint, MS paint, etc.). Il est utile de commencer simplement pour votre première application ! Il n’y a certainment pas d’honte à utiliser le code d’une belle application que vous trouvez en ligne comme modèle pour votre travail. C’est beaucoup plus facile que construire quelque chose à partir de zéro !</p>
-</section>
-</section>
-<section id="construire-une-interface-utilisateur" class="level2" data-number="43.3">
-<h2 data-number="43.3" class="anchored" data-anchor-id="construire-une-interface-utilisateur"><span class="header-section-number">43.3</span> Construire une interface utilisateur</h2>
+</section></section><section id="construire-une-interface-utilisateur" class="level2" data-number="43.3"><h2 data-number="43.3" class="anchored" data-anchor-id="construire-une-interface-utilisateur">
+<span class="header-section-number">43.3</span> Construire une interface utilisateur</h2>
 <p>Lorsque nous construisons notre application, il est plus facile de travailler d’abord sur l’interface utilisateur afin de voir ce que nous faisons, et de ne pas risquer que l’application échoue à cause d’erreurs de serveur. Comme mentionné précédemment, il est souvent bon d’utiliser un modèle pour travailler sur l’interface utilisateur. Il y a un certain nombre de modèles standards qui peuvent être utilisés avec shiny et qui sont disponibles dans le package de base shiny, mais il est intéressant de noter qu’il y a aussi un certain nombre d’extensions du package comme <code>shinydashboard</code>. Nous allons utiliser un exemple de la base shiny pour commencer.</p>
 <p>Une interface utilisateur shiny est généralement définie comme une série de fonctions imbriquées, dans l’ordre suivant:</p>
 <ol type="1">
@@ -822,12 +847,14 @@ cookieconsent.run({
 <li>un panneau “principal” (<code>mainPanel()</code>)</li>
 <li>un onglet (<code>tabPanel()</code>)</li>
 <li>une “colonne” générique (<code>column()</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>Widgets et sorties : ils peuvent conférer des entrées au serveur (widgets) ou des sorties du serveur (outputs)
 <ul>
 <li>Les widgets sont généralement appelés <code>xxxInput()</code>, par exemple <code>selectInput()</code>.</li>
 <li>Les sorties sont généralement appelées <code>xxxOutput()</code>, par exemple <code>plotOutput()</code>.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 <p>Il est important de préciser que ces éléments ne peuvent pas être visualisés facilement de manière abstraite. Il est donc préférable de regarder un exemple ! Considérons la création d’une application de base qui visualise nos données de denombrement des equipemnts de lutte contre le paludisme par district. Ces données comportent un grand nombre de paramètres différents, et il serait formidable que l’utilisateur final puisse appliquer des filtres pour voir les données par groupe d’âge/district comme il l’entend ! Nous pouvons utiliser une mise en page shiny très simple pour commencer, la mise en page de la barre latérale. Il s’agit d’une mise en page où les widgets sont placés dans une barre latérale sur la gauche, et le graphique est placé sur la droite.</p>
 <p>Elaborons notre application: nous pouvons commencer par un sélecteur qui nous permet de choisir le district où nous voulons visualiser les données, et un autre qui nous permet de visualiser le groupe d’âge qui nous intéresse. Nous allons utiliser ces filtres pour afficher une épicurve qui reflète ces paramètres. Pour cela, nous avons besoin de:</p>
@@ -888,8 +915,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -902,18 +928,18 @@ cookieconsent.run({
 </ul>
 <p>D’autres widgets transmettront différents types d’objets au serveur ! Par exemple</p>
 <ul>
-<li><code>numericInput()</code> passera un objet de type numérique au serveur.</li>
-<li><code>checkboxInput()</code> transmettra un objet de type logique au serveur (<code>TRUE</code> ou <code>FALSE</code>).</li>
+<li>
+<code>numericInput()</code> passera un objet de type numérique au serveur.</li>
+<li>
+<code>checkboxInput()</code> transmettra un objet de type logique au serveur (<code>TRUE</code> ou <code>FALSE</code>).</li>
 </ul>
 <p>Il est également intéressant de noter le <em>vecteur nommé</em> que nous avons utilisé pour les données d’âge ici. Pour de nombreux widgets, l’utilisation d’un vecteur nommé comme choix affichera les <em>noms</em> du vecteur comme choix d’affichage, mais passera la <em>valeur</em> sélectionnée du vecteur au serveur. Par exemple, ici quelqu’un peut sélectionner “15+” dans le menu déroulant, et l’interface utilisateur transmettra <code>"malaria_rdt_15"</code> au serveur - qui se trouve être le nom de la colonne qui nous intéresse !</p>
 <p>Il y a beaucoup de widgets que vous pouvez utiliser dans votre application. Les widgets vous permettent également de télécharger des fichiers dans votre application, et de télécharger des sorties. Il existe également d’excellentes examples de shiny qui vous donnent accès à plus de widgets que le shiny de base. Le package <strong>shinyWidgets</strong> en est un excellent exemple. Pour voir quelques exemples, vous pouvez consulter les liens suivants :</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/widget-gallery.html">galerie de widgets de la base shiny</a></li>
 <li><a href="https://github.com/dreamRs/shinyWidgets">galerie de widgets shinyWidgets</a></li>
-</ul>
-</section>
-<section id="chargement-des-données-dans-notre-application" class="level2" data-number="43.4">
-<h2 data-number="43.4" class="anchored" data-anchor-id="chargement-des-données-dans-notre-application"><span class="header-section-number">43.4</span> Chargement des données dans notre application</h2>
+</ul></section><section id="chargement-des-données-dans-notre-application" class="level2" data-number="43.4"><h2 data-number="43.4" class="anchored" data-anchor-id="chargement-des-données-dans-notre-application">
+<span class="header-section-number">43.4</span> Chargement des données dans notre application</h2>
 <p>L’étape suivante dans le développement de notre application consiste à mettre en place le serveur et à le faire fonctionner. Pour ce faire, nous devons charger des données dans notre application, et déterminer tous les calculs que nous allons effectuer. Une application shiny n’est pas facile à déboguer, car on ne sait pas toujours d’où viennent les erreurs. Il est donc idéal de faire fonctionner tout le code de traitement et de visualisation des données avant de commencer à créer le serveur lui-même.</p>
 <p>Ainsi, étant donné que nous voulons créer une application qui affiche des courbes épi qui changent en fonction de l’entrée de l’utilisateur, nous devons réfléchir au code dont nous aurions besoin pour l’exécuter dans un script R normal. Nous devrons :</p>
 <ol type="1">
@@ -1042,8 +1068,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Bolo"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.fr_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.fr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.fr_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.fr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1132,9 +1157,8 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notez que vous devriez <em>toujours</em> spécifier <code>local = TRUE</code> dans les applications shiny, car cela affectera le sourcing quand/si l’application est publiée sur un serveur.</p>
-</section>
-<section id="développer-un-serveur-dapplications" class="level2" data-number="43.5">
-<h2 data-number="43.5" class="anchored" data-anchor-id="développer-un-serveur-dapplications"><span class="header-section-number">43.5</span> Développer un serveur d’applications</h2>
+</section><section id="développer-un-serveur-dapplications" class="level2" data-number="43.5"><h2 data-number="43.5" class="anchored" data-anchor-id="développer-un-serveur-dapplications">
+<span class="header-section-number">43.5</span> Développer un serveur d’applications</h2>
 <p>Maintenant que nous avons la plupart de notre code, il nous reste à développer notre serveur. Il s’agit de la dernière pièce de notre application, et c’est probablement la plus difficile à comprendre. Le serveur est une grande fonction R, mais il est utile de le considérer comme une série de petites fonctions, ou de tâches que l’application peut exécuter. Il est important de comprendre que ces fonctions ne sont pas exécutées dans un ordre linéaire. Il existe un ordre, mais il n’est pas nécessaire de le comprendre lorsqu’on débute avec Shiny. À un niveau très basique, ces tâches ou fonctions s’activent lorsqu’un changement dans les entrées de l’utilisateur les affecte, <em>à moins que le développeur ne les ait configurées pour qu’elles se comportent différemment</em>. Encore une fois, tout cela est assez abstrait, mais passons d’abord en revue les trois types <em>d’objets</em> shiny de base</p>
 <ol type="1">
 <li><p>Les sources réactives - c’est un autre terme pour les entrées de l’utilisateur. Le serveur shiny a accès aux sorties de l’interface utilisateur par le biais des widgets que nous avons programmés. Chaque fois que les valeurs de ces derniers sont modifiées, elles sont transmises au serveur.</p></li>
@@ -1194,11 +1218,13 @@ cookieconsent.run({
 <ul>
 <li>Sélecteur de district (avec un inputId de <code>select_district</code>)</li>
 <li>Un sélecteur de groupe d’âge (avec un inputId de <code>select_agegroup</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>Une sortie :
 <ul>
 <li>L’épicurve (avec un outputId de <code>malaria_epicurve</code>)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>Comme indiqué précédemment, ces noms uniques que nous avons attribués à nos entrées et sorties sont cruciaux. Ils <em>doivent être uniques</em> et sont utilisés pour transmettre des informations entre l’interface utilisateur et le serveur. Dans notre serveur, nous accédons à nos entrées via la syntaxe <code>input$inputID</code> et les sorties sont transmises à l’interface utilisateur via la syntaxe <code>output$output_name</code> Voyons un exemple, car encore une fois, c’est difficile à comprendre autrement !</p>
 <div class="cell">
@@ -1213,16 +1239,17 @@ cookieconsent.run({
 <p>Le serveur pour une application simple comme celle-ci est en fait assez simple ! Vous remarquerez que le serveur est une fonction avec trois paramètres - <code>input</code>, <code>output</code>, et <code>session</code> - ce n’est pas très important à comprendre pour le moment, mais il est important de s’en tenir à cette configuration ! Dans notre serveur, nous n’avons qu’une seule tâche - elle rend un graphique basé sur la fonction que nous avons créée plus tôt, et les entrées du serveur. Remarquez que les noms des objets d’entrée et de sortie correspondent exactement à ceux de l’interface utilisateur.</p>
 <p>Pour comprendre les bases de la façon dont le serveur réagit aux entrées de l’utilisateur, vous devez noter que la sortie saura (grâce au package sous-jacent) quand les entrées changent, et réexécutera cette fonction pour créer un graphique à chaque fois qu’elles changent. Notez que nous utilisons également la fonction <code>renderPlot()</code> ici - c’est l’une des fonctions d’une famille de classes spécifiques qui passent ces objets à une sortie ui. Il existe un certain nombre de fonctions qui se comportent de manière similaire, mais vous devez vous assurer que la fonction utilisée correspond à la classe de l’objet que vous transmettez à l’interface utilisateur ! Par exemple :</p>
 <ul>
-<li><code>renderText()</code> - envoie du texte à l’interface utilisateur</li>
-<li><code>renderDataTable</code> - envoie une table interactive à l’interface utilisateur.</li>
+<li>
+<code>renderText()</code> - envoie du texte à l’interface utilisateur</li>
+<li>
+<code>renderDataTable</code> - envoie une table interactive à l’interface utilisateur.</li>
 </ul>
 <p>Rappelez-vous que ces <em>fonctions</em> doivent également correspondre à la fonction de sortie utilisée dans l’interface utilisateur - ainsi, <code>renderPlot()</code> est associé à <code>plotOutput()</code>, et <code>renderText()</code> est associé à <code>textOutput()</code>.</p>
 <p>Nous avons enfin créé une application fonctionnelle ! Nous pouvons l’exécuter en appuyant sur le bouton Run App en haut à droite de la fenêtre du script dans Rstudio. Notez que vous pouvez choisir de lancer votre application dans votre navigateur par défaut (plutôt que dans Rstudio), ce qui reflétera plus fidèlement ce à quoi l’application ressemblera pour les autres utilisateurs.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1231,16 +1258,14 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
+<figure class="figure"><p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- À FAIRE: *AJOUTER QUELQUE CHOSE LORS DU TÉLÉCHARGEMENT D'UN FICHIER ZIP DE L'APPLICATION?*  -->
-</section>
-<section id="ajout-de-fonctionnalités-supplémentaires" class="level2" data-number="43.6">
-<h2 data-number="43.6" class="anchored" data-anchor-id="ajout-de-fonctionnalités-supplémentaires"><span class="header-section-number">43.6</span> Ajout de fonctionnalités supplémentaires</h2>
+</section><section id="ajout-de-fonctionnalités-supplémentaires" class="level2" data-number="43.6"><h2 data-number="43.6" class="anchored" data-anchor-id="ajout-de-fonctionnalités-supplémentaires">
+<span class="header-section-number">43.6</span> Ajout de fonctionnalités supplémentaires</h2>
 <p>À ce stade, nous avons enfin une application qui fonctionne, mais nous avons très peu de fonctionnalités. De plus, nous n’avons pas encore touché à la surface de ce que shiny peut faire, il y a donc encore beaucoup à apprendre ! Continuons à développer notre application existante en ajoutant quelques fonctionnalités supplémentaires. Voici quelques éléments qu’il serait bon d’ajouter :</p>
 <ol type="1">
 <li>Un texte explicatif</li>
@@ -1249,19 +1274,22 @@ cookieconsent.run({
 <li>Une autre page de tableau de bord - elle pourrait afficher un tableau de nos données.</li>
 </ol>
 <p>Cela fait beaucoup de choses à ajouter, mais nous pouvons l’utiliser pour en apprendre davantage sur un tas de prouesses différentes en cours. Il y a tant à apprendre sur shiny (il peut être <em>très</em> avancé, mais il est à espérer qu’une fois que les utilisateurs ont une meilleure idée de la façon de l’utiliser, ils peuvent devenir plus à l’aise en utilisant des sources d’apprentissage externes aussi).</p>
-<section id="ajouter-du-texte-statique" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ajouter-du-texte-statique">Ajouter du texte statique</h3>
+<section id="ajouter-du-texte-statique" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ajouter-du-texte-statique">Ajouter du texte statique</h3>
 <p>Parlons d’abord de l’ajout de texte statique à notre application shiny. L’ajout de texte à notre application est extrêmement facile, une fois que vous en avez une connaissance de base. Puisque le texte statique ne change pas dans l’application shiny (si vous voulez qu’il change, vous pouvez utiliser les fonctions de <em>rendu de texte</em> dans le serveur ! Nous n’allons pas entrer dans les détails, mais vous pouvez ajouter un certain nombre d’éléments différents à votre interface utilisateur (et même des éléments personnalisés) en interfaçant R avec <em>HTML</em> et <em>css</em>.</p>
 <p>HTML et css sont des langages qui sont explicitement impliqués dans la conception de l’interface utilisateur. Nous n’avons pas besoin de trop les comprendre, mais <em>HTML</em> crée des objets dans l’IU (comme une boîte de texte, ou un tableau), et <em>css</em> est généralement utilisé pour changer le style et l’esthétique de ces objets. Shiny a accès à un large éventail de <em>balises HTML</em> - celles-ci sont présentes pour les objets qui se comportent d’une manière spécifique, comme les en-têtes, les paragraphes de texte, les sauts de ligne, les tableaux, etc. Nous pouvons utiliser certains de ces exemples comme ceci :</p>
 <ul>
-<li><p><code>h1()</code> - il s’agit d’une balise <em>header</em>, qui rendra le texte inclus automatiquement plus grand, et changera les valeurs par défaut en ce qui concerne la police, la couleur, etc (selon le thème général de votre application). Vous pouvez accéder à des sous-titres <em>plus petits et plus petits</em> avec <code>h2()</code> jusqu’à <code>h6()</code> également. L’utilisation ressemble à :</p>
+<li>
+<p><code>h1()</code> - il s’agit d’une balise <em>header</em>, qui rendra le texte inclus automatiquement plus grand, et changera les valeurs par défaut en ce qui concerne la police, la couleur, etc (selon le thème général de votre application). Vous pouvez accéder à des sous-titres <em>plus petits et plus petits</em> avec <code>h2()</code> jusqu’à <code>h6()</code> également. L’utilisation ressemble à :</p>
 <ul>
 <li><code>h1("mon en-tête - section 1")</code></li>
-</ul></li>
-<li><p><code>p()</code> - il s’agit d’une balise <em>paragraphe</em>, qui rendra le texte inclus similaire à un texte dans un corps de texte. Ce texte sera automatiquement enveloppé, et sera d’une taille relativement petite (les pieds de page pourraient être plus petits par exemple.) Pensez-y comme le corps de texte d’un document Word. L’utilisation ressemble à :</p>
+</ul>
+</li>
+<li>
+<p><code>p()</code> - il s’agit d’une balise <em>paragraphe</em>, qui rendra le texte inclus similaire à un texte dans un corps de texte. Ce texte sera automatiquement enveloppé, et sera d’une taille relativement petite (les pieds de page pourraient être plus petits par exemple.) Pensez-y comme le corps de texte d’un document Word. L’utilisation ressemble à :</p>
 <ul>
 <li><code>p("Ceci est un corps de texte plus large où j'explique la fonction de mon application")</code></li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>tags$b()</code> et <code>tags$i()</code> - elles sont utilisées pour créer des <code>tags$b()</code> en gras et des <code>tags$i()</code> en italique avec le texte inclus !</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> et <code>tags$li()</code> - ce sont des balises utilisées pour créer des <em>listes</em>. Elles sont toutes utilisées dans la syntaxe ci-dessous, et permettent à l’utilisateur de créer une liste ordonnée (<code>tags$ol()</code>, c’est-à-dire numérotée) ou non ordonnée (<code>tags$ul()</code>, c’est-à-dire à puces). <code>tags$li()</code> est utilisé pour désigner les éléments de la liste, quel que soit le type de liste utilisé. par exemple :</p></li>
 </ul>
@@ -1344,22 +1372,17 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="ajouter-un-lien" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ajouter-un-lien">Ajouter un lien</h3>
+</section><section id="ajouter-un-lien" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ajouter-un-lien">Ajouter un lien</h3>
 <p>Pour ajouter un lien à un site Web, utilisez <code>tags$a()</code> avec le lien et le texte à afficher comme indiqué ci-dessous. Pour avoir un paragraphe autonome, mettez-le dans <code>p()</code>. Pour que seuls quelques mots d’une phrase soient liés, divisez la phrase en plusieurs parties et utilisez <code>tags$a()</code> pour la partie hyperliée. Pour que le lien s’ouvre dans une <em>nouvelle</em> fenêtre du navigateur, ajoutez <code>target = "_blank"</code> comme argument.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">a</span>(<span class="at">href =</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="ajout-dun-bouton-de-téléchargement" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ajout-dun-bouton-de-téléchargement">Ajout d’un bouton de téléchargement</h3>
+</section><section id="ajout-dun-bouton-de-téléchargement" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ajout-dun-bouton-de-téléchargement">Ajout d’un bouton de téléchargement</h3>
 <p>Passons à la deuxième des trois fonctions. Un bouton de téléchargement est une chose assez courante à ajouter à une application et est assez facile à réaliser. Nous devons ajouter un autre Widget à notre interface, et nous devons ajouter une autre sortie à notre serveur pour l’attacher. Nous pouvons également introduire des <em>conducteurs réactifs</em> dans cet exemple !</p>
 <p>Mettons d’abord à jour notre interface utilisateur - c’est facile car shiny est livré avec un widget appelé <code>downloadButton()</code> - donnons-lui un inputId et un label.</p>
 <div class="cell">
@@ -1506,15 +1529,12 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
+<figure class="figure"><p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="ajout-dun-sélecteur-dequipements" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ajout-dun-sélecteur-dequipements">Ajout d’un sélecteur d’equipements</h3>
+</section><section id="ajout-dun-sélecteur-dequipements" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ajout-dun-sélecteur-dequipements">Ajout d’un sélecteur d’equipements</h3>
 <p>Passons à la fonctionnalité suivante : un sélecteur d’equipements spécifiques. Nous allons implémenter un autre paramètre dans notre fonction afin de pouvoir le passer comme argument dans notre code. Voyons d’abord ce qu’il en est - il fonctionne sur les mêmes principes que les autres paramètres que nous avons mis en place. Mettons à jour et testons notre fonction.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_epicurve <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">district =</span> <span class="st">"All"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_tot"</span>, <span class="at">facility =</span> <span class="st">"All"</span>) {</span>
@@ -1594,8 +1614,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Spring"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>, <span class="at">facility =</span> <span class="st">"Facility 1"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.fr_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.fr_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.fr_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.fr_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1712,8 +1731,10 @@ cookieconsent.run({
 </ul>
 <p>Comme pour les fonctions réactives, il existe deux types de fonctions d’observation, qui sont divisées par la même logique que les fonctions réactives :</p>
 <ol type="1">
-<li><code>observe()</code> - cette fonction s’exécute à chaque fois que les entrées qu’elle contient changent.</li>
-<li><code>observeEvent()</code> - cette fonction s’exécute lorsqu’une entrée <em>spécifiée par l’utilisateur</em> change.</li>
+<li>
+<code>observe()</code> - cette fonction s’exécute à chaque fois que les entrées qu’elle contient changent.</li>
+<li>
+<code>observeEvent()</code> - cette fonction s’exécute lorsqu’une entrée <em>spécifiée par l’utilisateur</em> change.</li>
 </ol>
 <p>Nous devons également comprendre les fonctions fournies par Shiny qui mettent à jour les widgets. Elles sont assez simples à exécuter - elles prennent d’abord l’objet <code>session</code> de la fonction serveur (il n’est pas nécessaire de le comprendre pour l’instant), puis le <code>inputId</code> de la fonction à modifier. Nous passons ensuite de nouvelles versions de tous les paramètres qui sont déjà pris par <code>selectInput()</code> - ceux-ci seront automatiquement mis à jour dans le widget.</p>
 <p>Regardons un exemple isolé de la façon dont nous pourrions utiliser ceci dans notre serveur. Lorsque l’utilisateur change de district, nous voulons filtrer notre tableau d’installations par district, et mettre à jour les choix pour <em>seulement refléter ceux qui sont disponibles dans ce district</em> (et une option pour toutes les installations).</p>
@@ -1788,15 +1809,12 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="ajout-dun-autre-onglet-avec-une-table" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ajout-dun-autre-onglet-avec-une-table">Ajout d’un autre onglet avec une table</h3>
+</section><section id="ajout-dun-autre-onglet-avec-une-table" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ajout-dun-autre-onglet-avec-une-table">Ajout d’un autre onglet avec une table</h3>
 <p>Nous allons maintenant passer au dernier composant que nous voulons ajouter à notre application. Nous voulons séparer notre interface utilisateur en deux onglets, dont l’un comportera un tableau interactif où l’utilisateur pourra voir les données avec lesquelles il réalise la courbe épidémique. Pour ce faire, nous pouvons utiliser les éléments d’interface intégrés qui sont fournis avec Shiny pour les onglets. À un niveau de base, nous pouvons enfermer la plupart de notre panneau principal dans cette structure générale :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... le reste de l'ui</span></span>
@@ -1950,16 +1968,13 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="partager-les-applications-shiny" class="level2" data-number="43.7">
-<h2 data-number="43.7" class="anchored" data-anchor-id="partager-les-applications-shiny"><span class="header-section-number">43.7</span> Partager les applications shiny</h2>
+</section></section><section id="partager-les-applications-shiny" class="level2" data-number="43.7"><h2 data-number="43.7" class="anchored" data-anchor-id="partager-les-applications-shiny">
+<span class="header-section-number">43.7</span> Partager les applications shiny</h2>
 <p>Maintenant que vous avez développé votre application, vous voulez probablement la partager avec d’autres - c’est le principal avantage de shiny après tout ! Nous pouvons le faire en partageant le code directement, ou nous pouvons le publier sur un serveur. Si nous partageons le code, d’autres personnes pourront voir ce que vous avez fait et s’en inspirer, mais cela annulera l’un des principaux avantages de shiny - <em>il peut éliminer le besoin pour les utilisateurs finaux de maintenir une installation R</em>. Pour cette raison, si vous partagez votre application avec des utilisateurs qui ne sont pas à l’aise avec R, il est beaucoup plus facile de partager une application qui a été publiée sur un serveur.</p>
 <p>Si vous préférez partager le code, vous pouvez créer un fichier .zip de l’application ou, mieux encore, <em>publier votre application sur github et ajouter des collaborateurs</em>.</p>
 <p>Cependant, si nous publions l’application en ligne, nous devons faire un peu plus de travail. En fin de compte, nous voulons que votre application soit accessible via une URL Web afin que d’autres puissent y accéder rapidement et facilement. Malheureusement, pour publier votre application sur un serveur, vous devez avoir accès à un serveur sur lequel la publier ! Il existe un certain nombre d’options d’hébergement à cet égard :</p>
@@ -1973,13 +1988,11 @@ cookieconsent.run({
 <p>Une fois que vous avez votre compte, vous pouvez naviguer vers la page des jetons sous <em>Accounts</em>. Ici, vous devriez ajouter un nouveau jeton - il sera utilisé pour déployer votre application.</p>
 <p>A partir de là, vous devez noter que l’url de votre compte reflétera le nom de votre application - donc si votre application s’appelle <em>mon_app</em>, l’url sera ajouté comme <em>xxx.io/mon_app/</em>. Choisissez judicieusement le nom de votre application ! Maintenant que vous êtes prêt, cliquez sur deploy - si vous réussissez, votre application sera lancée sur l’url que vous avez choisi !</p>
 <p><em>Quelque chose sur la création d’applications dans des documents ?</em></p>
-</section>
-<section id="lecture-complémentaire" class="level2" data-number="43.8">
-<h2 data-number="43.8" class="anchored" data-anchor-id="lecture-complémentaire"><span class="header-section-number">43.8</span> Lecture complémentaire</h2>
+</section><section id="lecture-complémentaire" class="level2" data-number="43.8"><h2 data-number="43.8" class="anchored" data-anchor-id="lecture-complémentaire">
+<span class="header-section-number">43.8</span> Lecture complémentaire</h2>
 <p>Jusqu’à présent, nous avons couvert beaucoup d’aspects de shiny, et nous avons à peine effleuré la surface de ce qui est offert pour shiny. Bien que ce guide serve d’introduction, il y a beaucoup plus à apprendre pour comprendre pleinement shiny. Vous devriez commencer à créer des applications et ajouter progressivement de plus en plus de fonctionnalités.</p>
-</section>
-<section id="packages-dextension-recommandés" class="level2" data-number="43.9">
-<h2 data-number="43.9" class="anchored" data-anchor-id="packages-dextension-recommandés"><span class="header-section-number">43.9</span> packages d’extension recommandés</h2>
+</section><section id="packages-dextension-recommandés" class="level2" data-number="43.9"><h2 data-number="43.9" class="anchored" data-anchor-id="packages-dextension-recommandés">
+<span class="header-section-number">43.9</span> packages d’extension recommandés</h2>
 <p>Ce qui suit représente une sélection d’extensions de haute qualité pour shiny qui peuvent vous aider à obtenir beaucoup plus de shiny. Sans ordre particulier :</p>
 <ul>
 <li><p><strong>shinyWidgets</strong> - ce package vous donne beaucoup plus de widgets qui peuvent être utilisés dans votre application. Lancez <code>shinyWidgets::shinyWidgetsGallery()</code> pour voir une sélection des widgets disponibles avec ce package. Voir des exemples <a href="https://github.com/dreamRs/shinyWidgets">ici</a></p></li>
@@ -1992,16 +2005,11 @@ cookieconsent.run({
 <ul>
 <li><p><strong>DT</strong> est semi-incorporé dans base-shiny, mais fournit un grand ensemble de fonctions pour créer des tableaux interactifs.</p></li>
 <li><p><strong>plotly</strong> est un package pour créer des graphiques interactifs que l’utilisateur peut manipuler dans l’application. Vous pouvez également convertir vos graphiques en versions interactives via <code>plotly::ggplotly()</code> ! Comme alternatives, <strong>dygraphs</strong> et <strong>highcharter</strong> sont également excellents.</p></li>
-</ul>
-</section>
-<section id="ressources-recommandées" class="level2" data-number="43.10">
-<h2 data-number="43.10" class="anchored" data-anchor-id="ressources-recommandées"><span class="header-section-number">43.10</span> Ressources recommandées</h2>
+</ul></section><section id="ressources-recommandées" class="level2" data-number="43.10"><h2 data-number="43.10" class="anchored" data-anchor-id="ressources-recommandées">
+<span class="header-section-number">43.10</span> Ressources recommandées</h2>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2180,18 +2188,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2223,7 +2220,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2258,7 +2295,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2531,60 +2572,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/flexdashboard.fr.html" class="pagination-link" aria-label="Tableaux de bord avec R Markdown">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Tableaux de bord avec R Markdown</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>  <span class="chapter-title">Tableaux de bord avec R Markdown</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/writing_functions.fr.html" class="pagination-link" aria-label="Fonctions d'écriture">
-        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Fonctions d’écriture</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">44</span>  <span class="chapter-title">Fonctions d’écriture</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>
