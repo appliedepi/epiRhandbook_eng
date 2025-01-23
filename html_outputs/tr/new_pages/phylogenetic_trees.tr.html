@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Epidemiyologun R Rehberi - 38&nbsp; Filogenetik ağaçlar</title>
+<title>38  Filogenetik ağaçlar – Epidemiyologun R Rehberi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/interactive_plots.tr.html" rel="next">
 <link href="../new_pages/transmission_chains.tr.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Göndermek",
     "search-label": "Aramak"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"tr"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_presentation.tr.html">Veri Görselleştirme</a></li><li class="breadcrumb-item"><a href="../new_pages/phylogenetic_trees.tr.html"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_presentation.tr.html">Veri Görselleştirme</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/phylogenetic_trees.tr.html"><span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Kenar çubuğunu değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Aramak" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Epidemiyologun R Rehberi</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Kaynak Kodu" class="quarto-navigation-tool px-1" aria-label="Kaynak Kodu"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Karanlık modu değiştir"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,19 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Aramak"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/phylogenetic_trees.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/phylogenetic_trees.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/phylogenetic_trees.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/phylogenetic_trees.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/phylogenetic_trees.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/phylogenetic_trees.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/ru/new_pages/phylogenetic_trees.ru.html" id="language-link-ru">Русский</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.tr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hoş geldin</span></a>
@@ -284,422 +309,431 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Bu kitap hakkında</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Önyazı ve teknik notlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">El Kitabı ve verileri indirme</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Temel Bilgiler</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R’ın Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R’ın Temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R’a geçiş</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">R’a geçiş</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Önerilen paketler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Önerilen paketler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projeleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projeleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">İçe ve dışa aktar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">İçe ve dışa aktar</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Yönetimi</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Veri temizliği ve temel fonksiyonlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Tarihlerle çalışma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Tarihlerle çalışma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Karakterler ve dizeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Karakterler ve dizeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faktörler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Faktörler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Verilerin pivotlanması</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Verilerin pivotlanması</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verileri Gruplama</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Verileri Gruplama</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Veri Birleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Veri Birleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Tekilleştirme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Tekilleştirme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Yineleme, döngüler ve listeler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analiz</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tanımlayıcı tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Basit istatistiksel testler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Basit istatistiksel testler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Tek değişkenli ve çok değişkenli regresyon</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Eksik Veri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Eksik Veri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Standardize edilmiş hızlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Hareketli ortalamalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Hareketli ortalamalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Zaman serileri ve salgınların tespit edilmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Salgın Modelleme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Salgın Modelleme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Temaslı izlemi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Temaslı izlemi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Anket analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Anket analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sağkalım Analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Sağkalım Analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Coğrafi Bilgi Sistemleri (CBS) Temelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Veri Görselleştirme</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Sunum için tablolar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Sunum için tablolar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot temelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot temelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplot ipuçları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplot ipuçları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Salgın eğrileri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Salgın eğrileri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Demografik piramidler ve likert ölçekler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Isı grafikleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Isı grafikleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diyagramlar ve çizelgeler</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Kombinasyon analizi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Kombinasyon analizi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">İletim Zincirleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">İletim Zincirleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.tr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">İnteraktif grafikler</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">İnteraktif grafikler</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Raporlar ve gösterge panoları</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown ile Raporlar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Rutin raporların düzenlenmesi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdown ile gösterge panelleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny ile Gösterge Panelleri</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Çeşitli</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Bölümü değiştir">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Bölümü değiştir">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Yazma fonksiyonları</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Yazma fonksiyonları</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Dizin etkileşimleri</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Dizin etkileşimleri</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git ve Github ile sürüm kontrolü ve işbirliği</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Yaygın hatalar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Yaygın hatalar</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Yardım alma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Yardım alma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">Ağ sürücülerinde R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.tr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Veri tablosu</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Veri tablosu</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Ekler</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Içindekiler</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Içindekiler</h2>
    
   <ul>
-  <li><a href="#genel-bakış" id="toc-genel-bakış" class="nav-link active" data-scroll-target="#genel-bakış"><span class="header-section-number">38.1</span> Genel Bakış</a></li>
-  <li><a href="#hazırlık" id="toc-hazırlık" class="nav-link" data-scroll-target="#hazırlık"><span class="header-section-number">38.2</span> Hazırlık</a>
+<li><a href="#genel-bak%C4%B1%C5%9F" id="toc-genel-bakış" class="nav-link active" data-scroll-target="#genel-bakış"><span class="header-section-number">38.1</span> Genel Bakış</a></li>
+  <li>
+<a href="#haz%C4%B1rl%C4%B1k" id="toc-hazırlık" class="nav-link" data-scroll-target="#hazırlık"><span class="header-section-number">38.2</span> Hazırlık</a>
   <ul class="collapse">
-  <li><a href="#paketlerin-yüklenmesi" id="toc-paketlerin-yüklenmesi" class="nav-link" data-scroll-target="#paketlerin-yüklenmesi">Paketlerin yüklenmesi</a></li>
-  <li><a href="#verilerin-içe-aktarımı" id="toc-verilerin-içe-aktarımı" class="nav-link" data-scroll-target="#verilerin-içe-aktarımı">Verilerin içe aktarımı</a></li>
+<li><a href="#paketlerin-y%C3%BCklenmesi" id="toc-paketlerin-yüklenmesi" class="nav-link" data-scroll-target="#paketlerin-yüklenmesi">Paketlerin yüklenmesi</a></li>
+  <li><a href="#verilerin-i%C3%A7e-aktar%C4%B1m%C4%B1" id="toc-verilerin-içe-aktarımı" class="nav-link" data-scroll-target="#verilerin-içe-aktarımı">Verilerin içe aktarımı</a></li>
   <li><a href="#temizleme-ve-inceleme" id="toc-temizleme-ve-inceleme" class="nav-link" data-scroll-target="#temizleme-ve-inceleme">Temizleme ve inceleme</a></li>
-  </ul></li>
-  <li><a href="#temel-ağaç-görselleştirmesi" id="toc-temel-ağaç-görselleştirmesi" class="nav-link" data-scroll-target="#temel-ağaç-görselleştirmesi"><span class="header-section-number">38.3</span> Temel ağaç görselleştirmesi</a>
-  <ul class="collapse">
-  <li><a href="#farklı-ağaç-düzenlemeleri" id="toc-farklı-ağaç-düzenlemeleri" class="nav-link" data-scroll-target="#farklı-ağaç-düzenlemeleri">Farklı ağaç düzenlemeleri</a></li>
-  <li><a href="#örnek-veriyi-içeren-basit-ağaç" id="toc-örnek-veriyi-içeren-basit-ağaç" class="nav-link" data-scroll-target="#örnek-veriyi-içeren-basit-ağaç">Örnek veriyi içeren basit ağaç</a></li>
-  </ul></li>
-  <li><a href="#ağacın-manipülasyonu" id="toc-ağacın-manipülasyonu" class="nav-link" data-scroll-target="#ağacın-manipülasyonu"><span class="header-section-number">38.4</span> Ağacın Manipülasyonu</a>
-  <ul class="collapse">
-  <li><a href="#yakınlaştırmak" id="toc-yakınlaştırmak" class="nav-link" data-scroll-target="#yakınlaştırmak">Yakınlaştırmak</a></li>
-  <li><a href="#daralan-dallar" id="toc-daralan-dallar" class="nav-link" data-scroll-target="#daralan-dallar">Daralan dallar</a></li>
-  <li><a href="#ağacın-alt-kümelere-ayrılması" id="toc-ağacın-alt-kümelere-ayrılması" class="nav-link" data-scroll-target="#ağacın-alt-kümelere-ayrılması">Ağacın alt kümelere ayrılması</a></li>
-  <li><a href="#ağaçtaki-nodları-döndürmek" id="toc-ağaçtaki-nodları-döndürmek" class="nav-link" data-scroll-target="#ağaçtaki-nodları-döndürmek">Ağaçtaki nodları döndürmek</a></li>
-  <li><a href="#numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç" id="toc-numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç" class="nav-link" data-scroll-target="#numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç">Numune verilerini içeren açıklamalı örnek alt ağaç</a></li>
-  </ul></li>
-  <li><a href="#daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme" id="toc-daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme" class="nav-link" data-scroll-target="#daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme">Daha karmaşık ağaçlar: Örnek verilerin ısı haritalarını ekleme</a></li>
-  <li><a href="#kaynaklar" id="toc-kaynaklar" class="nav-link" data-scroll-target="#kaynaklar"><span class="header-section-number">38.5</span> Kaynaklar</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#temel-a%C4%9Fa%C3%A7-g%C3%B6rselle%C5%9Ftirmesi" id="toc-temel-ağaç-görselleştirmesi" class="nav-link" data-scroll-target="#temel-ağaç-görselleştirmesi"><span class="header-section-number">38.3</span> Temel ağaç görselleştirmesi</a>
+  <ul class="collapse">
+<li><a href="#farkl%C4%B1-a%C4%9Fa%C3%A7-d%C3%BCzenlemeleri" id="toc-farklı-ağaç-düzenlemeleri" class="nav-link" data-scroll-target="#farklı-ağaç-düzenlemeleri">Farklı ağaç düzenlemeleri</a></li>
+  <li><a href="#%C3%B6rnek-veriyi-i%C3%A7eren-basit-a%C4%9Fa%C3%A7" id="toc-örnek-veriyi-içeren-basit-ağaç" class="nav-link" data-scroll-target="#örnek-veriyi-içeren-basit-ağaç">Örnek veriyi içeren basit ağaç</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a%C4%9Fac%C4%B1n-manip%C3%BClasyonu" id="toc-ağacın-manipülasyonu" class="nav-link" data-scroll-target="#ağacın-manipülasyonu"><span class="header-section-number">38.4</span> Ağacın Manipülasyonu</a>
+  <ul class="collapse">
+<li><a href="#yak%C4%B1nla%C5%9Ft%C4%B1rmak" id="toc-yakınlaştırmak" class="nav-link" data-scroll-target="#yakınlaştırmak">Yakınlaştırmak</a></li>
+  <li><a href="#daralan-dallar" id="toc-daralan-dallar" class="nav-link" data-scroll-target="#daralan-dallar">Daralan dallar</a></li>
+  <li><a href="#a%C4%9Fac%C4%B1n-alt-k%C3%BCmelere-ayr%C4%B1lmas%C4%B1" id="toc-ağacın-alt-kümelere-ayrılması" class="nav-link" data-scroll-target="#ağacın-alt-kümelere-ayrılması">Ağacın alt kümelere ayrılması</a></li>
+  <li><a href="#a%C4%9Fa%C3%A7taki-nodlar%C4%B1-d%C3%B6nd%C3%BCrmek" id="toc-ağaçtaki-nodları-döndürmek" class="nav-link" data-scroll-target="#ağaçtaki-nodları-döndürmek">Ağaçtaki nodları döndürmek</a></li>
+  <li><a href="#numune-verilerini-i%C3%A7eren-a%C3%A7%C4%B1klamal%C4%B1-%C3%B6rnek-alt-a%C4%9Fa%C3%A7" id="toc-numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç" class="nav-link" data-scroll-target="#numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç">Numune verilerini içeren açıklamalı örnek alt ağaç</a></li>
+  </ul>
+</li>
+  <li><a href="#daha-karma%C5%9F%C4%B1k-a%C4%9Fa%C3%A7lar-%C3%B6rnek-verilerin-%C4%B1s%C4%B1-haritalar%C4%B1n%C4%B1-ekleme" id="toc-daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme" class="nav-link" data-scroll-target="#daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme">Daha karmaşık ağaçlar: Örnek verilerin ısı haritalarını ekleme</a></li>
+  <li><a href="#kaynaklar" id="toc-kaynaklar" class="nav-link" data-scroll-target="#kaynaklar"><span class="header-section-number">38.5</span> Kaynaklar</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_presentation.tr.html">Veri Görselleştirme</a></li><li class="breadcrumb-item"><a href="../new_pages/phylogenetic_trees.tr.html"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Filogenetik ağaçlar</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_presentation.tr.html">Veri Görselleştirme</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/phylogenetic_trees.tr.html"><span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">38</span>  <span class="chapter-title">Filogenetik ağaçlar</span>
+</h1>
 </div>
 
 
@@ -713,28 +747,21 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<!-- ======================================================= -->
-<section id="genel-bakış" class="level2" data-number="38.1">
-<h2 data-number="38.1" class="anchored" data-anchor-id="genel-bakış"><span class="header-section-number">38.1</span> Genel Bakış</h2>
+</header><!-- ======================================================= --><section id="genel-bakış" class="level2" data-number="38.1"><h2 data-number="38.1" class="anchored" data-anchor-id="genel-bakış">
+<span class="header-section-number">38.1</span> Genel Bakış</h2>
 <p>Filogenetik ağaçlar, organizmaların genetik kodlarının sekansına göre akrabalıklarını ve evrimlerini görselleştirmek ve tanımlamak için kullanılır. Uzaklığa dayalı yöntemler (komşu birleştirme yöntemi gibi) veya karakter tabanlı yöntemler (maksimum olabilirlik ve Bayesian Markov Zinciri Monte Carlo yöntemi gibi) kullanılarak genetik sekanslardan oluşturulabilirler. Yeni nesil sekanslama (NGS) daha uygun fiyatlı hale gelerek bulaşıcı hastalıklara neden olan patojenleri tanımlamak için halk sağlığında daha yaygın olarak kullanılmaya başlandı. Taşınabilir sekanslama cihazları, bekleme süresini azaltır ve verileri gerçek zamanlı olarak salgın araştırmasını desteklemek için kullanılabilir hale getirir. NGS verileri, bir salgın suşunun kökenini, kaynağını ve yayılımını belirlemek ve ayrıca antimikrobiyal direnç genlerinin varlığını göstermek için kullanılabilir. Örnekler arasındaki genetik ilişkiyi görselleştirmek için bir filogenetik ağaç oluşturulur. Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş halde görselleştirilmesine izin veren <strong>ggtree</strong> paketinin nasıl kullanılacağını öğreneceğiz. Bu, motifleri gözlemlememizi ve salgın dinamiğinin anlaşılmasını geliştirmemizi sağlayacaktır.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_overview_graph-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_overview_graph-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_overview_graph-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_overview_graph-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="hazırlık" class="level2" data-number="38.2">
-<h2 data-number="38.2" class="anchored" data-anchor-id="hazırlık"><span class="header-section-number">38.2</span> Hazırlık</h2>
-<section id="paketlerin-yüklenmesi" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="paketlerin-yüklenmesi">Paketlerin yüklenmesi</h3>
+</section><section id="hazırlık" class="level2" data-number="38.2"><h2 data-number="38.2" class="anchored" data-anchor-id="hazırlık">
+<span class="header-section-number">38.2</span> Hazırlık</h2>
+<section id="paketlerin-yüklenmesi" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="paketlerin-yüklenmesi">Paketlerin yüklenmesi</h3>
 <p>Bu kod parçası, gerekli paketlerin yüklenmesini göstermektedir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonksiyonunu vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R’ın temelleri sayfasına bakın.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -746,9 +773,7 @@ cookieconsent.run({
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  treeio,          <span class="co"># filogenetik dosyaları görselleştirmek için</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ggnewscale)      <span class="co"># ek renk şema katmanları eklemek için</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="verilerin-içe-aktarımı" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="verilerin-içe-aktarımı">Verilerin içe aktarımı</h3>
+</section><section id="verilerin-içe-aktarımı" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="verilerin-içe-aktarımı">Verilerin içe aktarımı</h3>
 <p>Bu sayfadaki veriler, El kitabı ve verilerin indirilmesi sayfasındaki talimatlarla indirilebilir.</p>
 <p>Bir filogenetik ağacın saklanabileceği birkaç farklı format vardır (örn. Newick, NEXUS, Phylip). Yaygın olanlardan biri, ağaçların bilgisayar tarafından okunabilir biçimde gösterimi için standart olan Newic dosya biçimidir (.nwk).</p>
 <p>Bu, tüm ağacın “((t2:0.04,t1:0.34):0.89,(t5:0.37,(t4:0.03,t3:0.67):0.9):0.59);” gibi bir dize biçiminde ifade edilebileceği anlamına gelir. Bu dize tüm nodları ve uçları ve bunların birbirleriyle olan ilişkilerini (dal uzunluğu) listeler.</p>
@@ -780,13 +805,11 @@ Rooted; includes branch lengths.</code></pre>
 <p>Aşağıda verilerin ilk 50 satırı verilmiştir:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-d1f52b8cb2bf995498d1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d1f52b8cb2bf995498d1">{"x":{"filter":"none","vertical":false,"data":[["S17BD05944","S15BD07413","S18BD07247","S19BD07384","S18BD07338","S18BD02657","S19BD06884","S16BD02574","S16BD04069","S17BD08170","S15BD07250","S17BD07935","S17BD00384","S19BD06034","S17BD08948","S17BD04542","S17BD07399","S17BD08233","S19BD07381","S17BD07961","S18BD09176","S19BD07393","S18BD02580","S17BD02526","S17BD06833","S18BD01024","S18BD03411","S18BD09515","S17BD07332","S18BD06598","S17BD02164","S19BD06386","S19BD06283","S19BD06285","S19BD05221","S18BD06749","S17BD02088","S17BD07692","S14BD03573","S17BD01135","S19BD06689","S15BD06969","S18BD01106","S17BD00525","S19BD07036","S18BD06401","S18BD06486","S17BD06426","S17BD05916","S18BD07708"],["Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei"],["Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium"],["Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe"],[null,"Georgia",null,"Morocco",null,null,null,"Thailand",null,null,null,null,null,null,null,"Iran",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Morocco","France","Turkey","Egypt","Tunisia","Congo",null,null,null,null,null,null,null,null,null,null,"Egypt",null,null],["2017","2015","2018","2019","2018","2018","2019","2016","2016","2017","2015","2017","2017","2019","2017","2017","2017","2017","2019","2017","2018","2019","2018","2017","2017","2018","2018","2018","2017","2018","2017","2019","2019","2019","2019","2018","2017","2017","2014","2017","2019","2015","2018","2017","2019","2018","2018","2017","2017","2018"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL"],[null,"Male","Female","Female","Male","Male","Male","Male","Male","Male","Female",null,"Male","Male","Female","Male","Male","Female","Female","Male","Male","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Female","Female","Female","Female","Female","Male","Male",null,"female","Male","Female","Male","Male","Male","Male","Male","Male","Male","Female"],[null,null,null,null,null,"gyrA D87Y","gyrA D87Y","gyrA D87Y","gyrA D87Y",null,null,"gyrA D87Y",null,null,"gyrA D87Y",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA S83L",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA D87Y",null,null,null,"gyrA D87Y",null,null,null,null,null,null,null],[null,null,null,null,null,"mphA","mphA",null,null,null,null,"mphA",null,null,"mphA",null,null,null,null,null,null,null,null,null,null,"mphA","mphA",null,null,null,null,null,null,null,"mphA/ermB",null,null,"mphA",null,null,null,null,"mphA",null,null,null,null,null,null,null],[8,0,16,8,8,64,64,0,0,64,0,64,8,8,64,8,8,8,8,8,8,16,8,8,8,64,64,8,8,8,8,8,8,2,64,8,8,64,0,8,8,0,64,8,4,8,8,8,8,8],[0.25,0,0.03,0.02,0.02,0.5,0.5,0,0,8,0,0.5,0.02,0.02,0.5,0.25,0.02,0.02,0.02,0.02,0.02,0.12,0.02,0.02,0.02,0.5,0.25,0.03,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,1,0,0.02,0.02,0,0.5,0.02,0.02,4,0.02,0.02,0.25,0.02]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Sample_ID<\/th>\n      <th>serotype<\/th>\n      <th>Country<\/th>\n      <th>Continent<\/th>\n      <th>Travel_history<\/th>\n      <th>Year<\/th>\n      <th>Belgium<\/th>\n      <th>Source<\/th>\n      <th>Gender<\/th>\n      <th>gyrA_mutations<\/th>\n      <th>macrolide_resistance_genes<\/th>\n      <th>MIC_AZM<\/th>\n      <th>MIC_CIP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[11,12]},{"name":"Sample_ID","targets":0},{"name":"serotype","targets":1},{"name":"Country","targets":2},{"name":"Continent","targets":3},{"name":"Travel_history","targets":4},{"name":"Year","targets":5},{"name":"Belgium","targets":6},{"name":"Source","targets":7},{"name":"Gender","targets":8},{"name":"gyrA_mutations","targets":9},{"name":"macrolide_resistance_genes","targets":10},{"name":"MIC_AZM","targets":11},{"name":"MIC_CIP","targets":12}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-ed587fd6b9f4b0e1b5c3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ed587fd6b9f4b0e1b5c3">{"x":{"filter":"none","vertical":false,"data":[["S17BD05944","S15BD07413","S18BD07247","S19BD07384","S18BD07338","S18BD02657","S19BD06884","S16BD02574","S16BD04069","S17BD08170","S15BD07250","S17BD07935","S17BD00384","S19BD06034","S17BD08948","S17BD04542","S17BD07399","S17BD08233","S19BD07381","S17BD07961","S18BD09176","S19BD07393","S18BD02580","S17BD02526","S17BD06833","S18BD01024","S18BD03411","S18BD09515","S17BD07332","S18BD06598","S17BD02164","S19BD06386","S19BD06283","S19BD06285","S19BD05221","S18BD06749","S17BD02088","S17BD07692","S14BD03573","S17BD01135","S19BD06689","S15BD06969","S18BD01106","S17BD00525","S19BD07036","S18BD06401","S18BD06486","S17BD06426","S17BD05916","S18BD07708"],["Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei"],["Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium"],["Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe"],[null,"Georgia",null,"Morocco",null,null,null,"Thailand",null,null,null,null,null,null,null,"Iran",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Morocco","France","Turkey","Egypt","Tunisia","Congo",null,null,null,null,null,null,null,null,null,null,"Egypt",null,null],["2017","2015","2018","2019","2018","2018","2019","2016","2016","2017","2015","2017","2017","2019","2017","2017","2017","2017","2019","2017","2018","2019","2018","2017","2017","2018","2018","2018","2017","2018","2017","2019","2019","2019","2019","2018","2017","2017","2014","2017","2019","2015","2018","2017","2019","2018","2018","2017","2017","2018"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL"],[null,"Male","Female","Female","Male","Male","Male","Male","Male","Male","Female",null,"Male","Male","Female","Male","Male","Female","Female","Male","Male","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Female","Female","Female","Female","Female","Male","Male",null,"female","Male","Female","Male","Male","Male","Male","Male","Male","Male","Female"],[null,null,null,null,null,"gyrA D87Y","gyrA D87Y","gyrA D87Y","gyrA D87Y",null,null,"gyrA D87Y",null,null,"gyrA D87Y",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA S83L",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA D87Y",null,null,null,"gyrA D87Y",null,null,null,null,null,null,null],[null,null,null,null,null,"mphA","mphA",null,null,null,null,"mphA",null,null,"mphA",null,null,null,null,null,null,null,null,null,null,"mphA","mphA",null,null,null,null,null,null,null,"mphA/ermB",null,null,"mphA",null,null,null,null,"mphA",null,null,null,null,null,null,null],[8,0,16,8,8,64,64,0,0,64,0,64,8,8,64,8,8,8,8,8,8,16,8,8,8,64,64,8,8,8,8,8,8,2,64,8,8,64,0,8,8,0,64,8,4,8,8,8,8,8],[0.25,0,0.03,0.02,0.02,0.5,0.5,0,0,8,0,0.5,0.02,0.02,0.5,0.25,0.02,0.02,0.02,0.02,0.02,0.12,0.02,0.02,0.02,0.5,0.25,0.03,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,1,0,0.02,0.02,0,0.5,0.02,0.02,4,0.02,0.02,0.25,0.02]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Sample_ID<\/th>\n      <th>serotype<\/th>\n      <th>Country<\/th>\n      <th>Continent<\/th>\n      <th>Travel_history<\/th>\n      <th>Year<\/th>\n      <th>Belgium<\/th>\n      <th>Source<\/th>\n      <th>Gender<\/th>\n      <th>gyrA_mutations<\/th>\n      <th>macrolide_resistance_genes<\/th>\n      <th>MIC_AZM<\/th>\n      <th>MIC_CIP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[11,12]},{"name":"Sample_ID","targets":0},{"name":"serotype","targets":1},{"name":"Country","targets":2},{"name":"Continent","targets":3},{"name":"Travel_history","targets":4},{"name":"Year","targets":5},{"name":"Belgium","targets":6},{"name":"Source","targets":7},{"name":"Gender","targets":8},{"name":"gyrA_mutations","targets":9},{"name":"macrolide_resistance_genes","targets":10},{"name":"MIC_AZM","targets":11},{"name":"MIC_CIP","targets":12}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="temizleme-ve-inceleme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="temizleme-ve-inceleme">Temizleme ve inceleme</h3>
+</section><section id="temizleme-ve-inceleme" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="temizleme-ve-inceleme">Temizleme ve inceleme</h3>
 <p>Verilerimizi temizler ve inceleriz: Filogenetik ağaca doğru örnek verilerini atamak için, sample_data veri çerçevesindeki Sample_ID sütunundaki değerlerin ağaç dosyasındaki tip.labels değerleriyle eşleşmesi gerekir:</p>
 <p>Ağaç dosyasındaki tip.labels formatını, R tabanından head() ile ilk 6 girişe bakarak kontrol ederiz.</p>
 <div class="cell">
@@ -833,12 +856,9 @@ Rooted; includes branch lengths.</code></pre>
 <p>İnceleme sonucu, veri çerçevesindeki Sample_ID formatının tip.labels’deki örnek isimlerine karşılık geldiğini görebiliriz. Bunların eşleşmesi için aynı sırada sıralanması gerekmez.</p>
 <p>Devam etmeye hazırız!</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="temel-ağaç-görselleştirmesi" class="level2" data-number="38.3">
-<h2 data-number="38.3" class="anchored" data-anchor-id="temel-ağaç-görselleştirmesi"><span class="header-section-number">38.3</span> Temel ağaç görselleştirmesi</h2>
-<section id="farklı-ağaç-düzenlemeleri" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="farklı-ağaç-düzenlemeleri">Farklı ağaç düzenlemeleri</h3>
+</section></section><section id="temel-ağaç-görselleştirmesi" class="level2" data-number="38.3"><h2 data-number="38.3" class="anchored" data-anchor-id="temel-ağaç-görselleştirmesi">
+<span class="header-section-number">38.3</span> Temel ağaç görselleştirmesi</h2>
+<section id="farklı-ağaç-düzenlemeleri" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="farklı-ağaç-düzenlemeleri">Farklı ağaç düzenlemeleri</h3>
 <p>ggtree birçok farklı düzen formatı sunar ve bazıları özel amacınız için diğerlerinden daha uygun olabilir. Aşağıda birkaç gösterim var. Diğer seçenekler için bu <a href="http://yulab-smu.top/treedata-book/chapter4.html">çevrimiçi kitaba</a> bakabilirsiniz.</p>
 <p>İşte bazı örnek ağaç düzenleri:</p>
 <div class="cell">
@@ -848,36 +868,30 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">"circular"</span>, <span class="at">branch.length =</span> <span class="st">"none"</span>) <span class="co"># uçların hizalandığı basit dairesel ağaç </span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-2.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-3.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_example_formats-4.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="örnek-veriyi-içeren-basit-ağaç" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="örnek-veriyi-içeren-basit-ağaç">Örnek veriyi içeren basit ağaç</h3>
+</section><section id="örnek-veriyi-içeren-basit-ağaç" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="örnek-veriyi-içeren-basit-ağaç">Örnek veriyi içeren basit ağaç</h3>
 <p>%&lt;+% operatörü, sample_data veri çerçevesini ağaç dosyasına bağlamak için kullanılır. Ağacınızın en basit gösterimi, uçlara örnek isimlerin eklenmesi, ayrıca uç noktalarının ve istenirse dalların renklendirilmesidir:</p>
 <p>İşte dairesel bir ağaç örneği:</p>
 <div class="cell" data-layout-align="center">
@@ -922,8 +936,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.margin =</span> <span class="fu">margin</span>())   </span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_adding_sampledata-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_adding_sampledata-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_adding_sampledata-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_adding_sampledata-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -933,14 +946,11 @@ Rooted; includes branch lengths.</code></pre>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"example_tree_circular_1.png"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">14</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="ağacın-manipülasyonu" class="level2" data-number="38.4">
-<h2 data-number="38.4" class="anchored" data-anchor-id="ağacın-manipülasyonu"><span class="header-section-number">38.4</span> Ağacın Manipülasyonu</h2>
+</section></section><section id="ağacın-manipülasyonu" class="level2" data-number="38.4"><h2 data-number="38.4" class="anchored" data-anchor-id="ağacın-manipülasyonu">
+<span class="header-section-number">38.4</span> Ağacın Manipülasyonu</h2>
 <p>Bazen çok büyük bir filogenetik ağacınız olabilir ve ağacın sadece bir kısmıyla ilgilenirsiniz. Örneğin, veri kümenizin büyük resimde nereye sığabileceğine dair geniş bir genel bakış elde etmek için tarihsel veya uluslararası örnekler içeren bir ağaç oluşturup daha sonra verilerinize daha yakından bakmak için daha büyük olan ağacın yalnızca o ilgilendiğiniz kısmını incelemek istersiniz.</p>
 <p>Filogenetik ağaç dosyası yalnızca sekanslama veri analizinin çıktısı olduğundan, dosyanın kendisindeki nodların ve dalların sırasını değiştiremeyiz. Bunlar, ham NGS verilerinden önceki analizlerde zaten belirlenmiştir. Yine de parçaları yakınlaştırabiliyor, parçaları gizleyebiliyor ve hatta ağacın parçalarını alt kümelere ayırabiliyoruz.</p>
-<section id="yakınlaştırmak" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="yakınlaştırmak">Yakınlaştırmak</h3>
+<section id="yakınlaştırmak" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="yakınlaştırmak">Yakınlaştırmak</h3>
 <p>Ağacınızı “kesmek” istemiyorsanız ve sadece bir kısmını daha yakından incelemek istiyorsanız, belirli bir kısmı görüntülemek için yakınlaştırabilirsiniz.</p>
 <p>İlk olarak, tüm ağacı doğrusal biçimde çiziyoruz ve ağaçtaki her bir noda sayısal etiketler ekliyoruz.</p>
 <div class="cell" data-layout-align="center">
@@ -957,8 +967,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>p  <span class="co"># çıktı alın</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -968,23 +977,19 @@ Rooted; includes branch lengths.</code></pre>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">viewClade</span>(p, <span class="at">node =</span> <span class="dv">452</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in_452-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in_452-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in_452-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_zoom_in_452-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="daralan-dallar" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="daralan-dallar">Daralan dallar</h3>
+</section><section id="daralan-dallar" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="daralan-dallar">Daralan dallar</h3>
 <p>Ancak, bu dalı yok saymak isteyebiliriz ve aynı noddaki (nod nr. 452) collapse() fonksiyonunu kullanarak dalı daraltabiliriz. Bu ağaç p_collapsed olarak tanımlanır.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p_collapsed <span class="ot">&lt;-</span> <span class="fu">collapse</span>(p, <span class="at">node =</span> <span class="dv">452</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>p_collapsed</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_collapse_452-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_collapse_452-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_collapse_452-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_collapse_452-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -998,15 +1003,12 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"steelblue"</span>)           <span class="co"># define the color of the symbol</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="ağacın-alt-kümelere-ayrılması" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ağacın-alt-kümelere-ayrılması">Ağacın alt kümelere ayrılması</h3>
+</section><section id="ağacın-alt-kümelere-ayrılması" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ağacın-alt-kümelere-ayrılması">Ağacın alt kümelere ayrılması</h3>
 <p>Daha kalıcı bir değişiklik yapmak ya da çalışma için yeni ve küçültülmüş bir ağaç oluşturmak istiyorsak, ağacın bir kısmının tree_subset() ile alt kümesini alabiliriz. Ardından bu alt kümeyi yeni bir newick ağaç dosyası veya .txt dosyası olarak kaydedebilirsiniz.</p>
 <p>İlk olarak, neyin altküme olacağına karar vermek için ağaç nodlarını ve uç etiketlerini inceleriz.</p>
 <div class="cell" data-layout-align="center">
@@ -1026,8 +1028,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>   <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face=</span><span class="st">"bold"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_subsetting-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_subsetting-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_subsetting-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_subsetting-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1045,8 +1046,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Subset tree 1"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1065,8 +1065,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Subset tree 2"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1079,9 +1078,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># .txt formatında kaydetmek için</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ape<span class="sc">::</span><span class="fu">write.tree</span>(sub_tree2, <span class="at">file=</span><span class="st">'data/phylo/Shigella_subtree_2.txt'</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="ağaçtaki-nodları-döndürmek" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ağaçtaki-nodları-döndürmek">Ağaçtaki nodları döndürmek</h3>
+</section><section id="ağaçtaki-nodları-döndürmek" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ağaçtaki-nodları-döndürmek">Ağaçtaki nodları döndürmek</h3>
 <p>Daha önce de belirtildiği gibi, ağaçtaki uçların veya nodların sırasını değiştiremeyiz, çünkü bu onların genetik akrabalıklarına dayanır ve görsel manipülasyona izin yoktur. Ancak, görselleştirmemizi kolaylaştıracaksa, dalları nodların etrafında döndürebiliriz.</p>
 <p>İlk olarak, işlemek istediğimiz nodu seçmek için yeni alt küme ağacımızı (alt küme 2) nod etiketleriyle çizeriz ve bir ggtree çizim nesnesi ‘p’ olarak saklarız.</p>
 <div class="cell" data-layout-align="center">
@@ -1095,8 +1092,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1117,8 +1113,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>p1 <span class="co"># çıktı alın</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_rotating_2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1132,8 +1127,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>p2   <span class="co"># çıktı alın</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1147,15 +1141,12 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>p3   <span class="co"># çıktı alın</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="phylogenetic_trees.tr_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç">Numune verilerini içeren açıklamalı örnek alt ağaç</h3>
+</section><section id="numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="numune-verilerini-içeren-açıklamalı-örnek-alt-ağaç">Numune verilerini içeren açıklamalı örnek alt ağaç</h3>
 <p>2017 ve 2018’de alt ağacımızda 39. nodda meydana gelen klonal genişlemeli vaka kümesini araştırdığımızı varsayalım. Yakın ilişkili diğer suşların kökenini görmek için suş izolasyonunun yanı sıra ülkeye göre seyahat geçmişi ve rengi de ekliyoruz:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(sub_tree2) <span class="sc">%&lt;+%</span> sample_data <span class="sc">+</span>     <span class="co"># sample_data'ya bağlanmak için %&lt;+% operatörünü kullanırız</span></span>
@@ -1200,18 +1191,14 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_inspect_subset_example-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_inspect_subset_example-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_inspect_subset_example-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_inspect_subset_example-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Gözlemimiz, yıllar içinde Belçika’da dolaşan ve en son salgınımıza neden olan Asya’dan kaynaklanan suşa işaret ediyor.</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme">Daha karmaşık ağaçlar: Örnek verilerin ısı haritalarını ekleme</h2>
+</section></section><section id="daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="daha-karmaşık-ağaçlar-örnek-verilerin-ısı-haritalarını-ekleme">Daha karmaşık ağaçlar: Örnek verilerin ısı haritalarını ekleme</h2>
 <p>ggtree::gheatmap() fonksiyonunu kullanarak bir ısı haritası biçiminde antimikrobiyal direnç genlerinin kategorik olarak varlığı ve antimikrobiyallere karşı ölçülen direnç için sayısal değerler gibi daha karmaşık bilgiler de ekleyebiliriz.</p>
 <p>İlk önce ağacımızı çizmemiz gerekiyor (bu doğrusal veya dairesel olabilir) ve ağacı yeni bir ggtree çizim nesnesi p’de saklamamız gerekiyor: Bölüm 3’teki sub_tree’yi kullanacağız.)</p>
 <div class="cell" data-layout-align="center">
@@ -1229,8 +1216,7 @@ Rooted; includes branch lengths.</code></pre>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1276,8 +1262,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>h1</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_gender-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_gender-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_gender-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_gender-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1312,8 +1297,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>h3</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_genes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_genes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_genes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_genes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1346,8 +1330,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>h5</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_MIC-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_MIC-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_MIC-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_MIC-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1368,8 +1351,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1398,8 +1380,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>h1</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1430,8 +1411,7 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a> h3</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1463,24 +1443,19 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>h5</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="phylogenetic_trees.tr_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="kaynaklar" class="level2" data-number="38.5">
-<h2 data-number="38.5" class="anchored" data-anchor-id="kaynaklar"><span class="header-section-number">38.5</span> Kaynaklar</h2>
+</section><section id="kaynaklar" class="level2" data-number="38.5"><h2 data-number="38.5" class="anchored" data-anchor-id="kaynaklar">
+<span class="header-section-number">38.5</span> Kaynaklar</h2>
 <p>http://hydrodictyon.eeb.uconn.edu/eebedia/index.php/Ggtree# Clade_Colors https://bioconductor.riken.jp/packages/3.2/bioc/vignettes/ggtree/inst/doc/treeManipulation.html https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html https://bioconductor.riken.jp/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html</p>
 <p>Ea Zankari, Rosa Allesøe, Katrine G Joensen, Lina M Cavaco, Ole Lund, Frank M Aarestrup, PointFinder: a novel web tool for WGS-based detection of antimicrobial resistance associated with chromosomal point mutations in bacterial pathogens, Journal of Antimicrobial Chemotherapy, Volume 72, Issue 10, October 2017, Pages 2764–2768, https://doi.org/10.1093/jac/dkx217</p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1659,18 +1634,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1702,7 +1666,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1737,7 +1741,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2010,60 +2018,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/transmission_chains.tr.html" class="pagination-link" aria-label="İletim Zincirleri">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">İletim Zincirleri</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">37</span>  <span class="chapter-title">İletim Zincirleri</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/interactive_plots.tr.html" class="pagination-link" aria-label="İnteraktif grafikler">
-        <span class="nav-page-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">İnteraktif grafikler</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">39</span>  <span class="chapter-title">İnteraktif grafikler</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>
