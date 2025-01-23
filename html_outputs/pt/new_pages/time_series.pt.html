@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.4.550">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>23  Séries temporais e detecção de surtos – Manual de R para Epidemiologistas</title>
+
+
+<title>Manual de R para Epidemiologistas - 23&nbsp; Séries temporais e detecção de surtos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -53,18 +55,33 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../new_pages/epidemic_models.pt.html" rel="next">
 <link href="../new_pages/moving_average.pt.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -91,13 +108,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -112,127 +134,83 @@ cookieconsent.run({
 "language":"pt"
   });
 });
-</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
-
+</script> 
+  
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+<script>
   window.dataLayer = window.dataLayer || [];
-
   function gtag(){dataLayer.push(arguments);}
-
   gtag('js', new Date());
 
-
-
   gtag('config', 'G-QXDW878QLX');
-
 </script>
-</head>
-<body class="nav-sidebar floating">
-<div class="alert alert-info alert-dismissible">
 
+</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
-
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
-
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
-
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
-
     class="alert-link">R Help Desk service</a>. -->
-
 </div>
-
-
 
 <script>
 
-
-
   // Function to extract the last two characters from the URL path
-
   function getLanguageFromURL() {
-
     const path = window.location.pathname.split('/');
-
     
-
     if (path.length > 1) {
-
       return path[1]; // Assume the language code is the second segment
-
     }
 
-
-
     return '';
-
   }
 
-
-
   const language = getLanguageFromURL();
-
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
-
   const defaultLanguage = 'en';
-
   const isSupportedLanguage = supportedLanguages.includes(language);
 
-
-
   // Translations for the content
-
   const translations = {
-
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
-
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
-
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
-
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
-
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
-
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
-
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
-
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
-
   };
 
-
-
   // Default to English if the detected language is not supported
-
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
-
-
-
   // Select the element where the content should be displayed
-
   const alertElement = document.querySelector('.alert');
-
   if (alertElement) {
-
     alertElement.innerHTML = contentToDisplay;
-
     alertElement.style.display = 'block'; // Make sure to display the element
-
   }
 
-
-
-</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+</script>
+<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -257,54 +235,65 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script><div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script>
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.pt.html">Análise dos Dados</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/time_series.pt.html"><span class="chapter-number">23</span>  <span class="chapter-title">Séries temporais e detecção de surtos</span></a></li>
-</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.pt.html">Análise dos Dados</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.pt.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Séries temporais e detecção de surtos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Manual de R para Epidemiologistas</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Código fonte" class="quarto-navigation-tool px-1" aria-label="Código fonte"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epihandbook_eng" title="Código fonte" class="quarto-navigation-tool px-1" aria-label="Código fonte"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
 </div>
     </div>
@@ -314,19 +303,9 @@ window.Quarto = {
         <div id="quarto-search" class="" title="Procurar"></div>
         </div>
         </div>
-    <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
-<a class="dropdown-item" href="/new_pages/time_series.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/time_series.fr.html" id="language-link-fr">Français</a>
-<a class="dropdown-item" href="/es/new_pages/time_series.es.html" id="language-link-es">Español</a>
-<a class="dropdown-item" href="/vn/new_pages/time_series.vn.html" id="language-link-vn">Tiếng Việt</a>
-<a class="dropdown-item" href="/jp/new_pages/time_series.jp.html" id="language-link-jp">日本</a>
-<a class="dropdown-item" href="/tr/new_pages/time_series.tr.html" id="language-link-tr">Türkçe</a>
-<a class="dropdown-item" href="/ru/new_pages/time_series.ru.html" id="language-link-ru">Русский</a>
-</ul>
-</div>
-<div class="sidebar-menu-container"> 
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.pt.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bem-vindo</span></a>
@@ -334,454 +313,441 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Sobre este livro</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Notas editoriais e técnicas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Notas editoriais e técnicas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Baixe o livro e os dados</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Baixe o livro e os dados</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Básico</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Introdução ao R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introdução ao R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Transição para o R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transição para o R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Pacotes sugeridos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pacotes sugeridos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Importar e exportar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Importar e exportar</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">Gerenciamento de Dados</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Limpeza de dados e principais funções</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Limpeza de dados e principais funções</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Trabalhando com datas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Trabalhando com datas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Caracteres e strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Caracteres e strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Fatores</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fatores</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Pivoteando dados</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pivoteando dados</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Agrupando dados</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Agrupando dados</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Juntando dados (Joins)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Juntando dados (Joins)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Eliminação de duplicidades</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Eliminação de duplicidades</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Iterações, loops e listas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iterações, loops e listas</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">Análise dos Dados</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Tabelas descritivas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tabelas descritivas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Testes estatísticos simples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Testes estatísticos simples</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Regressão simples e múltipla</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regressão simples e múltipla</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Campos em branco/faltantes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campos em branco/faltantes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Normalização de taxas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Normalização de taxas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Médias móveis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Médias móveis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.pt.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Séries temporais e detecção de surtos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Séries temporais e detecção de surtos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Modelagem de epidemias</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Modelagem de epidemias</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Rastreamento de contatos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Rastreamento de contatos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Analises de pesquisa de questionários (<em>survey</em>)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Analises de pesquisa de questionários (<em>survey</em>)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Análise de sobrevivência</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Análise de sobrevivência</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Introdução ao GIS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introdução ao GIS</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">Visualização de Dados</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Tabelas para apresentação</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Tabelas para apresentação</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">O básico do ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">O básico do ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">Dicas do ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Dicas do ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Curvas epidêmicas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Curvas epidêmicas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Pirâmides demográficas e escalas Likert</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Pirâmides demográficas e escalas Likert</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Gráficos de calor</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Gráficos de calor</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diagramas e gráficos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diagramas e gráficos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Análise de Combinações</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Análise de Combinações</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Cadeias de Transmissão</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Cadeias de Transmissão</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Árvores filogenéticas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Árvores filogenéticas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Gráficos interativos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Gráficos interativos</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">Relatórios e dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Relatórios com R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Relatórios com R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Organização de relatórios de rotina</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Organização de relatórios de rotina</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Painéis (Dashboards) com R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Painéis (Dashboards) com R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Painéis com Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Painéis com Shiny</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">Miscelânea</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Escrevendo funções</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Escrevendo funções</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Interações de diretório</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Interações de diretório</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Controle de versão e colaboração com Git e Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Controle de versão e colaboração com Git e Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Erros comuns</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Erros comuns</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Conseguindo ajuda</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Conseguindo ajuda</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R em drives (pastas) na rede</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R em drives (pastas) na rede</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.pt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Apêndices</span></span>
   </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Índice</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
    
   <ul>
-<li><a href="#vis%C3%A3o-geral-do-t%C3%B3pico" id="toc-visão-geral-do-tópico" class="nav-link active" data-scroll-target="#visão-geral-do-tópico"><span class="header-section-number">23.1</span> Visão geral do tópico</a></li>
-  <li>
-<a href="#prepara%C3%A7%C3%A3o" id="toc-preparação" class="nav-link" data-scroll-target="#preparação"><span class="header-section-number">23.2</span> Preparação</a>
+  <li><a href="#visão-geral-do-tópico" id="toc-visão-geral-do-tópico" class="nav-link active" data-scroll-target="#visão-geral-do-tópico"><span class="header-section-number">23.1</span> Visão geral do tópico</a></li>
+  <li><a href="#preparação" id="toc-preparação" class="nav-link" data-scroll-target="#preparação"><span class="header-section-number">23.2</span> Preparação</a>
   <ul class="collapse">
-<li><a href="#carregue-os-pacotes-r" id="toc-carregue-os-pacotes-r" class="nav-link" data-scroll-target="#carregue-os-pacotes-r">Carregue os pacotes R</a></li>
+  <li><a href="#carregue-os-pacotes-r" id="toc-carregue-os-pacotes-r" class="nav-link" data-scroll-target="#carregue-os-pacotes-r">Carregue os pacotes R</a></li>
   <li><a href="#carregue-os-dados-no-r" id="toc-carregue-os-dados-no-r" class="nav-link" data-scroll-target="#carregue-os-dados-no-r">Carregue os dados no R</a></li>
   <li><a href="#limpe-os-dados" id="toc-limpe-os-dados" class="nav-link" data-scroll-target="#limpe-os-dados">Limpe os dados</a></li>
-  <li><a href="#baixe-download-os-dados-clim%C3%A1ticos" id="toc-baixe-download-os-dados-climáticos" class="nav-link" data-scroll-target="#baixe-download-os-dados-climáticos">Baixe (<em>download</em>) os dados climáticos</a></li>
-  <li><a href="#carregue-os-dados-clim%C3%A1ticos" id="toc-carregue-os-dados-climáticos" class="nav-link" data-scroll-target="#carregue-os-dados-climáticos">Carregue os dados climáticos</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#dados-de-s%C3%A9ries-temporais" id="toc-dados-de-séries-temporais" class="nav-link" data-scroll-target="#dados-de-séries-temporais"><span class="header-section-number">23.3</span> Dados de séries temporais</a>
+  <li><a href="#baixe-download-os-dados-climáticos" id="toc-baixe-download-os-dados-climáticos" class="nav-link" data-scroll-target="#baixe-download-os-dados-climáticos">Baixe (<em>download</em>) os dados climáticos</a></li>
+  <li><a href="#carregue-os-dados-climáticos" id="toc-carregue-os-dados-climáticos" class="nav-link" data-scroll-target="#carregue-os-dados-climáticos">Carregue os dados climáticos</a></li>
+  </ul></li>
+  <li><a href="#dados-de-séries-temporais" id="toc-dados-de-séries-temporais" class="nav-link" data-scroll-target="#dados-de-séries-temporais"><span class="header-section-number">23.3</span> Dados de séries temporais</a>
   <ul class="collapse">
-<li><a href="#dados-duplicados" id="toc-dados-duplicados" class="nav-link" data-scroll-target="#dados-duplicados">Dados duplicados</a></li>
+  <li><a href="#dados-duplicados" id="toc-dados-duplicados" class="nav-link" data-scroll-target="#dados-duplicados">Dados duplicados</a></li>
   <li><a href="#campos-em-branco" id="toc-campos-em-branco" class="nav-link" data-scroll-target="#campos-em-branco">Campos em branco</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#an%C3%A1lise-descritiva" id="toc-análise-descritiva" class="nav-link" data-scroll-target="#análise-descritiva"><span class="header-section-number">23.4</span> Análise descritiva</a>
+  </ul></li>
+  <li><a href="#análise-descritiva" id="toc-análise-descritiva" class="nav-link" data-scroll-target="#análise-descritiva"><span class="header-section-number">23.4</span> Análise descritiva</a>
   <ul class="collapse">
-<li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">Médias móveis</a></li>
+  <li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">Médias móveis</a></li>
   <li><a href="#peridiocidade" id="toc-peridiocidade" class="nav-link" data-scroll-target="#peridiocidade">Peridiocidade</a></li>
-  <li><a href="#decomposi%C3%A7%C3%A3o" id="toc-decomposição" class="nav-link" data-scroll-target="#decomposição">Decomposição</a></li>
-  <li><a href="#autocorrela%C3%A7%C3%A3o" id="toc-autocorrelação" class="nav-link" data-scroll-target="#autocorrelação">Autocorrelação</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#ajustando-regress%C3%B5es" id="toc-ajustando-regressões" class="nav-link" data-scroll-target="#ajustando-regressões"><span class="header-section-number">23.5</span> Ajustando regressões</a>
+  <li><a href="#decomposição" id="toc-decomposição" class="nav-link" data-scroll-target="#decomposição">Decomposição</a></li>
+  <li><a href="#autocorrelação" id="toc-autocorrelação" class="nav-link" data-scroll-target="#autocorrelação">Autocorrelação</a></li>
+  </ul></li>
+  <li><a href="#ajustando-regressões" id="toc-ajustando-regressões" class="nav-link" data-scroll-target="#ajustando-regressões"><span class="header-section-number">23.5</span> Ajustando regressões</a>
   <ul class="collapse">
-<li><a href="#termos-de-fourier" id="toc-termos-de-fourier" class="nav-link" data-scroll-target="#termos-de-fourier">Termos de Fourier</a></li>
+  <li><a href="#termos-de-fourier" id="toc-termos-de-fourier" class="nav-link" data-scroll-target="#termos-de-fourier">Termos de Fourier</a></li>
   <li><a href="#binominal-negativa" id="toc-binominal-negativa" class="nav-link" data-scroll-target="#binominal-negativa">Binominal negativa</a></li>
-  <li><a href="#res%C3%ADduos" id="toc-resíduos" class="nav-link" data-scroll-target="#resíduos">Resíduos</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#rela%C3%A7%C3%A3o-entre-duas-s%C3%A9ries-temporais" id="toc-relação-entre-duas-séries-temporais" class="nav-link" data-scroll-target="#relação-entre-duas-séries-temporais"><span class="header-section-number">23.6</span> Relação entre duas séries temporais</a>
+  <li><a href="#resíduos" id="toc-resíduos" class="nav-link" data-scroll-target="#resíduos">Resíduos</a></li>
+  </ul></li>
+  <li><a href="#relação-entre-duas-séries-temporais" id="toc-relação-entre-duas-séries-temporais" class="nav-link" data-scroll-target="#relação-entre-duas-séries-temporais"><span class="header-section-number">23.6</span> Relação entre duas séries temporais</a>
   <ul class="collapse">
-<li><a href="#unindo-bancos-de-dados" id="toc-unindo-bancos-de-dados" class="nav-link" data-scroll-target="#unindo-bancos-de-dados">Unindo bancos de dados</a></li>
-  <li><a href="#an%C3%A1lise-descritiva-1" id="toc-análise-descritiva-1" class="nav-link" data-scroll-target="#análise-descritiva-1">Análise descritiva</a></li>
-  <li><a href="#lags-e-correla%C3%A7%C3%A3o-cruzada" id="toc-lags-e-correlação-cruzada" class="nav-link" data-scroll-target="#lags-e-correlação-cruzada">Lags e correlação cruzada</a></li>
-  <li><a href="#binominal-negativa-com-duas-vari%C3%A1veis" id="toc-binominal-negativa-com-duas-variáveis" class="nav-link" data-scroll-target="#binominal-negativa-com-duas-variáveis">Binominal negativa com duas variáveis</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#detec%C3%A7%C3%A3o-de-surtos" id="toc-detecção-de-surtos" class="nav-link" data-scroll-target="#detecção-de-surtos"><span class="header-section-number">23.7</span> Detecção de surtos</a>
+  <li><a href="#unindo-bancos-de-dados" id="toc-unindo-bancos-de-dados" class="nav-link" data-scroll-target="#unindo-bancos-de-dados">Unindo bancos de dados</a></li>
+  <li><a href="#análise-descritiva-1" id="toc-análise-descritiva-1" class="nav-link" data-scroll-target="#análise-descritiva-1">Análise descritiva</a></li>
+  <li><a href="#lags-e-correlação-cruzada" id="toc-lags-e-correlação-cruzada" class="nav-link" data-scroll-target="#lags-e-correlação-cruzada">Lags e correlação cruzada</a></li>
+  <li><a href="#binominal-negativa-com-duas-variáveis" id="toc-binominal-negativa-com-duas-variáveis" class="nav-link" data-scroll-target="#binominal-negativa-com-duas-variáveis">Binominal negativa com duas variáveis</a></li>
+  </ul></li>
+  <li><a href="#detecção-de-surtos" id="toc-detecção-de-surtos" class="nav-link" data-scroll-target="#detecção-de-surtos"><span class="header-section-number">23.7</span> Detecção de surtos</a>
   <ul class="collapse">
-<li><a href="#pacote-trending" id="toc-pacote-trending" class="nav-link" data-scroll-target="#pacote-trending">Pacote <strong>trending</strong></a></li>
+  <li><a href="#pacote-trending" id="toc-pacote-trending" class="nav-link" data-scroll-target="#pacote-trending">Pacote <strong>trending</strong></a></li>
   <li><a href="#pacote-surveillance" id="toc-pacote-surveillance" class="nav-link" data-scroll-target="#pacote-surveillance">Pacote <strong>surveillance</strong></a></li>
-  </ul>
-</li>
-  <li><a href="#s%C3%A9ries-temporais-interrompidas" id="toc-séries-temporais-interrompidas" class="nav-link" data-scroll-target="#séries-temporais-interrompidas"><span class="header-section-number">23.8</span> Séries temporais interrompidas</a></li>
+  </ul></li>
+  <li><a href="#séries-temporais-interrompidas" id="toc-séries-temporais-interrompidas" class="nav-link" data-scroll-target="#séries-temporais-interrompidas"><span class="header-section-number">23.8</span> Séries temporais interrompidas</a></li>
   <li><a href="#recursos" id="toc-recursos" class="nav-link" data-scroll-target="#recursos"><span class="header-section-number">23.9</span> Recursos</a></li>
-  </ul></nav>
-</div>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.pt.html">Análise dos Dados</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/time_series.pt.html"><span class="chapter-number">23</span>  <span class="chapter-title">Séries temporais e detecção de surtos</span></a></li>
-</ol></nav><div class="quarto-title">
-<h1 class="title"><span id="time-series" class="quarto-section-identifier"><span class="chapter-number">23</span>  <span class="chapter-title">Séries temporais e detecção de surtos</span></span></h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.pt.html">Análise dos Dados</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.pt.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Séries temporais e detecção de surtos</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="time-series" class="quarto-section-identifier"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Séries temporais e detecção de surtos</span></span></h1>
 </div>
 
 
@@ -795,8 +761,12 @@ window.Quarto = {
   
 
 
-</header><!-- ======================================================= --><section id="visão-geral-do-tópico" class="level2" data-number="23.1"><h2 data-number="23.1" class="anchored" data-anchor-id="visão-geral-do-tópico">
-<span class="header-section-number">23.1</span> Visão geral do tópico</h2>
+</header>
+
+
+<!-- ======================================================= -->
+<section id="visão-geral-do-tópico" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="visão-geral-do-tópico"><span class="header-section-number">23.1</span> Visão geral do tópico</h2>
 <p>Esta página demonstra o uso de diferentes pacotes para analisar séries temporais. São utilizados, principalmente, os pacotes da família <a href="https://tidyverts.org/"><strong>tidyverts</strong></a> , mas também o pacote RECON <a href="https://github.com/reconhub/trending"><strong>trending</strong></a> para aprimorar modelos mais apropriados para epidemiologia de doenças infecciosas.</p>
 <p>Observe que, no exemplo abaixo, nós utilizamos um banco de dados do pacote <strong>surveillance</strong> sobre a Campylobacter na Alemanha (veja o <a href="https://epirhandbook.com/download-handbook-and-data.html">capítulo sobre dados</a>, deste manual para mais detalhes). Entretanto, se você quiser executar o mesmo código em um banco de dados com múltiplos países, ou outros estratos, então aqui está um exemplo de código para isto no <a href="https://github.com/R4EPI/epitsa">repositório do r4epis no github</a>.</p>
 <p>Tópicos abordados incluem:</p>
@@ -808,9 +778,12 @@ window.Quarto = {
 <li>Detecção de surtos</li>
 <li>Séries temporais interrompidas</li>
 </ol>
-<!-- ======================================================= --></section><section id="preparação" class="level2" data-number="23.2"><h2 data-number="23.2" class="anchored" data-anchor-id="preparação">
-<span class="header-section-number">23.2</span> Preparação</h2>
-<section id="carregue-os-pacotes-r" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="carregue-os-pacotes-r">Carregue os pacotes R</h3>
+<!-- ======================================================= -->
+</section>
+<section id="preparação" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="preparação"><span class="header-section-number">23.2</span> Preparação</h2>
+<section id="carregue-os-pacotes-r" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="carregue-os-pacotes-r">Carregue os pacotes R</h3>
 <p>O código abaixo realiza o carregamento dos pacotes necessários para a análise dos dados. Neste manual, enfatizamos o uso da função <code>p_load()</code>, do <strong>pacman</strong>, que instala os pacotes, caso não estejam instalados, <em>e</em> os carrega no R para utilização. Também é possível carregar pacotes instalados utilizando a função <code>library()</code>, do R <strong>base</strong>. Para mais informações sobre os pacotes do R, veja a página <a href="basics.pt.html">Introdução ao R</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rio,          <span class="co"># Importar arquivos</span></span>
@@ -831,7 +804,9 @@ window.Quarto = {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               ncmeta        <span class="co"># ler arquivos .nc</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>               )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="carregue-os-dados-no-r" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="carregue-os-dados-no-r">Carregue os dados no R</h3>
+</section>
+<section id="carregue-os-dados-no-r" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="carregue-os-dados-no-r">Carregue os dados no R</h3>
 <p>Você pode baixar todos os dados utilizados neste manual através das instruções na página de <a href="data_used.pt.html">download do manual e dos dados</a>.</p>
 <p>Os dados utilizados nessa seção para fins de exemplificação são as contagens semanais de casos de campylobacter notificados na Alemanha entre 2001 e 2011. <a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button"> Você pode clicar aqui para baixar<span> este arquivo de dados (.xlsx).</span></a></p>
 <p>Este banco de dados é uma versão reduzida do banco de dados disponível no pacote <a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a>. (para mais detalhes, carregue o pacote surveillance e veja <code>?campyDE</code>)</p>
@@ -843,11 +818,13 @@ window.Quarto = {
 <p>As primeiras 10 linhas da contagem são mostradas abaixo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-46eeed4f557482b60244" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-46eeed4f557482b60244">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8fb91c1cca35f9a066ff" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8fb91c1cca35f9a066ff">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="limpe-os-dados" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="limpe-os-dados">Limpe os dados</h3>
+</section>
+<section id="limpe-os-dados" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="limpe-os-dados">Limpe os dados</h3>
 <p>O código abaixo garante que a coluna de datas esteja no formato apropriado. Nesta página, iremos utilizar o pacote <strong>tsibble</strong> com funções <code>yearweek</code> que serão usadas para criar uma variável com um calendário de semanas. Existem outras maneiras de fazer isso (veja a página <a href="dates.pt.html">trabalhando com datas</a> para mais detalhes), entretanto, para séries temporais é melhor nos mantermos dentro de um único tipo de abordagem (<strong>tsibble</strong>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## garanta que a coluna com datas estejam no formato apropriado</span></span>
@@ -858,12 +835,15 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts <span class="sc">%&gt;%</span> </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">epiweek =</span> <span class="fu">yearweek</span>(date, <span class="at">week_start =</span> <span class="dv">1</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="baixe-download-os-dados-climáticos" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="baixe-download-os-dados-climáticos">Baixe (<em>download</em>) os dados climáticos</h3>
+</section>
+<section id="baixe-download-os-dados-climáticos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="baixe-download-os-dados-climáticos">Baixe (<em>download</em>) os dados climáticos</h3>
 <p>Na seção sobre a <em>relação de duas séries temporais</em> nesta página, nós iremos comparar contagens de casos de campylobacter com dados climáticos.</p>
 <p>Dados climáticos de qualquer lugar do mundo podem ser baixados do Satélite Copernicus da União Européia Estas não são medições exatas, mas baseadas em um modelo (similar a interpolação). Entretanto, o benefício é a cobertura global a cada hora, bem como previsões.</p>
 <p>Você pode baixar cada um desses arquivos de dados climáticos da página <a href="data_used.pt.html">Download do manual e dos dados</a>.</p>
 <p>Para fins de demonstração, nós iremos mostrar códigos em R que utilizam o pacote <strong>ecmwfr</strong> para baixar esses dados do repositório do Copernicus. Você precisa criar uma conta gratuita para que isto funcione. O website do pacote tem um <a href="https://github.com/bluegreen-labs/ecmwfr#use-copernicus-climate-data-store-cds">passo a passo</a> útil de como fazer isto. Quando tiver as chaves API apropriadas, o código abaixo é um exemplo de como proceder. Você precisa substituir o X abaixo com o ID da sua conta. Você só pode baixar um ano de dados por vez. Do contrário, o tempo do servidor expira.</p>
-<p>Se você não tiver certeza das coordenadas de uma localização que quer baixar os dados, é possível utilizar o pacote <strong>tmaptools</strong> para baixar as coordenadas de um mapa <em>open street</em>. Outra alternativa é o pacote <a href="https://github.com/rCarto/photon"><strong>photon</strong></a>, entretanto ele ainda não foi liberado no CRAN; algo interessante do<br><strong>photon</strong> é que ele fornece mais dados contextuais caso existam diferentes resultados para o que se busca.</p>
+<p>Se você não tiver certeza das coordenadas de uma localização que quer baixar os dados, é possível utilizar o pacote <strong>tmaptools</strong> para baixar as coordenadas de um mapa <em>open street</em>. Outra alternativa é o pacote <a href="https://github.com/rCarto/photon"><strong>photon</strong></a>, entretanto ele ainda não foi liberado no CRAN; algo interessante do<br>
+<strong>photon</strong> é que ele fornece mais dados contextuais caso existam diferentes resultados para o que se busca.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## recupere as coordenadas de localização</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">geocode_OSM</span>(<span class="st">"Germany"</span>, <span class="at">geometry =</span> <span class="st">"point"</span>)</span>
@@ -913,7 +893,9 @@ window.Quarto = {
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path     =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"weather"</span>)) <span class="do">## diretório para salvar os dados</span></span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="carregue-os-dados-climáticos" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="carregue-os-dados-climáticos">Carregue os dados climáticos</h3>
+</section>
+<section id="carregue-os-dados-climáticos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="carregue-os-dados-climáticos">Carregue os dados climáticos</h3>
 <p>Se você baixou os dados climáticos seguindo o nosso manual, ou se utilizou o código acima, agora você deve ter 10 anos de arquivos com dados climáticos “.nc” armazenados na mesma pasta do seu computador.</p>
 <p>Utilize o código abaixo para importar estes arquivos no R com o pacote <strong>stars</strong>.</p>
 <div class="cell">
@@ -965,8 +947,10 @@ t2m, tp, </code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="dados-de-séries-temporais" class="level2" data-number="23.3"><h2 data-number="23.3" class="anchored" data-anchor-id="dados-de-séries-temporais">
-<span class="header-section-number">23.3</span> Dados de séries temporais</h2>
+</section>
+</section>
+<section id="dados-de-séries-temporais" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="dados-de-séries-temporais"><span class="header-section-number">23.3</span> Dados de séries temporais</h2>
 <p>Existem diferentes pacotes para estruturar e manipular dados de séries temporais. Como dito, nós iremos focar nos pacotes da família <strong>tidyverts</strong>, e, assim, utilizar o pacote <strong>tsibble</strong> para definir nosso objeto de séries temporais. Definir os dados como um objeto de séries temporais significa que é muito mais fácil estruturar a nossa análise.</p>
 <p>Para fazer isso, nós utilizamos a função <code>tsibble()</code> e especificamos o “index”. Por exemplo, a variável especificando a unidade de tempo de interesse. No nosso caso, esta é a variável <code>epiweek</code>.</p>
 <p>Se nós tivéssemos dados com contagens semanais por províncias, por exemplo, também seríamos capazes de especificar a variável de agrupamento utilizando o argumento <code>key =</code>. Isto iria nos permitir realizar a análise para cada grupo.</p>
@@ -982,14 +966,16 @@ t2m, tp, </code></pre>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.pt_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.pt_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span style="color: red;"><strong><em>PERIGO:</em></strong> Boa parte dos bancos de dados não são limpos como o deste exemplo. Você irá precisar checar por duplicatas e campos em branco como mostrado abaixo. </span></p>
 <!-- ======================================================= -->
-<section id="dados-duplicados" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="dados-duplicados">Dados duplicados</h3>
+<section id="dados-duplicados" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="dados-duplicados">Dados duplicados</h3>
 <p><strong>tsibble</strong> não permite observações duplicadas. Então, cada linha precisa ser única, ou única dentro de um grupo (variável <code>key</code>). O pacote tem algumas funções que ajudam a identificar duplicatas. Estes incluem a função <code>are_duplicated()</code>, que gera um vetor TRUE/FALSE caso a linha seja uma duplicata, e a função <code>duplicates()</code> que gera um quadro de dados com as linhas duplicadas.</p>
 <p>Veja a página sobre <a href="deduplication.pt.html">Eliminando duplicidades</a> para mais detalhes sobre como selecionar as linhas que você quer.</p>
 <div class="cell">
@@ -1000,7 +986,9 @@ t2m, tp, </code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">duplicates</span>(counts, <span class="at">index =</span> epiweek)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="campos-em-branco" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="campos-em-branco">Campos em branco</h3>
+</section>
+<section id="campos-em-branco" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="campos-em-branco">Campos em branco</h3>
 <p>Por meio da breve inspeção demonstrada acima, nós vimos que não existem campos em branco em nossos dados, mas também notamos que existe um problema com atrasos de notificação próximo ao ano novo. Uma forma de abordar isto seria atribuir campos vazios a esses valores, e então inserir novos valores. A forma mais simples de iserção (<em>input</em>) em uma série temporal é desenhar uma linha reta entre o último valor preenchido e o próximo valor preenchido (entre os campos em branco). Para fazer isso, nós iremos utilizar a função <code>na_interpolation()</code> do pacote <strong>imputeTS</strong>.</p>
 <p>Veja a página sobre <a href="missing_data.pt.html">Dados faltantes</a> para mais informações sobre imputação.</p>
 <p>Outra alternativa seria calcular a média móvel, para tentar suavizar esses problemas aparentes de notificação (veja a próxima seção, e a página sobre <a href="moving_average.pt.html">médias móveis</a>).</p>
@@ -1028,16 +1016,20 @@ t2m, tp, </code></pre>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.pt_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.pt_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="análise-descritiva" class="level2" data-number="23.4"><h2 data-number="23.4" class="anchored" data-anchor-id="análise-descritiva">
-<span class="header-section-number">23.4</span> Análise descritiva</h2>
+</section>
+</section>
+<section id="análise-descritiva" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="análise-descritiva"><span class="header-section-number">23.4</span> Análise descritiva</h2>
 <!-- ======================================================= -->
-<section id="timeseries_moving" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">Médias móveis</h3>
+<section id="timeseries_moving" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">Médias móveis</h3>
 <p>Se os dados apresentam muitos ruídos (contagens pulando para cima e para baixo), então pode ser útil calcular a média móvel. No exemplo abaixo, para cada semana nós calculamos o número médio de casos das quatro semanas anteriores. Isto suaviza os dados para torná-los mais fáceis de interpretar. No nosso caso, isto não traz grandes vantagens, então nós iremos manter os dados interpolados para mais análises. Veja a página sobre <a href="moving_average.pt.html">Médias móveis</a> para mais detalhes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## crie uma variável de média móvel (o que resolve o problema dos campos em branco)</span></span>
@@ -1056,13 +1048,16 @@ t2m, tp, </code></pre>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma_4wk), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.pt_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.pt_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="peridiocidade" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="peridiocidade">Peridiocidade</h3>
+</section>
+<section id="peridiocidade" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="peridiocidade">Peridiocidade</h3>
 <p>Abaixo, nós definimos uma função customizada para criar um periodograma. Veja a página sobre <a href="writing_functions.pt.html">Escrevendo funções</a> para informações sobre como escrever funções no R.</p>
 <p>Primeiro, a função é definida. Seus argumentos incluem um banco de dados com uma coluna <code>counts</code>, <code>start_week =</code> que é a primeira semana do banco de dados, um número para indicar quantos períodos por ano (ex.: 52, 12), e, por último, o estilo da saída da análise (veja detalhes no código abaixo).</p>
 <div class="cell">
@@ -1124,7 +1119,8 @@ t2m, tp, </code></pre>
 <span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Period (Weeks)"</span>, <span class="at">y =</span> <span class="st">"Log(density)"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.pt_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.pt_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1136,7 +1132,9 @@ t2m, tp, </code></pre>
 </div>
 <p><span style="color: black;"><strong><em>NOTA:</em></strong> É possível utilizar as semanas acima para adicioná-las aos termos de seno e coseno. Entretanto, nós iremos utilizar uma função para gerar esses termos (veja a seção sobre regressão abaixo) </span></p>
 <!-- ======================================================= -->
-</section><section id="decomposição" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="decomposição">Decomposição</h3>
+</section>
+<section id="decomposição" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="decomposição">Decomposição</h3>
 <p>Para dividir a série temporal em diferentes partes, a decomposição clássica é utilizada, pois quando analisadas juntas, é possível verificar um padrão. Estas partes distintas são:</p>
 <ul>
 <li>O ciclo-tendência (a tendência dos dados no longo prazo)</li>
@@ -1154,13 +1152,16 @@ t2m, tp, </code></pre>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.pt_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.pt_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="autocorrelação" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="autocorrelação">Autocorrelação</h3>
+</section>
+<section id="autocorrelação" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="autocorrelação">Autocorrelação</h3>
 <p>Autocorrelação mostra a relação entre as contagens de cada semana e das semanas anteriores a la (chamado de lags).</p>
 <p>Ao utilizar a função <code>ACF()</code>, nós podemos gerar um gráfico que mostra o número de linhas em relação aos diferentes defasagens (<em>lags</em>). Quando o <em>lag</em> for 0 (x = 0), esta linha deve ser sempre 1 pois mostra a relação entre uma observação e ela mesma (não mostrado aqui). A primeira linha mostrada aqui (x = 1) mostra a relação entre cada observação e a última observação antes dela (<em>lag</em> de 1), a segunda mostra a relação entre cada observação e a penúltima observação anterior a ela (<em>lag</em> de 2) e assim por diante, até o <em>lag</em> de 52, que mostra a relação entre cada observação e a observação de 1 ano (52 semanas antes).</p>
 <p>A função <code>PACF()</code> (para autocorrelação parcial) mostra o mesmo tipo de relação mas ajustado para todas as outras semanas no intervalo. Isto é menos útil para determinar a peridiocidade.</p>
@@ -1173,7 +1174,8 @@ t2m, tp, </code></pre>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.pt_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.pt_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1185,7 +1187,8 @@ t2m, tp, </code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.pt_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.pt_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1203,12 +1206,15 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="ajustando-regressões" class="level2" data-number="23.5"><h2 data-number="23.5" class="anchored" data-anchor-id="ajustando-regressões">
-<span class="header-section-number">23.5</span> Ajustando regressões</h2>
+</section>
+</section>
+<section id="ajustando-regressões" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="ajustando-regressões"><span class="header-section-number">23.5</span> Ajustando regressões</h2>
 <p>É possível ajustar uma vasta quantidade de diferentes regressões em uma série temporal. Entretanto, aqui nós iremos demonstrar como ajustar uma regressão binominal negativa - uma<br>
 vez que frequentemente esta é a mais apropriada para dados de contagem em doenças infecciosas.</p>
 <!-- ======================================================= -->
-<section id="termos-de-fourier" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="termos-de-fourier">Termos de Fourier</h3>
+<section id="termos-de-fourier" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="termos-de-fourier">Termos de Fourier</h3>
 <p>Termos de Fourier são os equivalentes de curvas seno e coseno. A diferença é que estes são ajustados com base na identificação da combinação mais apropriada das curvas para explicar seus dados.</p>
 <p>O ajuste de apenas um termo de Fourier equivale a ajustar um seno e um coseno para a defasagem (<em>lag</em>) que ocorre mais frequentemente em seu periodograma (no nosso caso, de 52 semanas). Para isso, nós utilizamos a função <code>fourier()</code> do pacote <strong>forecast</strong>.</p>
 <p>No código abaixo, a atribuição é feita utilizando o <code>$</code>, uma vez que <code>fourier()</code> retorna duas colunas (uma<br>
@@ -1219,10 +1225,13 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fourier</span>(<span class="at">K =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="binominal-negativa" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="binominal-negativa">Binominal negativa</h3>
+</section>
+<section id="binominal-negativa" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="binominal-negativa">Binominal negativa</h3>
 <p>É possível ajustar regressões utilizando funções básicas do <strong>stats</strong> ou <strong>MASS</strong> (ex.: <code>lm()</code>, <code>glm()</code> e <code>glm.nb()</code>). Entretanto, nós iremos utilizar as funções do pacote <strong>trending</strong>, pois ele permite o cálculo apropriado dos intervalos de confiança e de predição (que de outra forma não estão disponíveis). A sintaxe é a mesma, em que você especifica uma variável para atribuir o resultado, um til (~), e então adiciona as variáveis de interesse separadas por um sinal de mais (+).</p>
 <p>A outra diferença é que nós primeiro definimos o modelo e então o ajustamos <code>fit()</code> (ajustamos) para os dados. Isto é útil porque permite a comparação de diferentes modelos com a mesma sintaxe.</p>
-<p><span style="color: darkgreen;"><strong><em>DICA:</em></strong> Se você quiser utilizar taxas, em vez de contagens, é possível incluir a variável população como um termo logaritmo de compensação, ao adicionar<br><code>offset(log(population)</code>. Para calcular uma taxa, você então precisaria ajustar a população para ser 1, antes de utilizar a função <code>predict()</code>. </span></p>
+<p><span style="color: darkgreen;"><strong><em>DICA:</em></strong> Se você quiser utilizar taxas, em vez de contagens, é possível incluir a variável população como um termo logaritmo de compensação, ao adicionar<br>
+<code>offset(log(population)</code>. Para calcular uma taxa, você então precisaria ajustar a população para ser 1, antes de utilizar a função <code>predict()</code>. </span></p>
 <p><span style="color: darkgreen;"><strong><em>DICA:</em></strong> Para ajustar modelos mais complexos como ARIMA ou profeta (prophet), veja o pacote <a href="https://fable.tidyverts.org/index.html"><strong>fable</strong></a>. </span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## escolha o modelo que você quer ajustar (binominal negativa)</span></span>
@@ -1258,13 +1267,16 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.pt_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.pt_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="resíduos" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="resíduos">Resíduos</h3>
+</section>
+<section id="resíduos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="resíduos">Resíduos</h3>
 <p>Para avaliar o quão bem nosso modelo se ajusta aos dados observados, precisamos checar os resíduos. Os resíduos são a diferença entre as contagens observadas e as contagens estimadas pelo modelo. Nós podemos calcular isto de forma simples, utilizando <code>case_int - estimate</code>, mas a função <code>residuals()</code> extrai isso diretamente da regressão para nós.</p>
 <p>O que vemos abaixo é que não estamos explicando toda a variabilidade dos dados com o nosso modelo. Uma possibilidade seria ajustar mais termos de Fourier, e verificar a amplitude. Entretanto, para este exemplo, nós iremos deixar da forma que está. Os gráficos mostram que nosso modelo possui pior desempenho nos picos e nas baixas (quando as contagens estão nas maiores ou nas menores quantidades). Sendo assim, ele provavelmente irá subestimar as contagens observadas.</p>
 <div class="cell">
@@ -1280,7 +1292,8 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1291,7 +1304,8 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1303,7 +1317,8 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1315,7 +1330,8 @@ para seno, outra para coseno) que são adicionadas aos dados como uma lista, cha
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.pt_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1333,11 +1349,14 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="relação-entre-duas-séries-temporais" class="level2" data-number="23.6"><h2 data-number="23.6" class="anchored" data-anchor-id="relação-entre-duas-séries-temporais">
-<span class="header-section-number">23.6</span> Relação entre duas séries temporais</h2>
+</section>
+</section>
+<section id="relação-entre-duas-séries-temporais" class="level2" data-number="23.6">
+<h2 data-number="23.6" class="anchored" data-anchor-id="relação-entre-duas-séries-temporais"><span class="header-section-number">23.6</span> Relação entre duas séries temporais</h2>
 <p>Aqui nós vemos como utilizar dados climáticos (especificamente a temperatura) para explicar a quantidade de casos de campylobacter.</p>
 <!-- ======================================================= -->
-<section id="unindo-bancos-de-dados" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="unindo-bancos-de-dados">Unindo bancos de dados</h3>
+<section id="unindo-bancos-de-dados" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="unindo-bancos-de-dados">Unindo bancos de dados</h3>
 <p>Nós podemos unir nossos bancos de dados utilizando a variável de semana. Para mais informações sobre junção de dados, veja no manual a seção sobre <a href="joining_matching.pt.html">unindo dados</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## junção à esquerda, de forma que nós teremos apenas as linhas existentes na tabela de contagens</span></span>
@@ -1347,7 +1366,9 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">by =</span> <span class="st">"epiweek"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="análise-descritiva-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="análise-descritiva-1">Análise descritiva</h3>
+</section>
+<section id="análise-descritiva-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="análise-descritiva-1">Análise descritiva</h3>
 <p>Primeiro, faça um gráfico de seus dados para ver se existe alguma relação óbvia. O gráfico abaixo mostra que existe uma relação clara na sazonalidade das duas variáveis, e que a temperatura pode aumentar algumas semanas antes da contagem de casos. Para mais sobre o pivoteamento dos dados, veja a seção sobre <a href="pivoting.pt.html">pivoteando dados</a> neste manual.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">%&gt;%</span> </span>
@@ -1371,13 +1392,16 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.pt_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.pt_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="lags-e-correlação-cruzada" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lags-e-correlação-cruzada">Lags e correlação cruzada</h3>
+</section>
+<section id="lags-e-correlação-cruzada" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="lags-e-correlação-cruzada">Lags e correlação cruzada</h3>
 <p>Para formalmente testar quais semanas estão mais relacionadas com os casos e temperatura. Nós podemos utilizar a função de correlação cruzada (<code>CCF()</code>) do pacote <strong>feasts</strong>. Você pode também visualizar (em vez de utilizar <code>arrange</code>) os dados com a função <code>autoplot()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">%&gt;%</span> </span>
@@ -1417,7 +1441,9 @@ do pacote <strong>trending</strong>, nós precisamos usar o argumento <code>simu
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t2m_lag4 =</span> <span class="fu">lag</span>(t2m, <span class="at">n =</span> <span class="dv">4</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="binominal-negativa-com-duas-variáveis" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="binominal-negativa-com-duas-variáveis">Binominal negativa com duas variáveis</h3>
+</section>
+<section id="binominal-negativa-com-duas-variáveis" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="binominal-negativa-com-duas-variáveis">Binominal negativa com duas variáveis</h3>
 <p>Nós ajustamos uma regressão binominal negativa como feito anteriormente. Desta vez, adicionamos a variável temperatura com uma defasagem de tempo (<em>lag</em>) de quatro semanas.</p>
 <p><span style="color: orange;"><strong><em>CUIDADO:</em></strong> Observe o uso do argumento <code>simulate_pi = FALSE</code> dentro da função <code>predict()</code>. Isto se deve porque o comportamento padrão de <strong>trending</strong> é usar o pacote <strong>ciTools</strong> para estimar um intervalo de predição. Isto não funciona se existirem contagen <code>NA</code>, e também produz intervalos mais granulares. Veja <code>?trending::predict.trending_model_fit</code> para mais detalhes. </span></p>
 <div class="cell">
@@ -1484,12 +1510,14 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.pt_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.pt_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="resíduos-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="resíduos-1">Resíduos</h4>
+<section id="resíduos-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="resíduos-1">Resíduos</h4>
 <p>Aqui, novamente avaliaremos os resíduos para ver o quão bem o nosso modelo se ajusta aos dados observados. Os resultados e a interpretação são similares àqueles da regressão anterior, então pode ser mais viável continuar com o modelo mais simples, sem a temperatura.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## calcule os resíduos</span></span>
@@ -1504,7 +1532,8 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1515,7 +1544,8 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1527,7 +1557,8 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1539,7 +1570,8 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.pt_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1557,16 +1589,20 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section></section><section id="detecção-de-surtos" class="level2" data-number="23.7"><h2 data-number="23.7" class="anchored" data-anchor-id="detecção-de-surtos">
-<span class="header-section-number">23.7</span> Detecção de surtos</h2>
+</section>
+</section>
+</section>
+<section id="detecção-de-surtos" class="level2" data-number="23.7">
+<h2 data-number="23.7" class="anchored" data-anchor-id="detecção-de-surtos"><span class="header-section-number">23.7</span> Detecção de surtos</h2>
 <p>Aqui, nós iremos demonstrar dois métodos similares para detecção de surtos. O primeiro tem como base as seções acima. Nós usamos o pacote <strong>trending</strong> para ajustar regressões para os anos anteriores, e então predizer o que esperar para o próximo ano. Se as contagens observadas estão acima do esperado, é possível que exista um surto. O segundo método é baseado em princípios similares, mas utiliza o pacote <strong>surveillance</strong>, que possui uma variedade de algoritmos diferentes para detecção de anomalias.</p>
 <p><span style="color: orange;"><strong><em>CUIDADO:</em></strong> Normalmente, você tem interesse no ano corrente (onde você apenas conhece contagens até a semana atual). Então, neste exemplo, nós fingiremos estar na semana 39 de 2011.</span></p>
 <!-- ======================================================= -->
-<section id="pacote-trending" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="pacote-trending">Pacote <strong>trending</strong>
-</h3>
+<section id="pacote-trending" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="pacote-trending">Pacote <strong>trending</strong></h3>
 <p>Para este método, nós definimos uma base de referência (usualmente 5 anos de dados). Nós ajustamos uma regressão com esses dados, e então usamos isto para prever as estimativas para o próximo ano.</p>
 <!-- ======================================================= -->
-<section id="data-limite" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="data-limite">Data limite</h4>
+<section id="data-limite" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="data-limite">Data limite</h4>
 <p>É mais fácil definir suas datas em um local, e então utiliza-las no resto do seu código.</p>
 <p>Aqui, nós definimos uma data de início (quando suas observações começaram) e uma data limite (o final do seu período de referência - e quando o período que nós queremos prever começa). ~Nós também definimos quantas semanas estão no nosso ano de interesse (o ano que iremos fazer previsões)~. E também definimos quantas semanas estão entre o limite do nosso período de referência, e a data final que estamos interessados em fazer previsões.</p>
 <p><span style="color: black;"><strong><em>NOTA:</em></strong> Neste exemplo, nós fingimos estar no final de setembro de 2011 (“2011 W39”).</span></p>
@@ -1584,7 +1620,9 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>num_weeks <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(end_date <span class="sc">-</span> cut_off)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="adicione-linhas" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="adicione-linhas">Adicione linhas</h4>
+</section>
+<section id="adicione-linhas" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="adicione-linhas">Adicione linhas</h4>
 <p>Para ser capaz de prever no formato tidyverse, nós precisamos ter o número correto de linhas em nosso banco de dados, i.e.: uma linha para cada semana até a data final (<code>end_date</code>) definida acima. O código abaixo permite adicionar essas linhas de acordo com uma variável de agrupamento - por exemplo, se nós tivéssemos múltiplos países em um conjunto de dados, poderíamos agrupar por país e então adicionar linhas apropriadas para cada um. A função <code>group_by_key()</code>, do pacote <strong>tsibble</strong>, nos permite fazer esse agrupamento e então passar os dados agrupados para as funções do <strong>dplyr</strong>, <code>group_modify()</code> e <code>add_row()</code>. Então, nós especificamos a sequência de semanas entre a primeira e a última semana atualmente disponíveis nos dados e a semana final.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## adicione semanas em branco até o final do ano</span></span>
@@ -1598,7 +1636,9 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">by =</span> <span class="dv">1</span>)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="termos-de-fourier-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="termos-de-fourier-1">Termos de Fourier</h4>
+</section>
+<section id="termos-de-fourier-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="termos-de-fourier-1">Termos de Fourier</h4>
 <p>Nós precisamos redefinir nossos termos de fourier - uma vez que queremos ajustá-los apenas ao período de referência, e então prever (extrapolar) esses termos para o próximo ano. Para fazer isso, nós precisamos combinar duas listas geradas da função <code>fourier()</code>; a primeira se trata dos dados que são a base de referência, e a segunda a previsão para o ano de interesse (ao definir o argumento <code>h</code>).</p>
 <p><em>N.b.</em> para unir linhas, nós temos que usar <code>rbind()</code> (em vez da função <code>bind_rows</code> do tidyverse) pois as colunas fourier estão em forma de lista (logo, não são nomeadas individualmente).</p>
 <div class="cell">
@@ -1630,7 +1670,9 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="divida-os-dados-e-ajuste-a-regressão" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="divida-os-dados-e-ajuste-a-regressão">Divida os dados e ajuste a regressão</h4>
+</section>
+<section id="divida-os-dados-e-ajuste-a-regressão" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="divida-os-dados-e-ajuste-a-regressão">Divida os dados e ajuste a regressão</h4>
 <p>Agora nós precisamos dividir o nosso banco de dados entre o período de referência e o período a ser previsto. Isto é feito utilizando a função <code>group_split()</code> do pacote <strong>dplyr</strong>, após utilizar <code>group_by()</code>, e irá criar uma lista com dois conjuntos de dados, um para antes do período da previsão, e outro com esse período.</p>
 <p>Então nós utilizamos a função <code>pluck()</code> do pacote <strong>purrr</strong>, para extrair o conjunto de dados da lista (equivalente de utilizar os colchetes quadrados, ex.: <code>dat[[1]]</code>), e então ajustar o nosso modelo para os dados de referência, e então aplicar a função <code>predict()</code> para as nossas datas de interesse após a data limite do período de referência.</p>
 <p>Veja a página sobre <a href="iteration.pt.html">Iteração, loops, e listas</a> para aprender mais sobre o pacote <strong>purrr</strong>.</p>
@@ -1709,19 +1751,22 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.pt_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.pt_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="validando-a-previsão-do-número-de-casos" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="validando-a-previsão-do-número-de-casos">Validando a previsão do número de casos</h4>
+</section>
+<section id="validando-a-previsão-do-número-de-casos" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="validando-a-previsão-do-número-de-casos">Validando a previsão do número de casos</h4>
 <p>Além de inspecionar os resíduos, é importante investigar o quão bom o seu modelo é em prever casos no futuro. Isto te dá uma ideia sobre o quão fidedignos os seus patamares para alertas são.</p>
 <p>A forma tradicional de validar é verificar quão bem você consegue prever o último ano antes do ano atual (porque você ainda desconhece as contagens para o “ano corrente”). Por exemplo, em nosso conjunto de dados, nós iríamos utilizar os dados de 2002 a 2009 para prever 2010, e então ver o quão acuradas estas previsões são. A partir disto, reajustar o modelo para incluir dados de 2010 e usar para prever as contagens de 2011.</p>
 <p>Como pode ser visto na figura abaixo, de <em>Hyndman et al</em> em <a href="https://otexts.com/fpp3">“Princípios e práticas de previsão”</a> .</p>
-<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"><em>figura reproduzida com permissão dos autores</em></p>
+<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"> <em>figura reproduzida com permissão dos autores</em></p>
 <p>O ponto negativo desta abordagem é que você não está utilizando todos os dados disponíveis, além de não ser o modelo final o utilizado para realizar as previsões.</p>
-<p>Uma alternativa é utilizar um método chamado de validação cruzada. Neste cenário, você passa por todos os dados disponíveis para ajustar diferentes modelos para prever um ano à frente. Você utiliza mais e mais dados em cada modelo, como visto na figura abaixo do mesmo [texto de <em>Hyndman et al</em>]((https://otexts.com/fpp3/). Por exemplo, o primeiro modelo utiliza dados de 2002 para prever 2003, o segundo usa dados de 2002 e 2003 para prever 2004, e assim por diante. <img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png" class="img-fluid"><em>figura reproduzida com permissão dos autores</em></p>
+<p>Uma alternativa é utilizar um método chamado de validação cruzada. Neste cenário, você passa por todos os dados disponíveis para ajustar diferentes modelos para prever um ano à frente. Você utiliza mais e mais dados em cada modelo, como visto na figura abaixo do mesmo [texto de <em>Hyndman et al</em>]((https://otexts.com/fpp3/). Por exemplo, o primeiro modelo utiliza dados de 2002 para prever 2003, o segundo usa dados de 2002 e 2003 para prever 2004, e assim por diante. <img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png" class="img-fluid"> <em>figura reproduzida com permissão dos autores</em></p>
 <p>Abaixo, nós utilizamos a função <code>map()</code> do pacote <strong>purrr</strong> para passar por cada conjunto de dados. Nós então colocamos estimativas em um banco de dados, e unimos com o número de casos original, para utilizar o pacote <strong>yardstick</strong> para calcular medidas de acurácia. Nós calculamos quatro medidas, incluindo: We compute four measures including: erro quadrático médio (RMSE, do inglês Root mean squared error), erro médio absoluto<br>
 (MAE), erro médio absoluto em escala (MASE), erro médio percentual absoluto (MAPE).</p>
 <p><span style="color: orange;"><strong><em>CUIDADO:</em></strong> observe o uso do argumento <code>simulate_pi = FALSE</code> dentro de <code>predict()</code>. Isto é porque o comportamento padrão de <strong>trending</strong> é utilizar o pacote <strong>ciTools</strong> para estimar um intervalo de previsão. Isto não funciona caso existam contagens de <code>NA</code>, e também produz mais intervalos granulares. Veja <code>?trending::predict.trending_model_fit</code> para detalhes. </span></p>
@@ -1884,8 +1929,10 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="pacote-surveillance" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="pacote-surveillance">Pacote <strong>surveillance</strong>
-</h3>
+</section>
+</section>
+<section id="pacote-surveillance" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="pacote-surveillance">Pacote <strong>surveillance</strong></h3>
 <p>Nesta seção, nós utilizamos o pacote <strong>surveillance</strong> para criar alertas de acordo com limites baseados em algorítmos de detecção de surtos. Existem diferentes métodos disponíveis no pacote. Entretanto, aqui nós iremos focar em duas opções. Para detalhes, veja esses artigos sobre a <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/monitoringCounts.pdf">aplicação</a> e <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">teoria</a> dos algorítmos utilizados.</p>
 <p>A primeira opção utiliza o método Farrington melhorado. Isto ajusta uma glm binominal negativa (incluíndo tendências) e diminui o peso de surtos passados (pontos fora do normal) para criar um nível de limiar.</p>
 <p>A segunda opção utiliza o método glrnb. Isto também ajusta uma glm binominal negativa mas inclui tendências e termos de fourier (então é a favorita aqui). A regressão é utilizada para calcular o “controle médio” (~valores ajustados) - ele então utiliza uma razão estatística generalizada de verosimilhança para avaliar se existe uma mudança na média de cada semana. Observe que o limiar para cada semana leva em conta semanas anteriores, então se as mudanças persistirem, um alarme será ativado. (Adicionalmente, observe que após cada alarme, o algoritmo é reinicilizado)</p>
@@ -1908,7 +1955,8 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>weekrange <span class="ot">&lt;-</span> cut_off <span class="sc">-</span> start_date</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-<section id="método-farrington" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="método-farrington">Método Farrington</h4>
+<section id="método-farrington" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="método-farrington">Método Farrington</h4>
 <p>Nós então definimos cada um dos nossos parâmetros para o método Farrington em uma <code>list</code> (lista). Então, nós executamos o algoritmo utilizando a função <code>farringtonFlexible()</code> e então podemos extrair o limiar para um alerta utilizando <code>farringtonmethod@upperbound</code> para incluir isto em nosso banco de dados. Também é possível extrair um booleano TRUE/FALSE (VERDADEIRO/FALSO) para cada semana no caso do alerta ter sido ativado (semana com casos acima do limiar) utilizando <code>farringtonmethod@alarm</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## defina o controle</span></span>
@@ -1953,13 +2001,16 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.pt_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.pt_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="método-glrnb" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="método-glrnb">Método GLRNB</h4>
+</section>
+<section id="método-glrnb" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="método-glrnb">Método GLRNB</h4>
 <p>De forma similar, para o método GLRNB nós definimos cada um dos nossos parâmetros para em uma <code>list</code> (lista), então ajuste o algoritmo e extraia os limites superiores.</p>
 <p><span style="color: orange;"><strong><em>CUIDADO:</em></strong> Este método utiliza “força bruta” (similar ao bootstrapping) para calcular os limiares, então pode levar muito tempo!</span></p>
 <p>Veja o <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">tutorial sobre GLRNB</a> para detalhes.</p>
@@ -2007,18 +2058,26 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.pt_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.pt_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section></section><section id="séries-temporais-interrompidas" class="level2" data-number="23.8"><h2 data-number="23.8" class="anchored" data-anchor-id="séries-temporais-interrompidas">
-<span class="header-section-number">23.8</span> Séries temporais interrompidas</h2>
+</section>
+</section>
+</section>
+<section id="séries-temporais-interrompidas" class="level2" data-number="23.8">
+<h2 data-number="23.8" class="anchored" data-anchor-id="séries-temporais-interrompidas"><span class="header-section-number">23.8</span> Séries temporais interrompidas</h2>
 <p>Séries temporais interrompidas (também chamadas de regressão segmentada ou análise de intervenção), são usadas frequentemente para avaliar o impacto de vacinas na incidência de doenças. Mas também pode ser utilizada para avaliar o impacto de uma variedade de intervenções ou introduções. Por exemplo, alterações nos procedimentos de um hopital, ou introdução de uma nova doença para a população. Neste exemplo, nós iremos pretender que uma nova cepa de Campylobacter foi introduzida na Alemanha no final de 2008, e ver se isso afeta o número de casos. Iremos utilizar a regressão binominal negativa novamente. Desta vez, a regressão será dividida em duas partes, uma antes da intervenção (ou introdução da nova cepa neste caso) e uma após (os períodos pré e pós intervenção/introdução). Isto nos permite calcular uma razão da taxa de incidência comparando os dois períodos de tempo. Explicar a equação pode clarear isso (se não, somente ignore!).</p>
 <p>A regressão negativa binominal pode ser definida da seguinte forma:</p>
 <p><span class="math display">\[\log(Y_t)= β_0 + β_1 \times t+ β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+ + log(pop_t) + e_t\]</span></p>
-<p>Onde: <span class="math inline">\(Y_t\)</span>é o número de casos observado naquele momento <span class="math inline">\(t\)</span><br><span class="math inline">\(pop_t\)</span> é o tamanho da população em 100,000s naquele momento <span class="math inline">\(t\)</span> (não utilizado aqui)<br><span class="math inline">\(t_0\)</span> é o último ano do pré-período (incluindo o tempo de transição, se existir) <span class="math inline">\(δ(x\)</span> é a função indicadora (será 0 se x≤0 e 1 se x&gt;0)<br><span class="math inline">\((x)^+\)</span> é o operador de corte de acordo com o limite (é x se x&gt;0 e 0 de outra forma)<br><span class="math inline">\(e_t\)</span> denota os resíduos Termos adicionais sobre tendência e sazonalidade podem ser adicionadas conforme necessário.</p>
+<p>Onde: <span class="math inline">\(Y_t\)</span>é o número de casos observado naquele momento <span class="math inline">\(t\)</span><br>
+<span class="math inline">\(pop_t\)</span> é o tamanho da população em 100,000s naquele momento <span class="math inline">\(t\)</span> (não utilizado aqui)<br>
+<span class="math inline">\(t_0\)</span> é o último ano do pré-período (incluindo o tempo de transição, se existir) <span class="math inline">\(δ(x\)</span> é a função indicadora (será 0 se x≤0 e 1 se x&gt;0)<br>
+<span class="math inline">\((x)^+\)</span> é o operador de corte de acordo com o limite (é x se x&gt;0 e 0 de outra forma)<br>
+<span class="math inline">\(e_t\)</span> denota os resíduos Termos adicionais sobre tendência e sazonalidade podem ser adicionadas conforme necessário.</p>
 <p><span class="math inline">\(β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+\)</span> é a parte linear generalizada do pós-período e é zero no pré-período. Isto significa que as estimativas <span class="math inline">\(β_2\)</span> e <span class="math inline">\(β_3\)</span> são efeitos da intervenção.</p>
 <p>Nós precisamos recalcular os termos de fourier sem realizar a previsão aqui, uma vez que iremos utilizar todos os dados disponíveis para nós (i.e.: retrospectivamente). Adicionalmente, nós precisamos calcular os termos extras necessários para a regressão.</p>
 <div class="cell">
@@ -2139,18 +2198,25 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="time_series.pt_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.pt_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="time_series.pt_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.pt_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="recursos" class="level2" data-number="23.9"><h2 data-number="23.9" class="anchored" data-anchor-id="recursos">
-<span class="header-section-number">23.9</span> Recursos</h2>
-<p><a href="https://otexts.com/fpp3/">previsões: texto sobre princípios e práticas</a><br><a href="https://github.com/EPIET/TimeSeriesAnalysis">Estudos de caso EPIET sobre séries temporais</a><br><a href="https://online.stat.psu.edu/stat510/lesson/1">Curso da Penn State</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Artigo sobre o pacote surveillance</a></p>
+</section>
+<section id="recursos" class="level2" data-number="23.9">
+<h2 data-number="23.9" class="anchored" data-anchor-id="recursos"><span class="header-section-number">23.9</span> Recursos</h2>
+<p><a href="https://otexts.com/fpp3/">previsões: texto sobre princípios e práticas</a><br>
+<a href="https://github.com/EPIET/TimeSeriesAnalysis">Estudos de caso EPIET sobre séries temporais</a><br>
+<a href="https://online.stat.psu.edu/stat510/lesson/1">Curso da Penn State</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Artigo sobre o pacote surveillance</a></p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2329,7 +2395,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2361,47 +2438,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2436,11 +2473,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2713,61 +2746,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../new_pages/moving_average.pt.html" class="pagination-link" aria-label="Médias móveis">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>  <span class="chapter-title">Médias móveis</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Médias móveis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/epidemic_models.pt.html" class="pagination-link" aria-label="Modelagem de epidemias">
-        <span class="nav-page-text"><span class="chapter-number">24</span>  <span class="chapter-title">Modelagem de epidemias</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Modelagem de epidemias</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":false});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</footer>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script>
-</body>
-</html>
+
+
+
+
+</body></html>
