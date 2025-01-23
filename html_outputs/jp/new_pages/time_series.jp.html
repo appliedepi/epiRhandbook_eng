@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>疫学のための R ハンドブック - 23&nbsp; 時系列分析とアウトブレイクの検出{#time-series}</title>
+<title>23  時系列分析とアウトブレイクの検出{#time-series} – 疫学のための R ハンドブック</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/epidemic_models.jp.html" rel="next">
 <link href="../new_pages/moving_average.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,83 +112,127 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -235,65 +257,54 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.jp.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/time_series.jp.html"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -303,9 +314,19 @@ window.Quarto = {
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/time_series.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/time_series.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/time_series.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/time_series.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/pt/new_pages/time_series.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/time_series.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/time_series.ru.html" id="language-link-ru">Русский</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -313,441 +334,456 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#概観" id="toc-概観" class="nav-link active" data-scroll-target="#概観"><span class="header-section-number">23.1</span> 概観</a></li>
-  <li><a href="#準備" id="toc-準備" class="nav-link" data-scroll-target="#準備"><span class="header-section-number">23.2</span> 準備</a>
+<li><a href="#%E6%A6%82%E8%A6%B3" id="toc-概観" class="nav-link active" data-scroll-target="#概観"><span class="header-section-number">23.1</span> 概観</a></li>
+  <li>
+<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link" data-scroll-target="#準備"><span class="header-section-number">23.2</span> 準備</a>
   <ul class="collapse">
-  <li><a href="#パッケージ" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
-  <li><a href="#データのロード" id="toc-データのロード" class="nav-link" data-scroll-target="#データのロード">データのロード</a></li>
-  <li><a href="#データをきれいにする" id="toc-データをきれいにする" class="nav-link" data-scroll-target="#データをきれいにする">データをきれいにする</a></li>
-  <li><a href="#天候データのダウンロード" id="toc-天候データのダウンロード" class="nav-link" data-scroll-target="#天候データのダウンロード">天候データのダウンロード</a></li>
-  <li><a href="#天候データの読み込み" id="toc-天候データの読み込み" class="nav-link" data-scroll-target="#天候データの読み込み">天候データの読み込み</a></li>
-  </ul></li>
-  <li><a href="#時系列データ" id="toc-時系列データ" class="nav-link" data-scroll-target="#時系列データ"><span class="header-section-number">23.3</span> 時系列データ</a>
-  <ul class="collapse">
-  <li><a href="#重複" id="toc-重複" class="nav-link" data-scroll-target="#重複">重複</a></li>
-  <li><a href="#欠損値" id="toc-欠損値" class="nav-link" data-scroll-target="#欠損値">欠損値</a></li>
-  </ul></li>
-  <li><a href="#記述統計" id="toc-記述統計" class="nav-link" data-scroll-target="#記述統計"><span class="header-section-number">23.4</span> 記述統計</a>
-  <ul class="collapse">
-  <li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">移動平均</a></li>
-  <li><a href="#周期性" id="toc-周期性" class="nav-link" data-scroll-target="#周期性">周期性</a></li>
-  <li><a href="#分解" id="toc-分解" class="nav-link" data-scroll-target="#分解">分解</a></li>
-  <li><a href="#自己相関" id="toc-自己相関" class="nav-link" data-scroll-target="#自己相関">自己相関</a></li>
-  </ul></li>
-  <li><a href="#回帰式の当てはめ" id="toc-回帰式の当てはめ" class="nav-link" data-scroll-target="#回帰式の当てはめ"><span class="header-section-number">23.5</span> 回帰式の当てはめ</a>
-  <ul class="collapse">
-  <li><a href="#フーリエ列" id="toc-フーリエ列" class="nav-link" data-scroll-target="#フーリエ列">フーリエ列</a></li>
-  <li><a href="#負の二項回帰" id="toc-負の二項回帰" class="nav-link" data-scroll-target="#負の二項回帰">負の二項回帰</a></li>
-  <li><a href="#残差" id="toc-残差" class="nav-link" data-scroll-target="#残差">残差</a></li>
-  </ul></li>
-  <li><a href="#つの時系列の関係性" id="toc-つの時系列の関係性" class="nav-link" data-scroll-target="#つの時系列の関係性"><span class="header-section-number">23.6</span> 2つの時系列の関係性</a>
-  <ul class="collapse">
-  <li><a href="#データセットのマージ" id="toc-データセットのマージ" class="nav-link" data-scroll-target="#データセットのマージ">データセットのマージ</a></li>
-  <li><a href="#記述統計-1" id="toc-記述統計-1" class="nav-link" data-scroll-target="#記述統計-1">記述統計</a></li>
-  <li><a href="#ラグと相互相関" id="toc-ラグと相互相関" class="nav-link" data-scroll-target="#ラグと相互相関">ラグと相互相関</a></li>
-  <li><a href="#変数における負の二項分布" id="toc-変数における負の二項分布" class="nav-link" data-scroll-target="#変数における負の二項分布">2変数における負の二項分布</a></li>
-  </ul></li>
-  <li><a href="#アウトブレイク" id="toc-アウトブレイク" class="nav-link" data-scroll-target="#アウトブレイク"><span class="header-section-number">23.7</span> アウトブレイク</a>
-  <ul class="collapse">
-  <li><a href="#trending-パッケージ" id="toc-trending-パッケージ" class="nav-link" data-scroll-target="#trending-パッケージ"><strong>trending</strong> パッケージ</a></li>
-  <li><a href="#surveillance-パッケージ" id="toc-surveillance-パッケージ" class="nav-link" data-scroll-target="#surveillance-パッケージ"><strong>surveillance</strong> パッケージ</a></li>
-  </ul></li>
-  <li><a href="#中断された時系列" id="toc-中断された時系列" class="nav-link" data-scroll-target="#中断された時系列"><span class="header-section-number">23.8</span> 中断された時系列</a></li>
-  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">23.9</span> 参考資料</a></li>
+<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%89" id="toc-データのロード" class="nav-link" data-scroll-target="#データのロード">データのロード</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E3%81%8D%E3%82%8C%E3%81%84%E3%81%AB%E3%81%99%E3%82%8B" id="toc-データをきれいにする" class="nav-link" data-scroll-target="#データをきれいにする">データをきれいにする</a></li>
+  <li><a href="#%E5%A4%A9%E5%80%99%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89" id="toc-天候データのダウンロード" class="nav-link" data-scroll-target="#天候データのダウンロード">天候データのダウンロード</a></li>
+  <li><a href="#%E5%A4%A9%E5%80%99%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF" id="toc-天候データの読み込み" class="nav-link" data-scroll-target="#天候データの読み込み">天候データの読み込み</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#%E6%99%82%E7%B3%BB%E5%88%97%E3%83%87%E3%83%BC%E3%82%BF" id="toc-時系列データ" class="nav-link" data-scroll-target="#時系列データ"><span class="header-section-number">23.3</span> 時系列データ</a>
+  <ul class="collapse">
+<li><a href="#%E9%87%8D%E8%A4%87" id="toc-重複" class="nav-link" data-scroll-target="#重複">重複</a></li>
+  <li><a href="#%E6%AC%A0%E6%90%8D%E5%80%A4" id="toc-欠損値" class="nav-link" data-scroll-target="#欠損値">欠損値</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E8%A8%98%E8%BF%B0%E7%B5%B1%E8%A8%88" id="toc-記述統計" class="nav-link" data-scroll-target="#記述統計"><span class="header-section-number">23.4</span> 記述統計</a>
+  <ul class="collapse">
+<li><a href="#timeseries_moving" id="toc-timeseries_moving" class="nav-link" data-scroll-target="#timeseries_moving">移動平均</a></li>
+  <li><a href="#%E5%91%A8%E6%9C%9F%E6%80%A7" id="toc-周期性" class="nav-link" data-scroll-target="#周期性">周期性</a></li>
+  <li><a href="#%E5%88%86%E8%A7%A3" id="toc-分解" class="nav-link" data-scroll-target="#分解">分解</a></li>
+  <li><a href="#%E8%87%AA%E5%B7%B1%E7%9B%B8%E9%96%A2" id="toc-自己相関" class="nav-link" data-scroll-target="#自己相関">自己相関</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E5%9B%9E%E5%B8%B0%E5%BC%8F%E3%81%AE%E5%BD%93%E3%81%A6%E3%81%AF%E3%82%81" id="toc-回帰式の当てはめ" class="nav-link" data-scroll-target="#回帰式の当てはめ"><span class="header-section-number">23.5</span> 回帰式の当てはめ</a>
+  <ul class="collapse">
+<li><a href="#%E3%83%95%E3%83%BC%E3%83%AA%E3%82%A8%E5%88%97" id="toc-フーリエ列" class="nav-link" data-scroll-target="#フーリエ列">フーリエ列</a></li>
+  <li><a href="#%E8%B2%A0%E3%81%AE%E4%BA%8C%E9%A0%85%E5%9B%9E%E5%B8%B0" id="toc-負の二項回帰" class="nav-link" data-scroll-target="#負の二項回帰">負の二項回帰</a></li>
+  <li><a href="#%E6%AE%8B%E5%B7%AE" id="toc-残差" class="nav-link" data-scroll-target="#残差">残差</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E3%81%A4%E3%81%AE%E6%99%82%E7%B3%BB%E5%88%97%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7" id="toc-つの時系列の関係性" class="nav-link" data-scroll-target="#つの時系列の関係性"><span class="header-section-number">23.6</span> 2つの時系列の関係性</a>
+  <ul class="collapse">
+<li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E3%81%AE%E3%83%9E%E3%83%BC%E3%82%B8" id="toc-データセットのマージ" class="nav-link" data-scroll-target="#データセットのマージ">データセットのマージ</a></li>
+  <li><a href="#%E8%A8%98%E8%BF%B0%E7%B5%B1%E8%A8%88-1" id="toc-記述統計-1" class="nav-link" data-scroll-target="#記述統計-1">記述統計</a></li>
+  <li><a href="#%E3%83%A9%E3%82%B0%E3%81%A8%E7%9B%B8%E4%BA%92%E7%9B%B8%E9%96%A2" id="toc-ラグと相互相関" class="nav-link" data-scroll-target="#ラグと相互相関">ラグと相互相関</a></li>
+  <li><a href="#%E5%A4%89%E6%95%B0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E8%B2%A0%E3%81%AE%E4%BA%8C%E9%A0%85%E5%88%86%E5%B8%83" id="toc-変数における負の二項分布" class="nav-link" data-scroll-target="#変数における負の二項分布">2変数における負の二項分布</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E3%82%A2%E3%82%A6%E3%83%88%E3%83%96%E3%83%AC%E3%82%A4%E3%82%AF" id="toc-アウトブレイク" class="nav-link" data-scroll-target="#アウトブレイク"><span class="header-section-number">23.7</span> アウトブレイク</a>
+  <ul class="collapse">
+<li><a href="#trending-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-trending-パッケージ" class="nav-link" data-scroll-target="#trending-パッケージ"><strong>trending</strong> パッケージ</a></li>
+  <li><a href="#surveillance-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-surveillance-パッケージ" class="nav-link" data-scroll-target="#surveillance-パッケージ"><strong>surveillance</strong> パッケージ</a></li>
+  </ul>
+</li>
+  <li><a href="#%E4%B8%AD%E6%96%AD%E3%81%95%E3%82%8C%E3%81%9F%E6%99%82%E7%B3%BB%E5%88%97" id="toc-中断された時系列" class="nav-link" data-scroll-target="#中断された時系列"><span class="header-section-number">23.8</span> 中断された時系列</a></li>
+  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">23.9</span> 参考資料</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/time_series.jp.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/time_series.jp.html"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span>
+</h1>
 </div>
 
 
@@ -761,12 +797,8 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<!-- ======================================================= -->
-<section id="概観" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="概観"><span class="header-section-number">23.1</span> 概観</h2>
+</header><!-- ======================================================= --><section id="概観" class="level2" data-number="23.1"><h2 data-number="23.1" class="anchored" data-anchor-id="概観">
+<span class="header-section-number">23.1</span> 概観</h2>
 <p>このタブでは、時系列分析のためのいくつかのパッケージの使用方法を示します。主に <a href="https://tidyverts.org/"><strong>tidyverts</strong></a> ファミリーのパッケージを使用していますが、感染症疫学に適したモデルをフィットさせるために、RECON <a href="https://github.com/reconhub/trending"><strong>trending</strong></a> パッケージも使用しています。</p>
 <p>以下の例では、ドイツのカンピロバクターに関する<strong>surveillance</strong>パッケージのデータセットを使用していることに注意してください（詳細はハンドブックの<a href="data_used.jp.html">ハンドブックとデータのダウンロード</a>を参照してください）。しかし、同じコードを複数の国や他の層を持つデータセットで実行したい場合は、<a href="https://github.com/R4EPI/epitsa">r4epis github repo</a> にコードテンプレートの例がありますので、そちらを参照してください。</p>
 <p>扱うトピックは以下の通りです。</p>
@@ -783,12 +815,9 @@ window.Quarto = {
 </li>
 <li>遮断された時系列</li>
 </ol>
-<!-- ======================================================= -->
-</section>
-<section id="準備" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="準備"><span class="header-section-number">23.2</span> 準備</h2>
-<section id="パッケージ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
+<!-- ======================================================= --></section><section id="準備" class="level2" data-number="23.2"><h2 data-number="23.2" class="anchored" data-anchor-id="準備">
+<span class="header-section-number">23.2</span> 準備</h2>
+<section id="パッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
 <p>以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、<strong>pacman</strong> パッケージの <code>p_load()</code> を主に使用しています。<code>p_load()</code> は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである <strong>base</strong> （以下、<strong>base</strong> R）の <code>library()</code> を使用して読み込むこともできます。R のパッケージに関する詳細は <a href="basics.jp.html">R の基礎</a> の章をご覧ください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rio,          <span class="co"># ファイルのインポート</span></span>
@@ -808,9 +837,7 @@ window.Quarto = {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               surveillance  <span class="co"># 異常検知のため</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="データのロード" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データのロード">データのロード</h3>
+</section><section id="データのロード" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データのロード">データのロード</h3>
 <p>本ハンドブックで使用しているすべてのデータは、<a href="data_used.jp.html">ハンドブックとデータのダウンロード</a>の章の手順でダウンロードできます。</p>
 <p>ここでは、2001年から2011年にドイツで報告されたカンピロバクター症例の週次カウントをデータセットとして例示しています。<a href="https://github.com/appliedepi/epiRhandbook_eng/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button"> ここをクリックすると、<span>このデータファイル（.xlsx）</span> </a> をダウンロードすることができます。</p>
 <p>このデータセットは、<a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a> パッケージで利用できるデータセットの縮小版です。 (詳細は surbeillance package パッケージを読み込み、 <code>?campyDE</code> を参照してください)</p>
@@ -822,13 +849,11 @@ window.Quarto = {
 <p>最初の10行のカウントが以下に表示されます。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-ea52cb973ac3de8cea48" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ea52cb973ac3de8cea48">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c8a70e70d4c538925e3b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c8a70e70d4c538925e3b">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"date","targets":0},{"name":"case","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="データをきれいにする" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データをきれいにする">データをきれいにする</h3>
+</section><section id="データをきれいにする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データをきれいにする">データをきれいにする</h3>
 <p>以下のコードで、日付カラムが適切なフォーマットであることを確認します。このタブでは <strong>tsibble</strong> パッケージを使用し、 <code>yearweek()</code> が暦週変数を作成するために使用されています。他にもいくつかの方法がありますが（詳細は <a href="dates.jp.html">日付型データ</a> の章を参照してください）、時系列の場合は1つのフレームワーク（<strong>tsibble</strong>）に収めるのがベストです。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 日付カラムが適切なフォーマットであることを確認する</span></span>
@@ -839,9 +864,7 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts <span class="sc">%&gt;%</span> </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">epiweek =</span> <span class="fu">yearweek</span>(date, <span class="at">week_start =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="天候データのダウンロード" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="天候データのダウンロード">天候データのダウンロード</h3>
+</section><section id="天候データのダウンロード" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="天候データのダウンロード">天候データのダウンロード</h3>
 <p>この章の <u>2つの時系列の関連</u> では、カンピロバクターの症例数と気候データを比較します。</p>
 <p>世界各地の気候データは、EUのコペルニクス衛星からダウンロードできます。これらは正確な測定値ではなくモデルに基づいていますが（補間に似ています）、全世界を1時間ごとにカバーし、予測もできるという利点があります。</p>
 <p>これらの各気候データファイルは、<a href="data_used.jp.html">ハンドブックとデータのダウンロード</a>の章からダウンロードできます。</p>
@@ -896,9 +919,7 @@ window.Quarto = {
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path     =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Weather"</span>)) <span class="do">## 保存データへのパス</span></span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="天候データの読み込み" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="天候データの読み込み">天候データの読み込み</h3>
+</section><section id="天候データの読み込み" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="天候データの読み込み">天候データの読み込み</h3>
 <p>気候データをハンドブックからダウンロードした場合も、上記のコードを使用した場合も、コンピュータの同じフォルダに10年分の “.nc” 気候データファイルが保存されているはずです。</p>
 <p>以下のコードを使用して、これらのファイルを <strong>stars</strong> パッケージで R にインポートします。</p>
 <div class="cell">
@@ -950,10 +971,8 @@ t2m, tp, </code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="時系列データ" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="時系列データ"><span class="header-section-number">23.3</span> 時系列データ</h2>
+</section></section><section id="時系列データ" class="level2" data-number="23.3"><h2 data-number="23.3" class="anchored" data-anchor-id="時系列データ">
+<span class="header-section-number">23.3</span> 時系列データ</h2>
 <p>時系列データを構造化して扱うためのさまざまなパッケージがあります。前述の通り、ここでは <strong>tidyverts</strong> ファミリーのパッケージに焦点を当て、時系列オブジェクトを定義するために <strong>tsibble</strong> パッケージを使用します。データセットが時系列オブジェクトとして定義されていると、分析の構造化が非常に容易になります。</p>
 <p>これには、 <code>tsibble()</code> を使用して「インデックス」、つまり、対象となる時間単位を指定する変数を指定します。ここでは、 <code>epiweek</code> という変数を使っています。</p>
 <p>例えば、県別の週間カウントのデータセットがあったとすると、<code>key =</code> という引数でグループ化変数を指定することもできます。 これにより、グループごとの分析が可能となります。</p>
@@ -969,16 +988,14 @@ t2m, tp, </code></pre>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.jp_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/basic_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="time_series.jp_files/figure-html/basic_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span style="color: red;"><strong><em>警告：</em></strong> ほとんどのデータセットはこの例のようにきれいではありません。 重複や欠落を以下のようにチェックする必要があります。</span>。</p>
 <!-- ======================================================= -->
-<section id="重複" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="重複">重複</h3>
+<section id="重複" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="重複">重複</h3>
 <p><strong>tsibble</strong> では観測値の重複を認めていません。そのため、各行が一意、またはグループ内で一意である必要があります（<code>key</code> 変数）。 このパッケージには、重複しているかどうかのTRUE/FALSEベクトルを与える <code>are_duplicated()</code> や，重複している行のデータフレームを与える <code>duplicates()</code> など、重複を識別するのに役立つ関数がいくつかあります。</p>
 <p>必要な行の選択方法の詳細については<a href="deduplication.jp.html">重複データの排除</a>の章を参照してください。</p>
 <div class="cell">
@@ -989,9 +1006,7 @@ t2m, tp, </code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">duplicates</span>(counts, <span class="at">index =</span> epiweek) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="欠損値" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="欠損値">欠損値</h3>
+</section><section id="欠損値" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損値">欠損値</h3>
 <p>上記の簡単な検査では見逃しがないことを確認しましたが、新年頃に報告が遅れる問題があるようにも見えました。この問題に対処する1つの方法は、これらの値を欠損に設定して値を入力することです。時系列データに対する代入の最も簡単な方法は、最後の欠損していない値と次の欠損していない値の間を直線で結ぶことです。これを行うために、 <strong>imputeTS</strong> パッケージの<code>na_interpolation()</code> を使用します．</p>
 <p>代入の他のオプションについては、<a href="missing_data.jp.html">欠損データの処理</a>の章を参照してください。</p>
 <p>別の方法として、移動平均を計算して用いることでこれらの明らかな報告の問題をスムーズにすることができます（次のセクション、および<a href="moving_average.jp.html">移動平均</a>の章を参照してください）。</p>
@@ -1019,20 +1034,16 @@ t2m, tp, </code></pre>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.jp_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/missings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="time_series.jp_files/figure-html/missings-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="記述統計" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="記述統計"><span class="header-section-number">23.4</span> 記述統計</h2>
+</section></section><section id="記述統計" class="level2" data-number="23.4"><h2 data-number="23.4" class="anchored" data-anchor-id="記述統計">
+<span class="header-section-number">23.4</span> 記述統計</h2>
 <!-- ======================================================= -->
-<section id="timeseries_moving" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">移動平均</h3>
+<section id="timeseries_moving" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="timeseries_moving">移動平均</h3>
 <p>値が上下に短期間で大きく変動するようなデータの場合は、移動平均を計算することが有効です。以下の例では、各週で、前の4週間の平均件数を計算します。これは、データをスムーズにして解釈しやすくするためのものです。私たちの場合、これにはあまり意味がないため、さらなる解析のために補間されたデータにこだわります。 詳細は、<a href="moving_average.jp.html">移動平均</a>の章を参照してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 移動平均変数の作成（欠損値の処理）</span></span>
@@ -1051,16 +1062,13 @@ t2m, tp, </code></pre>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma_4wk), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.jp_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/moving_averages-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="time_series.jp_files/figure-html/moving_averages-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="周期性" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="周期性">周期性</h3>
+</section><section id="周期性" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="周期性">周期性</h3>
 <p>以下では、周期表を作成するためのカスタム関数を定義します。R での関数の書き方は<a href="writing_functions.jp.html">関数の作成</a>の章を参照してください。</p>
 <p>まず，関数を定義します．この関数の引数には、<code>counts</code>列を持つデータセット、データセットの最初の週を表す<code>start_week =</code>、1年に何回の期間があるかを示す数字（例：52, 12）、そして最後に出力スタイルが含まれます（詳細は以下のコードを参照してください）。</p>
 <div class="cell">
@@ -1122,8 +1130,7 @@ t2m, tp, </code></pre>
 <span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Period (Weeks)"</span>, <span class="at">y =</span> <span class="st">"Log(density)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.jp_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/periodogram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="time_series.jp_files/figure-html/periodogram-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1135,9 +1142,7 @@ t2m, tp, </code></pre>
 </div>
 <p><span style="color: black;"><strong><em>注釈：</em></strong> 上の週を使って sin と cos の項に追加することも可能ですが、ここではこれらの項を生成する関数を使用します（下記の回帰の項を参照）</span></p>
 <!-- ======================================================= -->
-</section>
-<section id="分解" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="分解">分解</h3>
+</section><section id="分解" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="分解">分解</h3>
 <p>古典的分解は、時系列をいくつかの部分に分割するために使用され、それらの部分を組み合わせることで、目に見えるパターンを構成します。これらの異なる部分とは</p>
 <ul>
 <li>トレンド・サイクル（データの長期的な方向性）<br>
@@ -1157,16 +1162,13 @@ t2m, tp, </code></pre>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.jp_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="time_series.jp_files/figure-html/decomposition-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="自己相関" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="自己相関">自己相関</h3>
+</section><section id="自己相関" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="自己相関">自己相関</h3>
 <p>自己相関は、各週のカウント値とその前の週（ラグと呼ばれる）との関係を示します。</p>
 <p><code>ACF()</code> を使って，異なるラグでの関係を示す複数の線を示すプロットを作成することができます。ラグが 0 (x = 0) の場合、この線は観測値とそれ自体の関係を示すため、常に1になります（ここでは示していません）。ここで示されている最初の線（x = 1）は、各観測値とその前の観測値との関係（ラグ 1 ）を示し、2番目の線は、各観測値と直前の観測値との関係（ラグ 2 ）を示し、さらに 1 年後（ 52 週前）の観測値との関係を示すラグ 52 まで続きます。</p>
 <p><code>PACF()</code>（部分自己相関）を使うと同じような関係が見られますが、他のすべての週の間で調整されています。これは、周期性を決定するための情報としては不十分です。</p>
@@ -1179,8 +1181,7 @@ t2m, tp, </code></pre>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.jp_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/autocorrelation-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="time_series.jp_files/figure-html/autocorrelation-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1192,8 +1193,7 @@ t2m, tp, </code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.jp_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/autocorrelation-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="time_series.jp_files/figure-html/autocorrelation-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1211,14 +1211,11 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="回帰式の当てはめ" class="level2" data-number="23.5">
-<h2 data-number="23.5" class="anchored" data-anchor-id="回帰式の当てはめ"><span class="header-section-number">23.5</span> 回帰式の当てはめ</h2>
+</section></section><section id="回帰式の当てはめ" class="level2" data-number="23.5"><h2 data-number="23.5" class="anchored" data-anchor-id="回帰式の当てはめ">
+<span class="header-section-number">23.5</span> 回帰式の当てはめ</h2>
 <p>時系列には多くの異なる回帰をフィットさせることができますが、ここでは、負の二項回帰を当てはめる方法を示します。 これは、感染症のカウントデータに最も適しているからです。</p>
 <!-- ======================================================= -->
-<section id="フーリエ列" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="フーリエ列">フーリエ列</h3>
+<section id="フーリエ列" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="フーリエ列">フーリエ列</h3>
 <p>フーリエ列は、sin と cosin の曲線に相当します。違いは、データを説明するのに最も適した曲線の組み合わせを見つけてフィットさせることです。</p>
 <p>1つのフーリエ列をフィッティングするだけなら、周期表で最も頻繁に発生するラグ（ここでは 52 週）に対して、sinとcosinをフィッティングするのと同義になります。ここでは <strong>forecast</strong> パッケージの <code>fourier()</code> を使用しています。</p>
 <p>以下のコードでは、 <code>$</code> を使って代入しています。これは、 <code>fourier()</code> が2つの列（sin と cosin）を返すので、これらを “fourier” と呼ばれるリストとしてデータセットに追加しているためです。このリストは回帰分析において通常の変数と同様に利用できます。</p>
@@ -1228,9 +1225,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fourier</span>(<span class="at">K =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="負の二項回帰" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="負の二項回帰">負の二項回帰</h3>
+</section><section id="負の二項回帰" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="負の二項回帰">負の二項回帰</h3>
 <p>ベースとなる <strong>stats</strong> パッケージや <strong>MASS</strong> パッケージの関数（例： <code>lm()</code>, <code>glm()</code>, <code>glm.nb()</code>）を用いて回帰の当てはめを行えます。しかしここでは <strong>trending</strong> パッケージの関数を使用します。これは適切な信頼区間と予測区間を計算できるからです（これは他の方法では利用できません）。構文は同じで、アウトカム変数を指定した後、チルダ（~）を入力し、プラス（+）で区切って関心のある様々な暴露変数を追加します。</p>
 <p>もう一つの違いは、まずモデルを定義してそれをデータに <code>fit()</code> することです。これは、同じ構文で複数の異なるモデルを比較できるという点で便利です。</p>
 <p><span style="color: darkgreen;"><strong><em>ヒント：</em></strong> もし、数ではなく率を使いたい場合は、 <code>offset(log(population)</code> を追加することで、対数オフセット項として population 変数を含めることができます。レートを生成するには、 <code>predict()</code> を使う前に population を 1 に設定する必要があります。</span></p>
@@ -1269,16 +1264,13 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.jp_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/nb_reg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="time_series.jp_files/figure-html/nb_reg-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="残差" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="残差">残差</h3>
+</section><section id="残差" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="残差">残差</h3>
 <p>我々のモデルが観測されたデータにどれだけフィットしているかを理解するには、残差を見る必要があります。 残差は、観測されたカウントとモデルから推定されたカウントとの差です。これは、単純に <code>case_int - estimate</code> を使って計算することもできますが、 <code>residuals()</code> は，回帰から直接残差を抽出してくれます。</p>
 <p>下の図からわかることは、モデルで説明できる変動のすべてを説明できていないということです。もっとフーリエ列をフィットさせて、振れ幅に対処すべきかもしれません。しかし、この例では、このままにしておきます。このプロットは、我々のモデルがピークとトラフ（カウントが最高と最低の時）で悪く、観測されたカウントをより過小評価する可能性があることを示しています。</p>
 <div class="cell">
@@ -1294,8 +1286,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1306,8 +1297,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1319,8 +1309,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1332,8 +1321,7 @@ X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-2-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="time_series.jp_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1351,14 +1339,11 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="つの時系列の関係性" class="level2" data-number="23.6">
-<h2 data-number="23.6" class="anchored" data-anchor-id="つの時系列の関係性"><span class="header-section-number">23.6</span> 2つの時系列の関係性</h2>
+</section></section><section id="つの時系列の関係性" class="level2" data-number="23.6"><h2 data-number="23.6" class="anchored" data-anchor-id="つの時系列の関係性">
+<span class="header-section-number">23.6</span> 2つの時系列の関係性</h2>
 <p>ここでは、気象データ（特に気温）を用いてカンピロバクターの症例数を説明する方法を見てみます。</p>
 <!-- ======================================================= -->
-<section id="データセットのマージ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データセットのマージ">データセットのマージ</h3>
+<section id="データセットのマージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データセットのマージ">データセットのマージ</h3>
 <p>week の変数を使ってデータセットを結合することができます。結合の詳細については、ハンドブックの<a href="joining_matching.jp.html">データの結合</a>のセクションを参照してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 左結合で、counts にすでに存在する行だけを保持する</span></span>
@@ -1368,9 +1353,7 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">by =</span> <span class="st">"epiweek"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="記述統計-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="記述統計-1">記述統計</h3>
+</section><section id="記述統計-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="記述統計-1">記述統計</h3>
 <p>まず、データをプロットして、明らかな関係があるかどうかを確認します。 下のプロットは、2つの変数の季節性に明確な関係があることを示しています。温度がケース番号の数週間前にピークに達することがあります。 データピボットについての詳細は、ハンドブックの<a href="pivoting.jp.html">データの縦横変換</a>のセクションを参照してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>counts <span class="sc">%&gt;%</span> </span>
@@ -1394,16 +1377,13 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.jp_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/basic_plot_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="time_series.jp_files/figure-html/basic_plot_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="ラグと相互相関" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ラグと相互相関">ラグと相互相関</h3>
+</section><section id="ラグと相互相関" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ラグと相互相関">ラグと相互相関</h3>
 <p>ケースと温度の間にどの週が最も高い関係にあるかを正式に検証するために<br>
 これには <strong>feasts</strong> パッケージの相互相関関数 (<code>CCF()</code>) が使用可能です。 また（ <code>arrange</code> ではなく） <code>autoplot()</code> を使って視覚化することもできます。</p>
 <div class="cell">
@@ -1443,9 +1423,7 @@ X-squared = 336.25, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t2m_lag4 =</span> <span class="fu">lag</span>(t2m, <span class="at">n =</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="変数における負の二項分布" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="変数における負の二項分布">2変数における負の二項分布</h3>
+</section><section id="変数における負の二項分布" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="変数における負の二項分布">2変数における負の二項分布</h3>
 <p>前述のように負の二項回帰を当てはめます。今回は、4週間遅れの温度変数を加えます。</p>
 <p><span style="color: orange;"><strong><em>注意：</em></strong> <code>predict()</code> の引数の中で <code>simulate_pi = FALSE</code> を使用していることに注意してください。これは、 <strong>trending</strong> のデフォルトの動作として、 <strong>ciTools</strong> パッケージを使用して予測区間を推定するためです。これは、 <code>NA</code> が含まれている場合には機能せず、また、より荒い間隔を生成します。詳細は <code>?trending::predict.trending_model_fit</code> を参照してください。</span></p>
 <div class="cell">
@@ -1512,14 +1490,12 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.jp_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/plot_nb_reg_bivar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="time_series.jp_files/figure-html/plot_nb_reg_bivar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="残差-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="残差-1">残差</h4>
+<section id="残差-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="残差-1">残差</h4>
 <p>私たちのモデルが観測されたデータにどれだけフィットしているかを見るために、再び残差を調査します。 ここでの結果と解釈は前回の回帰のものと似ており、温度なしのよりシンプルなモデルにこだわる方が実現性が高いかもしれません。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 残差を計算する</span></span>
@@ -1534,8 +1510,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epiweek"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1546,8 +1521,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1559,8 +1533,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"count"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1572,8 +1545,7 @@ Residual Deviance: 508.2    AIC: 6784</code></pre>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="time_series.jp_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1591,23 +1563,19 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-</section>
-<section id="アウトブレイク" class="level2" data-number="23.7">
-<h2 data-number="23.7" class="anchored" data-anchor-id="アウトブレイク"><span class="header-section-number">23.7</span> アウトブレイク</h2>
+</section></section></section><section id="アウトブレイク" class="level2" data-number="23.7"><h2 data-number="23.7" class="anchored" data-anchor-id="アウトブレイク">
+<span class="header-section-number">23.7</span> アウトブレイク</h2>
 <p>ここでは、集団発生を検知する2つの（類似した）方法を紹介します。<br>
 1つ目は、上記のセクションを基にしています。<br>
 過去の年に回帰を当てはめるために <strong>trending</strong> パッケージを使用し、次の年以降に何が起こるかを予測します。観察された数が予測を上回っていれば、アウトブレイクが発生していることを示唆しています。 2つ目の方法は、同様の原理に基づいていますが、 <strong>surveillance</strong> パッケージを使用します。このパッケージには、異常を検出するためのさまざまなアルゴリズムが含まれています。</p>
 <p><span style="color: orange;"><strong><em>注意：</em></strong> 通常は現在の年（現在の週までのカウントしかわからない場合）におけるアウトブレイクの発生に関心があります。この例では、2011年の第39週にいると仮定しています。</span></p>
 <!-- ======================================================= -->
-<section id="trending-パッケージ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="trending-パッケージ"><strong>trending</strong> パッケージ</h3>
+<section id="trending-パッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="trending-パッケージ">
+<strong>trending</strong> パッケージ</h3>
 <p>この方法ではベースライン（通常は約5年分のデータ）を定義します。<br>
 ベースラインのデータに回帰分析を行い、それをもとに次年度の推定値を予測します。</p>
 <!-- ======================================================= -->
-<section id="日付のカットオフ" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="日付のカットオフ">日付のカットオフ</h4>
+<section id="日付のカットオフ" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="日付のカットオフ">日付のカットオフ</h4>
 <p>日付を一箇所で定義し、それを残りのコードで使用するのが簡単です。</p>
 <p>ここでは、開始日（観測を開始した日）とカットオフ日（ベースライン期間の終了日であり、予測したい期間の開始日）を定義します。 また、対象となる年(これから予測するもの)が何週目であるかも定義します。</p>
 <p><span style="color: black;"><strong><em>ヒント：</em></strong> この例では、現在、2011年9月末（ “2011W39” ）にいることにしています。</span></p>
@@ -1625,9 +1593,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>num_weeks <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(end_date <span class="sc">-</span> cut_off)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="行の追加" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="行の追加">行の追加</h4>
+</section><section id="行の追加" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="行の追加">行の追加</h4>
 <p>Tidyverse 形式で予測するためには、データセットに適切な数の行が必要です。すなわち、上で定義した <code>end_date</code> まで、各週に1行ずつです。 以下のコードでは、グループ化変数によってこれらの行を追加することができます。例えば、1つのデータセットに複数の国がある場合、各国をグループとし、それぞれの国に適切な行を追加することができます。 <strong>tsibble</strong> パッケージの <code>group_by_key()</code> でこのグループ化を行い、グループ化されたデータを <strong>dplyr</strong> パッケージの <code>group_modify()</code> および <code>add_row()</code> に渡すことができます。次に、現在データにある最大の週の1つ後から最終週までの週の順序を指定します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 年末までの欠損週を追加する</span></span>
@@ -1641,9 +1607,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">by =</span> <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="フーリエ列-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="フーリエ列-1">フーリエ列</h4>
+</section><section id="フーリエ列-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="フーリエ列-1">フーリエ列</h4>
 <p>フーリエ列を再定義する必要があります。これは、基準日にのみフーリエ列をフィットさせ、翌年のフーリエ列を予測（外挿）したいからです。 そのためには、 <code>fourier()</code> からの2つのリストの出力を組み合わせる必要があります。1つ目はベースラインデータに対するもので、2つ目は（<code>h</code>引数を定義することで）対象となる年の予測です。</p>
 <p><u>備考：</u> 行を結合するためには tidyverse の <code>bind_rows</code> ではなく、 <code>rbind()</code> を用いなければなりません。これは、フーリエ列がリスト（個別に名前がついていない）であるためです。</p>
 <div class="cell">
@@ -1675,9 +1639,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="データの分割と回帰式の当てはめ" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="データの分割と回帰式の当てはめ">データの分割と回帰式の当てはめ</h4>
+</section><section id="データの分割と回帰式の当てはめ" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="データの分割と回帰式の当てはめ">データの分割と回帰式の当てはめ</h4>
 <p>次に、データセットをベースライン期間と予測期間に分割する必要があります。これは、 <code>group_by()</code> の後に <strong>dplyr</strong> パッケージの <code>group_split()</code> を使って行い、カットオフ前とカットオフ後の2つのデータフレームを持つリストを作成します。</p>
 <p>次に，<strong>purrr</strong> パッケージの <code>pluck()</code> を使ってリストからデータセットを取り出し（角括弧を使った場合と同じです，例：<code>dat[[1]]</code>），ベースラインデータにモデルを当てはめ、カットオフ後の関心のあるデータに対して <code>predict()</code> を使います．</p>
 <p><strong>purrr</strong> パッケージについては<a href="iteration.jp.html">ループと反復処理・リストの操作</a>の章を参照してください。</p>
@@ -1756,20 +1718,17 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.jp_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/forecast_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="time_series.jp_files/figure-html/forecast_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="予測と妥当性検証" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="予測と妥当性検証">予測と妥当性検証</h4>
+</section><section id="予測と妥当性検証" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="予測と妥当性検証">予測と妥当性検証</h4>
 <p>残差を調べるだけでなく、モデルが将来のケースをどの程度予測できるかを調べることも重要です。これによりあなたの設定した閾値による警告の信頼性を知ることができます。</p>
 <p>伝統的な検証方法としては、一つ前の年をどの程度予測できるかを確認していました（なぜなら、「今の年」の症例数がまだわからないからです）。例えば今回のデータセットでは、2002年から2009年までのデータを使って2010年を予測し、その予測の正確さを確認します。その後、2010年のデータを含むようにモデルを修正し、それを使って2011年の数を予測します。</p>
 <p>下の図は <u>Hyndman et al</u> による <a href="https://otexts.com/fpp3/">“Forecasting principles and practice”</a> に掲載されています。</p>
-<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"> <u>図は著者の許可を得て転載しています。</u></p>
+<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png" class="img-fluid"><u>図は著者の許可を得て転載しています。</u></p>
 <p>この場合のデメリットは、使用可能なすべてのデータを使用していないことと、予測に使用する最終モデルではないことです。</p>
 <p>もう一つの方法は、交差妥当性と呼ばれる方法です。このシナリオでは、利用可能なすべてのデータをロールオーバーさせ、1年先を予測するための複数のモデルに適合させます。 以下の同じ [<u>Hyndman et al</u> text]((https://otexts.com/fpp3/) の図のように、それぞれのモデルにはより多くのデータを使用します。 例えば、1つ目のモデルは2002年を使って2003年を予測し、2つ目は2002年と2003年を使って2004年を予測する、といった具合です。<img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png" class="img-fluid"><u>図は著者の許可を得て転載しています。</u></p>
 <p>以下では、 <strong>purrr</strong> パッケージの <code>map()</code> を使用して各データセットをループさせます。次に、推定値を1つのデータセットにまとめ、元の症例数とマージし、 <strong>yardstick</strong> パッケージを使用して精度の測定値を計算します。以下の4つの指標を計算しました。平均平方根誤差（RMSE: root mean square error）、平均絶対誤差（MAE: mean absolute error）、平均絶対尺度誤差（MASE: mean absolute scaled error）、平均絶対パーセント誤差（MAPE: mean absolute percent error）です。</p>
@@ -1933,10 +1892,8 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="surveillance-パッケージ" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="surveillance-パッケージ"><strong>surveillance</strong> パッケージ</h3>
+</section></section><section id="surveillance-パッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="surveillance-パッケージ">
+<strong>surveillance</strong> パッケージ</h3>
 <p>このセクションでは、アウトブレイク検出アルゴリズムに基づいて警告の閾値を作成するために <strong>surveillance</strong> パッケージを使用します。このパッケージにはいくつかの異なる手法がありますが、ここでは2つのオプションに焦点を当てます。詳細については、使用したアルゴリズムの <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/monitoringCounts.pdf">application</a> と <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">theory</a> に関するこれらの論文を参照してください。</p>
 <p>最初のオプションでは、改良型の Farrington 法を使用します。これは負の二項一般化線形モデル（トレンドを含む）に適合し、過去の発生（外れ値）をダウンウェイトして、閾値を作成します。</p>
 <p>2つ目のオプションでは glrnb メソッドを使用します。これも負の二項一般化線形モデルに当てはめますが、トレンドとフーリエ列を含んでいます（そのため、ここはメリットです）。この回帰は「統制平均」（～適合値）を計算するために使用されます。そして、各週の平均にシフトがあるかどうかを評価するために、計算された一般化された尤度比統計を使用します。各週のしきい値は、前の週を考慮していることに注意してください。各週の閾値は過去の週を考慮しているため、持続的なシフトがある場合はアラームが作動します。 （また、各アラームの後、アルゴリズムはリセットされることにも注意してください）。</p>
@@ -1959,8 +1916,7 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>weekrange <span class="ot">&lt;-</span> cut_off <span class="sc">-</span> start_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-<section id="farrington-法" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="farrington-法">Farrington 法</h4>
+<section id="farrington-法" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="farrington-法">Farrington 法</h4>
 <p>次に、 Farrington メソッドの各パラメータを <code>list</code> で定義します。そして、 <code>farringtonFlexible()</code> を使用してアルゴリズムを実行し、 <code>farringtonmethod@upperbound</code> を使用してアラートの閾値を抽出し、データセットに含めることができます。また、 <code>farringtonmethod@alarm</code> を使用して各週にアラートが発生した(閾値を超えた)場合のTRUE/FALSEを抽出することも可能です。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## コントロール群を定義する</span></span>
@@ -2005,16 +1961,13 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.jp_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/plot_farrington-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="time_series.jp_files/figure-html/plot_farrington-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="glrnb-法" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="glrnb-法">GLRNB 法</h4>
+</section><section id="glrnb-法" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="glrnb-法">GLRNB 法</h4>
 <p>GLRNB 法の場合も同様に各パラメータを「リスト」で定義します。そしてアルゴリズムを当てはめ、上界を抽出します。</p>
 <p><span style="color: orange;"><strong><u>注意：</u></strong> この方法は、閾値の計算に「ブルートフォース」（ブートストラップ法に似た方法）を使用するため、長い時間がかかることがあります！</span></p>
 <p>詳細は <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">GLRNB ドキュメント（vignette）</a> を参照してください。</p>
@@ -2062,28 +2015,18 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.jp_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/plot_glrnb-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="time_series.jp_files/figure-html/plot_glrnb-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-</section>
-<section id="中断された時系列" class="level2" data-number="23.8">
-<h2 data-number="23.8" class="anchored" data-anchor-id="中断された時系列"><span class="header-section-number">23.8</span> 中断された時系列</h2>
+</section></section></section><section id="中断された時系列" class="level2" data-number="23.8"><h2 data-number="23.8" class="anchored" data-anchor-id="中断された時系列">
+<span class="header-section-number">23.8</span> 中断された時系列</h2>
 <p>中断された時系列（セグメント回帰や介入分析とも呼ばれる）は、病気の発生率に対するワクチンの影響を評価する際によく使用されます。しかし、これは広義の介入や導入の影響を評価するのに使用可能です。例えば、病院の手順の変更や、集団への新しい病気の導入などです。 今回の例では、2008 年末にドイツでカンピロバクターの新しい株が出現したと仮定し、それが患者数に影響を与えるかを調査します。今回も負の二項回帰を使用します。今回の回帰では、介入前（または新菌株の出現）と介入後（前後の期間）の2つの部分に分割します。これにより、2つの期間を比較した罹患率比を算出することができます。式を説明するとわかりやすいかもしれません（そうでなければ無視してください！）。</p>
 <p>負の2項回帰は次の通り定義できます。</p>
 <p><span class="math display">\[\log(Y_t)= β_0 + β_1 \times t+ β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+ + log(pop_t) + e_t\]</span></p>
-<p>ここで<br>
-<span class="math inline">\(Y_t\)</span> は <span class="math inline">\(t\)</span> 時点で観測された症例数<br>
-<span class="math inline">\(pop_t\)</span> は、 <span class="math inline">\(t\)</span> 時点での10万人単位の人口規模（ここでは使用しません）。<br>
-<span class="math inline">\(t_0\)</span> は前期間の最後の年（移行期間がある場合はその期間も含みます）。<br>
-<span class="math inline">\(δ(x)\)</span> は指標関数（x≤0なら0、x&gt;0なら1）。<br>
-<span class="math inline">\((x)^+\)</span> はカットオフ演算子（x&gt;0ならx、それ以外は0）。<br>
-<span class="math inline">\(e_t\)</span> は残差を表します。<br>
+<p>ここで<br><span class="math inline">\(Y_t\)</span> は <span class="math inline">\(t\)</span> 時点で観測された症例数<br><span class="math inline">\(pop_t\)</span> は、 <span class="math inline">\(t\)</span> 時点での10万人単位の人口規模（ここでは使用しません）。<br><span class="math inline">\(t_0\)</span> は前期間の最後の年（移行期間がある場合はその期間も含みます）。<br><span class="math inline">\(δ(x)\)</span> は指標関数（x≤0なら0、x&gt;0なら1）。<br><span class="math inline">\((x)^+\)</span> はカットオフ演算子（x&gt;0ならx、それ以外は0）。<br><span class="math inline">\(e_t\)</span> は残差を表します。<br>
 必要に応じてトレンドや季節などの項を追加することができます。</p>
 <p><span class="math inline">\(β_2 \times δ(t-t_0) + β_3 \times(t-t_0 )^+\)</span> は、後の期間の一般化された線形部分であり、前期はゼロです。 これは、 <span class="math inline">\(β_2\)</span> と <span class="math inline">\(β_3\)</span> の推定値は介入の効果であることを意味します。</p>
 <p>ここでは利用可能なすべてのデータを使用するため、予測を行わずにフーリエ列を再計算する必要があります（つまり、過去にさかのぼって計算することになります）。さらに、回帰に必要な追加の項を計算する必要があります。</p>
@@ -2201,25 +2144,18 @@ X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="time_series.jp_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.jp_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="time_series.jp_files/figure-html/plot_interrupted-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="time_series.jp_files/figure-html/plot_interrupted-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="参考資料" class="level2" data-number="23.9">
-<h2 data-number="23.9" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">23.9</span> 参考資料</h2>
-<p><a href="https://otexts.com/fpp3/">forecasting: principles and practice textbook</a><br>
-<a href="https://github.com/EPIET/TimeSeriesAnalysis">EPIET timeseries analysis case studies</a><br>
-<a href="https://online.stat.psu.edu/stat510/lesson/1">Penn State course</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Surveillance package manuscript</a></p>
+</section><section id="参考資料" class="level2" data-number="23.9"><h2 data-number="23.9" class="anchored" data-anchor-id="参考資料">
+<span class="header-section-number">23.9</span> 参考資料</h2>
+<p><a href="https://otexts.com/fpp3/">forecasting: principles and practice textbook</a><br><a href="https://github.com/EPIET/TimeSeriesAnalysis">EPIET timeseries analysis case studies</a><br><a href="https://online.stat.psu.edu/stat510/lesson/1">Penn State course</a> <a href="https://www.jstatsoft.org/article/view/v070i10">Surveillance package manuscript</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2398,18 +2334,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2441,7 +2366,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2476,7 +2441,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2749,60 +2718,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/moving_average.jp.html" class="pagination-link" aria-label="移動平均">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/epidemic_models.jp.html" class="pagination-link" aria-label="エピデミックモデリング">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":false});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>
