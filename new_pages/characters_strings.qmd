@@ -9,14 +9,14 @@ knitr::include_graphics(here::here("images", "Characters_Strings_1500x500.png"))
 
 This page demonstrates use of the **stringr** package to evaluate and handle character values ("strings").  
 
-1. Combine, order, split, arrange - `str_c()`, `str_glue()`, `str_order()`, `str_split()`  
-2. Clean and standardise  
-    * Adjust length - `str_pad()`, `str_trunc()`, `str_wrap()`  
-    * Change case - `str_to_upper()`, `str_to_title()`, `str_to_lower()`, `str_to_sentence()`  
-3. Evaluate and extract by position - `str_length()`, `str_sub()`, `word()`  
-4. Patterns  
-    * Detect and locate - `str_detect()`, `str_subset()`, `str_match()`, `str_extract()`  
-    * Modify and replace - `str_sub()`, `str_replace_all()`  
+1. Combine, order, split, arrange - `str_c()`, `str_glue()`, `str_order()`, `str_split()`
+2. Clean and standardise
+    * Adjust length - `str_pad()`, `str_trunc()`, `str_wrap()`
+    * Change case - `str_to_upper()`, `str_to_title()`, `str_to_lower()`, `str_to_sentence()`
+3. Evaluate and extract by position - `str_length()`, `str_sub()`, `word()`
+4. Patterns
+    * Detect and locate - `str_detect()`, `str_subset()`, `str_match()`, `str_extract()`
+    * Modify and replace - `str_sub()`, `str_replace_all()`
 7. Regular expressions ("regex")
 
 
@@ -38,7 +38,8 @@ Install or load the **stringr** and other **tidyverse** packages.
 pacman::p_load(
   stringr,    # many functions for handling strings
   tidyverse,  # for optional data manipulation
-  tools)      # alternative for converting to title case
+  tools       # alternative for converting to title case
+  )      
 
 ```
 
@@ -46,9 +47,9 @@ pacman::p_load(
 ### Import data  {.unnumbered}  
 
 
-In this page we will occassionally reference the cleaned `linelist` of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd)(importing.qmd) page for details).  
+In this page we will occassionally reference the cleaned `linelist` of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -74,9 +75,9 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
 This section covers:  
 
-* Using `str_c()`, `str_glue()`, and `unite()` to combine strings  
-* Using `str_order()` to arrange strings  
-* Using `str_split()` and `separate()` to split strings  
+* Using `str_c()`, `str_glue()`, and `unite()` to combine strings
+* Using `str_order()` to arrange strings 
+* Using `str_split()` and `separate()` to split strings
 
 
 
@@ -125,11 +126,11 @@ cat(str_c(first_names, last_names, sep = " ", collapse = ";\n"))
 
 Use `str_glue()` to insert dynamic R code into a string. This is a very useful function for creating dynamic plot captions, as demonstrated below.  
 
-* All content goes between double quotation marks `str_glue("")`  
+* All content goes between double quotation marks `str_glue("")`.  
 * Any dynamic code or references to pre-defined values are placed within curly brackets `{}` within the double quotation marks. There can be many curly brackets in the same `str_glue()` command.  
-* To display character quotes '', use *single* quotes within the surrounding double quotes (e.g. when providing date format - see example below)  
-* Tip: You can use `\n` to force a new line  
-* Tip: You use `format()` to adjust date display, and use `Sys.Date()` to display the current date  
+* To display character quotes '', use *single* quotes within the surrounding double quotes (e.g. when providing date format - see example below).  
+* Tip: You can use `\n` to force a new line.  
+* Tip: You use `format()` to adjust date display, and use `Sys.Date()` to display the current date.  
 
 A simple example, of a dynamic plot caption:  
 
@@ -203,8 +204,8 @@ Within a data frame, bringing together character values from multiple columns ca
 Provide the name of the new united column. Then provide the names of the columns you wish to unite.  
 
 * By default, the separator used in the united column is underscore `_`, but this can be changed with the `sep = ` argument.  
-* `remove = ` removes the input columns from the data frame (TRUE by default)  
-* `na.rm = ` removes missing values while uniting (FALSE by default)  
+* `remove = ` removes the input columns from the data frame (TRUE by default).  
+* `na.rm = ` removes missing values while uniting (FALSE by default).  
 
 Below, we define a mini-data frame to demonstrate with:  
 
@@ -320,13 +321,13 @@ DT::datatable(df, rownames = FALSE, options = list(pageLength = 5, scrollX=T), c
 
 Assuming the data are piped into `separate()`, first provide the column to be separated. Then provide `into = ` as a vector `c( )` containing the *new* columns names, as shown below.  
 
-* `sep = ` the separator, can be a character, or a number (interpreted as the character position to split at) 
-* `remove = ` FALSE by default, removes the input column  
-* `convert = ` FALSE by default, will cause string "NA"s to become `NA`  
+* `sep = ` the separator, can be a character, or a number (interpreted as the character position to split at). 
+* `remove = ` FALSE by default, removes the input column.  
+* `convert = ` FALSE by default, will cause string "NA"s to become `NA`.  
 * `extra = ` this controls what happens if there are more values created by the separation than new columns named.  
-     * `extra = "warn"` means you will see a warning but it will drop excess values (**the default**)  
-     * `extra = "drop"` means the excess values will be dropped with no warning  
-     * **`extra = "merge"` will only split to the number of new columns listed in `into` - *this setting will preserve all your data***  
+     * `extra = "warn"` means you will see a warning but it will drop excess values (**the default**).  
+     * `extra = "drop"` means the excess values will be dropped with no warning.  
+     * **`extra = "merge"` will only split to the number of new columns listed in `into` - *this setting will preserve all your data***.  
 
 
 An example with `extra = "merge"` is below - no data is lost. Two new columns are defined but any third symptoms are left in the second new column:  
@@ -555,16 +556,16 @@ cat(str_wrap(pt_course, 40))
 
 Use `str_sub()` to return only a part of a string. The function takes three main arguments:  
 
-1) the character vector(s)  
-2) start position  
-3) end position  
+1) The character vector(s)
+2) Start position
+3) End position
 
 A few notes on position numbers:  
 
-* If a position number is positive, the position is counted starting from the left end of the string.  
-* If a position number is negative, it is counted starting from the right end of the string.  
-* Position numbers are inclusive.  
-* Positions extending beyond the string will be truncated (removed).  
+* If a position number is positive, the position is counted starting from the left end of the string  
+* If a position number is negative, it is counted starting from the right end of the string
+* Position numbers are inclusive
+* Positions extending beyond the string will be truncated (removed)
 
 Below are some examples applied to the string "pneumonia":  
 
@@ -888,22 +889,6 @@ str_count(occupations, regex("teach|prof|tutor", ignore_case = TRUE))
 
 
 
-
-
-
-
-
-
-<!-- ======================================================= -->
-### Regex groups {.unnumbered}
-
-UNDER CONSTRUCTION
-
-
-
-
-
-
 <!-- ======================================================= -->
 ## Special characters  
 
@@ -933,11 +918,7 @@ Run `?"'"` in the R Console to display a complete list of these special characte
 
 
 <!-- ======================================================= -->
-## Regular expressions (regex) 
-
-
-<!-- ======================================================= -->
-## Regex and special characters { } 
+## Regular expressions (regex) and special characters { } 
 
 Regular expressions, or "regex", is a concise language for describing patterns in strings. If you are not familiar with it, a regular expression can look like an alien language. Here we try to de-mystify this language a little bit.  
 
@@ -948,10 +929,10 @@ A regular expression is often applied to extract specific patterns from "unstruc
 
 There are four basic tools one can use to create a basic regular expression:  
 
-1) Character sets  
-2) Meta characters  
-3) Quantifiers  
-4) Groups  
+1) Character sets
+2) Meta characters
+3) Quantifiers
+4) Groups
 
 
 **Character sets**  
@@ -989,13 +970,13 @@ Meta character | Represents
 
 Typically you do not want to search for a match on only one character. Quantifiers allow you to designate the length of letters/numbers to allow for the match.  
 
-Quantifiers are numbers written within curly brackets `{ }` *after* the character they are quantifying, for example,  
+Quantifiers are numbers written within curly brackets `{ }` *after* the character they are quantifying, for example:
 
-* `"A{2}"` will return instances of **two** capital A letters.  
-* `"A{2,4}"` will return instances of **between two and four** capital A letters *(do not put spaces!)*.  
-* `"A{2,}"` will return instances of **two or more** capital A letters.  
-* `"A+"` will return instances of **one or more** capital A letters (group extended until a different character is encountered).  
-* Precede with an `*` asterisk to return **zero or more** matches (useful if you are not sure the pattern is present)  
+* `"A{2}"` will return instances of **two** capital A letters
+* `"A{2,4}"` will return instances of **between two and four** capital A letters *(do not put spaces!)* 
+* `"A{2,}"` will return instances of **two or more** capital A letters
+* `"A+"` will return instances of **one or more** capital A letters (group extended until a different character is encountered)
+* Precede with an `*` asterisk to return **zero or more** matches (useful if you are not sure the pattern is present) 
 
 
 Using the `+` plus symbol as a quantifier, the match will occur until a different character is encountered. For example, this expression will return all *words* (alpha characters: `"[A-Za-z]+"`  
@@ -1081,8 +1062,11 @@ You can view a useful list of regex expressions and tips on page 2 of [this chea
 
 Also see this [tutorial](https://towardsdatascience.com/a-gentle-introduction-to-regular-expressions-with-r-df5e897ca432).  
 
+Additionally, the package [**RVerbalExpressions**](https://rverbalexpressions.netlify.app/) can offer an easy way to construct regular expressions.
 
-
+```{r, eval = F}
+devtools::install_github("VerbalExpressions/RVerbalExpressions")
+```
 
 <!-- ======================================================= -->
 ## Resources { }

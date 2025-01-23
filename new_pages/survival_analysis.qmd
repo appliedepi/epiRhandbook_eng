@@ -13,13 +13,13 @@ knitr::include_graphics(here::here("images", "survival_analysis.png"))
 ## Overview {}
 
 
-*Survival analysis* focuses on describing for a given individual or group of individuals, a defined point of event called **_the failure_** (occurrence of a disease, cure from a disease, death, relapse after response to treatment...) that occurs after a period of time called **_failure time_** (or  **_follow-up time_** in cohort/population-based studies) during which individuals are observed. To determine the failure time, it is then necessary to define a time of origin (that can be the inclusion date, the date of diagnosis...). 
+*Survival analysis* focuses on describing for a given individual or group of individuals, a defined point of event called **_the failure_** (occurrence of a disease, cure from a disease, death, relapse after response to treatment...) that occurs after a period of time called **_failure time_** (or  **_follow-up time_** in cohort/population-based studies) during which individuals are observed. To determine the failure time, it is then necessary to define a time of origin (that can be the inclusion date, the date of diagnosis, etc.). 
 
 The target of inference for survival analysis is then the time between an origin and an event.
 In current medical research, it is widely used in clinical studies to assess the effect of a treatment for instance, or in cancer epidemiology to assess a large variety of cancer survival measures. 
 
 
-It is usually expressed through the **_survival probability_** which is the probability that the event of interest has not occurred by a duration t.
+It is usually expressed through the **_survival probability_** which is the probability that the event of interest has not occurred by a duration *t*.
 
 
 **_Censoring_**: Censoring occurs when at the end of follow-up, some of the individuals have not had the event of interest, and thus their true time to event is unknown. We will mostly focus on right censoring here but for more details on censoring and survival analysis in general, you can see references. 
@@ -67,9 +67,9 @@ This page explores survival analyses using the linelist used in most of the prev
 
 ### Import dataset {.unnumbered}  
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r echo=F}
+```{r echo=F, message=F, warning=F}
 # import linelist
 linelist_case_data <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -83,7 +83,7 @@ linelist_case_data <- rio::import("linelist_cleaned.rds")
 
 In short, survival data can be described as having the following three characteristics:
 
-1) the dependent variable or response is the waiting time until the occurrence of a well-defined event,
+1) The dependent variable or response is the waiting time until the occurrence of a well-defined event,
 2) observations are censored, in the sense that for some units the event of interest has not occurred at the time the data are analyzed, and 
 3) there are predictors or explanatory variables whose effect on the waiting time we wish to assess or control. 
 
@@ -91,8 +91,8 @@ Thus, we will create different variables needed to respect that structure and ru
 
 We define:
 
-- a new data frame `linelist_surv` for this analysis  
-- our event of interest as being "death" (hence our survival probability will be the probability of being alive after a certain time after the time of origin),
+- A new data frame `linelist_surv` for this analysis.  
+- The event of interest as being "death" (hence our survival probability will be the probability of being alive after a certain time after the time of origin),
 - the follow-up time (`futime`) as the time between the time of onset and the time of outcome *in days*,
 - censored patients as those who recovered or for whom the final outcome is not known ie the event "death" was not observed (`event=0`).
 
@@ -145,7 +145,7 @@ linelist_surv %>%
   tabyl(outcome, event)
 ```
 
-Now we cross-tabulate the new age_cat_small var and the old age_cat col to ensure correct assingments  
+Now we cross-tabulate the new age_cat_small var and the old age_cat col to ensure correct assignments.  
 
 ```{r}
 linelist_surv %>% 
@@ -243,16 +243,16 @@ head(survobj, 10)
 
 ### Running initial analyses {.unnumbered}
 
-We then start our analysis using the `survfit()` function to produce a *survfit object*, which fits the default calculations for **_Kaplan Meier_** (KM) estimates of the overall (marginal) survival curve, which are in fact a step function with jumps at observed event times. The final *survfit object*  contains one or more survival curves and is created using the *Surv* object as a response variable in the model formula.  
+We then start our analysis using the `survfit()` function to produce a *survfit object*, which fits the default calculations for [**_Kaplan Meier_** (KM)](https://en.wikipedia.org/wiki/Kaplan%E2%80%93Meier_estimator) estimates of the overall (marginal) survival curve, which are in fact a step function with jumps at observed event times. The final *survfit object*  contains one or more survival curves and is created using the *Surv* object as a response variable in the model formula.  
 
 <span style="color: black;">**_NOTE:_** The Kaplan-Meier estimate is a nonparametric maximum likelihood estimate (MLE) of the survival function. . (see resources for more information).</span>
 
 The summary of this *survfit object* will give what is called a *life table*. For each time step of the follow-up (`time`) where an event happened (in ascending order):  
 
-* the number of people who were at risk of developing the event (people who did not have the event yet nor were censored: `n.risk`)  
-* those who did develop the event  (`n.event`)  
-* and from the above: the probability of *not* developing the event (probability of not dying, or of surviving past that specific time)  
-* finally, the standard error and the confidence interval for that probability are derived and displayed  
+* The number of people who were at risk of developing the event (people who did not have the event yet nor were censored: `n.risk`). 
+* Those who did develop the event  (`n.event`),
+* and from the above: the probability of *not* developing the event (probability of not dying, or of surviving past that specific time).  
+* Finally, the standard error and the confidence interval for that probability are derived and displayed.  
 
 We fit the KM estimates using the formula where the previously Surv object "survobj" is the response variable. "~ 1" precises we run the model for the overall survival.  
 
@@ -363,7 +363,7 @@ legend(
 <!-- ======================================================= -->
 ## Comparison of survival curves 
 
-To compare the survival within different groups of our observed participants or patients, we might need to first look at their respective survival curves and then run tests to evaluate the difference between independent groups. This comparison can concern groups based on gender, age, treatment, comorbidity...
+To compare the survival within different groups of our observed participants or patients, we might need to first look at their respective survival curves and then run tests to evaluate the difference between independent groups. This comparison can concern groups based on gender, age, treatment, comorbidity, etc.
 
 ### Log rank test {.unnumbered}
 
@@ -495,7 +495,7 @@ In a Cox proportional hazards regression model, the measure of effect is the **_
 
 We can first fit a model to assess the effect of age and gender on the survival. By just printing the model, we have the information on:
 
-  + the estimated regression coefficients `coef` which quantifies the association between the predictors and the outcome,
+  + The estimated regression coefficients `coef` which quantifies the association between the predictors and the outcome,
   + their exponential (for interpretability, `exp(coef)`) which produces the *hazard ratio*,
   + their standard error `se(coef)`,
   + the z-score: how many standard errors is the estimated coefficient away from  0,
@@ -607,7 +607,7 @@ ggforest(linelistsurv_cox, data = linelist_surv)
 <!-- ======================================================= -->
 ## Time-dependent covariates in survival models {}
 
-Some of the following sections have been adapted with permission from an excellent [introduction to survival analysis in R](https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html) by [Dr. Emily Zabor](https://www.emilyzabor.com/) 
+Some of the following sections have been adapted with permission from an excellent [introduction to survival analysis in R](https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html) by [Dr. Emily Zabor](https://www.emilyzabor.com/).
 
 In the last section we covered using Cox regression to examine associations between covariates of interest and survival outcomes.But these analyses rely on the covariate being measured at baseline, that is, before follow-up time for the event begins.
 
@@ -621,12 +621,12 @@ Analysis of time-dependent covariates in R requires setup of a special dataset. 
 
 For this, we'll use a new dataset from the `SemiCompRisks` package named `BMT`, which includes data on 137 bone marrow transplant patients. The variables we'll focus on are:  
 
-* `T1`  - time (in days) to death or last follow-up  
-* `delta1` - death indicator; 1-Dead, 0-Alive  
-* `TA` -  time (in days) to acute graft-versus-host disease  
+* `T1`  - time (in days) to death or last follow-up.  
+* `delta1` - death indicator; 1-Dead, 0-Alive.  
+* `TA` -  time (in days) to acute graft-versus-host disease.  
 * `deltaA` -  acute graft-versus-host disease indicator;  
-  * 1 - Developed acute graft-versus-host disease  
-  * 0 - Never developed acute graft-versus-host disease
+  * 1 - Developed acute graft-versus-host disease.  
+  * 0 - Never developed acute graft-versus-host disease.
 
 We'll load this dataset from the **survival** package using the **base** R command `data()`, which can be used for loading data that is already included in a R package that is loaded. The data frame `BMT` will appear in your R environment.  
 
@@ -652,9 +652,9 @@ DT::datatable(bmt, rownames = FALSE, options = list(pageLength = 5, scrollX=T), 
 
 Next, we'll use the `tmerge()` function with the `event()` and `tdc()` helper functions to create the restructured dataset. Our goal is to restructure the dataset to create a separate row for each patient for each time interval where they have a different value for `deltaA`. In this case, each patient can have at most two rows depending on whether they developed acute graft-versus-host disease during the data collection period. We'll call our new indicator for the development of acute graft-versus-host disease `agvhd`.
 
-- `tmerge()` creates a long dataset with multiple time intervals for the different covariate values for each patient
-- `event()` creates the new event indicator to go with the newly-created time intervals
-- `tdc()` creates the time-dependent covariate column, `agvhd`, to go with the newly created time intervals
+- `tmerge()` creates a long dataset with multiple time intervals for the different covariate values for each patient.
+- `event()` creates the new event indicator to go with the newly-created time intervals.
+- `tdc()` creates the time-dependent covariate column, `agvhd`, to go with the newly created time intervals.
 
 ```{r}
 td_dat <- 
@@ -719,11 +719,9 @@ As you can see from the forest plot, confidence interval, and p-value, there doe
 
 [Survival analysis in infectious disease research: Describing events in time](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2954271/)
 
-[Chapter on advanced survival models Princeton](https://data.princeton.edu/wws509/notes/c7.pdf)
-
 [Using Time Dependent Covariates and Time Dependent Coefficients in the Cox Model](https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf)
 
-[Survival analysis cheatsheet R](https://publicifsv.sund.ku.dk/~ts/survival/survival-cheat.pdf)
+[Survival analysis cheatsheet R](https://bioconnector.github.io/workshops/handouts/r-survival-cheatsheet.pdf)
 
 [Survminer cheatsheet](https://paulvanderlaken.files.wordpress.com/2017/08/survminer_cheatsheet.pdf)
 

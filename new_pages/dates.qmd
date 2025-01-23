@@ -35,14 +35,15 @@ pacman::p_load(
   zoo,        # additional date/time functions
   here,       # file management
   rio,        # data import/export
-  tidyverse)  # data management and visualization  
+  tidyverse   # data management and visualization
+  )    
 ```
 
 ### Import data {.unnumbered}  
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow along step-by-step, see instruction in the [Download handbook and data](data_used.qmd) page. We assume the file is in the working directory so no sub-folders are specified in this file path.  
 
-```{r,  echo=F}
+```{r,  echo=F, warning=F, message=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -214,7 +215,12 @@ You can use the **lubridate** functions `make_date()` and `make_datetime()` to c
 
 ```{r, eval=F}
 linelist <- linelist %>% 
-  mutate(onset_date = make_date(year = onset_year, month = onset_month, day = onset_day))
+  mutate(
+       onset_date = make_date(
+            year = onset_year, 
+            month = onset_month, 
+            day = onset_day)
+         )
 ```
 
 
@@ -262,8 +268,40 @@ linelist <- linelist %>%
   mutate(date_onset = parse_date(date_onset))
 ```
 
+Another function we can use is `fix_date_df` from the [**datefixR** package](https://docs.ropensci.org/datefixR/). This package can take in a wide variety of different, messy, date formats at the same time and set them to a standard format!
+
+```{r}
+
+pacman::p_load(
+     datefixR
+)
+
+#Set up messy dates
+messy_data_table <- data.frame(
+     case = 1:6,
+     onset_date = c("2014-01-01",
+                    "05 9 14",
+                    "2014 july",
+                    "1st Apr 2014",
+                    "15 le avril 2014",
+                    2015
+                    )
+     )
+
+messy_data_table
+
+#Fix the dates
+fix_date_df(
+     df = messy_data_table,
+     col.names = c("onset_date")
+)
 
 
+```
+
+You can see that even with this range of different formats (and languages!) it has managed to format all of our dates in the same way. Note that for dates missing a "month" it uses the default of 7 (July) and those missing a day it defaults to 1 (1st day of the month). These can be customised using the arguments `day.impute = ` and `month.impute = `.
+
+For a list of the languages that can be used, and additional functions and limitations, please see the [website](https://docs.ropensci.org/datefixR/).
 
 <!-- ======================================================= -->
 ## Working with date-time class  
@@ -281,6 +319,15 @@ Convert datetime with only hours to datetime object
 ```{r}
 ymd_h("2020-01-01 16hrs")
 ymd_h("2020-01-01 4PM")
+```
+
+If you are missing the time, for example when the datetime object is created by combining columns in a dataset where some of the information is unavailable, you may want to include the argument `truncated = `. This will allow incomplete data to be converted given the available information, rather than defaulting to `NA`. The value you input into `truncated = `, will depend on how many formats can be missing.
+
+```{r}
+ymd_h("2020-01-01")
+
+ymd_h("2020-01-01", truncated = 2)
+
 ```
 
 Convert datetime with hours and minutes to datetime object  
@@ -310,7 +357,11 @@ In this example, the `linelist` data frame has a column in format "hours:minutes
 
 ```{r, eval = FALSE}
 # packages
-pacman::p_load(tidyverse, lubridate, stringr)
+pacman::p_load(
+     tidyverse, 
+     lubridate, 
+     stringr
+     )
 
 # time_admission is a column in hours:minutes
 linelist <- linelist %>%
@@ -319,9 +370,9 @@ linelist <- linelist %>%
   mutate(
     time_admission_clean = ifelse(
       is.na(time_admission),         # if time is missing
-      median(time_admission),        # assign the median
+      median(time_admission, na.rm = T),        # assign the median
       time_admission                 # if not missing keep as is
-  ) %>%
+  )) %>%
   
     # use str_glue() to combine date and time columns to create one character column
     # and then use ymd_hm() to convert it to datetime
@@ -329,6 +380,7 @@ linelist <- linelist %>%
     date_time_of_admission = str_glue("{date_hospitalisation} {time_admission_clean}") %>% 
       ymd_hm()
   )
+  
 
 ```
 
@@ -426,9 +478,9 @@ example_date + weeks(7) - days(2)
 
 The difference between dates can be calculated by:  
 
-1. Ensure both dates are of class date  
-2. Use subtraction to return the "difftime" difference between the two dates  
-3. If necessary, convert the result to numeric class to perform subsequent mathematical calculations  
+1. Ensure both dates are of class date.  
+2. Use subtraction to return the "difftime" difference between the two dates.  
+3. If necessary, convert the result to numeric class to perform subsequent mathematical calculations.  
 
 Below the interval between two dates is calculated and displayed. You can find intervals by using the subtraction "minus" symbol on values that are class Date. Note, however that the class of the returned value is "difftime" as displayed below, and must be converted to numeric. 
 
@@ -615,7 +667,7 @@ In R, each *datetime* object has a timezone component. By default, all datetime 
 
 To deal with time zones, there are a number of helper functions in lubridate that can be used to change the time zone of a datetime object from the local time zone to a different time zone. Time zones are set by attributing a valid tz database time zone to the datetime object. A list of these can be found here - if the location you are using data from is not on this list, nearby large cities in the time zone are available and serve the same purpose. 
 
-https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+[https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 
 ```{r}
@@ -665,13 +717,13 @@ Let's say you want to calculate the difference in cases between a current week a
 DT::datatable(counts, rownames = FALSE,  options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-**When using `lag()` or `lead()` the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending**  
+**When using `lag()` or `lead()` the order of rows in the dataframe is very important! - pay attention to whether your dates/numbers are ascending or descending**. 
 
 First, create a new column containing the value of the previous (lagged) week.  
 
-* Control the number of units back/forward with `n = ` (must be a non-negative integer)  
+* Control the number of units back/forward with `n = ` (must be a non-negative integer).  
 * Use `default = ` to define the value placed in non-existing rows (e.g. the first row for which there is no lagged value). By default this is `NA`.  
-* Use `order_by = TRUE` if your the rows are not ordered by your reference column  
+* Use `order_by = TRUE` if your the rows are not ordered by your reference column. 
 
 
 ```{r}
@@ -695,7 +747,7 @@ counts <- counts %>%
 DT::datatable(counts, rownames = FALSE,  options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-
+\n
 You can read more about `lead()` and `lag()` in the documentation [here](https://dplyr.tidyverse.org/reference/lead-lag.html) or by entering `?lag` in your console.  
 
 
@@ -705,5 +757,5 @@ You can read more about `lead()` and `lag()` in the documentation [here](https:/
 **lubridate** [tidyverse page](https://lubridate.tidyverse.org/)  
 **lubridate** RStudio [cheatsheet](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf)  
 R for Data Science page on [dates and times](https://r4ds.had.co.nz/dates-and-times.html)  
-[Online tutorial](https://www.statmethods.net/input/dates.html)
+[Online tutorial](https://campus.datacamp.com/courses/intermediate-r/chapter-5-utilities?ex=12)
 [Date formats](https://www.r-bloggers.com/2013/08/date-formats-in-r/)

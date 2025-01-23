@@ -469,9 +469,16 @@ Now use a column from the above data frame (`facility_order$location_name`) to b
 pacman::p_load(forcats)
 
 # create factor and define levels manually
+numerical_order <- gsub("Facility ","",
+     facility_order$location_name) %>% 
+     as.numeric() %>%
+     sort() 
+
+facilities_in_order <- str_c("Facility ", numerical_order, sep = "")
+
 agg_weeks <- agg_weeks %>% 
   mutate(location_name = fct_relevel(
-    location_name, facility_order$location_name)
+    location_name, facilities_in_order)
     )
 ```
 

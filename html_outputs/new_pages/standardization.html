@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Epidemiologist R Handbook - 21&nbsp; Standardised rates</title>
+<title>21&nbsp; Standardised rates – The Epidemiologist R Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -134,75 +134,144 @@ cookieconsent.run({
 </script> 
   
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
 <script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
+
+
   gtag('config', 'G-QXDW878QLX');
+
 </script>
 
+
+
 </head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
+
+
 </script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
 <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+
+<script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
+
 <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
 <script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
 <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
 <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
 
 
 
@@ -213,13 +282,13 @@ cookieconsent.run({
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.html">Analysis</a></li><li class="breadcrumb-item"><a href="../new_pages/standardization.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardised rates</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -237,26 +306,26 @@ cookieconsent.run({
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
-    <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.linkedin.com/company/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -281,9 +350,9 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">About this book</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -304,9 +373,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -345,9 +414,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Management</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -410,9 +479,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -493,9 +562,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Visualization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -570,9 +639,9 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Reports and dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -601,13 +670,19 @@ cookieconsent.run({
  <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../new_pages/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Miscellaneous</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -615,43 +690,43 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
@@ -677,18 +752,12 @@ cookieconsent.run({
   <li><a href="#clean-reference-population" id="toc-clean-reference-population" class="nav-link" data-scroll-target="#clean-reference-population">Clean reference population</a></li>
   <li><a href="#standard_all" id="toc-standard_all" class="nav-link" data-scroll-target="#standard_all">Create dataset with standard population</a></li>
   </ul></li>
-  <li><a href="#dsr-package" id="toc-dsr-package" class="nav-link" data-scroll-target="#dsr-package"><span class="header-section-number">21.3</span> <strong>dsr</strong> package</a>
-  <ul class="collapse">
-  <li><a href="#standardized-rates" id="toc-standardized-rates" class="nav-link" data-scroll-target="#standardized-rates">Standardized rates</a></li>
-  <li><a href="#standardized-rate-ratios" id="toc-standardized-rate-ratios" class="nav-link" data-scroll-target="#standardized-rate-ratios">Standardized rate ratios</a></li>
-  <li><a href="#standardized-rate-difference" id="toc-standardized-rate-difference" class="nav-link" data-scroll-target="#standardized-rate-difference">Standardized rate difference</a></li>
-  </ul></li>
-  <li><a href="#standard_phe" id="toc-standard_phe" class="nav-link" data-scroll-target="#standard_phe"><span class="header-section-number">21.4</span> <strong>PHEindicatormethods</strong> package</a>
+  <li><a href="#standard_phe" id="toc-standard_phe" class="nav-link" data-scroll-target="#standard_phe"><span class="header-section-number">21.3</span> <strong>PHEindicatormethods</strong> package</a>
   <ul class="collapse">
   <li><a href="#directly-standardized-rates" id="toc-directly-standardized-rates" class="nav-link" data-scroll-target="#directly-standardized-rates">Directly standardized rates</a></li>
   <li><a href="#standard_indirect" id="toc-standard_indirect" class="nav-link" data-scroll-target="#standard_indirect">Indirectly standardized rates</a></li>
   </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">21.5</span> Resources</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">21.4</span> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -714,11 +783,8 @@ cookieconsent.run({
 </header>
 
 
-<p>This page will show you two ways to standardize an outcome, such as hospitalizations or mortality, by characteristics such as age and sex.</p>
-<ul>
-<li>Using <strong>dsr</strong> package</li>
-<li>Using <strong>PHEindicatormethods</strong> package</li>
-</ul>
+<p>This page will show you how to standardize an outcome, such as hospitalizations or mortality, by characteristics such as age and sex.</p>
+<p>We focus on using the <strong>PHEindicatormethods</strong> package</p>
 <p>We begin by extensively demonstrating the processes of data preparation/cleaning/joining, as this is common when combining population data from multiple countries, standard population data, deaths, etc.</p>
 <section id="overview" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">21.1</span> Overview</h2>
@@ -734,9 +800,8 @@ cookieconsent.run({
 <h2 data-number="21.2" class="anchored" data-anchor-id="preparation"><span class="header-section-number">21.2</span> Preparation</h2>
 <p>To show how standardization is done, we will use fictitious population counts and death counts from country A and country B, by age (in 5 year categories) and sex (female, male). To make the datasets ready for use, we will perform the following preparation steps:</p>
 <ol type="1">
-<li>Load packages<br>
-</li>
-<li>Load datasets<br>
+<li>Load packages</li>
+<li>Import datasets<br>
 </li>
 <li>Join the population and death data from the two countries</li>
 <li>Pivot longer so there is one row per age-sex stratum</li>
@@ -753,66 +818,49 @@ cookieconsent.run({
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     rio,                 <span class="co"># import/export data</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     here,                <span class="co"># locate files</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     stringr,             <span class="co"># cleaning characters and strings</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     frailtypack,         <span class="co"># needed for dsr, for frailty models</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     dsr,                 <span class="co"># standardise rates</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods, <span class="co"># alternative for rate standardisation</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     tidyverse)           <span class="co"># data management and visualization</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you have a newer version of R, the <strong>dsr</strong> package cannot be directly downloaded from CRAN. However, it is still available from the CRAN archive. You can install and use this one. </span></p>
-<p>For non-Mac users:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>packageurl <span class="ot">&lt;-</span> <span class="st">"https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(packageurl, <span class="at">repos=</span><span class="cn">NULL</span>, <span class="at">type=</span><span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other solution that may work</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(devtools)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_version</span>(<span class="st">"dsr"</span>, <span class="at">version=</span><span class="st">"0.2.2"</span>, <span class="at">repos=</span><span class="st">"http:/cran.us.r.project.org"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>For Mac users:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(devtools)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_version</span>(<span class="st">"dsr"</span>, <span class="at">version=</span><span class="st">"0.2.2"</span>, <span class="at">repos=</span><span class="st">"https://mac.R-project.org"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods, <span class="co"># alternative for rate standardisation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     tidyverse            <span class="co"># data management and visualization</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-population-data" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="load-population-data">Load population data</h3>
 <p>See the <a href="../new_pages/data_used.html">Download handbook and data</a> page for instructions on how to download all the example data in the handbook. You can import the Standardisation page data directly into R from our Github repository by running the following <code>import()</code> commands:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country A directly from Github</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>A_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import deaths for country A directly from Github</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>A_deaths <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country B directly from Github</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>B_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># import deaths for country B directly from Github</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>B_deaths <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country B directly from Github</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>standard_pop_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country A directly from Github</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>A_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import deaths for country A directly from Github</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>A_deaths <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country B directly from Github</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>B_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># import deaths for country B directly from Github</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>B_deaths <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import demographics for country B directly from Github</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>standard_pop_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>First we load the demographic data (counts of males and females by 5-year age category) for the two countries that we will be comparing, “Country A” and “Country B”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Country A</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>A_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"country_demographics.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Country A</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"country_demographics.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f02437b1ad88dd11d5be" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f02437b1ad88dd11d5be">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[7828087,6705882,5601230,4576430,3734111,3111651,2571215,2121247,1735468,1418749,1145345,900239,685141,500248,347093,202240,94325,40402],[7674675,6592449,5522555,4533885,3726537,3118040,2592416,2150490,1771213,1459439,1193903,956070,745682,563894,416543,258538,130479,64656]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"m","targets":2},{"name":"f","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5d5c6ffdc7d2591058a6" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5d5c6ffdc7d2591058a6">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[7828087,6705882,5601230,4576430,3734111,3111651,2571215,2121247,1735468,1418749,1145345,900239,685141,500248,347093,202240,94325,40402],[7674675,6592449,5522555,4533885,3726537,3118040,2592416,2150490,1771213,1459439,1193903,956070,745682,563894,416543,258538,130479,64656]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"m","targets":2},{"name":"f","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Country B</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>B_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"country_demographics_2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Country B</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>B_demo <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"country_demographics_2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-c50545dab483e2c944bb" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c50545dab483e2c944bb">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[513458,508728,673522,844532,965423,1243552,1400065,1428773,1546221,1562880,2355220,2324555,2988200,2527110,1552200,1466902,876251,1073611],[503262,559249,652455,145453,965237,1238640,1392676,1505040,1671213,1459439,2218733,3528103,3204770,2500130,1683925,1683828,987362,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"m","targets":2},{"name":"f","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-51c2ec15ac2d812e8836" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-51c2ec15ac2d812e8836">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[513458,508728,673522,844532,965423,1243552,1400065,1428773,1546221,1562880,2355220,2324555,2988200,2527110,1552200,1466902,876251,1073611],[503262,559249,652455,145453,965237,1238640,1392676,1505040,1671213,1459439,2218733,3528103,3204770,2500130,1683925,1683828,987362,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"m","targets":2},{"name":"f","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -822,15 +870,15 @@ cookieconsent.run({
 <p>Deaths in Country A</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-6104edada4c5f70f0d94" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6104edada4c5f70f0d94">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[224,257,251,245,334,245,154,189,334,342,565,432,543,432,245,543,234,354],[194,254,232,214,316,224,163,167,354,354,463,574,493,295,175,380,177,392]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"AgeCat","targets":1},{"name":"Male","targets":2},{"name":"Female","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5cd03f7093eea3c41f91" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5cd03f7093eea3c41f91">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[224,257,251,245,334,245,154,189,334,342,565,432,543,432,245,543,234,354],[194,254,232,214,316,224,163,167,354,354,463,574,493,295,175,380,177,392]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"AgeCat","targets":1},{"name":"Male","targets":2},{"name":"Female","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Deaths in Country B</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4925866553aa1b0e9156" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4925866553aa1b0e9156">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[34,37,51,145,434,120,100,143,307,354,463,639,706,232,275,543,234,274],[54,24,32,154,276,254,123,164,254,354,453,654,435,354,165,432,287,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"AgeCat","targets":1},{"name":"Male","targets":2},{"name":"Female","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-42ebe77b5be7e996b7a3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-42ebe77b5be7e996b7a3">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[34,37,51,145,434,120,100,143,307,354,463,639,706,232,275,543,234,274],[54,24,32,154,276,254,123,164,254,354,453,654,435,354,165,432,287,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"Country","targets":0},{"name":"AgeCat","targets":1},{"name":"Male","targets":2},{"name":"Female","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -838,90 +886,92 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="clean-populations-and-deaths">Clean populations and deaths</h3>
 <p>We need to join and transform these data in the following ways:</p>
 <ul>
-<li>Combine country populations into one dataset and pivot “long” so that each age-sex stratum is one row<br>
+<li>Combine country populations into one dataset and pivot “long” so that each age-sex stratum is one row.<br>
 </li>
-<li>Combine country death counts into one dataset and pivot “long” so each age-sex stratum is one row<br>
+<li>Combine country death counts into one dataset and pivot “long” so each age-sex stratum is one row.<br>
 </li>
-<li>Join the deaths to the populations</li>
+<li>Join the deaths to the populations.</li>
 </ul>
 <p>First, we combine the country populations datasets, pivot longer, and do minor cleaning. See the page on <a href="../new_pages/pivoting.html">Pivoting data</a> for more detail.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pop_countries <span class="ot">&lt;-</span> A_demo <span class="sc">%&gt;%</span>  <span class="co"># begin with country A dataset</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bind_rows</span>(B_demo) <span class="sc">%&gt;%</span>        <span class="co"># bind rows, because cols are identically named</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">pivot_longer</span>(                       <span class="co"># pivot longer</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">cols =</span> <span class="fu">c</span>(m, f),                   <span class="co"># columns to combine into one</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_to =</span> <span class="st">"Sex"</span>,                 <span class="co"># name for new column containing the category ("m" or "f") </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_to =</span> <span class="st">"Population"</span>) <span class="sc">%&gt;%</span>     <span class="co"># name for new column containing the numeric values pivoted</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">Sex =</span> <span class="fu">recode</span>(Sex,            <span class="co"># re-code values for clarity</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">"m"</span> <span class="ot">=</span> <span class="st">"Male"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">"f"</span> <span class="ot">=</span> <span class="st">"Female"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pop_countries <span class="ot">&lt;-</span> A_demo <span class="sc">%&gt;%</span>  <span class="co"># begin with country A dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span>    <span class="co"># add in a country identifier</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bind_rows</span>(B_demo <span class="sc">%&gt;%</span>                             <span class="co"># bind rows, because cols are identically named</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="st">"B"</span>)) <span class="sc">%&gt;%</span>        <span class="co"># add in country identifier</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">pivot_longer</span>(                       <span class="co"># pivot longer</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">cols =</span> <span class="fu">c</span>(m, f),                   <span class="co"># columns to combine into one</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_to =</span> <span class="st">"Sex"</span>,                 <span class="co"># name for new column containing the category ("m" or "f") </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_to =</span> <span class="st">"Population"</span>) <span class="sc">%&gt;%</span>     <span class="co"># name for new column containing the numeric values pivoted</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">Sex =</span> <span class="fu">recode</span>(Sex,            <span class="co"># re-code values for clarity</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"m"</span> <span class="ot">=</span> <span class="st">"Male"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"f"</span> <span class="ot">=</span> <span class="st">"Female"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The combined population data now look like this (click through to see countries A and B):</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-9f8d937582368ed91b33" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9f8d937582368ed91b33">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9a6182ce38543762844d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9a6182ce38543762844d">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>And now we perform similar operations on the two deaths datasets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>deaths_countries <span class="ot">&lt;-</span> A_deaths <span class="sc">%&gt;%</span>    <span class="co"># begin with country A deaths dataset</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bind_rows</span>(B_deaths) <span class="sc">%&gt;%</span>        <span class="co"># bind rows with B dataset, because cols are identically named</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">pivot_longer</span>(                  <span class="co"># pivot longer</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">cols =</span> <span class="fu">c</span>(Male, Female),        <span class="co"># column to transform into one</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_to =</span> <span class="st">"Sex"</span>,              <span class="co"># name for new column containing the category ("m" or "f") </span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_to =</span> <span class="st">"Deaths"</span>) <span class="sc">%&gt;%</span>      <span class="co"># name for new column containing the numeric values pivoted</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">rename</span>(<span class="at">age_cat5 =</span> AgeCat)      <span class="co"># rename for clarity</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deaths_countries <span class="ot">&lt;-</span> A_deaths <span class="sc">%&gt;%</span>    <span class="co"># begin with country A deaths dataset</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bind_rows</span>(B_deaths) <span class="sc">%&gt;%</span>        <span class="co"># bind rows with B dataset, because cols are identically named</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">pivot_longer</span>(                  <span class="co"># pivot longer</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">cols =</span> <span class="fu">c</span>(Male, Female),        <span class="co"># column to transform into one</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_to =</span> <span class="st">"Sex"</span>,              <span class="co"># name for new column containing the category ("m" or "f") </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_to =</span> <span class="st">"Deaths"</span>) <span class="sc">%&gt;%</span>      <span class="co"># name for new column containing the numeric values pivoted</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">rename</span>(<span class="at">age_cat5 =</span> AgeCat)      <span class="co"># rename for clarity</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The deaths data now look like this, and contain data from both countries:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-11cffcc32a29af1b8400" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-11cffcc32a29af1b8400">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Deaths","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-3322aeec6f1c0d551e6e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3322aeec6f1c0d551e6e">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Deaths","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>We now join the deaths and population data based on common columns <code>Country</code>, <code>age_cat5</code>, and <code>Sex</code>. This adds the column <code>Deaths</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> pop_countries <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">left_join</span>(deaths_countries, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"age_cat5"</span>, <span class="st">"Sex"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> pop_countries <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">left_join</span>(deaths_countries, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"age_cat5"</span>, <span class="st">"Sex"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can now classify <code>Sex</code>, <code>age_cat5</code>, and <code>Country</code> as factors and set the level order using <code>fct_relevel()</code> function from the <strong>forcats</strong> package, as described in the page on <a href="../new_pages/factors.html">Factors</a>. Note, classifying the factor levels doesn’t visibly change the data, but the <code>arrange()</code> command does sort it by Country, age category, and sex.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Country =</span> <span class="fu">fct_relevel</span>(Country, <span class="st">"A"</span>, <span class="st">"B"</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">fct_relevel</span>(Sex, <span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_cat5 =</span> <span class="fu">fct_relevel</span>(</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      age_cat5,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"20-24"</span>, <span class="st">"25-29"</span>,  <span class="st">"30-34"</span>, <span class="st">"35-39"</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"40-44"</span>, <span class="st">"45-49"</span>, <span class="st">"50-54"</span>, <span class="st">"55-59"</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Country, age_cat5, Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Country =</span> <span class="fu">fct_relevel</span>(Country, <span class="st">"A"</span>, <span class="st">"B"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">fct_relevel</span>(Sex, <span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_cat5 =</span> <span class="fu">fct_relevel</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      age_cat5,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"20-24"</span>, <span class="st">"25-29"</span>,  <span class="st">"30-34"</span>, <span class="st">"35-39"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"40-44"</span>, <span class="st">"45-49"</span>, <span class="st">"50-54"</span>, <span class="st">"55-59"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Country, age_cat5, Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-9ac8e44e0241368cc8a6" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9ac8e44e0241368cc8a6">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3},{"name":"Deaths","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f4c0593fd934bff03063" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f4c0593fd934bff03063">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3},{"name":"Deaths","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you have few deaths per stratum, consider using 10-, or 15-year categories, instead of 5-year categories for age.</span></p>
 </section>
 <section id="load-reference-population" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="load-reference-population">Load reference population</h3>
-<p>Lastly, for the direct standardisation, we import the reference population (world “standard population” by sex)</p>
+<p>Lastly, for the direct standardisation, we import the reference population (world “standard population” by sex):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference population</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>standard_pop_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"world_standard_population_by_sex.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference population</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>standard_pop_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"world_standard_population_by_sex.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8a2db307bdfa2e2a70d5" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8a2db307bdfa2e2a70d5">{"x":{"filter":"none","vertical":false,"data":[["0-4 years","0-4 years","5-9 years","5-9 years","10-14 years","10-14 years","15-19 years","15-19 years","20-24 years","20-24 years","25-29 years","25-29 years","30-34 years","30-34 years","35-39 years","35-39 years","40-44 years","40-44 years","45-49 years","45-49 years","50-54 years","50-54 years","55-59 years","55-59 years","60-64 years","60-64 years","65-69 years","65-69 years","70-74 years","70-74 years","75-79 years","75-79 years","80-84 years","80-84 years","85plus years","85plus years"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>WorldStandardPopulation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"age_cat5","targets":0},{"name":"Sex","targets":1},{"name":"WorldStandardPopulation","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-476fe06b33094353ee07" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-476fe06b33094353ee07">{"x":{"filter":"none","vertical":false,"data":[["0-4 years","0-4 years","5-9 years","5-9 years","10-14 years","10-14 years","15-19 years","15-19 years","20-24 years","20-24 years","25-29 years","25-29 years","30-34 years","30-34 years","35-39 years","35-39 years","40-44 years","40-44 years","45-49 years","45-49 years","50-54 years","50-54 years","55-59 years","55-59 years","60-64 years","60-64 years","65-69 years","65-69 years","70-74 years","70-74 years","75-79 years","75-79 years","80-84 years","80-84 years","85plus years","85plus years"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>WorldStandardPopulation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2},{"name":"age_cat5","targets":0},{"name":"Sex","targets":1},{"name":"WorldStandardPopulation","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
@@ -930,16 +980,15 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="clean-reference-population">Clean reference population</h3>
 <p>The age category values in the <code>country_data</code> and <code>standard_pop_data</code> data frames will need to be aligned.</p>
 <p>Currently, the values of the column <code>age_cat5</code> from the <code>standard_pop_data</code> data frame contain the word “years” and “plus”, while those of the <code>country_data</code> data frame do not. We will have to make the age category values match. We use <code>str_replace_all()</code> from the <strong>stringr</strong> package, as described in the page on <a href="../new_pages/characters_strings.html">Characters and strings</a>, to replace these patterns with no space <code>""</code>.</p>
-<p>Furthermore, the package <strong>dsr</strong> expects that in the standard population, the column containing counts will be called <code>"pop"</code>. So we rename that column accordingly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove specific string from column values</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>standard_pop_clean <span class="ot">&lt;-</span> standard_pop_data <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">"years"</span>, <span class="st">""</span>),   <span class="co"># remove "year"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">"plus"</span>, <span class="st">""</span>),    <span class="co"># remove "plus"</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">" "</span>, <span class="st">""</span>)) <span class="sc">%&gt;%</span>   <span class="co"># remove " " space</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>     <span class="fu">rename</span>(<span class="at">pop =</span> WorldStandardPopulation)   <span class="co"># change col name to "pop", as this is expected by dsr package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove specific string from column values</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>standard_pop_clean <span class="ot">&lt;-</span> standard_pop_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">"years"</span>, <span class="st">""</span>),   <span class="co"># remove "year"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">"plus"</span>, <span class="st">""</span>),    <span class="co"># remove "plus"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">age_cat5 =</span> <span class="fu">str_replace_all</span>(age_cat5, <span class="st">" "</span>, <span class="st">""</span>)) <span class="sc">%&gt;%</span>   <span class="co"># remove " " space</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>     <span class="fu">rename</span>(<span class="at">pop =</span> WorldStandardPopulation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span style="color: orange;"><strong><em>CAUTION:</em></strong> If you try to use <code>str_replace_all()</code> to remove a plus <em>symbol</em>, it won’t work because it is a special symbol. “Escape” the specialnes by putting two back slashes in front, as in <code>str_replace_call(column, "\\+", "")</code>. </span></p>
 </section>
@@ -947,240 +996,23 @@ cookieconsent.run({
 <h3 class="unnumbered anchored" data-anchor-id="standard_all">Create dataset with standard population</h3>
 <p>Finally, the package <strong>PHEindicatormethods</strong>, detailed <a href="#standard_phe">below</a>, expects the standard populations joined to the country event and population counts. So, we will create a dataset <code>all_data</code> for that purpose.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(country_data, standard_pop_clean, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"age_cat5"</span>, <span class="st">"Sex"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(country_data, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                      standard_pop_clean, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"age_cat5"</span>, <span class="st">"Sex"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This complete dataset looks like this:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7777fe3ba4c859025ca1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7777fe3ba4c859025ca1">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500,12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n      <th>pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3},{"name":"Deaths","targets":4},{"name":"pop","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1e02bb98cab9e1e53259" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1e02bb98cab9e1e53259">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500,12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n      <th>pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"name":"Country","targets":0},{"name":"age_cat5","targets":1},{"name":"Sex","targets":2},{"name":"Population","targets":3},{"name":"Deaths","targets":4},{"name":"pop","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
 </section>
 </section>
-<section id="dsr-package" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="dsr-package"><span class="header-section-number">21.3</span> <strong>dsr</strong> package</h2>
-<p>Below we demonstrate calculating and comparing directly standardized rates using the <strong>dsr</strong> package. The <strong>dsr</strong> package allows you to calculate and compare directly standardized rates (no indirectly standardized rates!).</p>
-<p>In the data Preparation section, we made separate datasets for country counts and standard population:</p>
-<ol type="1">
-<li>the <code>country_data</code> object, which is a population table with the number of population and number of deaths per stratum per country<br>
-</li>
-<li>the <code>standard_pop_clean</code> object, containing the number of population per stratum for our reference population, the World Standard Population</li>
-</ol>
-<p>We will use these separate datasets for the <strong>dsr</strong> approach.</p>
-<!-- ======================================================= -->
-<section id="standardized-rates" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="standardized-rates">Standardized rates</h3>
-<p>Below, we calculate rates per country directly standardized for age and sex. We use the <code>dsr()</code> function.</p>
-<p>Of note - <code>dsr()</code> expects one data frame for the country populations and event counts (deaths), <em>and a <strong>separate</strong> data frame with the reference population</em>. It also expects that in this reference population dataset the unit-time column name is “pop” (we assured this in the data Preparation section).</p>
-<p>There are many arguments, as annotated in the code below. Notably, <code>event =</code> is set to the column <code>Deaths</code>, and the <code>fu =</code> (“follow-up”) is set to the <code>Population</code> column. We set the subgroups of comparison as the column <code>Country</code> and we standardize based on <code>age_cat5</code> and <code>Sex</code>. These last two columns are not assigned a particular named argument. See <code>?dsr</code> for details.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rates per country directly standardized for age and sex</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mortality_rate <span class="ot">&lt;-</span> dsr<span class="sc">::</span><span class="fu">dsr</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> country_data,  <span class="co"># specify object containing number of deaths per stratum</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">event =</span> Deaths,       <span class="co"># column containing number of deaths per stratum </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">fu =</span> Population,      <span class="co"># column containing number of population per stratum</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">subgroup =</span> Country,   <span class="co"># units we would like to compare</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>     age_cat5,             <span class="co"># other columns - rates will be standardized by these</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>     Sex,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">refdata =</span> standard_pop_clean, <span class="co"># reference population data frame, with column called pop</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">method =</span> <span class="st">"gamma"</span>,      <span class="co"># method to calculate 95% CI</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">sig =</span> <span class="fl">0.95</span>,            <span class="co"># significance level</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">mp =</span> <span class="dv">100000</span>,           <span class="co"># we want rates per 100.000 population</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">decimals =</span> <span class="dv">2</span>)          <span class="co"># number of decimals)</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print output as nice-looking HTML table</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_rate) <span class="co"># show mortality rate before and after direct standardization</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 17%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 15%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Subgroup</th>
-<th style="text-align: right;">Numerator</th>
-<th style="text-align: right;">Denominator</th>
-<th style="text-align: right;">Crude Rate (per 1e+05)</th>
-<th style="text-align: right;">95% LCL (Crude)</th>
-<th style="text-align: right;">95% UCL (Crude)</th>
-<th style="text-align: right;">Std Rate (per 1e+05)</th>
-<th style="text-align: right;">95% LCL (Std)</th>
-<th style="text-align: right;">95% UCL (Std)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: right;">11344</td>
-<td style="text-align: right;">86790567</td>
-<td style="text-align: right;">13.07</td>
-<td style="text-align: right;">12.83</td>
-<td style="text-align: right;">13.31</td>
-<td style="text-align: right;">23.57</td>
-<td style="text-align: right;">23.08</td>
-<td style="text-align: right;">24.06</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">9955</td>
-<td style="text-align: right;">52898281</td>
-<td style="text-align: right;">18.82</td>
-<td style="text-align: right;">18.45</td>
-<td style="text-align: right;">19.19</td>
-<td style="text-align: right;">19.33</td>
-<td style="text-align: right;">18.46</td>
-<td style="text-align: right;">20.22</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Above, we see that while country A had a lower crude mortality rate than country B, it has a higher standardized rate after direct age and sex standardization.</p>
-<!-- ======================================================= -->
-</section>
-<section id="standardized-rate-ratios" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="standardized-rate-ratios">Standardized rate ratios</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate RR</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mortality_rr <span class="ot">&lt;-</span> dsr<span class="sc">::</span><span class="fu">dsrr</span>(</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> country_data, <span class="co"># specify object containing number of deaths per stratum</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">event =</span> Deaths,      <span class="co"># column containing number of deaths per stratum </span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">fu =</span> Population,     <span class="co"># column containing number of population per stratum</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">subgroup =</span> Country,  <span class="co"># units we would like to compare</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>     age_cat5,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>     Sex,                 <span class="co"># characteristics to which we would like to standardize </span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">refdata =</span> standard_pop_clean, <span class="co"># reference population, with numbers in column called pop</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">refgroup =</span> <span class="st">"B"</span>,      <span class="co"># reference for comparison</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">estimate =</span> <span class="st">"ratio"</span>,  <span class="co"># type of estimate</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">sig =</span> <span class="fl">0.95</span>,          <span class="co"># significance level</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">mp =</span> <span class="dv">100000</span>,         <span class="co"># we want rates per 100.000 population</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">decimals =</span> <span class="dv">2</span>)        <span class="co"># number of decimals</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_rr) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 11%">
-<col style="width: 25%">
-<col style="width: 19%">
-<col style="width: 15%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Comparator</th>
-<th style="text-align: left;">Reference</th>
-<th style="text-align: right;">Std Rate (per 1e+05)</th>
-<th style="text-align: right;">Rate Ratio (RR)</th>
-<th style="text-align: right;">95% LCL (RR)</th>
-<th style="text-align: right;">95% UCL (RR)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">23.57</td>
-<td style="text-align: right;">1.22</td>
-<td style="text-align: right;">1.17</td>
-<td style="text-align: right;">1.27</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">19.33</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.94</td>
-<td style="text-align: right;">1.06</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The standardized mortality rate is 1.22 times higher in country A compared to country B (95% CI 1.17-1.27).</p>
-<!-- ======================================================= -->
-</section>
-<section id="standardized-rate-difference" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="standardized-rate-difference">Standardized rate difference</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate RD</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mortality_rd <span class="ot">&lt;-</span> dsr<span class="sc">::</span><span class="fu">dsrr</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> country_data,       <span class="co"># specify object containing number of deaths per stratum</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">event =</span> Deaths,            <span class="co"># column containing number of deaths per stratum </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">fu =</span> Population,           <span class="co"># column containing number of population per stratum</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">subgroup =</span> Country,        <span class="co"># units we would like to compare</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>     age_cat5,                  <span class="co"># characteristics to which we would like to standardize</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>     Sex,                        </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">refdata =</span> standard_pop_clean, <span class="co"># reference population, with numbers in column called pop</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">refgroup =</span> <span class="st">"B"</span>,            <span class="co"># reference for comparison</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">estimate =</span> <span class="st">"difference"</span>,   <span class="co"># type of estimate</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">sig =</span> <span class="fl">0.95</span>,                <span class="co"># significance level</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">mp =</span> <span class="dv">100000</span>,               <span class="co"># we want rates per 100.000 population</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">decimals =</span> <span class="dv">2</span>)              <span class="co"># number of decimals</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_rd) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 11%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Comparator</th>
-<th style="text-align: left;">Reference</th>
-<th style="text-align: right;">Std Rate (per 1e+05)</th>
-<th style="text-align: right;">Rate Difference (RD)</th>
-<th style="text-align: right;">95% LCL (RD)</th>
-<th style="text-align: right;">95% UCL (RD)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">23.57</td>
-<td style="text-align: right;">4.24</td>
-<td style="text-align: right;">3.24</td>
-<td style="text-align: right;">5.24</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">19.33</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">-1.24</td>
-<td style="text-align: right;">1.24</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Country A has 4.24 additional deaths per 100.000 population (95% CI 3.24-5.24) compared to country A.</p>
-<!-- ======================================================= -->
-</section>
-</section>
-<section id="standard_phe" class="level2" data-number="21.4">
-<h2 data-number="21.4" class="anchored" data-anchor-id="standard_phe"><span class="header-section-number">21.4</span> <strong>PHEindicatormethods</strong> package</h2>
-<p>Another way of calculating standardized rates is with the <strong>PHEindicatormethods</strong> package. This package allows you to calculate directly as well as indirectly standardized rates. We will show both.</p>
+<section id="standard_phe" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="standard_phe"><span class="header-section-number">21.3</span> <strong>PHEindicatormethods</strong> package</h2>
+<p>One way of calculating standardized rates is with the <strong>PHEindicatormethods</strong> package. This package allows you to calculate directly as well as indirectly standardized rates. We will show both.</p>
 <p>This section will use the <code>all_data</code> data frame created at the end of the Preparation section. This data frame includes the country populations, death events, and the world standard reference population. You can view it <a href="#standard_all">here</a>.</p>
 <!-- ======================================================= -->
 <section id="directly-standardized-rates" class="level3 unnumbered">
@@ -1189,19 +1021,19 @@ cookieconsent.run({
 <p>Of note - the reference (standard) population can be provided as a <strong>column within the country-specific data frame</strong> or as a <strong>separate vector</strong>. If provided within the country-specific data frame, you have to set <code>stdpoptype = "field"</code>. If provided as a vector, set <code>stdpoptype = "vector"</code>. In the latter case, you have to make sure the ordering of rows by strata is similar in both the country-specific data frame and the reference population, as records will be matched by position. In our example below, we provided the reference population as a column within the country-specific data frame.</p>
 <p>See the help with <code>?phr_dsr</code> or the links in the References section for more information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rates per country directly standardized for age and sex</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mortality_ds_rate_phe <span class="ot">&lt;-</span> all_data <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods<span class="sc">::</span><span class="fu">phe_dsr</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> Deaths,                 <span class="co"># column with observed number of events</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> Population,             <span class="co"># column with non-standard pops for each stratum</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">stdpop =</span> pop,               <span class="co"># standard populations for each stratum</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">stdpoptype =</span> <span class="st">"field"</span>)       <span class="co"># either "vector" for a standalone vector or "field" meaning std populations are in the data  </span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_ds_rate_phe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rates per country directly standardized for age and sex</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mortality_ds_rate_phe <span class="ot">&lt;-</span> all_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods<span class="sc">::</span><span class="fu">phe_dsr</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> Deaths,                 <span class="co"># column with observed number of events</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> Population,             <span class="co"># column with non-standard pops for each stratum</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">stdpop =</span> pop,               <span class="co"># standard populations for each stratum</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">stdpoptype =</span> <span class="st">"field"</span>)       <span class="co"># either "vector" for a standalone vector or "field" meaning std populations are in the data  </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_ds_rate_phe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 8%">
 <col style="width: 13%">
@@ -1262,23 +1094,23 @@ cookieconsent.run({
 <p>Of note - in our example below, the reference population is provided as a separate data frame. In this case, we make sure that <code>x =</code>, <code>n =</code>, <code>x_ref =</code> and <code>n_ref =</code> vectors are all ordered by the same standardization category (stratum) values as that in our country-specific data frame, as records will be matched by position.</p>
 <p>See the help with <code>?phr_isr</code> or the links in the References section for more information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reference population</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>refpopCountryB <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">"B"</span>) </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rates for country A indirectly standardized by age and sex</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>mortality_is_rate_phe_A <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods<span class="sc">::</span><span class="fu">calculate_ISRate</span>(</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> Deaths,                 <span class="co"># column with observed number of events</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> Population,             <span class="co"># column with non-standard pops for each stratum</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">x_ref =</span> refpopCountryB<span class="sc">$</span>Deaths,  <span class="co"># reference number of deaths for each stratum</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">n_ref =</span> refpopCountryB<span class="sc">$</span>Population)  <span class="co"># reference population for each stratum</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_is_rate_phe_A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reference population</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>refpopCountryB <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">"B"</span>) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rates for country A indirectly standardized by age and sex</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>mortality_is_rate_phe_A <span class="ot">&lt;-</span> country_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>     PHEindicatormethods<span class="sc">::</span><span class="fu">calculate_ISRate</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> Deaths,                 <span class="co"># column with observed number of events</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> Population,             <span class="co"># column with non-standard pops for each stratum</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">x_ref =</span> refpopCountryB<span class="sc">$</span>Deaths,  <span class="co"># reference number of deaths for each stratum</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">n_ref =</span> refpopCountryB<span class="sc">$</span>Population)  <span class="co"># reference population for each stratum</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mortality_is_rate_phe_A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 8%">
 <col style="width: 8%">
@@ -1322,11 +1154,10 @@ cookieconsent.run({
 <!-- ======================================================= -->
 </section>
 </section>
-<section id="resources" class="level2" data-number="21.5">
-<h2 data-number="21.5" class="anchored" data-anchor-id="resources"><span class="header-section-number">21.5</span> Resources</h2>
-<p>If you would like to see another reproducible example using <strong>dsr</strong> please see <a href="https://mran.microsoft.com/snapshot/2020-02-12/web/packages/dsr/vignettes/dsr.html">this vignette</a></p>
-<p>For another example using <strong>PHEindicatormethods</strong>, please go to <a href="https://mran.microsoft.com/snapshot/2018-10-22/web/packages/PHEindicatormethods/vignettes/IntroductiontoPHEindicatormethods.html">this website</a></p>
-<p>See the <strong>PHEindicatormethods</strong> <a href="https://cran.r-project.org/web/packages/PHEindicatormethods/PHEindicatormethods.pdf">reference pdf file</a></p>
+<section id="resources" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="resources"><span class="header-section-number">21.4</span> Resources</h2>
+<p>For another example using <strong>PHEindicatormethods</strong>, please go to <a href="https://cran.r-project.org/web/packages/PHEindicatormethods/vignettes/Introduction_to_PHEindicatormethods.html">this website</a>.</p>
+<p>See the <strong>PHEindicatormethods</strong> <a href="https://cran.r-project.org/web/packages/PHEindicatormethods/PHEindicatormethods.pdf">reference pdf file</a>.</p>
 
 
 </section>
@@ -1511,18 +1342,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1554,7 +1374,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1589,7 +1449,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
