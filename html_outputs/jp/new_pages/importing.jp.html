@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.4.550">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>7  データのインポート・エクスポート – 疫学のための R ハンドブック</title>
+
+
+<title>疫学のための R ハンドブック - 7&nbsp; データのインポート・エクスポート</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -53,18 +55,33 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../new_pages/cleaning.jp.html" rel="next">
 <link href="../new_pages/r_projects.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -91,13 +108,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -112,176 +134,141 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
-
+</script> 
+  
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+<script>
   window.dataLayer = window.dataLayer || [];
-
   function gtag(){dataLayer.push(arguments);}
-
   gtag('js', new Date());
 
-
-
   gtag('config', 'G-QXDW878QLX');
-
 </script>
-</head>
-<body class="nav-sidebar floating">
-<div class="alert alert-info alert-dismissible">
 
+</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
-
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
-
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
-
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
-
     class="alert-link">R Help Desk service</a>. -->
-
 </div>
-
-
 
 <script>
 
-
-
   // Function to extract the last two characters from the URL path
-
   function getLanguageFromURL() {
-
     const path = window.location.pathname.split('/');
-
     
-
     if (path.length > 1) {
-
       return path[1]; // Assume the language code is the second segment
-
     }
 
-
-
     return '';
-
   }
 
-
-
   const language = getLanguageFromURL();
-
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
-
   const defaultLanguage = 'en';
-
   const isSupportedLanguage = supportedLanguages.includes(language);
 
-
-
   // Translations for the content
-
   const translations = {
-
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
-
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
-
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
-
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
-
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
-
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
-
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
-
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
-
   };
 
-
-
   // Default to English if the detected language is not supported
-
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
-
-
-
   // Select the element where the content should be displayed
-
   const alertElement = document.querySelector('.alert');
-
   if (alertElement) {
-
     alertElement.innerHTML = contentToDisplay;
-
     alertElement.style.display = 'block'; // Make sure to display the element
-
   }
 
-
-
-</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+</script>
+<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
-<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/basics.jp.html">基本編</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/importing.jp.html"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></a></li>
-</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/basics.jp.html">基本編</a></li><li class="breadcrumb-item"><a href="../new_pages/importing.jp.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -291,19 +278,9 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
-<a class="dropdown-item" href="/new_pages/importing.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/importing.fr.html" id="language-link-fr">Français</a>
-<a class="dropdown-item" href="/es/new_pages/importing.es.html" id="language-link-es">Español</a>
-<a class="dropdown-item" href="/vn/new_pages/importing.vn.html" id="language-link-vn">Tiếng Việt</a>
-<a class="dropdown-item" href="/pt/new_pages/importing.pt.html" id="language-link-pt">Português</a>
-<a class="dropdown-item" href="/tr/new_pages/importing.tr.html" id="language-link-tr">Türkçe</a>
-<a class="dropdown-item" href="/ru/new_pages/importing.ru.html" id="language-link-ru">Русский</a>
-</ul>
-</div>
-<div class="sidebar-menu-container"> 
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -311,466 +288,451 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#%E6%A6%82%E8%A6%81" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">7.1</span> 概要</a></li>
-  <li><a href="#rio-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-rio-パッケージ" class="nav-link" data-scroll-target="#rio-パッケージ"><span class="header-section-number">7.2</span> rio パッケージ</a></li>
+  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要"><span class="header-section-number">7.1</span> 概要</a></li>
+  <li><a href="#rio-パッケージ" id="toc-rio-パッケージ" class="nav-link" data-scroll-target="#rio-パッケージ"><span class="header-section-number">7.2</span> rio パッケージ</a></li>
   <li><a href="#here" id="toc-here" class="nav-link" data-scroll-target="#here"><span class="header-section-number">7.3</span> here パッケージ</a></li>
-  <li>
-<a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%91%E3%82%B9" id="toc-ファイルパス" class="nav-link" data-scroll-target="#ファイルパス"><span class="header-section-number">7.4</span> ファイルパス</a>
+  <li><a href="#ファイルパス" id="toc-ファイルパス" class="nav-link" data-scroll-target="#ファイルパス"><span class="header-section-number">7.4</span> ファイルパス</a>
   <ul class="collapse">
-<li><a href="#%E7%9B%B8%E5%AF%BE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%91%E3%82%B9" id="toc-相対ファイルパス" class="nav-link" data-scroll-target="#相対ファイルパス">「相対」ファイルパス</a></li>
-  <li><a href="#%E7%B5%B6%E5%AF%BE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%91%E3%82%B9" id="toc-絶対ファイルパス" class="nav-link" data-scroll-target="#絶対ファイルパス">「絶対」ファイルパス</a></li>
-  <li><a href="#%E6%89%8B%E5%8B%95%E3%81%A7%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E9%81%B8%E6%8A%9E" id="toc-手動でのファイル選択" class="nav-link" data-scroll-target="#手動でのファイル選択">手動でのファイル選択</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート"><span class="header-section-number">7.5</span> データのインポート</a>
+  <li><a href="#相対ファイルパス" id="toc-相対ファイルパス" class="nav-link" data-scroll-target="#相対ファイルパス">「相対」ファイルパス</a></li>
+  <li><a href="#絶対ファイルパス" id="toc-絶対ファイルパス" class="nav-link" data-scroll-target="#絶対ファイルパス">「絶対」ファイルパス</a></li>
+  <li><a href="#手動でのファイル選択" id="toc-手動でのファイル選択" class="nav-link" data-scroll-target="#手動でのファイル選択">手動でのファイル選択</a></li>
+  </ul></li>
+  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート"><span class="header-section-number">7.5</span> データのインポート</a>
   <ul class="collapse">
-<li><a href="#%E7%89%B9%E5%AE%9A%E3%81%AE-excel-%E3%82%B7%E3%83%BC%E3%83%88" id="toc-特定の-excel-シート" class="nav-link" data-scroll-target="#特定の-excel-シート">特定の Excel シート</a></li>
+  <li><a href="#特定の-excel-シート" id="toc-特定の-excel-シート" class="nav-link" data-scroll-target="#特定の-excel-シート">特定の Excel シート</a></li>
   <li><a href="#import_missing" id="toc-import_missing" class="nav-link" data-scroll-target="#import_missing">欠損値</a></li>
-  <li><a href="#%E8%A1%8C%E3%82%92%E3%82%B9%E3%82%AD%E3%83%83%E3%83%97%E3%81%99%E3%82%8B" id="toc-行をスキップする" class="nav-link" data-scroll-target="#行をスキップする">行をスキップする</a></li>
-  <li><a href="#%E7%95%AA%E7%9B%AE%E3%81%AE%E3%83%98%E3%83%83%E3%83%80%E3%83%BC%E8%A1%8C%E3%82%92%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B" id="toc-番目のヘッダー行を管理する" class="nav-link" data-scroll-target="#番目のヘッダー行を管理する">2番目のヘッダー行を管理する</a></li>
-  <li><a href="#google-%E3%82%B7%E3%83%BC%E3%83%88" id="toc-google-シート" class="nav-link" data-scroll-target="#google-シート">Google シート</a></li>
-  </ul>
-</li>
-  <li><a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E5%88%86%E5%89%B2%E7%B5%90%E5%90%88%E3%81%99%E3%82%8B" id="toc-複数のファイルをインポートエクスポート分割結合する" class="nav-link" data-scroll-target="#複数のファイルをインポートエクスポート分割結合する"><span class="header-section-number">7.6</span> 複数のファイルをインポート、エクスポート、分割、結合する</a></li>
-  <li>
-<a href="#import_github" id="toc-import_github" class="nav-link" data-scroll-target="#import_github"><span class="header-section-number">7.7</span> Github からのインポート</a>
+  <li><a href="#行をスキップする" id="toc-行をスキップする" class="nav-link" data-scroll-target="#行をスキップする">行をスキップする</a></li>
+  <li><a href="#番目のヘッダー行を管理する" id="toc-番目のヘッダー行を管理する" class="nav-link" data-scroll-target="#番目のヘッダー行を管理する">2番目のヘッダー行を管理する</a></li>
+  <li><a href="#google-シート" id="toc-google-シート" class="nav-link" data-scroll-target="#google-シート">Google シート</a></li>
+  </ul></li>
+  <li><a href="#複数のファイルをインポートエクスポート分割結合する" id="toc-複数のファイルをインポートエクスポート分割結合する" class="nav-link" data-scroll-target="#複数のファイルをインポートエクスポート分割結合する"><span class="header-section-number">7.6</span> 複数のファイルをインポート、エクスポート、分割、結合する</a></li>
+  <li><a href="#import_github" id="toc-import_github" class="nav-link" data-scroll-target="#import_github"><span class="header-section-number">7.7</span> Github からのインポート</a>
   <ul class="collapse">
-<li><a href="#csv-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB" id="toc-csv-ファイル" class="nav-link" data-scroll-target="#csv-ファイル">CSV ファイル</a></li>
-  <li><a href="#xlsx-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB" id="toc-xlsx-ファイル" class="nav-link" data-scroll-target="#xlsx-ファイル">XLSX ファイル</a></li>
-  <li><a href="#%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%97%E3%83%95%E3%82%A1%E3%82%A4%E3%83%ABshape-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB" id="toc-シェープファイルshape-ファイル" class="nav-link" data-scroll-target="#シェープファイルshape-ファイル">シェープファイル（Shape ファイル）</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E6%89%8B%E5%8B%95%E3%81%A7%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E5%85%A5%E5%8A%9B" id="toc-手動でのデータ入力" class="nav-link" data-scroll-target="#手動でのデータ入力"><span class="header-section-number">7.8</span> 手動でのデータ入力</a>
+  <li><a href="#csv-ファイル" id="toc-csv-ファイル" class="nav-link" data-scroll-target="#csv-ファイル">CSV ファイル</a></li>
+  <li><a href="#xlsx-ファイル" id="toc-xlsx-ファイル" class="nav-link" data-scroll-target="#xlsx-ファイル">XLSX ファイル</a></li>
+  <li><a href="#シェープファイルshape-ファイル" id="toc-シェープファイルshape-ファイル" class="nav-link" data-scroll-target="#シェープファイルshape-ファイル">シェープファイル（Shape ファイル）</a></li>
+  </ul></li>
+  <li><a href="#手動でのデータ入力" id="toc-手動でのデータ入力" class="nav-link" data-scroll-target="#手動でのデータ入力"><span class="header-section-number">7.8</span> 手動でのデータ入力</a>
   <ul class="collapse">
-<li><a href="#%E8%A1%8C%E3%81%94%E3%81%A8%E3%81%AE%E5%85%A5%E5%8A%9B" id="toc-行ごとの入力" class="nav-link" data-scroll-target="#行ごとの入力">行ごとの入力</a></li>
-  <li><a href="#%E5%88%97%E3%81%94%E3%81%A8%E3%81%AE%E5%85%A5%E5%8A%9B" id="toc-列ごとの入力" class="nav-link" data-scroll-target="#列ごとの入力">列ごとの入力</a></li>
-  <li><a href="#%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-クリップボードをインポート" class="nav-link" data-scroll-target="#クリップボードをインポート">クリップボードをインポート</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E6%9C%80%E6%96%B0%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-最新のファイルをインポート" class="nav-link" data-scroll-target="#最新のファイルをインポート"><span class="header-section-number">7.9</span> 最新のファイルをインポート</a>
+  <li><a href="#行ごとの入力" id="toc-行ごとの入力" class="nav-link" data-scroll-target="#行ごとの入力">行ごとの入力</a></li>
+  <li><a href="#列ごとの入力" id="toc-列ごとの入力" class="nav-link" data-scroll-target="#列ごとの入力">列ごとの入力</a></li>
+  <li><a href="#クリップボードをインポート" id="toc-クリップボードをインポート" class="nav-link" data-scroll-target="#クリップボードをインポート">クリップボードをインポート</a></li>
+  </ul></li>
+  <li><a href="#最新のファイルをインポート" id="toc-最新のファイルをインポート" class="nav-link" data-scroll-target="#最新のファイルをインポート"><span class="header-section-number">7.9</span> 最新のファイルをインポート</a>
   <ul class="collapse">
-<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%97%A5%E4%BB%98%E3%82%92%E7%94%A8%E3%81%84%E3%81%A6" id="toc-ファイル名の日付を用いて" class="nav-link" data-scroll-target="#ファイル名の日付を用いて">ファイル名の日付を用いて</a></li>
-  <li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E6%83%85%E5%A0%B1%E3%82%92%E7%94%A8%E3%81%84%E3%81%A6" id="toc-ファイル情報を用いて" class="nav-link" data-scroll-target="#ファイル情報を用いて">ファイル情報を用いて</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#import_api" id="toc-import_api" class="nav-link" data-scroll-target="#import_api"><span class="header-section-number">7.10</span> API</a>
+  <li><a href="#ファイル名の日付を用いて" id="toc-ファイル名の日付を用いて" class="nav-link" data-scroll-target="#ファイル名の日付を用いて">ファイル名の日付を用いて</a></li>
+  <li><a href="#ファイル情報を用いて" id="toc-ファイル情報を用いて" class="nav-link" data-scroll-target="#ファイル情報を用いて">ファイル情報を用いて</a></li>
+  </ul></li>
+  <li><a href="#import_api" id="toc-import_api" class="nav-link" data-scroll-target="#import_api"><span class="header-section-number">7.10</span> API</a>
   <ul class="collapse">
-<li><a href="#http-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88" id="toc-http-リクエスト" class="nav-link" data-scroll-target="#http-リクエスト">HTTP リクエスト</a></li>
-  <li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
-  <li><a href="#%E5%85%AC%E9%96%8B%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF" id="toc-公開されているデータ" class="nav-link" data-scroll-target="#公開されているデータ">公開されているデータ</a></li>
-  <li><a href="#%E8%AA%8D%E8%A8%BC%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF" id="toc-認証が必要なデータ" class="nav-link" data-scroll-target="#認証が必要なデータ"><strong>認証が必要なデータ</strong></a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88" id="toc-エクスポート" class="nav-link" data-scroll-target="#エクスポート"><span class="header-section-number">7.11</span> エクスポート</a>
+  <li><a href="#http-リクエスト" id="toc-http-リクエスト" class="nav-link" data-scroll-target="#http-リクエスト">HTTP リクエスト</a></li>
+  <li><a href="#パッケージ" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
+  <li><a href="#公開されているデータ" id="toc-公開されているデータ" class="nav-link" data-scroll-target="#公開されているデータ">公開されているデータ</a></li>
+  <li><a href="#認証が必要なデータ" id="toc-認証が必要なデータ" class="nav-link" data-scroll-target="#認証が必要なデータ"><strong>認証が必要なデータ</strong></a></li>
+  </ul></li>
+  <li><a href="#エクスポート" id="toc-エクスポート" class="nav-link" data-scroll-target="#エクスポート"><span class="header-section-number">7.11</span> エクスポート</a>
   <ul class="collapse">
-<li><a href="#rio-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6" id="toc-rio-パッケージを使って" class="nav-link" data-scroll-target="#rio-パッケージを使って"><strong>rio</strong> パッケージを使って</a></li>
-  <li><a href="#%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88" id="toc-クリップボードにエクスポート" class="nav-link" data-scroll-target="#クリップボードにエクスポート">クリップボードにエクスポート</a></li>
-  </ul>
-</li>
+  <li><a href="#rio-パッケージを使って" id="toc-rio-パッケージを使って" class="nav-link" data-scroll-target="#rio-パッケージを使って"><strong>rio</strong> パッケージを使って</a></li>
+  <li><a href="#クリップボードにエクスポート" id="toc-クリップボードにエクスポート" class="nav-link" data-scroll-target="#クリップボードにエクスポート">クリップボードにエクスポート</a></li>
+  </ul></li>
   <li><a href="#import_rds" id="toc-import_rds" class="nav-link" data-scroll-target="#import_rds"><span class="header-section-number">7.12</span> RDS ファイル</a></li>
   <li><a href="#import_rdata" id="toc-import_rdata" class="nav-link" data-scroll-target="#import_rdata"><span class="header-section-number">7.13</span> Rdata ファイルとリスト</a></li>
-  <li><a href="#%E3%83%97%E3%83%AD%E3%83%83%E3%83%88%E3%81%AE%E4%BF%9D%E5%AD%98" id="toc-プロットの保存" class="nav-link" data-scroll-target="#プロットの保存"><span class="header-section-number">7.14</span> プロットの保存</a></li>
-  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">7.15</span> 参考資料</a></li>
-  </ul></nav>
-</div>
+  <li><a href="#プロットの保存" id="toc-プロットの保存" class="nav-link" data-scroll-target="#プロットの保存"><span class="header-section-number">7.14</span> プロットの保存</a></li>
+  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">7.15</span> 参考資料</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/basics.jp.html">基本編</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/importing.jp.html"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></a></li>
-</ol></nav><div class="quarto-title">
-<h1 class="title"><span id="importing" class="quarto-section-identifier"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/basics.jp.html">基本編</a></li><li class="breadcrumb-item"><a href="../new_pages/importing.jp.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="importing" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></h1>
 </div>
 
 
@@ -784,20 +746,22 @@ cookieconsent.run({
   
 
 
-</header><div class="cell">
+</header>
+
+
+<div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/Import_Export_1500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Import_Export_1500x500.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/Import_Export_1500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Import_Export_1500x500.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>本章では、ファイルを検索、インポート、およびエクスポートする方法について説明します。とりわけ、以下の項目について紹介します。</p>
 <ul>
-<li>
-<strong>rio</strong> パッケージを使用し、様々な種類のファイルを柔軟に <code>import()</code> および <code>export()</code> します</li>
-<li>
-<strong>here</strong> パッケージを使用し、R プロジェクトルート（R project root）に関連するファイルを検索します。これにより、1台のコンピュータに紐づけられた固有のファイルパスが煩雑な問題を引き起こすことを防ぎます</li>
+<li><strong>rio</strong> パッケージを使用し、様々な種類のファイルを柔軟に <code>import()</code> および <code>export()</code> します</li>
+<li><strong>here</strong> パッケージを使用し、R プロジェクトルート（R project root）に関連するファイルを検索します。これにより、1台のコンピュータに紐づけられた固有のファイルパスが煩雑な問題を引き起こすことを防ぎます</li>
 <li>以下のような具体的なインポートの事例についても扱います
 <ul>
 <li>特定の Excel シート</li>
@@ -806,14 +770,14 @@ cookieconsent.run({
 <li>ウェブサイト上のデータをインポート</li>
 <li>API を用いたデータのインポート</li>
 <li>複数ファイルのうち、<u>最新の</u>ファイルのインポート</li>
-</ul>
-</li>
+</ul></li>
 <li>手動でのデータ入力について説明します</li>
 <li>RDS や RData などの R 特有のファイルタイプのインポートについても紹介します</li>
 <li>ファイルやプロットのエクスポートや保存についても解説します</li>
 </ul>
-<!-- ======================================================= --><section id="概要" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="概要">
-<span class="header-section-number">7.1</span> 概要</h2>
+<!-- ======================================================= -->
+<section id="概要" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="概要"><span class="header-section-number">7.1</span> 概要</h2>
 <p>R に「データセット」をインポートする場合、一般的には、お手元の R 環境でフォルダディレクトリ内の特定のファイルパス・アドレスにあるファイル（Excel、CSV、TSV、RDS など）をインポートし、新しい<u>データフレーム</u>オブジェクトとして定義します。</p>
 <p>R では、他の統計プログラム（SAS、STATA、SPSS）で作成されたファイルを含め、多くの種類のファイルをインポート・エクスポートすることができます。また、リレーショナルデータベース（relational database）への接続も可能です。</p>
 <p>R には、以下のような R 独自のデータフォーマットもあります。</p>
@@ -822,25 +786,26 @@ cookieconsent.run({
 </li>
 <li>RData ファイル（.Rdata）は、複数のオブジェクトや、R のワークスペース全体を保存できます。詳しくは <a href="#import_rdata">こちら</a> をご覧ください。</li>
 </ul>
-<!-- ======================================================= --></section><section id="rio-パッケージ" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="rio-パッケージ">
-<span class="header-section-number">7.2</span> rio パッケージ</h2>
+<!-- ======================================================= -->
+</section>
+<section id="rio-パッケージ" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="rio-パッケージ"><span class="header-section-number">7.2</span> rio パッケージ</h2>
 <p>本書では、<strong>rio</strong> パッケージの使用を推奨しています。“rio” は”R I/O”（Input/Output）の略語です。</p>
 <p><strong>rio</strong> パッケージに含まれる関数 <code>import()</code> および <code>export()</code> は、様々な種類のファイル（例：.xlsx、.csv、.rds、.tsv）を扱うことができ、関数内でファイルパス（ “.csv” のような拡張子を含む）を指定すると、<strong>rio</strong> が拡張子を読み取り、指定された拡張子に最適なツールを使用してファイルをインポートまたはエクスポートします。</p>
 <p><strong>rio</strong> を使わずに、他のパッケージの関数を使うこともできます。他のパッケージは、その使用がファイルの種類に特化しており、例えば、<strong>base</strong> R の <code>read.csv()</code>、<strong>openxlsx</strong> パッケージの <code>read.xlsx()</code>、 <strong>readr</strong> パッケージの <code>write_csv()</code> などが挙げられます。どのパッケージがどのファイル形式を扱えるかを覚えるのは大変ですが、<strong>rio</strong> パッケージの <code>import()</code> や <code>export()</code> はそのような暗記の必要が無く、扱いが簡単です。</p>
 <p><strong>rio</strong> の関数 <code>import()</code> と <code>export()</code> は、ファイルの拡張子に基づき、与えられたファイルに適切なパッケージと関数を使用します。<strong>rio</strong> がバックグラウンドで使用するパッケージや関数については、この章の最後に掲載されている表ご覧ください。<strong>rio</strong> は、STATA、SAS、SPSSのファイルをはじめ、さまざまな種類のファイルをインポートすることができます。</p>
 <p>シェープファイル（shape file）のインポート・エクスポートには、<a href="gis.jp.html">GIS の基礎</a> の章で紹介する別のパッケージが必要です。</p>
-</section><section id="here" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="here">
-<span class="header-section-number">7.3</span> here パッケージ</h2>
+</section>
+<section id="here" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="here"><span class="header-section-number">7.3</span> here パッケージ</h2>
 <p><strong>here</strong> パッケージの関数 <code>here()</code> を用いてファイルパスを作成することで、ファイルの場所と保存場所を R に簡単に指示することができます。</p>
 <p><strong>here</strong> パッケージは、 R プロジェクトと組み合わせて使用すると、 R プロジェクトのルートディレクトリ（トップレベルにあるフォルダ）に対する R プロジェクト内のファイルの場所を記述することができ、 R プロジェクトを複数の人やコンピュータで共有したり、アクセスしたりする場合に便利です。すべてのユーザーが共通の場所（ R プロジェクトのルート）からファイルパスを「開始」するようにすることで、異なるコンピュータ間のユニークなファイルパス（例<em>:</em> <code>"C:/Users/Laura/Documents..."</code> ）による煩雑さを避けることができます。</p>
 <p>R プロジェクトでの <code>here()</code> は以下のように機能します。</p>
 <ul>
-<li>
-<strong>here</strong> パッケージが R プロジェクト内で最初に読み込まれると、「ベンチマーク」または「アンカー」として、 R プロジェクトのルートフォルダに”.here “という小さなファイルが配置されます。</li>
+<li><strong>here</strong> パッケージが R プロジェクト内で最初に読み込まれると、「ベンチマーク」または「アンカー」として、 R プロジェクトのルートフォルダに”.here “という小さなファイルが配置されます。</li>
 <li>対象の<em>スクリプトで、</em><code>here()</code> を使用して<u>そのアンカーに基づいた</u>ファイルパスを作成し、R プロジェクトのサブフォルダ内のファイルを参照できるようにします</li>
 <li>ファイルパスを作成するには、以下のように、ルートディレクトリ以降のフォルダ名を引用符で囲み、カンマで区切り、最後にファイル名とファイル拡張子を記述します</li>
-<li>
-<code>here()</code> のファイルパスは、インポートとエクスポートの両方に使用できます</li>
+<li><code>here()</code> のファイルパスは、インポートとエクスポートの両方に使用できます</li>
 </ul>
 <p>例えば、以下では、関数 <code>import()</code> に、 <code>here()</code> で構築されたファイルパスが提供されています。</p>
 <div class="cell">
@@ -852,22 +817,25 @@ cookieconsent.run({
 <p><span style="color: darkgreen;"><strong><u>ヒント:</u></strong> “.here” ルートがどこに設定されているかわからない場合は、括弧内を空にして関数 <code>here()</code> を実行してください。</span></p>
 <p><a href="https://here.r-lib.org/">このリンク</a> に <strong>here</strong> パッケージの詳細が記載されています。</p>
 <!-- ======================================================= -->
-</section><section id="ファイルパス" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="ファイルパス">
-<span class="header-section-number">7.4</span> ファイルパス</h2>
+</section>
+<section id="ファイルパス" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="ファイルパス"><span class="header-section-number">7.4</span> ファイルパス</h2>
 <p>データをインポートまたはエクスポートする際、ファイルパスを指定する必要があります。 次の 3 つの方法のいずれかを実行してください。</p>
 <ol type="1">
-<li>
-<u>推奨</u>：<strong>here</strong> パッケージで「相対」ファイルパス（“relative” file path）を指定する</li>
+<li><u>推奨</u>：<strong>here</strong> パッケージで「相対」ファイルパス（“relative” file path）を指定する</li>
 <li>「完全」・「絶対」ファイルパス（“full”/“absolute” file path）を指定する</li>
 <li>手動でファイルを選択する</li>
 </ol>
-<section id="相対ファイルパス" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="相対ファイルパス">「相対」ファイルパス</h3>
+<section id="相対ファイルパス" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="相対ファイルパス">「相対」ファイルパス</h3>
 <p>R では、「相対」ファイルパスは、R プロジェクトのルートを<u>基準にした</u>ファイルパスで構成されます。これにより、さまざまなコンピュータで機能する、より単純なファイルパスが可能になります（例えば、R プロジェクトが共有ドライブ上にある場合や、電子メールで送信される場合）。<a href="#here">上記</a> のように、相対ファイルパスは <strong>here</strong> パッケージを用いて作成および使用されます。</p>
 <p>以下に、<code>here()</code> で作成された相対ファイルパスの例を示します。検索したい .xlsx ファイルがサブフォルダ “data” 、そしてその中のサブフォルダ “linelists” を含む R プロジェクト内にある場合のファイルパスです。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"linelists"</span>, <span class="st">"ebola_linelist.xlsx"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="絶対ファイルパス" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="絶対ファイルパス">「絶対」ファイルパス</h3>
+</section>
+<section id="絶対ファイルパス" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="絶対ファイルパス">「絶対」ファイルパス</h3>
 <p>「絶対」または「完全な」ファイルパスを <code>import()</code> などの関数に指定できますが、ユーザーの特定のコンピュータに固有である故「壊れやすい」ため、<u>推奨されていません</u>。</p>
 <p>以下は、絶対ファイルパスの例です。Laura のコンピュータには、フォルダ “analysis” 、サブフォルダ “data”、そしてその中にサブフォルダ “linelists” があり、そこに対象の .xlsx ファイルがあります。</p>
 <div class="cell">
@@ -883,7 +851,9 @@ cookieconsent.run({
 <p>絶対ファイルパスが適切な事例の 1 つは、すべてのユーザーが同じ絶対ファイルパスを持つ共有ドライブからファイルをインポートする場合です。</p>
 <p><span style="color: darkgreen;"><u><strong>ヒント:</strong></u> すべての <code>\</code>を <code>/</code> にすばやく変換するには、対象のコードを選択し、Ctrl + f（ Windows の場合）を使用し、「選択中」のオプションボックスをオンにしてから、置換機能を使用して変換します。</span></p>
 <!-- ======================================================= -->
-</section><section id="手動でのファイル選択" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="手動でのファイル選択">手動でのファイル選択</h3>
+</section>
+<section id="手動でのファイル選択" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="手動でのファイル選択">手動でのファイル選択</h3>
 <p>次のいずれかの方法でデータを手動でインポートできます。</p>
 <ol type="1">
 <li>RStudio の Environment Pane にて、「データセットのインポート」（“Import Dataset”）をクリックし、データの種類を選択します。</li>
@@ -899,8 +869,10 @@ cookieconsent.run({
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">file.choose</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span style="color: darkgreen;"><u><strong>ヒント</strong></u>：<strong>ポップアップウィンドウ</strong>がすでに開いている RStudio ウィンドウの後ろに表示される場合があります。</span></p>
-</section></section><section id="データのインポート" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="データのインポート">
-<span class="header-section-number">7.5</span> データのインポート</h2>
+</section>
+</section>
+<section id="データのインポート" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="データのインポート"><span class="header-section-number">7.5</span> データのインポート</h2>
 <p><code>import()</code> を使用してデータセットをインポートするのは非常に簡単です。 ファイルパス（ファイル名とファイル拡張子を含む）を引用符で囲んで指定するだけです。 <code>here()</code> を使用してファイルパスを作成する場合は、先述のセクションで説明した手順に従ってください。 以下にいくつかの例を示します。</p>
 <p>まず、「作業ディレクトリ」または R プロジェクトのルートフォルダにある csv ファイルをインポートする例です。</p>
 <div class="cell">
@@ -914,7 +886,8 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"C:/Users/Laura/Documents/tuberculosis/data/linelists/linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="特定の-excel-シート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="特定の-excel-シート">特定の Excel シート</h3>
+<section id="特定の-excel-シート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="特定の-excel-シート">特定の Excel シート</h3>
 <p>特定の<strong>シート</strong>をインポートする場合は、シート名を <code>which =</code> 引数に指定します。 以下に例を示します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"my_excel_file.xlsx"</span>, <span class="at">which =</span> <span class="st">"Sheetname"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -927,7 +900,9 @@ cookieconsent.run({
 <p>データフレームを R から特定の Excel シートに<u>エクスポート</u>し、 Excel ワークブックの残りの部分を変更しないようにするには、<strong>openxlsx</strong> などの代替パッケージを使用してインポート、編集、およびエクスポートする必要があります。詳細については、<a href="directories.jp.html">ディレクトリの操作</a> の章または <a href="https://ycphs.github.io/openxlsx/">こちらの github ページ</a>を参照してください。</p>
 <p>Excel ワークブックが .xlsb（バイナリ形式の Excel ワークブック）の場合、rio を使用してインポートできない場合があります。その場合は、ファイルを .xlsx として再保存するか、<a href="https://cran.r-project.org/web/packages/readxlsb/vignettes/read-xlsb-workbook.html">このような用途</a> のために作成された <strong>readxlsb</strong> などのパッケージの使用をおすすめします。</p>
 <!-- ======================================================= -->
-</section><section id="import_missing" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="import_missing">欠損値</h3>
+</section>
+<section id="import_missing" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="import_missing">欠損値</h3>
 <p>まず、データセット内でどのような値が欠損しているかの定義を指定することが大切です。<a href="missing_data.jp.html">欠損データの処理</a> の章で説明されているように、R では欠損値は <code>NA</code> と表示されますが、インポートするデータセットでの欠損値は、99 や “Missing”、または単に空の文字スペース “” で表されている可能性があります。</p>
 <p><code>import()</code> に <code>na =</code> 引数を使用し、インポートするデータセットで欠損値とみなしたい値を引用符で囲んで指定します（数値の場合でも同様に指定します）。 以下に示すように、 <code>c()</code> を使用して括弧内に複数の値を書くと、複数の値を指定できます。</p>
 <p>インポートされたデータセットの値 “99” は欠落していると見なされ、Rで <code>NA</code> に変換されます。</p>
@@ -939,22 +914,27 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_linelist.csv"</span>), <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"Missing"</span>, <span class="st">""</span>, <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="行をスキップする" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="行をスキップする">行をスキップする</h3>
+</section>
+<section id="行をスキップする" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="行をスキップする">行をスキップする</h3>
 <p>.xlsx または .csv ファイル内の一部の行をインポートしたくない場合は、 <strong>rio</strong> の <code>import()</code> 内で引数 <code>skip =</code> を使用し、インポートをスキップする行数を指定します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>linelist_raw <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_raw.xlsx"</span>, <span class="at">skip =</span> <span class="dv">1</span>)  <span class="co"># ヘッダー行をインポートしない</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>残念ながら、<code>skip =</code> には 1 行のみ指定可能であり、<u>範囲</u>を指定することはできません。（例えば、“2:10” はと指定することはできません）。上から連続していない特定の行のインポートをスキップするには、ファイルを複数回インポートし、<strong>dplyr</strong> パッケージの <code>bind_rows()</code> を使用することを検討してください。 以下に、2 行目のみをスキップする例を示します。</p>
-</section><section id="番目のヘッダー行を管理する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="番目のヘッダー行を管理する">2番目のヘッダー行を管理する</h3>
+</section>
+<section id="番目のヘッダー行を管理する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="番目のヘッダー行を管理する">2番目のヘッダー行を管理する</h3>
 <p>以下に示すように、データセットの <u>2 番目</u>の行が「データディクショナリ」（data dictionary）行である場合があります。この場合、すべての列が「文字型」としてインポートされる可能性があり、問題にを起こす場合があります。</p>
 <p>以下は、このようなデータセットの例です（最初の行がデータディクショナリとなっています）。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-567db2c9f9b38e58735d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-567db2c9f9b38e58735d">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["case identification number assigned by MOH","5fe599","8689b7","11f8ea","b8812a"],["transmission chain generation number","4","4","2","3"],["estimated date of infection, mm/dd/yyyy","2014-05-08",null,null,"2014-05-04"],["date of symptom onset, YYYY-MM-DD","2014-05-13","2014-05-13","2014-05-16","2014-05-18"],["date of initial hospitalization, mm/dd/yyyy","2014-05-15","2014-05-14","2014-05-18","2014-05-20"],["date of outcome status determination",null,"2014-05-18","2014-05-30",null],["either 'Death' or 'Recovered' or 'Unknown'",null,"Recover","Recover",null],["either 'm' or 'f' or 'unknown'","m","f","m","f"],["age number","2","3","56","18"],["age unit, either 'years' or 'months' or 'days'","years","years","years","years"],[null,"2","3","56","18"],[null,"0-4","0-4","50-69","15-19"],[null,"0-4","0-4","55-59","15-19"],["Name of hospital of first admission","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital"],["longitude of residence, approx","-13.2157351064963","-13.2152339775486","-13.212910703914","-13.2363711169728"],["latitude of residence, approx","8.46897295100924","8.45171855856465","8.46481700596819","8.4754761613651"],["case_id of infector","f547d6",null,null,"f90f5f"],["context of known transmission event","other",null,null,"other"],[null,"27","25","91","41"],[null,"48","59","238","135"],[null,"22","22","21","23"],["presence of fever on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of chills on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of cough on admission, either 'yes' or 'no'","yes",null,null,"no"],["presence of aches on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of vomiting on admission, either 'yes' or 'no'","yes",null,null,"no"],[null,"36.8","36.9","36.9","36.8"],["time of hospital admission HH:MM",null,"09:36","16:48","11:22"],[null,"117.1875","71.8184429761563","16.0652496292635","22.4965706447188"],[null,"2","1","2","2"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1c6faf6203c7e4ce5ee9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1c6faf6203c7e4ce5ee9">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["case identification number assigned by MOH","5fe599","8689b7","11f8ea","b8812a"],["transmission chain generation number","4","4","2","3"],["estimated date of infection, mm/dd/yyyy","2014-05-08",null,null,"2014-05-04"],["date of symptom onset, YYYY-MM-DD","2014-05-13","2014-05-13","2014-05-16","2014-05-18"],["date of initial hospitalization, mm/dd/yyyy","2014-05-15","2014-05-14","2014-05-18","2014-05-20"],["date of outcome status determination",null,"2014-05-18","2014-05-30",null],["either 'Death' or 'Recovered' or 'Unknown'",null,"Recover","Recover",null],["either 'm' or 'f' or 'unknown'","m","f","m","f"],["age number","2","3","56","18"],["age unit, either 'years' or 'months' or 'days'","years","years","years","years"],[null,"2","3","56","18"],[null,"0-4","0-4","50-69","15-19"],[null,"0-4","0-4","55-59","15-19"],["Name of hospital of first admission","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital"],["longitude of residence, approx","-13.2157351064963","-13.2152339775486","-13.212910703914","-13.2363711169728"],["latitude of residence, approx","8.46897295100924","8.45171855856465","8.46481700596819","8.4754761613651"],["case_id of infector","f547d6",null,null,"f90f5f"],["context of known transmission event","other",null,null,"other"],[null,"27","25","91","41"],[null,"48","59","238","135"],[null,"22","22","21","23"],["presence of fever on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of chills on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of cough on admission, either 'yes' or 'no'","yes",null,null,"no"],["presence of aches on admission, either 'yes' or 'no'","no",null,null,"no"],["presence of vomiting on admission, either 'yes' or 'no'","yes",null,null,"no"],[null,"36.8","36.9","36.9","36.8"],["time of hospital admission HH:MM",null,"09:36","16:48","11:22"],[null,"117.1875","71.8184429761563","16.0652496292635","22.4965706447188"],[null,"2","1","2","2"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"scrollX":true,"columnDefs":[{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<section id="番目のヘッダー行の削除" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="番目のヘッダー行の削除">2番目のヘッダー行の削除</h4>
+<section id="番目のヘッダー行の削除" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="番目のヘッダー行の削除">2番目のヘッダー行の削除</h4>
 <p>2 番目のヘッダー行を削除するには、データを2回インポートする必要があります。</p>
 <ol type="1">
 <li>正しい列名を保存するためにデータをインポートします。<br>
@@ -991,7 +971,9 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base R の関数の colnames() 関数を使用してヘッダーを割り当てる・上書きする</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(linelist_raw) <span class="ot">&lt;-</span> linelist_raw_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="データディクショナリの作成" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="データディクショナリの作成">データディクショナリの作成</h4>
+</section>
+<section id="データディクショナリの作成" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="データディクショナリの作成">データディクショナリの作成</h4>
 <p>おまけ：データディクショナリである 2 行目がある場合は、そこからデータディクショナリを簡単に作成できます。このヒントは、この <a href="https://alison.rbind.io/post/2018-02-23-read-multiple-header-rows/">投稿</a> を基に作成されました。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dict <span class="ot">&lt;-</span> linelist_2headers <span class="sc">%&gt;%</span>             <span class="co"># はじめに、1行目としてディクショナリを含むラインリスト</span></span>
@@ -1002,18 +984,23 @@ cookieconsent.run({
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8b44f11a435298b049a1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8b44f11a435298b049a1">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["case_id","generation","date_infection","date_onset","date_hospitalisation","date_outcome","outcome","gender","age","age_unit","age_years","age_cat","age_cat5","hospital","lon","lat","infector","source","wt_kg","ht_cm","ct_blood","fever","chills","cough","aches","vomit","temp","time_admission","bmi","days_onset_hosp"],["case identification number assigned by MOH","transmission chain generation number","estimated date of infection, mm/dd/yyyy","date of symptom onset, YYYY-MM-DD","date of initial hospitalization, mm/dd/yyyy","date of outcome status determination","either 'Death' or 'Recovered' or 'Unknown'","either 'm' or 'f' or 'unknown'","age number","age unit, either 'years' or 'months' or 'days'",null,null,null,"Name of hospital of first admission","longitude of residence, approx","latitude of residence, approx","case_id of infector","context of known transmission event",null,null,null,"presence of fever on admission, either 'yes' or 'no'","presence of chills on admission, either 'yes' or 'no'","presence of cough on admission, either 'yes' or 'no'","presence of aches on admission, either 'yes' or 'no'","presence of vomiting on admission, either 'yes' or 'no'",null,"time of hospital admission HH:MM",null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Column<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"scrollX":true,"columnDefs":[{"name":"Column","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1ed3394ab945653402d7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1ed3394ab945653402d7">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["case_id","generation","date_infection","date_onset","date_hospitalisation","date_outcome","outcome","gender","age","age_unit","age_years","age_cat","age_cat5","hospital","lon","lat","infector","source","wt_kg","ht_cm","ct_blood","fever","chills","cough","aches","vomit","temp","time_admission","bmi","days_onset_hosp"],["case identification number assigned by MOH","transmission chain generation number","estimated date of infection, mm/dd/yyyy","date of symptom onset, YYYY-MM-DD","date of initial hospitalization, mm/dd/yyyy","date of outcome status determination","either 'Death' or 'Recovered' or 'Unknown'","either 'm' or 'f' or 'unknown'","age number","age unit, either 'years' or 'months' or 'days'",null,null,null,"Name of hospital of first admission","longitude of residence, approx","latitude of residence, approx","case_id of infector","context of known transmission event",null,null,null,"presence of fever on admission, either 'yes' or 'no'","presence of chills on admission, either 'yes' or 'no'","presence of cough on admission, either 'yes' or 'no'","presence of aches on admission, either 'yes' or 'no'","presence of vomiting on admission, either 'yes' or 'no'",null,"time of hospital admission HH:MM",null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Column<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"scrollX":true,"columnDefs":[{"name":"Column","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="つのヘッダー行を組み合わせる" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="つのヘッダー行を組み合わせる">2つのヘッダー行を組み合わせる</h4>
+</section>
+<section id="つのヘッダー行を組み合わせる" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="つのヘッダー行を組み合わせる">2つのヘッダー行を組み合わせる</h4>
 <p>元のデータセットにヘッダーが <u>2 行</u>ある場合（特に、データの 2 行目がサブヘッダーである場合）、それらを 「結合」するか、2 番目のヘッダー行の値を最初のヘッダー行に追加することができます。</p>
 <p>以下のコマンドは、データフレームの列名を、最初の（本来の）ヘッダーとそのすぐ下（最初の行）の値の組み合わせとして（一緒に貼り付けて）定義します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_data) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(my_data), my_data[<span class="dv">1</span>, ], <span class="at">sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="google-シート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="google-シート">Google シート</h3>
+</section>
+</section>
+<section id="google-シート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="google-シート">Google シート</h3>
 <p><strong>googlesheet4</strong> パッケージを使用して、スプレッドシートへのアクセスを認証することにより、オンラインの Google スプレッドシートからデータをインポートすることができます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"googlesheets4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1028,32 +1015,40 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Gsheets_demo <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(<span class="st">"1scgtzkVLLHAe5a6_eFQEwkZcc14yFUx1KgOMZ4AKUfY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>また、別のパッケージである <strong>googledrive</strong> を使用しても、Google スプレッドシートを作成、編集、削除することができます。例えば、このパッケージの <code>gs4_create()</code> 関数や <code>sheet_write()</code> 関数などです。</p>
-<p>その他の参考資料: <a href="https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/">Google スプレッドシートのインポート 基礎</a><br><a href="https://googlesheets4.tidyverse.org/articles/googlesheets4.html">より詳しいチュートリアル</a><br><a href="https://googlesheets4.tidyverse.org/articles/articles/drive-and-sheets.html">googlesheets4 と tidyverse の間の相互作用</a></p>
-</section></section><section id="複数のファイルをインポートエクスポート分割結合する" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="複数のファイルをインポートエクスポート分割結合する">
-<span class="header-section-number">7.6</span> 複数のファイルをインポート、エクスポート、分割、結合する</h2>
+<p>その他の参考資料: <a href="https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/">Google スプレッドシートのインポート 基礎</a><br>
+<a href="https://googlesheets4.tidyverse.org/articles/googlesheets4.html">より詳しいチュートリアル</a><br>
+<a href="https://googlesheets4.tidyverse.org/articles/articles/drive-and-sheets.html">googlesheets4 と tidyverse の間の相互作用</a></p>
+</section>
+</section>
+<section id="複数のファイルをインポートエクスポート分割結合する" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="複数のファイルをインポートエクスポート分割結合する"><span class="header-section-number">7.6</span> 複数のファイルをインポート、エクスポート、分割、結合する</h2>
 <p>複数のファイルまたは複数の Excel ファイルをインポートして結合する例については、<a href="iteration.jp.html">ループと反復処理・リストの操作</a> の章を参照してください。データフレームを分割し、それぞれのデータフレームを個別にエクスポートする方法や、それぞれのデータフレームを名前付きのワークシートとして含む一つの Excel ワークブックとしてエクスポートする方法の例も紹介しています。</p>
 <!-- ======================================================= -->
-</section><section id="import_github" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="import_github">
-<span class="header-section-number">7.7</span> Github からのインポート</h2>
+</section>
+<section id="import_github" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="import_github"><span class="header-section-number">7.7</span> Github からのインポート</h2>
 <p>インポートするファイルの種類によって、Github から R にデータを直接インポートするのが非常に簡単な場合もあれば、いくつかの手順が必要な場合もあります。 以下に、いくつかの方法を示します。</p>
-<section id="csv-ファイル" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="csv-ファイル">CSV ファイル</h3>
+<section id="csv-ファイル" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="csv-ファイル">CSV ファイル</h3>
 <p>R コマンドを使用して、.csv ファイルを Github から R に簡単に直接インポートすることができます。</p>
 <ol type="1">
 <li>Github リポジトリに移動し、目的のファイルを見つけてクリックします</li>
 <li>“Raw” ボタンをクリックします（以下に示すように、 “Raw” の csv データが表示されます）</li>
 <li>URL（ウェブアドレス）をコピーします</li>
-<li>
-<code>import()</code> コマンド内で URL を引用符で囲みます</li>
+<li><code>import()</code> コマンド内で URL を引用符で囲みます</li>
 </ol>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><a href="../images/download_csv_raw.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../images/download_csv_raw.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/download_csv_raw.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../images/download_csv_raw.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="xlsx-ファイル" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="xlsx-ファイル">XLSX ファイル</h3>
+</section>
+<section id="xlsx-ファイル" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="xlsx-ファイル">XLSX ファイル</h3>
 <p>一部のファイル（.xlsx、.rds、.nwk、.shp など）では、“Raw” データが表示できない場合があります</p>
 <ol type="1">
 <li>Githubリポジトリに移動し、対象のファイルを見つけてクリックします</li>
@@ -1063,27 +1058,34 @@ cookieconsent.run({
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><a href="../images/download_xlsx.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/download_xlsx.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/download_xlsx.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/download_xlsx.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="シェープファイルshape-ファイル" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="シェープファイルshape-ファイル">シェープファイル（Shape ファイル）</h3>
+</section>
+<section id="シェープファイルshape-ファイル" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="シェープファイルshape-ファイル">シェープファイル（Shape ファイル）</h3>
 <p>シェープ（shape）ファイルには多くの従属ファイルがあり、それぞれファイルの拡張子が異なります。ファイル拡張子が “.shp” であるものもあれば、“.dbf”、“.prj” などのものもあります。Github からシェープファイルをダウンロードするには、各ファイルを個別にダウンロードし、すべてのファイルをコンピュータの<u>同じ</u>フォルダに保存する必要があります。Github で、各ファイルを個別にクリックし、「ダウンロード」（“Download”）ボタンをクリックしてダウンロードします。</p>
 <p>コンピュータに保存後、<a href="gis.jp.html">GIS の基礎</a> の章で説明されているように、<strong>sf</strong> パッケージの <code>st_read()</code> を使用してシェープファイルをインポートできます。他の関連ファイルがコンピュータの同じフォルダ内にある場合に限り、“.shp” ファイルのファイルパスと名前を指定するだけで済みます。</p>
 <p>以下の例では、シェープファイル “sle_adm3” が多くのファイルで構成されていることがわかります。各ファイルを Github からダウンロードする必要があります。</p>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><a href="../images/download_shp.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/download_shp.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/download_shp.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/download_shp.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="手動でのデータ入力" class="level2" data-number="7.8"><h2 data-number="7.8" class="anchored" data-anchor-id="手動でのデータ入力">
-<span class="header-section-number">7.8</span> 手動でのデータ入力</h2>
-<section id="行ごとの入力" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="行ごとの入力">行ごとの入力</h3>
+</section>
+</section>
+<section id="手動でのデータ入力" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="手動でのデータ入力"><span class="header-section-number">7.8</span> 手動でのデータ入力</h2>
+<section id="行ごとの入力" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="行ごとの入力">行ごとの入力</h3>
 <p>tidyverse の <strong>tibble</strong> パッケージに含まれている <code>tribble</code> 関数を使用します（tribble のオンライン資料は<a href="https://tibble.tidyverse.org/reference/tribble.html">こちら</a> を参照ください）。</p>
 <p>列のヘッダーが<u>チルダ</u>（<code>~</code>）で始まることに注意してください。また、各列のデータ型（文字、数値など）は 1 つのみであることに注意してください。タブ、間隔、および新しい行を使用し、データ入力をより直感的で読みやすくすることができます。値の間のスペースの有無はどちらでも問題ありませんが、各行は改行して書かれています。以下に例を示します。</p>
 <div class="cell">
@@ -1098,11 +1100,13 @@ cookieconsent.run({
 <p>新しいデータセットは以下のコマンドで表示できます。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-c740625e4c71fbe225e9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c740625e4c71fbe225e9">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["a","b","c"],[1,2,3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>colA<\/th>\n      <th>colB<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"colA","targets":1},{"name":"colB","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-3eb70e625508983bf2ef" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3eb70e625508983bf2ef">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["a","b","c"],[1,2,3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>colA<\/th>\n      <th>colB<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"colA","targets":1},{"name":"colB","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="列ごとの入力" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="列ごとの入力">列ごとの入力</h3>
+</section>
+<section id="列ごとの入力" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="列ごとの入力">列ごとの入力</h3>
 <p>データフレームはベクトル（垂直列）で構成されているため、<strong>base</strong> R で手動でデータフレームを作成するアプローチでは、各列を定義してから結合します。通常、上のセクションで示したように、データは行で考えられるため、列ごとのデータ入力は、疫学では直感に反するかもしれません。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 各ベクトル（垂直列）を個別に定義し、それぞれに独自の名前を付ける</span></span>
@@ -1119,11 +1123,13 @@ cookieconsent.run({
 <p>以下に、作成した新しいデータセットを表示します。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-901c8c30ac606677dc0b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-901c8c30ac606677dc0b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],[235,452,778,111],["Yes","No","Yes","Yes"],[1,0,1,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>PatientID<\/th>\n      <th>Treatment<\/th>\n      <th>Death<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"PatientID","targets":1},{"name":"Treatment","targets":2},{"name":"Death","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-06efa8648f872b17cd4f" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-06efa8648f872b17cd4f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],[235,452,778,111],["Yes","No","Yes","Yes"],[1,0,1,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>PatientID<\/th>\n      <th>Treatment<\/th>\n      <th>Death<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"PatientID","targets":1},{"name":"Treatment","targets":2},{"name":"Death","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="クリップボードをインポート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="クリップボードをインポート">クリップボードをインポート</h3>
+</section>
+<section id="クリップボードをインポート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="クリップボードをインポート">クリップボードをインポート</h3>
 <p>他の場所からデータをコピーしてクリップボードに保存した場合は、次の 2 つの方法のいずれかでインポートすることができます。</p>
 <p><strong>clipr</strong> パッケージから、 <code>read_clip_tbl()</code> を使用してデータフレームとしてインポートする、又は単に <code>read_clip()</code> を使用して文字ベクトルとしてインポートすることができます。どちらの場合も、括弧は空のままにしておきます。</p>
 <div class="cell">
@@ -1138,15 +1144,18 @@ cookieconsent.run({
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">"t"</span>,           <span class="co"># 区切り文字はタブ、またはコンマなどが指定可能</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>)         <span class="co"># ヘッダー行がある場合</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="最新のファイルをインポート" class="level2" data-number="7.9"><h2 data-number="7.9" class="anchored" data-anchor-id="最新のファイルをインポート">
-<span class="header-section-number">7.9</span> 最新のファイルをインポート</h2>
+</section>
+</section>
+<section id="最新のファイルをインポート" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="最新のファイルをインポート"><span class="header-section-number">7.9</span> 最新のファイルをインポート</h2>
 <p>手持ちのデータセットが毎日更新されることもあり、この場合、最新のファイルをインポートするようにコードを書きたいでしょう。 以下に、複数のファイルから最新のファイルをインポートする方法を 2 つ紹介します。</p>
 <ul>
 <li>ファイル名の日付に基づいてファイルを選択する<br>
 </li>
 <li>ファイルメタデータ（最新の変更）に基づいてファイルを選択する</li>
 </ul>
-<section id="ファイル名の日付を用いて" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ファイル名の日付を用いて">ファイル名の日付を用いて</h3>
+<section id="ファイル名の日付を用いて" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ファイル名の日付を用いて">ファイル名の日付を用いて</h3>
 <p>この方法は、次の 3 つの前提条件を要します。</p>
 <ol type="1">
 <li>ファイル名の日付が信頼できるものであること<br>
@@ -1225,7 +1234,9 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># インポート</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">import</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"example"</span>, <span class="st">"linelists"</span>, latest_file)) <span class="co"># インポート </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="ファイル情報を用いて" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ファイル情報を用いて">ファイル情報を用いて</h3>
+</section>
+<section id="ファイル情報を用いて" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ファイル情報を用いて">ファイル情報を用いて</h3>
 <p>ファイルの名前に日付が含まれていない場合（またはそれらの日付を信頼できない場合）は、ファイルのメタデータから最終変更日を抽出してみてください。<strong>fs</strong> パッケージの関数を使用し、最終変更時刻とファイルパスを含む各ファイルのメタデータ情報を調べることができます。</p>
 <p>以下のように、 <strong>fs</strong> の <code>dir_info()</code> に対象のフォルダを指定します。この場合、対象のフォルダは、フォルダ “data”、サブフォルダ “example”、およびそのサブフォルダ “linelists”の R プロジェクトにあります。結果は、ファイルごとに 1 行、 <code>modification_time</code>、<code>path</code> などの列を持つデータフレームとして返されます。<a href="directories.jp.html">ディレクトリの操作</a> の章では、視覚的な例を確認できます。</p>
 <p>このファイルのデータフレームを <code>modification_time</code> 列で並べ替えてから、<strong>base</strong> Rの <code>head()</code> を使用し、最上位・最新の行（ファイル）のみを保持できます。次に、<code>path</code> 列に <strong>dplyr</strong> 関数 <code>pull()</code> を使用し、この最新ファイルのファイルパスを抽出します（この機能があるのは、<strong>dplyr</strong> 関数 <code>pull()</code> のみです）。最後に、抽出したファイルパスを <code>import()</code> 内で指定し、ファイルをインポートします。インポートされたファイルは <code>latest_file</code> として保存されます。</p>
@@ -1237,13 +1248,16 @@ cookieconsent.run({
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import</span>()                                  <span class="co"># ファイルをインポート</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="import_api" class="level2" data-number="7.10"><h2 data-number="7.10" class="anchored" data-anchor-id="import_api">
-<span class="header-section-number">7.10</span> API</h2>
+</section>
+</section>
+<section id="import_api" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="import_api"><span class="header-section-number">7.10</span> API</h2>
 <p>「自動プログラミングインターフェース」（Automated Programming Interface; API）を使用して、ウェブサイトからデータを直接インポートできます。API は、あるソフトウェアアプリケーションが別のソフトウェアアプリケーションと対話できるようにする一連のルールです。クライアントである貴方が「リクエスト」（“request”）を送信し、要求したコンテンツを含む「レスポンス」（“response”）を受信します。R の <strong>httr</strong> パッケージおよび <strong>jsonlite</strong> パッケージにより、このプロセスを容易に行うことができます。</p>
 <p>API 対応の各ウェブサイトには、知っておくべき独自のドキュメントと詳細があります。一部のサイトは公開されており、誰でもアクセス可能です。ユーザー ID や経歴を備えたプラットフォームなど、その他のデータにアクセスするには認証が必要です。</p>
 <p>言うまでもなく、API を介してデータをインポートするにはインターネットに接続する必要があります。以下において、API を使用してデータをインポートする例を簡単に説明し、その他の関連資料を紹介します。</p>
 <p><u>注意</u>：API が必要ない別のウェブサイトに同じ<u>データが投稿されている可能性があり</u>、その場合は API を使用しない方がデータ取得が容易である可能性があります。例えば、<a href="#import_github">Github からのインポート</a> に関するセクションで説明したように、<code>import()</code> にサイトの URL を指定するだけでアクセスできる場合があります。</p>
-<section id="http-リクエスト" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="http-リクエスト">HTTP リクエスト</h3>
+<section id="http-リクエスト" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="http-リクエスト">HTTP リクエスト</h3>
 <p>API のやり取りは、HTTP リクエストを介して行われるのが最も一般的です。HTTP はハイパーテキスト転送プロトコル（Hypertext Transfer Protocol）であり、クライアントとサーバー間のリクエスト（要求）・レスポンス（応答）の基本的な形式です。入力と出力のフォーマットは、API のタイプによって異なる場合がありますが、プロセスは同じです。ユーザーからの「リクエスト」（多くの場合、HTTP リクエスト）にはクエリ（query）が含まれ、その後に「レスポンス」が続き、レスポンスには、リクエスト及び場合によってはリクエストされた内容についてのステータス情報が含まれます。</p>
 <p><u>HTTP リクエスト</u>のいくつかの構成要素は次のとおりです。</p>
 <ul>
@@ -1254,25 +1268,27 @@ cookieconsent.run({
 </ul>
 <p>HTTP リクエストの「メソッド」は、実行したいアクションを指定します。最も一般的な HTTP メソッドの 2 つは <code>GET</code> と <code>POST</code> ですが、その他にも <code>PUT</code>、<code>DELETE</code>、<code>PATCH</code> などがあります。R にデータをインポートする場合、 <code>GET</code> を使用することが多いです。</p>
 <p>リクエストを送信した後、コンピュータは、送信したリクエストと同様の形式で「レスポンス」を受け取ります。レスポンスには、URL、HTTP ステータス（ステータス200が必要です！）、ファイルタイプ、サイズ、目的のコンテンツなどが含まれます。次のステップとして、受け取ったレスポンスを解析して、R 環境内で実行可能なデータフレームに変換する必要があります。</p>
-</section><section id="パッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
+</section>
+<section id="パッケージ" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="パッケージ">パッケージ</h3>
 <p><strong>httr</strong> パッケージは、R で HTTP リクエストを処理するのに適しています。ウェブ APIの予備知識はほとんど必要なく、ソフトウェア開発用語にあまり詳しくない方でも利用することができます。また、HTTP レスポンスが .json の場合、<strong>jsonlite</strong> パッケージを使用してレスポンスを解析することができます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># パッケージを読み込む</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(httr, jsonlite, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="公開されているデータ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="公開されているデータ">公開されているデータ</h3>
+</section>
+<section id="公開されているデータ" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="公開されているデータ">公開されているデータ</h3>
 <p>以下は、<a href="https://www.trafforddatalab.io/open_data_companion/#A_quick_introduction_to_APIs">Trafford Data Lab</a> のチュートリアルから借用した HTTP リクエストの例です。このサイトには、他にも学習用の資料や API の演習がいくつかあります。</p>
 <p>事例：イギリスの Trafford 市にあるファーストフードの店舗リストをインポートしたい。このデータは、イギリスの食品衛生評価データを提供する Food Standards Agency の API からアクセスすることができる。</p>
 <p>今回のリクエストのパラメータは以下の通りです。</p>
 <ul>
 <li>HTTP 動詞：GET</li>
-<li>API エンドポイント URL：<a href="http://api.ratings.food.gov.uk/Establishments" class="uri">http://api.ratings.food.gov.uk/Establishments</a>
-</li>
+<li>API エンドポイント URL：<a href="http://api.ratings.food.gov.uk/Establishments" class="uri">http://api.ratings.food.gov.uk/Establishments</a></li>
 <li>選択したパラメーター：name, address, longitude, latitude, businessTypeId, ratingKey, localAuthorityId</li>
 <li>ヘッダー：“x-api-version”, 2</li>
 <li>データフォーマット：JSON, XML</li>
-<li>ドキュメンテーション：<a href="http://api.ratings.food.gov.uk/help" class="uri">http://api.ratings.food.gov.uk/help</a>
-</li>
+<li>ドキュメンテーション：<a href="http://api.ratings.food.gov.uk/help" class="uri">http://api.ratings.food.gov.uk/help</a></li>
 </ul>
 <p>使用する R コードは次のようになります。</p>
 <div class="cell">
@@ -1296,7 +1312,9 @@ cookieconsent.run({
 <span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>これで、ファーストフード施設ごとに 1 行を含む <code>response</code> データフレームを取得できました。</p>
-</section><section id="認証が必要なデータ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="認証が必要なデータ"><strong>認証が必要なデータ</strong></h3>
+</section>
+<section id="認証が必要なデータ" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="認証が必要なデータ"><strong>認証が必要なデータ</strong></h3>
 <p>一部のAPIには認証が必要です。自分が誰であるかを証明することで、制限されたデータにアクセスできます。このようなデータをインポートするには、まず、POST メソッドを使用して、ユーザー名、パスワード、またはコードを提供する必要があります。POST メソッドを使用することで、その後の GET メソッドのリクエストで使用できるアクセストークン（access token）を取得できます。</p>
 <p>以下に、アウトブレイク調査ツールである <u>Go.Data</u> からデータをクエリする例を示します。<u>Go.Data</u> は、データ収集に使用される Web フロントエンドとスマートフォンアプリケーション間のすべての交信に API を使用しています。<u>Go.Data</u> は世界中で使用されています。アウトブレイクデータは機密性が高く、<u>自分が担当する</u>アウトブレイクに関するデータにしかアクセスできないようになっているため、認証が必要です。</p>
 <p>以下の R コードでは、<strong>httr</strong> と <strong>jsonlite</strong> パッケージを使用して<u>Go.Data</u> APIに接続し、あるアウトブレイクの接触者フォローアップに関するデータをインポートします。</p>
@@ -1344,10 +1362,12 @@ cookieconsent.run({
 <p><strong>httr</strong> パッケージの詳細は <a href="https://httr.r-lib.org/articles/quickstart.html">こちら</a> をご覧ください。</p>
 <p>このセクションは、<a href="https://www.dataquest.io/blog/r-api-tutorial/">こちらのチュートリアル</a>と<a href="https://medium.com/@traffordDataLab/querying-apis-in-r-39029b73d5f1">こちらのチュートリアル</a> を参照して作成されました。</p>
 <!-- ======================================================= -->
-</section></section><section id="エクスポート" class="level2" data-number="7.11"><h2 data-number="7.11" class="anchored" data-anchor-id="エクスポート">
-<span class="header-section-number">7.11</span> エクスポート</h2>
-<section id="rio-パッケージを使って" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="rio-パッケージを使って">
-<strong>rio</strong> パッケージを使って</h3>
+</section>
+</section>
+<section id="エクスポート" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="エクスポート"><span class="header-section-number">7.11</span> エクスポート</h2>
+<section id="rio-パッケージを使って" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="rio-パッケージを使って"><strong>rio</strong> パッケージを使って</h3>
 <p><strong>rio</strong> パッケージを使用すると、<code>import()</code> と同様の方法で <code>export()</code> を使用できます。まず、保存する R オブジェクトの名前（<code>linelist</code> など）を指定し、保存するファイルの名前、およびそのファイルの拡張子を含むファイルパスを引用符で囲みます。例を以下に示します。</p>
 <p>以下のコードを実行すると、データフレーム <code>linelist</code> が Excel ワークブックとして作業ディレクトリ（R プロジェクトのルートフォルダ）に保存されます。</p>
 <div class="cell">
@@ -1357,14 +1377,18 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(linelist, <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"my_linelist.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="クリップボードにエクスポート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="クリップボードにエクスポート">クリップボードにエクスポート</h3>
+</section>
+<section id="クリップボードにエクスポート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="クリップボードにエクスポート">クリップボードにエクスポート</h3>
 <p>（Excel、Google スプレッドシートなどの別のソフトウェアに貼り付けるためなど）データフレームをコンピュータの「クリップボード」にエクスポートしたい場合は、<strong>clipr</strong> パッケージの <code>write_clip()</code> を使用できます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ラインリストデータフレームをシステムのクリップボードにエクスポートする</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>clipr<span class="sc">::</span><span class="fu">write_clip</span>(linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="import_rds" class="level2" data-number="7.12"><h2 data-number="7.12" class="anchored" data-anchor-id="import_rds">
-<span class="header-section-number">7.12</span> RDS ファイル</h2>
+</section>
+</section>
+<section id="import_rds" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="import_rds"><span class="header-section-number">7.12</span> RDS ファイル</h2>
 <p>.csv、.xlsx などに加えて、R データフレームを .rds ファイルとしてエクスポート・保存することもできます。.rds は R に固有のファイル形式であり、エクスポートされたデータを R で再度操作することがわかっている場合に非常に便利です。</p>
 <p>.rds では列のデータ型がそのまま保存されるため、インポート時に再度整理する必要はありません（Excel や CSV ファイルでは、これは頭痛の種になります！）。また、.rds は他のファイル形式と比較してファイルサイズが小さいので、大きいデータセットのエクスポートやインポートに便利です。</p>
 <p>例えば、R を使用している疫学チームに所属していて、マッピングのために GIS チームにファイルを送る必要がある場合、.rds ファイルを使用すると、すべての列のデータ型が保持されているため、受け取ったチームの負担が少なくなります。</p>
@@ -1372,8 +1396,9 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(linelist, <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"my_linelist.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="import_rdata" class="level2" data-number="7.13"><h2 data-number="7.13" class="anchored" data-anchor-id="import_rdata">
-<span class="header-section-number">7.13</span> Rdata ファイルとリスト</h2>
+</section>
+<section id="import_rdata" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="import_rdata"><span class="header-section-number">7.13</span> Rdata ファイルとリスト</h2>
 <p><code>.Rdata</code> ファイルには、複数の R オブジェクト（複数のデータフレーム、モデリングの結果、リストなど）を保存でき、特定のプロジェクトで多くのデータをまとめたり共有する場合に非常に便利です。</p>
 <p>以下の例では、複数の R オブジェクトがエクスポートされたファイル “my_objects.Rdata” 内に保存されています。</p>
 <div class="cell">
@@ -1384,17 +1409,21 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>rio<span class="sc">::</span><span class="fu">import_list</span>(<span class="st">"my_list.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="プロットの保存" class="level2" data-number="7.14"><h2 data-number="7.14" class="anchored" data-anchor-id="プロットの保存">
-<span class="header-section-number">7.14</span> プロットの保存</h2>
+</section>
+<section id="プロットの保存" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="プロットの保存"><span class="header-section-number">7.14</span> プロットの保存</h2>
 <p><code>ggplot()</code> などによって作成されたプロットを保存する方法については、<a href="ggplot_basics.jp.html">ggplot の基礎</a> の章で詳しく説明されています。</p>
 <p>簡単に説明すると、プロットを表示した後、 <code>ggsave("my_plot_filepath_and_name.png")</code> を実行します。引数 <code>plot =</code> には、保存されたプロットオブジェクトを指定する必要がありますが、最も最近表示されたプロットを保存したい場合は、ファイル拡張子付きのファイルパスのみを指定することも可能です。加えて、<code>width =</code>、<code>height =</code>、<code>units =</code>、そして <code>dpi =</code> を設定することもできます。</p>
 <p>感染連鎖ツリーなど、関連性を表した図を保存する方法については、<a href="transmission_chains.jp.html">感染連鎖の図式化</a> の章をご覧ください。</p>
 <!-- ======================================================= -->
-</section><section id="参考資料" class="level2" data-number="7.15"><h2 data-number="7.15" class="anchored" data-anchor-id="参考資料">
-<span class="header-section-number">7.15</span> 参考資料</h2>
-<p><a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html">R データインポート・エクスポートマニュアル</a><br><a href="https://r4ds.had.co.nz/data-import.html#data-import">R for Data Science のデータインポートについての章</a><br><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave() に関するドキュメント</a></p>
+</section>
+<section id="参考資料" class="level2" data-number="7.15">
+<h2 data-number="7.15" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">7.15</span> 参考資料</h2>
+<p><a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html">R データインポート・エクスポートマニュアル</a><br>
+<a href="https://r4ds.had.co.nz/data-import.html#data-import">R for Data Science のデータインポートについての章</a><br>
+<a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave() に関するドキュメント</a></p>
 <p>以下は、<a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">こちら</a> <strong>rio</strong> パッケージに関するウェブサイトから抜粋した表です。扱うデータの種類ごとに、予想されるファイル拡張子、データのインポートまたはエクスポートに <strong>rio</strong> で使用されるパッケージ、この機能がデフォルトでインストールされたバージョンの <strong>rio</strong> に含まれているかどうかが表示されています。</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 17%">
@@ -1402,35 +1431,34 @@ cookieconsent.run({
 <col style="width: 18%">
 <col style="width: 19%">
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>フォーマット</th>
 <th>一般的な拡張子</th>
 <th>インポート用パッケージ</th>
 <th>エクスポート用パッケージ</th>
 <th>デフォルトでインストールされているかの有無</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td>カンマ区切りデータ</td>
 <td>.csv</td>
-<td>data.table<code>fread()</code>
-</td>
+<td>data.table<code>fread()</code></td>
 <td>data.table</td>
 <td>有</td>
 </tr>
 <tr class="even">
 <td>パイプ区切りデータ</td>
 <td>.psv</td>
-<td>data.table<code>fread()</code>
-</td>
+<td>data.table<code>fread()</code></td>
 <td>data.table</td>
 <td>有</td>
 </tr>
 <tr class="odd">
 <td>タブ区切りデータ</td>
 <td>.tsv</td>
-<td>data.table<code>fread()</code>
-</td>
+<td>data.table<code>fread()</code></td>
 <td>data.table</td>
 <td>有</td>
 </tr>
@@ -1645,7 +1673,13 @@ cookieconsent.run({
 <td>無</td>
 </tr>
 </tbody>
-</table></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1824,7 +1858,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1856,47 +1901,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1931,11 +1936,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2208,61 +2209,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../new_pages/r_projects.jp.html" class="pagination-link" aria-label="R プロジェクト">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/cleaning.jp.html" class="pagination-link" aria-label="データクリーニングと主要関数">
-        <span class="nav-page-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script>
-</body>
-</html>
+
+
+
+
+</body></html>
