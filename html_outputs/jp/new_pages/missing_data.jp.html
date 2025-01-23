@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.4.550">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>20  データの欠損 – 疫学のための R ハンドブック</title>
+
+
+<title>疫学のための R ハンドブック - 20&nbsp; データの欠損</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -53,18 +55,33 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../new_pages/standardization.jp.html" rel="next">
 <link href="../new_pages/regression.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -91,13 +108,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -112,176 +134,141 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
-
+</script> 
+  
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+<script>
   window.dataLayer = window.dataLayer || [];
-
   function gtag(){dataLayer.push(arguments);}
-
   gtag('js', new Date());
 
-
-
   gtag('config', 'G-QXDW878QLX');
-
 </script>
-</head>
-<body class="nav-sidebar floating">
-<div class="alert alert-info alert-dismissible">
 
+</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
-
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
-
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
-
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
-
     class="alert-link">R Help Desk service</a>. -->
-
 </div>
-
-
 
 <script>
 
-
-
   // Function to extract the last two characters from the URL path
-
   function getLanguageFromURL() {
-
     const path = window.location.pathname.split('/');
-
     
-
     if (path.length > 1) {
-
       return path[1]; // Assume the language code is the second segment
-
     }
 
-
-
     return '';
-
   }
 
-
-
   const language = getLanguageFromURL();
-
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
-
   const defaultLanguage = 'en';
-
   const isSupportedLanguage = supportedLanguages.includes(language);
 
-
-
   // Translations for the content
-
   const translations = {
-
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
-
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
-
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
-
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
-
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
-
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
-
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
-
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
-
   };
 
-
-
   // Default to English if the detected language is not supported
-
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
-
-
-
   // Select the element where the content should be displayed
-
   const alertElement = document.querySelector('.alert');
-
   if (alertElement) {
-
     alertElement.innerHTML = contentToDisplay;
-
     alertElement.style.display = 'block'; // Make sure to display the element
-
   }
 
-
-
-</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+</script>
+<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
-<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/missing_data.jp.html"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></a></li>
-</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/missing_data.jp.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -291,19 +278,9 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
-<a class="dropdown-item" href="/new_pages/missing_data.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/missing_data.fr.html" id="language-link-fr">Français</a>
-<a class="dropdown-item" href="/es/new_pages/missing_data.es.html" id="language-link-es">Español</a>
-<a class="dropdown-item" href="/vn/new_pages/missing_data.vn.html" id="language-link-vn">Tiếng Việt</a>
-<a class="dropdown-item" href="/pt/new_pages/missing_data.pt.html" id="language-link-pt">Português</a>
-<a class="dropdown-item" href="/tr/new_pages/missing_data.tr.html" id="language-link-tr">Türkçe</a>
-<a class="dropdown-item" href="/ru/new_pages/missing_data.ru.html" id="language-link-ru">Русский</a>
-</ul>
-</div>
-<div class="sidebar-menu-container"> 
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -311,458 +288,445 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">20.1</span> 準備</a>
+  <li><a href="#準備" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">20.1</span> 準備</a>
   <ul class="collapse">
-<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
-  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
-  <li><a href="#%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E6%99%82%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%AC%A0%E6%90%8D%E3%81%AE%E5%A4%89%E6%8F%9B" id="toc-インポート時における欠損の変換" class="nav-link" data-scroll-target="#インポート時における欠損の変換">インポート時における欠損の変換</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#r-%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%AC%A0%E6%90%8D%E5%80%A4" id="toc-r-における欠損値" class="nav-link" data-scroll-target="#r-における欠損値"><span class="header-section-number">20.2</span> R における欠損値</a>
+  <li><a href="#パッケージの読み込み" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
+  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
+  <li><a href="#インポート時における欠損の変換" id="toc-インポート時における欠損の変換" class="nav-link" data-scroll-target="#インポート時における欠損の変換">インポート時における欠損の変換</a></li>
+  </ul></li>
+  <li><a href="#r-における欠損値" id="toc-r-における欠損値" class="nav-link" data-scroll-target="#r-における欠損値"><span class="header-section-number">20.2</span> R における欠損値</a>
   <ul class="collapse">
-<li><a href="#na" id="toc-na" class="nav-link" data-scroll-target="#na"><code>NA</code></a></li>
-  <li><a href="#%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA-na" id="toc-いろいろな-na" class="nav-link" data-scroll-target="#いろいろな-na">いろいろな <code>NA</code></a></li>
+  <li><a href="#na" id="toc-na" class="nav-link" data-scroll-target="#na"><code>NA</code></a></li>
+  <li><a href="#いろいろな-na" id="toc-いろいろな-na" class="nav-link" data-scroll-target="#いろいろな-na">いろいろな <code>NA</code></a></li>
   <li><a href="#null" id="toc-null" class="nav-link" data-scroll-target="#null"><code>NULL</code></a></li>
   <li><a href="#nan" id="toc-nan" class="nav-link" data-scroll-target="#nan"><code>NaN</code></a></li>
   <li><a href="#inf" id="toc-inf" class="nav-link" data-scroll-target="#inf"><code>Inf</code></a></li>
-  <li><a href="#%E4%BE%8B" id="toc-例" class="nav-link" data-scroll-target="#例">例</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E4%BE%BF%E5%88%A9%E3%81%AA%E9%96%A2%E6%95%B0" id="toc-便利な関数" class="nav-link" data-scroll-target="#便利な関数"><span class="header-section-number">20.3</span> 便利な関数</a>
+  <li><a href="#例" id="toc-例" class="nav-link" data-scroll-target="#例">例</a></li>
+  </ul></li>
+  <li><a href="#便利な関数" id="toc-便利な関数" class="nav-link" data-scroll-target="#便利な関数"><span class="header-section-number">20.3</span> 便利な関数</a>
   <ul class="collapse">
-<li><a href="#is.na-%E3%81%A8-is.na" id="toc-is.na-と-is.na" class="nav-link" data-scroll-target="#is.na-と-is.na"><code>is.na()</code> と <code>!is.na()</code></a></li>
+  <li><a href="#is.na-と-is.na" id="toc-is.na-と-is.na" class="nav-link" data-scroll-target="#is.na-と-is.na"><code>is.na()</code> と <code>!is.na()</code></a></li>
   <li><a href="#na.omit" id="toc-na.omit" class="nav-link" data-scroll-target="#na.omit"><code>na.omit()</code></a></li>
   <li><a href="#drop_na" id="toc-drop_na" class="nav-link" data-scroll-target="#drop_na"><code>drop_na()</code></a></li>
   <li><a href="#na.rm-true" id="toc-na.rm-true" class="nav-link" data-scroll-target="#na.rm-true"><code>na.rm = TRUE</code></a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E5%86%85%E3%81%AE%E6%AC%A0%E6%90%8D%E3%82%92%E8%A9%95%E4%BE%A1%E3%81%99%E3%82%8B" id="toc-データフレーム内の欠損を評価する" class="nav-link" data-scroll-target="#データフレーム内の欠損を評価する"><span class="header-section-number">20.4</span> データフレーム内の欠損を評価する</a>
+  </ul></li>
+  <li><a href="#データフレーム内の欠損を評価する" id="toc-データフレーム内の欠損を評価する" class="nav-link" data-scroll-target="#データフレーム内の欠損を評価する"><span class="header-section-number">20.4</span> データフレーム内の欠損を評価する</a>
   <ul class="collapse">
-<li><a href="#%E6%AC%A0%E6%90%8D%E3%81%AE%E6%95%B0%E3%82%92%E5%AE%9A%E9%87%8F%E5%8C%96%E3%81%99%E3%82%8B" id="toc-欠損の数を定量化する" class="nav-link" data-scroll-target="#欠損の数を定量化する">欠損の数を定量化する</a></li>
-  <li><a href="#%E6%AC%A0%E6%90%8D%E7%8A%B6%E6%B3%81%E3%82%92%E8%A6%96%E8%A6%9A%E5%8C%96%E3%81%99%E3%82%8B" id="toc-欠損状況を視覚化する" class="nav-link" data-scroll-target="#欠損状況を視覚化する">欠損状況を視覚化する</a></li>
-  <li><a href="#%E6%AC%A0%E6%90%8D%E7%8A%B6%E6%B3%81%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%82%92%E6%8E%A2%E3%82%8A%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%99%E3%82%8B" id="toc-欠損状況の関係性を探り可視化する" class="nav-link" data-scroll-target="#欠損状況の関係性を探り可視化する">欠損状況の関係性を探り、可視化する</a></li>
-  <li><a href="#%E4%BB%98%E9%9A%8F%E3%81%99%E3%82%8B%E5%88%97" id="toc-付随する列" class="nav-link" data-scroll-target="#付随する列">「付随する」列</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E6%AC%A0%E6%90%8D%E5%80%A4%E3%82%92%E5%90%AB%E3%82%80%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%86" id="toc-欠損値を含むデータを使う" class="nav-link" data-scroll-target="#欠損値を含むデータを使う"><span class="header-section-number">20.5</span> 欠損値を含むデータを使う</a>
+  <li><a href="#欠損の数を定量化する" id="toc-欠損の数を定量化する" class="nav-link" data-scroll-target="#欠損の数を定量化する">欠損の数を定量化する</a></li>
+  <li><a href="#欠損状況を視覚化する" id="toc-欠損状況を視覚化する" class="nav-link" data-scroll-target="#欠損状況を視覚化する">欠損状況を視覚化する</a></li>
+  <li><a href="#欠損状況の関係性を探り可視化する" id="toc-欠損状況の関係性を探り可視化する" class="nav-link" data-scroll-target="#欠損状況の関係性を探り可視化する">欠損状況の関係性を探り、可視化する</a></li>
+  <li><a href="#付随する列" id="toc-付随する列" class="nav-link" data-scroll-target="#付随する列">「付随する」列</a></li>
+  </ul></li>
+  <li><a href="#欠損値を含むデータを使う" id="toc-欠損値を含むデータを使う" class="nav-link" data-scroll-target="#欠損値を含むデータを使う"><span class="header-section-number">20.5</span> 欠損値を含むデータを使う</a>
   <ul class="collapse">
-<li><a href="#%E6%AC%A0%E6%90%8D%E5%80%A4%E3%82%92%E5%90%AB%E3%82%80%E8%A1%8C%E3%82%92%E5%8F%96%E3%82%8A%E9%99%A4%E3%81%8F" id="toc-欠損値を含む行を取り除く" class="nav-link" data-scroll-target="#欠損値を含む行を取り除く">欠損値を含む行を取り除く</a></li>
-  <li><a href="#ggplot-%E3%81%A7%E3%81%AE-na-%E3%81%AE%E6%89%B1%E3%81%84%E6%96%B9" id="toc-ggplot-での-na-の扱い方" class="nav-link" data-scroll-target="#ggplot-での-na-の扱い方"><code>ggplot()</code> での <code>NA</code> の扱い方</a></li>
-  <li><a href="#%E5%9B%A0%E5%AD%90%E5%9E%8B%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Bna" id="toc-因子型におけるna" class="nav-link" data-scroll-target="#因子型におけるna">因子型における<code>NA</code></a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E6%AC%A0%E6%90%8D%E5%80%A4%E3%81%AE%E8%A3%9C%E5%AE%8C" id="toc-欠損値の補完" class="nav-link" data-scroll-target="#欠損値の補完"><span class="header-section-number">20.6</span> 欠損値の補完</a>
+  <li><a href="#欠損値を含む行を取り除く" id="toc-欠損値を含む行を取り除く" class="nav-link" data-scroll-target="#欠損値を含む行を取り除く">欠損値を含む行を取り除く</a></li>
+  <li><a href="#ggplot-での-na-の扱い方" id="toc-ggplot-での-na-の扱い方" class="nav-link" data-scroll-target="#ggplot-での-na-の扱い方"><code>ggplot()</code> での <code>NA</code> の扱い方</a></li>
+  <li><a href="#因子型におけるna" id="toc-因子型におけるna" class="nav-link" data-scroll-target="#因子型におけるna">因子型における<code>NA</code></a></li>
+  </ul></li>
+  <li><a href="#欠損値の補完" id="toc-欠損値の補完" class="nav-link" data-scroll-target="#欠損値の補完"><span class="header-section-number">20.6</span> 欠損値の補完</a>
   <ul class="collapse">
-<li><a href="#%E6%AC%A0%E6%90%8D%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E7%A8%AE%E9%A1%9E" id="toc-欠損データの種類" class="nav-link" data-scroll-target="#欠損データの種類">欠損データの種類</a></li>
-  <li><a href="#%E4%BE%BF%E5%88%A9%E3%81%AA%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-便利なパッケージ" class="nav-link" data-scroll-target="#便利なパッケージ">便利なパッケージ</a></li>
-  <li><a href="#%E5%B9%B3%E5%9D%87%E5%80%A4%E4%BB%A3%E5%85%A5%E6%B3%95" id="toc-平均値代入法" class="nav-link" data-scroll-target="#平均値代入法">平均値代入法</a></li>
-  <li><a href="#%E5%9B%9E%E5%B8%B0%E4%BB%A3%E5%85%A5%E6%B3%95" id="toc-回帰代入法" class="nav-link" data-scroll-target="#回帰代入法">回帰代入法</a></li>
-  <li><a href="#locf-%E3%81%A8-bocf" id="toc-locf-と-bocf" class="nav-link" data-scroll-target="#locf-と-bocf">LOCF と BOCF</a></li>
-  <li><a href="#%E5%A4%9A%E9%87%8D%E4%BB%A3%E5%85%A5%E6%B3%95" id="toc-多重代入法" class="nav-link" data-scroll-target="#多重代入法">多重代入法</a></li>
+  <li><a href="#欠損データの種類" id="toc-欠損データの種類" class="nav-link" data-scroll-target="#欠損データの種類">欠損データの種類</a></li>
+  <li><a href="#便利なパッケージ" id="toc-便利なパッケージ" class="nav-link" data-scroll-target="#便利なパッケージ">便利なパッケージ</a></li>
+  <li><a href="#平均値代入法" id="toc-平均値代入法" class="nav-link" data-scroll-target="#平均値代入法">平均値代入法</a></li>
+  <li><a href="#回帰代入法" id="toc-回帰代入法" class="nav-link" data-scroll-target="#回帰代入法">回帰代入法</a></li>
+  <li><a href="#locf-と-bocf" id="toc-locf-と-bocf" class="nav-link" data-scroll-target="#locf-と-bocf">LOCF と BOCF</a></li>
+  <li><a href="#多重代入法" id="toc-多重代入法" class="nav-link" data-scroll-target="#多重代入法">多重代入法</a></li>
+  </ul></li>
+  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">20.7</span> 参考資料</a></li>
   </ul>
-</li>
-  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">20.7</span> 参考資料</a></li>
-  </ul></nav>
-</div>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/missing_data.jp.html"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></a></li>
-</ol></nav><div class="quarto-title">
-<h1 class="title"><span id="missing-data" class="quarto-section-identifier"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.jp.html">データ分析</a></li><li class="breadcrumb-item"><a href="../new_pages/missing_data.jp.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="missing-data" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></h1>
 </div>
 
 
@@ -776,16 +740,21 @@ cookieconsent.run({
   
 
 
-</header><div class="cell">
+</header>
+
+
+<div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/missingness.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/missingness.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/missingness.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/missingness.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/missingness_overview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../images/missingness_overview.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/missingness_overview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../images/missingness_overview.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -798,9 +767,11 @@ cookieconsent.run({
 <li>プロットにおける <code>NA</code> の処理の仕方</li>
 <li>欠損値の補完：MCAR, MAR, MNAR</li>
 </ol>
-<!-- ======================================================= --><section id="準備" class="level2" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="準備">
-<span class="header-section-number">20.1</span> 準備</h2>
-<section id="パッケージの読み込み" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
+<!-- ======================================================= -->
+<section id="準備" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="準備"><span class="header-section-number">20.1</span> 準備</h2>
+<section id="パッケージの読み込み" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
 <p>以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、pacman パッケージの p_load() を主に使用しています。p_load() は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである base （以下、base R）の library() を使用して読み込むこともできます。R のパッケージに関する詳細は <a href="basics.jp.html">R basics</a> の章をご覧ください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -810,7 +781,9 @@ cookieconsent.run({
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  mice           <span class="co"># 欠損値の補完</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="データのインポート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
+</section>
+<section id="データのインポート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
 <p>エボラ出血熱の流行をシミュレートしたデータセットをインポートします。お手元の環境でこの章の内容を実行したい方は、 <a href="https://github.com/appliedepi/epiRhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">クリック</a>して「前処理された」ラインリスト（linelist）データをダウンロードしてください&gt;（.rds 形式で取得できます）。データは <em>rio</em> パッケージの import() を利用してインポートしましょう（<em>rio</em> パッケージは、.xlsx、.csv、.rds など様々な種類のファイルを取り扱うことができます。詳細は、<a href="importing.jp.html">インポートとエクスポート</a> の章をご覧ください。）</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ラインリストをインポートする</span></span>
@@ -819,22 +792,28 @@ cookieconsent.run({
 <p>最初の 50 行を以下に示します。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-1dcbb2bb50fb4f1a52bf" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1dcbb2bb50fb4f1a52bf">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1.407024e+12\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-e959c7676ce7bae10a93" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e959c7676ce7bae10a93">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1.407024e+12\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]},{"name":"case_id","targets":0},{"name":"generation","targets":1},{"name":"date_infection","targets":2},{"name":"date_onset","targets":3},{"name":"date_hospitalisation","targets":4},{"name":"date_outcome","targets":5},{"name":"outcome","targets":6},{"name":"gender","targets":7},{"name":"age","targets":8},{"name":"age_unit","targets":9},{"name":"age_years","targets":10},{"name":"age_cat","targets":11},{"name":"age_cat5","targets":12},{"name":"hospital","targets":13},{"name":"lon","targets":14},{"name":"lat","targets":15},{"name":"infector","targets":16},{"name":"source","targets":17},{"name":"wt_kg","targets":18},{"name":"ht_cm","targets":19},{"name":"ct_blood","targets":20},{"name":"fever","targets":21},{"name":"chills","targets":22},{"name":"cough","targets":23},{"name":"aches","targets":24},{"name":"vomit","targets":25},{"name":"temp","targets":26},{"name":"time_admission","targets":27},{"name":"bmi","targets":28},{"name":"days_onset_hosp","targets":29}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="インポート時における欠損の変換" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="インポート時における欠損の変換">インポート時における欠損の変換</h3>
+</section>
+<section id="インポート時における欠損の変換" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="インポート時における欠損の変換">インポート時における欠損の変換</h3>
 <p>データをインポートする際に、欠損、と分類されるべき値については少し注意が必要です。例えば、99、999、“Missing”、空欄（““）、または 空のスペースを含むセル（” “） などです。インポートのコマンドと一緒にこれらの値を <code>NA</code> （R において欠損値を示す）に変換することが出来ます。 使用するコマンドがファイルのタイプによって異なるので、詳細については <a href="importing.jp.html#import_missing">データの欠損</a> のインポートのセクションを参考にしてください。</p>
 <!-- ======================================================= -->
-</section></section><section id="r-における欠損値" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="r-における欠損値">
-<span class="header-section-number">20.2</span> R における欠損値</h2>
+</section>
+</section>
+<section id="r-における欠損値" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="r-における欠損値"><span class="header-section-number">20.2</span> R における欠損値</h2>
 <p>以下では、R における欠損の表示や評価の仕方、また、それに関連するいくつかの値や関数について見ていきたいと思います。</p>
-<section id="na" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="na"><code>NA</code></h3>
+<section id="na" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="na"><code>NA</code></h3>
 <p>R においては、欠損値は予約語（特別な値）として指定された <code>NA</code> で表示されます。これは引用符<u>なし</u>で用いることに注意が必要です。“NA” とは異なり、これは通常の文字と同じ扱いとなります（ビートルズの Hey Jude の歌詞と同じです）。</p>
 <p>データ内では “99”、“Missing”、または “Unknown” というように欠損が表されていることもあります。また、空の文字値 ““（空欄のように見える）や、スペース” ” で表されていることもあります。これらについては、<a href="importing.jp.html#import_missing">インポート時に <code>NA</code> に変換する</a> もしくはデータを <code>na_if()</code> を用いてクリーニングする必要があります。</p>
 <p>データクリーニングにおいて、逆に全ての <code>NA</code> を “Missing” に変換したり、<code>replace_na()</code> を用いたり、因子型の場合には <code>fct_explicit_na()</code> を用いたりして処理することもできます。</p>
-</section><section id="いろいろな-na" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="いろいろな-na">いろいろな <code>NA</code>
-</h3>
+</section>
+<section id="いろいろな-na" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="いろいろな-na">いろいろな <code>NA</code></h3>
 <p>多くの場合は、<code>NA</code> が欠損値を示し、それで全てがうまくいきます。しかし、オブジェクトのデータ型（文字値、数値、など）によって<u>異なる</u> <code>NA</code> を用いる必要が出てくる場合があります。あまり頻繁に起こることではないですが、注意が必要です。<br>
 多いのは、<strong>dplyr</strong> パッケージの <code>case_when()</code> を用いて新しい列を作成する場合などです。 <a href="cleaning.jp.html">データクリーニングと主要関数</a> の章で述べたように、この関数はデータフレーム内の全ての行に対して、ある基準（コードの右辺に書かれている条件）に合致するかどうかを評価し、新しい値（コードの左辺に書かれている値）を作成します。<u>右辺に書かれている値は、全て同じデータ型でないといけません。</u></p>
 <div class="cell">
@@ -849,21 +828,24 @@ cookieconsent.run({
 </div>
 <p>右辺に <code>NA</code> を持ってきたい場合は、以下に示している特殊な <code>NA</code> のうちのどれかを用いる必要があります。他の右辺の値が文字型の場合は “Missing” か、<code>NA_character_</code> を使用する必要があります。他の右辺が日付型や数字型の場合は <code>NA_real_</code> を用いります。条件式であった場合 <code>NA</code> を用いることが出来ます。</p>
 <ul>
-<li>
-<code>NA</code> - 条件式 TRUE/FALSE において用いる</li>
-<li>
-<code>NA_character_</code> - 文字値に用いる</li>
-<li>
-<code>NA_real_</code> - 日付型、数字値に用いる</li>
+<li><code>NA</code> - 条件式 TRUE/FALSE において用いる</li>
+<li><code>NA_character_</code> - 文字値に用いる</li>
+<li><code>NA_real_</code> - 日付型、数字値に用いる</li>
 </ul>
 <p>繰り返しになりますが、新しい行を <code>case_when()</code> を用いて作成しようと<u>しない限り</u>は、こうした例に出会うことはありません。より詳細について知りたい方は、<a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/NA.html">R documentation on NA</a> を参考にしてください。</p>
-</section><section id="null" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="null"><code>NULL</code></h3>
+</section>
+<section id="null" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="null"><code>NULL</code></h3>
 <p>他に R で用いられる値に、<code>NULL</code> があります。これは、条件が正でも誤でもないことを示しています。すなわち、値が定義されない関数などを適用した際に返されます。一般的には、関数を書いたり、ある特定の条件において <code>NULL</code> を返すことを指示する <a href="#shiny-basicss"><strong>shiny</strong> app</a> を書いたりする場合を除いて、<code>NULL</code> を値として指定することはありません。</p>
 <p>Nullかどうかは is.null() を用いて評価することができ、as.null() を用いて変換することができます。</p>
 <p><code>NULL</code> と <code>NA</code> の違いについては、<a href="https://www.r-bloggers.com/2010/04/r-na-vs-null/">ブログのポスト</a> を見てください。</p>
-</section><section id="nan" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="nan"><code>NaN</code></h3>
+</section>
+<section id="nan" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="nan"><code>NaN</code></h3>
 <p>NaN は値としてとることが不可能なものを表す特別な値です。例えば、0 を 0 で割れ、と R に指示したような場合です。<code>is.nan()</code> を用いて評価することが出来、また、補足関数として<code>is.infinite()</code> や <code>is.finite()</code> が存在します。</p>
-</section><section id="inf" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="inf"><code>Inf</code></h3>
+</section>
+<section id="inf" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="inf"><code>Inf</code></h3>
 <p>Inf は無限大を表します。例えば、ある値を0で割った場合などです。</p>
 <p>これらの欠損値がどのように影響するかを簡単な例で示しましょう。例えば、<code>z &lt;- c(1, 22, NA, Inf, NaN, 5)</code> で作成される <code>z</code> というベクターまたはコラムがあるとします。</p>
 <p>一番大きな値を見つけるために <code>max()</code> をこのコラムに適用することを考えます。<code>na.rm = TRUE</code> を用いることで、計算から <code>NA</code> を除くことが出来ます。しかし、<code>Inf</code> や <code>NaN</code> は残り、結果として <code>Inf</code> が返されます。これは、[ ] と is.finite() を用いて有限な値のみを含むサブセットを作成して計算することで解決することができます： max(z[is.finite(z)]) 。</p>
@@ -873,16 +855,20 @@ cookieconsent.run({
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(z, <span class="at">na.rm=</span>T)                  <span class="co"># Inf が返される</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(z[<span class="fu">is.finite</span>(z)])             <span class="co"># 22 が返される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="例" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="例">例</h3>
-<table class="caption-top table">
+</section>
+<section id="例" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="例">例</h3>
+<table class="table">
 <colgroup>
 <col style="width: 74%">
 <col style="width: 25%">
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>R コマンド</th>
 <th>出力</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td><code>5 / 0</code></td>
@@ -897,8 +883,7 @@ cookieconsent.run({
 <td><code>NA</code></td>
 </tr>
 <tr class="even">
-<td>
-<code>5 / Inf |</code>0NA - 5<code>|</code>NAInf / 5<code>|</code>Infclass(NA)<code>| "logical"</code>class(NaN)<code>| "numeric"</code>class(Inf)<code>| "numeric"</code>class(NULL)`</td>
+<td><code>5 / Inf |</code>0NA - 5<code>|</code>NAInf / 5<code>|</code>Infclass(NA)<code>| "logical"</code>class(NaN)<code>| "numeric"</code>class(Inf)<code>| "numeric"</code>class(NULL)`</td>
 <td>“NULL”</td>
 </tr>
 </tbody>
@@ -929,12 +914,13 @@ cookieconsent.run({
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="便利な関数" class="level2" data-number="20.3"><h2 data-number="20.3" class="anchored" data-anchor-id="便利な関数">
-<span class="header-section-number">20.3</span> 便利な関数</h2>
+</section>
+</section>
+<section id="便利な関数" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="便利な関数"><span class="header-section-number">20.3</span> 便利な関数</h2>
 <p>以下では、R の <strong>base R</strong> の関数で、欠損値を評価したり扱ったりする際に便利なものを示します。</p>
-<section id="is.na-と-is.na" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="is.na-と-is.na">
-<code>is.na()</code> と <code>!is.na()</code>
-</h3>
+<section id="is.na-と-is.na" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="is.na-と-is.na"><code>is.na()</code> と <code>!is.na()</code></h3>
 <p><code>is.na()</code> は欠損値を特定する場合、または欠損でない値を特定する場合（<code>!</code> を一緒に用いります）に使います。どちらも理論値（<code>TRUE</code> or <code>FALSE</code>）が返されます。 返されたベクトルに <code>sum()</code> を適用、例えば <code>sum(is.na(linelist$date_outcome))</code> とすることで、<code>TRUE</code> の数を計算することが出来ます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">56</span>, <span class="cn">NA</span>, <span class="dv">5</span>, <span class="cn">NA</span>, <span class="dv">22</span>)</span>
@@ -951,7 +937,9 @@ cookieconsent.run({
 <pre><code>[1] 2</code></pre>
 </div>
 </div>
-</section><section id="na.omit" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="na.omit"><code>na.omit()</code></h3>
+</section>
+<section id="na.omit" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="na.omit"><code>na.omit()</code></h3>
 <p>この関数をデータフレームに対して適用することで、<u>一つでも</u>欠損値を含む行を除くことが出来ます。これもまた、<strong>base R</strong> に含まれます。 ベクトルに対して適用すると、<code>NA</code> を除くことが出来ます。例えば：</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(my_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -963,13 +951,17 @@ attr(,"class")
 [1] "omit"</code></pre>
 </div>
 </div>
-</section><section id="drop_na" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="drop_na"><code>drop_na()</code></h3>
+</section>
+<section id="drop_na" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="drop_na"><code>drop_na()</code></h3>
 <p><a href="cleaning.jp.html">データクリーニング</a> の際に便利な <strong>tidyr</strong> パッケージの関数です。括弧内を空にして走らせると、欠損値を<u>一つでも含む</u>行を除くことが出来ます。括弧内で列の名前を指定することで、その列内の値が欠損している行を除くことが出来ます。列の指定には “tidyselect” を用いることもできます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(case_id, date_onset, age) <span class="co"># これらの列の値を欠損している行を除く</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="na.rm-true" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="na.rm-true"><code>na.rm = TRUE</code></h3>
+</section>
+<section id="na.rm-true" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="na.rm-true"><code>na.rm = TRUE</code></h3>
 <p><code>max()</code>、<code>min()</code>、<code>sum()</code> または、<code>mean()</code> などの計算を行う関数を用いるときに NA が一つでも存在すると、<code>NA</code> が返されます。このデフォルトの挙動は意図的なもので、データの中に欠損がある場合の注意喚起となります。</p>
 <p>計算から欠損値を除くことで、この警告を回避することが出来ます。そのためには、<code>na.rm = TRUE</code> （“na.rm” 引数 は “remove <code>NA</code>” の意）を一緒に用いります。</p>
 <div class="cell">
@@ -985,14 +977,17 @@ attr(,"class")
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="データフレーム内の欠損を評価する" class="level2" data-number="20.4"><h2 data-number="20.4" class="anchored" data-anchor-id="データフレーム内の欠損を評価する">
-<span class="header-section-number">20.4</span> データフレーム内の欠損を評価する</h2>
+</section>
+</section>
+<section id="データフレーム内の欠損を評価する" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="データフレーム内の欠損を評価する"><span class="header-section-number">20.4</span> データフレーム内の欠損を評価する</h2>
 <p>データフレーム <code>linelist</code> 内の欠損を評価し、視覚化するのには <strong>naniar</strong> パッケージが便利です。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># パッケージをインストールするもしくは読み込む</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(naniar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="欠損の数を定量化する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損の数を定量化する">欠損の数を定量化する</h3>
+<section id="欠損の数を定量化する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="欠損の数を定量化する">欠損の数を定量化する</h3>
 <p>全ての欠損の値の割合を示すには <code>pct_miss()</code> を、数を示すには <code>n_miss()</code> を用いります。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># すべてのデータフレーム内の欠損値の割合</span></span>
@@ -1016,7 +1011,9 @@ attr(,"class")
 <pre><code>[1] 30.87636</code></pre>
 </div>
 </div>
-</section><section id="欠損状況を視覚化する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損状況を視覚化する">欠損状況を視覚化する</h3>
+</section>
+<section id="欠損状況を視覚化する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="欠損状況を視覚化する">欠損状況を視覚化する</h3>
 <p><code>gg_miss_var()</code> を用いることで、それぞれの列における欠損値の数（もしくは割合）を示すことが出来ます。</p>
 <ul>
 <li>プロットをグループごとに見たい場合は、<code>facet =</code> で列の名前（引用符にいれない）を指定することが出来ます</li>
@@ -1027,7 +1024,8 @@ attr(,"class")
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(linelist, <span class="at">show_pct =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="missing_data.jp_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="missing_data.jp_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1038,7 +1036,8 @@ attr(,"class")
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_miss_var</span>(<span class="at">show_pct =</span> <span class="cn">TRUE</span>, <span class="at">facet =</span> outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="missing_data.jp_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="missing_data.jp_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1049,12 +1048,15 @@ attr(,"class")
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="missing_data.jp_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="missing_data.jp_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="欠損状況の関係性を探り可視化する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損状況の関係性を探り可視化する">欠損状況の関係性を探り、可視化する</h3>
+</section>
+<section id="欠損状況の関係性を探り可視化する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="欠損状況の関係性を探り可視化する">欠損状況の関係性を探り、可視化する</h3>
 <p>存在しないものをどうやって視覚化すればよいのでしょうか？デフォルトでは、<code>ggplot()</code> を使うと、欠損値を除いてプロットを作成してしまいます。</p>
 <p><strong>naniar</strong> パッケージの <code>geom_miss_point()</code> を用いれば解決します。2 つの列から散布図を作成するときに、ある一方の変数は存在し、片方の変数は欠損である場合には、欠損値をその列の最小値よりもさらに 10% 小さな値に変換し、違う色で散布図上に示してくれます。</p>
 <p>以下に示している散布図では、赤いドットはある一方の変数は存在しているが片方の変数が欠損している場合を示しています。これによって欠損していない値に対する欠損している値の分布を視覚的に確認することが出来ます。</p>
@@ -1065,7 +1067,8 @@ attr(,"class")
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_miss_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="missing_data.jp_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="missing_data.jp_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1084,7 +1087,8 @@ Caused by warning:
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="missing_data.jp_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="missing_data.jp_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1098,12 +1102,15 @@ Caused by warning:
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="missing_data.jp_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="missing_data.jp_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="付随する列" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="付随する列">「付随する」列</h3>
+</section>
+<section id="付随する列" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="付随する列">「付随する」列</h3>
 <p>ある一方の列の欠損を、もう片方の列の値ごとに示す別の方法として、<strong>naniar</strong> パッケージの作成する「付随する列」を用いるものがあります。<code>bind_shadow()</code> を用いると、全ての列に対して <code>NA</code> または not <code>NA</code> の 2 値変数を作成し、“_NA” を末尾に付けた新しい列として元のデータセットに結合してくれます。すなわち、データセットの列は 2 倍になります。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>shadowed_linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
@@ -1152,7 +1159,8 @@ Caused by warning:
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()                          <span class="co"># 密度曲線をプロットする</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="missing_data.jp_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="missing_data.jp_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1196,8 +1204,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <p>以下に、列の欠損値の割合を時系列ごとに示す他の方法を示します。<strong>naniar</strong> パッケージは<u>使用しません</u>。週ごとの観測値の欠損の割合を示しています。</p>
 <ol type="1">
 <li>データを、興味のある単位時間（日、週、など）でまとめ、<code>NA</code>（そしてその他興味のある値）を含む観測値の割合を計算します</li>
-<li>
-<code>ggplot()</code> を用いて、欠損の割合を折れ線グラフとしてプロットします</li>
+<li><code>ggplot()</code> を用いて、欠損の割合を折れ線グラフとしてプロットします</li>
 </ol>
 <p>以下では、ラインリストを用いて、まず週ごとの値を新しい列として加え、値が欠損している週ごとの記録の割合を計算しています（7 日間での割合を計算したい場合は、以下のスクリプトとは少し異なります）。</p>
 <div class="cell">
@@ -1234,15 +1241,19 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="missing_data.jp_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="missing_data.jp_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="missing_data.jp_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="missing_data.jp_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="欠損値を含むデータを使う" class="level2" data-number="20.5"><h2 data-number="20.5" class="anchored" data-anchor-id="欠損値を含むデータを使う">
-<span class="header-section-number">20.5</span> 欠損値を含むデータを使う</h2>
-<section id="欠損値を含む行を取り除く" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損値を含む行を取り除く">欠損値を含む行を取り除く</h3>
+</section>
+</section>
+<section id="欠損値を含むデータを使う" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="欠損値を含むデータを使う"><span class="header-section-number">20.5</span> 欠損値を含むデータを使う</h2>
+<section id="欠損値を含む行を取り除く" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="欠損値を含む行を取り除く">欠損値を含む行を取り除く</h3>
 <p>欠損値を含む行を除く簡単な方法は、<strong>dplyr</strong> パッケージの <code>drop_na()</code> を用いる方法です。</p>
 <p>元の <code>linelist</code> には <code>nrow(linelist)</code> 行含まれています。欠損値を含む行を除いた後の行数は以下になります。</p>
 <div class="cell">
@@ -1272,13 +1283,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 <!-- ======================================================= -->
-</section><section id="ggplot-での-na-の扱い方" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ggplot-での-na-の扱い方">
-<code>ggplot()</code> での <code>NA</code> の扱い方</h3>
+</section>
+<section id="ggplot-での-na-の扱い方" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ggplot-での-na-の扱い方"><code>ggplot()</code> での <code>NA</code> の扱い方</h3>
 <p>たいていの場合、プロットから除かれた値の数はキャプションとして報告するのが賢明です。以下に例を示します。</p>
 <p><code>ggplot()</code> においては、<code>labs()</code> を追加し、その中で <code>caption =</code> としてキャプションを追加することが出来ます。キャプションの中で <strong>stringr</strong> パッケージの <code>str_glue()</code> を使うことで、文中に直接値を張り付けることが出来るので、データそれぞれの値を用いることが出来ます。</p>
 <ul>
-<li>
-<code>\n</code> は、行替えに用いることが出来ます。</li>
+<li><code>\n</code> は、行替えに用いることが出来ます。</li>
 <li>もし、複数の列がプロットに表示されない値を含む場合（例えば、年齢あるいは性別がプロットに反映されている場合）、表示されていない数を正確に計算するためにはそれらの列で絞り込みを行う必要があります。</li>
 </ul>
 <div class="cell">
@@ -1292,8 +1303,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 <p><code>ggplot()</code> コマンドを使用する前に、文字をオブジェクトとして保存し、<code>str_glue()</code> 内ではそのオブジェクト名を指定するだけの方が簡単な場合もあります。</p>
 <!-- ======================================================= -->
-</section><section id="因子型におけるna" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="因子型におけるna">因子型における<code>NA</code>
-</h3>
+</section>
+<section id="因子型におけるna" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="因子型におけるna">因子型における<code>NA</code></h3>
 <p>興味のある列が因子型である場合、<code>NA</code> を文字値にするには <strong>forcats</strong> パッケージの <code>fct_explicit_na()</code> を用いる必要があります。詳細については[因子（ファクタ）型データ] (#factors)の章を参考にしてください。デフォルトでは、新しい値は “(Missing)” として扱われますが、<code>na_level =</code> のコマンドによって変更することが出来ます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(forcats)   <span class="co"># パッケージの読み込み</span></span>
@@ -1307,15 +1319,18 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="欠損値の補完" class="level2" data-number="20.6"><h2 data-number="20.6" class="anchored" data-anchor-id="欠損値の補完">
-<span class="header-section-number">20.6</span> 欠損値の補完</h2>
+</section>
+</section>
+<section id="欠損値の補完" class="level2" data-number="20.6">
+<h2 data-number="20.6" class="anchored" data-anchor-id="欠損値の補完"><span class="header-section-number">20.6</span> 欠損値の補完</h2>
 <p>単純に全ての欠損値を除いたデータセットを解析するのではなく、「ギャップを埋めて」、欠損値を補完してからデータを解析する方が良い場合もあります。単純にすべての欠損値を除くと、いろいろ問題があることがあります。例えば：</p>
 <ol type="1">
 <li><p>欠損値を含む観測値や大量の欠損値を含む変数を全て除くと、ある種の解析を行うパワーが減る可能性があります。例えば、先に示したように、linelist データにおいては、全ての変数のうち欠損値をまったく含まない観測は限られた割合しかありません。データセットの大部分を取り除いてしまうと、大量の情報を失ってしまうことになります！さらに、たいていの変数はそれなりの量の欠損値を含んでいます。そのため、ほとんどの分析において欠損値がたくさん含まれる変数を除去することはあまり適切ではありません。</p></li>
 <li><p>欠損がなぜ生じているのかによっては、単に欠損を含まないデータのみで解析することは、解析結果にバイアスが生じたり、ミスリーディングな結果となることがあります。例えば、ある患者さんが熱や咳などの重要な症状の有無に関するデータを欠損しているとします。たとえば、明らかにそこまで重症でない患者さんについては熱や咳などの症状について記録をしていない可能性もあります。その場合は、単に欠損を含む観測値を除くと、データセット内の最も健康な人々を除くことになり、非常に結果にバイアスを生じることになります。</p></li>
 </ol>
 <p>どのくらい欠損しているか、ということに加えて、なぜ欠損が生じてるのかを考えることが重要です。そうすることで、欠損データを補完することがどのくらい重要なのか、そしてどの方法で補完することが一番良いのかについて判断を下しやすくなるでしょう。</p>
-<section id="欠損データの種類" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="欠損データの種類">欠損データの種類</h3>
+<section id="欠損データの種類" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="欠損データの種類">欠損データの種類</h3>
 <p>欠損データには一般的に、以下に挙げる 3 つの種類があります；</p>
 <ol type="1">
 <li><p><strong>Missing Completely at Random</strong> (MCAR) これは、データが欠損する確率と、他のデータ内との変数との間に関係性がないことを意味します。すべてのケースで、欠損する確率がおなじこととなります。これは珍しい状況です。しかし、もしデータが MCAR であると信じる確固とした理由があるのであれば、欠損していないデータだけを補間を行わずに分析することは、結果にバイアスを生じさせません（とはいえ、パワーはいくらか失われます）。[TODO: consider discussing statistical tests for MCAR]</p></li>
@@ -1323,13 +1338,17 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <li><p><strong>Missing not at Random</strong> (MNAR) <strong>Not Missing at Random</strong> (NMAR) と呼ばれることもあります。このタイプは、欠損データの割合が系統的でなく、他の情報を用いて予測可能でもなく、また、ランダムに欠損が生じているわけでもないタイプの欠損のデータのことです。すなわち、データは何らかの明らかになっていない原因により欠損しているか、あるいは情報を持っていない何らかの規則に基づいて欠損しているといえます。例えば、年齢のデータが欠損しているのは、非常に高齢の患者は自分の年齢を知らないか、自分の年齢を開示したくなかったからだとします。この場合、年齢の欠損は、年齢データ自身に関連しており（すなわちランダムに生じているわけではない）、従って他の情報に基づいて欠損を予測することはできません。MNAR は複雑で、対処法としては、欠損を補完しようとするよりも、もっとデータを集めること、そしてなぜ欠損が生じているのかについての情報を収集することが良いでしょう。</p></li>
 </ol>
 <p>まとめると、MCAR データを補完することは比較的容易ですが、一方、MNAR データを補完することは不可能ではないにしても非常にチャレンジングです。多くのデータの補完のメソッドは、MAR を仮定しています。</p>
-</section><section id="便利なパッケージ" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="便利なパッケージ">便利なパッケージ</h3>
+</section>
+<section id="便利なパッケージ" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="便利なパッケージ">便利なパッケージ</h3>
 <p>Mmisc、missForest（ランダムフォレストによる欠損値の補完）、そして mice（連鎖方程式による多重代入法）などのパッケージは、欠損値の補完に便利です。このセクションでは、いろいろなテクニックを学ぶことの出来る mice パッケージについてのみ解説します。mice の開発者によるオンラインブックには、より詳細が示されています（<a href="https://stefvanbuuren.name/fimd/" class="uri">https://stefvanbuuren.name/fimd/</a>）。</p>
 <p>mice パッケージを読み込みます；</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="平均値代入法" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="平均値代入法">平均値代入法</h3>
+</section>
+<section id="平均値代入法" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="平均値代入法">平均値代入法</h3>
 <p>例えば、非常に単純な解析をしている、あるいは MCAR を仮定する強い理由がある時には、数値の欠損を単にその変数の平均値で代入することが出来る場合があります。例えば、我々のデータセット内の気温の欠損値は MCAR であるか単に平年値である、と仮定できる可能性があります。気温の欠損値をデータセットの値の平均値で補完した新しい変数を作成するコードを示します。しかし、多くの場合では単に平均値を補完するとバイアスを生じる可能性があるので、十分注意が必要です。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span></span>
@@ -1340,7 +1359,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">outcome_replace_na_with_death =</span> <span class="fu">replace_na</span>(outcome, <span class="st">"Death"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="回帰代入法" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="回帰代入法">回帰代入法</h3>
+</section>
+<section id="回帰代入法" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="回帰代入法">回帰代入法</h3>
 <p>いくらかアドバンスな方法として、何らかの統計モデルを用いて欠損値がどんな値らしいのかを推測し、それで補完する方法があります。ここでは、体温についての情報は欠損しているけれど年齢と発熱についての情報は存在する観測値に対して、年齢（年）と発熱を予測因子とした簡単な線形回帰モデルを用いて値を予測する方法を示しています。実際には、このような単純なモデルではなく、より正確なモデルを使用した方が良いでしょう。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>simple_temperature_model_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(temp <span class="sc">~</span> fever <span class="sc">+</span> age_years, <span class="at">data =</span> linelist)</span>
@@ -1365,7 +1386,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>temp_imputed_values <span class="ot">&lt;-</span> temp_imputed<span class="sc">$</span>imp<span class="sc">$</span>temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>これは、欠損値を予測値で補完する、という意味で missForest パッケージなどのよりアドバンスな方法と同じタイプの方法だと言えます。missForest の場合は、線形回帰ではなくランダムフォレストを用いて予測モデルを作成します。他のタイプのモデルを使用することもできます。この方法は、MCARの場合はうまくいきますが、MAR あるいは MNAR の方がデータをうまく説明する、と思っている場合には注意が必要です。補完の質は、予測モデルがどのくらい正確か、ということにも拠りますが、正確なモデルであっても補完されたデータのばらつきが少し過小となる場合もあります。</p>
-</section><section id="locf-と-bocf" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="locf-と-bocf">LOCF と BOCF</h3>
+</section>
+<section id="locf-と-bocf" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="locf-と-bocf">LOCF と BOCF</h3>
 <p>Last observation carried forward (LOCF) と baseline observation carried forward (BOCF) は、時系列および縦断データの補完方法です。考え方としては、欠損の生じている観測値よりも前に観測されたデータで欠損値を補完しようというものです。連続で値が欠損している場合は、最後に観測された値で補完します。</p>
 <p>LOCF および BOCF のどちらも <strong>tidyr</strong> パッケージの <code>fill()</code> を用いて実装することが出来ます（<strong>HMISC</strong>、<strong>zoo</strong>、そして <strong>data.table</strong> などのパッケージを用いても行うことが出来ます）。<code>fill()</code> をどのように使うのか示すために、2000 年と 2001 年において四半期ごとの罹患数を含む単純な時系列データを作成します。しかし、Q1 以降の半期に関するデータは欠損しているので、補完する必要があります。<a href="pivoting.jp.html">データの縦横変換</a> の章においても、<code>fill()</code> の使用方法が示されています。</p>
 <div class="cell">
@@ -1428,7 +1451,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 <p>この例では、LOCF およびに BOCF は明らかに正しい方法でしたが、より複雑な状況ではこの方法が適切かどうかを判断するのが難しい場合もあります。例えば、初日から何日間か、患者の検査値が欠損しているとします。ある場合は、これは検査値に変動がないことを示していますが、患者が回復しており、値が初日とはまったく異なる可能性もあります！なので、少し注意してこれらのメソッドを使う必要があります。</p>
-</section><section id="多重代入法" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="多重代入法">多重代入法</h3>
+</section>
+<section id="多重代入法" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="多重代入法">多重代入法</h3>
 <p>先ほど紹介した mice パッケージの開発者によるオンラインブック（<a href="https://stefvanbuuren.name/fimd/" class="uri">https://stefvanbuuren.name/fimd/</a>）には多重代入法の説明と、なぜそれを使いたいのかが詳細に記されています。ここでは、方法の基本的な部分を説明します。</p>
 <p>多重代入法では、尤もらしい値で欠損値を代入したデータセットを複数作成します（データによってはより多くもしくは少なくデータセットを作成したい場合もあると思いますが、mice パッケージのデフォルトでは、5 つのデータセットが作成されます）。違いとしては、代入される値は、ある単一の値ではなく、予測された分布に基づき特定される値（したがっていくらかのランダムさを含んでいます）である、という点です。それぞれのデータセットに対してある種の予測モデルを用いる（mice には様々なオプションがあり、例えば<u>予測平均マッチング</u>、<u>ロジスティック回帰</u>、<u>ランダムフォレスト</u>などがあります）点では同じですが、mice パッケージでは様々なモデルの詳細についてまで考慮することが出来ます。</p>
 <p>代入されたデータセット群を作成したら、これらの新しいデータセットそれぞれに対して、もともと計画していた統計解析を行い、それらの結果を一つにプールします。この方法は、MCAR において、また MAR の多くの場合においてバイアスを減少するのに非常に有用で、より正確な標準誤差を得ることが出来ます。</p>
@@ -1455,14 +1480,19 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 <p>ここでは、mice のデフォルトの予測モデルである予測平均マッチングで欠損を補完しました。そして、それぞれの代入されたデータセットを値の推定に用いり、線形回帰によりそれぞれのデータセットにおいて得られた推定値をプールします。ここでは触れませんでしたが、mice パッケージを用いる際にはより詳細な方法や多重代入法に関する様々な設定を考慮する必要があります。例えば、常に数値データであるとは限らず、その場合は他の代入方法を用いる必要があります（mice パッケージでは、他の様々なデータの種類や補完が出来ます）。欠損データが非常に問題となる場合は、より頑健な解析結果を得るためには、単にコンプリートケースによる解析を行うよりも、多重代入法を用いる方が良いと言えるでしょう。</p>
 <!-- ======================================================= -->
-</section></section><section id="参考資料" class="level2" data-number="20.7"><h2 data-number="20.7" class="anchored" data-anchor-id="参考資料">
-<span class="header-section-number">20.7</span> 参考資料</h2>
+</section>
+</section>
+<section id="参考資料" class="level2" data-number="20.7">
+<h2 data-number="20.7" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">20.7</span> 参考資料</h2>
 <p>Vignette on the <a href="https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html">naniar package</a></p>
 <p>Gallery of <a href="https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html">missing value visualizations</a></p>
 <p><a href="https://stefvanbuuren.name/fimd/">Online book</a> about multiple imputation in R by the maintainer of the <strong>mice</strong> package</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1641,7 +1671,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1673,47 +1714,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1748,11 +1749,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2025,61 +2022,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../new_pages/regression.jp.html" class="pagination-link" aria-label="単変量と多変量回帰">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/standardization.jp.html" class="pagination-link" aria-label="標準化率">
-        <span class="nav-page-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":false,"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":false});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script>
-</body>
-</html>
+
+
+
+
+</body></html>
