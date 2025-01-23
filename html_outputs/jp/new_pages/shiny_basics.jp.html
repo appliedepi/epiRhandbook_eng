@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.4.550">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>43  Shiny で作るダッシュボード – 疫学のための R ハンドブック</title>
+
+
+<title>疫学のための R ハンドブック - 43&nbsp; Shiny で作るダッシュボード</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -53,18 +55,33 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../new_pages/writing_functions.jp.html" rel="next">
 <link href="../new_pages/flexdashboard.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -91,13 +108,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -112,122 +134,73 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
-
+</script> 
+  
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+<script>
   window.dataLayer = window.dataLayer || [];
-
   function gtag(){dataLayer.push(arguments);}
-
   gtag('js', new Date());
 
-
-
   gtag('config', 'G-QXDW878QLX');
-
 </script>
-</head>
-<body class="nav-sidebar floating">
-<div class="alert alert-info alert-dismissible">
 
+</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
-
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
-
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
-
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
-
     class="alert-link">R Help Desk service</a>. -->
-
 </div>
-
-
 
 <script>
 
-
-
   // Function to extract the last two characters from the URL path
-
   function getLanguageFromURL() {
-
     const path = window.location.pathname.split('/');
-
     
-
     if (path.length > 1) {
-
       return path[1]; // Assume the language code is the second segment
-
     }
 
-
-
     return '';
-
   }
 
-
-
   const language = getLanguageFromURL();
-
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
-
   const defaultLanguage = 'en';
-
   const isSupportedLanguage = supportedLanguages.includes(language);
 
-
-
   // Translations for the content
-
   const translations = {
-
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
-
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
-
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
-
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
-
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
-
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
-
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
-
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
-
   };
 
-
-
   // Default to English if the detected language is not supported
-
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
-
-
-
   // Select the element where the content should be displayed
-
   const alertElement = document.querySelector('.alert');
-
   if (alertElement) {
-
     alertElement.innerHTML = contentToDisplay;
-
     alertElement.style.display = 'block'; // Make sure to display the element
-
   }
 
+</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+<script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -252,54 +225,65 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script><div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script>
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.jp.html">レポートとダッシュボード</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.jp.html"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></a></li>
-</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.jp.html">レポートとダッシュボード</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.jp.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -309,19 +293,9 @@ window.Quarto = {
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
-<a class="dropdown-item" href="/new_pages/shiny_basics.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/shiny_basics.fr.html" id="language-link-fr">Français</a>
-<a class="dropdown-item" href="/es/new_pages/shiny_basics.es.html" id="language-link-es">Español</a>
-<a class="dropdown-item" href="/vn/new_pages/shiny_basics.vn.html" id="language-link-vn">Tiếng Việt</a>
-<a class="dropdown-item" href="/pt/new_pages/shiny_basics.pt.html" id="language-link-pt">Português</a>
-<a class="dropdown-item" href="/tr/new_pages/shiny_basics.tr.html" id="language-link-tr">Türkçe</a>
-<a class="dropdown-item" href="/ru/new_pages/shiny_basics.ru.html" id="language-link-ru">Русский</a>
-</ul>
-</div>
-<div class="sidebar-menu-container"> 
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -329,433 +303,426 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">43.1</span> 準備</a>
+  <li><a href="#準備" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">43.1</span> 準備</a>
   <ul class="collapse">
-<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
-  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#shiny-%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E9%80%A0" id="toc-shiny-アプリの構造" class="nav-link" data-scroll-target="#shiny-アプリの構造"><span class="header-section-number">43.2</span> Shiny アプリの構造</a>
+  <li><a href="#パッケージの読み込み" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
+  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
+  </ul></li>
+  <li><a href="#shiny-アプリの構造" id="toc-shiny-アプリの構造" class="nav-link" data-scroll-target="#shiny-アプリの構造"><span class="header-section-number">43.2</span> Shiny アプリの構造</a>
   <ul class="collapse">
-<li><a href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E6%A7%8B%E9%80%A0" id="toc-基本的なファイル構造" class="nav-link" data-scroll-target="#基本的なファイル構造">基本的なファイル構造</a></li>
-  <li><a href="#server-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8-ui-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88" id="toc-server-オブジェクトと-ui-オブジェクト" class="nav-link" data-scroll-target="#server-オブジェクトと-ui-オブジェクト">server オブジェクトと ui オブジェクト</a></li>
-  <li><a href="#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B%E5%89%8D%E3%81%AB" id="toc-アプリを作成する前に" class="nav-link" data-scroll-target="#アプリを作成する前に">アプリを作成する前に</a></li>
-  </ul>
-</li>
-  <li><a href="#ui-%E3%81%AE%E4%BD%9C%E6%88%90" id="toc-ui-の作成" class="nav-link" data-scroll-target="#ui-の作成"><span class="header-section-number">43.3</span> UI の作成</a></li>
-  <li><a href="#%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80" id="toc-アプリにデータを読み込む" class="nav-link" data-scroll-target="#アプリにデータを読み込む"><span class="header-section-number">43.4</span> アプリにデータを読み込む</a></li>
-  <li><a href="#%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E9%96%A2%E6%95%B0%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" id="toc-アプリのサーバーロジック関数を作成する" class="nav-link" data-scroll-target="#アプリのサーバーロジック関数を作成する"><span class="header-section-number">43.5</span> アプリのサーバーロジック関数を作成する</a></li>
-  <li>
-<a href="#%E3%82%82%E3%81%A3%E3%81%A8%E6%B2%A2%E5%B1%B1%E3%81%AE%E6%A9%9F%E8%83%BD%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B" id="toc-もっと沢山の機能を追加する" class="nav-link" data-scroll-target="#もっと沢山の機能を追加する"><span class="header-section-number">43.6</span> もっと沢山の機能を追加する</a>
+  <li><a href="#基本的なファイル構造" id="toc-基本的なファイル構造" class="nav-link" data-scroll-target="#基本的なファイル構造">基本的なファイル構造</a></li>
+  <li><a href="#server-オブジェクトと-ui-オブジェクト" id="toc-server-オブジェクトと-ui-オブジェクト" class="nav-link" data-scroll-target="#server-オブジェクトと-ui-オブジェクト">server オブジェクトと ui オブジェクト</a></li>
+  <li><a href="#アプリを作成する前に" id="toc-アプリを作成する前に" class="nav-link" data-scroll-target="#アプリを作成する前に">アプリを作成する前に</a></li>
+  </ul></li>
+  <li><a href="#ui-の作成" id="toc-ui-の作成" class="nav-link" data-scroll-target="#ui-の作成"><span class="header-section-number">43.3</span> UI の作成</a></li>
+  <li><a href="#アプリにデータを読み込む" id="toc-アプリにデータを読み込む" class="nav-link" data-scroll-target="#アプリにデータを読み込む"><span class="header-section-number">43.4</span> アプリにデータを読み込む</a></li>
+  <li><a href="#アプリのサーバーロジック関数を作成する" id="toc-アプリのサーバーロジック関数を作成する" class="nav-link" data-scroll-target="#アプリのサーバーロジック関数を作成する"><span class="header-section-number">43.5</span> アプリのサーバーロジック関数を作成する</a></li>
+  <li><a href="#もっと沢山の機能を追加する" id="toc-もっと沢山の機能を追加する" class="nav-link" data-scroll-target="#もっと沢山の機能を追加する"><span class="header-section-number">43.6</span> もっと沢山の機能を追加する</a>
   <ul class="collapse">
-<li><a href="#%E9%9D%99%E7%9A%84%E3%81%AA%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%81%AE%E8%BF%BD%E5%8A%A0" id="toc-静的なテキストの追加" class="nav-link" data-scroll-target="#静的なテキストの追加">静的なテキストの追加</a></li>
-  <li><a href="#%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AE%E8%BF%BD%E5%8A%A0" id="toc-リンクの追加" class="nav-link" data-scroll-target="#リンクの追加">リンクの追加</a></li>
-  <li><a href="#%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9C%E3%82%BF%E3%83%B3%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B" id="toc-ダウンロードボタンを追加する" class="nav-link" data-scroll-target="#ダウンロードボタンを追加する">ダウンロードボタンを追加する</a></li>
-  <li><a href="#%E6%96%BD%E8%A8%AD%E3%81%AE%E9%81%B8%E6%8A%9E%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B" id="toc-施設の選択を追加する" class="nav-link" data-scroll-target="#施設の選択を追加する">施設の選択を追加する</a></li>
-  <li><a href="#%E8%A1%A8%E3%82%92%E5%90%AB%E3%82%93%E3%81%A0%E3%82%BF%E3%83%96%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B" id="toc-表を含んだタブを追加する" class="nav-link" data-scroll-target="#表を含んだタブを追加する">表を含んだタブを追加する</a></li>
+  <li><a href="#静的なテキストの追加" id="toc-静的なテキストの追加" class="nav-link" data-scroll-target="#静的なテキストの追加">静的なテキストの追加</a></li>
+  <li><a href="#リンクの追加" id="toc-リンクの追加" class="nav-link" data-scroll-target="#リンクの追加">リンクの追加</a></li>
+  <li><a href="#ダウンロードボタンを追加する" id="toc-ダウンロードボタンを追加する" class="nav-link" data-scroll-target="#ダウンロードボタンを追加する">ダウンロードボタンを追加する</a></li>
+  <li><a href="#施設の選択を追加する" id="toc-施設の選択を追加する" class="nav-link" data-scroll-target="#施設の選択を追加する">施設の選択を追加する</a></li>
+  <li><a href="#表を含んだタブを追加する" id="toc-表を含んだタブを追加する" class="nav-link" data-scroll-target="#表を含んだタブを追加する">表を含んだタブを追加する</a></li>
+  </ul></li>
+  <li><a href="#shiny-アプリの共有" id="toc-shiny-アプリの共有" class="nav-link" data-scroll-target="#shiny-アプリの共有"><span class="header-section-number">43.7</span> shiny アプリの共有</a></li>
+  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">43.8</span> 参考資料</a></li>
+  <li><a href="#推奨される機能拡張パッケージ" id="toc-推奨される機能拡張パッケージ" class="nav-link" data-scroll-target="#推奨される機能拡張パッケージ"><span class="header-section-number">43.9</span> 推奨される機能拡張パッケージ</a></li>
+  <li><a href="#推奨されるリソース" id="toc-推奨されるリソース" class="nav-link" data-scroll-target="#推奨されるリソース"><span class="header-section-number">43.10</span> 推奨されるリソース</a></li>
   </ul>
-</li>
-  <li><a href="#shiny-%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E5%85%B1%E6%9C%89" id="toc-shiny-アプリの共有" class="nav-link" data-scroll-target="#shiny-アプリの共有"><span class="header-section-number">43.7</span> shiny アプリの共有</a></li>
-  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">43.8</span> 参考資料</a></li>
-  <li><a href="#%E6%8E%A8%E5%A5%A8%E3%81%95%E3%82%8C%E3%82%8B%E6%A9%9F%E8%83%BD%E6%8B%A1%E5%BC%B5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8" id="toc-推奨される機能拡張パッケージ" class="nav-link" data-scroll-target="#推奨される機能拡張パッケージ"><span class="header-section-number">43.9</span> 推奨される機能拡張パッケージ</a></li>
-  <li><a href="#%E6%8E%A8%E5%A5%A8%E3%81%95%E3%82%8C%E3%82%8B%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9" id="toc-推奨されるリソース" class="nav-link" data-scroll-target="#推奨されるリソース"><span class="header-section-number">43.10</span> 推奨されるリソース</a></li>
-  </ul></nav>
-</div>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.jp.html">レポートとダッシュボード</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.jp.html"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></a></li>
-</ol></nav><div class="quarto-title">
-<h1 class="title"><span id="shiny-basics" class="quarto-section-identifier"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.jp.html">レポートとダッシュボード</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.jp.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="shiny-basics" class="quarto-section-identifier"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></h1>
 </div>
 
 
@@ -769,31 +736,39 @@ window.Quarto = {
   
 
 
-</header><p>ダッシュボードは多くの場合、他の人と分析の結果を共有する場合に非常に良い方法です。<strong>shiny</strong> パッケージを利用してダッシュボードを作成することは、R 言語について、比較的高度な知識が必要ですが、大いなる可能性と自由を与えてくれます。</p>
+</header>
+
+
+<p>ダッシュボードは多くの場合、他の人と分析の結果を共有する場合に非常に良い方法です。<strong>shiny</strong> パッケージを利用してダッシュボードを作成することは、R 言語について、比較的高度な知識が必要ですが、大いなる可能性と自由を与えてくれます。</p>
 <!-- One of the largest drawbacks of `R` is its usability for people who are new to or have no experience with programming languages. While these skills are very valuable, most people will find that this represents a barrier to sharing analyses, especially in multidisciplinary environments. It requires some work to maintain an `R` installation, and not everyone will be comfortable running shared code, even if it's well documented and easy to read. This is *especially* true when users have to change parameters of code!  -->
 <!-- R based dashboards are also advantageous in that they centralise how code is run - when the same code is run on different machines, often people will have to deal with differing file paths, different R versions, and different package installations. For this reason, dashboards are a great way to share code with others in a user friendly way! -->
 <p><strong>shiny</strong> パッケージを用いたダッシュボードについて学ぶ人は、データの加工と可視化についてある程度理解していることが必要です。また、コードのデバッグや関数を書くことについても慣れている必要があります。ダッシュボードの作成は、最初は分かりにくく、ときに理解することが難しいでしょう。しかし、このスキルは学ぶ価値のあるもので、習熟とともに簡単になっていきます！</p>
 <p>この章では、<strong>shiny</strong> パッケージとその拡張パッケージによるダッシュボード作成について短く概要をお伝えします。 この方法とは別に、速く簡単でしかし自由度は低い方法でのダッシュボード作成方法については <strong>flextable</strong> パッケージの章（<a href="flexdashboard.jp.html">R Markdownで作るダッシュボード</a>）を参考にしてください。</p>
-<section id="準備" class="level2" data-number="43.1"><h2 data-number="43.1" class="anchored" data-anchor-id="準備">
-<span class="header-section-number">43.1</span> 準備</h2>
-<section id="パッケージの読み込み" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
+<section id="準備" class="level2" data-number="43.1">
+<h2 data-number="43.1" class="anchored" data-anchor-id="準備"><span class="header-section-number">43.1</span> 準備</h2>
+<section id="パッケージの読み込み" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
 <p>このハンドブックでは、パッケージを読み込むために、<strong>pacman</strong> パッケージの <code>p_load()</code> を主に使用しています。<code>p_load()</code> は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである <strong>base</strong> （以下、<strong>base</strong> R）の <code>library()</code> を使用して読み込むこともできます。R のパッケージに関する詳細は <a href="basics.jp.html">R の基礎</a>の章をご覧ください。</p>
 <p>まずは、R パッケージの <strong>shiny</strong> をインストールするところからはじめていきます：</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(shiny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="データのインポート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
+</section>
+<section id="データのインポート" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
 <p>もしあなたがこのページのコードを理解したいのであれば<a href="data_used.jp.html#data_shiny">ハンドブックとデータのダウンロード</a>の章を見てください。そこには最終的な Shiny アプリを作成するための R のスクリプトとデータファイルへのリンクがあります。</p>
 <p>これらのファイルを利用してアプリを再構築する場合は、解説の過程で作成される R のプロジェクトのフォルダ構造に注意してください（例 “data” フォルダや “funcs” フォルダ）。</p>
 <!-- ======================================================= -->
-</section></section><section id="shiny-アプリの構造" class="level2" data-number="43.2"><h2 data-number="43.2" class="anchored" data-anchor-id="shiny-アプリの構造">
-<span class="header-section-number">43.2</span> Shiny アプリの構造</h2>
-<section id="基本的なファイル構造" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="基本的なファイル構造">基本的なファイル構造</h3>
+</section>
+</section>
+<section id="shiny-アプリの構造" class="level2" data-number="43.2">
+<h2 data-number="43.2" class="anchored" data-anchor-id="shiny-アプリの構造"><span class="header-section-number">43.2</span> Shiny アプリの構造</h2>
+<section id="基本的なファイル構造" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="基本的なファイル構造">基本的なファイル構造</h3>
 <p><code>shiny</code> について理解するためには、まずアプリのファイル構造がどのように機能するかを理解する必要があります！まず、新しいディレクトリを作成する必要があります。これは、<u>R Studio</u>で、<u>New Project</u>を選び、<u>Shiny Web Application</u> を選択することで簡単に作成できます。この操作で、shiny アプリの基本的な構造が作成されます。</p>
 <p>このプロジェクトをひらくと、すでに<u>app.R</u>という名前の <code>.R</code> ファイルが作成されています。次の 2 つのうちのいずれか 1 つのファイル構造をとることが<u>必須</u>です：</p>
 <ol type="1">
-<li>
-<u>app.R</u>、という名前の 1 つのファイル<u>あるいは</u><br>
+<li><u>app.R</u>、という名前の 1 つのファイル<u>あるいは</u><br>
 </li>
 <li>一方が <u>ui.R</u> でもう一方が <u>server.R</u> という名前の 2 つのファイル</li>
 </ol>
@@ -838,7 +813,9 @@ window.Quarto = {
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ファイルを開くと、2 つのオブジェクトが定義されています - 1 つは <code>ui</code> オブジェクトで、もう 1 つは <code>server</code> オブジェクトです。これらのオブジェクトは<u>全ての</u> shiny アプリで定義する必要があり、アプリ自体の構造の中心です！実際には、上記で説明した 2 つのファイル構造間の違いは以下のみです。構造 1 では、<code>ui</code> オブジェクトと <code>server</code> オブジェクトが 1 つのファイルで定義されているのに対して、構造 2 では別々のファイルで定義されているだけです。注意：他の .R ファイルを <code>source()</code> 関数を利用してアプリで利用することも可能です（これは大規模なアプリでは必須となります）。</p>
-</section><section id="server-オブジェクトと-ui-オブジェクト" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="server-オブジェクトと-ui-オブジェクト">server オブジェクトと ui オブジェクト</h3>
+</section>
+<section id="server-オブジェクトと-ui-オブジェクト" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="server-オブジェクトと-ui-オブジェクト">server オブジェクトと ui オブジェクト</h3>
 <p>次に、実際に <code>server</code> オブジェクトと <code>ui</code> オブジェクトが何を<u>するか</u>を理解しなければなりません。<u>一言でいうと、ユーザーが shiny アプリを操作するときに、常にこれら 2 つのオブジェクトが互いに作用しあいます。</u></p>
 <p>shiny アプリのユーザインタフェース（以下 UI）要素は、基本的なレベルにおいては、HTML インターフェイスを作る R のコードです。つまり、アプリの UI に<u>表示</u>されているものすべてを意味します。一般的には次のようなものを含みます：</p>
 <ul>
@@ -848,20 +825,21 @@ window.Quarto = {
 <li>一般的なテキスト、ハイパーリンクなど</li>
 <li>HTML と CSS 要素 (後に解説します)</li>
 </ul>
-<p>UI において最も大切なことは、ui オブジェクトはユーザーから<u>入力を受け取り</u>、server オブジェクト内のロジックを生成する関数（以下、サーバーロジック関数）から受け取った<u>出力を表示する</u>ということです。<u>どのような時<u>でも、ui オブジェクトの中で<u>アクティブな</u>コードが動くことはありません。UI における全ての変化は（多かれ少なかれ）サーバーロジック関数を経由したものです。そのため、プロットの表示やダウンロードなどの処理はサーバーロジック関数の中で実行する必要があります。</u></u></p>
-<u><u>
-</u></u><p>アプリが立ち上がれば、shiny アプリのサーバーロジック関数はすべてのコードが実行される関数となります。この挙動は少し混乱しやすいです。サーバーロジック関数はユーザーが UI を操作すると効果的に<u>react</u>（反応）し、それに応じてコードを実行します。もしサーバーロジック関数内でなにかが変われば、その変化は ui オブジェクトに再度渡され、その変化が表示されます。大切なことは、サーバーロジック関数内のコードが<u>非連続的</u>に実行される（と考えておくことが良いでしょう）という点です。 基本は、ui オブジェクトがサーバーロジック関数内のコードに影響を与えた場合は常に、自動的にサーバーロジック関数内のコードが実行されて、アウトプットオブジェクトが作成・表示されます。</p>
+<p>UI において最も大切なことは、ui オブジェクトはユーザーから<u>入力を受け取り</u>、server オブジェクト内のロジックを生成する関数（以下、サーバーロジック関数）から受け取った<u>出力を表示する</u>ということです。<u>どのような時<u>でも、ui オブジェクトの中で<u>アクティブな</u>コードが動くことはありません。UI における全ての変化は（多かれ少なかれ）サーバーロジック関数を経由したものです。そのため、プロットの表示やダウンロードなどの処理はサーバーロジック関数の中で実行する必要があります。</u></u></p><u><u>
+<p>アプリが立ち上がれば、shiny アプリのサーバーロジック関数はすべてのコードが実行される関数となります。この挙動は少し混乱しやすいです。サーバーロジック関数はユーザーが UI を操作すると効果的に<u>react</u>（反応）し、それに応じてコードを実行します。もしサーバーロジック関数内でなにかが変われば、その変化は ui オブジェクトに再度渡され、その変化が表示されます。大切なことは、サーバーロジック関数内のコードが<u>非連続的</u>に実行される（と考えておくことが良いでしょう）という点です。 基本は、ui オブジェクトがサーバーロジック関数内のコードに影響を与えた場合は常に、自動的にサーバーロジック関数内のコードが実行されて、アウトプットオブジェクトが作成・表示されます。</p>
 <p>この一連の動作は、今は難解に聞こえると思います。なので、これが実際にどのように動くかをいくつか例を体験して明快にしましょう。</p>
-</section><u><u>
-<section id="アプリを作成する前に" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="アプリを作成する前に">アプリを作成する前に</h3>
+</u></u></section><u><u>
+<section id="アプリを作成する前に" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="アプリを作成する前に">アプリを作成する前に</h3>
 <p>アプリを作る前に、<u>何を</u>作りたいかを知ることはとても役立ちます。あなたが作る UI はコードで書かれるため、何か具体的なものを狙って作成しなければ、何を作っているかを可視化することができません。このような理由から、何が shiny アプリとして作れるか、沢山の例を見てアイデアを得ておくことは非常に有効です。もし、それらのアプリのソースコードを見ることができればもっと良いでしょう！この目的のための素晴らしいリソースは次のリンクにあります：</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/">Rstudio アプリギャラリー</a></li>
 </ul>
 <p>どんなことができるかのイメージを持つことができれば、それをもとにどのような見た目のアプリを作りたいかを描いてみることも助けになります。 - これは、紙に書いても、絵を描くソフトを利用してもよいでしょう (PowerPoint、 MS paint、 など)。 最初のアプリは、単純なもので開始するのもよいでしょう！ネットでみつけたすごいアプリのコードをひな型として利用することを恥ずかしがる必要はありません - 全くのゼロから作ることに比べればはるかに楽に作ることができます！</p>
-</section></u></u></section><u><u>
-<section id="ui-の作成" class="level2" data-number="43.3"><h2 data-number="43.3" class="anchored" data-anchor-id="ui-の作成">
-<span class="header-section-number">43.3</span> UI の作成</h2>
+</section>
+</u></u></section><u><u>
+<section id="ui-の作成" class="level2" data-number="43.3">
+<h2 data-number="43.3" class="anchored" data-anchor-id="ui-の作成"><span class="header-section-number">43.3</span> UI の作成</h2>
 <p>アプリを作成する際には、最初に UI を作成した方が、何を作っているのかがわかりやすく、サーバーロジック関数のエラーでアプリがうまく動かなくなるリスクもありません。前述したように、UI を作成する際にはテンプレートを使用するのが良いでしょう。shiny アプリで利用できる標準的なレイアウトが沢山、shiny 基本パッケージに含まれています。また、<code>shinydashboard</code> のような拡張パッケージが沢山存在することを知っておいてもよいでしょう。まずは shiny の基本例を使って説明します。</p>
 <p>shiny の ui オブジェクトは、一般的に次のような順序でネスト（入れ子になった）した関数として定義されます。</p>
 <ol type="1">
@@ -872,16 +850,12 @@ window.Quarto = {
 <li>「メイン」パネル関数 (<code>mainPanel()</code>)</li>
 <li>タブ関数 (<code>tabPanel()</code>)</li>
 <li>一般的な「カラム」（表示幅指定）関数 (<code>column()</code>)</li>
-</ul>
-</li>
+</ul></li>
 <li>ウィジェット関数とアウトプット関数 - これらは入力をサーバーロジック関数に送ったり（ウィジェット関数）、出力をサーバーロジック関数から受け取ったり（アウトプット関数）する
 <ul>
-<li>ウィジェット関数は一般的には <code>xxxInput()</code> のような名前となっています 例 <code>selectInput()</code>
-</li>
-<li>アウトプット関数は一般的には <code>xxxOutput()</code> のような名前となっています 例 <code>plotOutput()</code>
-</li>
-</ul>
-</li>
+<li>ウィジェット関数は一般的には <code>xxxInput()</code> のような名前となっています 例 <code>selectInput()</code></li>
+<li>アウトプット関数は一般的には <code>xxxOutput()</code> のような名前となっています 例 <code>plotOutput()</code></li>
+</ul></li>
 </ol>
 <p>繰り返しになりますが、これらは抽象的で、可視化することは簡単ではありません、そのため、例を見るのが一番です！ マラリア施設数のデータを地区ごとに視覚化する基本的なアプリを作ってみましょう。 このデータは多くのパラメータを持っているので、エンドユーザーが自分で抽出して、年齢層や地区別にデータを見ることができれば素晴らしいです。とても単純な shiny のレイアウトを利用しましょう - サイドバーレイアウトです。これは、左側のサイドバーにウィジェットを配置し、右側にプロットを配置したレイアウトです。</p>
 <p>どのようなアプリにするかを計画しましょう。まずは、可視化したい地区を選択することができるセレクターからはじめましょう。次いで、別のセレクターを利用して興味のある年齢のグループ可視化します。これらの抽出条件を用いて、これらのパラメータを反映した流行曲線（エピカーブ）を表示することを目指しましょう。このために必要なのは：</p>
@@ -942,7 +916,8 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -955,18 +930,18 @@ window.Quarto = {
 </ul>
 <p>他のウィジェットは違う型のオブジェクトをサーバーロジック関数に渡します！例えば：</p>
 <ul>
-<li>
-<code>numericInput()</code> は数字型オブジェクトをサーバーロジック関数に渡します</li>
-<li>
-<code>checkboxInput()</code> はロジカル型オブジェクト（<code>TRUE</code> か <code>FALSE</code>）をサーバーロジック関数に渡します</li>
+<li><code>numericInput()</code> は数字型オブジェクトをサーバーロジック関数に渡します</li>
+<li><code>checkboxInput()</code> はロジカル型オブジェクト（<code>TRUE</code> か <code>FALSE</code>）をサーバーロジック関数に渡します</li>
 </ul>
 <p>また、ここで年齢データに<u>名前付きのベクトル</u>を利用していることは注目に値するでしょう。 多くのウィジェットでは、名前付きベクトルを選択肢として利用すると、ベクトルの<u>名前</u>が選択できる表示として利用されますが、ベクトルの<u>値</u>がサーバーロジック関数に渡されます。つまり、誰かが “15+” をドロップダウンメニューから選択した場合、UI は<code>"malaria_rdt_15"</code> をサーバーロジック関数に渡します。これは、処理などで利用したいデータの列名そのものです！</p>
 <p>アプリで様々なことを行うために使用できるウィジェットがたくさんあります。 ウィジェットはアプリへのファイルのアップロードと出力のダウンロードも可能にします。基本的な shiny パッケージに含まれるウィジェットを拡張してくれる素晴らしいパッケージもあり、<strong>shinyWidgets</strong> パッケージはこのような拡張例の 1 つです。使用例を見るには次のリンクを確認してください：</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/widget-gallery.html">基礎的な shiny ウィジェットギャラリー</a></li>
 <li><a href="https://github.com/dreamRs/shinyWidgets">shinyWidgets ギャラリー</a></li>
-</ul></section><section id="アプリにデータを読み込む" class="level2" data-number="43.4"><h2 data-number="43.4" class="anchored" data-anchor-id="アプリにデータを読み込む">
-<span class="header-section-number">43.4</span> アプリにデータを読み込む</h2>
+</ul>
+</section>
+<section id="アプリにデータを読み込む" class="level2" data-number="43.4">
+<h2 data-number="43.4" class="anchored" data-anchor-id="アプリにデータを読み込む"><span class="header-section-number">43.4</span> アプリにデータを読み込む</h2>
 <p>アプリ開発の次のステップはサーバーロジック関数を動かすことです。これを実行するには、何らかのデータをアプリに入力しなければなりません。また、実行するべきすべての計算を理解する必要があります。エラーの発生している場所が明確がないことが多いため shiny アプリのデバッグは、簡単にはいきません。そのため、データの加工と可視化のコードが問題なく動くようになってからサーバーロジック関数を作り始められると理想的です。</p>
 <p>したがって、ユーザーの入力に応じて変化する流行曲線（エピカーブ）を表示するアプリを作る状況では、この処理を通常の R スクリプトで実行するにはどのようなコードが必要かを考える必要があります。必要な工程は：</p>
 <ol type="1">
@@ -1095,7 +1070,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Bolo"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="shiny_basics.jp_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.jp_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="shiny_basics.jp_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.jp_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1181,8 +1157,9 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>注：shiny アプリでは<u>常に</u> <code>local = TRUE</code> と設定しなくてはなりません。なぜなら、サーバーマシン上にアプリを公開した際 <code>source()</code> 関数の動作に影響を及ぼすからです。</p>
-</section><section id="アプリのサーバーロジック関数を作成する" class="level2" data-number="43.5"><h2 data-number="43.5" class="anchored" data-anchor-id="アプリのサーバーロジック関数を作成する">
-<span class="header-section-number">43.5</span> アプリのサーバーロジック関数を作成する</h2>
+</section>
+<section id="アプリのサーバーロジック関数を作成する" class="level2" data-number="43.5">
+<h2 data-number="43.5" class="anchored" data-anchor-id="アプリのサーバーロジック関数を作成する"><span class="header-section-number">43.5</span> アプリのサーバーロジック関数を作成する</h2>
 <p>大半のコードが出来上がったので、残りはサーバーロジック関数を作るだけです。この関数はアプリの最後のパーツです。そして最も理解することが難しいでしょう。サーバーロジック関数は大規模な R の関数ですが、小さな関数の集合、あるいは、アプリの機能の集合体であると考えると理解しやすいかもしれません。サーバーロジック関数に含まれる関数が第 1 行から順番に実行されるわけではないということを理解することが大切です。それら関数群には実行される順番はありますが、shiny アプリにおいていつ実行が開始されるかを完全に理解する必要はありません。とても基本的な理解としては、タスクあるいは関数は、開発者が<u>特別にデフォルトと異なる設定を行った状況を除き</u>、それら関数に影響を与えるインプットオブジェクトに何か変更が加えられた時に動き始めます。繰り返しになりますが、この説明は非常に抽象的ですが、とりあえず基本的な 3つの shiny <u>オブジェクト</u>を解説していきましょう。</p>
 <ol type="1">
 <li><p>リアクティブソース - これはユーザーインプットの別の呼び方です。shiny サーバーロジック関数は作成したウィジェットを通じて ui オブジェクト内の出力値を受け取ることができます。ui オブジェクトの値が変更されるたびに、変更された値がサーバーロジック関数に渡されます。</p></li>
@@ -1242,13 +1219,11 @@ window.Quarto = {
 <ul>
 <li>地区の選択用インプットウィジェット（<code>select_district</code> という inputId）</li>
 <li>年齢の選択用インプットウィジェット（<code>select_agegroup</code>という inputId）</li>
-</ul>
-</li>
+</ul></li>
 <li>アウトプットオブジェクト 1 つ:
 <ul>
 <li>流行曲線（エピカーブ）（<code>malaria_epicurve</code>というoutputId）</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>以前ものべたように、インプットオブジェクトとアウトプットオブジェクトに設定したユニークな（重複がない）名前（inputId と outputId）が欠かせません。これらは、<u>ユニークである必要</u>があり、ui オブジェクトとサーバーロジック関数の間の情報のやり取りに利用されます。サーバーロジック関数の中では、<code>input$inputID</code> という構文でインプットオブジェクトを参照することができ、<code>output$outputID</code> という構文にアウトプットオブジェクトに出力を渡すことができます。このことを理解することは難しいので、まずは例を見てみましょう！</p>
 <div class="cell">
@@ -1263,17 +1238,16 @@ window.Quarto = {
 <p>今回のような単純なアプリのサーバーロジック関数の内容は非常にわかりやすいです！サーバーロジック関数は 3 つの引数 - <code>input</code>、<code>output</code>、<code>session</code> をもつ関数であることに気づくでしょう -（現時点ではこれらの引数そのものについて理解することはそれほど重要ではありませんが、これらを関数の引数として設定することは大切です！）今回のサーバーロジック関数のタスクは 1 つしかありません。そのタスクとは、サーバーロジック関数の <code>input</code> 引数を先に作成したグラフ描画関数に渡してグラフを描画することです。インプットオブジェクトとアウトプットオブジェクトの名前が ui オブジェクトで設定した名前と完全に一致していることに注意してください。</p>
 <p>サーバーロジック関数がユーザーの入力をどのように反映するかの基本を理解するためには、以下に注意してくだい。インプットオブジェクトの変化をアウトプットオブジェクトは（基礎となる shiny パッケージを通じて）認識します。アウトプットオブジェクトはインプットオブジェクトが変化するたびに、サーバーロジック関数を再実行しグラフを作成します。上記コードでは、<code>renderPlot()</code> 関数も使用していることに注意してください。この関数は、グラフオブジェクトを ui オブジェクトのアウトプット関数に渡す型指定関数群の 1 種です。似たような動作をする関数はいくつかありますが、使用する関数が ui オブジェクトに渡すオブジェクトの型と一致していることを確認する必要があります。例えば：</p>
 <ul>
-<li>
-<code>renderText()</code> - ui オブジェクトにテキストを送る</li>
-<li>
-<code>renderDataTable</code> - ui オブジェクトに動的なテーブルを送る。</li>
+<li><code>renderText()</code> - ui オブジェクトにテキストを送る</li>
+<li><code>renderDataTable</code> - ui オブジェクトに動的なテーブルを送る。</li>
 </ul>
 <p>これらは、UI で使用されるアウトプット<u>関数</u>と一致する必要があることを覚えておいてください。つまり、<code>renderPlot()</code> は <code>plotOutput()</code> と対になり、<code>renderText()</code> は <code>textOutput()</code> と対になります。</p>
 <p>やっとちゃんと機能するアプリをつくることができました！ Rstudio のスクリプトウィンドウの右上にある Run App ボタンを押して実行することができます。 また、アプリを（Rstudio ではなく）デフォルトのブラウザで実行するように選択することもできます。ブラウザで実行することで他の人にどのように見えるかがより正確に反映されます。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1282,14 +1256,16 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- TO DO: *ADD SOMETHING ON DOWNLOADING A ZIP FILE OF THE APP?*  -->
-</section><section id="もっと沢山の機能を追加する" class="level2" data-number="43.6"><h2 data-number="43.6" class="anchored" data-anchor-id="もっと沢山の機能を追加する">
-<span class="header-section-number">43.6</span> もっと沢山の機能を追加する</h2>
+</section>
+<section id="もっと沢山の機能を追加する" class="level2" data-number="43.6">
+<h2 data-number="43.6" class="anchored" data-anchor-id="もっと沢山の機能を追加する"><span class="header-section-number">43.6</span> もっと沢山の機能を追加する</h2>
 <p>この時点で、ようやくアプリが動き出しましたが、機能はほとんどありません。また、shiny ができることのほんの一部しか知ることができていません。まだまだ学ぶことはたくさんあります！このアプリに、さらに機能を追加していきましょう。追加すると良い機能は次のようなものです：</p>
 <ol type="1">
 <li>いくつかの説明文</li>
@@ -1298,22 +1274,19 @@ window.Quarto = {
 <li>ダッシュボードの追加ページ - ここにはデータの表を掲載しましょう</li>
 </ol>
 <p>追加することはたくさんありますが、これを通して shiny の様々な機能を学ぶことができます。shiny について学ぶことは本当に沢山あります（shiny アプリは非常に<u>高度</u>なものになる可能性もありますが、アプリ開発者がパッケージの使い方について理解を深めれば、より快適に外部の学習ソースを使用できるようになると期待しています。).</p>
-<section id="静的なテキストの追加" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="静的なテキストの追加">静的なテキストの追加</h3>
+<section id="静的なテキストの追加" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="静的なテキストの追加">静的なテキストの追加</h3>
 <p>まず、shiny アプリに静的なテキストを追加することについて考えましょう。基本的な知識を一度身につければ、アプリに静的なテキストを追加することはものすごく簡単です。静的なテキストは shiny アプリの中で変化しないため、一般的には静的なテキストはアプリの UI に記載されます（もし、テキストの内容を変化させたければ、<u>テキストレンダリング</u>関数をサーバーロジック関数内で利用しましょう）。ここでは詳しく説明しませんが、R を <u>HTML</u> や <u>css</u> と連携させることで、UI に様々な要素を追加することができます（カスタム要素の追加も可能です）。</p>
 <p>HTML や css は、ユーザーインターフェイスのデザインに明示的に関わる言語です。これらを深く理解する必要はありませんが、<u>HTML</u> は UI のオブジェクト（テキストボックスやテーブルなど）を作成し、<u>css</u> は一般的にそれらのオブジェクトのスタイルや見た目を変更するために使用されます。shiny は膨大な数の <u>HTML タグ</u>にアクセスできます。これらは、ヘッダー、テキストの段落、改行、テーブルなど、特定の方法で振る舞うオブジェクトとして存在します。これらは、次のように利用できます：</p>
 <ul>
-<li>
-<p><code>h1()</code> - これは<u>見出し</u>のタグです。これにより囲まれたテキストが自動的に大きくなり、フォントフェイスや色などのデフォルトが変更されます（アプリの全体的なテーマに応じて変更されます）。<code>h2()</code>から <code>h6()</code>までどんどん副見出しを小さくしていくこともできます。使用例は下記です：</p>
+<li><p><code>h1()</code> - これは<u>見出し</u>のタグです。これにより囲まれたテキストが自動的に大きくなり、フォントフェイスや色などのデフォルトが変更されます（アプリの全体的なテーマに応じて変更されます）。<code>h2()</code>から <code>h6()</code>までどんどん副見出しを小さくしていくこともできます。使用例は下記です：</p>
 <ul>
 <li><code>h1("ヘッダー - セクション 1")</code></li>
-</ul>
-</li>
-<li>
-<p><code>p()</code> - これは、<u>段落</u>のタグです。これは、囲まれたテキストを、テキスト本文と同様にするものです。このテキストは自動的に折り返され、比較的小さなサイズで表示されます（フッターは、もっと小さいかもしれません）。word 文書のテキスト本文のようなものだと思ってください。使用例は下記:</p>
+</ul></li>
+<li><p><code>p()</code> - これは、<u>段落</u>のタグです。これは、囲まれたテキストを、テキスト本文と同様にするものです。このテキストは自動的に折り返され、比較的小さなサイズで表示されます（フッターは、もっと小さいかもしれません）。word 文書のテキスト本文のようなものだと思ってください。使用例は下記:</p>
 <ul>
 <li><code>p("これは、私が自分のアプリの機能を説明するためのテキストです。")</code></li>
-</ul>
-</li>
+</ul></li>
 <li><p><code>tags$b()</code> と <code>tags$i()</code> - これらはテキストが中に記載された場合に、太字 <code>tags$b()</code> や斜体 <code>tags$i()</code> で表現されます。</p></li>
 <li><p>tags<span class="math inline">\(ul()`、`tags\)</span>ol()<code>、</code>tags<span class="math inline">\(li()` - これらは、&lt;u&gt;リスト&lt;/u&gt;を作成する際に使用されるタグです。 これらはすべて以下の構文で使用され、ユーザーは順序付きのリスト（`tags\)</span>ol()<code>； 数字がふられている）か、順序なしのリスト（</code>tags<span class="math inline">\(ul()`、中点がつけられている)を作成できます。tags\)</span>li()`は、どちらのタイプのリストであっても、リスト内の項目を表すのに使われます。 例：</p></li>
 </ul>
@@ -1396,17 +1369,22 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="リンクの追加" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="リンクの追加">リンクの追加</h3>
+</section>
+<section id="リンクの追加" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="リンクの追加">リンクの追加</h3>
 <p>ハイパーリンクを貼るには、<code>tags$a()</code> に URL リンクとリンクテキストを入れて、以下のように使います。独立した段落を表示するには<code>p()</code>の中に記載します。文章中の語句をハイパーリンクとして表示させたい場合は、ハイパーリンクとなる部分に <code>tags$a()</code> を使用します。ハイパーリンクを<u>新しい</u>ブラウザウィンドウで開くようにするには、引数として <code>target = "_blank"</code> を追加してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">a</span>(<span class="at">href =</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="ダウンロードボタンを追加する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ダウンロードボタンを追加する">ダウンロードボタンを追加する</h3>
+</section>
+<section id="ダウンロードボタンを追加する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ダウンロードボタンを追加する">ダウンロードボタンを追加する</h3>
 <p>それでは、3つの機能のうち2つ目の機能を紹介しましょう。ダウンロードボタンは、アプリに追加するものとしてはかなり一般的なもので、簡単に作ることができます。ui オブジェクトに別のインプットウィジェットを追加し、サーバーロジック関数に別のアウトプットオブジェクトを追加してウィジェットと結合する必要があります。また、この例では、<u>リアクティブコンダクター</u>を追加します。</p>
 <p>まずは ui オブジェクトを更新しましょう。shiny には <code>downloadButton()</code> というウィジェット関数があるためこの作業は簡単です。このウィジェット関数に inputId とラベルを追加しましょう。</p>
 <div class="cell">
@@ -1553,12 +1531,15 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="施設の選択を追加する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="施設の選択を追加する">施設の選択を追加する</h3>
+</section>
+<section id="施設の選択を追加する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="施設の選択を追加する">施設の選択を追加する</h3>
 <p>次の機能に進みましょう。施設を選択するためのセレクターウィジェットの追加です。<code>plot_epicurve</code> 関数が、施設を選択した結果を受け取ることができるように、別の引数をとれるように実装していきます。これは、他の引数で実装したことを繰り返せばよいです。コードを更新して、テストしてみましょう。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_epicurve <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">district =</span> <span class="st">"All"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_tot"</span>, <span class="at">facility =</span> <span class="st">"All"</span>) {</span>
@@ -1636,7 +1617,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Spring"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>, <span class="at">facility =</span> <span class="st">"Facility 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="shiny_basics.jp_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.jp_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="shiny_basics.jp_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.jp_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1753,10 +1735,8 @@ window.Quarto = {
 </ul>
 <p>reactive 関数と同様に、observer 関数にも 2 つの種類があり、reacive 関数と同じ仕組みで分けられています。</p>
 <ol type="1">
-<li>
-<code>observe()</code> - この関数は、内部で使用されているインプットオブジェクトが変化するたびに実行されます。</li>
-<li>
-<code>observeEvent()</code> - この関数は<u>設定されたインプットオブジェクト</u> が変化する度に実行されます。</li>
+<li><code>observe()</code> - この関数は、内部で使用されているインプットオブジェクトが変化するたびに実行されます。</li>
+<li><code>observeEvent()</code> - この関数は<u>設定されたインプットオブジェクト</u> が変化する度に実行されます。</li>
 </ol>
 <p>shiny で提供されているインプットウィジェットを更新する関数についての理解も必要です。これらの関数は、かなり簡単に実行できます。サーバーロジック関数の <code>session</code> オブジェクト（今は理解できなくても問題ありません）を 1 つ目の引数としてとしてとり、2 つ目に変更したい ui オブジェクトの <code>inputId</code> をとります。 3 つ目に、更新する基となるウィジェット <code>selectInput()</code> 関数によってすでに取得されている選択肢すべてを持つ新規のインプットオブジェクトを渡します。以上により、ウィジェットは自動的に更新されます。</p>
 <p>この機能をサーバーロジック関数内で使用する場合の例を見てみましょう。エンドユーザーが地区を変更した場合、施設の一覧を地区別に抽出し、選択肢を<u>その地区で利用可能なものだけとする</u>ように更新します（すべての施設を選択することもできます）。</p>
@@ -1831,12 +1811,15 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="表を含んだタブを追加する" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="表を含んだタブを追加する">表を含んだタブを追加する</h3>
+</section>
+<section id="表を含んだタブを追加する" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="表を含んだタブを追加する">表を含んだタブを追加する</h3>
 <p>次に、アプリに追加したい最後の要素に移りましょう。 アプリの UI を 2 つのタブに分割します。1 つのタブには流行曲線（エピカーブ）を描画しているデータを動的に確認することができる表を挿入します。そのためには、shiny に付属するパッケージ化されたタブに関連した UI 要素を利用します。基本的には、下記の一般的な UI 構造の中に、メインパネルのほとんどを収めることができます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... は残りの ui オブジェクト部分を表す</span></span>
@@ -1990,13 +1973,16 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure">
+<p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="shiny-アプリの共有" class="level2" data-number="43.7"><h2 data-number="43.7" class="anchored" data-anchor-id="shiny-アプリの共有">
-<span class="header-section-number">43.7</span> shiny アプリの共有</h2>
+</section>
+</section>
+<section id="shiny-アプリの共有" class="level2" data-number="43.7">
+<h2 data-number="43.7" class="anchored" data-anchor-id="shiny-アプリの共有"><span class="header-section-number">43.7</span> shiny アプリの共有</h2>
 <p>アプリが完成したら、他の人と共有したいと思うこともあるでしょう。これが shiny の最大の利点です。そのためには、コードを直接共有することもできますし、サーバーマシン上で公開することもできます。コードを共有すれば、他の人があなたの実装した内容を見て、それに基づいてさらなる機能を構築することができますが、これは shiny の主な利点の1つを否定することになります。どういうことかというと、shiny は、<u>エンドユーザーが R のインストールを行いメンテナンスする必要性をなくすことができます。</u>このため、 R が苦手なユーザーとアプリを共有する場合は、サーバーマシン上で公開するアプリを共有する方がはるかに簡単です。</p>
 <p>もし、コードを直接共有したいのであれば、アプリの .zip ファイルを作成するか、あるいは、<u>github にアプリを公開して、協力者を追加することもできます。</u> 詳細はこちらの github のセクションを参照してください。</p>
 <p>しかし、アプリをオンラインで公開する場合は、もう少し作業が必要です。最終的には、あなたのアプリをウェブ URL からアクセスできるようにして、他の人が素早く簡単に到達できるようにしたいのです。残念ながら、アプリをサーバーマシン上で公開するには、公開するためのサーバーマシンが必要です！これに関しては、いくつかのホスティングするための選択肢があります。</p>
@@ -2010,11 +1996,13 @@ window.Quarto = {
 <p>アカウントを取得したら、<u>Accounts</u> 内にある tokens のページに移動します。このページでは、新しいトークンを追加します。トークンは、アプリのデプロイに使用されます。</p>
 <p>ここからの作業で、アカウントのURLにアプリの名前が反映されることに注意してください。つまり、アプリの名前が「my app」であれば、URLは「xxx.io/my_app/」となります。アプリの名前は賢く選びましょう！全ての準備が完了です。deploy をクリックしましょう。成功していれば、選んだ URL でアプリが実行されているはずです。</p>
 <p><u>このハンドブックでアプリ作成に関する何か？</u></p>
-</section><section id="参考資料" class="level2" data-number="43.8"><h2 data-number="43.8" class="anchored" data-anchor-id="参考資料">
-<span class="header-section-number">43.8</span> 参考資料</h2>
+</section>
+<section id="参考資料" class="level2" data-number="43.8">
+<h2 data-number="43.8" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">43.8</span> 参考資料</h2>
 <p>ここまでは、shiny の様々な側面を紹介してきましたが、shiny の機能の「さわり」に触れただけです。このガイドは入門編ですが、shiny を完全に理解するためには、さらに多くのことを学ぶ必要があります。アプリを作り始めて、徐々に機能を増やしていくのが良いでしょう。</p>
-</section><section id="推奨される機能拡張パッケージ" class="level2" data-number="43.9"><h2 data-number="43.9" class="anchored" data-anchor-id="推奨される機能拡張パッケージ">
-<span class="header-section-number">43.9</span> 推奨される機能拡張パッケージ</h2>
+</section>
+<section id="推奨される機能拡張パッケージ" class="level2" data-number="43.9">
+<h2 data-number="43.9" class="anchored" data-anchor-id="推奨される機能拡張パッケージ"><span class="header-section-number">43.9</span> 推奨される機能拡張パッケージ</h2>
 <p>以下に、shiny の機能を拡張できる高品質なパッケージを集めました。順不同：</p>
 <ul>
 <li><p><strong>shinyWidgets</strong> - このパッケージは、アプリで使用できるウィジェットを多数追加します。<code>shinyWidgets::shinyWidgetsGallery()</code>を実行すると、このパッケージで利用可能なウィジェットのセレクションが表示されます。 例は <a href="https://github.com/dreamRs/shinyWidgets">ここ</a>にあります。</p></li>
@@ -2027,11 +2015,15 @@ window.Quarto = {
 <ul>
 <li><p><strong>DT</strong> は base-shiny に半統合されていますが、動的なテーブルを作成するための素晴らしい関数群を提供しています。</p></li>
 <li><p><strong>plotly</strong> は、ユーザーがアプリ内で操作できる動的なグラフを作成するためのパッケージです。 また、<code>plotly::ggplotly()</code> を使って、プロットを動的なバージョンに変換することもできます！<strong>dygraphs</strong> と <strong>highcharter</strong> も同様に優れています。</p></li>
-</ul></section><section id="推奨されるリソース" class="level2" data-number="43.10"><h2 data-number="43.10" class="anchored" data-anchor-id="推奨されるリソース">
-<span class="header-section-number">43.10</span> 推奨されるリソース</h2>
+</ul>
+</section>
+<section id="推奨されるリソース" class="level2" data-number="43.10">
+<h2 data-number="43.10" class="anchored" data-anchor-id="推奨されるリソース"><span class="header-section-number">43.10</span> 推奨されるリソース</h2>
 
 
-</section></u></u></main><u><u> <!-- /main -->
+</section>
+
+</u></u></main><u><u> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2211,7 +2203,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2243,47 +2246,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2318,11 +2281,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2595,62 +2554,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../new_pages/flexdashboard.jp.html" class="pagination-link" aria-label="R Markdownで作るダッシュボード">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/writing_functions.jp.html" class="pagination-link" aria-label="関数の作成">
-        <span class="nav-page-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav></u></u>
-</div>
-<u><u> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+</nav>
+</u></u></div><u><u> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"selector":".lightbox","openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
-          </script></u></u>
-</body>
-</html>
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
+
+
+
+
+</u></u></body></html>
