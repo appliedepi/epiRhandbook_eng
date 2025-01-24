@@ -45,10 +45,17 @@ This page will explore some of the core functions of **data.table** using the ca
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data](data_used.qmd) page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](importing.qmd) for various ways to import data. From here we use `data.table()` to convert the data frame to a data table.
 
-```{r, warning=F, message=F}
+```{r, echo=F, message=F}
+# HIDDEN FROM READER
 linelist <- import(here("data", "case_linelists", "linelist_cleaned.rds")) %>% 
      data.table()
 ```
+
+```{r, eval=F}
+linelist <- import("linelist_cleaned.xlsx") %>% 
+     data.table()
+```
+
 
 The `fread()` function is used to directly import regular delimited files, such as .csv files, directly to a data table format. This function, and its counterpart, `fwrite()`, used for writing data.tables as regular delimited files are very fast and computationally efficient options for large databases.
 
