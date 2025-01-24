@@ -8,7 +8,7 @@ The handbook focusses on the **dplyr** “verb” functions and the **magrittr**
 <!-- ======================================================= -->
 ## Intro to data tables {  }
 
-A data table is a 2-dimensional data structure like a data frame that allows complex grouping operations to be performed. The data.table syntax is structured so that operations can be performed on rows, columns and groups. 
+A data table is a 2-dimensional data structure like a data frame that allows complex grouping operations to be performed. The **data.table** syntax is structured so that operations can be performed on rows, columns and groups. 
 
 The structure is **DT[i, j, by]**, separated by 3 parts; the **i, j** and **by** arguments. The **i** argument allows for subsetting of required rows, the **j** argument allows you to operate on columns and the **by** argument allows you operate on columns by groups.
   
@@ -45,9 +45,17 @@ This page will explore some of the core functions of **data.table** using the ca
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data](data_used.qmd) page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](importing.qmd) for various ways to import data. From here we use `data.table()` to convert the data frame to a data table.
 
-```{r}
-linelist <- rio::import(here("data", "linelist_cleaned.xlsx")) %>% data.table()
+```{r, echo=F, message=F}
+# HIDDEN FROM READER
+linelist <- import(here("data", "case_linelists", "linelist_cleaned.rds")) %>% 
+     data.table()
 ```
+
+```{r, eval=F}
+linelist <- import("linelist_cleaned.xlsx") %>% 
+     data.table()
+```
+
 
 The `fread()` function is used to directly import regular delimited files, such as .csv files, directly to a data table format. This function, and its counterpart, `fwrite()`, used for writing data.tables as regular delimited files are very fast and computationally efficient options for large databases.
 
@@ -90,12 +98,13 @@ linelist[15:.N] #returns the 15th to the last row
 
 ### Using helper functions for filtering {.unnumbered}  
 
-Data table uses helper functions that make subsetting rows easy. The `%like%` function is used to match a pattern in a column, `%chin%` is used to match a specific character, and the `%between%` helper function is used to match numeric columns within a prespecified range.
+Data table uses helper functions that make subsetting rows easy. The `%like%` function is used to match a pattern in a column, `%chin%` is used to match a specific character, and the `%between%` helper function is used to match numeric columns within a specified range.
 
 In the following examples we:
-*  filter rows where the hospital variable contains “Hospital”
-*  filter rows where the outcome is “Recover” or “Death”
-*  filter rows in the age range 40-60
+
+*  Filter rows where the hospital variable contains “Hospital”
+*  Filter rows where the outcome is “Recover” or “Death”
+*  Filter rows in the age range 40-60
 
 ```{r, eval=F}
 linelist[hospital %like% "Hospital"] #filter rows where the hospital variable contains “Hospital”
@@ -149,6 +158,7 @@ Remember using the .() wrap in the j argument facilitates computation, returns a
 The **by** argument is the third argument in the **DT[i, j, by]** structure. The **by** argument accepts both a character vector and the `list()` or `.()` syntax. Using the `.()` syntax in the **by** argument allows column renaming on the fly.
 
 In the following examples we:	
+
 * group the number of cases by hospital
 * in cases 18 years old or over, calculate the mean height and weight of cases according to gender and whether they recovered or died
 * in admissions that lasted over 7 days, count the number of cases according to the month they were admitted and the hospital they were admitted to
@@ -214,15 +224,13 @@ Further complex aggregations are beyond the scope of this introductory chapter, 
 
 ## Resources {  }
 
-Here are some useful resources for more information:
-* https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
-* https://github.com/Rdatatable/data.table
-* https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf
-* https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/
-* https://www.datacamp.com/community/tutorials/data-table-r-tutorial
+Here are some useful resources for more information:  
 
-You can perform any summary function on grouped data; see the Cheat Sheet here for more info:
-https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf
+* [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+* [data.table github](https://github.com/Rdatatable/data.table)
+* [data.table cheatsheet](https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf)
+* [Guide to data.table](https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/)
+* [data.table tutorial](https://www.datacamp.com/community/tutorials/data-table-r-tutorial)
 
 
 

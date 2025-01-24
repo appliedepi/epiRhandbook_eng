@@ -31,7 +31,7 @@ We import the dataset of cases from a simulated Ebola epidemic. If you want to d
 
 We will also use in the last part of this page some data on H7N9 flu from 2013.
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 # import the linelists into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
@@ -45,9 +45,9 @@ flu_china <- rio::import(here::here("data", "case_linelists", "fluH7N9_China_201
 Functions are helpful in programming since they allow to make codes easier to understand, somehow shorter and less prone to errors (given there were no errors in the function itself).
 
 If you have come so far to this handbook, it means you have came across endless functions since in R, every operation is a function call
-`+, for, if, [, $, { …`. For example `x + y` is the same as`'+'(x, y)`
+`+, for, if, [, $, { …`. For example `x + y` is the same as`'+'(x, y)`.
 
-R is one the languages that offers the most possibility to work with functions and give enough tools to the user to easily write them. We should not think about functions as fixed at the top or at the end of the programming chain, R offers the possibility to use them as if they were vectors and even to use them inside other functions, lists...
+R is one of the programming languages that offers the most possibility to work with functions and give enough tools to the user to easily write them. We should not think about functions as fixed at the top or at the end of the programming chain, R offers the possibility to use them as if they were vectors and even to use them inside other functions.
 
 Lot of very advanced resources on functional programming exist and we will only give here an insight to help you start with functional programming with short practical examples. You are then encouraged to visit the links on references to read more about it.
 
@@ -65,17 +65,17 @@ Before answering this question, it is important to note that you have already ha
 
 - Is it possible that the code I have written is used again but with a different value at many places of the code?
 
-If the answer to one of the previous questions is "YES", then you probably need to write a function
+If the answer to one of the previous questions is "YES", then you probably need to write a function.
 
 ## How does R  build functions?
 
 Functions in R have three main components:
 
-- the `formals()` which is the list of arguments which controls how we can call the function
+- the `formals()` which is the list of arguments which controls how we can call the function.
 
-- the `body()` that is the code inside the function i.e. within the brackets or following the parenthesis depending on how we write it
+- the `body()` that is the code inside the function i.e. within the brackets or following the parenthesis depending on how we write it.
 
-and,
+And,
 
 - the `environment()` which will help locate the function's variables and determines how the function finds value.
  
@@ -84,9 +84,9 @@ Once you have created your function, you can verify each of these components by 
 
 ## Basic syntax and structure
 
-- A function will need to be named properly so that its job is easily understandable as soon as we read its name. Actually this is already the case with majority of the base R architecture. Functions like  `mean()`, `print()`, `summary()` have names that are very straightforward 
+- A function will need to be named properly so that its job is easily understandable as soon as we read its name. Actually this is already the case with majority of the base R architecture. Functions like  `mean()`, `print()`, `summary()` have names that are very straightforward. 
 
-- A function will need arguments, such as the data to work on and other objects that can be static values among other options  
+- A function will need arguments, such as the data to work on and other objects that can be static values among other options.  
 
 - And finally a function will give an output based on its core task and the arguments it has been given. Usually we will use the built-in functions as `print()`, `return()`... to produce the output. The output can be a logical value, a number, a character, a data frame...in short any kind of R object.
 
@@ -109,12 +109,11 @@ We can create our first function that will be called `contain_covid19()`.
 ```{r}
 
 contain_covid19 <- function(barrier_gest, wear_mask, get_vaccine){
-  
-                            if(barrier_gest == "yes" & wear_mask == "yes" & get_vaccine == "yes" ) 
-       
+                            if(barrier_gest == "yes" & 
+                               wear_mask == "yes" & 
+                               get_vaccine == "yes" ) 
                             return("success")
-  
-  else("please make sure all are yes, this pandemic has to end!")
+  else("please make sure all are yes, we need as much help containing COVID as we can get!")
 }
 
 
@@ -466,9 +465,9 @@ Functional programming is meant to ease code and facilitates its reading. It sho
 
 ### Naming and syntax {.unnumbered}
 
-- Avoid using character that could have been easily already taken by other functions already existing in your environment
+- Avoid using character that could have been easily already taken by other functions already existing in your environment.
 
-- It is recommended for the function name to be short and straightforward to understand for another reader
+- It is recommended for the function name to be short and straightforward to understand for another reader.
 
 - It is preferred to use verbs as the function name and nouns for the argument names.
 

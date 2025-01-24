@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.4.550">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>26  Survey analysis – The Epidemiologist R Handbook</title>
+
+
+<title>The Epidemiologist R Handbook - 26&nbsp; Survey analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -53,18 +55,33 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../new_pages/survival_analysis.html" rel="next">
 <link href="../new_pages/contact_tracing.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -91,13 +108,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+
+<script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script><script type="text/javascript" charset="UTF-8">
+</script>
+
+<script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -112,174 +134,137 @@ cookieconsent.run({
 "language":"en"
   });
 });
-</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
-
+</script> 
+  
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
+<script>
   window.dataLayer = window.dataLayer || [];
-
   function gtag(){dataLayer.push(arguments);}
-
   gtag('js', new Date());
 
-
-
   gtag('config', 'G-QXDW878QLX');
-
 </script>
-</head>
-<body class="nav-sidebar floating">
-<div class="alert alert-info alert-dismissible">
 
+</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
-
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
-
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
-
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
-
     class="alert-link">R Help Desk service</a>. -->
-
 </div>
-
-
 
 <script>
 
-
-
   // Function to extract the last two characters from the URL path
-
   function getLanguageFromURL() {
-
     const path = window.location.pathname.split('/');
-
     
-
     if (path.length > 1) {
-
       return path[1]; // Assume the language code is the second segment
-
     }
 
-
-
     return '';
-
   }
 
-
-
   const language = getLanguageFromURL();
-
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
-
   const defaultLanguage = 'en';
-
   const isSupportedLanguage = supportedLanguages.includes(language);
 
-
-
   // Translations for the content
-
   const translations = {
-
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
-
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
-
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
-
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
-
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
-
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
-
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
-
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
-
   };
 
-
-
   // Default to English if the detected language is not supported
-
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
-
-
-
   // Select the element where the content should be displayed
-
   const alertElement = document.querySelector('.alert');
-
   if (alertElement) {
-
     alertElement.innerHTML = contentToDisplay;
-
     alertElement.style.display = 'block'; // Make sure to display the element
-
   }
 
-
-
-</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+</script>
+<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.html">Analysis</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/survey_analysis.html"><span class="chapter-number">26</span>  <span class="chapter-title">Survey analysis</span></a></li>
-</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.html">Analysis</a></li><li class="breadcrumb-item"><a href="../new_pages/survey_analysis.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Survey analysis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-twitter pe-1"></i>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -289,19 +274,9 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
-<a class="dropdown-item" href="/fr/new_pages/survey_analysis.fr.html" id="language-link-fr">Français</a><a class="dropdown-item" href="/es/new_pages/survey_analysis.es.html" id="language-link-es">Español</a>
-<a class="dropdown-item" href="/vn/new_pages/survey_analysis.vn.html" id="language-link-vn">Tiếng Việt</a>
-<a class="dropdown-item" href="/jp/new_pages/survey_analysis.jp.html" id="language-link-jp">日本</a>
-<a class="dropdown-item" href="/pt/new_pages/survey_analysis.pt.html" id="language-link-pt">Português</a>
-<a class="dropdown-item" href="/tr/new_pages/survey_analysis.tr.html" id="language-link-tr">Türkçe</a>
-<a class="dropdown-item" href="/ru/new_pages/survey_analysis.ru.html" id="language-link-ru">Русский</a>
-</ul>
-</div>
-<div class="sidebar-menu-container"> 
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -309,443 +284,434 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">About this book</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Editorial and technical notes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Editorial and technical notes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Download handbook and data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Download handbook and data</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Transition to R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transition to R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Suggested packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Suggested packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Import and export</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Import and export</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">Data Management</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Cleaning data and core functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Cleaning data and core functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Working with dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Characters and strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Characters and strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Factors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Pivoting data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pivoting data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Grouping data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Grouping data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Joining data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Joining data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">De-duplication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">De-duplication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Iteration, loops, and lists</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iteration, loops, and lists</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Descriptive tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Descriptive tables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Simple statistical tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simple statistical tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Univariate and multivariable regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Univariate and multivariable regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Missing data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Missing data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Standardised rates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardised rates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Moving averages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Moving averages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Time series and outbreak detection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Time series and outbreak detection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Epidemic modeling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Epidemic modeling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Contact tracing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Contact tracing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Survey analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Survey analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Survival analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Survival analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS basics</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">Data Visualization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Tables for presentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Tables for presentation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplot tips</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplot tips</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Epidemic curves</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Epidemic curves</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Demographic pyramids and Likert-scales</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Demographic pyramids and Likert-scales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Heat plots</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Heat plots</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diagrams and charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diagrams and charts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Combinations analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Combinations analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Transmission chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Transmission chains</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Phylogenetic trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Phylogenetic trees</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Interactive plots</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Interactive plots</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">Reports and dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Reports with R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Reports with R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Organizing routine reports</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Organizing routine reports</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Dashboards with R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Dashboards with R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Dashboards with Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">Miscellaneous</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Directory interactions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Common errors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Getting help</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R on network drives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">26.1</span> Overview</a></li>
-  <li>
-<a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="header-section-number">26.2</span> Preparation</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">26.1</span> Overview</a></li>
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="header-section-number">26.2</span> Preparation</a>
   <ul class="collapse">
-<li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load data</a></li>
   <li><a href="#clean-data" id="toc-clean-data" class="nav-link" data-scroll-target="#clean-data">Clean data</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#survey-data" id="toc-survey-data" class="nav-link" data-scroll-target="#survey-data"><span class="header-section-number">26.3</span> Survey data</a></li>
   <li><a href="#observation-time" id="toc-observation-time" class="nav-link" data-scroll-target="#observation-time"><span class="header-section-number">26.4</span> Observation time</a></li>
   <li><a href="#weighting" id="toc-weighting" class="nav-link" data-scroll-target="#weighting"><span class="header-section-number">26.5</span> Weighting</a></li>
-  <li>
-<a href="#survey-design-objects" id="toc-survey-design-objects" class="nav-link" data-scroll-target="#survey-design-objects"><span class="header-section-number">26.6</span> Survey design objects</a>
+  <li><a href="#survey-design-objects" id="toc-survey-design-objects" class="nav-link" data-scroll-target="#survey-design-objects"><span class="header-section-number">26.6</span> Survey design objects</a>
   <ul class="collapse">
-<li><a href="#survey-package" id="toc-survey-package" class="nav-link" data-scroll-target="#survey-package"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> package</a></li>
+  <li><a href="#survey-package" id="toc-survey-package" class="nav-link" data-scroll-target="#survey-package"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> package</a></li>
   <li><a href="#srvyr-package" id="toc-srvyr-package" class="nav-link" data-scroll-target="#srvyr-package"><span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> package</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link" data-scroll-target="#descriptive-analysis"><span class="header-section-number">26.7</span> Descriptive analysis</a>
+  </ul></li>
+  <li><a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link" data-scroll-target="#descriptive-analysis"><span class="header-section-number">26.7</span> Descriptive analysis</a>
   <ul class="collapse">
-<li><a href="#sampling-bias" id="toc-sampling-bias" class="nav-link" data-scroll-target="#sampling-bias"><span class="header-section-number">26.7.1</span> Sampling bias</a></li>
+  <li><a href="#sampling-bias" id="toc-sampling-bias" class="nav-link" data-scroll-target="#sampling-bias"><span class="header-section-number">26.7.1</span> Sampling bias</a></li>
   <li><a href="#demographic-pyramids" id="toc-demographic-pyramids" class="nav-link" data-scroll-target="#demographic-pyramids"><span class="header-section-number">26.7.2</span> Demographic pyramids</a></li>
   <li><a href="#alluvialsankey-diagram" id="toc-alluvialsankey-diagram" class="nav-link" data-scroll-target="#alluvialsankey-diagram"><span class="header-section-number">26.7.3</span> Alluvial/sankey diagram</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#weighted-proportions" id="toc-weighted-proportions" class="nav-link" data-scroll-target="#weighted-proportions"><span class="header-section-number">26.8</span> Weighted proportions</a>
+  </ul></li>
+  <li><a href="#weighted-proportions" id="toc-weighted-proportions" class="nav-link" data-scroll-target="#weighted-proportions"><span class="header-section-number">26.8</span> Weighted proportions</a>
   <ul class="collapse">
-<li><a href="#survey-package-1" id="toc-survey-package-1" class="nav-link" data-scroll-target="#survey-package-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> package</a></li>
+  <li><a href="#survey-package-1" id="toc-survey-package-1" class="nav-link" data-scroll-target="#survey-package-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> package</a></li>
   <li><a href="#srvyr-package-1" id="toc-srvyr-package-1" class="nav-link" data-scroll-target="#srvyr-package-1"><span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> package</a></li>
   <li><a href="#sitrep-package" id="toc-sitrep-package" class="nav-link" data-scroll-target="#sitrep-package"><span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> package</a></li>
   <li><a href="#gtsummary-package" id="toc-gtsummary-package" class="nav-link" data-scroll-target="#gtsummary-package"><span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> package</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#weighted-ratios" id="toc-weighted-ratios" class="nav-link" data-scroll-target="#weighted-ratios"><span class="header-section-number">26.9</span> Weighted ratios</a>
+  </ul></li>
+  <li><a href="#weighted-ratios" id="toc-weighted-ratios" class="nav-link" data-scroll-target="#weighted-ratios"><span class="header-section-number">26.9</span> Weighted ratios</a>
   <ul class="collapse">
-<li><a href="#survey-package-2" id="toc-survey-package-2" class="nav-link" data-scroll-target="#survey-package-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> package</a></li>
+  <li><a href="#survey-package-2" id="toc-survey-package-2" class="nav-link" data-scroll-target="#survey-package-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> package</a></li>
   <li><a href="#srvyr-package-2" id="toc-srvyr-package-2" class="nav-link" data-scroll-target="#srvyr-package-2"><span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> package</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">26.10</span> Resources</a></li>
-  </ul></nav>
-</div>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.html">Analysis</a></li>
-<li class="breadcrumb-item"><a href="../new_pages/survey_analysis.html"><span class="chapter-number">26</span>  <span class="chapter-title">Survey analysis</span></a></li>
-</ol></nav><div class="quarto-title">
-<h1 class="title">
-<span class="chapter-number">26</span>  <span class="chapter-title">Survey analysis</span>
-</h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/tables_descriptive.html">Analysis</a></li><li class="breadcrumb-item"><a href="../new_pages/survey_analysis.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Survey analysis</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Survey analysis</span></h1>
 </div>
 
 
@@ -759,8 +725,12 @@ cookieconsent.run({
   
 
 
-</header><!-- ======================================================= --><section id="overview" class="level2" data-number="26.1"><h2 data-number="26.1" class="anchored" data-anchor-id="overview">
-<span class="header-section-number">26.1</span> Overview</h2>
+</header>
+
+
+<!-- ======================================================= -->
+<section id="overview" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">26.1</span> Overview</h2>
 <p>This page demonstrates the use of several packages for survey analysis.</p>
 <p>Most survey R packages rely on the <a href="https://cran.r-project.org/web/packages/survey/index.html"><strong>survey</strong> package</a> for doing weighted analysis. We will use <strong>survey</strong> as well as <a href="https://cran.r-project.org/web/packages/srvyr/index.html"><strong>srvyr</strong></a> (a wrapper for <strong>survey</strong> allowing for tidyverse-style coding) and <a href="https://cran.r-project.org/web/packages/gtsummary/index.html"><strong>gtsummary</strong></a> (a wrapper for <strong>survey</strong> allowing for publication ready tables). While the original <strong>survey</strong> package does not allow for tidyverse-style coding, it does have the added benefit of allowing for survey-weighted generalised linear models (which will be added to this page at a later date). We will also demonstrate using a function from the <a href="https://github.com/R4EPI/sitrep"><strong>sitrep</strong></a> package to create sampling weights (<em>n.b</em> this package is currently not yet on CRAN, but can be installed from github).</p>
 <p>Most of this page is based off work done for the <a href="https://r4epis.netlify.app/">“R4Epis” project</a>; for detailed code and R-markdown templates see the <a href="https://github.com/R4EPI/sitrep">“R4Epis” github page</a>. Some of the <strong>survey</strong> package based code is based off early versions of <a href="https://github.com/EPIET/RapidAssessmentSurveys">EPIET case studies</a>.</p>
@@ -774,9 +744,12 @@ cookieconsent.run({
 <li>Weighted proportions</li>
 <li>Weighted rates</li>
 </ol>
-<!-- ======================================================= --></section><section id="preparation" class="level2" data-number="26.2"><h2 data-number="26.2" class="anchored" data-anchor-id="preparation">
-<span class="header-section-number">26.2</span> Preparation</h2>
-<section id="packages" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="packages">Packages</h3>
+<!-- ======================================================= -->
+</section>
+<section id="preparation" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="preparation"><span class="header-section-number">26.2</span> Preparation</h2>
+<section id="packages" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="packages">Packages</h3>
 <p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load packages with <code>library()</code> from <strong>base</strong> R. See the page on <a href="../new_pages/basics.html">R basics</a> for more information on R packages.<br>
 Here we also demonstrate using the <code>p_load_gh()</code> function from <strong>pacman</strong> to install a load a package from github which has not yet been published on CRAN.</p>
 <div class="cell">
@@ -798,7 +771,9 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="st">"R4EPI/sitrep"</span>          <span class="co"># for observation time / weighting functions</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="load-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="load-data">Load data</h3>
+</section>
+<section id="load-data" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="load-data">Load data</h3>
 <p>The example dataset used in this section:</p>
 <ul>
 <li>fictional mortality survey data.</li>
@@ -820,8 +795,8 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <p>The first 10 rows of the survey are displayed below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-553119243e2ca8633561" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-553119243e2ca8633561">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]},{"name":"start","targets":0},{"name":"end","targets":1},{"name":"today","targets":2},{"name":"deviceid","targets":3},{"name":"date","targets":4},{"name":"team_number","targets":5},{"name":"village_name","targets":6},{"name":"village_other","targets":7},{"name":"cluster_number","targets":8},{"name":"household_number","targets":9},{"name":"households_building","targets":10},{"name":"random_hh","targets":11},{"name":"random_hh_note","targets":12},{"name":"consent","targets":13},{"name":"no_consent_reason","targets":14},{"name":"no_consent_other","targets":15},{"name":"member_number","targets":16},{"name":"sex","targets":17},{"name":"age_years","targets":18},{"name":"age_months_calc","targets":19},{"name":"age_months","targets":20},{"name":"bednet","targets":21},{"name":"read_write","targets":22},{"name":"education_level","targets":23},{"name":"measles_vaccination","targets":24},{"name":"vaccination_card","targets":25},{"name":"pregnant","targets":26},{"name":"malaria_treatment","targets":27},{"name":"arrived","targets":28},{"name":"remember_arrival","targets":29},{"name":"arrived_date","targets":30},{"name":"left","targets":31},{"name":"remember_departure","targets":32},{"name":"left_date","targets":33},{"name":"born","targets":34},{"name":"remember_dob","targets":35},{"name":"birthday_date","targets":36},{"name":"died","targets":37},{"name":"remember_death","targets":38},{"name":"death_date","targets":39},{"name":"cause","targets":40},{"name":"cause_other","targets":41},{"name":"violent_episode","targets":42},{"name":"violent_episodes_number","targets":43},{"name":"violence_nature_other","targets":44},{"name":"violence_nature","targets":45},{"name":"violence_nature/beaten","targets":46},{"name":"violence_nature/sexual","targets":47},{"name":"violence_nature/shot","targets":48},{"name":"violence_nature/detained_kidnapped","targets":49},{"name":"violence_nature/other","targets":50},{"name":"violence_nature/no_response","targets":51},{"name":"index","targets":52},{"name":"index_y","targets":53},{"name":"uid","targets":54}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-254fbd755d4965f09174" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-254fbd755d4965f09174">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]},{"name":"start","targets":0},{"name":"end","targets":1},{"name":"today","targets":2},{"name":"deviceid","targets":3},{"name":"date","targets":4},{"name":"team_number","targets":5},{"name":"village_name","targets":6},{"name":"village_other","targets":7},{"name":"cluster_number","targets":8},{"name":"household_number","targets":9},{"name":"households_building","targets":10},{"name":"random_hh","targets":11},{"name":"random_hh_note","targets":12},{"name":"consent","targets":13},{"name":"no_consent_reason","targets":14},{"name":"no_consent_other","targets":15},{"name":"member_number","targets":16},{"name":"sex","targets":17},{"name":"age_years","targets":18},{"name":"age_months_calc","targets":19},{"name":"age_months","targets":20},{"name":"bednet","targets":21},{"name":"read_write","targets":22},{"name":"education_level","targets":23},{"name":"measles_vaccination","targets":24},{"name":"vaccination_card","targets":25},{"name":"pregnant","targets":26},{"name":"malaria_treatment","targets":27},{"name":"arrived","targets":28},{"name":"remember_arrival","targets":29},{"name":"arrived_date","targets":30},{"name":"left","targets":31},{"name":"remember_departure","targets":32},{"name":"left_date","targets":33},{"name":"born","targets":34},{"name":"remember_dob","targets":35},{"name":"birthday_date","targets":36},{"name":"died","targets":37},{"name":"remember_death","targets":38},{"name":"death_date","targets":39},{"name":"cause","targets":40},{"name":"cause_other","targets":41},{"name":"violent_episode","targets":42},{"name":"violent_episodes_number","targets":43},{"name":"violence_nature_other","targets":44},{"name":"violence_nature","targets":45},{"name":"violence_nature/beaten","targets":46},{"name":"violence_nature/sexual","targets":47},{"name":"violence_nature/shot","targets":48},{"name":"violence_nature/detained_kidnapped","targets":49},{"name":"violence_nature/other","targets":50},{"name":"violence_nature/no_response","targets":51},{"name":"index","targets":52},{"name":"index_y","targets":53},{"name":"uid","targets":54}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>We also want to import the data on sampling population so that we can produce appropriate weights. This data can be in different formats, however we would suggest to have it as seen below (this can just be typed in to an excel).</p>
@@ -832,8 +807,8 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <p>The first 10 rows of the survey are displayed below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-97fd35fea1b604113155" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-97fd35fea1b604113155">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.06610000000000001,0.034,0.1811,0.138,0.0808,0.06610000000000001],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"age_group","targets":0},{"name":"sex","targets":1},{"name":"proportions","targets":2},{"name":"population","targets":3},{"name":"health_district","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-cccde88d1415c182c29a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cccde88d1415c182c29a">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.06610000000000001,0.034,0.1811,0.138,0.0808,0.06610000000000001],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"name":"age_group","targets":0},{"name":"sex","targets":1},{"name":"proportions","targets":2},{"name":"population","targets":3},{"name":"health_district","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>For cluster surveys you may want to add survey weights at the cluster level. You could read this data in as above. Alternatively if there are only a few counts, these could be entered as below in to a tibble. In any case you will need to have one column with a cluster identifier which matches your survey data, and another column with the number of households in each cluster.</p>
@@ -845,7 +820,9 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">households =</span> <span class="fu">c</span>(<span class="dv">700</span>, <span class="dv">400</span>, <span class="dv">600</span>, <span class="dv">500</span>, <span class="dv">300</span>, </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="dv">800</span>, <span class="dv">700</span>, <span class="dv">400</span>, <span class="dv">500</span>, <span class="dv">500</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="clean-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="clean-data">Clean data</h3>
+</section>
+<section id="clean-data" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clean-data">Clean data</h3>
 <p>The below makes sure that the date column is in the appropriate format. There are several other ways of doing this (see the <a href="../new_pages/dates.html">Working with dates</a> page for details), however using the dictionary to define dates is quick and easy.</p>
 <p>We also create an age group variable using the <code>age_categories()</code> function from <strong>epikit</strong> - see <a href="../new_pages/cleaning.html#num_cats">cleaning data</a> handbook section for details. In addition, we create a character variable defining which district the various clusters are in.</p>
 <p>Finally, we recode all of the yes/no variables to TRUE/FALSE variables - otherwise these cant be used by the <strong>survey</strong> proportion functions.</p>
@@ -910,8 +887,10 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="survey-data" class="level2" data-number="26.3"><h2 data-number="26.3" class="anchored" data-anchor-id="survey-data">
-<span class="header-section-number">26.3</span> Survey data</h2>
+</section>
+</section>
+<section id="survey-data" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="survey-data"><span class="header-section-number">26.3</span> Survey data</h2>
 <p>There numerous different sampling designs that can be used for surveys. Here we will demonstrate code for: - Stratified - Cluster - Stratified and cluster</p>
 <p>As described above (depending on how you design your questionnaire) the data for each level would be exported as a separate dataset from Kobo. In our example there is one level for households and one level for individuals within those households.</p>
 <p>These two levels are linked by a unique identifier. For a Kobo dataset this variable is “_index” at the household level, which matches the “_parent_index” at the individual level. This will create new rows for household with each matching individual, see the handbook section on <a href="https://epirhandbook.com/joining-data.html">joining</a> for details.</p>
@@ -927,10 +906,11 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">uid =</span> <span class="fu">str_glue</span>(<span class="st">"{index}_{index_y}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="observation-time" class="level2" data-number="26.4"><h2 data-number="26.4" class="anchored" data-anchor-id="observation-time">
-<span class="header-section-number">26.4</span> Observation time</h2>
+</section>
+<section id="observation-time" class="level2" data-number="26.4">
+<h2 data-number="26.4" class="anchored" data-anchor-id="observation-time"><span class="header-section-number">26.4</span> Observation time</h2>
 <p>For mortality surveys we want to now how long each individual was present for in the location to be able to calculate an appropriate mortality rate for our period of interest. This is not relevant to all surveys, but particularly for mortality surveys this is important as they are conducted frequently among mobile or displaced populations.</p>
-<p>To do this we first define our time period of interest, also known as a recall period (i.e. the time that participants are asked to report on when answering questions). We can then use this period to set inappropriate dates to missing, i.e. if deaths are reported from outside the period of interest.</p>
+<p>To do this we first define our time period of interest, also known as a recall period (i.e.&nbsp;the time that participants are asked to report on when answering questions). We can then use this period to set inappropriate dates to missing, i.e.&nbsp;if deaths are reported from outside the period of interest.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## set the start/end of recall period</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## can be changed to date variables from dataset </span></span>
@@ -960,8 +940,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then use our date variables to define start and end dates for each individual. We can use the <code>find_start_date()</code> function from <strong>sitrep</strong> to fine the causes for the dates and then use that to calculate the difference between days (person-time).</p>
-<p>start date: Earliest appropriate arrival event within your recall period Either the beginning of your recall period (which you define in advance), or a date after the start of recall if applicable (e.g. arrivals or births)</p>
-<p>end date: Earliest appropriate departure event within your recall period Either the end of your recall period, or a date before the end of recall if applicable (e.g. departures, deaths)</p>
+<p>start date: Earliest appropriate arrival event within your recall period Either the beginning of your recall period (which you define in advance), or a date after the start of recall if applicable (e.g.&nbsp;arrivals or births)</p>
+<p>end date: Earliest appropriate departure event within your recall period Either the end of your recall period, or a date before the end of recall if applicable (e.g.&nbsp;departures, deaths)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create new variables for start and end dates/causes</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>survey_data <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span> </span>
@@ -1007,11 +987,12 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obstime =</span> <span class="fu">as.numeric</span>(enddate <span class="sc">-</span> startdate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="weighting" class="level2" data-number="26.5"><h2 data-number="26.5" class="anchored" data-anchor-id="weighting">
-<span class="header-section-number">26.5</span> Weighting</h2>
-<p>It is important that you drop erroneous observations before adding survey weights. For example if you have observations with negative observation time, you will need to check those (you can do this with the <code>assert_positive_timespan()</code> function from <strong>sitrep</strong>. Another thing is if you want to drop empty rows (e.g. with <code>drop_na(uid)</code>) or remove duplicates (see handbook section on <a href="../new_pages/deduplication.html">De-duplication</a> for details). Those without consent need to be dropped too.</p>
+</section>
+<section id="weighting" class="level2" data-number="26.5">
+<h2 data-number="26.5" class="anchored" data-anchor-id="weighting"><span class="header-section-number">26.5</span> Weighting</h2>
+<p>It is important that you drop erroneous observations before adding survey weights. For example if you have observations with negative observation time, you will need to check those (you can do this with the <code>assert_positive_timespan()</code> function from <strong>sitrep</strong>. Another thing is if you want to drop empty rows (e.g.&nbsp;with <code>drop_na(uid)</code>) or remove duplicates (see handbook section on <a href="../new_pages/deduplication.html">De-duplication</a> for details). Those without consent need to be dropped too.</p>
 <p>In this example we filter for the cases we want to drop and store them in a separate data frame - this way we can describe those that were excluded from the survey. We then use the <code>anti_join()</code> function from <strong>dplyr</strong> to remove these dropped cases from our survey data.</p>
-<p><span style="color: red;"><strong><em>DANGER:</em></strong> You cant have missing values in your weight variable, or any of the variables relevant to your survey design (e.g. age, sex, strata or cluster variables).</span></p>
+<p><span style="color: red;"><strong><em>DANGER:</em></strong> You cant have missing values in your weight variable, or any of the variables relevant to your survey design (e.g.&nbsp;age, sex, strata or cluster variables).</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## store the cases that you drop so you can describe them (e.g. non-consenting </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## or wrong village/cluster)</span></span>
@@ -1061,14 +1042,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surv_weight_cluster_strata =</span> surv_weight_strata <span class="sc">*</span> surv_weight_cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section><section id="survey-design-objects" class="level2" data-number="26.6"><h2 data-number="26.6" class="anchored" data-anchor-id="survey-design-objects">
-<span class="header-section-number">26.6</span> Survey design objects</h2>
+</section>
+<section id="survey-design-objects" class="level2" data-number="26.6">
+<h2 data-number="26.6" class="anchored" data-anchor-id="survey-design-objects"><span class="header-section-number">26.6</span> Survey design objects</h2>
 <p>Create survey object according to your study design. Used the same way as data frames to calculate weight proportions etc. Make sure that all necessary variables are created before this.</p>
 <p>There are four options, comment out those you do not use: - Simple random - Stratified - Cluster - Stratified cluster</p>
 <p>For this template - we will pretend that we cluster surveys in two separate strata (health districts A and B). So to get overall estimates we need have combined cluster and strata weights.</p>
 <p>As mentioned previously, there are two packages available for doing this. The classic one is <strong>survey</strong> and then there is a wrapper package called <strong>srvyr</strong> that makes tidyverse-friendly objects and functions. We will demonstrate both, but note that most of the code in this chapter will use <strong>srvyr</strong> based objects. The one exception is that the <strong>gtsummary</strong> package only accepts <strong>survey</strong> objects.</p>
-<section id="survey-package" class="level3" data-number="26.6.1"><h3 data-number="26.6.1" class="anchored" data-anchor-id="survey-package">
-<span class="header-section-number">26.6.1</span> <strong>Survey</strong> package</h3>
+<section id="survey-package" class="level3" data-number="26.6.1">
+<h3 data-number="26.6.1" class="anchored" data-anchor-id="survey-package"><span class="header-section-number">26.6.1</span> <strong>Survey</strong> package</h3>
 <p>The <strong>survey</strong> package effectively uses <strong>base</strong> <em>R</em> coding, and so it is not possible to use pipes (<code>%&gt;%</code>) or other <strong>dplyr</strong> syntax. With the <strong>survey</strong> package we use the <code>svydesign()</code> function to define a survey object with appropriate clusters, weights and strata.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> we need to use the tilde (<code>~</code>) in front of variables, this is because the package uses the <strong>base</strong> <em>R</em> syntax of assigning variables based on formulae. </span></p>
 <div class="cell">
@@ -1100,8 +1082,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> survey_data                     <span class="co"># have to specify the dataset</span></span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="srvyr-package" class="level3" data-number="26.6.2"><h3 data-number="26.6.2" class="anchored" data-anchor-id="srvyr-package">
-<span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> package</h3>
+</section>
+<section id="srvyr-package" class="level3" data-number="26.6.2">
+<h3 data-number="26.6.2" class="anchored" data-anchor-id="srvyr-package"><span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> package</h3>
 <p>With the <strong>srvyr</strong> package we can use the <code>as_survey_design()</code> function, which has all the same arguments as above but allows pipes (<code>%&gt;%</code>), and so we do not need to use the tilde (<code>~</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## simple random ---------------------------------------------------------------</span></span>
@@ -1131,8 +1114,10 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="descriptive-analysis" class="level2" data-number="26.7"><h2 data-number="26.7" class="anchored" data-anchor-id="descriptive-analysis">
-<span class="header-section-number">26.7</span> Descriptive analysis</h2>
+</section>
+</section>
+<section id="descriptive-analysis" class="level2" data-number="26.7">
+<h2 data-number="26.7" class="anchored" data-anchor-id="descriptive-analysis"><span class="header-section-number">26.7</span> Descriptive analysis</h2>
 <p>Basic descriptive analysis and visualisation is covered extensively in other chapters of the handbook, so we will not dwell on it here. For details see the chapters on <a href="../new_pages/tables_descriptive.html">descriptive tables</a>, <a href="../new_pages/stat_tests.html">statistical tests</a>, <a href="../new_pages/tables_presentation.html">tables for presentation</a>, <a href="../new_pages/ggplot_basics.html">ggplot basics</a> and <a href="../new_pages/rmarkdown.html">R markdown reports</a>.</p>
 <p>In this section we will focus on how to investigate bias in your sample and visualise this. We will also look at visualising population flow in a survey setting using alluvial/sankey diagrams.</p>
 <p>In general, you should consider including the following descriptive analyses:</p>
@@ -1142,8 +1127,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <li>Number of excluded individuals and the reasons for exclusion</li>
 <li>Median (range) number of households per cluster and individuals per household</li>
 </ul>
-<section id="sampling-bias" class="level3" data-number="26.7.1"><h3 data-number="26.7.1" class="anchored" data-anchor-id="sampling-bias">
-<span class="header-section-number">26.7.1</span> Sampling bias</h3>
+<section id="sampling-bias" class="level3" data-number="26.7.1">
+<h3 data-number="26.7.1" class="anchored" data-anchor-id="sampling-bias"><span class="header-section-number">26.7.1</span> Sampling bias</h3>
 <p>Compare the proportions in each age group between your sample and the source population. This is important to be able to highlight potential sampling bias. You could similarly repeat this looking at distributions by sex.</p>
 <p>Note that these p-values are just indicative, and a descriptive discussion (or visualisation with age-pyramids below) of the distributions in your study sample compared to the source population is more important than the binomial test itself. This is because increasing sample size will more often than not lead to differences that may be irrelevant after weighting your data.</p>
 <div class="cell">
@@ -1207,8 +1192,9 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 #   `Source population (%)` &lt;dbl&gt;, `P-value` &lt;chr&gt;</code></pre>
 </div>
 </div>
-</section><section id="demographic-pyramids" class="level3" data-number="26.7.2"><h3 data-number="26.7.2" class="anchored" data-anchor-id="demographic-pyramids">
-<span class="header-section-number">26.7.2</span> Demographic pyramids</h3>
+</section>
+<section id="demographic-pyramids" class="level3" data-number="26.7.2">
+<h3 data-number="26.7.2" class="anchored" data-anchor-id="demographic-pyramids"><span class="header-section-number">26.7.2</span> Demographic pyramids</h3>
 <p>Demographic (or age-sex) pyramids are an easy way of visualising the distribution in your survey population. It is also worth considering creating <a href="https://epirhandbook.com/descriptive-tables.html">descriptive tables</a> of age and sex by survey strata. We will demonstrate using the <strong>apyramid</strong> package as it allows for weighted proportions using our survey design object created above. Other options for creating <a href="https://epirhandbook.com/demographic-pyramids-and-likert-scales.html">demographic pyramids</a> are covered extensively in that chapter of the handbook. We will also use a wrapper function from <strong>apyramid</strong> called <code>age_pyramid()</code> which saves a few lines of coding for producing a plot with proportions.</p>
 <p>As with the formal binomial test of difference, seen above in the sampling bias section, we are interested here in visualising whether our sampled population is substantially different from the source population and whether weighting corrects this difference. To do this we will use the <strong>patchwork</strong> package to show our <strong>ggplot</strong> visualisations side-by-side; for details see the section on combining plots in <a href="../new_pages/ggplot_tips.html">ggplot tips</a> chapter of the handbook. We will visualise our source population, our un-weighted survey population and our weighted survey population. You may also consider visualising by each strata of your survey - in our example here that would be by using the argument <code>stack_by  = "health_district"</code> (see <code>?plot_age_pyramid</code> for details).</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> The x and y axes are flipped in pyramids </span></p>
@@ -1317,13 +1303,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="survey_analysis_files/figure-html/weighted_age_pyramid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="survey_analysis_files/figure-html/weighted_age_pyramid-1.png" class="img-fluid figure-img" width="1440"></a></p>
+<figure class="figure">
+<p><a href="survey_analysis_files/figure-html/weighted_age_pyramid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="survey_analysis_files/figure-html/weighted_age_pyramid-1.png" class="img-fluid figure-img" width="1440"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="alluvialsankey-diagram" class="level3" data-number="26.7.3"><h3 data-number="26.7.3" class="anchored" data-anchor-id="alluvialsankey-diagram">
-<span class="header-section-number">26.7.3</span> Alluvial/sankey diagram</h3>
+</section>
+<section id="alluvialsankey-diagram" class="level3" data-number="26.7.3">
+<h3 data-number="26.7.3" class="anchored" data-anchor-id="alluvialsankey-diagram"><span class="header-section-number">26.7.3</span> Alluvial/sankey diagram</h3>
 <p>Visualising starting points and outcomes for individuals can be very helpful to get an overview. There is quite an obvious application for mobile populations, however there are numerous other applications such as cohorts or any other situation where there are transitions in states for individuals. These diagrams have several different names including alluvial, sankey and parallel sets - the details are in the handbook chapter on <a href="../new_pages/diagrams.html">diagrams and charts</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## summarize data</span></span>
@@ -1350,17 +1338,20 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)               </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="survey_analysis_files/figure-html/visualise_population_flow-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="survey_analysis_files/figure-html/visualise_population_flow-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure">
+<p><a href="survey_analysis_files/figure-html/visualise_population_flow-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="survey_analysis_files/figure-html/visualise_population_flow-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="weighted-proportions" class="level2" data-number="26.8"><h2 data-number="26.8" class="anchored" data-anchor-id="weighted-proportions">
-<span class="header-section-number">26.8</span> Weighted proportions</h2>
+</section>
+</section>
+<section id="weighted-proportions" class="level2" data-number="26.8">
+<h2 data-number="26.8" class="anchored" data-anchor-id="weighted-proportions"><span class="header-section-number">26.8</span> Weighted proportions</h2>
 <p>This section will detail how to produce tables for weighted counts and proportions, with associated confidence intervals and design effect. There are four different options using functions from the following packages: <strong>survey</strong>, <strong>srvyr</strong>, <strong>sitrep</strong> and <strong>gtsummary</strong>. For minimal coding to produce a standard epidemiology style table, we would recommend the <strong>sitrep</strong> function - which is a wrapper for <strong>srvyr</strong> code; note however that this is not yet on CRAN and may change in the future. Otherwise, the <strong>survey</strong> code is likely to be the most stable long-term, whereas <strong>srvyr</strong> will fit most nicely within tidyverse work-flows. While <strong>gtsummary</strong> functions hold a lot of potential, they appear to be experimental and incomplete at the time of writing.</p>
-<section id="survey-package-1" class="level3" data-number="26.8.1"><h3 data-number="26.8.1" class="anchored" data-anchor-id="survey-package-1">
-<span class="header-section-number">26.8.1</span> <strong>Survey</strong> package</h3>
+<section id="survey-package-1" class="level3" data-number="26.8.1">
+<h3 data-number="26.8.1" class="anchored" data-anchor-id="survey-package-1"><span class="header-section-number">26.8.1</span> <strong>Survey</strong> package</h3>
 <p>We can use the <code>svyciprop()</code> function from <strong>survey</strong> to get weighted proportions and accompanying 95% confidence intervals. An appropriate design effect can be extracted using the <code>svymean()</code> rather than <code>svyprop()</code> function. It is worth noting that <code>svyprop()</code> only appears to accept variables between 0 and 1 (or TRUE/FALSE), so categorical variables will not work.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> Functions from <strong>survey</strong> also accept <strong>srvyr</strong> design objects, but here we have used the <strong>survey</strong> design object just for consistency </span></p>
 <div class="cell">
@@ -1442,8 +1433,9 @@ died 0.0514 0.0208  0.12</code></pre>
 3  arrived 761799.0       51.4  40.9   61.7           3.9</code></pre>
 </div>
 </div>
-</section><section id="srvyr-package-1" class="level3" data-number="26.8.2"><h3 data-number="26.8.2" class="anchored" data-anchor-id="srvyr-package-1">
-<span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> package</h3>
+</section>
+<section id="srvyr-package-1" class="level3" data-number="26.8.2">
+<h3 data-number="26.8.2" class="anchored" data-anchor-id="srvyr-package-1"><span class="header-section-number">26.8.2</span> <strong>Srvyr</strong> package</h3>
 <p>With <strong>srvyr</strong> we can use <strong>dplyr</strong> syntax to create a table. Note that the <code>survey_mean()</code> function is used and the proportion argument is specified, and also that the same function is used to calculate design effect. This is because <strong>srvyr</strong> wraps around both of the <strong>survey</strong> package functions <code>svyciprop()</code> and <code>svymean()</code>, which are used in the above section.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> It does not seem to be possible to get proportions from categorical variables using <strong>srvyr</strong> either, if you need this then check out the section below using <strong>sitrep</strong> </span></p>
 <div class="cell">
@@ -1516,8 +1508,9 @@ died 0.0514 0.0208  0.12</code></pre>
 3 arrived  761799. 51.4      40.9       61.7      3.93</code></pre>
 </div>
 </div>
-</section><section id="sitrep-package" class="level3" data-number="26.8.3"><h3 data-number="26.8.3" class="anchored" data-anchor-id="sitrep-package">
-<span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> package</h3>
+</section>
+<section id="sitrep-package" class="level3" data-number="26.8.3">
+<h3 data-number="26.8.3" class="anchored" data-anchor-id="sitrep-package"><span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> package</h3>
 <p>The <code>tab_survey()</code> function from <strong>sitrep</strong> is a wrapper for <strong>srvyr</strong>, allowing you to create weighted tables with minimal coding. It also allows you to calculate weighted proportions for categorical variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## using the survey design object</span></span>
@@ -1545,8 +1538,9 @@ died 0.0514 0.0208  0.12</code></pre>
 9 education_level secondary  130201.  6.68 32.2% (16.5-53.3)</code></pre>
 </div>
 </div>
-</section><section id="gtsummary-package" class="level3" data-number="26.8.4"><h3 data-number="26.8.4" class="anchored" data-anchor-id="gtsummary-package">
-<span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> package</h3>
+</section>
+<section id="gtsummary-package" class="level3" data-number="26.8.4">
+<h3 data-number="26.8.4" class="anchored" data-anchor-id="gtsummary-package"><span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> package</h3>
 <p>With <strong>gtsummary</strong> there does not seem to be inbuilt functions yet to add confidence intervals or design effect. Here we show how to define a function for adding confidence intervals and then add confidence intervals to a <strong>gtsummary</strong> table created using the <code>tbl_svysummary()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>confidence_intervals <span class="ot">&lt;-</span> <span class="cf">function</span>(data, variable, by, ...) {</span>
@@ -1577,23 +1571,24 @@ died 0.0514 0.0208  0.12</code></pre>
 <span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="vrzemidvbx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vrzemidvbx table {
+<div>
+<div id="fpvjfqrumn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fpvjfqrumn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vrzemidvbx thead, #vrzemidvbx tbody, #vrzemidvbx tfoot, #vrzemidvbx tr, #vrzemidvbx td, #vrzemidvbx th {
+#fpvjfqrumn thead, #fpvjfqrumn tbody, #fpvjfqrumn tfoot, #fpvjfqrumn tr, #fpvjfqrumn td, #fpvjfqrumn th {
   border-style: none;
 }
 
-#vrzemidvbx p {
+#fpvjfqrumn p {
   margin: 0;
   padding: 0;
 }
 
-#vrzemidvbx .gt_table {
+#fpvjfqrumn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1619,12 +1614,12 @@ died 0.0514 0.0208  0.12</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_caption {
+#fpvjfqrumn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vrzemidvbx .gt_title {
+#fpvjfqrumn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1636,7 +1631,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-width: 0;
 }
 
-#vrzemidvbx .gt_subtitle {
+#fpvjfqrumn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1648,7 +1643,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-top-width: 0;
 }
 
-#vrzemidvbx .gt_heading {
+#fpvjfqrumn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1660,13 +1655,13 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_bottom_border {
+#fpvjfqrumn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_col_headings {
+#fpvjfqrumn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1681,7 +1676,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_col_heading {
+#fpvjfqrumn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1701,7 +1696,7 @@ died 0.0514 0.0208  0.12</code></pre>
   overflow-x: hidden;
 }
 
-#vrzemidvbx .gt_column_spanner_outer {
+#fpvjfqrumn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1713,15 +1708,15 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 4px;
 }
 
-#vrzemidvbx .gt_column_spanner_outer:first-child {
+#fpvjfqrumn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vrzemidvbx .gt_column_spanner_outer:last-child {
+#fpvjfqrumn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vrzemidvbx .gt_column_spanner {
+#fpvjfqrumn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1733,11 +1728,11 @@ died 0.0514 0.0208  0.12</code></pre>
   width: 100%;
 }
 
-#vrzemidvbx .gt_spanner_row {
+#fpvjfqrumn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vrzemidvbx .gt_group_heading {
+#fpvjfqrumn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1763,7 +1758,7 @@ died 0.0514 0.0208  0.12</code></pre>
   text-align: left;
 }
 
-#vrzemidvbx .gt_empty_group_heading {
+#fpvjfqrumn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1778,15 +1773,15 @@ died 0.0514 0.0208  0.12</code></pre>
   vertical-align: middle;
 }
 
-#vrzemidvbx .gt_from_md > :first-child {
+#fpvjfqrumn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vrzemidvbx .gt_from_md > :last-child {
+#fpvjfqrumn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vrzemidvbx .gt_row {
+#fpvjfqrumn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1805,7 +1800,7 @@ died 0.0514 0.0208  0.12</code></pre>
   overflow-x: hidden;
 }
 
-#vrzemidvbx .gt_stub {
+#fpvjfqrumn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1818,7 +1813,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#vrzemidvbx .gt_stub_row_group {
+#fpvjfqrumn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1832,15 +1827,15 @@ died 0.0514 0.0208  0.12</code></pre>
   vertical-align: top;
 }
 
-#vrzemidvbx .gt_row_group_first td {
+#fpvjfqrumn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vrzemidvbx .gt_row_group_first th {
+#fpvjfqrumn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vrzemidvbx .gt_summary_row {
+#fpvjfqrumn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1850,16 +1845,16 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#vrzemidvbx .gt_first_summary_row {
+#fpvjfqrumn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_first_summary_row.thick {
+#fpvjfqrumn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vrzemidvbx .gt_last_summary_row {
+#fpvjfqrumn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1869,7 +1864,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_grand_summary_row {
+#fpvjfqrumn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1879,7 +1874,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#vrzemidvbx .gt_first_grand_summary_row {
+#fpvjfqrumn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1889,7 +1884,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_last_grand_summary_row_top {
+#fpvjfqrumn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1899,11 +1894,11 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_striped {
+#fpvjfqrumn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vrzemidvbx .gt_table_body {
+#fpvjfqrumn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1912,7 +1907,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_footnotes {
+#fpvjfqrumn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1926,7 +1921,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_footnote {
+#fpvjfqrumn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1935,7 +1930,7 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#vrzemidvbx .gt_sourcenotes {
+#fpvjfqrumn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1949,7 +1944,7 @@ died 0.0514 0.0208  0.12</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vrzemidvbx .gt_sourcenote {
+#fpvjfqrumn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1957,95 +1952,76 @@ died 0.0514 0.0208  0.12</code></pre>
   padding-right: 5px;
 }
 
-#vrzemidvbx .gt_left {
+#fpvjfqrumn .gt_left {
   text-align: left;
 }
 
-#vrzemidvbx .gt_center {
+#fpvjfqrumn .gt_center {
   text-align: center;
 }
 
-#vrzemidvbx .gt_right {
+#fpvjfqrumn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vrzemidvbx .gt_font_normal {
+#fpvjfqrumn .gt_font_normal {
   font-weight: normal;
 }
 
-#vrzemidvbx .gt_font_bold {
+#fpvjfqrumn .gt_font_bold {
   font-weight: bold;
 }
 
-#vrzemidvbx .gt_font_italic {
+#fpvjfqrumn .gt_font_italic {
   font-style: italic;
 }
 
-#vrzemidvbx .gt_super {
+#fpvjfqrumn .gt_super {
   font-size: 65%;
 }
 
-#vrzemidvbx .gt_footnote_marks {
+#fpvjfqrumn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vrzemidvbx .gt_asterisk {
+#fpvjfqrumn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vrzemidvbx .gt_indent_1 {
+#fpvjfqrumn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vrzemidvbx .gt_indent_2 {
+#fpvjfqrumn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vrzemidvbx .gt_indent_3 {
+#fpvjfqrumn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vrzemidvbx .gt_indent_4 {
+#fpvjfqrumn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vrzemidvbx .gt_indent_5 {
+#fpvjfqrumn .gt_indent_5 {
   text-indent: 25px;
 }
-
-#vrzemidvbx .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#vrzemidvbx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
 </style>
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead><tr class="header gt_col_headings">
-<th id="&lt;div data-qmd-base64=&quot;KipDaGFyYWN0ZXJpc3RpYyoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><p><strong>Characteristic</strong></p></th>
-<th id="&lt;div data-qmd-base64=&quot;KipXZWlnaHRlZCB0b3RhbCAoTikqKg==&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Weighted total (N)&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><p><strong>Weighted total (N)</strong></p></th>
-<th id="&lt;div data-qmd-base64=&quot;KipXZWlnaHRlZCBDb3VudCoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;Weighted Count&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">
-<p><strong>Weighted Count</strong></p>
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
-</th>
-<th id="&lt;div data-qmd-base64=&quot;Kio5NSVDSSoq&quot;&gt;&lt;div class='gt_from_md'&gt;&lt;p&gt;&lt;strong&gt;95%CI&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><p><strong>95%CI</strong></p></th>
-</tr></thead>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="<strong>Characteristic</strong>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="<strong>Weighted total (N)</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Weighted total (N)</strong></th>
+<th id="<strong>Weighted Count</strong><span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Weighted Count</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>95%CI</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95%CI</strong></th>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">arrived</td>
@@ -2065,23 +2041,26 @@ died 0.0514 0.0208  0.12</code></pre>
 <td class="gt_row gt_center" headers="stat_0">76,213 (5.1%)</td>
 <td class="gt_row gt_center" headers="add_stat_1">2.1-12.1</td>
 </tr>
-</tbody>
-<tfoot class="gt_footnotes"><tr class="even">
-<td colspan="4" class="gt_footnote">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
-<p>n (%)</p>
-</td>
-</tr></tfoot>
+</tbody><tfoot class="gt_footnotes">
+<tr class="even">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
+</tr>
+</tfoot>
+
 </table>
+
+</div>
 </div>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="weighted-ratios" class="level2" data-number="26.9"><h2 data-number="26.9" class="anchored" data-anchor-id="weighted-ratios">
-<span class="header-section-number">26.9</span> Weighted ratios</h2>
+</section>
+</section>
+<section id="weighted-ratios" class="level2" data-number="26.9">
+<h2 data-number="26.9" class="anchored" data-anchor-id="weighted-ratios"><span class="header-section-number">26.9</span> Weighted ratios</h2>
 <p>Similarly for weighted ratios (such as for mortality ratios) you can use the <strong>survey</strong> or the <strong>srvyr</strong> package. You could similarly write functions (similar to those above) to iterate over several variables. You could also create a function for <strong>gtsummary</strong> as above but currently it does not have inbuilt functionality.</p>
-<section id="survey-package-2" class="level3" data-number="26.9.1"><h3 data-number="26.9.1" class="anchored" data-anchor-id="survey-package-2">
-<span class="header-section-number">26.9.1</span> <strong>Survey</strong> package</h3>
+<section id="survey-package-2" class="level3" data-number="26.9.1">
+<h3 data-number="26.9.1" class="anchored" data-anchor-id="survey-package-2"><span class="header-section-number">26.9.1</span> <strong>Survey</strong> package</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ratio <span class="ot">&lt;-</span> <span class="fu">svyratio</span>(<span class="sc">~</span>died, </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">denominator =</span> <span class="sc">~</span>obstime, </span>
@@ -2098,8 +2077,9 @@ died 0.0514 0.0208  0.12</code></pre>
 died 5.981922 1.194294 10.76955</code></pre>
 </div>
 </div>
-</section><section id="srvyr-package-2" class="level3" data-number="26.9.2"><h3 data-number="26.9.2" class="anchored" data-anchor-id="srvyr-package-2">
-<span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> package</h3>
+</section>
+<section id="srvyr-package-2" class="level3" data-number="26.9.2">
+<h3 data-number="26.9.2" class="anchored" data-anchor-id="srvyr-package-2"><span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> package</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## survey ratio used to account for observation time </span></span>
@@ -2117,8 +2097,10 @@ died 5.981922 1.194294 10.76955</code></pre>
 </div>
 </div>
 <!-- ======================================================= -->
-</section></section><section id="resources" class="level2" data-number="26.10"><h2 data-number="26.10" class="anchored" data-anchor-id="resources">
-<span class="header-section-number">26.10</span> Resources</h2>
+</section>
+</section>
+<section id="resources" class="level2" data-number="26.10">
+<h2 data-number="26.10" class="anchored" data-anchor-id="resources"><span class="header-section-number">26.10</span> Resources</h2>
 <p><a href="https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/">UCLA stats page</a></p>
 <p><a href="http://asdfree.com/">Analyze survey data free</a></p>
 <p><a href="http://gdfe.co/srvyr/">srvyr packge</a></p>
@@ -2126,7 +2108,10 @@ died 5.981922 1.194294 10.76955</code></pre>
 <p><a href="https://github.com/EPIET/RapidAssessmentSurveys">EPIET survey case studies</a></p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2305,7 +2290,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2337,47 +2333,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2412,11 +2368,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2689,61 +2641,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../new_pages/contact_tracing.html" class="pagination-link" aria-label="Contact tracing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>  <span class="chapter-title">Contact tracing</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Contact tracing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/survival_analysis.html" class="pagination-link" aria-label="Survival analysis">
-        <span class="nav-page-text"><span class="chapter-number">27</span>  <span class="chapter-title">Survival analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Survival analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-       
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
-</div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-       
+      &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":false,"openEffect":"zoom","closeEffect":"zoom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</footer>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","loop":false,"descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script>
-</body>
-</html>
+
+
+
+
+</body></html>

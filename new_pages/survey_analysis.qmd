@@ -33,13 +33,13 @@ eventually have a section on sampling frames as well as sample size calculations
 
 
 
-1.  Survey data 
-2.  Observation time 
-3.  Weighting 
-4.  Survey design objects
-5.  Descriptive analysis 
-6.  Weighted proportions
-7.  Weighted rates 
+1.  Survey data. 
+2.  Observation time. 
+3.  Weighting. 
+4.  Survey design objects.
+5.  Descriptive analysis. 
+6.  Weighted proportions.
+7.  Weighted rates. 
 
 
 <!-- ======================================================= -->
@@ -76,9 +76,9 @@ pacman::p_load_gh(
 
 The example dataset used in this section:
 
--   fictional mortality survey data.
--   fictional population counts for the survey area. 
--   data dictionary for the fictional mortality survey data. 
+-   Fictional mortality survey data.
+-   Fictional population counts for the survey area. 
+-   Data dictionary for the fictional mortality survey data. 
 
 This is based off the MSF OCA ethical review board pre-approved survey. The 
 fictional dataset was produced as part of the ["R4Epis" project](https://r4epis.netlify.app/). 
@@ -182,7 +182,7 @@ are in.
 Finally, we recode all of the yes/no variables to TRUE/FALSE variables - otherwise
 these cant be used by the **survey** proportion functions. 
 
-```{r cleaning}
+```{r cleaning, warning=F, message=F}
 
 ## select the date variable names from the dictionary 
 DATEVARS <- survey_dict %>% 
@@ -224,7 +224,7 @@ YNVARS <- survey_dict %>%
   ## filter to match the column names of your data
   pull(name) # select yn vars
   
-## change to dates 
+## change to true/false 
 survey_data <- survey_data %>%
   mutate(across(all_of(YNVARS), 
                 str_detect, 
@@ -242,31 +242,6 @@ we will demonstrate code for:
 - Stratified 
 - Cluster 
 - Stratified and cluster 
-
-As described above (depending on how you design your questionnaire) the data for 
-each level would be exported as a separate dataset from Kobo. In our example there
-is one level for households and one level for individuals within those households. 
-
-These two levels are linked by a unique identifier. 
-For a Kobo dataset this variable is "_index" at the household level, which 
-matches the "_parent_index" at the individual level.
-This will create new rows for household with each matching individual, 
-see the handbook section on [joining](https://epirhandbook.com/joining-data.html)
-for details. 
-
-```{r merge_data_levels, eval = FALSE}
-
-## join the individual and household data to form a complete data set
-survey_data <- left_join(survey_data_hh, 
-                         survey_data_indiv,
-                         by = c("_index" = "_parent_index"))
-
-
-## create a unique identifier by combining indeces of the two levels 
-survey_data <- survey_data %>% 
-     mutate(uid = str_glue("{index}_{index_y}"))
-
-```
 
 <!-- ======================================================= -->
 ## Observation time {  }
@@ -320,14 +295,14 @@ We can use the `find_start_date()` function from **sitrep** to fine the causes f
 the dates and then use that to calculate the difference between days (person-time). 
 
 start date: 
-Earliest appropriate arrival event within your recall period
+Earliest appropriate arrival event within your recall period.
 Either the beginning of your recall period (which you define in advance), or a 
-date after the start of recall if applicable (e.g. arrivals or births)
+date after the start of recall if applicable (e.g. arrivals or births).
 
 end date: 
-Earliest appropriate departure event within your recall period
+Earliest appropriate departure event within your recall period.
 Either the end of your recall period, or a date before the end of recall 
-if applicable (e.g. departures, deaths)
+if applicable (e.g. departures, deaths).
 
 ```{r observation_time}
 
@@ -459,19 +434,18 @@ survey_data <- survey_data %>%
 <!-- ======================================================= -->
 ## Survey design objects {  }
 
-Create survey object according to your study design. 
-Used the same way as data frames to calculate weight proportions etc. 
-Make sure that all necessary variables are created before this. 
+Next you should create a survey object according to your study design. This is used in the same way as data frames to calculate weight proportions and other aspects of survey analysis. You should make sure all your necessary variables are created before this.
 
-There are four options, comment out those you do not use: 
+There are four options:
 - Simple random 
 - Stratified 
 - Cluster 
 - Stratified cluster
 
-For this template - we will pretend that we cluster surveys in two separate 
+In the template below - we will pretend that we cluster surveys in two separate 
 strata (health districts A and B). 
-So to get overall estimates we need have combined cluster and strata weights. 
+
+To get overall estimates we need to have combined cluster and strata weights. 
 
 As mentioned previously, there are two packages available for doing this. The 
 classic one is **survey** and then there is a wrapper package called **srvyr** 
@@ -572,9 +546,9 @@ alluvial/sankey diagrams.
 
 In general, you should consider including the following descriptive analyses:  
 
-- Final number of clusters, households and individuals included  
-- Number of excluded individuals and the reasons for exclusion 
-- Median (range) number of households per cluster and individuals per household 
+- Final number of clusters, households and individuals included.  
+- Number of excluded individuals and the reasons for exclusion. 
+- Median (range) number of households per cluster and individuals per household. 
 
 
 ### Sampling bias 
@@ -646,11 +620,11 @@ left_join(ag, propcount, by = "age_group", suffix = c("", "_pop")) %>%
 
 Demographic (or age-sex) pyramids are an easy way of visualising the distribution
 in your survey population. It is also worth considering creating 
-[descriptive tables](https://epirhandbook.com/descriptive-tables.html) of age 
+[descriptive tables](tables_descriptive.qmd) of age 
 and sex by survey strata. 
 We will demonstrate using the **apyramid** package as it allows for weighted 
 proportions using our survey design object created above. Other options for creating
-[demographic pyramids](https://epirhandbook.com/demographic-pyramids-and-likert-scales.html)
+[demographic pyramids](age_pyramid.qmd)
 are covered extensively in that chapter of the handbook. We will also use a 
 wrapper function from **apyramid** called `age_pyramid()` which saves a few lines
 of coding for producing a plot with proportions. 
@@ -823,12 +797,9 @@ with associated confidence intervals and design effect.
 There are four different options using functions from the following packages: 
 **survey**, **srvyr**, **sitrep** and **gtsummary**. 
 For minimal coding to produce a standard epidemiology style table, we would 
-recommend the **sitrep** function - which is a wrapper for **srvyr** code; note 
-however that this is not yet on CRAN and may change in the future. 
+recommend the **sitrep** function - which is a wrapper for **srvyr** code.
 Otherwise, the **survey** code is likely to be the most stable long-term, whereas 
-**srvyr** will fit most nicely within tidyverse work-flows. While **gtsummary** 
-functions hold a lot of potential, they appear to be experimental and incomplete
-at the time of writing. 
+**srvyr** will fit most nicely within tidyverse work-flows. As another alternative, **gtsummary** offers an easy way to display survey data following its update to versions >=2.0.
 
 
 ### **Survey** package 
@@ -993,67 +964,48 @@ purrr::map(
 
 ```
 
-
-
 ### **Sitrep** package 
 
 The `tab_survey()` function from **sitrep** is a wrapper for **srvyr**, allowing 
 you to create weighted tables with minimal coding. It also allows you to calculate
 weighted proportions for categorical variables. 
 
-```{r sitrep_props}
+```{r eval = F, sitrep_props}
 
 ## using the survey design object
 survey_design %>% 
   ## pass the names of variables of interest unquoted
-  tab_survey(arrived, left, died, education_level,
-             deff = TRUE,   # calculate the design effect
-             pretty = TRUE  # merge the proportion and 95%CI
-             )
+  tab_survey(
+       "arrived", 
+       "left", 
+       "died", 
+       "education_level",
+       deff = TRUE,   # calculate the design effect
+       pretty = TRUE  # merge the proportion and 95%CI
+       )
 
 ```
 
-
+```{r, echo = F, warning = F, message=FALSE}
+import(here("data", "surveys", "tab_survey_output.rds"))
+```
 
 ### **Gtsummary** package
 
-With **gtsummary** there does not seem to be inbuilt functions yet to add confidence
-intervals or design effect. 
-Here we show how to define a function for adding confidence intervals and then 
-add confidence intervals to a **gtsummary** table created using the `tbl_svysummary()` 
-function. 
-
+With **gtsummary** we can use the function `tbl_svysummary()` and the addition `add_ci()` to add confidence intervals.
 
 ```{r gtsummary_table}
 
-
-confidence_intervals <- function(data, variable, by, ...) {
-  
-  ## extract the confidence intervals and multiply to get percentages
-  props <- svyciprop(as.formula(paste0( "~" , variable)),
-              data, na.rm = TRUE)
-  
-  ## extract the confidence intervals 
-  as.numeric(confint(props) * 100) %>% ## make numeric and multiply for percentage
-    round(., digits = 1) %>%           ## round to one digit
-    c(.) %>%                           ## extract the numbers from matrix
-    paste0(., collapse = "-")          ## combine to single character
-}
-
 ## using the survey package design object
-tbl_svysummary(base_survey_design, 
+tbl_svysummary(data = base_survey_design, 
                include = c(arrived, left, died),   ## define variables want to include
-               statistic = list(everything() ~ c("{n} ({p}%)"))) %>% ## define stats of interest
-  add_n() %>%  ## add the weighted total 
-  add_stat(fns = everything() ~ confidence_intervals) %>% ## add CIs
-  ## modify the column headers
-  modify_header(
-    list(
-      n ~ "**Weighted total (N)**",
-      stat_0 ~ "**Weighted Count**",
-      add_stat_1 ~ "**95%CI**"
-    )
-    )
+               statistic = list(everything() ~ "{n} ({p}%)")) %>% ## define stats of interest
+     add_ci() %>% ## add confidence intervals
+  add_n() %>%
+     modify_header(label = list(
+          n ~ "**Weighted total (N)**",
+          stat_0 ~ "**Weighted count**"
+     ))
 
 ```
 
@@ -1089,7 +1041,7 @@ cbind(
 
 ### **Srvyr** package 
 
-```{r srvyr_ratio}
+```{r srvyr_ratio, warning=FALSE, message=F}
 
 survey_design %>% 
   ## survey ratio used to account for observation time 
@@ -1102,7 +1054,43 @@ survey_design %>%
 
 ```
 
+## Weighted regression
 
+Another tool we can use to analyse our survey data is to use weighted regression. This allows us to carry out to account for the survey design in our regression in order to avoid biases that may be introduced from the survey process.
+
+To carry out a *univariate regression*, we can use the packages **survey** for the function `svyglm()` and the package **gtsummary** which allows us to call `svyglm()` inside the function `tbl_uvregression`. To do this we first use the `survey_design` object created above. This is then provided to the function `tbl_uvregression()` as in the [Univariate and multivariable regression chapter](regression.qmd). We then make one key change, we change `method = glm` to `method = survey::svyglm` in order to carry out our survey weighted regression.
+
+Here we will be using the previously created object `survey_design` to predict whether the value in the column `died` is `TRUE`, using the columns `malaria_treatment`, `bednet`, and `age_years`.
+
+```{r, warning=F, message=F}
+
+survey_design %>%
+     tbl_uvregression(                             #Carry out a univariate regression, if we wanted a multivariable regression we would use tbl_
+          method = survey::svyglm,                 #Set this to survey::svyglm to carry out our weighted regression on the survey data
+          y = died,                                #The column we are trying to predict
+          method.args = list(family = binomial),   #The family, we are carrying out a logistic regression so we want the family as binomial
+          include = c(malaria_treatment,           #These are the columns we want to evaluate
+                      bednet,
+                      age_years),
+          exponentiate = T                         #To transform the log odds to odds ratio for easier interpretation
+     )
+
+```
+
+If we wanted to carry out a *multivariable* regression, we would have to first use the function `svyglm()` and pipe (`%>%`) the results into the function `tbl_regression`. Note that we need to specify the formula.
+
+```{r, warning=F, message=F}
+
+survey_design %>%
+     svyglm(formula = died ~ malaria_treatment + 
+                 bednet + 
+                 age_years,
+            family = binomial) %>%                   #The family, we are carrying out a logistic regression so we want the family as binomial
+     tbl_regression( 
+          exponentiate = T                           #To transform the log odds to odds ratio for easier interpretation                            
+     )
+     
+```
 
 
 <!-- ======================================================= -->
@@ -1117,3 +1105,7 @@ survey_design %>%
 [gtsummary package](http://www.danieldsjoberg.com/gtsummary/reference/index.html) 
 
 [EPIET survey case studies](https://github.com/EPIET/RapidAssessmentSurveys)
+
+[Analyzing Complex Survey Data](https://www.bookdown.org/rwnahhas/RMPH/survey.html)
+
+[Exploring Complex Survey Data Analysis Using R: A Tidy Introduction with srvyr and survey](https://tidy-survey-r.github.io/tidy-survey-book/c01-intro.html)
