@@ -16,8 +16,8 @@ knitr::include_graphics(here::here("images", "pivoting", "Pivoting_500x500.png")
 
 When managing data, *pivoting* can be understood to refer to one of two processes:  
 
-1. The creation of *pivot tables*, which are tables of statistics that summarise the data of a more extensive table  
-2. The conversion of a table from **long** to **wide** format, or vice versa. 
+1. The creation of *pivot tables*, which are tables of statistics that summarise the data of a more extensive table.  
+2. The conversion of a table from **long** to **wide** format, or from **wide** to **long**. 
 
 **In this page, we will focus on the latter definition.** The former is a crucial step in data analysis, and is covered elsewhere in the [Grouping data](grouping.qmd) and [Descriptive tables](tables_descriptive.qmd) pages. 
 
@@ -50,7 +50,7 @@ pacman::p_load(
 
 In this page, we will use a fictional dataset of daily malaria cases, by facility and age group. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_facility_count_data.rds' class='download-button'>click here to download (as .rds file)<span></a>. Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 count_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) %>% 
   as_tibble()
 ```
@@ -80,7 +80,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 
 ```{r, eval=F}
 # import your dataset
-linelist <- import("linelist_cleaned.xlsx")
+linelist <- import("linelist_cleaned.rds")
 ```
 
 
@@ -108,7 +108,7 @@ Let us take the `count_data` dataset imported in the Preparation section above a
 DT::datatable(count_data, rownames = FALSE, options = list(pageLength = 5, scrollX=T) )
 ```
 
-Each observation in this dataset refers to the malaria counts at one of 65 facilities on a given date, ranging from ` count_data$data_date %>% min()` to ` count_data$data_date %>% max()`. These facilities are located in one `Province` (North) and four `District`s (Spring, Bolo, Dingo, and Barnard). The dataset provides the overall counts of malaria, as well as age-specific counts in each of three age groups - <4 years, 5-14 years, and 15 years and older.
+Each observation in this dataset refers to the malaria counts at one of 65 facilities on a given date, ranging from ` count_data$data_date %>% min()` to ` count_data$data_date %>% max()`. These facilities are located in one `Province` (North) and four `District` (Spring, Bolo, Dingo, and Barnard). The dataset provides the overall counts of malaria, as well as age-specific counts in each of three age groups - <4 years, 5-14 years, and 15 years and older.
 
 "Wide" data like this are not adhering to "tidy data" standards, because the column headers do not actually represent "variables" - they represent *values* of a hypothetical "age group" variable. 
 
@@ -131,13 +131,13 @@ However, what if we wanted to display the relative contributions of each age gro
 <!-- ======================================================= -->
 ### `pivot_longer()` {.unnumbered}
 
-The **tidyr** function `pivot_longer()` makes data "longer". **tidyr** is part of the **tidyverse** of R packages.  
+The **tidyr** function `pivot_longer()` makes data "longer". **tidyr** is part of the [**tidyverse**](https://www.tidyverse.org/) of R packages.  
 
 It accepts a range of columns to transform (specified to `cols = `). Therefore, it can operate on only a part of a dataset. This is useful for the malaria data, as we only want to pivot the case count columns.  
 
 In this process, you will end up with two "new" columns - one with the categories (the former column names), and one with the corresponding values (e.g. case counts). You can accept the default names for these new columns, or you can specify your own to `names_to = ` and `values_to = ` respectively.  
 
-Let's see `pivot_longer()` in action... 
+Let's see `pivot_longer()` in action.
 
 
 
@@ -154,7 +154,7 @@ df_long <- count_data %>%
 df_long
 ```
 
-Notice that the newly created data frame (`df_long`) has more rows (12,152 vs 3,038); it has become *longer*. In fact, it is precisely four times as long, because each row in the original dataset now represents four rows in df_long, one for each of the malaria count observations (<4y, 5-14y, 15y+, and total).
+Notice that the newly created data frame (`df_long`) has more rows (12,152 vs 3,038); it has become *longer*. In fact, it is precisely four times as long, because each row in the original dataset now represents four rows in `df_long`, one for each of the malaria count observations (<4y, 5-14y, 15y+, and total).
 
 In addition to becoming longer, the new dataset has fewer columns (8 vs 10), as the data previously stored in four columns (those beginning with the prefix `malaria_`) is now stored in two. 
 
@@ -253,10 +253,12 @@ However, there will be many cases when, as a field epidemiologist, you will be w
 
 One particularly common problem you will encounter will be the need to pivot columns that contain different classes of data. This pivot will result in storing these different data types in a single column, which is not a good situation. There are various approaches one can take to separate out the mess this creates, but there is an important step you can take using `pivot_longer()` to avoid creating such a situation yourself.
 
-Take a situation in which there have been a series of observations at different time steps for each of three items A, B and C. Examples of such items could be individuals (e.g. contacts of an Ebola case being traced each day for 21 days) or remote village health posts being monitored once per year to ensure they are still functional. Let's use the contact tracing example. Imagine that the data are stored as follows:
+Take a situation in which there have been a series of observations at different time steps for each of three items A, B and C. Examples of such items could be individuals (e.g. contacts of an Ebola case being traced each day for 21 days) or remote village health posts being monitored once per year to ensure they are still functional. 
+
+Let's use the contact tracing example. You can download the data [here](https://github.com/appliedepi/epiRhandbook_eng/blob/master/data/contact_tracing.rds).
 
 
-```{r, message=FALSE, echo=F}
+```{r, message = FALSE, echo = T}
 
 df <- 
   tibble::tribble(
@@ -291,7 +293,7 @@ To prevent this situation, we can take advantage of the syntax structure of the 
 
 We do this by:  
 
-* Providing a character vector to the `names_to = ` argument, with the second item being (`".value"` ). This special term indicates that the pivoted columns will be split based on a character in their name...  
+* Providing a character vector to the `names_to = ` argument, with the second item being (`".value"` ). This special term indicates that the pivoted columns will be split based on a character in their name.  
 * You must also provide the "splitting" character to the `names_sep = ` argument. In this case, it is the underscore "_".  
 
 Thus, the naming and split of new columns is based around the underscore in the existing variable names.  
@@ -314,7 +316,7 @@ __Finishing touches__:
 
 Note that the `date` column is currently in *character* class - we can easily convert this into it's proper date class using the `mutate()` and `as_date()` functions described in the [Working with dates](dates.qmd) page.  
 
-We may also want to convert the `observation` column to a `numeric` format by dropping the "obs" prefix and converting to numeric. We cando this with `str_remove_all()` from the **stringr** package (see the [Characters and strings](characters_strings.qmd) page).  
+We may also want to convert the `observation` column to a `numeric` format by dropping the "obs" prefix and converting to numeric. We can do this with `str_remove_all()` from the **stringr** package (see the [Characters and strings](characters_strings.qmd) page).  
 
 ```{r}
 
@@ -360,11 +362,11 @@ knitr::include_graphics(here::here("images", "pivoting", "pivot_wider_new.png"))
 
 In some instances, we may wish to convert a dataset to a wider format. For this, we can use the `pivot_wider()` function.
 
-A typical use-case is when we want to transform the results of an analysis into a format which is more digestible for the reader (such as a [Table for presentation][Tables for presentation]). Usually, this involves transforming a dataset in which information for one subject is are spread over multiple rows into a format in which that information is stored in a single row.
+A typical use-case is when we want to transform the results of an analysis into a format which is more digestible for the reader (such as a [Tables for presentation](tables_presentation.qmd)). Usually, this involves transforming a dataset in which information for one subject is are spread over multiple rows into a format in which that information is stored in a single row.
 
 ### Data {.unnumbered}
 
-For this section of the page, we will use the case linelist (see the [Preparation](#pivot_prep) section), which contains one row per case.  
+For this section of the page, we will use the `linelist` dataset (see the [Preparation](#pivot_prep) section), which contains one row per case.  
 
 Here are the first 50 rows:  
 
@@ -409,7 +411,7 @@ table_wide <-
 table_wide
 ```
 
-This table is much more reader-friendly, and therefore better for inclusion in our reports. You can convert into a pretty table with several packages including **flextable** and **knitr**. This process is elaborated in the page [Tables for presentation](tables_descriptive.qmd).  
+This table is much more reader-friendly, and therefore better for inclusion in our reports. You can convert into a pretty table with several packages including **flextable** and **knitr**. This process is elaborated in the page [Tables for presentation](tables_presentation.qmd).  
 
 ```{r}
 table_wide %>% 
