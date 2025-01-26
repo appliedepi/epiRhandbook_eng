@@ -11,9 +11,9 @@ knitr::include_graphics(here::here("images", "sankey_diagram.png"))
 
 This page covers code to produce:  
 
-* Flow diagrams using **DiagrammeR** and the DOT language  
-* Alluvial/Sankey diagrams  
-* Event timelines  
+* Flow diagrams using **DiagrammeR** and the DOT language
+* Alluvial/Sankey diagrams
+* Event timelines
 
 <!-- * DAGs (Directed Acyclic Graphs)   -->
 <!-- * GANTT charts   -->
@@ -26,18 +26,19 @@ This page covers code to produce:
 
 This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics](basics.qmd) for more information on R packages.  
 
-```{r}
+```{r, warning=F, message=F}
 pacman::p_load(
   DiagrammeR,     # for flow diagrams
   networkD3,      # For alluvial/Sankey diagrams
-  tidyverse)      # data management and visualization
+  tidyverse       # data management and visualization
+  )      
 ```
 
 ### Import data {.unnumbered}  
 
 Most of the content in this page does not require a dataset. However, in the Sankey diagram section, we will use the case linelist from a simulated Ebola epidemic. If you want to follow along for this part, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -67,12 +68,12 @@ The function `grViz()` is used to create a "Graphviz" diagram. This function acc
 
 **Basic structure**  
 
-1) Open the instructions `grViz("`  
+1) Open the instructions `grViz("`
 2) Specify directionality and name of the graph, and open brackets, e.g. `digraph my_flow_chart {`
-3) Graph statement (layout, rank direction)  
+3) Graph statement (layout, rank direction)
 4) Nodes statements (create nodes)
-5) Edges statements (gives links between nodes)  
-6) Close the instructions `}")`  
+5) Edges statements (gives links between nodes)
+6) Close the instructions `}")`
 
 ### Simple examples {.unnumbered} 
 
@@ -133,7 +134,7 @@ Node names, or edge statements, can be separated with spaces, semicolons, or new
 
 **Rank direction**  
 
-A plot can be re-oriented to move left-to-right by adjusting the `rankdir` argument within the graph statement. The default is TB (top-to-bottom), but it can be LR (left-to-right), RL, or BT.  
+A plot can be re-oriented to move left-to-right by adjusting the `rankdir` argument within the graph statement. The default is TB (top-to-bottom), but it can be LR (left-to-right), RL (right-to-left), or BT (bottom-to-top).  
 
 **Node names**  
 
@@ -190,7 +191,7 @@ Within edge statements, subgroups can be created on either side of the edge with
 * `penwidth` (width of arrow)  
 * `minlen` (minimum length)
 
-**Color names**: hexadecimal values or 'X11' color names, see [here for X11 details](http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html) 
+**Color names**: hexadecimal values or 'X11' color names, see [here for X11 details](https://rich-iannone.github.io/DiagrammeR/articles/graphviz-mermaid.html#colors) 
 
 
 ### Complex examples  {.unnumbered}
@@ -198,7 +199,7 @@ Within edge statements, subgroups can be created on either side of the edge with
 The example below expands on the surveillance_diagram, adding complex node names, grouped edges, colors and styling
 
 
-```
+```{r, eval = F, echo = T}
 DiagrammeR::grViz("               # All instructions are within a large character string
 digraph surveillance_diagram {    # 'digraph' means 'directional graph', then the graph name 
   
@@ -285,7 +286,7 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
 
 To group nodes into boxed clusters, put them within the same named subgraph (`subgraph name {}`). To have each subgraph identified within a bounding box, begin the name of the subgraph with "cluster", as shown with the 4 boxes below.  
 
-```
+```{r, eval = F}
 DiagrammeR::grViz("             # All instructions are within a large character string
 digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the graph name 
   
@@ -426,7 +427,7 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
 The example below, borrowed from [this tutorial](http://rich-iannone.github.io/DiagrammeR/), shows applied node shapes and a shorthand for serial edge connections  
 
 ```{r out.width='75%'}
-DiagrammeR::grViz("digraph {
+saved_plot <- DiagrammeR::grViz("digraph {
 
 graph [layout = dot, rankdir = LR]
 
@@ -442,101 +443,54 @@ results [label= 'Results']
 # edge definitions with the node IDs
 {data1 data2}  -> process -> statistical -> results
 }")
+
+saved_plot
 ```
 
 
 ### Outputs  {.unnumbered}
 
-How to handle and save outputs  
+How to handle and save outputs:
 
-* Outputs will appear in RStudio's Viewer pane, by default in the lower-right alongside Files, Plots, Packages, and Help.  
-* To export you can "Save as image" or "Copy to clipboard" from the Viewer. The graphic will adjust to the specified size.  
-
-
+* Outputs will appear in RStudio’s Viewer pane, by default in the lower-right alongside Files, Plots, Packages, and Help.
+* To export you can “Save as image” or “Copy to clipboard” from the Viewer. The graphic will adjust to the specified size.
 
 
 ### Parameterized figures {.unnumbered} 
 
-Here is a quote from this tutorial: https://mikeyharper.uk/flowcharts-in-r-using-diagrammer/  
+Here is a quote from this tutorial, [Data-driven flowcharts in R using DiagrammeR](https://mikeyharper.uk/flowcharts-in-r-using-diagrammer/). 
 
 "Parameterized figures: A great benefit of designing figures within R is that we are able to connect the figures directly with our analysis by reading R values directly into our flowcharts. For example, suppose you have created a filtering process which removes values after each stage of a process, you can have a figure show the number of values left in the dataset after each stage of your process. To do this we, you can use the @@X symbol directly within the figure, then refer to this in the footer of the plot using [X]:, where X is the a unique numeric index."  
 
-We encourage you to review this tutorial if parameterization is something you are interested in.  
+We encourage you to review [this tutorial](https://mikeyharper.uk/flowcharts-in-r-using-diagrammer/) if parameterization is something you are interested in.  
 
-
-<!-- And below is some example code from this tutorial. -->
-
-<!-- ```{r, eval=F} -->
-<!-- # Define some sample data -->
-<!-- data <- list(a=1000, b=800, c=600, d=400) -->
-
-
-<!-- DiagrammeR::grViz(" -->
-<!-- digraph graph2 { -->
-
-<!-- graph [layout = dot] -->
-
-<!-- # node definitions with substituted label text -->
-<!-- node [shape = rectangle, width = 4, fillcolor = Biege] -->
-<!-- a [label = '@@1'] -->
-<!-- b [label = '@@2'] -->
-<!-- c [label = '@@3'] -->
-<!-- d [label = '@@4'] -->
-
-<!-- a -> b -> c -> d -->
-
-<!-- } -->
-
-<!-- [1]:  paste0('Raw Data (n = ', data$a, ')') -->
-<!-- [2]: paste0('Remove Errors (n = ', data$b, ')') -->
-<!-- [3]: paste0('Identify Potential Customers (n = ', data$c, ')') -->
-<!-- [4]: paste0('Select Top Priorities (n = ', data$d, ')') -->
-<!-- ") -->
-
-<!-- ``` -->
-
-
-
-<!-- ### CONSORT diagram  {.unnumbered} -->
-
-<!-- THIS SECTION IS UNDER CONSTRUCTION   -->
-
-<!-- https://scriptsandstatistics.wordpress.com/2017/12/22/how-to-draw-a-consort-flow-diagram-using-r-and-graphviz/ -->
-
-<!-- Note above is out of date via DiagrammeR -->
-
-
-
-
-<!-- ======================================================= -->
 ## Alluvial/Sankey Diagrams { }
 
 ### Load packages {.unnumbered}  
 
 This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics](basics.qmd) for more information on R packages.  
 
-We load the **networkD3** package to produce the diagram, and also **tidyverse** for the data preparation steps.  
+We load the **ggalluvial** package to produce the diagram, and also **tidyverse** for the data preparation steps.  
 
 ```{r}
 pacman::p_load(
-  networkD3,
-  tidyverse)
+  ggalluvial,      # For alluvial/Sankey diagrams
+  tidyverse       # data management and visualization
+  )      
 ```
 
 ### Plotting from dataset {.unnumbered} 
 
-Plotting the connections in a dataset. Below we demonstrate using this package on the case `linelist`. Here is an [online tutorial](https://www.r-graph-gallery.com/321-introduction-to-interactive-sankey-diagram-2.html).    
+Plotting the connections in a dataset. Below we demonstrate using this package on the case `linelist`. Here is an [online tutorial](https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html).    
 
-We begin by getting the case counts for each unique age category and hospital combination. We've removed values with missing age category for clarity. We also re-label the `hospital` and `age_cat` columns as `source` and `target` respectively. These will be the two sides of the alluvial diagram.  
+We begin by getting the case counts for each unique `gender`, `source`, `vomit` and `outcome` combination. We've removed missing values for clarity.   
 
 ```{r}
 # counts by hospital and age category
 links <- linelist %>% 
-  drop_na(age_cat) %>% 
-  select(hospital, age_cat) %>%
-  count(hospital, age_cat) %>% 
-  rename(source = hospital,
-         target = age_cat)
+  select(gender, source, vomit, outcome) %>%
+  count(gender, source, vomit, outcome) %>%
+     drop_na()                                #It is not necessary to drop NA values, we are just doing this for display purposes
 ```
 
 The dataset now look like this:  
@@ -545,119 +499,62 @@ The dataset now look like this:
 DT::datatable(links, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
 ```
 
+Now plot the Sankey diagram with `geom_alluvium()` and `geom_stratum()`. You can read more about each argument by running `?geom_alluvium` and `?geom_stratum` in the console.
 
-Now we create a data frame of all the diagram nodes, under the column `name`. This consists of all the values for `hospital` and `age_cat`. Note that we ensure they are all class Character before combining them. and adjust the ID columns to be numbers instead of labels:  
-
-```{r}
-# The unique node names
-nodes <- data.frame(
-  name=c(as.character(links$source), as.character(links$target)) %>% 
-    unique()
-  )
-
-nodes  # print
-```
-The we edit the `links` data frame, which we created above with `count()`. We add two numeric columns `IDsource` and `IDtarget` which will actually reflect/create the links between the nodes. These columns will hold the rownumbers (position) of the source and target nodes. 1 is subtracted so that these position numbers begin at 0 (not 1).  
-
-```{r}
-# match to numbers, not names
-links$IDsource <- match(links$source, nodes$name)-1 
-links$IDtarget <- match(links$target, nodes$name)-1
-```
-
-The links dataset now looks like this:  
-
-```{r message=FALSE, echo=F}
-DT::datatable(links, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
-```
-
-Now plot the Sankey diagram with `sankeyNetwork()`. You can read more about each argument by running `?sankeyNetwork` in the console. Note that unless you set `iterations = 0` the order of your nodes may not be as expected. 
-
+In this plot we will look at `source`, `vomit` and colour our flows by `gender`.
 
 ```{r}
 
 # plot
-######
-p <- sankeyNetwork(
-  Links = links,
-  Nodes = nodes,
-  Source = "IDsource",
-  Target = "IDtarget",
-  Value = "n",
-  NodeID = "name",
-  units = "TWh",
-  fontSize = 12,
-  nodeWidth = 30,
-  iterations = 0)        # ensure node order is as in data
-p
+ggplot(data = links,
+       mapping = aes(y = n,
+                     axis1 = source,
+                     axis2 = vomit)) +
+     geom_alluvium(aes(fill = gender)) +
+     geom_stratum(width = 1/12, fill = "black", color = "grey") +
+     geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+     scale_x_discrete(limits = c("Hospital", "Age category"), expand = c(.05, .05)) +
+     scale_fill_brewer(type = "qual", palette = "Set1") +
+     theme_void()
+
+
 ```
 
+To add an additional axis, we can put in the argument `axis3` within `mapping = aes()`. If we would like to move the plot from horizontal to vertical, we can use the argument `coord_flip()`.
 
-
-Here is an example where the patient Outcome is included as well. Note in the data preparation step we have to calculate the counts of cases between age and hospital, and separately between hospital and outcome - and then bind all these counts together with `bind_rows()`.  
+Here is an example where the `outcome` is included as well in the argument `axis3 = outcome`
 
 ```{r}
-# counts by hospital and age category
-age_hosp_links <- linelist %>% 
-  drop_na(age_cat) %>% 
-  select(hospital, age_cat) %>%
-  count(hospital, age_cat) %>% 
-  rename(source = age_cat,          # re-name
-         target = hospital)
-
-hosp_out_links <- linelist %>% 
-    drop_na(age_cat) %>% 
-    select(hospital, outcome) %>% 
-    count(hospital, outcome) %>% 
-    rename(source = hospital,       # re-name
-           target = outcome)
-
-# combine links
-links <- bind_rows(age_hosp_links, hosp_out_links)
-
-# The unique node names
-nodes <- data.frame(
-  name=c(as.character(links$source), as.character(links$target)) %>% 
-    unique()
-  )
-
-# Create id numbers
-links$IDsource <- match(links$source, nodes$name)-1 
-links$IDtarget <- match(links$target, nodes$name)-1
 
 # plot
-######
-p <- sankeyNetwork(Links = links,
-                   Nodes = nodes,
-                   Source = "IDsource",
-                   Target = "IDtarget",
-                   Value = "n",
-                   NodeID = "name",
-                   units = "TWh",
-                   fontSize = 12,
-                   nodeWidth = 30,
-                   iterations = 0)
-p
+ggplot(data = links,
+       mapping = aes(y = n,
+                     axis1 = source,
+                     axis2 = vomit,
+                     axis3 = outcome)) +
+     geom_alluvium(aes(fill = gender)) +
+     geom_stratum(width = 1/12, fill = "black", color = "grey") +
+     geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+     scale_x_discrete(limits = c("Hospital", "Age category"), expand = c(.05, .05)) +
+     scale_fill_brewer(type = "qual", palette = "Set1") +
+     theme_void() +
+     coord_flip()
 
 ```
-
-
-https://www.displayr.com/sankey-diagrams-r/
-
-
 
 <!-- ======================================================= -->
 ## Event timelines { }
 
-To make a timeline showing specific events, you can use the `vistime` package.
+To make a timeline showing specific events, you can use the **vistime** package.
 
 See this [vignette](https://cran.r-project.org/web/packages/vistime/vignettes/vistime-vignette.html#ex.-2-project-planning)
 
 ```{r}
 # load package
-pacman::p_load(vistime,  # make the timeline
-               plotly    # for interactive visualization
-               )
+pacman::p_load(
+     vistime,  # make the timeline
+     plotly    # for interactive visualization
+     )
 ```
 
 ```{r, echo=F}
@@ -690,9 +587,8 @@ DT::datatable(data, rownames = FALSE, filter="top", options = list(pageLength = 
 
 
 ```{r}
-p <- vistime(data)    # apply vistime
 
-library(plotly)
+p <- vistime(data)    # apply vistime
 
 # step 1: transform into a list
 pp <- plotly_build(p)
@@ -738,14 +634,11 @@ Alternatively, there are packages like **ggdag** and **daggity**
 <!-- ======================================================= -->
 ## Resources { }
 
-
-
 Much of the above regarding the DOT language is adapted from the tutorial [at this site](https://mikeyharper.uk/flowcharts-in-r-using-diagrammer/)  
 
 Another more in-depth [tutorial on DiagammeR](http://rich-iannone.github.io/DiagrammeR/)
 
-This page on [Sankey diagrams](https://www.displayr.com/sankey-diagrams-r/
-)  
+This page on [Sankey diagrams](http://corybrunson.github.io/ggalluvial/articles/ggalluvial.html) 
 
 
 

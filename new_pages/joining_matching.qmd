@@ -10,13 +10,13 @@ knitr::include_graphics(here::here("images", "left-join.gif"))
 
 This page describes ways to "join", "match", "link" "bind", and otherwise combine data frames.  
 
-It is uncommon that your epidemiological analysis or workflow does not involve multiple sources of data, and the linkage of multiple datasets. Perhaps you need to connect laboratory data to patient clinical outcomes, or Google mobility data to infectious disease trends, or even a dataset at one stage of analysis to a transformed version of itself.
+It is common that your epidemiological analysis or workflow does involves multiple sources of data, and the linkage of multiple datasets. Perhaps you need to connect laboratory data to patient clinical outcomes, or Google mobility data to infectious disease trends, or even a dataset at one stage of analysis to a transformed version of itself.
 
 In this page we demonstrate code to:  
 
-* Conduct *joins* of two data frames such that rows are matched based on common values in identifier columns  
-* Join two data frames based on *probabilistic* (likely) matches between values  
-* Expand a data frame by directly *binding* or ("appending") rows or columns from another data frame  
+* Conduct *joins* of two data frames such that rows are matched based on common values in identifier columns.  
+* Join two data frames based on *probabilistic* (likely) matches between values.  
+* Expand a data frame by directly *binding* or ("appending") rows or columns from another data frame. 
 
 
 <!-- ======================================================= -->
@@ -42,7 +42,7 @@ pacman::p_load(
 
 To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F}
+```{r, echo=F, warning = F, message = F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -67,8 +67,8 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
 In the joining section below, we will use the following datasets:  
 
-1) A "miniature" version of the case `linelist`, containing only the columns `case_id`, `date_onset`, and `hospital`, and only the first 10 rows  
-2) A separate data frame named `hosp_info`, which contains more details about each hospital  
+1) A "miniature" version of the case `linelist`, containing only the columns `case_id`, `date_onset`, and `hospital`, and only the first 10 rows.  
+2) A separate data frame named `hosp_info`, which contains more details about each hospital.  
 
 In the section on probabilistic matching, we will use two different small datasets. The code to create those datasets is given in that section.  
 
@@ -226,7 +226,7 @@ df1 <- df1 %>%
 ```
 
 
-<span style="color: orange;">**_CAUTION:_** Joins are case-specific! Therefore it is useful to convert all values to lowercase or uppercase prior to joining. See the page on characters/strings.</span>
+<span style="color: orange;">**_CAUTION:_** Joins are case-specific! Therefore it is useful to convert all values to lowercase or uppercase prior to joining. See the page on [characters/strings](characters_strings).</span>
 
 
 
@@ -237,16 +237,16 @@ df1 <- df1 %>%
 
 **A left or right join is commonly used to add information to a data frame** - new information is added only to rows that already existed in the baseline data frame. These are common joins in epidemiological work as they are used to add information from one dataset into another. 
 
-In using these joins, the written order of the data frames in the command is important*.  
+In using these joins, *the written order of the data frames in the command is important*.  
 
-* In a *left join*, the *first* data frame written is the baseline  
-* In a *right join*, the *second* data frame written is the baseline  
+* In a *left join*, the *first* data frame written is the baseline.  
+* In a *right join*, the *second* data frame written is the baseline.  
 
 **All rows of the baseline data frame are kept.** Information in the other (secondary) data frame is joined to the baseline data frame *only if there is a match via the identifier column(s)*. In addition:  
 
 * Rows in the secondary data frame that do not match are dropped.  
 * If there are many baseline rows that match to one row in the secondary data frame (many-to-one), the secondary information is added to *each matching baseline row*.  
-* If a baseline row matches to multiple rows in the secondary data frame (one-to-many), all combinations are given, meaning *new rows may be added to your returned data frame!*  
+* If a baseline row matches to multiple rows in the secondary data frame (one-to-many), all combinations are given, meaning *new rows may be added to your returned data frame!*.  
 
 Animated examples of left and right joins ([image source](https://github.com/gadenbuie/tidyexplain/tree/master/images))
 
@@ -259,12 +259,12 @@ knitr::include_graphics(here::here("images", "right-join.gif"))
 
 Below is the output of a `left_join()` of `hosp_info` (secondary data frame, [view here](#joins_hosp_info))  *into* `linelist_mini` (baseline data frame, [view here](#joins_llmini)). The original `linelist_mini` has ` nrow(linelist_mini)` rows. The modified `linelist_mini` is displayed. Note the following:  
 
-* Two new columns, `catchment_pop` and `level` have been added on the left side of `linelist_mini`  
-* All original rows of the baseline data frame `linelist_mini` are kept  
-* Any original rows of `linelist_mini` for "Military Hospital" are duplicated because it matched to *two* rows in the secondary data frame, so both combinations are returned  
-* The join identifier column of the secondary dataset (`hosp_name`) has disappeared because it is redundant with the identifier column in the primary dataset (`hospital`)  
-* When a baseline row did not match to any secondary row (e.g. when `hospital` is "Other" or "Missing"), `NA` (blank) fills in the columns from the secondary data frame  
-* Rows in the secondary data frame with no match to the baseline data frame ("sisters" and "ignace" hospitals) were dropped  
+* Two new columns, `catchment_pop` and `level` have been added on the left side of `linelist_mini`.  
+* All original rows of the baseline data frame `linelist_mini` are kept.  
+* Any original rows of `linelist_mini` for "Military Hospital" are duplicated because it matched to *two* rows in the secondary data frame, so both combinations are returned.  
+* The join identifier column of the secondary dataset (`hosp_name`) has disappeared because it is redundant with the identifier column in the primary dataset (`hospital`).  
+* When a baseline row did not match to any secondary row (e.g. when `hospital` is "Other" or "Missing"), `NA` (blank) fills in the columns from the secondary data frame.  
+* Rows in the secondary data frame with no match to the baseline data frame ("sisters" and "ignace" hospitals) were dropped.  
 
 
 ```{r, eval=F}
@@ -330,11 +330,11 @@ Animated example of a full join ([image source](https://github.com/gadenbuie/tid
 
 Below is the output of a `full_join()` of `hosp_info` (originally ` nrow(hosp_info)`, [view here](#joins_hosp_info))  *into* `linelist_mini` (originally ` nrow(linelist_mini)`, [view here](#joins_llmini)). Note the following:  
 
-* All baseline rows are kept (`linelist_mini`)  
-* Rows in the secondary that do not match to the baseline are kept ("ignace" and "sisters"), with values in the corresponding baseline columns  `case_id` and `onset` filled in with missing values  
-* Likewise, rows in the baseline data frame that do not match to the secondary ("Other" and "Missing") are kept, with secondary columns ` catchment_pop` and `level` filled-in with missing values  
-* In the case of one-to-many or many-to-one matches (e.g. rows for "Military Hospital"), all possible combinations are returned (lengthening the final data frame)  
-* Only the identifier column from the baseline is kept (`hospital`)  
+* All baseline rows are kept (`linelist_mini`).  
+* Rows in the secondary that do not match to the baseline are kept ("ignace" and "sisters"), with values in the corresponding baseline columns  `case_id` and `onset` filled in with missing values.  
+* Likewise, rows in the baseline data frame that do not match to the secondary ("Other" and "Missing") are kept, with secondary columns ` catchment_pop` and `level` filled-in with missing values.  
+* In the case of one-to-many or many-to-one matches (e.g. rows for "Military Hospital"), all possible combinations are returned (lengthening the final data frame).  
+* Only the identifier column from the baseline is kept (`hospital`).  
 
 
 ```{r, eval=F}
@@ -355,7 +355,8 @@ linelist_mini %>%
 <!-- ======================================================= -->
 ### Inner join {.unnumbered} 
 
-**An inner join is the most *restrictive* of the joins** - it returns only rows with matches across both data frames.  
+**An inner join is the most *restrictive* of the joins** - it returns only rows with matches across both data frames.
+
 This means that the number of rows in the baseline data frame may actually *reduce*. Adjustment of which data frame is the "baseline" (written first in the function) will not impact which rows are returned, but it will impact the column order, row order, and which identifier columns are retained.   
 
 
@@ -370,9 +371,9 @@ Animated example of an inner join ([image source](https://github.com/gadenbuie/t
 
 Below is the output of an `inner_join()` of `linelist_mini` (baseline) with `hosp_info` (secondary). Note the following:  
 
-* Baseline rows with no match to the secondary data are removed (rows where `hospital` is "Missing" or "Other")  
-* Likewise, rows from the secondary data frame that had no match in the baseline are removed (rows where `hosp_name` is "sisters" or "ignace")  
-* Only the identifier column from the baseline is kept (`hospital`)  
+* Baseline rows with no match to the secondary data are removed (rows where `hospital` is "Missing" or "Other").  
+* Likewise, rows from the secondary data frame that had no match in the baseline are removed (rows where `hosp_name` is "sisters" or "ignace").  
+* Only the identifier column from the baseline is kept (`hospital`).  
 
 
 ```{r, eval=F}
@@ -558,14 +559,14 @@ DT::datatable(results, rownames = FALSE, options = list(pageLength = nrow(result
 
 The `fastLink()` function from the **fastLink** package can be used to apply a matching algorithm. Here is the basic information. You can read more detail by entering `?fastLink` in your console.  
 
-* Define the two data frames for comparison to arguments `dfA = ` and `dfB = `  
+* Define the two data frames for comparison to arguments `dfA = ` and `dfB = `.  
 * In `varnames = ` give all column names to be used for matching. They must all exist in both `dfA` and `dfB`.  
 * In `stringdist.match = ` give columns from those in `varnames` to be evaluated on string "distance".  
 * In `numeric.match = ` give columns from those in `varnames` to be evaluated on numeric distance.  
-* Missing values are ignored  
+* Missing values are ignored.  
 * By default, each row in either data frame is matched to at most one row in the other data frame. If you want to see all the evaluated matches, set `dedupe.matches = FALSE`. The deduplication is done using Winkler's linear assignment solution.  
 
-*Tip: split one date column into three separate numeric columns using `day()`, `month()`, and `year()` from **lubridate** package*  
+*Tip: split one date column into three separate numeric columns using `day()`, `month()`, and `year()` from **lubridate** package*.  
 
 The default threshold for matches is 0.94 (`threshold.match = `) but you can adjust it higher or lower. If you define the threshold, consider that higher thresholds could yield more false-negatives (rows that do not match which actually should match) and likewise a lower threshold could yield more false-positive matches.  
 
@@ -610,13 +611,13 @@ Things to note:
 
 To use these matches to join `results` to `cases`, one strategy is:  
 
-1) Use `left_join()` to join `my_matches` to `cases` (matching rownames in `cases` to "inds.a" in `my_matches`)  
-2) Then use another `left_join()` to join `results` to `cases` (matching the newly-acquired "inds.b" in `cases` to rownames in `results`)  
+1) Use `left_join()` to join `my_matches` to `cases` (matching rownames in `cases` to "inds.a" in `my_matches`).  
+2) Then use another `left_join()` to join `results` to `cases` (matching the newly-acquired "inds.b" in `cases` to rownames in `results`).  
 
 Before the joins, we should clean the three data frames:  
 
 * Both `dfA` and `dfB` should have their row numbers ("rowname") converted to a proper column.  
-* Both the columns in `my_matches` are converted to class character, so they can be joined to the character rownames  
+* Both the columns in `my_matches` are converted to class character, so they can be joined to the character rownames.  
 
 ```{r}
 # Clean data prior to joining
@@ -909,17 +910,17 @@ A **base** R alternative to `bind_cols` is `cbind()`, which performs the same op
 <!-- ======================================================= -->
 ## Resources { }
 
-The [tidyverse page on joins](https://dplyr.tidyverse.org/reference/join.html)  
+The [tidyverse page on joins](https://dplyr.tidyverse.org/reference/mutate-joins.html).  
 
-The [R for Data Science page on relational data](https://r4ds.had.co.nz/relational-data.html)  
+The [R for Data Science page on relational data](https://r4ds.had.co.nz/relational-data.html).  
 
-Th [tidyverse page on dplyr](https://dplyr.tidyverse.org/reference/bind.html) on binding  
+Th [tidyverse page on dplyr](https://dplyr.tidyverse.org/reference/bind.html) on binding.  
 
-A vignette on [fastLink](https://github.com/kosukeimai/fastLink) at the package's Github page  
+A vignette on [fastLink](https://github.com/kosukeimai/fastLink) at the package's Github page.  
 
-Publication describing methodology of [fastLink](https://imai.fas.harvard.edu/research/files/linkage.pdf)  
+Publication describing methodology of [fastLink](https://imai.fas.harvard.edu/research/files/linkage.pdf).  
 
-Publication describing [RecordLinkage package](https://journal.r-project.org/archive/2010/RJ-2010-017/RJ-2010-017.pdf)
+Publication describing [RecordLinkage package](https://journal.r-project.org/archive/2010/RJ-2010-017/RJ-2010-017.pdf).
 
 
 
