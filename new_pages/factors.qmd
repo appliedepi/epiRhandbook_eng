@@ -39,7 +39,7 @@ pacman::p_load(
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export](importing.qmd) page for details).  
 
-```{r, echo=F, warning=F, message=F}
+```{r, echo=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -84,7 +84,7 @@ table(linelist$delay_cat, useNA = "always")
 Likewise, if we make a bar plot, the values also appear in this order on the x-axis (see the [ggplot basics](ggplot_basics.qmd) page for more on **ggplot2** - the most common visualization package in R).  
 
 ```{r, warning=F, message=F}
-ggplot(data = linelist) +
+ggplot(data = linelist)+
   geom_bar(mapping = aes(x = delay_cat))
 ```
 
@@ -109,7 +109,7 @@ linelist <- linelist %>%
 levels(linelist$delay_cat)
 ```
 
-The function `fct_relevel()` has the additional utility of allowing you to manually specify the level order. Simply write the level values in order, in quotation marks, separated by commas, as shown below. Note that the spelling must exactly match the values. If you want to create levels that do not exist in the data, use [`fct_expand()` instead](#fct_add).  
+The function `fct_relevel()` has the additional utility of allowing you to manually specify the level order. Simply write the level values in order, in quotation marks, separated by commas, as shown below. Note that the spelling must exactly match the values. If you want to create levels that do not exist in the data, use [`fct_expand()` instead](#fct_add)).  
 
 ```{r}
 linelist <- linelist %>%
@@ -125,7 +125,7 @@ levels(linelist$delay_cat)
 Now the plot order makes more intuitive sense as well.  
 
 ```{r, warning=F, message=F}
-ggplot(data = linelist) +
+ggplot(data = linelist)+
   geom_bar(mapping = aes(x = delay_cat))
 ```
 
@@ -164,8 +164,8 @@ The package **forcats** offers useful functions to easily adjust the order of a 
 
 These functions can be applied to a factor column in two contexts:  
 
-1) To the column in the data frame, as usual, so the transformation is available for any subsequent use of the data.  
-2) *Inside of a plot*, so that the change is applied only within the plot.  
+1) To the column in the data frame, as usual, so the transformation is available for any subsequent use of the data  
+2) *Inside of a plot*, so that the change is applied only within the plot  
 
 
 
@@ -175,8 +175,8 @@ This function is used to manually order the factor levels. If used on a non-fact
 
 Within the parentheses first provide the factor column name, then provide either:  
 
-* All the levels in the desired order (as a character vector `c()`), or,  
-* One level and it's corrected placement using the `after = ` argument.  
+* All the levels in the desired order (as a character vector `c()`), or  
+* One level and it's corrected placement using the `after = ` argument  
 
 Here is an example of redefining the column `delay_cat` (which is already class Factor) and specifying all the desired order of levels.  
 
@@ -214,11 +214,11 @@ linelist <- linelist %>%
 
 ```{r, warning=F, message=F, out.width = c('50%', '50%'), fig.show='hold'}
 # Alpha-numeric default order - no adjustment within ggplot
-ggplot(data = linelist) +
+ggplot(data = linelist)+
     geom_bar(mapping = aes(x = delay_cat))
 
 # Factor level order adjusted within ggplot
-ggplot(data = linelist) +
+ggplot(data = linelist)+
   geom_bar(mapping = aes(x = fct_relevel(delay_cat, c("<2 days", "2-5 days", ">5 days"))))
 ```
 
@@ -244,14 +244,14 @@ This function can be used within a `ggplot()`, as shown below.
 
 ```{r, out.width = c('50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
 # ordered by frequency
-ggplot(data = linelist, aes(x = fct_infreq(delay_cat))) +
-  geom_bar() +
+ggplot(data = linelist, aes(x = fct_infreq(delay_cat)))+
+  geom_bar()+
   labs(x = "Delay onset to admission (days)",
        title = "Ordered by frequency")
 
 # reversed frequency
-ggplot(data = linelist, aes(x = fct_rev(fct_infreq(delay_cat)))) +
-  geom_bar() +
+ggplot(data = linelist, aes(x = fct_rev(fct_infreq(delay_cat))))+
+  geom_bar()+
   labs(x = "Delay onset to admission (days)",
        title = "Reverse of order by frequency")
 ```
@@ -272,26 +272,26 @@ In the first example below, the default order alpha-numeric level order is used.
 
 ```{r, fig.show='hold', message=FALSE, warning=FALSE, out.width=c('50%', '50%')}
 # boxplots ordered by original factor levels
-ggplot(data = linelist) +
+ggplot(data = linelist)+
   geom_boxplot(
     aes(x = delay_cat,
         y = ct_blood, 
-        fill = delay_cat)) +
+        fill = delay_cat))+
   labs(x = "Delay onset to admission (days)",
-       title = "Ordered by original alpha-numeric levels") +
-  theme_classic() +
+       title = "Ordered by original alpha-numeric levels")+
+  theme_classic()+
   theme(legend.position = "none")
 
 
 # boxplots ordered by median CT value
-ggplot(data = linelist) +
+ggplot(data = linelist)+
   geom_boxplot(
     aes(x = fct_reorder(delay_cat, ct_blood, "median"),
         y = ct_blood,
-        fill = delay_cat)) +
+        fill = delay_cat))+
   labs(x = "Delay onset to admission (days)",
-       title = "Ordered by median CT value in group") +
-  theme_classic() +
+       title = "Ordered by median CT value in group")+
+  theme_classic()+
   theme(legend.position = "none")
 ```
 
@@ -312,12 +312,12 @@ epidemic_data <- linelist %>%         # begin with the linelist
       hospital                                            
     ) 
   
-ggplot(data = epidemic_data) +                       # start plot
+ggplot(data = epidemic_data)+                       # start plot
   geom_line(                                        # make lines
     aes(
       x = epiweek,                                  # x-axis epiweek
       y = n,                                        # height is number of cases per week
-      color = fct_reorder2(hospital, epiweek, n))) + # data grouped and colored by hospital, with factor order by height at end of plot
+      color = fct_reorder2(hospital, epiweek, n)))+ # data grouped and colored by hospital, with factor order by height at end of plot
   labs(title = "Factor levels (and legend display) by line height at end of plot",
        color = "Hospital")                          # change legend title
 ```
@@ -350,7 +350,7 @@ You can adjust the level displays manually manually with `fct_recode()`. This is
 
 This tool can also be used to "combine" levels, by assigning multiple levels the same re-coded value. Just be careful to not lose information! Consider doing these combining steps in a new column (not over-writing the existing column).  
 
-<span style="color: red;">**_DANGER:_** `fct_recode()` has a different syntax than `recode()`. `recode()` uses `OLD = NEW`, whereas `fct_recode()` uses `NEW = OLD`. </span>   
+`fct_recode()` has a different syntax than `recode()`. `recode()` uses `OLD = NEW`, whereas `fct_recode()` uses `NEW = OLD`.     
 
 The current levels of `delay_cat` are:  
 ```{r, echo=F}
@@ -444,10 +444,10 @@ In a `ggplot()` figure, simply add the argument `drop = FALSE` in the relevant `
 
 This example is a stacked bar plot of age category, by hospital. Adding `scale_fill_discrete(drop = FALSE)` ensures that all age groups appear in the legend, even if not present in the data. 
 
-```{r, fig.width = 10.5}
-ggplot(data = linelist) +
+```{r}
+ggplot(data = linelist)+
   geom_bar(mapping = aes(x = hospital, fill = age_cat)) +
-  scale_fill_discrete(drop = FALSE) +                        # show all age groups in the legend, even those not present
+  scale_fill_discrete(drop = FALSE)+                        # show all age groups in the legend, even those not present
   labs(
     title = "All age groups will appear in legend, even if not present in data")
 ```
@@ -463,7 +463,8 @@ Read more in the [Descriptive tables](tables_descriptive.qmd) page, or at the [s
 
 ## Epiweeks  
 
-Please see the extensive discussion of how to create epidemiological weeks in the [Grouping data](grouping.qmd) page.  Also see the [Working with dates](dates.qmd) page for tips on how to create and format epidemiological weeks.  
+Please see the extensive discussion of how to create epidemiological weeks in the [Grouping data](grouping.qmd) page.  
+Please also see the [Working with dates](dates.qmd) page for tips on how to create and format epidemiological weeks.  
 
 
 ### Epiweeks in a plot {.unnumbered}  
@@ -475,8 +476,8 @@ In this approach, you can adjust the *display* of the dates on an axis with `sca
 ```{r, warning=F, message=F}
 linelist %>% 
   mutate(epiweek_date = floor_date(date_onset, "week")) %>%  # create week column
-  ggplot() +                                                  # begin ggplot
-  geom_histogram(mapping = aes(x = epiweek_date)) +           # histogram of date of onset
+  ggplot()+                                                  # begin ggplot
+  geom_histogram(mapping = aes(x = epiweek_date))+           # histogram of date of onset
   scale_x_date(date_labels = "%Y-W%W")                       # adjust disply of dates to be YYYY-WWw
 ```
 
@@ -485,7 +486,7 @@ linelist %>%
 
 However, if your purpose in factoring is *not* to plot, you can approach this one of two ways:  
 
-1) *For fine control over the display*, convert the **lubridate** epiweek column (YYYY-MM-DD) to the desired display format (YYYY-Www) *within the data frame itself*, and then convert it to class Factor.  
+1) *For fine control over the display*, convert the **lubridate** epiweek column (YYYY-MM-DD) to the desired display format (YYYY-WWw) *within the data frame itself*, and then convert it to class Factor.  
 
 First, use `format()` from **base** R to convert the date display from YYYY-MM-DD to YYYY-Www display (see the [Working with dates](dates.qmd) page). In this process the class will be converted to character. Then, convert from character to class Factor with `factor()`.  
 
@@ -518,6 +519,5 @@ See the [Working with dates](dates.qmd) page for more information about **aweek*
 <!-- ======================================================= -->
 ## Resources {} 
 
-R for Data Science page on [factors](https://r4ds.had.co.nz/factors.html)
-
+R for Data Science page on [factors](https://r4ds.had.co.nz/factors.html)  
 [aweek package vignette](https://cran.r-project.org/web/packages/aweek/vignettes/introduction.html)

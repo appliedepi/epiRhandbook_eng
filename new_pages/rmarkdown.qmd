@@ -39,17 +39,17 @@ In sum, the process that happens *in the background* (you do not need to know al
 knitr::include_graphics(here::here("images", "markdown/0_rmd.png"))
 ```
 
-[Source](https://rmarkdown.rstudio.com/authoring_quick_tour.html).
+(source: https://rmarkdown.rstudio.com/authoring_quick_tour.html):
 
 **Installation**
 
 To create a R Markdown output, you need to have the following installed:
 
-* The **rmarkdown** package (**knitr** will also be installed automatically)
-* Pandoc, which should come installed with RStudio. If you are not using RStudio, you can download Pandoc [here](http://pandoc.org).
-* If you want to generate PDF output (a bit trickier), you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, we recommend that you install [TinyTeX](https://yihui.name/tinytex/). You can use the following commands: 
+* The **rmarkdown** package (**knitr** will also be installed automatically)  
+* Pandoc, which should come installed with RStudio. If you are not using RStudio, you can download Pandoc here: http://pandoc.org. 
+* If you want to generate PDF output (a bit trickier), you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, we recommend that you install TinyTeX (https://yihui.name/tinytex/). You can use the following commands: 
 
-```{r, eval=F, warning=F, message=F}
+```{r, eval=F}
 pacman::p_load(tinytex)     # install tinytex package
 tinytex::install_tinytex()  # R command to install TinyTeX software
 ```
@@ -61,19 +61,19 @@ tinytex::install_tinytex()  # R command to install TinyTeX software
 
 Install the **rmarkdown** R package. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics](basics.qmd) for more information on R packages.  
 
-```{r, eval=F, warning=F, message=F}
+```{r, eval=F}
 pacman::p_load(rmarkdown)
 ```
 
 ### Starting a new Rmd file {.unnumbered}
 
-In RStudio, open a new R markdown file, starting with ‘File’, then ‘New file’ then ‘R Markdown…’. 
+In RStudio, open a new R markdown file, starting with ‘File’, then ‘New file’ then ‘R markdown…’. 
 
 ```{r out.width = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "markdown/1_gettingstarted.png"))
 ```
 
-R Studio will give you some output options to pick from. In the example below we select "HTML" because we want to create an html document. The title and the author names are not important. If the output document type you want is not one of these, don't worry - you can just pick any one and change it in the script later. If you want to use the current date every time you render the document, such as for an automated report, you can click "Use current date when rendering document", but this can also be updated later.
+R Studio will give you some output options to pick from. In the example below we select "HTML" because we want to create an html document. The title and the author names are not important. If the output document type you want is not one of these, don't worry - you can just pick any one and change it in the script later. 
 
 ```{r out.width = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "markdown/1_gettingstartedB.png"))
@@ -119,7 +119,7 @@ knitr::include_graphics(here::here("images", "markdown/rmarkdown_translation.png
 
 ### YAML metadata {.unnumbered}
 
-Referred to as the ‘YAML metadata’ or just ‘YAML’, this is at the top of the R Markdown document. This section of the script will tell your Rmd file what type of output to produce, formatting preferences, and other metadata such as document title, author, and date. There are other uses not mentioned here (but referred to in [Producing the document](rmarkdown.qmd#producing-the-document). Note that indentation matters; tabs are not accepted but spaces are. 
+Referred to as the ‘YAML metadata’ or just ‘YAML’, this is at the top of the R Markdown document. This section of the script will tell your Rmd file what type of output to produce, formatting preferences, and other metadata such as document title, author, and date. There are other uses not mentioned here (but referred to in ‘Producing an output’). Note that indentation matters; tabs are not accepted but spaces are. 
 
 This section must begin with a line containing just three dashes `---` and must close with a line containing just three dashes `---`. YAML parameters comes in `key:value` pairs. The placement of colons in YAML is important - the `key:value` pairs are separated by colons (not equals signs!).  
 
@@ -140,11 +140,11 @@ In the image above, because we clicked that our default output would be an html 
 
 This is the narrative of your document, including the titles and headings. It is written in the "markdown" language, which is used across many different software.  
 
-Below are the core ways to write this text. See more extensive documentation available on R Markdown "cheatsheet" at the [RStudio website](https://posit.co/blog/the-r-markdown-cheat-sheet/).  
+Below are the core ways to write this text. See more extensive documentation available on R Markdown "cheatsheet" at the [RStudio website](https://rstudio.com/resources/cheatsheets/).  
 
 #### New lines {.unnumbered}  
 
-Uniquely in R Markdown, to initiate a new line, enter *two spaces* at the end of the previous line and then Enter/Return.  
+Uniquely in R Markdown, to initiate a new line, enter *two spaces** at the end of the previous line and then Enter/Return.  
 
 
 
@@ -154,7 +154,7 @@ Surround your normal text with these character to change how it appears in the o
 
 * Underscores (`_text_`) or single asterisk (`*text*`) to _italicise_
 * Double asterisks (`**text**`) for **bold text**
-* Back-ticks (````text````) to display text as code
+* Back-ticks (````text````) to display text as code  
 
 The actual appearance of the font can be set by using specific templates (specified in the YAML metadata; see example tabs).  
 
@@ -222,18 +222,18 @@ You can create a new chunk by typing it out yourself, by using the keyboard shor
 Some notes about the contents of the curly brackets `{ }`:
 
 *	They start with ‘r’ to indicate that the language name within the chunk is R
-*	After the r you can optionally write a chunk "name" – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will complain when you try to render  
+*	After the r you can optionally write a chunk "name" – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will complain when you try to render.  
 *	The curly brackets can include other options too, written as `tag=value`, such as:  
-  * `eval = FALSE` to not run the R code
-  * `echo = FALSE` to not print the chunk's R source code in the output document 
-  * `warning = FALSE` to not print warnings produced by the R code
-  * `message = FALSE` to not print any messages produced by the R code
+  * `eval = FALSE` to not run the R code  
+  * `echo = FALSE` to not print the chunk's R source code in the output document  
+  * `warning = FALSE` to not print warnings produced by the R code  
+  * `message = FALSE` to not print any messages produced by the R code  
   * `include =` either TRUE/FALSE whether to include chunk outputs (e.g. plots) in the document
-  * `out.width = ` and `out.height =` - provide in style `out.width = "75%"`
-  * `fig.align = "center"` adjust how a figure is aligned across the page
-  * `fig.show='hold'` if your chunk prints multiple figures and you want them printed next to each other (pair with `out.width = c("33%", "67%")`. Can also set as `fig.show='asis'` to show them below the code that generates them, `'hide'` to hide, or `'animate'` to concatenate multiple into an animation
-* A chunk header must be written in *one line*
-* Try to avoid periods, underscores, and spaces. Use hyphens ( - ) instead if you need a separator
+  * `out.width = ` and `out.height =` - provide in style `out.width = "75%"`  
+  * `fig.align = "center"` adjust how a figure is aligned across the page  
+  * `fig.show='hold'` if your chunk prints multiple figures and you want them printed next to each other (pair with `out.width = c("33%", "67%")`. Can also set as `fig.show='asis'` to show them below the code that generates them, `'hide'` to hide, or `'animate'` to concatenate multiple into an animation.  
+* A chunk header must be written in *one line*  
+* Try to avoid periods, underscores, and spaces. Use hyphens ( - ) instead if you need a separator.  
 
 Read more extensively about the **knitr** options [here](https://yihui.org/knitr/options/).  
 
@@ -320,7 +320,7 @@ Cell D   |Cell E    |Cell F
 
 ### Tabbed sections {.unnumbered}  
 
-For HTML outputs, you can arrange the sections into "tabs". Simply add `.tabset` in the curly brackets `{ }` that are placed *after a heading*. Any sub-headings beneath that heading (until another heading of the same level) will appear as tabs that the user can click through. Read more [here](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html).  
+For HTML outputs, you can arrange the sections into "tabs". Simply add `.tabset` in the curly brackets `{ }` that are placed *after a heading*. Any sub-headings beneath that heading (until another heading of the same level) will appear as tabs that the user can click through. Read more [here](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html)  
 
 
 
@@ -333,29 +333,19 @@ knitr::include_graphics(here::here("images", "markdown/tabbed_view.gif"))
 
 You can add an additional option `.tabset-pills` after `.tabset` to give the tabs themselves a "pilled" appearance. Be aware that when viewing the tabbed HTML output, the Ctrl+f search functionality will only search "active" tabs, not hidden tabs.  
 
-### **remedy** {.unnumbered}   
 
-remedy is an addin for R-Studio which helps with writing R Markdown scripts. It provides a user interface and series of keyboard shortcuts to format your text. 
 
-This package is installed directly from GitHub.
 
-```{r, eval = F}
-remotes::install_github("ThinkR-open/remedy")
-```
-
-Once installed, the package does not need to be re-loaded. It will automatically load when you start RStudio.
-
-For a full list of features and updates, please see [https://thinkr-open.github.io/remedy/](https://thinkr-open.github.io/remedy/)
 
 <!-- ======================================================= -->
 ## File structure {}
 
 There are several ways to structure your R Markdown and any associated R scripts. Each has advantages and disadvantages:  
 
-* Self-contained R Markdown - everything needed for the report is imported or created within the R Markdown.  
-  * Source other files - You can run external R scripts with the `source()` command and use their outputs in the Rmd.  
-  * Child scripts - an alternate mechanism for `source()`.  
-* Utilize a "runfile" - Run commands in an R script *prior to* rendering the R Markdown.  
+* Self-contained R Markdown - everything needed for the report is imported or created within the R Markdown  
+  * Source other files - You can run external R scripts with the `source()` command and use their outputs in the Rmd  
+  * Child scripts - an alternate mechanism for `source()`  
+* Utilize a "runfile" - Run commands in an R script *prior to* rendering the R Markdown  
 
 
 ### Self-contained Rmd {.unnumbered}  
@@ -366,12 +356,12 @@ Everything you need to run the R markdown is imported or created within the Rmd 
 
 In this scenario, one logical organization of the R Markdown script might be:  
 
-1) Set global **knitr** options
-2) Load packages
-3) Import data
-4) Process data
-5) Produce outputs (tables, plots, etc.)
-6) Save outputs, if applicable (.csv, .png, etc.)
+1) Set global **knitr** options  
+2) Load packages  
+3) Import data  
+4) Process data  
+5) Produce outputs (tables, plots, etc.)  
+6) Save outputs, if applicable (.csv, .png, etc.)  
 
 #### Source other files {.unnumbered}
 
@@ -386,41 +376,10 @@ source("your-script.R", local = knitr::knit_global())
 
 Note that when using `source()` *within* the R Markdown, the external files will still be run *during the course of rendering your Rmd file*. Therefore, each script is run every time you render the report. Thus, having these `source()` commands *within* the R Markdown does not speed up your run time, nor does it greatly assist with de-bugging, as error produced will still be printed when producing the R Markdown.  
 
-An alternative is to utilize the `child = ` **knitr** option. 
-
-#### `child = `  {.unnumbered}
-
-If you have a very long R markdown document, with several distinct sections, you might want to create several smaller documents (referred to as child documents), and combine them into the finished report.
-
-This approach can be particularly useful if you want to have the option to include or omit certain sections or analyses when you re-run the R markdown document. For instance, for a daily update on an outbreak you may only want a rapid, streamlined, update, but for a weekly report you may want a more in depth analysis.
-
-For example, imagine you have a report that creates a summary of an outbreak, and every Sunday it runs additional analysis looking at the demographics of the outbreak. Here we will have our main R markdown file "main_report.Rmd", and the separate analysis in the file "demographic_analysis.Rmd".
-
-Here we have our document main_report.Rmd which runs the standard analysis, and we have an additional section where we will call the file demographic_analysis.Rmd. This is done by specifying the .Rmd file we want in an R code block. This allows us to use the function `knit_child()` from the **kintr** package to call the .Rmd file and knit it within our primary R markdown file.
-
-We have additionally included an `if()` and `ifelse()` statement to check if the day of the week (using the function `wday()` from the **lubridate** package) is Sunday, the day of the week we want the additional analysis to be run.
-
-```{r out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "markdown/11_childdocument_call.png"))
-```
-
-If the day _is_ Sunday, then it will knit demographic_analysis.Rmd into the main document. 
-
-For example, the output when it is **not** Sunday.
-
-```{r out.width = "50%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "markdown/12_notsundayanalysis.png"))
-```
-
-and when it **is** Sunday.
-
-```{r out.width = "50%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "markdown/12_sundayanalysis.png"))
-```
-
-**Note: Your code chunks cannot share names between the main document and the child documents, or it wil not run.**
+An alternative is to utilize the `child = ` **knitr** option. EXPLAIN MORE TO DO
 
 You must be aware of various R *environments*. Objects created within an environment will not necessarily be available to the environment used by the R Markdown.  
+
 
 
 ### Runfile {.unnumbered}  
@@ -431,8 +390,8 @@ For instance, you can load the packages, load and clean the data, and even creat
 
 This approach is helpful for the following reasons:  
 
-* More informative error messages - these messages will be generated from the R script, not the R Markdown. R Markdown errors tend to tell you which chunk had a problem, but will not tell you which line
-* If applicable, you can run long processing steps in advance of the `render()` command - they will run only once
+* More informative error messages - these messages will be generated from the R script, not the R Markdown. R Markdown errors tend to tell you which chunk had a problem, but will not tell you which line.  
+* If applicable, you can run long processing steps in advance of the `render()` command - they will run only once. 
 
 
 In the example below, we have a separate R script in which we pre-process a `data` object into the R Environment and then render the "create_output.Rmd" using `render()`.  
@@ -450,7 +409,7 @@ rmarkdown::render(input = "create_output.Rmd")   # Create Rmd file
 
 ### Folder strucutre {.unnumbered}  
 
-Workflow also concerns the overall folder structure, such as having an 'output' folder for created documents and figures, and 'data' or 'inputs' folders for cleaned data. We do not go into further detail here, but please refer to the [Organizing routine reports](reportfactory.qmd) page.  
+Workflow also concerns the overall folder structure, such as having an 'output' folder for created documents and figures, and 'data' or 'inputs' folders for cleaned data. We do not go into further detail here, but check out the [Organizing routine reports](reportfactory.qmd) page.  
 
 
 
@@ -492,9 +451,9 @@ rmarkdown::render(input = "my_report.Rmd")
 
 As with "knit", the default settings will save the Rmd output to the same folder as the Rmd script, with the same file name (aside from the file extension). For instance “my_report.Rmd” when knitted will create “my_report.docx” if you are knitting to a word document. However, by using `render()` you have the option to use different settings. `render()` can accept arguments including:  
 
-* `output_format = ` This is the output format to convert to (e.g. `"html_document"`, `"pdf_document"`, `"word_document"`, or `"all"`). You can also specify this in the YAML inside the R Markdown script
-* `output_file = ` This is the name of the output file (and file path). This can be created via R functions like `here()` or `str_glue()` as demonstrated below
-* `output_dir = ` This is an output directory (folder) to save the file. This allows you to chose an alternative other than the directory the Rmd file is saved to
+* `output_format = ` This is the output format to convert to (e.g. `"html_document"`, `"pdf_document"`, `"word_document"`, or `"all"`). You can also specify this in the YAML inside the R Markdown script.  
+* `output_file = ` This is the name of the output file (and file path). This can be created via R functions like `here()` or `str_glue()` as demonstrated below.  
+* `output_dir = ` This is an output directory (folder) to save the file. This allows you to chose an alternative other than the directory the Rmd file is saved to.  
 * `output_options = ` You can provide a list of options that will override those in the script YAML (e.g. )
 * `output_yaml = ` You can provide path to a .yml file that contains YAML specifications  
 * `params = ` See the section on parameters below  
@@ -597,10 +556,10 @@ rmarkdown::render(
 
 However, typing values into this pop-up window is subject to error and spelling mistakes. You may prefer to add restrictions to the values that can be entered through drop-down menus. You can do this by adding in the YAML several specifications for each `params: ` entry. 
 
-* `label: ` is the title for that particular drop-down menu
-* `value: ` is the default (starting) value
-* `input: ` set to `select` for drop-down menu
-* `choices: ` provide the eligible values in the drop-down menu
+* `label: ` is how the title for that particular drop-down menu  
+* `value: ` is the default (starting) value  
+* `input: ` set to `select` for drop-down menu  
+* `choices: ` Give the eligible values in the drop-down menu  
 
 Below, these specifications are written for the `hospital` parameter.  
 
@@ -736,8 +695,8 @@ knitr::include_graphics(here::here("images", "markdown/8_ppttemplate.png"))
 Unfortunately, editing powerpoint files is slightly less flexible:
 
 * A first level header (`# Header 1`) will automatically become the title of a new slide,
-* A `## Header 2` text will not come up as a subtitle but text within the slide's main textbox (unless you find a way to maniuplate the Master view)
-* Outputted plots and tables will automatically go into new slides. You will need to combine them, for instance the the **patchwork** function to combine ggplots, so that they show up on the same page. See this [blog post](https://mattherman.info/blog/ppt-patchwork/) about using the **patchwork** package to put multiple images on one slide
+* A `## Header 2` text will not come up as a subtitle but text within the slide's main textbox (unless you find a way to maniuplate the Master view). 
+* Outputted plots and tables will automatically go into new slides. You will need to combine them, for instance the the **patchwork** function to combine ggplots, so that they show up on the same page. See this [blog post](https://mattherman.info/blog/ppt-patchwork/) about using the **patchwork** package to put multiple images on one slide.  
 
 See the [**officer** package](https://davidgohel.github.io/officer/) for a tool to work more in-depth with powerpoint presentations.  
 
@@ -770,7 +729,7 @@ HTML files do not use templates, but can have the styles configured within the Y
 
 * Table of contents: We can add a table of contents with `toc: true` below, and also specify that it remains viewable ("floats") as you scroll, with `toc_float: true`.
 
-* Themes: We can refer to some pre-made themes, which come from a [Bootswatch theme library](https://bootswatch.com/3/). In the below example we use cerulean. Other options include: journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti. See [here](https://bootswatch.com/3/) for a full list of freely available themes. 
+* Themes: We can refer to some pre-made themes, which come from a Bootswatch theme library. In the below example we use cerulean. Other options include: journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti. 
 
 * Highlight: Configuring this changes the look of highlighted text (e.g. code within chunks that are shown). Supported styles include default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark, and textmate.  
 
@@ -824,9 +783,9 @@ Some common examples of these widgets include:
 
 * Plotly (used in this handbook page and in the [Interative plots](interactive_plots.qmd) page)
 * visNetwork (used in the [Transmission Chains](transmission_chains.qmd) page of this handbook)  
-* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook)
-* dygraphs (useful for interactively showing time series data)
-* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.)
+* Leaflet (used in the [GIS Basics](gis.qmd) page of this handbook)  
+* dygraphs (useful for interactively showing time series data)  
+* DT (`datatable()`) (used to show dynamic tables with filter, sort, etc.)  
 
 The `ggplotly()` function from **plotly** is particularly easy to use. See the [Interactive plots](interactive_plots.qmd) page. 
 
@@ -835,9 +794,9 @@ The `ggplotly()` function from **plotly** is particularly easy to use. See the [
 
 Further information can be found via:
 
-* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
-* [Introduction to R Markdown](https://rmarkdown.rstudio.com/articles_intro.html)
+* https://bookdown.org/yihui/rmarkdown/
+* https://rmarkdown.rstudio.com/articles_intro.html
 
-A good explainer of Markdown vs knitr vs R Markdown can be found [here](https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown
-).
+A good explainer of markdown vs knitr vs Rmarkdown is here: https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown
+
 

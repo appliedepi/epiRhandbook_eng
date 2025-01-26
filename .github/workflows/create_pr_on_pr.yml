@@ -36,11 +36,7 @@ jobs:
           for lang in "${LANGS[@]}"; do
             TRANSLATION_BRANCH="handbook_${VERSION_SUFFIX/_en/_$lang}"
             
-
-            # Ensure we have all history
-            git fetch --all            
-
-            #! Check if the translation branch exists
+            # Check if the translation branch exists
             if git ls-remote --exit-code --heads origin "${TRANSLATION_BRANCH}"; then
               echo "Branch ${TRANSLATION_BRANCH} exists. Checking out and rebasing with ${EN_BRANCH}"
               git fetch --prune
@@ -59,21 +55,11 @@ jobs:
               git pull origin "${EN_BRANCH#refs/heads/}"
             fi
             
-            #! Force push the changes to the remote repository
+            # Force push the changes to the remote repository
             git push origin "${TRANSLATION_BRANCH}" --force
-
-            #! Get the list of changed .qmd files: COMPARED WITH main branch
-            changed_files=$(git diff --name-only origin/main "${TRANSLATION_BRANCH}" | grep -E '\.qmd$' | grep -Ev '\.[a-z]{2}\.qmd$')
-
-            if [ -z "$changed_files" ]; then
-              echo "No .qmd file changes to include in PR for ${TRANSLATION_BRANCH}"
-              continue
-            fi
-
-            echo "Changed files: $changed_files"
             
             
-            #! Get the date of the latest commit on the english branch
+            # Get the date of the latest commit on the english branch
             latest_commit_date=$(git show -s --format=%ci ${EN_BRANCH})
             
             echo "Commits on the English branch that were made after the latest commit on the translation branch at $latest_commit_date"
@@ -81,64 +67,61 @@ jobs:
             latest_commit_info=$(git log ${EN_BRANCH} --since="$latest_commit_date" --format="%H %s" --reverse)
             commit_messages=$(echo "$latest_commit_info" | cut -d' ' -f2-)
             latest_commit_master=$(git show --format=%H -s origin/master)
-
             
             echo $latest_commit_en_branch
             echo $latest_commit_master
             echo $latest_commit_info
 
-
-            #! Check if there are new commits
-            if [ "$latest_commit_en_branch" == "$latest_commit_main" ]; then
+            # Check if there are new commits
+            if [ "$latest_commit_en_branch" == "$latest_commit_master" ]; then
               echo "No new commits to include in PR for ${TRANSLATION_BRANCH}"
               continue
             fi
             
-            #! Check if a PR already exists for this branch
+            # Check if a PR already exists for this branch
             PR_EXISTS=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq length)
             if [ "$PR_EXISTS" -eq 0 ]; then
               echo "Creating new PR for ${TRANSLATION_BRANCH}"
               PR_URL=$(gh pr create --base deploy-preview --head "$TRANSLATION_BRANCH" --title "Handbook ${VERSION_SUFFIX/_en/} $lang" --body "Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}")
               PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
             else
-              #! Get the PR number for the translation branch
+              # Get the PR number for the translation branch
               echo "PR already exists for ${TRANSLATION_BRANCH}"
               PR_NUMBER=$(gh pr list --head "${TRANSLATION_BRANCH}" --state open --json number --jq ".[0].number")
             fi
 
             echo "Pull Request Number: $PR_NUMBER"
-
-            #! Initialize new PR body
-            new_pr_body="# Automated pull request for $lang handbook version ${VERSION_SUFFIX/_en/}"$'\n\n'
-
-            #! Mention a user in the PR description
-            case "$lang" in
-              "vn") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
-              "fr") new_pr_body+="@oliviabboyd, please review changes and check the box when you finish"$'\n' ;;
-              "es") new_pr_body+="@amateo250, please review changes and check the box when you finish"$'\n' ;;
-              "jp") new_pr_body+="@hitomik723, please review changes and check the box when you finish"$'\n' ;;
-              "tr") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
-              "pt") new_pr_body+="@Luccan97, please review changes and check the box when you finish"$'\n' ;;
-              "ru") new_pr_body+="@ntluong95, please review changes and check the box when you finish"$'\n' ;;
-            esac
             
-            #! Add new commits as checkboxes to the PR description
-            IFS=$'\n' # Change the Internal Field Separator to newline for correct iteration over lines
+            # Add new commits as checkboxes to the PR description
             checkboxes=""
-            for file in $changed_files; do
-              #! List only new commits compared with the main branch, tail -n +2 to skip the first line of output from git log, the latest commit will not be added into the message
-              list_commits=$(git log origin/main..${TRANSLATION_BRANCH} --follow --pretty=format:"%H" -- $file | tail -n +2 | paste -sd, - | sed 's/,/, /g')
-              for commit in $latest_commit_en_branch; do
-                checkboxes="$checkboxes- [ ] Chapter [\`$file\`](https://github.com/${{ github.repository }}/pull/$PR_NUMBER/files?file-filters%5B%5D=.qmd&show-viewed-files=true) has changes in the following commit(s): $list_commits. "
-                checkboxes="$checkboxes"$'\n'"$checkbox"
-                
-              done
+            for commit in $latest_commit_en_branch; do
+              checkboxes="$checkboxes- [ ] [$commit_messages](https://github.com/${{ github.repository }}/commit/$commit)"
             done
 
-            if [ -n "$checkboxes" ]; then
-              # Append the checkboxes to the new PR body
-              new_pr_body="$new_pr_body"$'\n'"$checkboxes"
+
+            # Mention a user in the PR description
+            if [ "$lang" = "vn" ]; then
+              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
+            elif [ "$lang" = "fr" ]; then
+              checkboxes="$checkboxes @oliviabboyd, please check the box when you finish"
+            elif [ "$lang" = "es" ]; then
+              checkboxes="$checkboxes @amateo250, please check the box when you finish"
+            elif [ "$lang" = "jp" ]; then
+              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
+            elif [ "$lang" = "tr" ]; then
+              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
+            elif [ "$lang" = "pt" ]; then
+              checkboxes="$checkboxes @Luccan97, please check the box when you finish"
+            elif [ "$lang" = "ru" ]; then
+              checkboxes="$checkboxes @ntluong95, please check the box when you finish"
             fi
+
+
+            # Retrieve the current PR description
+            current_pr_body=$(gh pr view $PR_NUMBER --json body --jq '.body')
+
+            # Append checkboxes to the current PR description
+            new_pr_body=$(printf "%s\n%s" "$current_pr_body" "$checkboxes")
 
             # gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$checkboxes"
             gh api repos/${{ github.repository }}/issues/$PR_NUMBER --method PATCH --field body="$new_pr_body"

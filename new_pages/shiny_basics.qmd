@@ -56,25 +56,21 @@ In this page, we will use the first approach of having one file called *app.R*. 
 library(shiny)
 
 ui <- fluidPage(
-     
-     # Application title
-     titlePanel("My app"),
-     
-     # Sidebar with a slider input widget
-     sidebarLayout(
-          sidebarPanel(
-               sliderInput(inputId = "input_1",
-                           label = "Slider",
-                           min = 1,
-                           max = 50,
-                           value = 1)
-          ),
-          
-          # Show a plot 
-          mainPanel(
-               plotOutput("my_plot")
-          )
-     )
+
+    # Application title
+    titlePanel("My app"),
+
+    # Sidebar with a slider input widget
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("input_1")
+        ),
+
+        # Show a plot 
+        mainPanel(
+           plotOutput("my_plot")
+        )
+    )
 )
 
 # Define server logic required to draw a histogram
@@ -107,11 +103,11 @@ We next need to understand what the `server` and `ui` objects actually _do_. *Pu
 
 The UI element of a shiny app is, on a basic level, R code that creates an HTML interface. This means everything that is *displayed* in the UI of an app. This generally includes:
 
-* "Widgets" - dropdown menus, check boxes, sliders, etc that can be interacted with by the user.
-* Plots, tables, etc - outputs that are generated with R code.
+* "Widgets" - dropdown menus, check boxes, sliders, etc that can be interacted with by the user
+* Plots, tables, etc - outputs that are generated with R code
 * Navigation aspects of an app - tabs, panes, etc. 
-* Generic text, hyperlinks, etc.
-* HTML and CSS elements (addressed later).
+* Generic text, hyperlinks, etc
+* HTML and CSS elements (addressed later)
 
 The most important thing to understand about the UI is that it *receives inputs* from the user and *displays outputs* from the server. There is no *active* code running in the ui *at any time* - all changes seen in the UI are passed through the server (more or less). So we have to make our plots, downloads, etc in the server
 
@@ -124,10 +120,9 @@ This all probably sounds very abstract for now, so we'll have to dive into some 
 
 Before you begin to build an app, its immensely helpful to know *what* you want to build. Since your UI will be written in code, you can't really visualise what you're building unless you are aiming for something specific. For this reason, it is immensely helpful to look at lots of examples of shiny apps to get an idea of what you can make - even better if you can look at the source code behind these apps! Some great resources for this are:
 
-* [Rstudio app gallery](https://shiny.rstudio.com/gallery/) 
-* [Appsilon R Shiny Demo Gallery](https://www.appsilon.com/shiny-demo-gallery)
+* The [Rstudio app gallery](https://shiny.rstudio.com/gallery/)  
 
-Once you get an idea for what is possible, it's also helpful to map out what you want yours to look like - you can do this on paper or in any drawing software (PowerPoint, MS paint, etc.). It's helpful to start simple for your first app! There's also no shame in using code you find online of a nice app as a template for your work - its much easier and more efficient than building something from scratch!
+Once you get an idea for what is possible, it's also helpful to map out what you want yours to look like - you can do this on paper or in any drawing software (PowerPoint, MS paint, etc.). It's helpful to start simple for your first app! There's also no shame in using code you find online of a nice app as a template for your work - its much easier than building something from scratch!
 
 
 
@@ -135,17 +130,17 @@ Once you get an idea for what is possible, it's also helpful to map out what you
 
 When building our app, its easier to work on the UI first so we can see what we're making, and not risk the app failing because of any server errors. As mentioned previously, its often good to use a template when working on the UI. There are a number of standard layouts that can be used with shiny that are available from the base shiny package, but it's worth noting that there are also a number of package extensions such as `shinydashboard`. We'll use an example from base shiny to start with. 
 
-A shiny UI is generally defined as a series of nested functions, in the following order:
+A shiny UI is generally defined as a series of nested functions, in the following order
 
-1. A function defining the general layout (the most basic is `fluidPage()`, but more are available).
+1. A function defining the general layout (the most basic is `fluidPage()`, but more are available)
 2. Panels within the layout such as:
-     - a sidebar (`sidebarPanel()`).
-     - a "main" panel (`mainPanel()`).
-     - a tab (`tabPanel()`).
-     - a generic "column" (`column()`).
-3. Widgets and outputs - these can confer inputs to the server (widgets) or outputs from the server (outputs).
-     - Widgets generally are styled as `xxxInput()` e.g. `selectInput()`.
-     - Outputs are generally styled as `xxxOutput()` e.g. `plotOutput()`.
+     - a sidebar (`sidebarPanel()`)
+     - a "main" panel (`mainPanel()`)
+     - a tab (`tabPanel()`)
+     - a generic "column" (`column()`)
+3. Widgets and outputs - these can confer inputs to the server (widgets) or outputs from the server (outputs)
+     - Widgets generally are styled as `xxxInput()` e.g. `selectInput()`
+     - Outputs are generally styled as `xxxOutput()` e.g. `plotOutput()`
 
 It's worth stating again that these can't be visualised easily in an abstract way, so it's best to look at an example! Lets consider making a basic app that visualises our malaria facility count data by district. This data has a lot of differnet parameters, so it would be great if the end user could apply some filters to see the data by age group/district as they see fit! We can use a very simple shiny layout to start - the sidebar layout. This is a layout where widgets are placed in a sidebar on the left, and the plot is placed on the right.
 
@@ -233,7 +228,7 @@ It's also worth noting the *named vector* we used for the age data here. For man
 There are loads of widgets that you can use to do lots of things with your app. Widgets also allow you to upload files into your app, and download outputs. There are also some excellent shiny extensions that give you access to more widgets than base shiny - the **shinyWidgets** package is a great example of this. To look at some examples you can look at the following links:
 
 - [base shiny widget gallery](https://shiny.rstudio.com/gallery/widget-gallery.html)
-- [shinyWidgets gallery](https://dreamrs.github.io/shinyWidgets/)
+- [shinyWidgets gallery](https://github.com/dreamRs/shinyWidgets)
 
 
 
@@ -243,25 +238,24 @@ The next step in our app development is getting the server up and running. To do
 
 So given we want to make an app that shows epi curves that change based on user input, we should think about what code we would need to run this in a normal R script. We'll need to:
 
-1. Load our packages.
-2. Load our data.
-3. Transform our data.
-4. Develop a _function_ to visualise our data based on user inputs.
+1. Load our packages
+2. Load our data
+3. Transform our data
+4. Develop a _function_ to visualise our data based on user inputs
 
 This list is pretty straightforward, and shouldn't be too hard to do. It's now important to think about which parts of this process need to *be done only once* and which parts need to *run in response to user inputs*. This is because shiny apps generally run some code before running, which is only performed once. It will help our app's performance if as much of our code can be moved to this section. For this example, we only need to load our data/packages and do basic transformations once, so we can put that code *outside the server*. This means the only thing we'll need in the server is the code to visualise our data. Lets develop all of these componenets in a script first. However, since we're visualising our data with a function, we can also put the code _for the function_ outside the server so our function is in the environment when the app runs!
 
 First lets load our data. Since we're working with a new project, and we want to make it clean, we can create a new directory called data, and add our malaria data in there. We can run this code below in a testing script we will eventually delete when we clean up the structure of our app.
 
-```{r, echo = TRUE, warning=F}
-pacman::p_load(
-     "tidyverse", 
-     "lubridate"
-     )
+```{r, echo = TRUE}
+pacman::p_load("tidyverse", "lubridate")
 
 # read data
-malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
+malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) %>% 
+  as_tibble()
 
-head(malaria_data)
+print(malaria_data)
+
 
 ```
 
@@ -273,11 +267,9 @@ It will be easier to work with this data if we use tidy data standards, so we sh
 
 malaria_data <- malaria_data %>%
   select(-newid) %>%
-  pivot_longer(cols = starts_with("malaria_"), 
-               names_to = "age_group", 
-               values_to = "cases_reported")
+  pivot_longer(cols = starts_with("malaria_"), names_to = "age_group", values_to = "cases_reported")
 
-head(malaria_data)
+print(malaria_data)
 
 ```
 
@@ -285,9 +277,9 @@ And with that we've finished preparing our data! This crosses items 1, 2, and 3 
 
 When defining our function, it might be hard to think about what parameters we want to include. For functional programming with shiny, every relevent parameter will generally have a widget associated with it, so thinking about this is usually quite easy! For example in our current app, we want to be able to filter by district, and have a widget for this, so we can add a district parameter to reflect this. We *don't* have any app functionality to filter by facility (for now), so we don't need to add this as a parameter. Lets start by making a function with three parameters:
 
-1. The core dataset.
-2. The district of choice.
-3. The age group of choice.
+1. The core dataset
+2. The district of choice
+3. The age group of choice
 
 ```{r}
 
@@ -328,13 +320,8 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
   }
   
   
-  ggplot(data, 
-         mapping = aes(x = data_date, 
-                       y = cases_reported)
-         ) +
-    geom_col(width = 1, 
-             fill = "darkred"
-             ) +
+  ggplot(data, aes(x = data_date, y = cases_reported)) +
+    geom_col(width = 1, fill = "darkred") +
     theme_minimal() +
     labs(
       x = "date",
@@ -358,15 +345,13 @@ Let's test our function!
 
 ```{r, echo = TRUE, warning = FALSE}
 
-plot_epicurve(malaria_data, 
-              district = "Bolo", 
-              agegroup = "malaria_rdt_0-4")
+plot_epicurve(malaria_data, district = "Bolo", agegroup = "malaria_rdt_0-4")
 
 ```
 
 With our function working, we now have to understand how this all is going to fit into our shiny app. We mentioned the concept of _startup code_ before, but lets look at how we can actually incorporate this into the structure of our app. There are two ways we can do this!
 
-1. Put this code in your _app.R_ file at the start of the script (above the UI), or,  
+1. Put this code in your _app.R_ file at the start of the script (above the UI), or  
 2. Create a new file in your app's directory called _global.R_, and put the startup code in this file.
 
 It's worth noting at this point that it's generally easier, especially with bigger apps, to use the second file structure, as it lets you separate your file structure in a simple way. Lets fully develop a this global.R script now. Here is what it could look like:
@@ -384,9 +369,7 @@ malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds"
 # clean data and pivot longer
 malaria_data <- malaria_data %>%
   select(-newid) %>%
-  pivot_longer(cols = starts_with("malaria_"), 
-               names_to = "age_group", 
-               values_to = "cases_reported")
+  pivot_longer(cols = starts_with("malaria_"), names_to = "age_group", values_to = "cases_reported")
 
 
 # define plotting function
@@ -428,12 +411,9 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     agegroup_title <- stringr::str_glue("{str_remove(agegroup, 'malaria_rdt')} years")
   }
   
-  ggplot(data, 
-         mapping = aes(x = data_date, 
-                   y = cases_reported)
-         ) +
-    geom_col(width = 1, 
-             fill = "darkred") +
+  
+  ggplot(data, aes(x = data_date, y = cases_reported)) +
+    geom_col(width = 1, fill = "darkred") +
     theme_minimal() +
     labs(
       x = "date",
@@ -441,7 +421,9 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
       title = stringr::str_glue("Malaria cases - {plot_title_district}"),
       subtitle = agegroup_title
     )
-
+  
+  
+  
 }
 
 
@@ -463,7 +445,7 @@ Note that you should *always* specify `local = TRUE` in shiny apps, since it wil
 
 ## Developing an app server
 
-Now that we have most of our code, we just have to develop our server. This is the final piece of our app, and is probably the hardest to understand. The server is a large R function, but its helpful to think of it as a series of smaller functions, or tasks that the app can perform. It's important to understand that these functions are not executed in a linear order. There is an order to them, but it's not fully necessary to understand when starting out with shiny. At a very basic level, these tasks or functions will activate when there is a change in user inputs that affects them, *unless the developer has set them up so they behave differently*. Again, this is all quite abstract, but lets first go through the three basic types of shiny _objects_:
+Now that we have most of our code, we just have to develop our server. This is the final piece of our app, and is probably the hardest to understand. The server is a large R function, but its helpful to think of it as a series of smaller functions, or tasks that the app can perform. It's important to understand that these functions are not executed in a linear order. There is an order to them, but it's not fully necessary to understand when starting out with shiny. At a very basic level, these tasks or functions will activate when there is a change in user inputs that affects them, *unless the developer has set them up so they behave differently*. Again, this is all quite abstract, but lets first go through the three basic types of shiny _objects_
 
 1. Reactive sources - this is another term for user inputs. The shiny server has access to the outputs from the UI through the widgets we've programmed. Every time the values for these are changed, this is passed down to the server.
 
@@ -526,10 +508,10 @@ ui <- fluidPage(
 From this code UI we have:
 
 - Two inputs:
-  - District selector (with an inputId of `select_district`).
-  - Age group selector (with an inputId of `select_agegroup`).
+  - District selector (with an inputId of `select_district`)
+  - Age group selector (with an inputId of `select_agegroup`)
 - One output:
-  - The epicurve (with an outputId of `malaria_epicurve`).
+  - The epicurve (with an outputId of `malaria_epicurve`)
 
 As stated previously, these unique names we have assigned to our inputs and outputs are crucial. They *must be unique* and are used to pass information between the ui and server. In our server, we access our inputs via the syntax `input$inputID` and outputs and passed to the ui through the syntax `output$output_name` Lets have a look at an example, because again this is hard to understand otherwise!
 
@@ -538,9 +520,7 @@ As stated previously, these unique names we have assigned to our inputs and outp
 server <- function(input, output, session) {
   
   output$malaria_epicurve <- renderPlot(
-    plot_epicurve(malaria_data, 
-                  district = input$select_district, 
-                  agegroup = input$select_agegroup)
+    plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
   )
   
 }
@@ -553,7 +533,7 @@ The server for a simple app like this is actually quite straightforward! You'll 
 
 To understand the basics of how the server reacts to user inputs, you should note that the output will know (through the underlying package) when inputs change, and rerun this function to create a plot every time they change. Note that we also use the `renderPlot()` function here - this is one of a family of class-specific functions that pass those objects to a ui output. There are a number of functions that behave similarly, but you need to ensure the function used matches the class of object you're passing to the ui! For example:
 
-- `renderText()` - send text to the ui.
+- `renderText()` - send text to the ui
 - `renderDataTable` - send an interactive table to the ui.
 
 Remember that these also need to match the output *function* used in the ui - so `renderPlot()` is paired with `plotOutput()`, and `renderText()` is matched with `textOutput()`. 
@@ -581,9 +561,9 @@ knitr::include_graphics(here::here("images", "shiny", "listening.png"))
 
 At this point we've finally got a running app, but we have very little functionality. We also haven't really scratched the surface of what shiny can do, so there's a lot more to learn about! Lets continue to build our existing app by adding some extra features. Some things that could be nice to add could be: 
 
-1. Some explanatory text. 
-2. A download button for our plot - this would provide the user with a high quality version of the image that they're generating in the app.
-3. A selector for specific facilities.
+1. Some explanatory text 
+2. A download button for our plot - this would provide the user with a high quality version of the image that they're generating in the app
+3. A selector for specific facilities
 4. Another dashboard page - this could show a table of our data.
 
 This is a lot to add, but we can use it to learn about a bunch of different shiny featues on the way. There is so much to learn about shiny (it can get *very* advanced, but its hopefully the case that once users have a better idea of how to use it they can become more comfortable using external learning sources as well).
@@ -796,9 +776,7 @@ Now that we have our ui ready, we need to add the server component. Downloads ar
 server <- function(input, output, session) {
   
   output$malaria_epicurve <- renderPlot(
-    plot_epicurve(malaria_data, 
-                  district = input$select_district, 
-                  agegroup = input$select_agegroup)
+    plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
   )
   
   output$download_epicurve <- downloadHandler(
@@ -808,9 +786,7 @@ server <- function(input, output, session) {
     
     content = function(file) {
       ggsave(file, 
-             plot_epicurve(malaria_data, 
-                           district = input$select_district, 
-                           agegroup = input$select_agegroup),
+             plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup),
              width = 8, height = 5, dpi = 300)
     }
     
@@ -826,7 +802,7 @@ Note that the `content` function always takes a `file` argument, which we put wh
 
 Reactive conductors are objects that are created in the shiny server in a *reactive* way, but are not outputted - they can just be used by other parts of the server. There are a number of different kinds of *reactive conductors*, but we'll go through the basic two.
 
-1.`reactive()` - this is the most basic reactive conductor - it will react whenever any inputs used inside of it change (so our district/age group widgets).  
+1.`reactive()` - this is the most basic reactive conductor - it will react whenever any inputs used inside of it change (so our district/age group widgets)  
 2. `eventReactive()`- this rective conductor works the same as `reactive()`, except that the user can specify which inputs cause it to rerun. This is useful if your reactive conductor takes a long time to process, but this will be explained more later.  
 
 Lets look at the two examples:
@@ -835,9 +811,7 @@ Lets look at the two examples:
 
 malaria_plot_r <- reactive({
   
-  plot_epicurve(malaria_data, 
-                district = input$select_district, 
-                agegroup = input$select_agegroup)
+  plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
   
 })
 
@@ -845,9 +819,7 @@ malaria_plot_r <- reactive({
 # only runs when the district selector changes!
 malaria_plot_er <- eventReactive(input$select_district, {
   
-  plot_epicurve(malaria_data, 
-                district = input$select_district, 
-                agegroup = input$select_agegroup)
+  plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
   
 })
 
@@ -865,9 +837,7 @@ Lets look at how we can integrate this into our server code:
 server <- function(input, output, session) {
   
   malaria_plot <- reactive({
-    plot_epicurve(malaria_data, 
-                  district = input$select_district, 
-                  agegroup = input$select_agegroup)
+    plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
   })
   
   
@@ -966,12 +936,8 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
 
   
   
-  ggplot(data, 
-         mapping = aes(x = data_date, 
-                       y = cases_reported)
-         ) +
-    geom_col(width = 1, 
-             fill = "darkred") +
+  ggplot(data, aes(x = data_date, y = cases_reported)) +
+    geom_col(width = 1, fill = "darkred") +
     theme_minimal() +
     labs(
       x = "date",
@@ -989,10 +955,7 @@ Let's test it:
 
 ```{r, warning=F, message=F}
 
-plot_epicurve(malaria_data, 
-              district = "Spring", 
-              agegroup = "malaria_rdt_0-4", 
-              facility = "Facility 1")
+plot_epicurve(malaria_data, district = "Spring", agegroup = "malaria_rdt_0-4", facility = "Facility 1")
 
 ```
 
@@ -1105,17 +1068,17 @@ Notice how we're now passing variables for our choices instead of hard coding th
 
 The functions we need to understand how to do this are known as *observer* functions, and are similar to *reactive* functions in how they behave. They have one key difference though:
 
-- Reactive functions do not directly affect outputs, and produce objects that can be seen in other locations in the server.
-- Observer functions *can* affect server outputs, but do so via side effects of other functions. (They can also do other things, but this is their main function in practice).
+- Reactive functions do not directly affect outputs, and produce objects that can be seen in other locations in the server
+- Observer functions *can* affect server outputs, but do so via side effects of other functions. (They can also do other things, but this is their main function in practice)
 
 Similar to reactive functions, there are two flavours of observer functions, and they are divided by the same logic that divides reactive functions:
 
-1. `observe()` - this function runs whenever any inputs used inside of it change.
-2. `observeEvent()` - this function runs when a *user-specified* input changes.
+1. `observe()` - this function runs whenever any inputs used inside of it change
+2. `observeEvent()` - this function runs when a *user-specified* input changes
 
 We also need to understand the shiny-provided functions that update widgets. These are fairly straightforward to run - they first take the `session` object from the server function (this doesn't need to be understood for now), and then the `inputId` of the function to be changed. We then pass new versions of all parameters that are already taken by `selectInput()` - these will be automatically updated in the widget. 
 
-Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to *only reflect those that are available in that district* (and an option for all facilities).
+Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to *only reflect those that are available in that district* (and an option for all facilities)
 
 ```{r, eval = FALSE}
 
@@ -1131,8 +1094,7 @@ observe({
   
   new_choices <- c("All", new_choices)
   
-  updateSelectInput(session, 
-                    inputId = "select_facility",
+  updateSelectInput(session, inputId = "select_facility",
                     choices = new_choices)
   
 })
@@ -1146,10 +1108,7 @@ And that's it! we can add it into our server, and that behaviour will now work. 
 server <- function(input, output, session) {
   
   malaria_plot <- reactive({
-    plot_epicurve(malaria_data, 
-                  district = input$select_district, 
-                  agegroup = input$select_agegroup, 
-                  facility = input$select_facility)
+    plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup, facility = input$select_facility)
   })
   
   
@@ -1166,8 +1125,7 @@ server <- function(input, output, session) {
     
     new_choices <- c("All", new_choices)
     
-    updateSelectInput(session, 
-                      inputId = "select_facility",
+    updateSelectInput(session, inputId = "select_facility",
                       choices = new_choices)
     
   })
@@ -1321,7 +1279,7 @@ ui <- fluidPage(
 ```
 
 
-Now our app is arranged into tabs! Lets make the necessary edits to the server as well. Since we dont need to manipulate our dataset at all before we render it this is actually very simple - we just render the malaria_data dataset via `DT::renderDT()` to the ui!
+Now our app is arranged into tabs! Lets make the necessary edits to the server as well. Since we dont need to manipulate our dataset at all before we render it this is actually very simple - we just render the malaria_data dataset via DT::renderDT() to the ui!
 
 
 ```{r, eval = FALSE}
@@ -1390,7 +1348,7 @@ knitr::include_graphics(here::here("images", "shiny", "app_table_view.gif"))
 
 Now that you've developed your app, you probably want to share it with others - this is the main advantage of shiny after all! We can do this by sharing the code directly, or we could publish on a server. If we share the code, others will be able to see what you've done and build on it, but this will negate one of the main advantages of shiny - *it can eliminate the need for end-users to maintain an R installation*. For this reason, if you're sharing your app with users who are not comfortable with R, it is much easier to share an app that has been published on a server. 
 
-If you'd rather share the code, you could make a .zip file of the app, or better yet, *publish your app on github and add collaborators.* You can refer to the section on github for further information [here](collaboration.qmd).
+If you'd rather share the code, you could make a .zip file of the app, or better yet, *publish your app on github and add collaborators.* You can refer to the section on github for further information here.
 
 However, if we're publishing the app online, we need to do a little more work. Ultimately, we want your app to be able to be accessed via a web URL so others can get quick and easy access to it. Unfortunately, to publish you app on a server, you need to have access to a server to publish it on! There are a number of hosting options when it comes to this:
 
@@ -1398,13 +1356,22 @@ However, if we're publishing the app online, we need to do a little more work. U
 
 - _RStudio Connect_: this is a far more powerful version of an R server, that can perform many operations, including publishing shiny apps. It is however, harder to use, and less recommended for first-time users.
 
-For the purposes of this document, we will use _shinyapps.io_, since it is easier for first time users. You can make a free account [here](https://www.shinyapps.io/) to start - there are also different price plans for server licesnses if needed. The more users you expect to have, the more expensive your price plan may have to be, so keep this under consideration. If you're looking to create something for a small set of individuals to use, a free license may be perfectly suitable, but a public facing app may need more licenses.
+For the purposes of this document, we will use _shinyapps.io_, since it is easier for first time users. You can make a free account here to start - there are also different price plans for server licesnses if needed. The more users you expect to have, the more expensive your price plan may have to be, so keep this under consideration. If you're looking to create something for a small set of individuals to use, a free license may be perfectly suitable, but a public facing app may need more licenses.
 
-First we should make sure our app is suitable for publishing on a server. In your app, you should restart your R session, and ensure that it runs without running any extra code. This is important, as an app that requires package loading, or data reading not defined in your app code won't run on a server. Also note that you can't have any *explicit* file paths in your app - these will be invalid in the server setting - using the `here` package solves this issue very well. Finally, if you're reading data from a source that requires user-authentication, such as your organisation's servers, this will not generally work on a server. You will need to liase with your IT department to figure out how to whitelist the shiny server [here](https://docs.posit.co/shiny-server/).
+First we should make sure our app is suitable for publishing on a server. In your app, you should restart your R session, and ensure that it runs without running any extra code. This is important, as an app that requires package loading, or data reading not defined in your app code won't run on a server. Also note that you can't have any *explicit* file paths in your app - these will be invalid in the server setting - using the `here` package solves this issue very well. Finally, if you're reading data from a source that requires user-authentication, such as your organisation's servers, this will not generally work on a server. You will need to liase with your IT department to figure out how to whitelist the shiny server here.
+
+*signing up for account*
 
 Once you have your account, you can navigate to the tokens page under _Accounts_. Here you will want to add a new token - this will be used to deploy your app. 
 
 From here, you should note that the url of your account will reflect the name of your app - so if your app is called _my_app_, the url will be appended as _xxx.io/my_app/_. Choose your app name wisely! Now that you are all ready, click deploy - if successful this will run your app on the web url you chose!
+
+*something on making apps in documents?*
+
+## Further reading
+
+So far, we've covered a lot of aspects of shiny, and have barely scratched the surface of what is on offer for shiny. While this guide serves as an introduction, there is loads more to learn to fully understand shiny. You should start making apps and gradually add more and more functionality
+
 
 ## Recommended extension packages
 
@@ -1430,9 +1397,5 @@ There are also a number of packages that can be used to create interactive outpu
 
 ## Recommended resources
 
-So far, we've covered a lot of aspects of shiny, and have barely scratched the surface of what is on offer for shiny. While this guide serves as an introduction, there is loads more to learn to fully understand shiny. You should start making apps and gradually add more and more functionality.
 
-[Welcome to Shiny (Tutorial)](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html)
-[Introducing Shiny (Tutorial)](http://wch.github.io/shiny/tutorial/)
-[A Gentle Introduction to Shiny (Bookdown chapter)](https://bookdown.org/pdr_higgins/rmrwr/a-gentle-introduction-to-shiny.html)
 
