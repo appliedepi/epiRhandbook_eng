@@ -120,17 +120,16 @@ pacman::p_load(
   here,           # file pathways
   flextable,      # make HTML tables 
   officer,        # helper functions for tables
-  tidyverse       # data management, summary, and visualization
-  )      
+  tidyverse)      # data management, summary, and visualization
 
 ```
 
 ### Import data {.unnumbered}  
 
-To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details). 
+To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export](importing.qmd) page for details). 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -294,7 +293,7 @@ my_table  # print
 
 ### Borders and background {.unnumbered}  
 
-You can adjust the borders, internal lines, etc., with various **flextable** functions. It is often easier to start by removing all existing borders with `border_remove()`.  
+You can adjust the borders, internal lines, etc. with various **flextable** functions. It is often easier to start by removing all existing borders with `border_remove()`.  
 
 Then, you can apply default border themes by passing the table to `theme_box()`, `theme_booktabs()`, or `theme_alafoli()`.  
 
@@ -349,7 +348,7 @@ my_table
 We can ensure that the proportion columns display only one decimal place using the function `colformat_num()`. Note this could also have been done at data management stage with the `round()` function. 
 
 ```{r}
-my_table <- colformat_num(my_table, j = c(4, 7), digits = 1)
+my_table <- colformat_num(my_table, j = c(4,7), digits = 1)
 my_table
 ```
 
@@ -385,7 +384,7 @@ We can highlight all values in a column that meet a certain rule, e.g. where mor
 ```{r}
 
 my_table %>% 
-  bg(j = 7, i = ~ Pct_Death > 55, part = "body", bg = "red") 
+  bg(j = 7, i = ~ Pct_Death >= 55, part = "body", bg = "red") 
 
 ```
 
@@ -537,10 +536,8 @@ See detail in the [Reports with R Markdown](rmarkdown.qmd) page of this handbook
 <!-- ======================================================= -->
 ## Resources {  }
 
-The full **flextable** book is [here](https://ardata-fr.github.io/flextable-book/).
+The full **flextable** book is here: https://ardata-fr.github.io/flextable-book/
+The Github site is [here](https://davidgohel.github.io/flextable/)  
+A manual of all the **flextable** functions can be found [here](https://davidgohel.github.io/flextable/reference/index.html)
 
-The Github site is [here](https://davidgohel.github.io/flextable/).
-
-A manual of all the **flextable** functions can be found [here](https://davidgohel.github.io/flextable/reference/index.html).
-
-A gallery of beautiful example **flextable** tables with code can be accessed [here](https://ardata.fr/en/flextable-gallery/).  
+A gallery of beautiful example **flextable** tables with code can be accessed [here](https://ardata-fr.github.io/flextable-gallery/gallery/)  

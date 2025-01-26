@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>The Epidemiologist R Handbook - 43&nbsp; Dashboards with Shiny</title>
+<title>43  Dashboards with Shiny – The Epidemiologist R Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/writing_functions.html" rel="next">
 <link href="../new_pages/flexdashboard.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,127 +112,169 @@ cookieconsent.run({
 "language":"en"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
 
 
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.html">Reports and dashboards</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.html">Reports and dashboards</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.html"><span class="chapter-number">43</span>  <span class="chapter-title">Dashboards with Shiny</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">The Epidemiologist R Handbook</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -264,9 +284,19 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/fr/new_pages/shiny_basics.fr.html" id="language-link-fr">Français</a><a class="dropdown-item" href="/es/new_pages/shiny_basics.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/shiny_basics.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/shiny_basics.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/shiny_basics.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/shiny_basics.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/shiny_basics.ru.html" id="language-link-ru">Русский</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -274,426 +304,431 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">About this book</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Editorial and technical notes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Editorial and technical notes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Download handbook and data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Download handbook and data</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transition to R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Transition to R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Suggested packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Suggested packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Import and export</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Import and export</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Management</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Cleaning data and core functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Cleaning data and core functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Working with dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Working with dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Characters and strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Characters and strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Factors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pivoting data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Pivoting data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Grouping data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Grouping data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Joining data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Joining data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">De-duplication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">De-duplication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Iteration, loops, and lists</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Iteration, loops, and lists</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Descriptive tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Descriptive tables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simple statistical tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Simple statistical tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Univariate and multivariable regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Univariate and multivariable regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Missing data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Missing data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Standardised rates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Standardised rates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Moving averages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Moving averages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Time series and outbreak detection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Time series and outbreak detection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Epidemic modeling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Epidemic modeling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Contact tracing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Contact tracing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Survey analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Survey analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Survival analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Survival analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS basics</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Visualization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Tables for presentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Tables for presentation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplot tips</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplot tips</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Epidemic curves</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Epidemic curves</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Demographic pyramids and Likert-scales</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Demographic pyramids and Likert-scales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Heat plots</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Heat plots</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Diagrams and charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Diagrams and charts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Combinations analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Combinations analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Transmission chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Transmission chains</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Phylogenetic trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Phylogenetic trees</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Interactive plots</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Interactive plots</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Reports and dashboards</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Reports with R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Reports with R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Organizing routine reports</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Organizing routine reports</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Dashboards with R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Dashboards with R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Dashboards with Shiny</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Miscellaneous</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Writing functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Directory interactions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Directory interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Version control and collaboration with Git and Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Common errors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Common errors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Getting help</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Getting help</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R on network drives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R on network drives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Data Table</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Data Table</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preparation" id="toc-preparation" class="nav-link active" data-scroll-target="#preparation"><span class="header-section-number">43.1</span> Preparation</a>
+<li>
+<a href="#preparation" id="toc-preparation" class="nav-link active" data-scroll-target="#preparation"><span class="header-section-number">43.1</span> Preparation</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+<li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
   <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
-  </ul></li>
-  <li><a href="#the-structure-of-a-shiny-app" id="toc-the-structure-of-a-shiny-app" class="nav-link" data-scroll-target="#the-structure-of-a-shiny-app"><span class="header-section-number">43.2</span> The structure of a shiny app</a>
+  </ul>
+</li>
+  <li>
+<a href="#the-structure-of-a-shiny-app" id="toc-the-structure-of-a-shiny-app" class="nav-link" data-scroll-target="#the-structure-of-a-shiny-app"><span class="header-section-number">43.2</span> The structure of a shiny app</a>
   <ul class="collapse">
-  <li><a href="#basic-file-structures" id="toc-basic-file-structures" class="nav-link" data-scroll-target="#basic-file-structures">Basic file structures</a></li>
+<li><a href="#basic-file-structures" id="toc-basic-file-structures" class="nav-link" data-scroll-target="#basic-file-structures">Basic file structures</a></li>
   <li><a href="#the-server-and-the-ui" id="toc-the-server-and-the-ui" class="nav-link" data-scroll-target="#the-server-and-the-ui">The server and the ui</a></li>
   <li><a href="#before-you-start-to-build-an-app" id="toc-before-you-start-to-build-an-app" class="nav-link" data-scroll-target="#before-you-start-to-build-an-app">Before you start to build an app</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#building-a-ui" id="toc-building-a-ui" class="nav-link" data-scroll-target="#building-a-ui"><span class="header-section-number">43.3</span> Building a UI</a></li>
   <li><a href="#loading-data-into-our-app" id="toc-loading-data-into-our-app" class="nav-link" data-scroll-target="#loading-data-into-our-app"><span class="header-section-number">43.4</span> Loading data into our app</a></li>
   <li><a href="#developing-an-app-server" id="toc-developing-an-app-server" class="nav-link" data-scroll-target="#developing-an-app-server"><span class="header-section-number">43.5</span> Developing an app server</a></li>
-  <li><a href="#adding-more-functionality" id="toc-adding-more-functionality" class="nav-link" data-scroll-target="#adding-more-functionality"><span class="header-section-number">43.6</span> Adding more functionality</a>
+  <li>
+<a href="#adding-more-functionality" id="toc-adding-more-functionality" class="nav-link" data-scroll-target="#adding-more-functionality"><span class="header-section-number">43.6</span> Adding more functionality</a>
   <ul class="collapse">
-  <li><a href="#adding-static-text" id="toc-adding-static-text" class="nav-link" data-scroll-target="#adding-static-text">Adding static text</a></li>
+<li><a href="#adding-static-text" id="toc-adding-static-text" class="nav-link" data-scroll-target="#adding-static-text">Adding static text</a></li>
   <li><a href="#adding-a-link" id="toc-adding-a-link" class="nav-link" data-scroll-target="#adding-a-link">Adding a link</a></li>
   <li><a href="#adding-a-download-button" id="toc-adding-a-download-button" class="nav-link" data-scroll-target="#adding-a-download-button">Adding a download button</a></li>
   <li><a href="#adding-a-facility-selector" id="toc-adding-a-facility-selector" class="nav-link" data-scroll-target="#adding-a-facility-selector">Adding a facility selector</a></li>
   <li><a href="#adding-another-tab-with-a-table" id="toc-adding-another-tab-with-a-table" class="nav-link" data-scroll-target="#adding-another-tab-with-a-table">Adding another tab with a table</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#sharing-shiny-apps" id="toc-sharing-shiny-apps" class="nav-link" data-scroll-target="#sharing-shiny-apps"><span class="header-section-number">43.7</span> Sharing shiny apps</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">43.8</span> Further reading</a></li>
   <li><a href="#recommended-extension-packages" id="toc-recommended-extension-packages" class="nav-link" data-scroll-target="#recommended-extension-packages"><span class="header-section-number">43.9</span> Recommended extension packages</a></li>
   <li><a href="#recommended-resources" id="toc-recommended-resources" class="nav-link" data-scroll-target="#recommended-resources"><span class="header-section-number">43.10</span> Recommended resources</a></li>
-  </ul>
-</nav>
-    </div>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.html">Reports and dashboards</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Dashboards with Shiny</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.html">Reports and dashboards</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.html"><span class="chapter-number">43</span>  <span class="chapter-title">Dashboards with Shiny</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">43</span>  <span class="chapter-title">Dashboards with Shiny</span>
+</h1>
 </div>
 
 
@@ -707,41 +742,33 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<p>Dashboards are often a great way to share results from analyses with others. Producing a dashboard with <strong>shiny</strong> requires a relatively advanced knowledge of the R language, but offers incredible customization and possibilities.</p>
+</header><p>Dashboards are often a great way to share results from analyses with others. Producing a dashboard with <strong>shiny</strong> requires a relatively advanced knowledge of the R language, but offers incredible customization and possibilities.</p>
 <!-- One of the largest drawbacks of `R` is its usability for people who are new to or have no experience with programming languages. While these skills are very valuable, most people will find that this represents a barrier to sharing analyses, especially in multidisciplinary environments. It requires some work to maintain an `R` installation, and not everyone will be comfortable running shared code, even if it's well documented and easy to read. This is *especially* true when users have to change parameters of code!  -->
 <!-- R based dashboards are also advantageous in that they centralise how code is run - when the same code is run on different machines, often people will have to deal with differing file paths, different R versions, and different package installations. For this reason, dashboards are a great way to share code with others in a user friendly way! -->
 <p>It is recommended that someone learning dashboards with <strong>shiny</strong> has good knowledge of data transformation and visualisation, and is comfortable debugging code, and writing functions. Working with dashboards is not intuitive when you’re starting, and is difficult to understand at times, but is a great skill to learn and gets much easier with practice!</p>
 <p>This page will give a short overview of how to make dashboards with <strong>shiny</strong> and its extensions. For an alternative method of making dashboards that is faster, easier, but perhaps less customizeable, see the page on <strong>flextable</strong> (<a href="../new_pages/flexdashboard.html">Dashboards with R Markdown</a>).</p>
-<section id="preparation" class="level2" data-number="43.1">
-<h2 data-number="43.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">43.1</span> Preparation</h2>
-<section id="load-packages" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="load-packages">Load packages</h3>
+<section id="preparation" class="level2" data-number="43.1"><h2 data-number="43.1" class="anchored" data-anchor-id="preparation">
+<span class="header-section-number">43.1</span> Preparation</h2>
+<section id="load-packages" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="load-packages">Load packages</h3>
 <p>In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code>library()</code> from <strong>base</strong> R. See the page on <a href="../new_pages/basics.html">R basics</a> for more information on R packages.</p>
 <p>We begin by installing the <strong>shiny</strong> R package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(shiny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="import-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="import-data">Import data</h3>
+</section><section id="import-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="import-data">Import data</h3>
 <p>If you would like to follow-along with this page, see this section of the <a href="../new_pages/data_used.html#data_shiny">Download handbook and data</a>. There are links to download the R scripts and data files that produce the final Shiny app.</p>
-<p>If you try to re-construct the app using these files, please be aware of the R project folder structure that is created over the course of the demonstration (e.g.&nbsp;folders for “data” and for “funcs”).</p>
+<p>If you try to re-construct the app using these files, please be aware of the R project folder structure that is created over the course of the demonstration (e.g. folders for “data” and for “funcs”).</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="the-structure-of-a-shiny-app" class="level2" data-number="43.2">
-<h2 data-number="43.2" class="anchored" data-anchor-id="the-structure-of-a-shiny-app"><span class="header-section-number">43.2</span> The structure of a shiny app</h2>
-<section id="basic-file-structures" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="basic-file-structures">Basic file structures</h3>
+</section></section><section id="the-structure-of-a-shiny-app" class="level2" data-number="43.2"><h2 data-number="43.2" class="anchored" data-anchor-id="the-structure-of-a-shiny-app">
+<span class="header-section-number">43.2</span> The structure of a shiny app</h2>
+<section id="basic-file-structures" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="basic-file-structures">Basic file structures</h3>
 <p>To understand <code>shiny</code>, we first need to understand how the file structure of an app works! We should make a brand new directory before we start. This can actually be made easier by choosing <em>New project</em> in <em>Rstudio</em>, and choosing <em>Shiny Web Application</em>. This will create the basic structure of a shiny app for you.</p>
 <p>When opening this project, you’ll notice there is a <code>.R</code> file already present called <em>app.R</em>. It is <em>essential</em> that we have one of two basic file structures:</p>
 <ol type="1">
 <li>One file called <em>app.R</em>, <em>or</em><br>
 </li>
-<li>Two files, one called <em>ui.R</em> and the other <em>server.R</em></li>
+<li>Two files, one called <em>ui.R</em> and the other <em>server.R</em>
+</li>
 </ol>
 <p>In this page, we will use the first approach of having one file called <em>app.R</em>. Here is an example script:</p>
 <div class="cell">
@@ -784,9 +811,7 @@ cookieconsent.run({
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you open this file, you’ll notice that two objects are defined - one called <code>ui</code> and another called <code>server</code>. These objects <em>must</em> be defined in <em>every</em> shiny app and are central to the structure of the app itself! In fact, the only difference between the two file structures described above is that in structure 1, both <code>ui</code> and <code>server</code> are defined in one file, whereas in structure 2 they are defined in separate files. Note: we can also (and we should if we have a larger app) have other .R files in our structure that we can <code>source()</code> into our app.</p>
-</section>
-<section id="the-server-and-the-ui" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-server-and-the-ui">The server and the ui</h3>
+</section><section id="the-server-and-the-ui" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="the-server-and-the-ui">The server and the ui</h3>
 <p>We next need to understand what the <code>server</code> and <code>ui</code> objects actually <em>do</em>. <em>Put simply, these are two objects that are interacting with each other whenever the user interacts with the shiny app.</em></p>
 <p>The UI element of a shiny app is, on a basic level, R code that creates an HTML interface. This means everything that is <em>displayed</em> in the UI of an app. This generally includes:</p>
 <ul>
@@ -799,18 +824,15 @@ cookieconsent.run({
 <p>The most important thing to understand about the UI is that it <em>receives inputs</em> from the user and <em>displays outputs</em> from the server. There is no <em>active</em> code running in the ui <em>at any time</em> - all changes seen in the UI are passed through the server (more or less). So we have to make our plots, downloads, etc in the server</p>
 <p>The server of the shiny app is where all code is being run once the app starts up. The way this works is a little confusing. The server function will effectively <em>react</em> to the user interfacing with the UI, and run chunks of code in response. If things change in the server, these will be passed back up to the ui, where the changes can be seen. Importantly, the code in the server will be executed <em>non-consecutively</em> (or it’s best to think of it this way). Basically, whenever a ui input affects a chunk of code in the server, it will run automatically, and that output will be produced and displayed.</p>
 <p>This all probably sounds very abstract for now, so we’ll have to dive into some examples to get a clear idea of how this actually works.</p>
-</section>
-<section id="before-you-start-to-build-an-app" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="before-you-start-to-build-an-app">Before you start to build an app</h3>
+</section><section id="before-you-start-to-build-an-app" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="before-you-start-to-build-an-app">Before you start to build an app</h3>
 <p>Before you begin to build an app, its immensely helpful to know <em>what</em> you want to build. Since your UI will be written in code, you can’t really visualise what you’re building unless you are aiming for something specific. For this reason, it is immensely helpful to look at lots of examples of shiny apps to get an idea of what you can make - even better if you can look at the source code behind these apps! Some great resources for this are:</p>
 <ul>
-<li>The <a href="https://shiny.rstudio.com/gallery/">Rstudio app gallery</a></li>
+<li>The <a href="https://shiny.rstudio.com/gallery/">Rstudio app gallery</a>
+</li>
 </ul>
 <p>Once you get an idea for what is possible, it’s also helpful to map out what you want yours to look like - you can do this on paper or in any drawing software (PowerPoint, MS paint, etc.). It’s helpful to start simple for your first app! There’s also no shame in using code you find online of a nice app as a template for your work - its much easier than building something from scratch!</p>
-</section>
-</section>
-<section id="building-a-ui" class="level2" data-number="43.3">
-<h2 data-number="43.3" class="anchored" data-anchor-id="building-a-ui"><span class="header-section-number">43.3</span> Building a UI</h2>
+</section></section><section id="building-a-ui" class="level2" data-number="43.3"><h2 data-number="43.3" class="anchored" data-anchor-id="building-a-ui">
+<span class="header-section-number">43.3</span> Building a UI</h2>
 <p>When building our app, its easier to work on the UI first so we can see what we’re making, and not risk the app failing because of any server errors. As mentioned previously, its often good to use a template when working on the UI. There are a number of standard layouts that can be used with shiny that are available from the base shiny package, but it’s worth noting that there are also a number of package extensions such as <code>shinydashboard</code>. We’ll use an example from base shiny to start with.</p>
 <p>A shiny UI is generally defined as a series of nested functions, in the following order</p>
 <ol type="1">
@@ -821,12 +843,16 @@ cookieconsent.run({
 <li>a “main” panel (<code>mainPanel()</code>)</li>
 <li>a tab (<code>tabPanel()</code>)</li>
 <li>a generic “column” (<code>column()</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>Widgets and outputs - these can confer inputs to the server (widgets) or outputs from the server (outputs)
 <ul>
-<li>Widgets generally are styled as <code>xxxInput()</code> e.g.&nbsp;<code>selectInput()</code></li>
-<li>Outputs are generally styled as <code>xxxOutput()</code> e.g.&nbsp;<code>plotOutput()</code></li>
-</ul></li>
+<li>Widgets generally are styled as <code>xxxInput()</code> e.g. <code>selectInput()</code>
+</li>
+<li>Outputs are generally styled as <code>xxxOutput()</code> e.g. <code>plotOutput()</code>
+</li>
+</ul>
+</li>
 </ol>
 <p>It’s worth stating again that these can’t be visualised easily in an abstract way, so it’s best to look at an example! Lets consider making a basic app that visualises our malaria facility count data by district. This data has a lot of differnet parameters, so it would be great if the end user could apply some filters to see the data by age group/district as they see fit! We can use a very simple shiny layout to start - the sidebar layout. This is a layout where widgets are placed in a sidebar on the left, and the plot is placed on the right.</p>
 <p>Lets plan our app - we can start with a selector that lets us choose the district where we want to visualise data, and another to let us visualise the age group we are interested in. We’ll aim to use these filters to show an epicurve that reflects these parameters. So for this we need:</p>
@@ -887,8 +913,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -897,22 +922,22 @@ cookieconsent.run({
 <p>You should read documentation carefully for full details on what each of these widgets do. Widgets will pass specific types of data to the server depending on the widget type, and this needs to be fully understood. For example, <code>selectInput()</code> will pass a character type to the server:</p>
 <ul>
 <li>If we select <em>Spring</em> for the first widget here, it will pass the character object <code>"Spring"</code> to the server.</li>
-<li>If we select two items from the dropdown menu, they will come through as a character vector (e.g.&nbsp;<code>c("Spring", "Bolo")</code>).</li>
+<li>If we select two items from the dropdown menu, they will come through as a character vector (e.g. <code>c("Spring", "Bolo")</code>).</li>
 </ul>
 <p>Other widgets will pass different types of object to the server! For example:</p>
 <ul>
-<li><code>numericInput()</code> will pass a numeric type object to the server</li>
-<li><code>checkboxInput()</code> will pass a logical type object to the server (<code>TRUE</code> or <code>FALSE</code>)</li>
+<li>
+<code>numericInput()</code> will pass a numeric type object to the server</li>
+<li>
+<code>checkboxInput()</code> will pass a logical type object to the server (<code>TRUE</code> or <code>FALSE</code>)</li>
 </ul>
 <p>It’s also worth noting the <em>named vector</em> we used for the age data here. For many widgets, using a named vector as the choices will display the <em>names</em> of the vector as the display choices, but pass the selected <em>value</em> from the vector to the server. I.e. here someone can select “15+” from the drop-down menu, and the UI will pass <code>"malaria_rdt_15"</code> to the server - which happens to be the name of the column we’re interested in!</p>
 <p>There are loads of widgets that you can use to do lots of things with your app. Widgets also allow you to upload files into your app, and download outputs. There are also some excellent shiny extensions that give you access to more widgets than base shiny - the <strong>shinyWidgets</strong> package is a great example of this. To look at some examples you can look at the following links:</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/widget-gallery.html">base shiny widget gallery</a></li>
 <li><a href="https://github.com/dreamRs/shinyWidgets">shinyWidgets gallery</a></li>
-</ul>
-</section>
-<section id="loading-data-into-our-app" class="level2" data-number="43.4">
-<h2 data-number="43.4" class="anchored" data-anchor-id="loading-data-into-our-app"><span class="header-section-number">43.4</span> Loading data into our app</h2>
+</ul></section><section id="loading-data-into-our-app" class="level2" data-number="43.4"><h2 data-number="43.4" class="anchored" data-anchor-id="loading-data-into-our-app">
+<span class="header-section-number">43.4</span> Loading data into our app</h2>
 <p>The next step in our app development is getting the server up and running. To do this however, we need to get some data into our app, and figure out all the calculations we’re going to do. A shiny app is not straightforward to debug, as it’s often not clear where errors are coming from, so it’s ideal to get all our data processing and visualisation code working before we start making the server itself.</p>
 <p>So given we want to make an app that shows epi curves that change based on user input, we should think about what code we would need to run this in a normal R script. We’ll need to:</p>
 <ol type="1">
@@ -1041,8 +1066,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Bolo"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1129,9 +1153,8 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that you should <em>always</em> specify <code>local = TRUE</code> in shiny apps, since it will affect sourcing when/if the app is published on a server.</p>
-</section>
-<section id="developing-an-app-server" class="level2" data-number="43.5">
-<h2 data-number="43.5" class="anchored" data-anchor-id="developing-an-app-server"><span class="header-section-number">43.5</span> Developing an app server</h2>
+</section><section id="developing-an-app-server" class="level2" data-number="43.5"><h2 data-number="43.5" class="anchored" data-anchor-id="developing-an-app-server">
+<span class="header-section-number">43.5</span> Developing an app server</h2>
 <p>Now that we have most of our code, we just have to develop our server. This is the final piece of our app, and is probably the hardest to understand. The server is a large R function, but its helpful to think of it as a series of smaller functions, or tasks that the app can perform. It’s important to understand that these functions are not executed in a linear order. There is an order to them, but it’s not fully necessary to understand when starting out with shiny. At a very basic level, these tasks or functions will activate when there is a change in user inputs that affects them, <em>unless the developer has set them up so they behave differently</em>. Again, this is all quite abstract, but lets first go through the three basic types of shiny <em>objects</em></p>
 <ol type="1">
 <li><p>Reactive sources - this is another term for user inputs. The shiny server has access to the outputs from the UI through the widgets we’ve programmed. Every time the values for these are changed, this is passed down to the server.</p></li>
@@ -1191,11 +1214,13 @@ cookieconsent.run({
 <ul>
 <li>District selector (with an inputId of <code>select_district</code>)</li>
 <li>Age group selector (with an inputId of <code>select_agegroup</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>One output:
 <ul>
 <li>The epicurve (with an outputId of <code>malaria_epicurve</code>)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>As stated previously, these unique names we have assigned to our inputs and outputs are crucial. They <em>must be unique</em> and are used to pass information between the ui and server. In our server, we access our inputs via the syntax <code>input$inputID</code> and outputs and passed to the ui through the syntax <code>output$output_name</code> Lets have a look at an example, because again this is hard to understand otherwise!</p>
 <div class="cell">
@@ -1210,16 +1235,17 @@ cookieconsent.run({
 <p>The server for a simple app like this is actually quite straightforward! You’ll notice that the server is a function with three parameters - <code>input</code>, <code>output</code>, and <code>session</code> - this isn’t that important to understand for now, but its important to stick to this setup! In our server we only have one task - this renders a plot based on our function we made earlier, and the inputs from the server. Notice how the names of the input and output objects correspond exactly to those in the ui.</p>
 <p>To understand the basics of how the server reacts to user inputs, you should note that the output will know (through the underlying package) when inputs change, and rerun this function to create a plot every time they change. Note that we also use the <code>renderPlot()</code> function here - this is one of a family of class-specific functions that pass those objects to a ui output. There are a number of functions that behave similarly, but you need to ensure the function used matches the class of object you’re passing to the ui! For example:</p>
 <ul>
-<li><code>renderText()</code> - send text to the ui</li>
-<li><code>renderDataTable</code> - send an interactive table to the ui.</li>
+<li>
+<code>renderText()</code> - send text to the ui</li>
+<li>
+<code>renderDataTable</code> - send an interactive table to the ui.</li>
 </ul>
 <p>Remember that these also need to match the output <em>function</em> used in the ui - so <code>renderPlot()</code> is paired with <code>plotOutput()</code>, and <code>renderText()</code> is matched with <code>textOutput()</code>.</p>
 <p>So we’ve finally made a functioning app! We can run this by pressing the Run App button on the top right of the script window in Rstudio. You should note that you can choose to run your app in your default browser (rather than Rstudio) which will more accurately reflect what the app will look like for other users.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1228,16 +1254,14 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
+<figure class="figure"><p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- TO DO: *ADD SOMETHING ON DOWNLOADING A ZIP FILE OF THE APP?*  -->
-</section>
-<section id="adding-more-functionality" class="level2" data-number="43.6">
-<h2 data-number="43.6" class="anchored" data-anchor-id="adding-more-functionality"><span class="header-section-number">43.6</span> Adding more functionality</h2>
+</section><section id="adding-more-functionality" class="level2" data-number="43.6"><h2 data-number="43.6" class="anchored" data-anchor-id="adding-more-functionality">
+<span class="header-section-number">43.6</span> Adding more functionality</h2>
 <p>At this point we’ve finally got a running app, but we have very little functionality. We also haven’t really scratched the surface of what shiny can do, so there’s a lot more to learn about! Lets continue to build our existing app by adding some extra features. Some things that could be nice to add could be:</p>
 <ol type="1">
 <li>Some explanatory text</li>
@@ -1246,21 +1270,24 @@ cookieconsent.run({
 <li>Another dashboard page - this could show a table of our data.</li>
 </ol>
 <p>This is a lot to add, but we can use it to learn about a bunch of different shiny featues on the way. There is so much to learn about shiny (it can get <em>very</em> advanced, but its hopefully the case that once users have a better idea of how to use it they can become more comfortable using external learning sources as well).</p>
-<section id="adding-static-text" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adding-static-text">Adding static text</h3>
+<section id="adding-static-text" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="adding-static-text">Adding static text</h3>
 <p>Lets first discuss adding static text to our shiny app. Adding text to our app is extremely easy, once you have a basic grasp of it. Since static text doesn’t change in the shiny app (If you’d like it to change, you can use <em>text rendering</em> functions in the server!), all of shiny’s static text is generally added in the ui of the app. We wont go through this in great detail, but you can add a number of different elements to your ui (and even custom ones) by interfacing R with <em>HTML</em> and <em>css</em>.</p>
 <p>HTML and css are languages that are explicitly involved in user interface design. We don’t need to understand these too well, but <em>HTML</em> creates objects in UI (like a text box, or a table), and <em>css</em> is generally used to change the style and aesthetics of those objects. Shiny has access to a large array of <em>HTML tags</em> - these are present for objects that behave in a specific way, such as headers, paragraphs of text, line breaks, tables, etc. We can use some of these examples like this:</p>
 <ul>
-<li><p><code>h1()</code> - this a a <em>header</em> tag, which will make enclosed text automatically larger, and change defaults as they pertain to the font face, colour etc (depending on the overall theme of your app). You can access <em>smaller and smaller</em> sub-heading with <code>h2()</code> down to <code>h6()</code> as well. Usage looks like:</p>
+<li>
+<p><code>h1()</code> - this a a <em>header</em> tag, which will make enclosed text automatically larger, and change defaults as they pertain to the font face, colour etc (depending on the overall theme of your app). You can access <em>smaller and smaller</em> sub-heading with <code>h2()</code> down to <code>h6()</code> as well. Usage looks like:</p>
 <ul>
 <li><code>h1("my header - section 1")</code></li>
-</ul></li>
-<li><p><code>p()</code> - this is a <em>paragraph</em> tag, which will make enclosed text similar to text in a body of text. This text will automatically wrap, and be of a relatively small size (footers could be smaller for example.) Think of it as the text body of a word document. Usage looks like:</p>
+</ul>
+</li>
+<li>
+<p><code>p()</code> - this is a <em>paragraph</em> tag, which will make enclosed text similar to text in a body of text. This text will automatically wrap, and be of a relatively small size (footers could be smaller for example.) Think of it as the text body of a word document. Usage looks like:</p>
 <ul>
 <li><code>p("This is a larger body of text where I am explaining the function of my app")</code></li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>tags$b()</code> and <code>tags$i()</code> - these are used to create bold <code>tags$b()</code> and italicised <code>tags$i()</code> with whichever text is enclosed!</p></li>
-<li><p><code>tags$ul()</code>, <code>tags$ol()</code> and <code>tags$li()</code> - these are tags used in creating <em>lists</em>. These are all used within the syntax below, and allow the user to create either an ordered list (<code>tags$ol()</code>; i.e.&nbsp;numbered) or unordered list (<code>tags$ul()</code>, i.e.&nbsp;bullet points). <code>tags$li()</code> is used to denote items in the list, regardless of which type of list is used. e.g.:</p></li>
+<li><p><code>tags$ul()</code>, <code>tags$ol()</code> and <code>tags$li()</code> - these are tags used in creating <em>lists</em>. These are all used within the syntax below, and allow the user to create either an ordered list (<code>tags$ol()</code>; i.e. numbered) or unordered list (<code>tags$ul()</code>, i.e. bullet points). <code>tags$li()</code> is used to denote items in the list, regardless of which type of list is used. e.g.:</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">ol</span>(</span>
@@ -1341,22 +1368,17 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="adding-a-link" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adding-a-link">Adding a link</h3>
+</section><section id="adding-a-link" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="adding-a-link">Adding a link</h3>
 <p>To add a link to a website, use <code>tags$a()</code> with the link and display text as shown below. To have as a standalone paragraph, put it within <code>p()</code>. To have only a few words of a sentence linked, break the sentence into parts and use <code>tags$a()</code> for the hyperlinked part. To ensure the link opens in a <em>new</em> browser window, add <code>target = "_blank"</code> as an argument.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">a</span>(<span class="at">href =</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="adding-a-download-button" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adding-a-download-button">Adding a download button</h3>
+</section><section id="adding-a-download-button" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="adding-a-download-button">Adding a download button</h3>
 <p>Lets move on to the second of the three features. A download button is a fairly common thing to add to an app and is fairly easy to make. We need to add another Widget to our ui, and we need to add another output to our server to attach to it. We can also introduce <em>reactive conductors</em> in this example!</p>
 <p>Lets update our ui first - this is easy as shiny comes with a widget called <code>downloadButton()</code> - lets give it an inputId and a label.</p>
 <div class="cell">
@@ -1499,19 +1521,16 @@ cookieconsent.run({
 <span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can see we’re just calling on the output of our reactive we’ve defined in both our download and plot rendering functions. One thing to note that often trips people up is you have to use the outputs of reactives as if they were functions - so you <em>must add empty brackets at the end of them</em> (i.e.&nbsp;<code>malaria_plot()</code> is correct, and <code>malaria_plot</code> is not). Now that we’ve added this solution our app is a little tidyer, faster, and easier to change since all our code that runs the epicurve function is in one place.</p>
+<p>You can see we’re just calling on the output of our reactive we’ve defined in both our download and plot rendering functions. One thing to note that often trips people up is you have to use the outputs of reactives as if they were functions - so you <em>must add empty brackets at the end of them</em> (i.e. <code>malaria_plot()</code> is correct, and <code>malaria_plot</code> is not). Now that we’ve added this solution our app is a little tidyer, faster, and easier to change since all our code that runs the epicurve function is in one place.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
+<figure class="figure"><p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="adding-a-facility-selector" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adding-a-facility-selector">Adding a facility selector</h3>
+</section><section id="adding-a-facility-selector" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="adding-a-facility-selector">Adding a facility selector</h3>
 <p>Lets move on to our next feature - a selector for specific facilities. We’ll implement another parameter into our function so we can pass this as an argument from our code. Lets look at doing this first - it just operates off the same principles as the other parameters we’ve set up. Lets update and test our function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_epicurve <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">district =</span> <span class="st">"All"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_tot"</span>, <span class="at">facility =</span> <span class="st">"All"</span>) {</span>
@@ -1589,8 +1608,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Spring"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>, <span class="at">facility =</span> <span class="st">"Facility 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1707,8 +1725,10 @@ cookieconsent.run({
 </ul>
 <p>Similar to reactive functions, there are two flavours of observer functions, and they are divided by the same logic that divides reactive functions:</p>
 <ol type="1">
-<li><code>observe()</code> - this function runs whenever any inputs used inside of it change</li>
-<li><code>observeEvent()</code> - this function runs when a <em>user-specified</em> input changes</li>
+<li>
+<code>observe()</code> - this function runs whenever any inputs used inside of it change</li>
+<li>
+<code>observeEvent()</code> - this function runs when a <em>user-specified</em> input changes</li>
 </ol>
 <p>We also need to understand the shiny-provided functions that update widgets. These are fairly straightforward to run - they first take the <code>session</code> object from the server function (this doesn’t need to be understood for now), and then the <code>inputId</code> of the function to be changed. We then pass new versions of all parameters that are already taken by <code>selectInput()</code> - these will be automatically updated in the widget.</p>
 <p>Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to <em>only reflect those that are available in that district</em> (and an option for all facilities)</p>
@@ -1783,15 +1803,12 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="adding-another-tab-with-a-table" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adding-another-tab-with-a-table">Adding another tab with a table</h3>
+</section><section id="adding-another-tab-with-a-table" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="adding-another-tab-with-a-table">Adding another tab with a table</h3>
 <p>Now we’ll move on to the last component we want to add to our app. We’ll want to separate our ui into two tabs, one of which will have an interactive table where the user can see the data they are making the epidemic curve with. To do this, we can use the packaged ui elements that come with shiny relevant to tabs. On a basic level, we can enclose most of our main panel in this general structure:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... the rest of ui</span></span>
@@ -1945,16 +1962,13 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="sharing-shiny-apps" class="level2" data-number="43.7">
-<h2 data-number="43.7" class="anchored" data-anchor-id="sharing-shiny-apps"><span class="header-section-number">43.7</span> Sharing shiny apps</h2>
+</section></section><section id="sharing-shiny-apps" class="level2" data-number="43.7"><h2 data-number="43.7" class="anchored" data-anchor-id="sharing-shiny-apps">
+<span class="header-section-number">43.7</span> Sharing shiny apps</h2>
 <p>Now that you’ve developed your app, you probably want to share it with others - this is the main advantage of shiny after all! We can do this by sharing the code directly, or we could publish on a server. If we share the code, others will be able to see what you’ve done and build on it, but this will negate one of the main advantages of shiny - <em>it can eliminate the need for end-users to maintain an R installation</em>. For this reason, if you’re sharing your app with users who are not comfortable with R, it is much easier to share an app that has been published on a server.</p>
 <p>If you’d rather share the code, you could make a .zip file of the app, or better yet, <em>publish your app on github and add collaborators.</em> You can refer to the section on github for further information here.</p>
 <p>However, if we’re publishing the app online, we need to do a little more work. Ultimately, we want your app to be able to be accessed via a web URL so others can get quick and easy access to it. Unfortunately, to publish you app on a server, you need to have access to a server to publish it on! There are a number of hosting options when it comes to this:</p>
@@ -1968,13 +1982,11 @@ cookieconsent.run({
 <p>Once you have your account, you can navigate to the tokens page under <em>Accounts</em>. Here you will want to add a new token - this will be used to deploy your app.</p>
 <p>From here, you should note that the url of your account will reflect the name of your app - so if your app is called <em>my_app</em>, the url will be appended as <em>xxx.io/my_app/</em>. Choose your app name wisely! Now that you are all ready, click deploy - if successful this will run your app on the web url you chose!</p>
 <p><em>something on making apps in documents?</em></p>
-</section>
-<section id="further-reading" class="level2" data-number="43.8">
-<h2 data-number="43.8" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">43.8</span> Further reading</h2>
+</section><section id="further-reading" class="level2" data-number="43.8"><h2 data-number="43.8" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">43.8</span> Further reading</h2>
 <p>So far, we’ve covered a lot of aspects of shiny, and have barely scratched the surface of what is on offer for shiny. While this guide serves as an introduction, there is loads more to learn to fully understand shiny. You should start making apps and gradually add more and more functionality</p>
-</section>
-<section id="recommended-extension-packages" class="level2" data-number="43.9">
-<h2 data-number="43.9" class="anchored" data-anchor-id="recommended-extension-packages"><span class="header-section-number">43.9</span> Recommended extension packages</h2>
+</section><section id="recommended-extension-packages" class="level2" data-number="43.9"><h2 data-number="43.9" class="anchored" data-anchor-id="recommended-extension-packages">
+<span class="header-section-number">43.9</span> Recommended extension packages</h2>
 <p>The following represents a selection of high quality shiny extensions that can help you get a lot more out of shiny. In no particular order:</p>
 <ul>
 <li><p><strong>shinyWidgets</strong> - this package gives you many many more widgets that can be used in your app. Run <code>shinyWidgets::shinyWidgetsGallery()</code> to see a selection of available widgets with this package. See examples <a href="https://github.com/dreamRs/shinyWidgets">here</a></p></li>
@@ -1987,16 +1999,11 @@ cookieconsent.run({
 <ul>
 <li><p><strong>DT</strong> is semi-incorporated into base-shiny, but provides a great set of functions to create interactive tables.</p></li>
 <li><p><strong>plotly</strong> is a package for creating interactive plots that the user can manipulate in app. You can also convert your plot to interactive versions via <code>plotly::ggplotly()</code>! As alternatives, <strong>dygraphs</strong> and <strong>highcharter</strong> are also excellent.</p></li>
-</ul>
-</section>
-<section id="recommended-resources" class="level2" data-number="43.10">
-<h2 data-number="43.10" class="anchored" data-anchor-id="recommended-resources"><span class="header-section-number">43.10</span> Recommended resources</h2>
+</ul></section><section id="recommended-resources" class="level2" data-number="43.10"><h2 data-number="43.10" class="anchored" data-anchor-id="recommended-resources">
+<span class="header-section-number">43.10</span> Recommended resources</h2>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2175,18 +2182,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2218,7 +2214,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2253,7 +2289,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2526,60 +2566,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/flexdashboard.html" class="pagination-link" aria-label="Dashboards with R Markdown">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Dashboards with R Markdown</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>  <span class="chapter-title">Dashboards with R Markdown</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/writing_functions.html" class="pagination-link" aria-label="Writing functions">
-        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Writing functions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">44</span>  <span class="chapter-title">Writing functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":false});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","loop":false,"closeEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

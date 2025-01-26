@@ -19,6 +19,7 @@ You can do this via the **pacman** package with `p_load_current_gh()` which will
 ```{r, eval=FALSE}
 # Install and load the latest version of the package from Github
 pacman::p_load_current_gh("reconverse/reportfactory")
+#remotes::install_github("reconverse/reportfactory") # alternative
 ```
 
 
@@ -26,8 +27,9 @@ pacman::p_load_current_gh("reconverse/reportfactory")
 
 To create a new factory, run the function `new_factory()`. This will create a new self-contained R project folder. By default:  
 
-* The factory will be added to your working directory.
-* The name of the factory R project will be called "new_factory.Rproj". * Your RStudio session will "move in" to this R project.  
+* The factory will be added to your working directory
+* The name of the factory R project will be called "new_factory.Rproj"  
+* Your RStudio session will "move in" to this R project  
 
 ```{r, eval=F}
 # This will create the factory in the working directory
@@ -41,23 +43,23 @@ Looking inside the factory, you can see that sub-folders and some files were cre
 knitr::include_graphics(here::here("images", "factory_new2.png"))
 ```
 
-* The *report_sources* folder will hold your R Markdown scripts, which generate your reports.  
-* The *outputs* folder will hold the report outputs (e.g. HTML, Word, PDF, etc.).  
-* The *scripts* folder can be used to store other R scripts (e.g. that are sourced by your Rmd scripts).  
-* The *data* folder can be used to hold your data ("raw" and "clean" subfolders are included).  
-* A *.here* file, so you can use the **here** package to call files in sub-folders by their relation to this root folder (see [R projects](r_projects.qmd) page for details).  
-* A *gitignore* file was created in case you link this R project to a Github repository (see [Version control and collaboration with Github](collaboration.qmd)).  
-* An empty README file, for if you use a Github repository.  
+* The *report_sources* folder will hold your R Markdown scripts, which generate your reports  
+* The *outputs* folder will hold the report outputs (e.g. HTML, Word, PDF, etc.)  
+* The *scripts* folder can be used to store other R scripts (e.g. that are sourced by your Rmd scripts)  
+* The *data* folder can be used to hold your data ("raw" and "clean" subfolders are included)  
+* A *.here* file, so you can use the **here** package to call files in sub-folders by their relation to this root folder (see [R projects](r_projects.qmd) page for details)  
+* A *gitignore* file was created in case you link this R project to a Github repository (see [Version control and collaboration with Github](collaboration.qmd))  
+* An empty README file, for if you use a Github repository  
 
 
-<span style="color: orange;">**_CAUTION:_** depending on your computer's setting, files such as ".here" may exist but be invisible. To see hidden files, please follow the steps [here if you have a Windows computer](https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2), and [here if you use a Mac](https://www.pcmag.com/how-to/how-to-access-your-macs-hidden-files).</span>  
+<span style="color: orange;">**_CAUTION:_** depending on your computer's setting, files such as ".here" may exist but be invisible.</span>  
 
 Of the default settings, below are several that you might want to adjust within the `new_factory()` command:  
 
-* `factory = ` - Provide a name for the factory folder (default is "new_factory").  
-* `path = ` - Designate a file path for the new factory (default is the working directory).  
-* `report_sources = ` Provide an alternate name for the subfolder which holds the R Markdown scripts (default is "report_sources").  
-* `outputs = ` Provide an alternate name for the folder which holds the report outputs (default is "outputs").  
+* `factory = ` - Provide a name for the factory folder (default is "new_factory")  
+* `path = ` - Designate a file path for the new factory (default is the working directory)  
+* `report_sources = ` Provide an alternate name for the subfolder which holds the R Markdown scripts (default is "report_sources")  
+* `outputs = ` Provide an alternate name for the folder which holds the report outputs (default is "outputs")  
 
 See `?new_factory` for a complete list of the arguments.  
 
@@ -85,8 +87,8 @@ knitr::include_graphics(here::here("images", "factory_overview.png"))
 
 From within the factory R project, create a R Markdown report just as you would normally, and save it into the "report_sources" folder. See the [R Markdown](rmarkdown.qmd) page for instructions. For purposes of example, we have added the following to the factory:  
 
-* A new R markdown script entitled "daily_sitrep.Rmd", saved within the "report_sources" folder.  
-* Data for the report ("linelist_cleaned.rds"), saved to the "clean" sub-folder within the "data" folder.  
+* A new R markdown script entitled "daily_sitrep.Rmd", saved within the "report_sources" folder  
+* Data for the report ("linelist_cleaned.rds"), saved to the "clean" sub-folder within the "data" folder  
 
 We can see using `factory_overview()` our R Markdown in the "report_sources" folder and the data file in the "clean" data folder (highlighted):
 
@@ -102,8 +104,8 @@ knitr::include_graphics(here::here("images", "factory_new_rmd.png"))
 
 In this simple script, there are commands to:  
 
-* Load necessary packages.  
-* Import the linelist data using a filepath from the **here** package (read more in the page on [Import and export](importing.qmd)).  
+* Load necessary packages  
+* Import the linelist data using a filepath from the **here** package (read more in the page on [Import and export](importing.qmd))  
 
 ```{r, eval=F}
 linelist <- import(here("data", "clean", "linelist_cleaned.rds"))
@@ -214,11 +216,11 @@ knitr::include_graphics(here::here("images", "factory_overview_all.png"))
 ```
 
 
-* Within "outputs", sub-folders have been created for each Rmd report.  
-* Within those, further sub-folders have been created for each unique compiling.  
-  * These are date- and time-stamped ("2021-04-23_T11-07-36" means 23rd April 2021 at 11:07:36).  
-  * You can edit the date/time-stamp format. See `?compile_reports`.
-* Within each date/time compiled folder, the report output is stored (e.g. HTML, PDF, Word) along with the Rmd script (version control!) and any other exported files (e.g. table.csv, epidemic_curve.png).  
+* Within "outputs", sub-folders have been created for each Rmd report  
+* Within those, further sub-folders have been created for each unique compiling  
+  * These are date- and time-stamped ("2021-04-23_T11-07-36" means 23rd April 2021 at 11:07:36)  
+  * You can edit the date/time-stamp format. See `?compile_reports`
+* Within each date/time compiled folder, the report output is stored (e.g. HTML, PDF, Word) along with the Rmd script (version control!) and any other exported files (e.g. table.csv, epidemic_curve.png)  
 
 Here is a view inside one of the date/time-stamped folders, for the "daily_sitrep" report. The file path is highlighted in yellow for emphasis.  
 
@@ -255,8 +257,8 @@ We encourage you to utilize the "scripts" folder to store "runfiles" or .R scrip
 * With **reportfactory**, you can use the function `list_deps()` to list all packages required across all the reports in the entire factory.  
 
 * There is an accompanying package in development called **rfextras** that offers more helper functions to assist you in building reports, such as:  
-  * `load_scripts()` - sources/loads all .R scripts in a given folder (the "scripts" folder by default).  
-  * `find_latest()` - finds the latest version of a file (e.g. the latest dataset).
+  * `load_scripts()` - sources/loads all .R scripts in a given folder (the "scripts" folder by default)  
+  * `find_latest()` - finds the latest version of a file (e.g. the latest dataset)
 
 
 
@@ -264,7 +266,7 @@ We encourage you to utilize the "scripts" folder to store "runfiles" or .R scrip
 <!-- ======================================================= -->
 ## Resources {  }
 
-See the **reportfactory** package's [Github page](https://github.com/reconverse/reportfactory).
+See the **reportfactory** package's [Github page](https://github.com/reconverse/reportfactory)
 
-See the **rfextras** package's [Github page](https://github.com/reconhub/rfextras).  
+See the **rfextras** package's [Github page](https://github.com/reconhub/rfextras)  
 

@@ -3,9 +3,7 @@
 
 This page covers how to get help by posting a Github issue or by posting a reproducible example ("reprex") to an online forum.  
 
-```{r, echo = F, warning = F, message = F}
-library(tidyverse)
-```
+
 
 
 ## Github issues  
@@ -41,7 +39,7 @@ To read more advanced materials about handling issues in your own Github reposit
 Providing a reproducible example ("reprex") is key to getting help when posting in a forum or in a Github issue. People want to help you, but you have to give them an example that they can work with on their own computer. The example should:  
 
 * Demonstrate the problem you encountered  
-* Be *minimal*, in that it includes only the data and code required to reproduce your problem
+* Be *minimal*, in that it includes only the data and code required to reproduce your problem  
 * Be *reproducible*, such that all objects (e.g. data), package calls (e.g. `library()` or `p_load()`) are included
 
 *Also, be sure you do not post any sensitive data with the reprex!* You can create example data frames, or use one of the data frames built into R (enter `data()` to open a list of these datasets).  
@@ -52,7 +50,7 @@ Providing a reproducible example ("reprex") is key to getting help when posting 
 
 The **reprex** package can assist you with making a reproducible example:  
 
-1) **reprex** is installed with **tidyverse**, so load either package.  
+1) **reprex** is installed with **tidyverse**, so load either package  
 
 ```{r, eval=F}
 # install/load tidyverse (which includes reprex)
@@ -65,8 +63,7 @@ pacman::p_load(tidyverse)
 # load packages
 pacman::p_load(
      tidyverse,  # data mgmt and vizualization
-     outbreaks   # example outbreak datasets
-     )  
+     outbreaks)  # example outbreak datasets
 
 # flu epidemic case linelist
 outbreak_raw <- outbreaks::fluH7N9_china_2013  # retrieve dataset from outbreaks package
@@ -77,13 +74,13 @@ outbreak <- outbreak_raw %>%
 
 # Plot epidemic
 
-ggplot(data = outbreak) +
+ggplot(data = outbreak)+
      geom_histogram(
           mapping = aes(x = date_of_onset),
           binwidth = 7
-     ) +
+     )+
   scale_x_date(
-    date_labels = "%d %m"
+    date_format = "%d %m"
   )
 
 ```
@@ -100,75 +97,27 @@ knitr::include_graphics(here::here("images", "errors_reprex_RStudio1.png"))
 ```
 
 
-* If you set `session_info = TRUE` the output of `sessioninfo::session_info()` with your R and R package versions will be included
-* You can provide a working directory to `wd = `
-* You can read more about the arguments and possible variations at the [documentation](https://reprex.tidyverse.org/) or by entering `?reprex`
+* If you set `session_info = TRUE` the output of `sessioninfo::session_info()` with your R and R package versions will be included  
+* You can provide a working directory to `wd = `  
+* You can read more about the arguments and possible variations at the [documentation]() or by entering `?reprex`
 
-In the example above, the `ggplot()` command did not run because the argument `date_format =` is not correct - it should be `date_labels = `.  
+In the example above, the `ggplot()` command did not run because the arguemnt `date_format =` is not correct - it should be `date_labels = `.  
 
 
 ### Minimal data {.unnumbered}  
 
-The helpers need to be able to use your data - ideally they need to be able to create it *with code*. To create a minimal dataset, consider anonymising and using only a subset of the observations, or replicating the data using "dummy values". These seek to replicate the style (same class of variables, same amount of data, etc), but do not contain any sensitive information.
+The helpers need to be able to use your data - ideally they need to be able to create it *with code*.  
 
-For example, imagine we have a linelist of those infected with a novel pathogen.
+To create a minumal dataset, consider anonymising and using only a subset of the observations. 
 
-```{r}
-
-#Create dataset
-linelist_data <- data.frame(
-     first_name = c("John", "Jane", "Joe", "Tom", "Richard", "Harry"),
-     last_name = c("Doe", "Doe", "Bloggs", "Jerry", "Springer", "Potter"),
-     age_years = c(25, 34, 27, 89, 52, 47),
-     location = as.factor(c("London", "Paris", "Berlin", "Tokyo", "Canberra", "Rio de Janeiro")),
-     outcome = c("Died", "Recovered", NA, "Recovered", "Recovered", "Died"),
-     symptoms = as.factor(c(T, F, F, T, T, F))
-)
-
-```
-
-You can imagine that this would be very sensitive information, and it would not be appropriate (or even legal!) to share this information. To anonymise the data you could think about removing columns that are not necessary for the analysis, but are identifying. For instance you could:
-
-* Replace `first_name` and `last_name` with an `id` column, that uses the rownumber
-* Recode the `location` column so that it is not apparent where they were located
-* Change the outcome to a binary value, to avoid disclosing their condition
-
-We will be using the inbuilt vector `LETTERS`. This is the alphabet in capital letters, and is automatically part of your environment when you open R.
-
-```{r}
-
-linelist_data %>%
-     mutate(id = row_number(),
-            location = as.factor(LETTERS[as.numeric(as.factor(location))]),
-            outcome = as.character(as.factor(outcome))) %>%
-     select(id, age_years, location, outcome, symptoms)
+UNDER CONSTRUCTION - you can also use the function `dput()` to create minimal dataset.  
 
 
-```
-
-You could also generate new data, where columns are the same class (`class()`). This would also produce a reproducible dataset that does not contain any sensitive information. 
-
-```{r}
-
-dummy_dataset <- data.frame(
-     first_name = LETTERS[1:6],
-            last_name = unique(iris$Species),
-            age_years = sample(1:100, 6, replace = T),
-     location = sample(row.names(USArrests), 6, replace = T),
-     outcome = sample(c("Died", "Recovered"), 6, replace = T),
-     symptoms = sample(c(T, F), 6, replace = T)
-     )
-
-dummy_dataset
-
-```
 
 
 ## Posting to a forum  
 
-One highly recommend forum for posting your questions on is the [Applied Epi Community Forum](https://community.appliedepi.org/). There are a wealth of topics, and experts, to be found on our forum, ready to help you with questions on Epi methods, R code, and many other topics. *Note, you will have to make an account in order to post a question!*
-
-In order to make it as easy as possible for others to understand and help you, you should approach posting your question as follows.
+Read lots of forum posts. Get an understanding for which posts are well-written, and which ones are not.  
 
 1) First, decide whether to ask the question at all. Have you *thoroughly* reviewed the forum website, trying various search terms, to see if your question has already been asked?  
 
@@ -176,18 +125,18 @@ In order to make it as easy as possible for others to understand and help you, y
 
 3) Write your question:  
 
-* Introduce your situation and problem
+* Introduce your situation and problem  
 * Link to posts of similar issues and explain how they do not answer your question  
-* Include any relevant information to help someone who does not know the context of your work
-* Give a minimal reproducible example with your R session information
-* Use proper spelling, grammar, punctuation, and break your question into paragraphs so that it is easier to read
+* Include any relevant information to help someone who does not know the context of your work  
+* Give a minimal reproducible example with your R session information  
+* Use proper spelling, grammar, punctuation, and break your question into paragraphs so that it is easier to read  
 
-4) Monitor your question once posted to respond to any requests for clarification. Be courteous and gracious - often the people answering are volunteering their time to help you. If you have a follow-up question consider whether it should be a separate posted question 
+4) Monitor your question once posted to respond to any requests for clarification. Be courteous and gracious - often the people answering are volunteering their time to help you. If you have a follow-up question consider whether it should be a separate posted question.  
 
-5) Mark the question as answered, *if* you get an answer that meets the *original* request. This helps others later quickly recognize the solution  
+5) Mark the question as answered, *if* you get an answer that meets the *original* request. This helps others later quickly recognize the solution.  
 
 
-Read these posts about [how to ask a good question](https://stackoverflow.com/help/how-to-ask) the [Stack overflow code of conduct](https://stackoverflow.com/conduct), and the [Applied Epi Community post on "How to make a reproducible R code example"](https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167).
+Read these posts about [how to ask a good question](https://stackoverflow.com/help/how-to-ask) the [Stack overflow code of conduct](https://stackoverflow.com/conduct).  
 
 
 <!-- ======================================================= -->
@@ -198,6 +147,4 @@ Tidyverse page on how to [get help!](https://www.tidyverse.org/help/#:~:text=Whe
 
 Tips on [producing a minimal dataset](https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html#producing-a-minimal-dataset)
 
-The [Applied Epi Community forum](https://community.appliedepi.org/)
-
-[Applied Epi Community post on "How to make a reproducible R code example"](https://community.appliedepi.org/t/how-to-make-a-reproducible-r-code-example/167).
+Documentation for the [dput function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dput)

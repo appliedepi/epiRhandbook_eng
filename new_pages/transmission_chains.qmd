@@ -7,7 +7,7 @@
 
 The primary tool to handle, analyse and visualise transmission chains and contact
 tracing data is the package **epicontacts**, developed by the folks at
-[RECON](https://www.repidemicsconsortium.org/). Try out the interactive plot below by hovering over the nodes for more
+RECON. Try out the interactive plot below by hovering over the nodes for more
 information, dragging them to move them and clicking on them to highlight downstream cases.
 
 ```{r out.width=c('25%', '25%'), fig.show='hold', echo=F}
@@ -106,7 +106,7 @@ pacman::p_install_gh("reconhub/epicontacts@timeline")
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download handbook and data](data_used.qmd) page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](importing.qmd) for various ways to import data.
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -129,9 +129,9 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 We then need to create an **epicontacts** object, which requires two types of
 data:
 
-* a linelist documenting cases where columns are variables and rows correspond to unique cases.
+* a linelist documenting cases where columns are variables and rows correspond to unique cases
 * a list of edges defining links between cases on the basis of their unique IDs (these can be contacts,
-  transmission events, etc.).
+  transmission events, etc.)
 
 As we already have a linelist, we just need to create a list of edges between
 cases, more specifically between their IDs. We can extract transmission links from the
@@ -252,12 +252,12 @@ nrow(sub_cs$linelist)
 The `get_id()` function retrieves information on case IDs in the
 dataset, and can be parameterized as follows:
 
-- **linelist**: IDs in the line list data.
-- **contacts**: IDs in the contact dataset ("from" and "to" combined).
-- **from**: IDs in the "from" column of contact datset.
-- **to** IDs in the "to" column of contact dataset.
-- **all**: IDs that appear anywhere in either dataset.
-- **common**: IDs that appear in both contacts dataset and line list.
+- **linelist**: IDs in the line list data
+- **contacts**: IDs in the contact dataset ("from" and "to" combined)
+- **from**: IDs in the "from" column of contact datset
+- **to** IDs in the "to" column of contact dataset
+- **all**: IDs that appear anywhere in either dataset
+- **common**: IDs that appear in both contacts dataset and line list
     
 For example, what are the first ten IDs in the contacts dataset?
 ```{r transmission_chains_get_ids,}

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Справочник эпидемиолога R - 43&nbsp; Информационные панели с Shiny</title>
+<title>43  Информационные панели с Shiny – Справочник эпидемиолога R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/writing_functions.ru.html" rel="next">
 <link href="../new_pages/flexdashboard.ru.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Найти",
     "search-label": "Поиск"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,127 +112,169 @@ cookieconsent.run({
 "language":"ru"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
 
 
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+</script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.ru.html">Отчеты и информационные панели</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.ru.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Информационные панели с Shiny</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.ru.html">Отчеты и информационные панели</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.ru.html"><span class="chapter-number">43</span>  <span class="chapter-title">Информационные панели с Shiny</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Справочник эпидемиолога R</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Исходный код" class="quarto-navigation-tool px-1" aria-label="Исходный код"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Исходный код" class="quarto-navigation-tool px-1" aria-label="Исходный код"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Переключить темный режим"><i class="bi"></i></a>
 </div>
     </div>
@@ -264,9 +284,19 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Поиск"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/shiny_basics.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/shiny_basics.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/shiny_basics.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/shiny_basics.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/jp/new_pages/shiny_basics.jp.html" id="language-link-jp">日本</a>
+<a class="dropdown-item" href="/pt/new_pages/shiny_basics.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/shiny_basics.tr.html" id="language-link-tr">Türkçe</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.ru.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Добро пожаловать</span></a>
@@ -274,426 +304,435 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Об этой книге</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Редакционные и технические замечания</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Редакционные и технические замечания</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Скачивание руководства и данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Скачивание руководства и данных</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Основы</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Основы R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Основы R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Переход к R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Переход к R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Рекомендованные пакеты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Рекомендованные пакеты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Проекты R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Проекты R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Импорт и экспорт</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Импорт и экспорт</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Управление данными</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Вычистка данных и ключевые функции</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Вычистка данных и ключевые функции</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Работа с датами</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Работа с датами</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Текст и последовательности</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Текст и последовательности</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Факторы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Факторы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Поворот данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Поворот данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Группирование данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Группирование данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Соединение данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Соединение данных</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Дедупликация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Дедупликация</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Итерации, циклы и списки</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Итерации, циклы и списки</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Анализ</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Описательные таблицы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Описательные таблицы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Простые статистические тесты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Простые статистические тесты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Однофакторная и многофакторная регрессия</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">Однофакторная и многофакторная регрессия</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Отсутствующие данные</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">Отсутствующие данные</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Стандартизированные коэффициенты</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">Стандартизированные коэффициенты</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Скользящие средние значения</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">Скользящие средние значения</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Временные ряды и обнаружение вспышек</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">Временные ряды и обнаружение вспышек</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Моделирование эпидемий</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">Моделирование эпидемий</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Отслеживание контактов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">Отслеживание контактов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Анализ опросов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">Анализ опросов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Анализ выживаемости</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">Анализ выживаемости</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Основы ГИС</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">Основы ГИС</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Визуализация данных</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Таблицы для презентации</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">Таблицы для презентации</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Основы ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">Основы ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Советы по использованию ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">Советы по использованию ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Эпидемические кривые</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">Эпидемические кривые</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Демографические пирамиды и шкалы Лайкерта</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">Демографические пирамиды и шкалы Лайкерта</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Тепловые диаграммы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">Тепловые диаграммы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Диаграммы и схемы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">Диаграммы и схемы</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Анализ комбинаций</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">Анализ комбинаций</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Цепочки передачи</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">Цепочки передачи</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Филогенетические деревья</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">Филогенетические деревья</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Интерактивные графики</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">Интерактивные графики</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Отчеты и информационные панели</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Отчеты с помощью R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">Отчеты с помощью R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Структурирование рутинных отчетов</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">Структурирование рутинных отчетов</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Информационные панели с R Markdown</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">Информационные панели с R Markdown</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.ru.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Информационные панели с Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Информационные панели с Shiny</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Разное</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Переключить раздел">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Переключить раздел">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Написание функций</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">Написание функций</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Взаимодействие директорий</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">Взаимодействие директорий</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Контроль версий и совместная работа с помощью Git и Github</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Контроль версий и совместная работа с помощью Git и Github</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Частые ошибки</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">Частые ошибки</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Получение помощи</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">Получение помощи</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">R на сетевых дисках</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">R на сетевых дисках</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.ru.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Таблица данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">Таблица данных</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Приложения</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Содержание</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Содержание</h2>
    
   <ul>
-  <li><a href="#подготовка" id="toc-подготовка" class="nav-link active" data-scroll-target="#подготовка"><span class="header-section-number">43.1</span> Подготовка</a>
+<li>
+<a href="#%D0%BF%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0" id="toc-подготовка" class="nav-link active" data-scroll-target="#подготовка"><span class="header-section-number">43.1</span> Подготовка</a>
   <ul class="collapse">
-  <li><a href="#загрузка-пакетов" id="toc-загрузка-пакетов" class="nav-link" data-scroll-target="#загрузка-пакетов">Загрузка пакетов</a></li>
-  <li><a href="#импорт-данных" id="toc-импорт-данных" class="nav-link" data-scroll-target="#импорт-данных">Импорт данных</a></li>
-  </ul></li>
-  <li><a href="#структура-приложения-shiny" id="toc-структура-приложения-shiny" class="nav-link" data-scroll-target="#структура-приложения-shiny"><span class="header-section-number">43.2</span> Структура приложения shiny</a>
-  <ul class="collapse">
-  <li><a href="#базовая-структура-файлов" id="toc-базовая-структура-файлов" class="nav-link" data-scroll-target="#базовая-структура-файлов">Базовая структура файлов</a></li>
-  <li><a href="#server-сервер-и-ui-пользовательский-интерфейс" id="toc-server-сервер-и-ui-пользовательский-интерфейс" class="nav-link" data-scroll-target="#server-сервер-и-ui-пользовательский-интерфейс">Server (сервер) и ui (пользовательский интерфейс)</a></li>
-  <li><a href="#прежде-чем-вы-начнете-строить-приложение" id="toc-прежде-чем-вы-начнете-строить-приложение" class="nav-link" data-scroll-target="#прежде-чем-вы-начнете-строить-приложение">Прежде чем вы начнете строить приложение</a></li>
-  </ul></li>
-  <li><a href="#построение-пользовательского-интерфейса-ui" id="toc-построение-пользовательского-интерфейса-ui" class="nav-link" data-scroll-target="#построение-пользовательского-интерфейса-ui"><span class="header-section-number">43.3</span> Построение пользовательского интерфейса (UI)</a></li>
-  <li><a href="#загрузка-данных-в-приложение" id="toc-загрузка-данных-в-приложение" class="nav-link" data-scroll-target="#загрузка-данных-в-приложение"><span class="header-section-number">43.4</span> Загрузка данных в приложение</a></li>
-  <li><a href="#разработка-сервера-приложения" id="toc-разработка-сервера-приложения" class="nav-link" data-scroll-target="#разработка-сервера-приложения"><span class="header-section-number">43.5</span> Разработка сервера приложения</a></li>
-  <li><a href="#добавление-функционала" id="toc-добавление-функционала" class="nav-link" data-scroll-target="#добавление-функционала"><span class="header-section-number">43.6</span> Добавление функционала</a>
-  <ul class="collapse">
-  <li><a href="#добавление-статического-текста" id="toc-добавление-статического-текста" class="nav-link" data-scroll-target="#добавление-статического-текста">Добавление статического текста</a></li>
-  <li><a href="#добавление-ссылки" id="toc-добавление-ссылки" class="nav-link" data-scroll-target="#добавление-ссылки">Добавление ссылки</a></li>
-  <li><a href="#добавление-кнопки-скачивания" id="toc-добавление-кнопки-скачивания" class="nav-link" data-scroll-target="#добавление-кнопки-скачивания">Добавление кнопки скачивания</a></li>
-  <li><a href="#добавление-селектора-медицинских-организаций" id="toc-добавление-селектора-медицинских-организаций" class="nav-link" data-scroll-target="#добавление-селектора-медицинских-организаций">Добавление селектора медицинских организаций</a></li>
-  <li><a href="#добавление-еще-одной-вкладки-с-таблицей" id="toc-добавление-еще-одной-вкладки-с-таблицей" class="nav-link" data-scroll-target="#добавление-еще-одной-вкладки-с-таблицей">Добавление еще одной вкладки с таблицей</a></li>
-  </ul></li>
-  <li><a href="#предоставление-доступа-к-приложениям-shiny" id="toc-предоставление-доступа-к-приложениям-shiny" class="nav-link" data-scroll-target="#предоставление-доступа-к-приложениям-shiny"><span class="header-section-number">43.7</span> Предоставление доступа к приложениям shiny</a></li>
-  <li><a href="#дополнительное-чтение" id="toc-дополнительное-чтение" class="nav-link" data-scroll-target="#дополнительное-чтение"><span class="header-section-number">43.8</span> Дополнительное чтение</a></li>
-  <li><a href="#рекомендованные-пакеты-для-расширения" id="toc-рекомендованные-пакеты-для-расширения" class="nav-link" data-scroll-target="#рекомендованные-пакеты-для-расширения"><span class="header-section-number">43.9</span> Рекомендованные пакеты для расширения</a></li>
-  <li><a href="#рекомендованные-источники" id="toc-рекомендованные-источники" class="nav-link" data-scroll-target="#рекомендованные-источники"><span class="header-section-number">43.10</span> Рекомендованные источники</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%B2" id="toc-загрузка-пакетов" class="nav-link" data-scroll-target="#загрузка-пакетов">Загрузка пакетов</a></li>
+  <li><a href="#%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85" id="toc-импорт-данных" class="nav-link" data-scroll-target="#импорт-данных">Импорт данных</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li>
+<a href="#%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-shiny" id="toc-структура-приложения-shiny" class="nav-link" data-scroll-target="#структура-приложения-shiny"><span class="header-section-number">43.2</span> Структура приложения shiny</a>
+  <ul class="collapse">
+<li><a href="#%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2" id="toc-базовая-структура-файлов" class="nav-link" data-scroll-target="#базовая-структура-файлов">Базовая структура файлов</a></li>
+  <li><a href="#server-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80-%D0%B8-ui-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81" id="toc-server-сервер-и-ui-пользовательский-интерфейс" class="nav-link" data-scroll-target="#server-сервер-и-ui-пользовательский-интерфейс">Server (сервер) и ui (пользовательский интерфейс)</a></li>
+  <li><a href="#%D0%BF%D1%80%D0%B5%D0%B6%D0%B4%D0%B5-%D1%87%D0%B5%D0%BC-%D0%B2%D1%8B-%D0%BD%D0%B0%D1%87%D0%BD%D0%B5%D1%82%D0%B5-%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" id="toc-прежде-чем-вы-начнете-строить-приложение" class="nav-link" data-scroll-target="#прежде-чем-вы-начнете-строить-приложение">Прежде чем вы начнете строить приложение</a></li>
+  </ul>
+</li>
+  <li><a href="#%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B3%D0%BE-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D0%B0-ui" id="toc-построение-пользовательского-интерфейса-ui" class="nav-link" data-scroll-target="#построение-пользовательского-интерфейса-ui"><span class="header-section-number">43.3</span> Построение пользовательского интерфейса (UI)</a></li>
+  <li><a href="#%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B2-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" id="toc-загрузка-данных-в-приложение" class="nav-link" data-scroll-target="#загрузка-данных-в-приложение"><span class="header-section-number">43.4</span> Загрузка данных в приложение</a></li>
+  <li><a href="#%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F" id="toc-разработка-сервера-приложения" class="nav-link" data-scroll-target="#разработка-сервера-приложения"><span class="header-section-number">43.5</span> Разработка сервера приложения</a></li>
+  <li>
+<a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%B0" id="toc-добавление-функционала" class="nav-link" data-scroll-target="#добавление-функционала"><span class="header-section-number">43.6</span> Добавление функционала</a>
+  <ul class="collapse">
+<li><a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B3%D0%BE-%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0" id="toc-добавление-статического-текста" class="nav-link" data-scroll-target="#добавление-статического-текста">Добавление статического текста</a></li>
+  <li><a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8" id="toc-добавление-ссылки" class="nav-link" data-scroll-target="#добавление-ссылки">Добавление ссылки</a></li>
+  <li><a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8-%D1%81%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F" id="toc-добавление-кнопки-скачивания" class="nav-link" data-scroll-target="#добавление-кнопки-скачивания">Добавление кнопки скачивания</a></li>
+  <li><a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0-%D0%BC%D0%B5%D0%B4%D0%B8%D1%86%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D1%85-%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B9" id="toc-добавление-селектора-медицинских-организаций" class="nav-link" data-scroll-target="#добавление-селектора-медицинских-организаций">Добавление селектора медицинских организаций</a></li>
+  <li><a href="#%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B5%D1%89%D0%B5-%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B8-%D1%81-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B5%D0%B9" id="toc-добавление-еще-одной-вкладки-с-таблицей" class="nav-link" data-scroll-target="#добавление-еще-одной-вкладки-с-таблицей">Добавление еще одной вкладки с таблицей</a></li>
+  </ul>
+</li>
+  <li><a href="#%D0%BF%D1%80%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0-%D0%BA-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D0%BC-shiny" id="toc-предоставление-доступа-к-приложениям-shiny" class="nav-link" data-scroll-target="#предоставление-доступа-к-приложениям-shiny"><span class="header-section-number">43.7</span> Предоставление доступа к приложениям shiny</a></li>
+  <li><a href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D1%87%D1%82%D0%B5%D0%BD%D0%B8%D0%B5" id="toc-дополнительное-чтение" class="nav-link" data-scroll-target="#дополнительное-чтение"><span class="header-section-number">43.8</span> Дополнительное чтение</a></li>
+  <li><a href="#%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D1%8B-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D1%8F" id="toc-рекомендованные-пакеты-для-расширения" class="nav-link" data-scroll-target="#рекомендованные-пакеты-для-расширения"><span class="header-section-number">43.9</span> Рекомендованные пакеты для расширения</a></li>
+  <li><a href="#%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%B8" id="toc-рекомендованные-источники" class="nav-link" data-scroll-target="#рекомендованные-источники"><span class="header-section-number">43.10</span> Рекомендованные источники</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/rmarkdown.ru.html">Отчеты и информационные панели</a></li><li class="breadcrumb-item"><a href="../new_pages/shiny_basics.ru.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Информационные панели с Shiny</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Информационные панели с Shiny</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/rmarkdown.ru.html">Отчеты и информационные панели</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/shiny_basics.ru.html"><span class="chapter-number">43</span>  <span class="chapter-title">Информационные панели с Shiny</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">43</span>  <span class="chapter-title">Информационные панели с Shiny</span>
+</h1>
 </div>
 
 
@@ -707,41 +746,33 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<p>Информационные панели часто являются замечательным способом предоставления результатов анализа другим людям. Создание информационных панелей с <strong>shiny</strong> требует относительно продвинутых знаний языка R, но дает замечательный уровень индивидуализации и возможностей.</p>
+</header><p>Информационные панели часто являются замечательным способом предоставления результатов анализа другим людям. Создание информационных панелей с <strong>shiny</strong> требует относительно продвинутых знаний языка R, но дает замечательный уровень индивидуализации и возможностей.</p>
 <!-- Одним из самых больших недостатков `R` является его использование для людей, которые только начинают или не имеют опыта работы с языками программирования. Хотя эти навыки очень ценны, для большинства людей это является препятствием для совместного проведения анализов, особенно в многопрофильной среде. Требуется некоторая работа, чтобы поддерживать установку `R`, и не все комфортно могут работать в совместном коде, даже если он хорошо документирован и его легко читать. Это *особо* актуально, когда пользователям приходится менять параметры кода!  -->
 <!-- Информационные панели на основе R также имеют преимущества в плане того, что они централизуют выполнение кода - когда один и тот же код выполняют на разных компьютерах, люди часто сталкиваются с проблемой разных путей к файлу, разных версий R и разных установленных пакетов. По этой причине информационные панели являются замечательным способом поделиться кодом с другими пользователями удобным образом! -->
 <p>Человеку, изучающему информационные панели с <strong>shiny</strong>, рекомендуется иметь хорошие знания преобразования и визуализации данных, уметь проводить дебаггинг кода и писать функции. Работа с информационными панелями в самом начале не кажется интуитивно понятной, иногда их сложно понять, но это отличный навык и с практикой все становится проще!</p>
 <p>На этой странице будет сделан краткий обзор того, как создавать информационные панели с <strong>shiny</strong> и его расширениями. Для альтернативного метода создания информационных панелей, который быстрее, проще, но менее индивидуализированный, см. страницу по <strong>flextable</strong> (<a href="../new_pages/flexdashboard.ru.html">Информационные панели с R Markdown</a>).</p>
-<section id="подготовка" class="level2" data-number="43.1">
-<h2 data-number="43.1" class="anchored" data-anchor-id="подготовка"><span class="header-section-number">43.1</span> Подготовка</h2>
-<section id="загрузка-пакетов" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="загрузка-пакетов">Загрузка пакетов</h3>
+<section id="подготовка" class="level2" data-number="43.1"><h2 data-number="43.1" class="anchored" data-anchor-id="подготовка">
+<span class="header-section-number">43.1</span> Подготовка</h2>
+<section id="загрузка-пакетов" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="загрузка-пакетов">Загрузка пакетов</h3>
 <p>В данном руководстве мы подчеркиваем использование <code>p_load()</code> из <strong>pacman</strong>, который устанавливает пакет, если необходимо, <em>и</em> загружает его для использования. Вы можете также загрузить установленные пакеты с помощью <code>library()</code> из <strong>базового</strong> R. См. страницу <a href="../new_pages/basics.ru.html">Основы R</a> для получения дополнительной информации о пакетах R.</p>
 <p>Начнем с установки пакета R <strong>shiny</strong>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"shiny"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="импорт-данных" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="импорт-данных">Импорт данных</h3>
+</section><section id="импорт-данных" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="импорт-данных">Импорт данных</h3>
 <p>Если вы хотите выполнять действия параллельно на этой странице, см. этот раздел в <a href="../new_pages/data_used.ru.html#data_shiny">Скачивание руководства и данных</a>. Есть ссылки для скачивания скриптов R и файлов с данными, которые создают итоговое приложение Shiny.</p>
 <p>Если вы попытаетесь восстановить приложение, используя эти файлы, обратите внимание на структуру папок проекта R, которая создается в ходе демонстрации (например, папки “data” и “funcs”).</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="структура-приложения-shiny" class="level2" data-number="43.2">
-<h2 data-number="43.2" class="anchored" data-anchor-id="структура-приложения-shiny"><span class="header-section-number">43.2</span> Структура приложения shiny</h2>
-<section id="базовая-структура-файлов" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="базовая-структура-файлов">Базовая структура файлов</h3>
+</section></section><section id="структура-приложения-shiny" class="level2" data-number="43.2"><h2 data-number="43.2" class="anchored" data-anchor-id="структура-приложения-shiny">
+<span class="header-section-number">43.2</span> Структура приложения shiny</h2>
+<section id="базовая-структура-файлов" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="базовая-структура-файлов">Базовая структура файлов</h3>
 <p>Чтобы разобраться в <code>shiny</code>, нам сначала нужно понять, как работает структура файлов приложения! Мы должны создать совершенно новую директорию перед началом. Это можно упростить, выбрав <em>New project</em> (новый проект) в <em>Rstudio</em>, затем выбрав <em>Shiny Web Application</em> (веб-приложение Shiny). Это позволит создать базовую структуру приложения shiny для вас.</p>
 <p>при открытии этого проекта вы заметите, что уже присутствует файл <code>.R</code> под названием <em>app.R</em>. Очень <em>важно</em>, чтобы у нас была одна из двух основных структур файла:</p>
 <ol type="1">
 <li>Один файл под названием <em>app.R</em>, <em>или</em><br>
 </li>
-<li>Два файла, один под названием <em>ui.R</em> и другой под названием <em>server.R</em></li>
+<li>Два файла, один под названием <em>ui.R</em> и другой под названием <em>server.R</em>
+</li>
 </ol>
 <p>На этой странице мы используем сначала первый подход с наличием одного файла под названием <em>app.R</em>. Вот пример скрипта:</p>
 <div class="cell">
@@ -784,9 +815,7 @@ cookieconsent.run({
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Если вы откроете этот файл, вы заметите, что определено два объекта - один под названием <code>ui</code>, а другой - <code>server</code>. Эти объекты <em>должны</em> быть определены в <em>каждом</em> приложении shiny и являются центральными для структуры самого приложения! На самом деле, единственной разницей между двумя структурами файлов, описанных выше, является то, в структуре 1, и <code>ui</code> и <code>server</code> задаются в одном файле, а в структуре 2 они определяются в разных файлах. Примечание: мы можем также (и нам следует, если у нас более крупное приложение) иметь другие файлы .R в нашепй структуре, которые мы можем вызывать с помощью <code>source()</code> в приложении.</p>
-</section>
-<section id="server-сервер-и-ui-пользовательский-интерфейс" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="server-сервер-и-ui-пользовательский-интерфейс">Server (сервер) и ui (пользовательский интерфейс)</h3>
+</section><section id="server-сервер-и-ui-пользовательский-интерфейс" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="server-сервер-и-ui-пользовательский-интерфейс">Server (сервер) и ui (пользовательский интерфейс)</h3>
 <p>Нам нужно понять, что <em>делают</em> объекты <code>server</code> и <code>ui</code>. <em>Если говорить простыми словами, эти два объекта взаимодействуют друг с другом, когда пользователь взаимодействует с приложением shiny.</em></p>
 <p>Элемент UI приложения shiny, по сути, является кодом R, который создает HTML интерфейс. Это значит все, что <em>отображается</em> в пользовательском интерфейсе (UI) приложения. Это, как правило, включает:</p>
 <ul>
@@ -799,18 +828,14 @@ cookieconsent.run({
 <p>Наиболее важной вещью, которую нужно понять про UI, является то, что он <em>получает ввод</em> от пользователя и <em>отображает выходные данные</em> от сервера. В ui <em>никогда</em> не выполняется <em>активный</em> код - все изменения, которые мы видим в UI, передаются через сервер (плюс минус). Поэтому мы создаем графики, проводим скачивание и т.п. на сервере.</p>
 <p>На сервере приложения shiny выполняется весь код после запуска приложения. То, как это работает, может немного запутать. Функция сервера, по сути, <em>реагирует</em> на взаимодействие пользователя с UI, и в качестве отклика выполняет фрагменты кода. Если что-то меняется на сервере, это передается на ui, где можно увидеть изменения. Что важно, код на сервере исполняется <em>не-последовательно</em> (или по крайней мере лучше так думать). по сути, когда ввод через ui влияет на фрагмент кода на сервере, он будет выполнен автоматически, выходные данные будут подготовлены и отображены.</p>
 <p>Сейчас это все звучит очень абстрактно, но мы углубимся в некоторые примеры, чтобы получить представление о том, как это работает.</p>
-</section>
-<section id="прежде-чем-вы-начнете-строить-приложение" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="прежде-чем-вы-начнете-строить-приложение">Прежде чем вы начнете строить приложение</h3>
+</section><section id="прежде-чем-вы-начнете-строить-приложение" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="прежде-чем-вы-начнете-строить-приложение">Прежде чем вы начнете строить приложение</h3>
 <p>Прежде чем вы начнете строить приложение, очень полезно знать - <em>что</em> вы хотите построить. Поскольку ваш пользовательский интерфейс будет написан в коде, вы не сможете представить себе, что именно вы создаете, если только не стремитесь к чему-то конкретному. По этой причине очень полезно посмотреть множество примеров блестящих приложений, чтобы получить представление о том, что можно создать, а еще лучше, если вы сможете заглянуть в исходный код этих приложений! Отличными ресурсами для этого являются:</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/">Галерея приложений Rstudio</a></li>
 </ul>
 <p>Как только вы получите представление о том, что возможно, полезно также наметить, как вы хотите, чтобы выглядело ваше приложение, - это можно сделать на бумаге или в любой программе для рисования (PowerPoint, MS paint и т.д.). Для первого приложения полезно начать с простого! Нет ничего постыдного в том, чтобы использовать найденный в Интернете код хорошего приложения в качестве шаблона для своей работы - это гораздо проще, чем создавать что-то с нуля!</p>
-</section>
-</section>
-<section id="построение-пользовательского-интерфейса-ui" class="level2" data-number="43.3">
-<h2 data-number="43.3" class="anchored" data-anchor-id="построение-пользовательского-интерфейса-ui"><span class="header-section-number">43.3</span> Построение пользовательского интерфейса (UI)</h2>
+</section></section><section id="построение-пользовательского-интерфейса-ui" class="level2" data-number="43.3"><h2 data-number="43.3" class="anchored" data-anchor-id="построение-пользовательского-интерфейса-ui">
+<span class="header-section-number">43.3</span> Построение пользовательского интерфейса (UI)</h2>
 <p>При создании приложения проще сначала поработать над пользовательским интерфейсом, чтобы видеть, что мы делаем, и не рисковать тем, что приложение не будет работать из-за ошибок сервера. Как уже говорилось, при работе над пользовательским интерфейсом часто полезно использовать шаблон. Существует ряд стандартных макетов, которые можно использовать в shiny, доступных из базового пакета shiny, но стоит отметить, что есть и ряд расширений пакета, таких как <code>shinydashboard</code>. Мы используем для начала пример базового shiny.</p>
 <p>Пользовательский интерфейс UI, как правило, определяется как серия вложенных функций в следующем порядке:</p>
 <ol type="1">
@@ -821,12 +846,16 @@ cookieconsent.run({
 <li>“основная” панель (<code>mainPanel()</code>)</li>
 <li>вкладка (<code>tabPanel()</code>)</li>
 <li>общий “столбец” (<code>column()</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>Виджеты и выходные данные - они могут предоставлять входные данные на сервер (виджеты) или выходные данные с сервера (выходы)
 <ul>
-<li>Виджеты, как правило, стилизуются как <code>xxxInput()</code> например, <code>selectInput()</code></li>
-<li>Выходные данные, как правило, стилизуются как <code>xxxOutput()</code> например, <code>plotOutput()</code></li>
-</ul></li>
+<li>Виджеты, как правило, стилизуются как <code>xxxInput()</code> например, <code>selectInput()</code>
+</li>
+<li>Выходные данные, как правило, стилизуются как <code>xxxOutput()</code> например, <code>plotOutput()</code>
+</li>
+</ul>
+</li>
 </ol>
 <p>Стоит еще раз подчеркнуть, что эти данные не могут быть легко визуализированы в абстрактном виде, поэтому лучше обратиться к примеру! Давайте рассмотрим возможность создания базового приложения, визуализирующего данные о количестве малярийных учреждений по районам. Эти данные содержат множество различных параметров, поэтому было бы здорово, если бы конечный пользователь мог применить некоторые фильтры, чтобы увидеть данные по возрастным группам/районам так, как он считает нужным! Для начала мы можем использовать очень простой блестящий макет - макет боковой панели. Это макет, в котором виджеты располагаются в боковой панели слева, а график - справа.</p>
 <p>Давайте спланируем наше приложение - мы можем начать с селектора, который позволяет нам выбрать, для какого района мы хотим визуализировать данные, а еще один позволит визуализировать возрастную группу, которая нам интересна. Мы будем использовать эти фильтры, чтобы показать эпидкривую, которая отображает эти параметры. Для этого нам нужно:</p>
@@ -887,8 +916,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/simple_UI_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/shiny/simple_UI_view.png" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -901,18 +929,18 @@ cookieconsent.run({
 </ul>
 <p>Другие виджеты передают другие типы объектов на сервер! Например:</p>
 <ul>
-<li><code>numericInput()</code> передаст объект числового типа на сервер</li>
-<li><code>checkboxInput()</code> передаст объект логического типа на сервер (<code>TRUE</code> или <code>FALSE</code>)</li>
+<li>
+<code>numericInput()</code> передаст объект числового типа на сервер</li>
+<li>
+<code>checkboxInput()</code> передаст объект логического типа на сервер (<code>TRUE</code> или <code>FALSE</code>)</li>
 </ul>
 <p>Также следует отметить <em>именованный вектор</em>, который мы использовали для данных о возрасте. Для многих виджетов используется именованный вектор, так как варианты будут отображаться как <em>имена</em> вектора в виде выводих вариантов, но они передают выбранное <em>значение</em> из вектора серверу. Т.е., человек может выбрать “15+” из выпадающего меню и UI передаст на сервер <code>"malaria_rdt_15"</code> - что является именем столбца, который нам нужен!</p>
 <p>Существует множество виджетов, с помощью которых можно выполнять различные действия в приложении. Виджеты также позволяют загружать файлы в приложение и выгружать результаты. Есть также несколько отличных расширений shiny, которые дают доступ к большему количеству виджетов, чем базовый shiny - пакет <strong>shinyWidgets</strong> является замечательным примером этого. Чтобы изучить некоторые примеры, см. следующие ссылки:</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/gallery/widget-gallery.html">базовая галерея виджетов shiny</a></li>
 <li><a href="https://github.com/dreamRs/shinyWidgets">галерея shinyWidgets</a></li>
-</ul>
-</section>
-<section id="загрузка-данных-в-приложение" class="level2" data-number="43.4">
-<h2 data-number="43.4" class="anchored" data-anchor-id="загрузка-данных-в-приложение"><span class="header-section-number">43.4</span> Загрузка данных в приложение</h2>
+</ul></section><section id="загрузка-данных-в-приложение" class="level2" data-number="43.4"><h2 data-number="43.4" class="anchored" data-anchor-id="загрузка-данных-в-приложение">
+<span class="header-section-number">43.4</span> Загрузка данных в приложение</h2>
 <p>Следующим шагом в разработке нашего приложения является запуск сервера. Для этого нам необходимо получить некоторые данные в нашем приложении и определить все вычисления, которые мы собираемся выполнять. Блестящее приложение не так просто отладить, поскольку часто неясно, откуда берутся ошибки, поэтому идеальным вариантом будет заставить работать весь наш код обработки данных и визуализации до того, как мы начнем создавать сам сервер.</p>
 <p>Итак, если мы хотим сделать приложение, которое будет показывать эпидкривые, изменяющиеся в зависимости от ввода пользователя, то нам следует подумать о том, какой код нам потребуется для запуска этого приложения в обычном скрипте на R. Нам потребуется:</p>
 <ol type="1">
@@ -1041,8 +1069,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Bolo"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.ru_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.ru_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.ru_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="shiny_basics.ru_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1129,9 +1156,8 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Обратите внимание, что нужно <em>всегда</em> уточнять <code>local = TRUE</code> в приложениях shiny, поскольку это влияет на вызов, если приложение будет опубликовано на сервере.</p>
-</section>
-<section id="разработка-сервера-приложения" class="level2" data-number="43.5">
-<h2 data-number="43.5" class="anchored" data-anchor-id="разработка-сервера-приложения"><span class="header-section-number">43.5</span> Разработка сервера приложения</h2>
+</section><section id="разработка-сервера-приложения" class="level2" data-number="43.5"><h2 data-number="43.5" class="anchored" data-anchor-id="разработка-сервера-приложения">
+<span class="header-section-number">43.5</span> Разработка сервера приложения</h2>
 <p>Теперь, когда у нас есть большая часть кода, нам осталось разработать наш сервер. Это последняя часть нашего приложения, и, вероятно, самая сложная для понимания. Сервер представляет собой большую функцию R, но полезно представить его как серию более мелких функций или задач, которые может выполнять приложение. Важно понимать, что эти функции не выполняются в линейном порядке. Они выполняются в определенном порядке, но это не обязательно понимать в начале работы с shiny. На самом базовом уровне эти задачи или функции активизируются при изменении пользовательского ввода, который влияет на них, <em>кроме случаев, когда разработчик задал для них другое поведение</em>. Опять же, это все весьма абстрактно, но сначала давайте разберем три базовых типа <em>объектов</em> shiny.</p>
 <ol type="1">
 <li><p>Реагирующие источники - это еще один термин для пользовательских вводов. Сервер shiny имеет доступ к выходным данным из UI через виджеты, которые мы запрограммировали. Каждый раз, когда меняются значения в них, это передается на сервер.</p></li>
@@ -1191,11 +1217,13 @@ cookieconsent.run({
 <ul>
 <li>Селектор района (с inputId <code>select_district</code>)</li>
 <li>Селектор возрастной группы (с inputId <code>select_agegroup</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>один выход:
 <ul>
 <li>Эпидкривая (с outputId <code>malaria_epicurve</code>)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>Как указывалось ранее эти уникальные имена, которые мы присвоили входам и выходам. Они <em>должны быть уникальными</em> и использоваться для передачи информации между ui и сервером. На нашем сервере мы получаем доступ к нашим входам через синтез <code>input$inputID</code>, а выходы передаются в ui через синтаксис <code>output$output_name</code>. Давайте рассмотрим пример, потому что иначе это сложно понять!</p>
 <div class="cell">
@@ -1210,16 +1238,17 @@ cookieconsent.run({
 <p>Сервер для такого простого приложения на самом деле довольно прост! Вы заметите, что сервер представляет собой функцию с тремя параметрами - <code>input</code>, <code>output</code> и <code>session</code> - пока это не столь важно понимать, но важно придерживаться этой настройки! На нашем сервере у нас только одна задача - сформировать график на основе функции, которую мы создали раньше и входов с сервера. Обратите внимание, что имена объектов входа и вывода совершенно точно совпадают с теми, которые указаны в ui.</p>
 <p>Чтобы понять основы того, как сервер реагирует на вводимые пользователем данные, следует отметить, что вывод будет знать (через базовый пакет), когда изменяются вводимые данные, и повторно запускать эту функцию для создания графика каждый раз, когда они изменяются. Обратите внимание, что мы также используем функцию <code>renderPlot()</code> - это одна из семейства функций, относящихся к определенному классу и передающих эти объекты на вывод ui. Существует ряд функций, которые ведут себя аналогичным образом, но необходимо убедиться, что используемая функция соответствует классу объекта, который вы передаете в ui! Например:</p>
 <ul>
-<li><code>renderText()</code> - направляет текст в ui</li>
-<li><code>renderDataTable</code> - направляет интерактивную таблицу в ui.</li>
+<li>
+<code>renderText()</code> - направляет текст в ui</li>
+<li>
+<code>renderDataTable</code> - направляет интерактивную таблицу в ui.</li>
 </ul>
 <p>Помните, что они также должны соответствовать <em>функции</em> вывода, используемой в ui - так что <code>renderPlot()</code> идет в паре с <code>plotOutput()</code>, а <code>renderText()</code> - с <code>textOutput()</code>.</p>
 <p>Итак, мы наконец-то создали работающее приложение! Мы можем запустить его, нажав кнопку Run App в правом верхнем углу окна скрипта в Rstudio. Следует отметить, что можно выбрать запуск приложения в браузере по умолчанию (а не в Rstudio), что более точно отразит то, как приложение будет выглядеть для других пользователей.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_simple_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../images/shiny/app_simple_view.gif" style="width:100.0%;height:100.0%" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1228,16 +1257,14 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
+<figure class="figure"><p><a href="../images/shiny/listening.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../images/shiny/listening.png" class="img-fluid figure-img" width="195"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <!-- СДЕЛАТЬ: *ДОБАВИТЬ ИНФОРМАЦИЮ О СКАЧИВАНИИ ФАЙЛА ZIP В ПРИЛОЖЕНИИ?*  -->
-</section>
-<section id="добавление-функционала" class="level2" data-number="43.6">
-<h2 data-number="43.6" class="anchored" data-anchor-id="добавление-функционала"><span class="header-section-number">43.6</span> Добавление функционала</h2>
+</section><section id="добавление-функционала" class="level2" data-number="43.6"><h2 data-number="43.6" class="anchored" data-anchor-id="добавление-функционала">
+<span class="header-section-number">43.6</span> Добавление функционала</h2>
 <p>На данный момент у нас есть работающее приложение, но его функциональность очень мала. Кроме того, мы еще и не коснулись всего, на что способен shiny, так что нам еще многое предстоит узнать! Давайте продолжим развивать наше приложение, добавляя в него дополнительные возможности. Неплохо было бы добавить следующие вещи:</p>
 <ol type="1">
 <li>Некоторый пояснительный текст</li>
@@ -1246,19 +1273,22 @@ cookieconsent.run({
 <li>Еще одну страницу информационной панели - это может показать таблицу наших данных.</li>
 </ol>
 <p>Мы добавим много нового, но с помощью этого мы сможем узнать о множестве различных функций shiny. О shiny можно узнать очень многое (оно может быть <em>очень</em> продвинутым, но есть надежда, что после того, как пользователи получат представление о том, как его использовать, они смогут более комфортно использовать и внешние источники обучения).</p>
-<section id="добавление-статического-текста" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="добавление-статического-текста">Добавление статического текста</h3>
+<section id="добавление-статического-текста" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="добавление-статического-текста">Добавление статического текста</h3>
 <p>Сначала поговорим о добавлении статического текста в наше приложение shiny. Добавление текста в наше приложение очень просто, если иметь базовое представление о нем. Поскольку статический текст не изменяется в приложении shiny (если вы хотите, чтобы он изменялся, вы можете использовать функции <em>рендеринга текста</em> на сервере!), весь статический текст в shiny обычно добавляется в ui приложения. Мы не будем останавливаться на этом подробно, но вы можете добавить в свой ui множество различных элементов (и даже пользовательских), взаимодействуя с R и <em>HTML</em> и <em>css</em>.</p>
 <p>HTML и css - языки, которые явно вовлечены в дизайн интерфейса пользователя. Нам не обязательно в этом хорошо разбираться, но <em>HTML</em> создает объекты в UI (как текстовое поле или таблица), а <em>css</em>, как правило, используется для изменения стиля и эстетики этих объектов. У Shiny есть доступ к широкому спектру <em>тэгов HTML</em> - они присутствуют для объектов, которые ведут себя определенным образом, например, заголовки, абзацы текста, переносы строк, таблицы и т.д. Мы можем использовать некоторые из этих примеров следующим образом:</p>
 <ul>
-<li><p><code>h1()</code> - это тэг <em>заголовка</em>, который автоматически увеличит размер вложенного текста, а также изменит настройки по умолчанию в отношении начертания шрифта, цвета и т.д. (в зависимости от общей тематики приложения). Вы можете получить доступ к <em>все меньшим и меньшим</em> подзаголовкам с помощью <code>h2()</code> до <code>h6()</code>. Применение выглядит следующим образом:</p>
+<li>
+<p><code>h1()</code> - это тэг <em>заголовка</em>, который автоматически увеличит размер вложенного текста, а также изменит настройки по умолчанию в отношении начертания шрифта, цвета и т.д. (в зависимости от общей тематики приложения). Вы можете получить доступ к <em>все меньшим и меньшим</em> подзаголовкам с помощью <code>h2()</code> до <code>h6()</code>. Применение выглядит следующим образом:</p>
 <ul>
 <li><code>h1("my header - section 1")</code></li>
-</ul></li>
-<li><p><code>p()</code> - это тэг <em>абзаца</em>, который сделает вложенный текст похожим на текст в теле текста. Этот текст будет автоматически обернут и будет иметь относительно небольшой размер (например, колонтитулы могут быть меньше). Использование выглядит следующим образом:</p>
+</ul>
+</li>
+<li>
+<p><code>p()</code> - это тэг <em>абзаца</em>, который сделает вложенный текст похожим на текст в теле текста. Этот текст будет автоматически обернут и будет иметь относительно небольшой размер (например, колонтитулы могут быть меньше). Использование выглядит следующим образом:</p>
 <ul>
 <li><code>p("This is a larger body of text where I am explaining the function of my app")</code></li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>tags$b()</code> и <code>tags$i()</code> - используются для создания жирного шрифта <code>tags$b()</code> и курсива <code>tags$i()</code> применительно к тексту, который в них заключен!</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> и <code>tags$li()</code> - это тэги, используемые для создания <em>списков</em>. Их используют в синтаксисе ниже, они позволяют пользователю создать либо упорядоченный список (<code>tags$ol()</code>; т.е. нумерованный), либо неупорядоченный список (<code>tags$ul()</code>, т.е. маркированный список). <code>tags$li()</code> используется для обозначения пунктов в списке вне зависимости от типа используемого списка. например:</p></li>
 </ul>
@@ -1341,22 +1371,17 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_text_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../images/shiny/app_text_view.png" class="img-fluid figure-img" width="435"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="добавление-ссылки" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="добавление-ссылки">Добавление ссылки</h3>
+</section><section id="добавление-ссылки" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="добавление-ссылки">Добавление ссылки</h3>
 <p>Чтобы добавить ссылку на веб-сайт, используйте <code>tags$a()</code> со ссылкой и отобразите текст, как показано ниже. Чтобы был отдельный абзац, поместите внутри <code>p()</code>. Чтобы сделать ссылку из нескольких слов предложения, разбейте приложения на части и используйте для гипертекстовой части <code>tags$a()</code>. Чтобы убедиться, что ссылка откроется в <em>новом</em> окне браузера, добавьте <code>target = "_blank"</code> в качестве аргумента.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">a</span>(<span class="at">href =</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="добавление-кнопки-скачивания" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="добавление-кнопки-скачивания">Добавление кнопки скачивания</h3>
+</section><section id="добавление-кнопки-скачивания" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="добавление-кнопки-скачивания">Добавление кнопки скачивания</h3>
 <p>Перейдем ко второй из трех функций. Кнопка загрузки - это довольно распространенная вещь, которую можно добавить в приложение, и сделать ее довольно просто. Нам нужно добавить еще один виджет в наш ui и добавить еще один выход на наш сервер для подключения к нему. Мы таже можем ввести <em>реагирующие проводники</em> в этом примере!</p>
 <p>Сначала обновим наш ui - это легко, поскольку у shiny есть виджет под названием <code>downloadButton()</code> - давайте зададим для него inputId и подпись.</p>
 <div class="cell">
@@ -1503,15 +1528,12 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
+<figure class="figure"><p><a href="../images/shiny/download_button_view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../images/shiny/download_button_view.png" class="img-fluid figure-img" width="457"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="добавление-селектора-медицинских-организаций" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="добавление-селектора-медицинских-организаций">Добавление селектора медицинских организаций</h3>
+</section><section id="добавление-селектора-медицинских-организаций" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="добавление-селектора-медицинских-организаций">Добавление селектора медицинских организаций</h3>
 <p>Перейдем к следующему элементу - селектору для конкретных организаций. Мы внедрим в нашу функцию еще один параметр, чтобы иметь возможность передавать его в качестве аргумента из нашего кода. Сначала посмотрим, как это сделать - он работает по тем же принципам, что и другие параметры, которые мы задали. Обновим и протестируем нашу функцию.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_epicurve <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">district =</span> <span class="st">"All"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_tot"</span>, <span class="at">facility =</span> <span class="st">"All"</span>) {</span>
@@ -1589,8 +1611,7 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_epicurve</span>(malaria_data, <span class="at">district =</span> <span class="st">"Spring"</span>, <span class="at">agegroup =</span> <span class="st">"malaria_rdt_0-4"</span>, <span class="at">facility =</span> <span class="st">"Facility 1"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="shiny_basics.ru_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.ru_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="shiny_basics.ru_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="shiny_basics.ru_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1707,8 +1728,10 @@ cookieconsent.run({
 </ul>
 <p>Аналогично реагирующим функциям существует два типа функций наблюдателя, они делятся по той же логике, по которой делятся реагирующие функции:</p>
 <ol type="1">
-<li><code>observe()</code> - эта функция выполняется, когда меняются любые входы внутри нее</li>
-<li><code>observeEvent()</code> - эта функция выполняется, когда меняется <em>заданный пользователем</em> вход</li>
+<li>
+<code>observe()</code> - эта функция выполняется, когда меняются любые входы внутри нее</li>
+<li>
+<code>observeEvent()</code> - эта функция выполняется, когда меняется <em>заданный пользователем</em> вход</li>
 </ol>
 <p>Нам также нужно понять функции shiny, которые обновляют виджеты. Их достаточно просто выполнять - сначала они берут объект <code>session</code> из функции сервера (это пока не обязательно понимать), а затем <code>inputId</code> функции, которую нужно менять. Мы затем передаем новые версии всех параметров, которые уже взяты <code>selectInput()</code> - они будут автоматически обновлены в виджете.</p>
 <p>Рассмотрим отдельный пример того, как мы можем использовать это в нашем сервере. Когда пользователь меняет район, мы хотим отфильтровать нашу таблицу объектов по району и обновить варианты так, чтобы <em>они отражали только те, которые доступны в этом районе</em> (и опцию для всех учреждений)</p>
@@ -1783,15 +1806,12 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_menu_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../images/shiny/app_menu_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="добавление-еще-одной-вкладки-с-таблицей" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="добавление-еще-одной-вкладки-с-таблицей">Добавление еще одной вкладки с таблицей</h3>
+</section><section id="добавление-еще-одной-вкладки-с-таблицей" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="добавление-еще-одной-вкладки-с-таблицей">Добавление еще одной вкладки с таблицей</h3>
 <p>Теперь перейдем к последнему компоненту, который мы хотим добавить в наше приложение. Мы хотим разделить наш пользовательский интерфейс на две вкладки, одна из которых будет содержать интерактивную таблицу, в которой пользователь сможет увидеть данные, на основе которых он строит эпидемическую кривую. Для этого мы можем использовать упакованные элементы ui, которые идут в комплекте с shiny, относящимися к вкладкам. На базовом уровне мы можем заключить большую часть нашей основной панели в такую общую структуру:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... вся остальная часть ui</span></span>
@@ -1945,16 +1965,13 @@ cookieconsent.run({
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../images/shiny/app_table_view.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../images/shiny/app_table_view.gif" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="предоставление-доступа-к-приложениям-shiny" class="level2" data-number="43.7">
-<h2 data-number="43.7" class="anchored" data-anchor-id="предоставление-доступа-к-приложениям-shiny"><span class="header-section-number">43.7</span> Предоставление доступа к приложениям shiny</h2>
+</section></section><section id="предоставление-доступа-к-приложениям-shiny" class="level2" data-number="43.7"><h2 data-number="43.7" class="anchored" data-anchor-id="предоставление-доступа-к-приложениям-shiny">
+<span class="header-section-number">43.7</span> Предоставление доступа к приложениям shiny</h2>
 <p>Теперь, когда вы разработали свое приложение, вы наверняка хотите поделиться им с другими - ведь это главное преимущество shiny! Для этого можно поделиться кодом напрямую, а можно опубликовать его на сервере. Если мы поделимся кодом, другие смогут увидеть то, что вы сделали, и использовать это, но это сводит на нет одно из главных преимуществ shiny - <em>оно может устранить необходимость для конечных пользователей пользоваться R</em>. По этой причине, если вы делитесь своим приложением с пользователями, не имеющими опыта работы с R, гораздо проще поделиться приложением, опубликованным на сервере.</p>
 <p>Если вы предпочитаете поделиться кодом, вы должны создать файл .zip file с приложением, а еще лучше <em>опубликовать ваше приложение на github и добавить совместно работающих людей.</em> См. дополнительную информацию в разделе по github.</p>
 <p>Однако если мы публикуем приложение в Интернете, то нам необходимо проделать немного больше работы. В конечном итоге мы хотим, чтобы доступ к вашему приложению можно было получить по URL-адресу в Интернете, чтобы другие пользователи могли быстро и легко получить доступ к нему. К сожалению, чтобы опубликовать приложение на сервере, необходимо иметь доступ к серверу, на котором оно будет опубликовано! Для этого существует несколько вариантов хостинга:</p>
@@ -1968,13 +1985,11 @@ cookieconsent.run({
 <p>Как только у вас будет учетная запись, вы можете найти на страницу токенов в <em>Accounts</em>. Здесь вам нужно добавить новый токен - он будет использован для размещения вашего приложения.</p>
 <p>Отсюда следует, что url вашей учетной записи будет отражать название вашего приложения - так что если ваше приложение называется <em>my_app</em>, в url будет записано <em>xxx.io/my_app/</em>. Внимательно выбирайте название вашего приложения! Теперь, когда все готово, нажмите кнопку разместить - в случае успеха приложение будет запущено на выбранном вами веб-url!</p>
 <p><em>что-то о создании приложений в документах?</em></p>
-</section>
-<section id="дополнительное-чтение" class="level2" data-number="43.8">
-<h2 data-number="43.8" class="anchored" data-anchor-id="дополнительное-чтение"><span class="header-section-number">43.8</span> Дополнительное чтение</h2>
+</section><section id="дополнительное-чтение" class="level2" data-number="43.8"><h2 data-number="43.8" class="anchored" data-anchor-id="дополнительное-чтение">
+<span class="header-section-number">43.8</span> Дополнительное чтение</h2>
 <p>До сих пор мы рассмотрели множество аспектов работы с shiny и лишь слегка коснулись того, что предлагает shiny. Хотя это руководство служит введением, для полного понимания shiny необходимо узнать еще много нового. Вам следует начать создавать приложения и постепенно добавлять все больше и больше функциональности.</p>
-</section>
-<section id="рекомендованные-пакеты-для-расширения" class="level2" data-number="43.9">
-<h2 data-number="43.9" class="anchored" data-anchor-id="рекомендованные-пакеты-для-расширения"><span class="header-section-number">43.9</span> Рекомендованные пакеты для расширения</h2>
+</section><section id="рекомендованные-пакеты-для-расширения" class="level2" data-number="43.9"><h2 data-number="43.9" class="anchored" data-anchor-id="рекомендованные-пакеты-для-расширения">
+<span class="header-section-number">43.9</span> Рекомендованные пакеты для расширения</h2>
 <p>Ниже представлена подборка высококачественных расширений для shiny, которые помогут вам получить гораздо больше пользы от shiny. Список не в порядке приоритетности:</p>
 <ul>
 <li><p><strong>shinyWidgets</strong> - этот пакет даст вам гораздо больше виджетов, которые вы можете использовать в приложении. Выполните <code>shinyWidgets::shinyWidgetsGallery()</code>, чтобы увидеть перечень доступных в этом пакете виджетов. См. примеры <a href="https://github.com/dreamRs/shinyWidgets">тут</a></p></li>
@@ -1987,16 +2002,11 @@ cookieconsent.run({
 <ul>
 <li><p><strong>DT</strong> является наполовину интегрированным в базовый-shiny, но предоставляет отличный набор функций для создания интерактивных таблиц.</p></li>
 <li><p><strong>plotly</strong> - это пакет для создания интерактивных графиков, которыми пользователь может манипулировать в приложении. Вы можете также конвертировать ваш график в интерактивные версии с помощью <code>plotly::ggplotly()</code>! В качестве альтернатив также замечательно подходят <strong>dygraphs</strong> и <strong>highcharter</strong>.</p></li>
-</ul>
-</section>
-<section id="рекомендованные-источники" class="level2" data-number="43.10">
-<h2 data-number="43.10" class="anchored" data-anchor-id="рекомендованные-источники"><span class="header-section-number">43.10</span> Рекомендованные источники</h2>
+</ul></section><section id="рекомендованные-источники" class="level2" data-number="43.10"><h2 data-number="43.10" class="anchored" data-anchor-id="рекомендованные-источники">
+<span class="header-section-number">43.10</span> Рекомендованные источники</h2>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2175,18 +2185,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2218,7 +2217,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2253,7 +2292,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2526,60 +2569,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/flexdashboard.ru.html" class="pagination-link" aria-label="Информационные панели с R Markdown">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Информационные панели с R Markdown</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>  <span class="chapter-title">Информационные панели с R Markdown</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/writing_functions.ru.html" class="pagination-link" aria-label="Написание функций">
-        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Написание функций</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">44</span>  <span class="chapter-title">Написание функций</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false,"descPosition":"bottom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>

@@ -29,7 +29,7 @@ pacman::p_load(
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](importing.qmd) for various ways to import data.
 
-```{r, echo=F, warning=F, message=F}
+```{r, echo=F}
 # import the linelist into R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
@@ -104,9 +104,9 @@ summary(linelist$age_years)[[2]]
 You have several choices when producing tabulation and cross-tabulation summary tables. Some of the factors to consider include code simplicity and ease, the desired output (printed to R console, or as pretty HTML), and what you can do with the data afterward. Consider the thoughts below as you choose the tool for your situation.  
 
 * Use `tabyl()` from **janitor** to produce and "adorn" tabulations and cross-tabulations 
-  * Cons: requires post-processing (e.g with **flextable**) for publication ready tables. Does not accept multiple variables (need to use **purrr** to iterate).  
-* Use `count()` and `summarise()` from **dplyr** if preparing data for `ggplot()` or calculating more complex statistics.  
-  * Cons: similar to above but requires even more manipulation.  
+  * Cons: requires post-processing (e.g with **flextable**) for publication ready tables. Does not accept multiple variables (need to use **purrr** to iterate)  
+* Use `count()` and `summarise()` from **dplyr** if preparing data for `ggplot()` or calculating more complex statistics  
+  * Cons: similar to above but requires even more manipulation  
 * Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables  
   * Cons: missings not automatically included in percentage calculations. To use for plotting need to extract tibble from list output. 
 
@@ -145,11 +145,11 @@ Use **janitor**'s "adorn" functions to add totals or convert to proportions, per
 Function           | Outcome                          
 -------------------|--------------------------------
 `adorn_totals()`   | Adds totals (`where = ` "row", "col", or "both"). Set `name =` for "Total".  
-`adorn_percentages()` | Convert counts to proportions, with `denominator = ` "row", "col", or "all".  
+`adorn_percentages()` | Convert counts to proportions, with `denominator = ` "row", "col", or "all"  
 `adorn_pct_formatting()` | Converts proportions to percents. Specify `digits =`. Remove "%" with `affix_sign = F`.  
 `adorn_rounding()` | To round counts, proportions to `digits =` places. To round percents use `adorn_pct_formatting()` as above.  
 `adorn_ns()` | Add counts to a table of proportions or percents. Indicate `position =` "rear" for counts in parentheses, or "front" to put the percent in parentheses.  
-`adorn_title()` | add string `row_name = ` and/or `col_name = `.  
+`adorn_title()` | add string `row_name = ` and/or `col_name = `  
 
 Be conscious of the order you apply the above functions. Below are some examples.  
 
@@ -180,8 +180,7 @@ linelist %>%                                  # case linelist
   adorn_ns(position = "front") %>%            # display as: "count (percent)"
   adorn_title(                                # adjust titles
     row_name = "Age Category",
-    col_name = "Gender"
-    )
+    col_name = "Gender")
 ```
 
 
@@ -200,8 +199,7 @@ linelist %>%
   adorn_title(
     row_name = "Age Category",
     col_name = "Gender",
-    placement = "combined"
-    ) %>% # this is necessary to print to HTML 
+    placement = "combined") %>% # this is necessary to print to HTML 
   flextable::flextable() %>%    # convert to HTML
   flextable::autofit()          # format to one line per row 
 
@@ -225,8 +223,7 @@ linelist %>%
   adorn_title(
     row_name = "Age Category",
     col_name = "Gender",
-    placement = "combined"
-    ) %>% 
+    placement = "combined") %>% 
   flextable::flextable() %>%                     # convert to HTML flextable
   flextable::autofit() %>%                       # ensure only one line per row
   flextable::save_as_docx(path = "tabyl.docx")   # save as Word document

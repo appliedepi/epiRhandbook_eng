@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp"><head>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
-
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>疫学のための R ハンドブック - 9&nbsp; 日付型データ</title>
+<title>9  日付型データ – 疫学のための R ハンドブック</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,33 +53,18 @@ div.sourceCode
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <link href="../new_pages/characters_strings.jp.html" rel="next">
 <link href="../new_pages/cleaning.jp.html" rel="prev">
 <link href="../images/Applied_Epi_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script><link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script><link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -108,18 +91,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-
-<script type="text/plain" cookie-consent="tracking">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script type="text/plain" cookie-consent="tracking">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXDW878QLX', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
+</script><script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
@@ -134,137 +112,174 @@ cookieconsent.run({
 "language":"jp"
   });
 });
-</script> 
-  
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script>
-<script>
+</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
 
-  gtag('config', 'G-QXDW878QLX');
-</script>
 
-</head><body class="nav-sidebar floating"><div class="alert alert-info alert-dismissible">
+
+  gtag('config', 'G-QXDW878QLX');
+
+</script>
+</head>
+<body class="nav-sidebar floating">
+<div class="alert alert-info alert-dismissible">
+
   <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
   <strong>Need help learning R?</strong> Enroll in Applied Epi's <a href="https://www.appliedepi.org/live/"
+
     class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/"
+
     class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/"
+
     class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org"
+
     class="alert-link">R Help Desk service</a>. -->
+
 </div>
+
+
 
 <script>
 
+
+
   // Function to extract the last two characters from the URL path
+
   function getLanguageFromURL() {
+
     const path = window.location.pathname.split('/');
+
     
+
     if (path.length > 1) {
+
       return path[1]; // Assume the language code is the second segment
+
     }
 
+
+
     return '';
+
   }
 
+
+
   const language = getLanguageFromURL();
+
   const supportedLanguages = ['fr', 'es', 'vn', 'jp', 'pt', 'tr', 'ru', 'en'];
+
   const defaultLanguage = 'en';
+
   const isSupportedLanguage = supportedLanguages.includes(language);
 
+
+
   // Translations for the content
+
   const translations = {
+
     en: '<strong>Need help learning R?</strong> Enroll in Applied Epi\'s <a href="https://www.appliedepi.org/live/" class="alert-link">intro R course</a>, try our <a href="https://www.appliedepi.org/tutorial/" class="alert-link">free R tutorials</a>, post in our <a href="https://community.appliedepi.org/" class="alert-link">Community Q&A forum</a>, or ask about our <a href="mailto:contact@appliedepi.org" class="alert-link">R Help Desk service</a>.',
+
     fr: '<strong>Besoin d\'aide pour apprendre R ?</strong> Inscrivez-vous au <a href="https://www.appliedepi.org/live/" class="alert-link">cours d\'introduction à R</a> d\'Applied Epi, essayez nos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriels R gratuits</a>, postez dans notre forum de <a href="https://community.appliedepi.org/" class="alert-link">questions-réponses communautaires</a>, ou demandez-nous des informations sur <a href="mailto:contact@appliedepi.org" class="alert-link"> notre service d\'assistance R</a>.',
+
     es: '<strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas,</a> o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.',
+
     vn: '<strong>Bạn cần giúp đỡ trong việc học R?</strong> Hãy đăng ký khóa học R cơ bản của Applied Epi tại <a href="https://www.appliedepi.org/live/" class="alert-link">đây</a>, hoặc thử các <a href="https://www.appliedepi.org/tutorial/" class="alert-link">hướng dẫn R miễn phí</a>, đăng bài trong <a href="https://community.appliedepi.org/" class="alert-link">diễn đàn cộng đồng</a>, hoặc gửi câu hỏi tới <a href="mailto:contact@appliedepi.org" class="alert-link">dịch vụ Trợ giúp R</a> của chúng tôi.',
+
     jp: '<strong>Rの学習について助けが必要ですか？</strong>Applied Epiの<a href="https://www.appliedepi.org/live/" class="alert-link">R入門コース</a>に登録するか、<a href="https://www.appliedepi.org/tutorial/" class="alert-link">無料Rチュートリアル</a>を試すか、<a href="https://community.appliedepi.org/" class="alert-link">コミュニティQ＆Aフォーラム</a>に投稿するか、<a href="mailto:contact@appliedepi.org" class="alert-link">Rヘルプデスクサービス</a>についてお問い合わせください。',
+
     pt: '<strong>Você precisa de ajuda para aprender R??</strong> Inscreva-se no curso de <a href="https://www.appliedepi.org/live/" class="alert-link">introdução ao R da Applied Epi</a>, experimente nossos <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriais gratuitos sobre o R</a>, publique em nosso <a href="https://community.appliedepi.org/" class="alert-link">fórum de perguntas e respostas</a>, ou solicite nosso <a href="mailto:contact@appliedepi.org" class="alert-link">suporte ao R</a>.',
+
     tr: '<strong>R öğrenmekte yardıma mı ihtiyacınız var?</strong> Applied Epi\'\nin <a href="https://www.appliedepi.org/live/" class="alert-link">R\'ye giriş kursuna</a> kaydolun, <a href="https://www.appliedepi.org/tutorial/" class="alert-link">ücretsiz R derslerimizi</a> deneyin, <a href="https://community.appliedepi.org/" class="alert-link">Topluluk Q&A forumunda</a> soru paylaşın, ya da <a href="mailto:contact@appliedepi.org" class="alert-link">R Yardım Masası hizmetimiz</a> hakkında sorun.',
+
     ru: '<strong>Нужна помощь в изучении R?</strong> Запишитесь на <a href="https://www.appliedepi.org/live/" class="alert-link">вводный курс по R</a> от Applied Epi, попробуйте наши <a href="https://www.appliedepi.org/tutorial/" class="alert-link">бесплатные учебные материалы по R</a>, задайте вопрос в нашем <a href="https://community.appliedepi.org/" class="alert-link">форуме вопросов и ответов сообщества</a>, или спросите о нашей услуге <a href="mailto:contact@appliedepi.org" class="alert-link">Службы поддержки по R</a>.'
+
   };
 
+
+
   // Default to English if the detected language is not supported
+
   const contentToDisplay = translations[isSupportedLanguage ? language : defaultLanguage];
 
 
+
+
+
   // Select the element where the content should be displayed
+
   const alertElement = document.querySelector('.alert');
+
   if (alertElement) {
+
     alertElement.innerHTML = contentToDisplay;
+
     alertElement.style.display = 'block'; // Make sure to display the element
+
   }
 
-</script>
-<link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</script><link href="../site_libs/htmltools-fill-0.5.8/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-
-
-
-
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li><li class="breadcrumb-item"><a href="../new_pages/dates.jp.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/dates.jp.html"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></a></li>
+</ol></nav><a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/Applied_Epi_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">疫学のための R ハンドブック</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://twitter.com/appliedepi" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://www.linkedin.com/company/appliedepi/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/appliedepi/epihandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/appliedepi/epiRhandbook_eng" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -274,9 +289,19 @@ cookieconsent.run({
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container"> 
+    <div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links">
+<a class="dropdown-item" href="/new_pages/dates.html" id="language-link-en">English</a><a class="dropdown-item" href="/fr/new_pages/dates.fr.html" id="language-link-fr">Français</a>
+<a class="dropdown-item" href="/es/new_pages/dates.es.html" id="language-link-es">Español</a>
+<a class="dropdown-item" href="/vn/new_pages/dates.vn.html" id="language-link-vn">Tiếng Việt</a>
+<a class="dropdown-item" href="/pt/new_pages/dates.pt.html" id="language-link-pt">Português</a>
+<a class="dropdown-item" href="/tr/new_pages/dates.tr.html" id="language-link-tr">Türkçe</a>
+<a class="dropdown-item" href="/ru/new_pages/dates.ru.html" id="language-link-ru">Русский</a>
+</ul>
+</div>
+<div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.jp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">いらっしゃいませ</span></a>
@@ -284,440 +309,453 @@ cookieconsent.run({
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">本書について</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/editorial_style.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">編集前記・技術注記</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">編集前記・技術注記</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_used.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">ハンドブックとデータのダウンロード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">基本編</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R の基礎</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">R の基礎</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transition_to_R.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Excel・Stata・SASとの比較</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/packages_suggested.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">推奨パッケージ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">推奨パッケージ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/r_projects.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R プロジェクト</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">R プロジェクト</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/importing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">データのインポート・エクスポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">データのインポート・エクスポート</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">データマネジメント</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/cleaning.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/dates.jp.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/characters_strings.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/factors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">因子（ファクタ）型データ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/pivoting.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データの縦横変換</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">データの縦横変換</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/grouping.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">データのグループ化</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">データのグループ化</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/joining_matching.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">データの結合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">データの結合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/deduplication.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">重複データの排除</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">重複データの排除</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/iteration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">ループと反復処理・リストの操作</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">データ分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_descriptive.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">記述統計表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">記述統計表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/stat_tests.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">基本的な統計的検定</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">基本的な統計的検定</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/regression.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">単変量と多変量回帰</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>  <span class="chapter-title">単変量と多変量回帰</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/missing_data.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">データの欠損</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>  <span class="chapter-title">データの欠損</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/standardization.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">標準化率</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>  <span class="chapter-title">標準化率</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/moving_average.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">移動平均</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>  <span class="chapter-title">移動平均</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/time_series.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>  <span class="chapter-title">時系列分析とアウトブレイクの検出{#time-series}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epidemic_models.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">エピデミックモデリング</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>  <span class="chapter-title">エピデミックモデリング</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/contact_tracing.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>  <span class="chapter-title">接触者の追跡{#contact-tracing}</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survey_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">標本調査データ分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>  <span class="chapter-title">標本調査データ分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/survival_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">生存時間解析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>  <span class="chapter-title">生存時間解析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/gis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">GIS の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>  <span class="chapter-title">GIS の基本</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">データの可視化</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/tables_presentation.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">見やすい表の作り方</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>  <span class="chapter-title">見やすい表の作り方</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ggplot の基本</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>  <span class="chapter-title">ggplot の基本</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/ggplot_tips.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">ggplotのヒント</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>  <span class="chapter-title">ggplotのヒント</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/epicurves.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>  <span class="chapter-title">流行曲線（エピカーブ）</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/age_pyramid.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>  <span class="chapter-title">人口ピラミッドとリッカート尺度</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/heatmaps.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">ヒートマップ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>  <span class="chapter-title">ヒートマップ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/diagrams.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>  <span class="chapter-title">フローチャート・サンキー図・タイムライン</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/combination_analysis.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">複数回答データの分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>  <span class="chapter-title">複数回答データの分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/transmission_chains.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">感染連鎖</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>  <span class="chapter-title">感染連鎖</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/phylogenetic_trees.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">系統樹</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>  <span class="chapter-title">系統樹</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/interactive_plots.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">動的な図の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>  <span class="chapter-title">動的な図の作成</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">レポートとダッシュボード</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/rmarkdown.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">R Markdown で作るレポート</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>  <span class="chapter-title">R Markdown で作るレポート</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/reportfactory.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>  <span class="chapter-title">ルーチンで作成するレポートの整理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/flexdashboard.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>  <span class="chapter-title">R Markdownで作るダッシュボード</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/shiny_basics.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>  <span class="chapter-title">Shiny で作るダッシュボード</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">その他</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/writing_functions.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">関数の作成</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>  <span class="chapter-title">関数の作成</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/directories.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">ディレクトリの操作</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>  <span class="chapter-title">ディレクトリの操作</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/collaboration.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>  <span class="chapter-title">Git と Github を使ったバージョン管理と共同作業</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/errors.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">よくあるエラー</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>  <span class="chapter-title">よくあるエラー</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/help.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ヘルプ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>  <span class="chapter-title">ヘルプ</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/network_drives.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>  <span class="chapter-title">ネットワークドライブで R を使用する場合</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../new_pages/data_table.jp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>  <span class="chapter-title">data.table パッケージを使用したデータ処理</span></span></a>
   </div>
 </li>
       </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
   </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#準備" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">9.1</span> 準備</a>
+<li>
+<a href="#%E6%BA%96%E5%82%99" id="toc-準備" class="nav-link active" data-scroll-target="#準備"><span class="header-section-number">9.1</span> 準備</a>
   <ul class="collapse">
-  <li><a href="#パッケージの読み込み" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
-  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
-  </ul></li>
-  <li><a href="#現在の日付" id="toc-現在の日付" class="nav-link" data-scroll-target="#現在の日付"><span class="header-section-number">9.2</span> 現在の日付</a></li>
-  <li><a href="#日付型dateに変換" id="toc-日付型dateに変換" class="nav-link" data-scroll-target="#日付型dateに変換"><span class="header-section-number">9.3</span> 日付型（Date）に変換</a>
-  <ul class="collapse">
-  <li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r"><strong>base</strong> R</a></li>
-  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate"><strong>lubridate</strong></a></li>
-  <li><a href="#列の結合" id="toc-列の結合" class="nav-link" data-scroll-target="#列の結合">列の結合</a></li>
-  </ul></li>
-  <li><a href="#excel-における日付" id="toc-excel-における日付" class="nav-link" data-scroll-target="#excel-における日付"><span class="header-section-number">9.4</span> Excel における日付</a></li>
-  <li><a href="#厄介な日付" id="toc-厄介な日付" class="nav-link" data-scroll-target="#厄介な日付"><span class="header-section-number">9.5</span> 厄介な日付</a></li>
-  <li><a href="#日時型datetimeに変換" id="toc-日時型datetimeに変換" class="nav-link" data-scroll-target="#日時型datetimeに変換"><span class="header-section-number">9.6</span> 日時型（datetime）に変換</a>
-  <ul class="collapse">
-  <li><a href="#日付と時刻の変換" id="toc-日付と時刻の変換" class="nav-link" data-scroll-target="#日付と時刻の変換">日付と時刻の変換</a></li>
-  <li><a href="#時間のみの変換" id="toc-時間のみの変換" class="nav-link" data-scroll-target="#時間のみの変換">時間のみの変換</a></li>
-  <li><a href="#時間の抽出" id="toc-時間の抽出" class="nav-link" data-scroll-target="#時間の抽出">時間の抽出</a></li>
-  </ul></li>
-  <li><a href="#日付の操作" id="toc-日付の操作" class="nav-link" data-scroll-target="#日付の操作"><span class="header-section-number">9.7</span> 日付の操作</a>
-  <ul class="collapse">
-  <li><a href="#日付成分の抽出" id="toc-日付成分の抽出" class="nav-link" data-scroll-target="#日付成分の抽出">日付成分の抽出</a></li>
-  <li><a href="#日付の計算" id="toc-日付の計算" class="nav-link" data-scroll-target="#日付の計算">日付の計算</a></li>
-  <li><a href="#日付の間隔" id="toc-日付の間隔" class="nav-link" data-scroll-target="#日付の間隔">日付の間隔</a></li>
-  </ul></li>
-  <li><a href="#日付の表示" id="toc-日付の表示" class="nav-link" data-scroll-target="#日付の表示"><span class="header-section-number">9.8</span> 日付の表示</a>
-  <ul class="collapse">
-  <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format"><code>format()</code></a></li>
-  <li><a href="#年月" id="toc-年月" class="nav-link" data-scroll-target="#年月">年月</a></li>
-  </ul></li>
-  <li><a href="#dates_epi_wks" id="toc-dates_epi_wks" class="nav-link" data-scroll-target="#dates_epi_wks"><span class="header-section-number">9.9</span> 疫学週</a>
-  <ul class="collapse">
-  <li><a href="#lubridate-1" id="toc-lubridate-1" class="nav-link" data-scroll-target="#lubridate-1"><strong>lubridate</strong></a></li>
-  <li><a href="#週ごとのカウント" id="toc-週ごとのカウント" class="nav-link" data-scroll-target="#週ごとのカウント">週ごとのカウント</a></li>
-  <li><a href="#疫学週-の代替案" id="toc-疫学週-の代替案" class="nav-link" data-scroll-target="#疫学週-の代替案">疫学週 の代替案</a></li>
-  </ul></li>
-  <li><a href="#日付タイムゾーンの変換" id="toc-日付タイムゾーンの変換" class="nav-link" data-scroll-target="#日付タイムゾーンの変換"><span class="header-section-number">9.10</span> 日付・タイムゾーンの変換</a></li>
-  <li><a href="#前後の値の計算" id="toc-前後の値の計算" class="nav-link" data-scroll-target="#前後の値の計算"><span class="header-section-number">9.11</span> 前後の値の計算</a></li>
-  <li><a href="#参考資料" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">9.12</span> 参考資料</a></li>
+<li><a href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF" id="toc-パッケージの読み込み" class="nav-link" data-scroll-target="#パッケージの読み込み">パッケージの読み込み</a></li>
+  <li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
   </ul>
-</nav>
-    </div>
+</li>
+  <li><a href="#%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%97%A5%E4%BB%98" id="toc-現在の日付" class="nav-link" data-scroll-target="#現在の日付"><span class="header-section-number">9.2</span> 現在の日付</a></li>
+  <li>
+<a href="#%E6%97%A5%E4%BB%98%E5%9E%8Bdate%E3%81%AB%E5%A4%89%E6%8F%9B" id="toc-日付型dateに変換" class="nav-link" data-scroll-target="#日付型dateに変換"><span class="header-section-number">9.3</span> 日付型（Date）に変換</a>
+  <ul class="collapse">
+<li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r"><strong>base</strong> R</a></li>
+  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate"><strong>lubridate</strong></a></li>
+  <li><a href="#%E5%88%97%E3%81%AE%E7%B5%90%E5%90%88" id="toc-列の結合" class="nav-link" data-scroll-target="#列の結合">列の結合</a></li>
+  </ul>
+</li>
+  <li><a href="#excel-%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E4%BB%98" id="toc-excel-における日付" class="nav-link" data-scroll-target="#excel-における日付"><span class="header-section-number">9.4</span> Excel における日付</a></li>
+  <li><a href="#%E5%8E%84%E4%BB%8B%E3%81%AA%E6%97%A5%E4%BB%98" id="toc-厄介な日付" class="nav-link" data-scroll-target="#厄介な日付"><span class="header-section-number">9.5</span> 厄介な日付</a></li>
+  <li>
+<a href="#%E6%97%A5%E6%99%82%E5%9E%8Bdatetime%E3%81%AB%E5%A4%89%E6%8F%9B" id="toc-日時型datetimeに変換" class="nav-link" data-scroll-target="#日時型datetimeに変換"><span class="header-section-number">9.6</span> 日時型（datetime）に変換</a>
+  <ul class="collapse">
+<li><a href="#%E6%97%A5%E4%BB%98%E3%81%A8%E6%99%82%E5%88%BB%E3%81%AE%E5%A4%89%E6%8F%9B" id="toc-日付と時刻の変換" class="nav-link" data-scroll-target="#日付と時刻の変換">日付と時刻の変換</a></li>
+  <li><a href="#%E6%99%82%E9%96%93%E3%81%AE%E3%81%BF%E3%81%AE%E5%A4%89%E6%8F%9B" id="toc-時間のみの変換" class="nav-link" data-scroll-target="#時間のみの変換">時間のみの変換</a></li>
+  <li><a href="#%E6%99%82%E9%96%93%E3%81%AE%E6%8A%BD%E5%87%BA" id="toc-時間の抽出" class="nav-link" data-scroll-target="#時間の抽出">時間の抽出</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E6%97%A5%E4%BB%98%E3%81%AE%E6%93%8D%E4%BD%9C" id="toc-日付の操作" class="nav-link" data-scroll-target="#日付の操作"><span class="header-section-number">9.7</span> 日付の操作</a>
+  <ul class="collapse">
+<li><a href="#%E6%97%A5%E4%BB%98%E6%88%90%E5%88%86%E3%81%AE%E6%8A%BD%E5%87%BA" id="toc-日付成分の抽出" class="nav-link" data-scroll-target="#日付成分の抽出">日付成分の抽出</a></li>
+  <li><a href="#%E6%97%A5%E4%BB%98%E3%81%AE%E8%A8%88%E7%AE%97" id="toc-日付の計算" class="nav-link" data-scroll-target="#日付の計算">日付の計算</a></li>
+  <li><a href="#%E6%97%A5%E4%BB%98%E3%81%AE%E9%96%93%E9%9A%94" id="toc-日付の間隔" class="nav-link" data-scroll-target="#日付の間隔">日付の間隔</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E6%97%A5%E4%BB%98%E3%81%AE%E8%A1%A8%E7%A4%BA" id="toc-日付の表示" class="nav-link" data-scroll-target="#日付の表示"><span class="header-section-number">9.8</span> 日付の表示</a>
+  <ul class="collapse">
+<li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format"><code>format()</code></a></li>
+  <li><a href="#%E5%B9%B4%E6%9C%88" id="toc-年月" class="nav-link" data-scroll-target="#年月">年月</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#dates_epi_wks" id="toc-dates_epi_wks" class="nav-link" data-scroll-target="#dates_epi_wks"><span class="header-section-number">9.9</span> 疫学週</a>
+  <ul class="collapse">
+<li><a href="#lubridate-1" id="toc-lubridate-1" class="nav-link" data-scroll-target="#lubridate-1"><strong>lubridate</strong></a></li>
+  <li><a href="#%E9%80%B1%E3%81%94%E3%81%A8%E3%81%AE%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88" id="toc-週ごとのカウント" class="nav-link" data-scroll-target="#週ごとのカウント">週ごとのカウント</a></li>
+  <li><a href="#%E7%96%AB%E5%AD%A6%E9%80%B1-%E3%81%AE%E4%BB%A3%E6%9B%BF%E6%A1%88" id="toc-疫学週-の代替案" class="nav-link" data-scroll-target="#疫学週-の代替案">疫学週 の代替案</a></li>
+  </ul>
+</li>
+  <li><a href="#%E6%97%A5%E4%BB%98%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BE%E3%83%BC%E3%83%B3%E3%81%AE%E5%A4%89%E6%8F%9B" id="toc-日付タイムゾーンの変換" class="nav-link" data-scroll-target="#日付タイムゾーンの変換"><span class="header-section-number">9.10</span> 日付・タイムゾーンの変換</a></li>
+  <li><a href="#%E5%89%8D%E5%BE%8C%E3%81%AE%E5%80%A4%E3%81%AE%E8%A8%88%E7%AE%97" id="toc-前後の値の計算" class="nav-link" data-scroll-target="#前後の値の計算"><span class="header-section-number">9.11</span> 前後の値の計算</a></li>
+  <li><a href="#%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99" id="toc-参考資料" class="nav-link" data-scroll-target="#参考資料"><span class="header-section-number">9.12</span> 参考資料</a></li>
+  </ul></nav>
+</div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li><li class="breadcrumb-item"><a href="../new_pages/dates.jp.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span id="dates" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">日付型データ</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="../new_pages/cleaning.jp.html">データマネジメント</a></li>
+<li class="breadcrumb-item"><a href="../new_pages/dates.jp.html"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></a></li>
+</ol></nav><div class="quarto-title">
+<h1 class="title"><span id="dates" class="quarto-section-identifier"><span class="chapter-number">9</span>  <span class="chapter-title">日付型データ</span></span></h1>
 </div>
 
 
@@ -731,14 +769,10 @@ cookieconsent.run({
   
 
 
-</header>
-
-
-<div class="cell" data-layout-align="center">
+</header><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/Dates_500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Dates_500x500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="../images/Dates_500x500.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/Dates_500x500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -753,11 +787,9 @@ cookieconsent.run({
 </li>
 <li>ここでは、日付の列を日付型（Date）に変換するいくつかの方法を紹介します。</li>
 </ul>
-<!-- ======================================================= -->
-<section id="準備" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="準備"><span class="header-section-number">9.1</span> 準備</h2>
-<section id="パッケージの読み込み" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
+<!-- ======================================================= --><section id="準備" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="準備">
+<span class="header-section-number">9.1</span> 準備</h2>
+<section id="パッケージの読み込み" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="パッケージの読み込み">パッケージの読み込み</h3>
 <p>以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、<strong>pacman</strong> パッケージの <code>p_load()</code> を主に使用しています。<code>p_load()</code> は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである <strong>base</strong> の <code>library()</code> を使用して読み込むこともできます。R のパッケージについては、<a href="basics.jp.html">R の基礎</a> の章を参照してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># パッケージがインストールされているか確認し、必要に応じてパッケージをインストールし、ロードする</span></span>
@@ -771,47 +803,43 @@ cookieconsent.run({
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  tidyverse,  <span class="co"># データマネジメントと可視化  </span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  rio)        <span class="co"># データのインポートとエクスポート</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="データのインポート" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
+</section><section id="データのインポート" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="データのインポート">データのインポート</h3>
 <p>エボラ出血熱の流行をシミュレートしたデータセットをインポートします。お手元の環境でこの章の内容を実行したい方は、<a href="#data_used">ハンドブックとデータのダウンロード</a> の章を参照してください。ここではデータのファイルが作業ディレクトリにあると仮定し、ファイルパスにはサブフォルダを指定しません。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="現在の日付" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="現在の日付"><span class="header-section-number">9.2</span> 現在の日付</h2>
+</section></section><section id="現在の日付" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="現在の日付">
+<span class="header-section-number">9.2</span> 現在の日付</h2>
 <p>コンピュータの「システム」における現在の日付や日時を取得するには、<strong>base</strong> R を使って次のように行います。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># システムの日付を取得（日付型:DATE）</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19"</code></pre>
+<pre><code>[1] "2024-09-18"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># システム時刻の取得（日時型:DATETIME）</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19 13:57:29 CEST"</code></pre>
+<pre><code>[1] "2024-09-18 22:29:26 +07"</code></pre>
 </div>
 </div>
 <p><strong>lubridate</strong> パッケージでは、それぞれを <code>today()</code> と <code>now()</code> で返すことができます。 <code>date()</code> は現在の日付と時刻を、曜日と月名とともに返します。</p>
 <!-- ======================================================= -->
-</section>
-<section id="日付型dateに変換" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="日付型dateに変換"><span class="header-section-number">9.3</span> 日付型（Date）に変換</h2>
+</section><section id="日付型dateに変換" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="日付型dateに変換">
+<span class="header-section-number">9.3</span> 日付型（Date）に変換</h2>
 <p>データセットを R にインポートすると、日付列の値が「1989/12/30」、「05/06/2014」、「13 Jan 2020」のようになることがあります。このような場合、R はこれらの値を文字として扱っている可能性が高いです。これらの値が日付であること、そしてその日付のフォーマット（どの部分が日で、どこが月で、どこが年であるかなど）を R に<u>伝える</u>必要があります。</p>
 <p>R に伝えることで、このような値を日付型（Date）に変換します。日付型（Date）に変更された日付は、システム内部では数値（「起点日」の 1970 年 1 月 1 日からの日数）として保存されています。日付を数値として扱うことはあまりありませんが、これにより日付を連続変数として扱い、日付間の距離を計算するなどの特殊な操作が可能になります。</p>
 <p>デフォルトでは、日付型（Date）の値は YYYY-MM-DD で表示されます。このセクションでは、日付の値の表示方式を変更する方法について説明します。</p>
 <p>以下では、列を文字型（character）から日付型（Date）型に変換する 2 つのアプローチを紹介します。</p>
 <p><u><strong>ヒント：</strong></u> <code>class(linelist$date_onset)</code> のように、<strong>base</strong> R の <code>class()</code> で現在のデータ型を確認することができます。</p>
-<section id="base-r" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="base-r"><strong>base</strong> R</h3>
+<section id="base-r" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="base-r">
+<strong>base</strong> R</h3>
 <p><code>as.Date()</code> （“D” が大文字であることに注意）は、オブジェクトや列を日付型（Date）に変換する標準的な <strong>base</strong> R の関数です。</p>
 <p><code>as.Date()</code> を使用する際には、以下が必要です。</p>
 <ul>
-<li><u>文字型（character）としてインポートされた日付データの<strong>現在の</strong>形式を指定</u><em>します</em>。または、日付を数値として扱う場合は、元の日付の形式を指定します（9.4 Excel における日付 のセクションを参照）。<br>
+<li>
+<u>文字型（character）としてインポートされた日付データの<strong>現在の</strong>形式を指定</u><em>します</em>。または、日付を数値として扱う場合は、元の日付の形式を指定します（9.4 Excel における日付 のセクションを参照）。<br>
 </li>
 <li>文字型（character）の日付データに使用する場合、すべての日付値は同じフォーマットでなければなりません（そうでない場合は、<strong>parsedate</strong> パッケージの <code>parse_date()</code> をお試しください）。</li>
 </ul>
@@ -845,9 +873,7 @@ cookieconsent.run({
 <p><u><strong>ヒント：</strong></u><code>as.Date()</code> の <code>format =</code> 引数は、R にコマンド実行後の日付のフォーマットを伝えるため<u>ではなく</u>、コマンド<u>実行前</u>の日付を識別するために指定します。</p>
 <p><u><strong>ヒント：</strong></u><code>format =</code> の引数には、対象の日付に使われているセパレータ（例えば、/ や - 、またはスペース）を含めることを忘れないでください。</p>
 <p>日付が日付型（Date）に変換されると、YYYY-MM-DD というデフォルトの標準フォーマットで表示されます。</p>
-</section>
-<section id="lubridate" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="lubridate"><strong>lubridate</strong></h3>
+</section><section id="lubridate" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lubridate"><strong>lubridate</strong></h3>
 <p>文字型のオブジェクトを日付に変換するには、<strong>lubridate</strong> パッケージを使用すると簡単です。<strong>lubridate</strong> パッケージは <strong>base</strong> R よりもシンプルで一貫性があり、日付と時刻を扱うために開発された<strong>tidyverse</strong> のパッケージです。<strong>lubridate</strong> は日付と時刻の最も標準的な手法とされ、常に推奨されます。</p>
 <p><strong>lubridate</strong> パッケージは、文字型オブジェクトを日付に変換するためのヘルパー関数をいくつか提供しています。このヘルパー関数は、<code>as.Date()</code> でフォーマットを指定ことに比べ、直観的かつ柔軟に文字型オブジェクトを変換することができます。ヘルパー関数は、柔軟な日付フォーマットに対応し、さまざまなセパレータを使用できることに加え、日付フォーマットの略語に由来した日付の同義語（例えば、January を意味する “01” や “Jan”）を使用することもできます。</p>
 <div class="cell">
@@ -917,19 +943,15 @@ cookieconsent.run({
 2017</code></pre>
 </div>
 </div>
-</section>
-<section id="列の結合" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="列の結合">列の結合</h3>
+</section><section id="列の結合" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="列の結合">列の結合</h3>
 <p>複数の数字型（numeric）の列を一つの日付型（Date）の列にまとめるには、<strong>lubridate</strong> 関数の <code>make_date()</code> と <code>make_datetime()</code> を利用します。例えば、データフレーム <code>linelist</code> に 数値列 <code>onset_day</code>, <code>onset_month</code>, <code>onset_year</code> がある場合、以下のようなコマンドを実行してください。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">onset_date =</span> <span class="fu">make_date</span>(<span class="at">year =</span> onset_year, <span class="at">month =</span> onset_month, <span class="at">day =</span> onset_day))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="excel-における日付" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="excel-における日付"><span class="header-section-number">9.4</span> Excel における日付</h2>
+</section></section><section id="excel-における日付" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="excel-における日付">
+<span class="header-section-number">9.4</span> Excel における日付</h2>
 <p>多くのソフトウェアでは、内部では日付を数字として保存します。R は 1970 年 1 月 1 日を起点として日付を格納します。したがって、<code>as.numeric(as.Date("1970-01-01))</code> を実行すると <code>0</code> となります。</p>
 <p>Microsoft Excel では、お使いの OS に応じて、Windows の場合は 1899年12月30日、Mac の場合は 1904 年 1 月 1 日を起点として日付が保存されます。詳しくは <a href="https://docs.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system">Microsoft の公式ドキュメント</a> をご覧ください。</p>
 <p>このように、Excel では日付が数値として保存されているため、Excel ファイルを R でインポートすると、日付が文字ではなく数値としてインポートされることがよくあります。Excel からインポートしたデータセットで、日付が “41369” のような数字や文字として表示されている場合は <code>as.Date()</code> （または <strong>lubridate</strong> の <code>as_date()</code>）を使って変換しますが、先述のように<strong>フォーマットを指定する代わりに、Excel の日付の起点日</strong>を引数 <code>origin =</code> に指定します。</p>
@@ -942,9 +964,8 @@ cookieconsent.run({
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_onset =</span> <span class="fu">as.Date</span>(date_onset, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)) <span class="co"># Excelの起点日で日付に変換</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="厄介な日付" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="厄介な日付"><span class="header-section-number">9.5</span> 厄介な日付</h2>
+</section><section id="厄介な日付" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="厄介な日付">
+<span class="header-section-number">9.5</span> 厄介な日付</h2>
 <p><strong>parsedate</strong> パッケージの <code>parse_date()</code> は、複数の異なる形式の日付を含む「厄介な」日付列を読み込んで、その日付を標準的な形式に変換してくれます。<code>parse_date()</code> については、<a href="https://readr.tidyverse.org/reference/parse_datetime.html">こちら</a> でさらに詳しく学ぶことができます。</p>
 <p>例えば <code>parse_date</code> は、文字の日付”03 Jan 2018”, “07/03/1982”, “08/20/85”のベクトルを、“2018-01-03”, “1982-03-07”, “1985-08-20”のように、一律で日付（Date）型に変換します。</p>
 <div class="cell">
@@ -961,12 +982,10 @@ cookieconsent.run({
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">date_onset =</span> <span class="fu">parse_date</span>(date_onset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-<section id="日時型datetimeに変換" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="日時型datetimeに変換"><span class="header-section-number">9.6</span> 日時型（datetime）に変換</h2>
+</section><section id="日時型datetimeに変換" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="日時型datetimeに変換">
+<span class="header-section-number">9.6</span> 日時型（datetime）に変換</h2>
 <p>先に述べたように、R では日付と時間の<strong>両方の</strong>情報を含む、日時型（datetime）もサポートしています。日付型（Date）と同様に、文字型（character）オブジェクトから日時型（datetime）オブジェクトに変換する必要があります。</p>
-<section id="日付と時刻の変換" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="日付と時刻の変換">日付と時刻の変換</h3>
+<section id="日付と時刻の変換" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="日付と時刻の変換">日付と時刻の変換</h3>
 <p>標準的な日時型（datetime）は、最初に日付があり、その後に時間要素が続く形式です（ <em>01 Jan 2020, 16:30</em> など）。日付と同様に、このフォーマットには様々な方法があり、また、提供できる精度（時、分、秒）のレベルも様々です。</p>
 <p>これらの文字列を日時型（datetime）に変換するための <strong>lubridate</strong> ヘルパー関数も存在します。これらの関数は、日付ヘルパー関数を拡張したもので、末尾に <code>_h</code>（時のみを指定）、<code>_hm</code>（時と分を指定）、<code>_hms</code>（時、分、秒を指定）を付けます（例: <code>dmy_hms()</code>）。以下のように使用します。</p>
 <p>時間のみの日時データを日時型（datetime）に変換する</p>
@@ -1028,9 +1047,7 @@ cookieconsent.run({
 <span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ymd_hm</span>()</span>
 <span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="時間のみの変換" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="時間のみの変換">時間のみの変換</h3>
+</section><section id="時間のみの変換" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="時間のみの変換">時間のみの変換</h3>
 <p>“hours : minutes” というように、対象となる日付データが文字型（character）で時間（時、分）しか含まれていない場合は、<strong>base</strong> R の <code>strptime()</code> を使って時間として変換・操作することができます。例えば、2 つの時間の差を求めるには、</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 直接、文字で時間を入力</span></span>
@@ -1049,9 +1066,7 @@ cookieconsent.run({
 </div>
 <p>ただし、日付の値が指定されていない場合は、今日の日付として変換されます。文字型の日付列と文字型の時刻列を組み合わせるには、上のセクションの <strong>stringr</strong> の使用方法を参照してください。<code>strptime()</code> について詳しくは<a href="https://rdrr.io/r/base/strptime.html">こちら</a>をご覧ください。</p>
 <p>一桁の数字を二桁に変換するには（例えば、時間や分を先頭のゼロで”埋めて” 2 桁にするなど）、<a href="characters_strings.jp.html#str_pad">文字型・文字列型データの章の「文字列を伸長する」のセクション</a>をご覧ください。</p>
-</section>
-<section id="時間の抽出" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="時間の抽出">時間の抽出</h3>
+</section><section id="時間の抽出" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="時間の抽出">時間の抽出</h3>
 <p><strong>lubridate</strong> の <code>hour()</code>, <code>minute()</code>, <code>second()</code> で時刻の要素を抽出できます。</p>
 <p>ここでは、時刻を抽出して一日の区分で分類する例を示します。 <code>time_admission</code> という入院時刻を表す列 は、“HH:MM” というフォーマットの文字型（character）です。まず、上述した <code>strptime()</code> を使って文字を日時型（datetime）に変換します。次に <code>hour()</code> で時間を抽出すると、0 ～ 24 の数値が返されます。最後に、<code>case_when()</code> を用いて <code>time_period</code> という列を作成し、入院時刻に基づいて午前（Morning）、午後（Afternoon）、夕方（Evening）、夜（Night）の 4 つに分類します。</p>
 <div class="cell">
@@ -1065,18 +1080,15 @@ cookieconsent.run({
 </div>
 <p><code>case_when()</code> については、<a href="cleaning.jp.html">データのクリーニングと主要関数</a> の章をご覧ください。</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="日付の操作" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="日付の操作"><span class="header-section-number">9.7</span> 日付の操作</h2>
+</section></section><section id="日付の操作" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="日付の操作">
+<span class="header-section-number">9.7</span> 日付の操作</h2>
 <p><code>lubridate</code> は他にも様々な機能があります。例えば、<strong>日付や日時から一部を抽出</strong>、<strong>日付の演算</strong>、<strong>日付の間隔を計算</strong>などです。</p>
 <p>まず、例に用いる日付を定義します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 日時型（Date）のオブジェクトを作成</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>example_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2020-03-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="日付成分の抽出" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="日付成分の抽出">日付成分の抽出</h3>
+<section id="日付成分の抽出" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="日付成分の抽出">日付成分の抽出</h3>
 <p>月、日、曜日などの共通する部分を抽出します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(example_date)  <span class="co"># 月番号</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1102,9 +1114,7 @@ cookieconsent.run({
 </div>
 <p>週を抽出するにはいくつかオプションがあります。以下の「疫学週」のセクションを参照してください。</p>
 <p>特定の表記で日付を表示したい場合（「Jan 2020」や「Thursday 20 March」、「Week 20, 1977」など）は、次の「日付の表示」のセクションで説明するように、より柔軟に対応することができます。</p>
-</section>
-<section id="日付の計算" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="日付の計算">日付の計算</h3>
+</section><section id="日付の計算" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="日付の計算">日付の計算</h3>
 <p>日数や週数を足すには、<strong>lubridate</strong> の関数を使用します。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 日付に3日分足す</span></span>
@@ -1118,9 +1128,7 @@ cookieconsent.run({
 <pre><code>[1] "2020-04-17"</code></pre>
 </div>
 </div>
-</section>
-<section id="日付の間隔" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="日付の間隔">日付の間隔</h3>
+</section><section id="日付の間隔" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="日付の間隔">日付の間隔</h3>
 <p>日付の間隔は、以下の方法で計算できます。</p>
 <ol type="1">
 <li>両方の日付が日付型（Date）であることを確認する<br>
@@ -1165,13 +1173,10 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(linelist_delay<span class="sc">$</span>days_onset_to_hosp, <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="日付の表示" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="日付の表示"><span class="header-section-number">9.8</span> 日付の表示</h2>
+</section></section><section id="日付の表示" class="level2" data-number="9.8"><h2 data-number="9.8" class="anchored" data-anchor-id="日付の表示">
+<span class="header-section-number">9.8</span> 日付の表示</h2>
 <p>日付を正しいデータ型にした後、「2018-01-05」ではなく「Monday 05 January」など、データそのものとは異なる表示にしたいことがあります。また表示されている日付の要素でグループ化し、表示を調整することもあります（例：年と月でグループ化）。</p>
-<section id="format" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="format"><code>format()</code></h3>
+<section id="format" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="format"><code>format()</code></h3>
 <p>日付の表示を調整するには、<strong>base</strong> R に含まれている関数である <code>format()</code> を使用します。この関数を使用する際は、“%” で始まる strptime 略語（ <code>as.Date()</code> で使用されるのと同じ構文）を用いて、<u>希望の</u>出力フォーマットを文字列（引用符で囲まれたもの）で指定します。以下は、一般的な略語の例です。</p>
 <p>注意：<code>format()</code> を使用すると、値が文字型（character）に変換されます。そのため、データ分析や処理が終わった後に使用するか、または、表示のみに使用されます。 strptime のすべての略語の一覧は、<code>?strptime</code> を実行してご覧ください。</p>
 <p>%d = 月の日にち（5、17、28 など）<br>
@@ -1197,28 +1202,26 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># フォーマットした今日の日付</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="at">format =</span> <span class="st">"%d %B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "19 June 2024"</code></pre>
+<pre><code>[1] "18 September 2024"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 日付と時間を簡単に取得する（デフォルトのフォーマット）</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Wed Jun 19 13:57:30 2024"</code></pre>
+<pre><code>[1] "Wed Sep 18 22:29:28 2024"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_glue() を使って、フォーマットした日付、時刻、タイムゾーンを組み合わせる</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_glue</span>(<span class="st">"{format(Sys.Date(), format = '%A, %B %d %Y, %z  %Z, ')}{format(Sys.time(), format = '%H:%M:%S')}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Wednesday, June 19 2024, +0000  UTC, 13:57:30</code></pre>
+<pre><code>Wednesday, September 18 2024, +0000  UTC, 22:29:28</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># フォーマットを使用して週を表示</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y Week %W"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024 Week 25"</code></pre>
+<pre><code>[1] "2024 Week 38"</code></pre>
 </div>
 </div>
 <p>なお、<code>str_glue()</code> を使用する場合は、二重引用符（<code>""</code>）の中では一重引用符（<code>' '</code>）を使用することに注意してください。</p>
-</section>
-<section id="年月" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="年月">年月</h3>
+</section><section id="年月" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="年月">年月</h3>
 <p>日付型（Date）の列を月と年に変換するには、 <strong>zoo</strong> パッケージの <code>as.yearmon()</code> を使うことをおすすめします。これは、日付を適切な順序で yearmon 型に変換する関数です。もし <code>format(column, "%Y %B")</code> を使用した場合、文字型（character）に変換され、値がアルファベット順に並んでしまいます。</p>
 <p>以下では、<code>as.yearmon()</code> 関数を使って、<code>date_onset</code> 列から <code>yearmonth</code> 列を新たに作成しています。デフォルト（正しい）の順序で得られた結果を以下のテーブルに示します。</p>
 <div class="cell">
@@ -1255,26 +1258,23 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <p>注意： <code>ggplot()</code> を用いる際、日付の<u>表示</u>のみを調整したい場合は、<code>scale_x_date()</code> の <code>date_labels =</code> 引数に strptime フォーマットを使用するだけで十分な場合があります。この場合 <code>"%b %Y"</code> または <code>"%Y %b"</code> を使用できます。詳しくは、<a href="ggplot_tips.jp.html">ggplot のヒント</a> の章をご覧ください。</p>
 <p><strong>zoo</strong> には <code>as.yearqtr()</code> という関数もあります。また、<code>ggplot()</code> を用いる際には <code>scale_x_yearmon()</code> を使用できます。</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="dates_epi_wks" class="level2" data-number="9.9">
-<h2 data-number="9.9" class="anchored" data-anchor-id="dates_epi_wks"><span class="header-section-number">9.9</span> 疫学週</h2>
-<section id="lubridate-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="lubridate-1"><strong>lubridate</strong></h3>
+</section></section><section id="dates_epi_wks" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="dates_epi_wks">
+<span class="header-section-number">9.9</span> 疫学週</h2>
+<section id="lubridate-1" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="lubridate-1"><strong>lubridate</strong></h3>
 <p>日付ごとにデータをグループ化する例は、<a href="grouping.jp.html">データのグループ化</a> の章をご覧ください。以下では、週ごとにデータをグループ化する際の注意点について簡単に説明します。</p>
 <p>一般的には、 <strong>lubridate</strong> パッケージに含まれている関数である <code>floor_date()</code> に引数 <code>unit = "week"</code> を指定して使用することをおすすめします。これは、引数 <code>week_start =</code> で定義される週の「開始日」に日付を丸めるものです。デフォルトの週の開始日は 1（月曜日）ですが、週の任意の日を開始日として指定することができます（例：日曜日は 7）。<code>floor_date()</code> は汎用性があり、<code>unit =</code> を “second”, “minute”, “hour”, “day”, “month”, “year”に設定することで、他の時間単位への切り捨てに使用することができます。</p>
 <p>返される値は、日付型（Date）の週の開始日です。日付型（Date）はデータをプロットする際に便利で、<code>ggplot()</code> に認識されやすく、正しい順序で表示されます。</p>
 <p>プロットの中で週ごとに日付を調整して<u>表示</u>するだけなら、この章の「日付の表示」のセクションを参照してください。例えば、エピカーブをプロットする際に、必要な strptime の “%” を指定することで、希望の日付表示をフォーマットすることができます。例えば、“%Y-%W” または “%Y-%U” を使用すると、年と週の番号が返されます（それぞれ月曜または日曜の週の開始日を指定）。</p>
-</section>
-<section id="週ごとのカウント" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="週ごとのカウント">週ごとのカウント</h3>
+</section><section id="週ごとのカウント" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="週ごとのカウント">週ごとのカウント</h3>
 <p><code>count()</code>, <code>group_by()</code>, <code>summarise()</code>によるデータのグループ化については、<a href="grouping.jp.html">データのグループ化</a> の章で詳しく説明しています。以下に簡単な例を示します。</p>
 <ol type="1">
-<li><code>mutate()</code> で新しく “week” という列を作成し、<code>floor_date()</code> で <code>unit = "week"</code> を使用する。<br>
+<li>
+<code>mutate()</code> で新しく “week” という列を作成し、<code>floor_date()</code> で <code>unit = "week"</code> を使用する。<br>
 </li>
 <li>週ごとの行数（症例数）を <code>count()</code> で取得し、日付が欠損しているケースを除外する。<br>
 </li>
-<li><strong>tidyr</strong> の <code>complete()</code> を使用し、行や症例がないものも含めて、<u>すべての</u>週がデータに現れるようにする。デフォルトでは、「新しい」行のカウント値は NA だが、 <code>fill =</code> 引数で 0 にすることができる。 <code>fill =</code> 引数では、名前付きリストを指定する（以下、<code>n</code> はカウント列の名前）。</li>
+<li>
+<strong>tidyr</strong> の <code>complete()</code> を使用し、行や症例がないものも含めて、<u>すべての</u>週がデータに現れるようにする。デフォルトでは、「新しい」行のカウント値は NA だが、 <code>fill =</code> 引数で 0 にすることができる。 <code>fill =</code> 引数では、名前付きリストを指定する（以下、<code>n</code> はカウント列の名前）。</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 毎週の症例数を集計したデータセットの作成</span></span>
@@ -1294,21 +1294,17 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <p>以下に、上のコマンドを実行して出力されたデータフレームの最初の行を示します。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-12570ab402c7405859db" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-12570ab402c7405859db">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"weekly_cases","targets":0},{"name":"n","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2f5b92dd9ae577de739c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2f5b92dd9ae577de739c">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"weekly_cases","targets":0},{"name":"n","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="疫学週-の代替案" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="疫学週-の代替案">疫学週 の代替案</h3>
+</section><section id="疫学週-の代替案" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="疫学週-の代替案">疫学週 の代替案</h3>
 <p>なお、<strong>lubridate</strong> には <code>week()</code>、 <code>epiweek()</code>、<code>isoweek()</code> という関数があり、それぞれ開始日などが微妙に異なります。しかし、一般的には <code>floor_date()</code> があれば十分です。これらの関数の詳細については、コンソールに <code>?week</code> と入力するか、<a href="https://www.rdocumentation.org/packages/lubridate/versions/1.7.4/topics/week">こちら</a> をご覧ください。</p>
 <p>疫学週を設定するために、<strong>aweek</strong> パッケージの使用を検討してみてください。このパッケージについては、<a href="https://www.repidemicsconsortium.org/aweek/">RECON のウェブサイト</a>で詳しく説明されています。このパッケージには、<code>date2week()</code> と <code>week2date()</code> という関数があり、<code>week_start = "Monday"</code> で週の開始日を設定することができます。このパッケージを使用すると、最も簡単に “week” フォーマット（例： “2020-W12”）で日付を出力することができます。もう一つの <strong>aweek</strong> の利点は、<code>date2week()</code> を日付列に適用すると、返される列（週形式）が自動的に因子型（factor）になり、対象期間内のすべての週のレベルが含まれることです（これにより、上述の <code>complete()</code> の余分なステップを回避できます）。ただし、<strong>aweek</strong> には、日付を月や年などの週以外の時間単位に丸める機能はありません。</p>
 <p>時系列の代わりに、“week” フォーマット（“2020 W12”）を表示するのにも適しているのが、パッケージ <strong>tsibble</strong> の <code>yearweek()</code> です。これは <a href="#time_series">時系列分析とアウトブレイクの検出</a> の章で紹介しています。</p>
 <!-- ======================================================= -->
-</section>
-</section>
-<section id="日付タイムゾーンの変換" class="level2" data-number="9.10">
-<h2 data-number="9.10" class="anchored" data-anchor-id="日付タイムゾーンの変換"><span class="header-section-number">9.10</span> 日付・タイムゾーンの変換</h2>
+</section></section><section id="日付タイムゾーンの変換" class="level2" data-number="9.10"><h2 data-number="9.10" class="anchored" data-anchor-id="日付タイムゾーンの変換">
+<span class="header-section-number">9.10</span> 日付・タイムゾーンの変換</h2>
 <p>様々なタイムゾーンでデータが記録された場合、そのデータを一つのタイムゾーンで標準化することが重要になります。これには未だ解決されていない課題があり、多くの場合、データのタイムゾーン要素を手作業でコード化しなければなりません。</p>
 <p>R では、<u>日時型（datetime）</u>オブジェクトはタイムゾーン要素を含んでいます。デフォルトでは、すべての日時型（datetime）オブジェクトには、コンピュータのローカルタイムゾーンが適用されます。これは、サマータイムによりタイムゾーンが変更されることが多いため、通常は名前付きのタイムゾーンではなく<u>場所に</u>固有のものです。日付の列が表すイベントは特定の時間に起因するものではないため、時間単位でのタイムシフトを合理的に説明することはできませんので、日付の時間要素がなければタイムゾーンを正確に補正することはできません。</p>
 <p><strong>lubridate</strong> には日時型（datetime）オブジェクトのタイムゾーンを別のタイムゾーンに変更するためのヘルパー関数がいくつかあります。tz データベースのタイムゾーンを日時型（datetime）オブジェクトに適用することで、タイムゾーンの設定が行えます。データを使用している場所が以下の一覧にない場合は、近隣の大都市のタイムゾーンが利用可能です。</p>
@@ -1318,7 +1314,7 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>time_now <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>time_now</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-06-19 13:57:31 CEST"</code></pre>
+<pre><code>[1] "2024-09-18 22:29:29 +07"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with_tz()を使用して、時刻を変更しながら、新しいタイムゾーンをカラムに割り当て</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>time_london_real <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(time_now, <span class="st">"Europe/London"</span>)</span>
@@ -1332,26 +1328,26 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 <span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (コンピュータのタイムゾーンとロンドンのタイムゾーンとの差の時間数)</span></span>
 <span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>time_london_real <span class="sc">-</span> time_london_local</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of -1 hours</code></pre>
+<pre><code>Time difference of -6 hours</code></pre>
 </div>
 </div>
 <p>この作業は抽象的に見えるかもしれません。複数のタイムゾーンにまたがったデータを扱わなければ、このような作業は不要でしょう。</p>
 <!-- ======================================================= -->
-</section>
-<section id="前後の値の計算" class="level2" data-number="9.11">
-<h2 data-number="9.11" class="anchored" data-anchor-id="前後の値の計算"><span class="header-section-number">9.11</span> 前後の値の計算</h2>
+</section><section id="前後の値の計算" class="level2" data-number="9.11"><h2 data-number="9.11" class="anchored" data-anchor-id="前後の値の計算">
+<span class="header-section-number">9.11</span> 前後の値の計算</h2>
 <p><code>lead()</code> と <code>lag()</code> は <strong>dplyr</strong> パッケージの関数で、ベクトル（通常は数値や日付のベクトル）の中から前の値（遅れた値）や後の値（先行する値）を見つけるのに役立ちます。これは、時間単位での変化や差を計算するときに便利です。</p>
 <p>例えば、現在の週と前の週の症例数の差を計算したいとします。元のデータは、以下のように週ごとのカウントになっています。</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-84d4486cbc33e96b5e9e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-84d4486cbc33e96b5e9e">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4272b8d92f4b04dceb96" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4272b8d92f4b04dceb96">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><strong><code>lag()</code> や <code>lead()</code> を使用する際には、データフレーム内の行の順序が非常に重要です。日付や数字が昇順か降順かに注意してください</strong>。</p>
 <p>まず、前週（lagged）の値を含む新しい列を作成します。</p>
 <ul>
-<li><code>n =</code> で前後のユニット数（非負の整数）を指定する。<br>
+<li>
+<code>n =</code> で前後のユニット数（非負の整数）を指定する。<br>
 </li>
 <li>存在しない行（前の値がない最初の行など）に置かれる値を定義するには、<code>default =</code> を使用する。デフォルトは <code>NA</code> 。<br>
 </li>
@@ -1363,8 +1359,8 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-507b27df06a6ce7f3723" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-507b27df06a6ce7f3723">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1b2a0c53bf26c79f43f5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1b2a0c53bf26c79f43f5">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>次に、2 つの症例の列の差分となる新しい列を作成します。</p>
@@ -1375,26 +1371,19 @@ Mar 2015 May 2014 Nov 2014 Oct 2014 Sep 2014
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-823934d0324bd78f0d43" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-823934d0324bd78f0d43">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2},{"name":"case_diff","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c3b1bb4714fa2fc6b5b8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c3b1bb4714fa2fc6b5b8">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"name":"week_start","targets":0},{"name":"cases_wk","targets":1},{"name":"cases_prev_wk","targets":2},{"name":"case_diff","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><code>lead()</code> と <code>lag()</code> については、<a href="https://dplyr.tidyverse.org/reference/lead-lag.html">こちら</a> をご覧いただくか、コンソールで <code>?lag</code> と入力してください。</p>
 <!-- ======================================================= -->
-</section>
-<section id="参考資料" class="level2" data-number="9.12">
-<h2 data-number="9.12" class="anchored" data-anchor-id="参考資料"><span class="header-section-number">9.12</span> 参考資料</h2>
-<p><strong>lubridate</strong> <a href="https://lubridate.tidyverse.org/">tidyverse page</a><br>
-<strong>lubridate</strong> RStudio <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf">cheatsheet</a><br>
-R for Data Science page on <a href="https://r4ds.had.co.nz/dates-and-times.html">dates and times</a><br>
-<a href="https://www.statmethods.net/input/dates.html">Online tutorial</a><br>
-<a href="https://www.r-bloggers.com/2013/08/date-formats-in-r/">Date formats</a></p>
+</section><section id="参考資料" class="level2" data-number="9.12"><h2 data-number="9.12" class="anchored" data-anchor-id="参考資料">
+<span class="header-section-number">9.12</span> 参考資料</h2>
+<p><strong>lubridate</strong> <a href="https://lubridate.tidyverse.org/">tidyverse page</a><br><strong>lubridate</strong> RStudio <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf">cheatsheet</a><br>
+R for Data Science page on <a href="https://r4ds.had.co.nz/dates-and-times.html">dates and times</a><br><a href="https://www.statmethods.net/input/dates.html">Online tutorial</a><br><a href="https://www.r-bloggers.com/2013/08/date-formats-in-r/">Date formats</a></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1573,18 +1562,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1616,7 +1594,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1651,7 +1669,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1924,60 +1946,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../new_pages/cleaning.jp.html" class="pagination-link" aria-label="データクリーニングと主要関数">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">データクリーニングと主要関数</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>  <span class="chapter-title">データクリーニングと主要関数</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../new_pages/characters_strings.jp.html" class="pagination-link" aria-label="文字型・文字列型データ">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">文字型・文字列型データ</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>  <span class="chapter-title">文字型・文字列型データ</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
+       
     </div>   
     <div class="nav-footer-center">
 
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div>
+</div>
     <div class="nav-footer-right">
-      &nbsp;
+       
     </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","loop":false});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</footer><script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script>
-
-
-
-
-</body></html>
+</body>
+</html>
